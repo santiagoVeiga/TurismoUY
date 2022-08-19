@@ -94,8 +94,13 @@ public class Actividad {
 		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion);
 	}
 
-	public Set<DataSalida> getSalidas() {
-		Set<DataSalida> res = null;
+	public Set<DataSalidas> getSalidas() {
+		Set<DataSalidas> res = null;
+		Set<Entry<String, Salida>> aux = colSal.entrySet();
+    	Iterator<Entry<String, Salida>> it = aux.iterator();
+    	while(it.hasNext()){
+    		res.add(it.next().getValue().getDataAT());
+    	}
 		return res;
 	}
 
