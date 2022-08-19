@@ -35,9 +35,19 @@ public class Departamento {
 		return this.url;
 	}
 	
+	private Map<String,Actividad> colAct;
+	
+	public Departamento() {
+		colAct = new HashMap<String,Actividad>();
+	}
+	
 	public Set<DataActividad> getActividades() {
 		Set<DataActividad> res = null;
-		
+		Set<Entry<String, Actividad>> aux = colAct.entrySet();
+    	Iterator<Entry<String, Actividad>> it = aux.iterator();
+    	while(it.hasNext()){
+    		res.add(it.next().getValue().getDataAT());
+    	}
 		return res;
 	}
 }
