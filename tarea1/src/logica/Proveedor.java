@@ -6,7 +6,7 @@ public class Proveedor extends Usuario {
     private String descripcion;
     private String link;
     private boolean hayLink;
-    private HashMap<String, Actividad> actividades;
+    private Map<String, Actividad> actividades;
 
     public Proveedor(String nick, String nom,String apellido, String mail, Date nacimiento, String desc,String link,boolean hayl) {
         super(nick,nom,apellido,mail,nacimiento);
@@ -16,6 +16,7 @@ public class Proveedor extends Usuario {
     	this.actividades = new HashMap<String, Actividad>();
     }
 
+    /* Getters */
 
     public String getDescripcion() {
         return descripcion;
@@ -28,7 +29,9 @@ public class Proveedor extends Usuario {
     public boolean getHayLink() {
         return hayLink;
     }
-    
+   
+    /* Setters */
+
     public void setDescripcion(String d) {
     	descripcion = d;
     }
@@ -41,6 +44,9 @@ public class Proveedor extends Usuario {
     	hayLink = h;
     }
 
+    /* Otras */
+    
+    /* Agrega Actividad al Map de Actividades del Proveedor*/
     public void agregarActividad(Actividad act){
     	String nomAct = act.getNombre();
         actividades.put(nomAct, act);

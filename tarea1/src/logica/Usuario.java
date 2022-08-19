@@ -3,7 +3,7 @@ package logica;
 import java.util.Date;
 
 /**
- * Representa a un usuario en el sistema con nombre, apellido y cÃ©dula de identidad.
+ * Representa a un usuario en el sistema con nombre, apellido y cédula de identidad.
  * @author TProg2017
  *
  */
@@ -22,7 +22,9 @@ public class Usuario {
         this.mail = mail;
         this.nacimiento = nacimiento;
     }
-
+    
+    /* Getters */
+    
     public String getNombre() {
         return nombre;
     }
@@ -42,7 +44,9 @@ public class Usuario {
     public Date getNacimiento() {
         return nacimiento;
     }    
-
+    
+    /* Setters */
+    
     public void setNombre(String n) {
         nombre = n;
     }
