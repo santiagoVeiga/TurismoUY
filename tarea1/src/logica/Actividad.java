@@ -2,7 +2,9 @@ package logica;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 public class Actividad {
@@ -94,12 +96,12 @@ public class Actividad {
 		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion);
 	}
 
-	public Set<DataSalidas> getSalidas() {
-		Set<DataSalidas> res = null;
+	public Set<DataSalida> getSalidas() {
+		Set<DataSalida> res = null;
 		Set<Entry<String, Salida>> aux = colSal.entrySet();
     	Iterator<Entry<String, Salida>> it = aux.iterator();
     	while(it.hasNext()){
-    		res.add(it.next().getValue().getDataAT());
+    		res.add(it.next().getValue().getDataST());
     	}
 		return res;
 	}

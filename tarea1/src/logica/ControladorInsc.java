@@ -2,8 +2,8 @@ package logica;
 
 import java.util.Set;
 
-import Manejadores.ManejadorActividad;
-import Manejadores.ManejadorDepartamentos;
+import manejadores.ManejadorActividad;
+import manejadores.ManejadorDepartamentos;
 
 public class ControladorInsc implements IControladorInsc {
 	public Set<DataActividad> selecDepartamento(String dep){

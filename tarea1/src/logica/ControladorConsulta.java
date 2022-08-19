@@ -1,5 +1,5 @@
 package logica;
-import Manejadores.ManejadorUsuario;
+import manejadores.ManejadorUsuario;
 
 public class ControladorConsulta implements IControladorConsulta {
 	

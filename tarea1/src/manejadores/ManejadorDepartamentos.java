@@ -1,4 +1,4 @@
-package Manejadores;
+package manejadores;
 import java.util.Collection;
 import java.util.Map;
 import logica.Departamento;
