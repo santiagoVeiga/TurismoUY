@@ -7,11 +7,11 @@ public class DataProveedor extends DataUsuario {
     private String link;
     private Set<DataActividad> actividades;
 
-    public DataProveedor(String nick,String nom, String ap,String mail, Date nac, String des, String link) {
+    public DataProveedor(String nick,String nom, String ap,String mail, Date nac, String des, String link,Set<DataActividad> Actividades) {
         super(nick,nom,ap,mail,nac);
     	this.descripcion = des;
     	this.link = link;
-    	this.actividades = new HashSet<DataActividad>();
+    	this.actividades = Actividades;
     }
 
     public String getDescripcion() {

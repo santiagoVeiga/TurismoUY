@@ -1,19 +1,21 @@
 package logica;
 
 import java.util.Date;
+import java.util.Set;
 
 public class DataActividad {
 	public DataActividad() {
 		  
 	}
 	
-	public DataActividad(String n, String d, Date f, String c, int cos, int dur) {
+	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds) {
 		this.nombre = n;
 		this.descripcion = d;
 		this.fechaAlta = f;
 		this.ciudad = c;
 		this.costo = cos;
 		this.duracion = dur;
+		DS = ds;
 	}
 	
 	private String nombre;
@@ -27,6 +29,8 @@ public class DataActividad {
 	private int costo;
 	
 	private int duracion;
+	
+	private Set<DataSalida> DS;
 	
 //Getters y Setters
     

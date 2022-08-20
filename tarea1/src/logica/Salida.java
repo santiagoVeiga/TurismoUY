@@ -1,7 +1,14 @@
 package logica;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Salida {
+	
+	private Set<CompraGeneral> colCG;
 	
 	private String nombre;
 	private String lugar;
@@ -22,12 +29,19 @@ public class Salida {
 	
 	public boolean estaVigente()
 	{
-		return true;
+		LocalDate localDate = LocalDate.now();
+		Date ahora = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		int cantActual = 0;
+		Iterator<CompraGeneral> it = colCG.iterator();
+		while(it.hasNext()) {
+			cantActual = it.next().getCantidad();
+		}
+		return ahora.before(fecha) && cantActual<=cant;
 	}
 	
 	public DataSalida getDataST()
 	{
-		return null;
+		return new DataSalida(nombre,lugar,hora,fecha,fechaAlta,cant);
 	}
 
 	public String getNombre() {
@@ -76,6 +90,23 @@ public class Salida {
 
 	public void setCant(int cant) {
 		this.cant = cant;
+	}
+
+	public Set<CompraGeneral> getColCG() {
+		return colCG;
+	}
+
+	public void setColCG(Set<CompraGeneral> colCG) {
+		this.colCG = colCG;
+	}
+	
+	public boolean excedeTuristas(int cantTuristas) {
+		Iterator<CompraGeneral> itr = colCG.iterator();
+    	int cant = 0;
+    	while(itr.hasNext()) {
+    		cant += itr.next().getCantidad();
+    	}
+    	return (cant+cantTuristas)<=this.getCant();
 	}
 	
 }

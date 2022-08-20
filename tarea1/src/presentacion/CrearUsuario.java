@@ -3,7 +3,7 @@ package presentacion;
 import javax.swing.JInternalFrame;
 
 import excepciones.UsuarioRepetidoException;
-import logica.IControladorUsuario;
+import logica.IControladorAlta;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,6 +15,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 /**
@@ -27,25 +28,29 @@ import java.awt.event.ActionEvent;
 public class CrearUsuario extends JInternalFrame {
 
     // Controlador de usuarios que se utilizará para las acciones del JFrame
-    private IControladorUsuario controlUsr;
+    private IControladorAlta controlAlta;
     
     // Los componentes gráficos se agregan como atributos de la clase
     // para facilitar su acceso desde diferentes métodos de la misma.
+    private JTextField textFieldNick;
     private JTextField textFieldNombre;
     private JTextField textFieldApellido;
-    private JTextField textFieldCI;
+    private JTextField textFieldMail;
+    private JTextField textFieldNacimiento;
+    private JLabel lblIngreseNick;
     private JLabel lblIngreseNombre;
     private JLabel lblIngreseApellido;
-    private JLabel lblIngreseCi;
+    private JLabel lblIngreseMail;
+    private JLabel lblIngreseNacimiento;
     private JButton btnAceptar;
     private JButton btnCancelar;
 
     /**
      * Create the frame.
      */
-    public CrearUsuario(IControladorUsuario icu) {
+    public CrearUsuario(IControladorAlta ica) {
         // Se inicializa con el controlador de usuarios
-        controlUsr = icu;
+        controlAlta = ica;
 
         // Propiedades del JInternalFrame como dimensión, posición dentro del frame,
         // etc.
@@ -54,7 +59,7 @@ public class CrearUsuario extends JInternalFrame {
         setMaximizable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
-        setTitle("Registrar un Usuario");
+        setTitle("Dar de Alta un Usuario");
         setBounds(10, 40, 360, 150);
 
         // En este caso utilizaremos el GridBagLayout que permite armar una grilla
@@ -68,6 +73,30 @@ public class CrearUsuario extends JInternalFrame {
         gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
         getContentPane().setLayout(gridBagLayout);
 
+     // Una etiqueta (JLabel) indicandp que en el siguiente campo debe ingresarse 
+        // el nickname del usuario. El texto está alineado horizontalmente a la derecha para
+        // que quede casi pegado al campo de texto.
+        lblIngreseNick = new JLabel("Nickname:");
+        lblIngreseNick.setHorizontalAlignment(SwingConstants.RIGHT);
+        GridBagConstraints gbc_lblIngreseNick = new GridBagConstraints();
+        gbc_lblIngreseNick.fill = GridBagConstraints.BOTH;
+        gbc_lblIngreseNick.insets = new Insets(0, 0, 5, 5);
+        gbc_lblIngreseNick.gridx = 0;
+        gbc_lblIngreseNick.gridy = 0;
+        getContentPane().add(lblIngreseNick, gbc_lblIngreseNick);
+        
+        // Una campo de texto (JTextField) para ingresar el nickname del usuario. 
+        // Por defecto es posible ingresar cualquier string.
+        textFieldNick = new JTextField();
+        GridBagConstraints gbc_textFieldNick = new GridBagConstraints();
+        gbc_textFieldNick.gridwidth = 2;
+        gbc_textFieldNick.fill = GridBagConstraints.BOTH;
+        gbc_textFieldNick.insets = new Insets(0, 0, 5, 0);
+        gbc_textFieldNick.gridx = 1;
+        gbc_textFieldNick.gridy = 0;
+        getContentPane().add(textFieldNick, gbc_textFieldNick);
+        textFieldNick.setColumns(10);
+        
         // Una etiqueta (JLabel) indicandp que en el siguiente campo debe ingresarse 
         // el nombre del usuario. El texto está alineado horizontalmente a la derecha para
         // que quede casi pegado al campo de texto.
@@ -79,7 +108,7 @@ public class CrearUsuario extends JInternalFrame {
         gbc_lblIngreseNombre.gridx = 0;
         gbc_lblIngreseNombre.gridy = 0;
         getContentPane().add(lblIngreseNombre, gbc_lblIngreseNombre);
-
+        
         // Una campo de texto (JTextField) para ingresar el nombre del usuario. 
         // Por defecto es posible ingresar cualquier string.
         textFieldNombre = new JTextField();
@@ -116,32 +145,55 @@ public class CrearUsuario extends JInternalFrame {
         getContentPane().add(textFieldApellido, gbc_textFieldApellido);
         textFieldApellido.setColumns(10);
 
-        // Una etiqueta (JLabel) indicando que en el siguiente campo debe ingresarse 
-        // la cédula del usuario. El texto está alineado horizontalmente a la derecha para
+        // Una etiqueta (JLabel) indicandp que en el siguiente campo debe ingresarse 
+        // el mail del usuario. El texto está alineado horizontalmente a la derecha para
         // que quede casi pegado al campo de texto.
-        lblIngreseCi = new JLabel("C.I.:");
-        lblIngreseCi.setHorizontalAlignment(SwingConstants.RIGHT);
-        GridBagConstraints gbc_lblIngreseCi = new GridBagConstraints();
-        gbc_lblIngreseCi.fill = GridBagConstraints.BOTH;
-        gbc_lblIngreseCi.insets = new Insets(0, 0, 5, 5);
-        gbc_lblIngreseCi.gridx = 0;
-        gbc_lblIngreseCi.gridy = 2;
-        getContentPane().add(lblIngreseCi, gbc_lblIngreseCi);
-
-        // Una campo de texto (JTextField) para ingresar la cédula del usuario. 
+        lblIngreseMail = new JLabel("Mail:");
+        lblIngreseMail.setHorizontalAlignment(SwingConstants.RIGHT);
+        GridBagConstraints gbc_lblIngreseMail = new GridBagConstraints();
+        gbc_lblIngreseMail.fill = GridBagConstraints.BOTH;
+        gbc_lblIngreseMail.insets = new Insets(0, 0, 5, 5);
+        gbc_lblIngreseMail.gridx = 0;
+        gbc_lblIngreseMail.gridy = 0;
+        getContentPane().add(lblIngreseMail, gbc_lblIngreseMail);
+        
+        // Una campo de texto (JTextField) para ingresar el Mail del usuario. 
         // Por defecto es posible ingresar cualquier string.
-        // Al campo se le incluye un Tooltip que, al pasar el mouse por encima, despliega un mensaje.
-        textFieldCI = new JTextField();
-        textFieldCI.setToolTipText("Ingrese un número sin puntos ni guiones");
-        textFieldCI.setColumns(10);
-        GridBagConstraints gbc_textFieldCI = new GridBagConstraints();
-        gbc_textFieldCI.gridwidth = 2;
-        gbc_textFieldCI.fill = GridBagConstraints.BOTH;
-        gbc_textFieldCI.insets = new Insets(0, 0, 5, 0);
-        gbc_textFieldCI.gridx = 1;
-        gbc_textFieldCI.gridy = 2;
-        getContentPane().add(textFieldCI, gbc_textFieldCI);
+        textFieldMail = new JTextField();
+        GridBagConstraints gbc_textFieldMail = new GridBagConstraints();
+        gbc_textFieldMail.gridwidth = 2;
+        gbc_textFieldMail.fill = GridBagConstraints.BOTH;
+        gbc_textFieldMail.insets = new Insets(0, 0, 5, 0);
+        gbc_textFieldMail.gridx = 1;
+        gbc_textFieldMail.gridy = 0;
+        getContentPane().add(textFieldMail, gbc_textFieldMail);
+        textFieldMail.setColumns(10);
 
+        // Una etiqueta (JLabel) indicandp que en el siguiente campo debe ingresarse 
+        // el Nacimiento del usuario. El texto está alineado horizontalmente a la derecha para
+        // que quede casi pegado al campo de texto.
+        lblIngreseNacimiento = new JLabel("Nacimiento:");
+        lblIngreseNacimiento.setHorizontalAlignment(SwingConstants.RIGHT);
+        GridBagConstraints gbc_lblIngreseNacimiento = new GridBagConstraints();
+        gbc_lblIngreseNacimiento.fill = GridBagConstraints.BOTH;
+        gbc_lblIngreseNacimiento.insets = new Insets(0, 0, 5, 5);
+        gbc_lblIngreseNacimiento.gridx = 0;
+        gbc_lblIngreseNacimiento.gridy = 0;
+        getContentPane().add(lblIngreseNacimiento, gbc_lblIngreseNacimiento);
+        
+        // Una campo de texto (JTextField) para ingresar el Nacimiento del usuario. 
+        // Por defecto es posible ingresar cualquier string.
+        textFieldNacimiento = new JTextField();
+        GridBagConstraints gbc_textFieldNacimiento = new GridBagConstraints();
+        gbc_textFieldNacimiento.gridwidth = 2;
+        gbc_textFieldNacimiento.fill = GridBagConstraints.BOTH;
+        gbc_textFieldNacimiento.insets = new Insets(0, 0, 5, 0);
+        gbc_textFieldNacimiento.gridx = 1;
+        gbc_textFieldNacimiento.gridy = 0;
+        getContentPane().add(textFieldNacimiento, gbc_textFieldNacimiento);
+        textFieldNacimiento.setColumns(10);
+        
+        
         // Un botón (JButton) con un evento asociado que permite registrar el usuario.
         // Dado que el código de registro tiene cierta complejidad, conviene delegarlo
         // a otro método en lugar de incluirlo directamente de el método actionPerformed 
@@ -185,13 +237,16 @@ public class CrearUsuario extends JInternalFrame {
         // TODO Auto-generated method stub
 
         // Obtengo datos de los controles Swing
+    	String nickU = this.textFieldNick.getText();
         String nombreU = this.textFieldNombre.getText();
         String apellidoU = this.textFieldApellido.getText();
-        String ciU = this.textFieldCI.getText();
+        String mailU = this.textFieldMail.getText();
+        Date nacimientoU = null;
+        String nacionalidadU = "Uruguay";
 
         if (checkFormulario()) {
             try {
-                controlUsr.registrarUsuario(nombreU, apellidoU, ciU);
+                controlAlta.confirmarAltaTurista(nickU,nombreU, apellidoU, mailU,nacimientoU,nacionalidadU);
 
                 // Muestro éxito de la operación
                 JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
@@ -216,7 +271,7 @@ public class CrearUsuario extends JInternalFrame {
     private boolean checkFormulario() {
         String nombreU = this.textFieldNombre.getText();
         String apellidoU = this.textFieldApellido.getText();
-        String ciU = this.textFieldCI.getText();
+        String ciU = this.textFieldNick.getText();
 
         if (nombreU.isEmpty() || apellidoU.isEmpty() || ciU.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
@@ -240,8 +295,8 @@ public class CrearUsuario extends JInternalFrame {
     // se ocultan, por lo que conviene borrar la información para que 
     // no aparezca al mostrarlas nuevamente.
     private void limpiarFormulario() {
+    	textFieldNick.setText("");
         textFieldNombre.setText("");
         textFieldApellido.setText("");
-        textFieldCI.setText("");
     }
 }

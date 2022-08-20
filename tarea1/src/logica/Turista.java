@@ -29,19 +29,26 @@ public class Turista extends Usuario{
     	comprasG.add(compraG);
     }
 
+    public boolean yaTieneSalida(Salida s) {
+    	Iterator<CompraGeneral> itr = comprasG.iterator();
+    	boolean res = false;
+    	while(itr.hasNext()) {
+    		res = res || itr.next().esSalida(s);
+    	}
+    	return res;
+    }
     
-    //VER
-    /*public DataTurista getDataT()
+    public DataTurista getDataT()
     {
-    	Iterator itr = colSalidas.iterator();
-    	Set<DataSalida> DS;
+    	Iterator<CompraGeneral> itr = comprasG.iterator();
+    	Set<DataSalida> DS = new HashSet<DataSalida>();
     	while(itr.hasNext()) 
     	{
-    		S = itr.next();
-    		DS.add(S.getDataST())
+    		CompraGeneral S = itr.next();
+    		DS.add(S.getSalida().getDataST());
     	}
-    	DataTurista DT = new DataTurista(nickname,nombre,apellido,mail,nacimiento,nacionalidad,DS);
+    	DataTurista DT = new DataTurista(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),nacionalidad,DS);
     	return DT;
-    }*/
+    }
 
 }

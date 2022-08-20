@@ -93,7 +93,7 @@ public class Actividad {
 	//Operaciones
 	
 	public DataActividad getDataAT() {
-		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion);
+		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion,this.getSalidas());
 	}
 
 	public Set<DataSalida> getSalidas() {
@@ -101,10 +101,14 @@ public class Actividad {
 		Set<Entry<String, Salida>> aux = colSal.entrySet();
     	Iterator<Entry<String, Salida>> it = aux.iterator();
     	while(it.hasNext()){
-    		res.add(it.next().getValue().getDataST());
+    		if(it.next().getValue().estaVigente())
+    			res.add(it.next().getValue().getDataST());
     	}
 		return res;
 	}
 
+	public Salida getSalida(String s) {
+		return colSal.get(s);
+	}
 	
 }

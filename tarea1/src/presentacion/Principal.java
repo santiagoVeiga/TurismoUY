@@ -7,7 +7,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import logica.Fabrica;
-import logica.IControladorUsuario;
+import logica.IControladorAlta;
 
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
@@ -21,7 +21,7 @@ import java.awt.event.ActionListener;
 public class Principal {
 
     private JFrame frmGestionDeUsuarios;
-    private IControladorUsuario ICU;
+    private IControladorAlta ICA;
     private CrearUsuario creUsrInternalFrame;
     private ConsultarUsuario conUsrInternalFrame;
     private ListaUsuarios lisUsrInternalFrame;
@@ -50,18 +50,18 @@ public class Principal {
 
         // Inicialización
         Fabrica fabrica = Fabrica.getInstance();
-        ICU = fabrica.getIControladorUsuario();
+        ICA = fabrica.getIControladorAlta();
         
         // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
         // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
         // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
-        creUsrInternalFrame = new CrearUsuario(ICU);
+        creUsrInternalFrame = new CrearUsuario(ICA);
         creUsrInternalFrame.setVisible(false);
 
-        conUsrInternalFrame = new ConsultarUsuario(ICU);
+        //conUsrInternalFrame = new ConsultarUsuario(ICU);
         conUsrInternalFrame.setVisible(false);
 
-        lisUsrInternalFrame = new ListaUsuarios(ICU);
+        //lisUsrInternalFrame = new ListaUsuarios(ICU);
         lisUsrInternalFrame.setVisible(false);
         frmGestionDeUsuarios.getContentPane().setLayout(null);
 

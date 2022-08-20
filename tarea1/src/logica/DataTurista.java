@@ -6,10 +6,10 @@ public class DataTurista extends DataUsuario {
     private String nacionalidad;
     private Set<DataSalida> salidas;
 
-    public DataTurista(String nick,String nom, String ap,String mail, Date nacimiento, String nacionalidad) {
+    public DataTurista(String nick,String nom, String ap,String mail, Date nacimiento, String nacionalidad,Set<DataSalida> Salidass) {
         super(nick,nom,ap,mail,nacimiento);
     	this.nacionalidad = nacionalidad;
-    	this.salidas = new HashSet<DataSalida>();
+    	this.salidas = Salidass;
     }
 
     public String getNacionalidad() {

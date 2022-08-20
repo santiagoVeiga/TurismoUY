@@ -11,15 +11,14 @@ public class DataSalida {
 	private Date fechaAlta;
 	private int cant;
 
-	public Salida(String n,String l,Date h,Date f,Date fa,int c)
-	{
+	public DataSalida(String n,String l,Date h,Date f,Date fa,int c) {
 		nombre = n;
 		lugar = l;
 		hora = h;
 		fecha = f;
 		fechaAlta = fa;
 		cant = c;
-	};
+	}
 	
 	public String getNombre()
 	{
