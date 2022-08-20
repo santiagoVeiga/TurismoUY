@@ -93,7 +93,7 @@ public class Actividad {
 	//Operaciones
 	
 	public DataActividad getDataAT() {
-		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion);
+		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion,this.getSalidas());
 	}
 
 	public Set<DataSalida> getSalidas() {

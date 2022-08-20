@@ -27,7 +27,7 @@ public class Salida {
 	
 	public DataSalida getDataST()
 	{
-		return null;
+		return new DataSalida(nombre,lugar,hora,fecha,fechaAlta,cant);
 	}
 
 	public String getNombre() {
