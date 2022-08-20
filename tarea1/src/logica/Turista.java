@@ -29,7 +29,14 @@ public class Turista extends Usuario{
     	comprasG.add(compraG);
     }
 
-    
+    public boolean yaTieneSalida(Salida s) {
+    	Iterator<CompraGeneral> itr = comprasG.iterator();
+    	boolean res = false;
+    	while(itr.hasNext()) {
+    		res = res || itr.next().esSalida(s);
+    	}
+    	return res;
+    }
     
     public DataTurista getDataT()
     {

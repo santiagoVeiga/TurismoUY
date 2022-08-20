@@ -101,10 +101,14 @@ public class Actividad {
 		Set<Entry<String, Salida>> aux = colSal.entrySet();
     	Iterator<Entry<String, Salida>> it = aux.iterator();
     	while(it.hasNext()){
-    		res.add(it.next().getValue().getDataST());
+    		if(it.next().getValue().estaVigente())
+    			res.add(it.next().getValue().getDataST());
     	}
 		return res;
 	}
 
+	public Salida getSalida(String s) {
+		return colSal.get(s);
+	}
 	
 }

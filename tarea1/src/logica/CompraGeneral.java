@@ -46,5 +46,9 @@ public class CompraGeneral{
     public void setCosto(int c) {
     	costo = c;
     }
+
+	public boolean esSalida(Salida s) {
+		return salida.equals(s);
+	}
     
 }
