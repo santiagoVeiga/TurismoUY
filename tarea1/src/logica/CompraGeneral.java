@@ -8,6 +8,13 @@ public class CompraGeneral{
 	private int costo;
 	private Salida salida;
 	
+	public CompraGeneral(Date fecha, int cantTuristas, int costo) {
+		this.cantidad = cantTuristas;
+		this.costo = costo;
+		this.fecha = fecha;
+		this.salida = null;
+	}
+	
 	public CompraGeneral(int cant, Date f, int costo, Salida salida) {
     	this.cantidad = cant;
     	this.fecha = f;
@@ -45,6 +52,10 @@ public class CompraGeneral{
 
     public void setCosto(int c) {
     	costo = c;
+    }
+    
+    public void setSalida(Salida s) {
+    	this.salida = s;
     }
 
 	public boolean esSalida(Salida s) {

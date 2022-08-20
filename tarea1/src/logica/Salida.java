@@ -100,4 +100,13 @@ public class Salida {
 		this.colCG = colCG;
 	}
 	
+	public boolean excedeTuristas(int cantTuristas) {
+		Iterator<CompraGeneral> itr = colCG.iterator();
+    	int cant = 0;
+    	while(itr.hasNext()) {
+    		cant += itr.next().getCantidad();
+    	}
+    	return (cant+cantTuristas)<=this.getCant();
+	}
+	
 }
