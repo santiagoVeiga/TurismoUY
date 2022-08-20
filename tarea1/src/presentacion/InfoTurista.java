@@ -55,20 +55,20 @@ public class InfoTurista extends JFrame {
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Informacion Turista");
+		JLabel lblNewLabel = new JLabel("Informacion Actividad");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.gridwidth = 3;
+		gbc_lblNewLabel.gridwidth = 4;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 5;
 		gbc_lblNewLabel.gridy = 0;
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("NickName :");
+		JLabel lblNewLabel_1 = new JLabel("Costo :");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
@@ -105,7 +105,7 @@ public class InfoTurista extends JFrame {
 		gbc_textField_1.gridy = 2;
 		contentPane.add(textField_1, gbc_textField_1);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Apellido :");
+		JLabel lblNewLabel_1_2 = new JLabel("Duracion :");
 		GridBagConstraints gbc_lblNewLabel_1_2 = new GridBagConstraints();
 		gbc_lblNewLabel_1_2.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_1_2.insets = new Insets(0, 0, 5, 5);
@@ -123,7 +123,7 @@ public class InfoTurista extends JFrame {
 		gbc_textField_2.gridy = 3;
 		contentPane.add(textField_2, gbc_textField_2);
 		
-		JLabel lblNewLabel_1_3 = new JLabel("Email :");
+		JLabel lblNewLabel_1_3 = new JLabel("FechaAlta :");
 		GridBagConstraints gbc_lblNewLabel_1_3 = new GridBagConstraints();
 		gbc_lblNewLabel_1_3.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_1_3.insets = new Insets(0, 0, 5, 5);
@@ -141,7 +141,7 @@ public class InfoTurista extends JFrame {
 		gbc_textField_3.gridy = 4;
 		contentPane.add(textField_3, gbc_textField_3);
 		
-		JLabel lblNewLabel_1_3_1 = new JLabel("FechaDeNacimiento :");
+		JLabel lblNewLabel_1_3_1 = new JLabel("Ciudad :");
 		GridBagConstraints gbc_lblNewLabel_1_3_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1_3_1.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_1_3_1.insets = new Insets(0, 0, 5, 5);
@@ -159,13 +159,12 @@ public class InfoTurista extends JFrame {
 		gbc_textField_4.gridy = 5;
 		contentPane.add(textField_4, gbc_textField_4);
 		
-		JLabel lblNewLabel_1_3_2 = new JLabel("Nacionalidad :");
-		GridBagConstraints gbc_lblNewLabel_1_3_2 = new GridBagConstraints();
-		gbc_lblNewLabel_1_3_2.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel_1_3_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1_3_2.gridx = 1;
-		gbc_lblNewLabel_1_3_2.gridy = 6;
-		contentPane.add(lblNewLabel_1_3_2, gbc_lblNewLabel_1_3_2);
+		JLabel lblNewLabel_1_3_1_1 = new JLabel("Descripcion :");
+		GridBagConstraints gbc_lblNewLabel_1_3_1_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1_3_1_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_1_3_1_1.gridx = 1;
+		gbc_lblNewLabel_1_3_1_1.gridy = 6;
+		contentPane.add(lblNewLabel_1_3_1_1, gbc_lblNewLabel_1_3_1_1);
 		
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
