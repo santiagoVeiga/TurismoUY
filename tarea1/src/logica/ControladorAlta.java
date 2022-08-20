@@ -4,6 +4,7 @@ import java.util.Date;
 
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
+import manejadores.ManejadorUsuario;
 
 /**
  * Controlador de altas.
@@ -16,26 +17,34 @@ public class ControladorAlta implements IControladorAlta {
     }
 
     public void confirmarAltaTurista(String nick, String nom , String ap, String mail ,Date nacimiento ,String nacionalidad) throws UsuarioRepetidoException {
-/*
     	ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        Usuario u = mu.obtenerUsuario(ci);
+        Usuario u = mu.obtenerUsuarioNick(nick);
         if (u != null)
-            throw new UsuarioRepetidoException("El usuario " + ci + " ya esta registrado");
-
-        u = new Usuario(n, ap, ci);
+            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
+        u = mu.obtenerUsuarioMail(mail);
+        if (u != null)
+            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
+        u = new Turista(nick, nom, ap, mail, nacimiento, nacionalidad);
         mu.addUsuario(u);
-*/
     }
 
-    public void confirmarAltaProveedor(String nick, String nom , String ap, String mail ,Date nacimiento ,String descripcion, String link) {
-    	
+    public void confirmarAltaProveedor(String nick, String nom , String ap, String mail ,Date nacimiento ,String descripcion, String link, boolean hayLink) throws UsuarioRepetidoException {
+    	ManejadorUsuario mu = ManejadorUsuario.getinstance();
+        Usuario u = mu.obtenerUsuarioNick(nick);
+        if (u != null)
+            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
+        u = mu.obtenerUsuarioMail(mail);
+        if (u != null)
+            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
+        u = new Proveedor(nick, nom, ap, mail, nacimiento, descripcion, link, hayLink);
+        mu.addUsuario(u);
     }
     
     public DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException {
         ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        Usuario u = mu.obtenerUsuario(ci);
+        Usuario u = mu.obtenerUsuarioNick(ci);
         if (u != null)
-            return new DataUsuario(u.getNombre(), u.getApellido(), u.getCedulaIdentidad());
+            return null; //new DataUsuario(u.getNombre(), u.getApellido(), u.getCedulaIdentidad());
         else
             throw new UsuarioNoExisteException("El usuario " + ci + " no existe");
 
@@ -53,7 +62,7 @@ public class ControladorAlta implements IControladorAlta {
             // sino los DataUsuario
             for (int i = 0; i < usrs.length; i++) {
                 usuario = usrs[i];
-                du[i] = new DataUsuario(usuario.getNombre(), usuario.getApellido(), usuario.getCedulaIdentidad());
+                du[i] = null; //new DataUsuario(usuario.getNombre(), usuario.getApellido(), usuario.getCedulaIdentidad());
             }
 
             return du;

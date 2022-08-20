@@ -20,7 +20,7 @@ public interface IControladorAlta {
      */
     public abstract void confirmarAltaTurista(String nick, String nom , String ap, String mail ,Date nacimiento ,String nacionalidad) throws UsuarioRepetidoException;
 
-    public abstract void confirmarAltaProveedor(String nick, String nom , String ap, String mail ,Date nacimiento ,String descripcion, String link) throws UsuarioRepetidoException;
+    public abstract void confirmarAltaProveedor(String nick, String nom , String ap, String mail ,Date nacimiento ,String descripcion, String link, boolean hayLink) throws UsuarioRepetidoException;
     
     /**
      * Retorna la información de un usuario con la cédula indicada.
