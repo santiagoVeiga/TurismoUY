@@ -77,6 +77,7 @@ public class InfoTurista extends JFrame {
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		textField = new JTextField();
+		textField.setEditable(false);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 4;
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
@@ -96,6 +97,7 @@ public class InfoTurista extends JFrame {
 		contentPane.add(lblNewLabel_1_1, gbc_lblNewLabel_1_1);
 		
 		textField_1 = new JTextField();
+		textField_1.setEditable(false);
 		textField_1.setColumns(10);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.gridwidth = 4;
@@ -114,6 +116,7 @@ public class InfoTurista extends JFrame {
 		contentPane.add(lblNewLabel_1_2, gbc_lblNewLabel_1_2);
 		
 		textField_2 = new JTextField();
+		textField_2.setEditable(false);
 		textField_2.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
 		gbc_textField_2.gridwidth = 4;
@@ -132,6 +135,7 @@ public class InfoTurista extends JFrame {
 		contentPane.add(lblNewLabel_1_3, gbc_lblNewLabel_1_3);
 		
 		textField_3 = new JTextField();
+		textField_3.setEditable(false);
 		textField_3.setColumns(10);
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
 		gbc_textField_3.gridwidth = 4;
@@ -150,6 +154,7 @@ public class InfoTurista extends JFrame {
 		contentPane.add(lblNewLabel_1_3_1, gbc_lblNewLabel_1_3_1);
 		
 		textField_4 = new JTextField();
+		textField_4.setEditable(false);
 		textField_4.setColumns(10);
 		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
 		gbc_textField_4.gridwidth = 4;
@@ -167,6 +172,7 @@ public class InfoTurista extends JFrame {
 		contentPane.add(lblNewLabel_1_3_1_1, gbc_lblNewLabel_1_3_1_1);
 		
 		textField_5 = new JTextField();
+		textField_5.setEditable(false);
 		textField_5.setColumns(10);
 		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
 		gbc_textField_5.gridwidth = 4;

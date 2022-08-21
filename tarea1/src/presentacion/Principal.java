@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import excepciones.UsuarioNoExisteException;
 import logica.Fabrica;
 import logica.IControladorUsuario;
 
@@ -24,7 +25,7 @@ public class Principal {
     private IControladorUsuario ICU;
     private CrearUsuario creUsrInternalFrame;
     private ConsultarUsuario conUsrInternalFrame;
-    private ListaUsuarios lisUsrInternalFrame;
+    private ListarUsuarios lisUsrInternalFrame;
 
     /**
      * Launch the application.
@@ -61,7 +62,7 @@ public class Principal {
         conUsrInternalFrame = new ConsultarUsuario(ICU);
         conUsrInternalFrame.setVisible(false);
 
-        lisUsrInternalFrame = new ListaUsuarios(ICU);
+        lisUsrInternalFrame = new ListarUsuarios(ICU);
         lisUsrInternalFrame.setVisible(false);
         frmGestionDeUsuarios.getContentPane().setLayout(null);
 
@@ -126,8 +127,11 @@ public class Principal {
             public void actionPerformed(ActionEvent e) {
                 // Muestro el InternalFrame para ver la lista de todos los usuarios,
                 // cargando previamente la lista
-                lisUsrInternalFrame.cargarUsuarios();
-                lisUsrInternalFrame.setVisible(true);
+                try {
+					lisUsrInternalFrame.cargarUsuarios(lisUsrInternalFrame);
+				} catch (UsuarioNoExisteException e1) {
+				
+				}
             }
         });
         menuUsuarios.add(mntmListaUsuarios);
