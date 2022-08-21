@@ -8,15 +8,19 @@ import java.util.Set;
 
 import logica.Actividad;
 import logica.DataActividad;
+import logica.Usuario;
  
 public class ManejadorActividad {
 	
-	// Atributos 
+	// Atributos
+	
 	private static ManejadorActividad instancia = null;
 	
 	private Map<String,Actividad> colAct;
-// Constructor
-    private ManejadorActividad() {
+	
+	// Constructor
+    
+	private ManejadorActividad() {
     	colAct = new HashMap<String,Actividad>();
     }
 
@@ -29,6 +33,11 @@ public class ManejadorActividad {
     
     //Operaciones
 	
+    public void addActividad(Actividad act) {
+        String nombre = act.getNombre();
+        colAct.put(nombre, act);
+    }
+    
     public Set<DataActividad> getDAct() {
     	Set<DataActividad> resultado = null;
     	Set<Entry<String, Actividad>> aux = colAct.entrySet();
@@ -42,4 +51,10 @@ public class ManejadorActividad {
     public Actividad getActividad(String nom) {
     	return colAct.get(nom);
     }
+    
+	public boolean actividadEstaRegistrada(Actividad actividad) {
+		Actividad res = colAct.get(actividad.getNombre());
+		return res != null;
+	}
+
 }

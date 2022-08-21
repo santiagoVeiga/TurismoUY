@@ -2,8 +2,10 @@ package logica;
 
 import java.util.Date;
 
+import excepciones.ActividadRepetidaException;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
+import manejadores.ManejadorActividad;
 import manejadores.ManejadorUsuario;
 
 /**
@@ -38,6 +40,14 @@ public class ControladorAlta implements IControladorAlta {
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
         u = new Proveedor(nick, nom, ap, mail, nacimiento, descripcion, link, hayLink);
         mu.addUsuario(u);
+    }
+    
+    public void registrarActividad(Departamento dep, String nom , String desc,int dur, int costo, String ciudad ,Date f) throws ActividadRepetidaException {
+    	ManejadorActividad mAct = ManejadorActividad.getInstance();
+        if (mAct.actividadEstaRegistrada(mAct.getActividad(nom)))
+            throw new ActividadRepetidaException("Ya existe una actividad registrada con el nombre:  " + nom);        
+        Actividad actividad = new Actividad(nom, desc,f,ciudad, costo, dur, dep);
+        mAct.addActividad(actividad);
     }
     
     public DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException {

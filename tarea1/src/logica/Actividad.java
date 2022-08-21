@@ -22,17 +22,21 @@ public class Actividad {
 	private int costo;
 	
 	private int duracion;
-	
-	public Actividad(String nom, String des, Date f, String c, int costo, int dur) {
+
+	private Departamento departamento;
+
+	public Actividad(String nom, String desc, Date f, String ciudad, int costo, int dur, Departamento dep) {
 		colSal = new HashMap<String,Salida>();
 		nombre = nom;
-		descripcion = des;
+		descripcion = desc;
 		fechaAlta = f;
+		this.ciudad = ciudad;
 		this.costo = costo;
 		this.duracion = dur;
+		this.departamento = dep;
 	}
 	
-//Getters y Setters
+	//Getters
     
     public String getNombre() {
     	return this.nombre;
@@ -58,6 +62,16 @@ public class Actividad {
 		return this.duracion;
 	}
 	
+	public Departamento getDepartamento() {
+		return this.departamento;
+	}
+	
+	public Map<String,Salida> getColSal() {
+		return colSal;
+	}
+	
+	// Setters
+	
 	public void setNombre(String n) {
 		nombre = n;
 	}
@@ -82,9 +96,9 @@ public class Actividad {
 		duracion = n;
 	}
 	
-	public Map<String,Salida> getColSal() {
-		return colSal;
-	}
+	public void setDepartamento(Departamento dep) {
+		departamento = dep;
+	}	
 	
 	public void addSalida(Salida s) {
 		this.colSal.put(s.getNombre(), s);
