@@ -8,12 +8,12 @@ import java.util.Set;
 
 import logica.Actividad;
 import logica.DataActividad;
- 
+
 public class ManejadorActividad {
-	
-	// Atributos 
+
+	// Atributos
 	private static ManejadorActividad instancia = null;
-	
+
 	private Map<String,Actividad> colAct;
 // Constructor
     private ManejadorActividad() {
@@ -26,9 +26,9 @@ public class ManejadorActividad {
         }
         return instancia;
     }
-    
+
     //Operaciones
-	
+
     public Set<DataActividad> getDAct() {
     	Set<DataActividad> resultado = null;
     	Set<Entry<String, Actividad>> aux = colAct.entrySet();
@@ -36,9 +36,13 @@ public class ManejadorActividad {
     	while(it.hasNext()){
     		resultado.add(it.next().getValue().getDataAT());
     	}
-    	return resultado;  
-    }  
-    
+    	return resultado;
+    }
+
+    public Map<String,Actividad> getColAct() {
+    	return colAct ;
+    }
+
     public Actividad getActividad(String nom) {
     	return colAct.get(nom);
     }

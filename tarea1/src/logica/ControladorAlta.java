@@ -70,4 +70,41 @@ public class ControladorAlta implements IControladorAlta {
             throw new UsuarioNoExisteException("No existen usuarios registrados");
 
     }
+
+
+    public void confirmarAltaDepartamento(String nombre, String descripcion, String URL) throws DepartamentoYaExisteExeption {
+        ManejadorDepartamento md = ManejadorDepartamento.getinstance();
+
+        Departamento deptoprueba = md.getDepartamento(nombre);
+        if (deptoprueba != null)
+            throw new DepartamentoYaExisteExeption("Ya existe un departamento registrado con el nombre:  " + nombre);
+
+        Departamento dpto = new Departamento(nombre, descripcion, URL) ;
+        md.addDepartamento(dpto) ;
+    }
+
+
+    public void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta) throws SalidaYaExisteExeption{
+        ManejadorActividad ma = ManejadorActividad.getInstance();
+        Actividad act = ma.getActividad(nombreActividad);
+
+        //chequeo si existe una salida con el mismo nombre que el ingresado en el sistema, recorriendo las salidas registradas para todas las actividades
+        boolean existeSalidaNombre = false ;
+        DataActividad setDact = ma.getDAct();
+        Map<String,Actividad> coleccionAct = ma.getColAct() ;
+        for (Map.Entry<String,Actividad> entry : coleccionAct.entrySet()){
+            Actividad acti = entry.getValue() ;
+            Map<String,Salida> coleccionSal = acti.getColSal() ;
+            for (Map.Entry<String,Actividad> entry2 : coleccionSal.entrySet()){
+                if(entry2.getValue().getNombre() == nombreActividad)
+                    existeSalidaNombre = true ;
+            }
+        }
+        if (existeSalidaNombre)
+            throw new SalidaYaExisteExeption("ya existe una salida registrada para esta actividad con el nombre : " + nombreSalida) ; 
+
+        Salida salida = new Salida(nombreActividad, lugar, hora, fecha, fechaAlta, maxCantTuristas);
+        act.addSalida(salida);
+
+    }
 }
