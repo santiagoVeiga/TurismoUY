@@ -11,11 +11,11 @@ import logica.DataActividad;
 import logica.Usuario;
  
 public class ManejadorActividad {
-	
+
 	// Atributos
-	
+>>>>>>> rama_santi_2
 	private static ManejadorActividad instancia = null;
-	
+
 	private Map<String,Actividad> colAct;
 	
 	// Constructor
@@ -30,14 +30,13 @@ public class ManejadorActividad {
         }
         return instancia;
     }
-    
+
     //Operaciones
-	
     public void addActividad(Actividad act) {
         String nombre = act.getNombre();
         colAct.put(nombre, act);
     }
-    
+
     public Set<DataActividad> getDAct() {
     	Set<DataActividad> resultado = null;
     	Set<Entry<String, Actividad>> aux = colAct.entrySet();
@@ -45,9 +44,13 @@ public class ManejadorActividad {
     	while(it.hasNext()){
     		resultado.add(it.next().getValue().getDataAT());
     	}
-    	return resultado;  
-    }  
-    
+    	return resultado;
+    }
+
+    public Map<String,Actividad> getColAct() {
+    	return colAct ;
+    }
+
     public Actividad getActividad(String nom) {
     	return colAct.get(nom);
     }

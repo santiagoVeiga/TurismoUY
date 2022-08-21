@@ -96,9 +96,15 @@ public class Actividad {
 		duracion = n;
 	}
 	
+
 	public void setDepartamento(Departamento dep) {
 		departamento = dep;
 	}	
+	
+	public Map<String,Salida> getColSal() {
+		return colSal;
+	}
+
 	
 	public void addSalida(Salida s) {
 		this.colSal.put(s.getNombre(), s);

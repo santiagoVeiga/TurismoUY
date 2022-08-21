@@ -7,8 +7,18 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 public class Departamento {
-
+	
 	private String nombre;
+	private String descripcion;
+	private String url;
+
+	public Departamento(String nombre, String descripcion, String URL){
+		this.nombre = nombre ; 
+		this.descripcion = descripcion ; 
+		this.URL = URL ; 
+	}
+
+
 	
 	public String getNombre() 
 	{
@@ -19,7 +29,6 @@ public class Departamento {
 		this.nombre = n;
 	}
 	
-	private String descripcion;
 	
 	public void setDescripcion(String d) {
 		this.descripcion = d;
@@ -29,7 +38,6 @@ public class Departamento {
 		return this.descripcion;
 	}
 	
-	private String url;
 	
 	public void seturl(String d) {
 		this.descripcion = d;

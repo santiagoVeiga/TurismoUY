@@ -13,11 +13,7 @@ import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Clase principal (Frame) con el método Main.
- * @author TProg2017
- *
- */
+
 public class Principal {
 
     private JFrame frmGestionDeUsuarios;
@@ -74,7 +70,7 @@ public class Principal {
      * Initialize the contents of the frame.
      */
     private void initialize() {
-        
+
         // Se crea el Frame con las dimensiones indicadas.
         frmGestionDeUsuarios = new JFrame();
         frmGestionDeUsuarios.setTitle("Gestion de Usuarios 1.0");
@@ -82,8 +78,8 @@ public class Principal {
         frmGestionDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Se crea una barra de menú (JMenuBar) con dos menú (JMenu) desplegables.
-        // Cada menú contiene diferentes opciones (JMenuItem), los cuales tienen un 
-        // evento asociado que permite realizar una acción una vez se seleccionan. 
+        // Cada menú contiene diferentes opciones (JMenuItem), los cuales tienen un
+        // evento asociado que permite realizar una acción una vez se seleccionan.
         JMenuBar menuBar = new JMenuBar();
         frmGestionDeUsuarios.setJMenuBar(menuBar);
 
