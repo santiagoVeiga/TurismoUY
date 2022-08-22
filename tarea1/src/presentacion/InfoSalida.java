@@ -6,12 +6,20 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logica.DataSalida;
+import logica.DataTurista;
+
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Set;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
@@ -30,23 +38,8 @@ public class InfoSalida extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InfoSalida frame = new InfoSalida();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public InfoSalida() {
+	
+	public InfoSalida(DataSalida usuarios) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -77,7 +70,7 @@ public class InfoSalida extends JFrame {
 		gbc_lblNewLabel_1_1.gridy = 1;
 		contentPane.add(lblNewLabel_1_1, gbc_lblNewLabel_1_1);
 		
-		textField = new JTextField();
+		textField = new JTextField(usuarios.getNombre());
 		textField.setEditable(false);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 4;
@@ -96,7 +89,7 @@ public class InfoSalida extends JFrame {
 		gbc_lblNewLabel_1.gridy = 2;
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField_1 = new JTextField();
+		textField_1 = new JTextField(usuarios.getCant());
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
@@ -115,7 +108,7 @@ public class InfoSalida extends JFrame {
 		gbc_lblNewLabel_1_2.gridy = 3;
 		contentPane.add(lblNewLabel_1_2, gbc_lblNewLabel_1_2);
 		
-		textField_2 = new JTextField();
+		textField_2 = new JTextField(usuarios.getFechaAlta().getDay() +"/"+ usuarios.getFechaAlta().getMonth() + "/"+usuarios.getFechaAlta().getYear());
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
@@ -134,7 +127,7 @@ public class InfoSalida extends JFrame {
 		gbc_lblNewLabel_1_3.gridy = 4;
 		contentPane.add(lblNewLabel_1_3, gbc_lblNewLabel_1_3);
 		
-		textField_3 = new JTextField();
+		textField_3 = new JTextField(usuarios.getFecha().getDay() +"/"+ usuarios.getFecha().getMonth() + "/"+usuarios.getFecha().getYear());
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
@@ -153,7 +146,7 @@ public class InfoSalida extends JFrame {
 		gbc_lblNewLabel_1_3_1.gridy = 5;
 		contentPane.add(lblNewLabel_1_3_1, gbc_lblNewLabel_1_3_1);
 		
-		textField_4 = new JTextField();
+		textField_4 = new JTextField(usuarios.getLugar());
 		textField_4.setEditable(false);
 		textField_4.setColumns(10);
 		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
@@ -172,7 +165,7 @@ public class InfoSalida extends JFrame {
 		gbc_lblNewLabel_1_3_2.gridy = 6;
 		contentPane.add(lblNewLabel_1_3_2, gbc_lblNewLabel_1_3_2);
 		
-		textField_5 = new JTextField();
+		textField_5 = new JTextField(usuarios.gethora().getHours());
 		textField_5.setEditable(false);
 		textField_5.setColumns(10);
 		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
@@ -189,6 +182,12 @@ public class InfoSalida extends JFrame {
 		gbc_btnNewButton_1.gridx = 9;
 		gbc_btnNewButton_1.gridy = 9;
 		contentPane.add(btnNewButton_1, gbc_btnNewButton_1);
+	
+		btnNewButton_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
 	}
 
 }

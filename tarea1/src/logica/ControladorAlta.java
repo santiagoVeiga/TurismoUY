@@ -30,8 +30,20 @@ public class ControladorAlta implements IControladorAlta {
     public void confirmarAltaProveedor(String nick, String nom , String ap, String mail ,Date nacimiento ,String descripcion, String link) {
     	
     }
+
+	@Override
+	public DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DataUsuario[] getUsuarios() throws UsuarioNoExisteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
-    public DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException {
+    /*public DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException {
         ManejadorUsuario mu = ManejadorUsuario.getinstance();
         Usuario u = mu.obtenerUsuario(ci);
         if (u != null)
@@ -60,5 +72,5 @@ public class ControladorAlta implements IControladorAlta {
         } else
             throw new UsuarioNoExisteException("No existen usuarios registrados");
 
-    }
+    }*/
 }

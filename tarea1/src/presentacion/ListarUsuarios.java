@@ -54,6 +54,7 @@ public class ListarUsuarios extends JInternalFrame {
 	private JComboBox<String> comboBoxUsuarios;
     private JLabel lblUsuarios;
     private JButton btnCerrar;
+    private DataUsuario[] DU2;
 	
 	
     public ListarUsuarios(IControladorUsuario icu) {
@@ -88,8 +89,18 @@ public class ListarUsuarios extends JInternalFrame {
         btnCerrar = new JButton("Informacion del Usuario");
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                comboBoxUsuarios.removeAllItems();
+            	int i = comboBoxUsuarios.getSelectedIndex();
                 setVisible(false);
+                if(DU2[i] instanceof DataTurista)
+                {
+                	InfoActividades it = new InfoActividades((DataTurista) DU2[i]);
+                	it.setVisible(true);
+                }else if(DU2[i] instanceof DataProveedor)
+                {
+                	InfoProveedor it = new InfoProveedor((DataProveedor) DU2[i]);
+                	it.setVisible(true);
+                }
+                
             }
         });
         getContentPane().add(btnCerrar, BorderLayout.SOUTH);
@@ -118,6 +129,7 @@ public class ListarUsuarios extends JInternalFrame {
         		}
         		i++;
         	}
+        	DU2 = DU;
             model = new DefaultComboBoxModel<String>(nomUsuarios);
             comboBoxUsuarios.setModel(model);
             LU.setVisible(true);

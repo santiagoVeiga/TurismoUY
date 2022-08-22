@@ -10,6 +10,24 @@ import excepciones.UsuarioRepetidoException;
  */
 public class ControladorUsuario implements IControladorUsuario {
 
+	@Override
+	public void registrarUsuario(String n, String ap, String ci) throws UsuarioRepetidoException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DataUsuario[] getUsuarios() throws UsuarioNoExisteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+/*
     public ControladorUsuario() {
     }
 
@@ -52,5 +70,5 @@ public class ControladorUsuario implements IControladorUsuario {
         } else
             throw new UsuarioNoExisteException("No existen usuarios registrados");
 
-    }
+    }*/
 }

@@ -6,7 +6,7 @@ import manejadores.ManejadorActividad;
 import manejadores.ManejadorDepartamentos;
 
 public class ControladorInsc implements IControladorInsc {
-	public Set<DataActividad> selecDepartamento(String dep){
+	/*public Set<DataActividad> selecDepartamento(String dep){
 		ManejadorDepartamentos m = ManejadorDepartamentos.getInstance();
 		Departamento d = m.getDepartamento(dep);
 		return d.getActividades();
@@ -16,5 +16,5 @@ public class ControladorInsc implements IControladorInsc {
 		ManejadorActividad m = ManejadorActividad.getInstance();
 		Actividad a = m.getActividad(nombreAct);
 		return a.getSalidas();
-	}
+	}*/
 }

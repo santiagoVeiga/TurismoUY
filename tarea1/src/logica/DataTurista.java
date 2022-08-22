@@ -11,6 +11,11 @@ public class DataTurista extends DataUsuario {
     	this.nacionalidad = nacionalidad;
     	this.salidas = Salidass;
     }
+    
+    public Set<DataSalida> getDataSalidas()
+    {
+    	return salidas;
+    }
 
     public String getNacionalidad() {
         return nacionalidad;

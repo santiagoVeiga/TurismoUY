@@ -6,12 +6,20 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logica.DataActividad;
+import logica.DataProveedor;
+import logica.DataSalida;
+
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
@@ -31,23 +39,12 @@ public class InfoProveedor extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InfoProveedor frame = new InfoProveedor();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
 	 */
-	public InfoProveedor() {
+	public InfoProveedor(DataProveedor DP) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -77,7 +74,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1.gridy = 1;
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField = new JTextField();
+		textField = new JTextField(DP.getNick());
 		textField.setEditable(false);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 5;
@@ -97,7 +94,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_1.gridy = 2;
 		contentPane.add(lblNewLabel_1_1, gbc_lblNewLabel_1_1);
 		
-		textField_1 = new JTextField();
+		textField_1 = new JTextField(DP.getNombre());
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
@@ -116,7 +113,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_2.gridy = 3;
 		contentPane.add(lblNewLabel_1_2, gbc_lblNewLabel_1_2);
 		
-		textField_2 = new JTextField();
+		textField_2 = new JTextField(DP.getApellido());
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
@@ -135,7 +132,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_3.gridy = 4;
 		contentPane.add(lblNewLabel_1_3, gbc_lblNewLabel_1_3);
 		
-		textField_3 = new JTextField();
+		textField_3 = new JTextField(DP.getMail());
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
@@ -154,7 +151,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_3_1.gridy = 5;
 		contentPane.add(lblNewLabel_1_3_1, gbc_lblNewLabel_1_3_1);
 		
-		textField_4 = new JTextField();
+		textField_4 = new JTextField(DP.getNacimiento().getDay() +"/"+ DP.getNacimiento().getMonth() + "/"+DP.getNacimiento().getYear());
 		textField_4.setEditable(false);
 		textField_4.setColumns(10);
 		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
@@ -173,7 +170,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_3_2.gridy = 6;
 		contentPane.add(lblNewLabel_1_3_2, gbc_lblNewLabel_1_3_2);
 		
-		textField_5 = new JTextField();
+		textField_5 = new JTextField(DP.getDescripcion());
 		textField_5.setEditable(false);
 		textField_5.setColumns(10);
 		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
@@ -192,7 +189,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_3_2_2.gridy = 7;
 		contentPane.add(lblNewLabel_1_3_2_2, gbc_lblNewLabel_1_3_2_2);
 		
-		textField_6 = new JTextField();
+		textField_6 = new JTextField(DP.getLink());
 		textField_6.setEditable(false);
 		textField_6.setColumns(10);
 		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
@@ -211,7 +208,15 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_3_2_1.gridy = 8;
 		contentPane.add(lblNewLabel_1_3_2_1, gbc_lblNewLabel_1_3_2_1);
 		
-		JComboBox comboBox = new JComboBox();
+		
+		Object[] o = DP.getActividades().toArray();
+        DataActividad[] usuarios = new DataActividad[o.length];
+        for (int i = 0; i < o.length; i++) {
+        	usuarios[i] = (DataActividad) o[i];
+        }
+		
+		
+		JComboBox comboBox = new JComboBox<DataActividad>(usuarios);
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 4;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -227,12 +232,26 @@ public class InfoProveedor extends JFrame {
 		gbc_btnNewButton.gridy = 9;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
 		
+		btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	int i = comboBox.getSelectedIndex();
+            	setVisible(false);
+            }
+        });
+		
+		
 		JButton btnNewButton_1 = new JButton("Salir");
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton_1.gridx = 10;
 		gbc_btnNewButton_1.gridy = 9;
 		contentPane.add(btnNewButton_1, gbc_btnNewButton_1);
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            }
+        });
 	}
 
 }

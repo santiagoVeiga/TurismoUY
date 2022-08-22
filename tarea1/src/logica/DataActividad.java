@@ -8,14 +8,13 @@ public class DataActividad {
 		  
 	}
 	
-	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds) {
+	public DataActividad(String n, String d, Date f, String c, int cos, int dur) {
 		this.nombre = n;
 		this.descripcion = d;
 		this.fechaAlta = f;
 		this.ciudad = c;
 		this.costo = cos;
 		this.duracion = dur;
-		DS = ds;
 	}
 	
 	private String nombre;

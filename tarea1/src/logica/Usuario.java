@@ -24,6 +24,19 @@ public class Usuario {
     }
     
     /* Getters */
+    public DataUsuario getDataUsuario(Usuario u) {
+    	DataUsuario DU = null;
+    	if(u instanceof Turista)
+    	{
+    		Turista T = (Turista) u;
+    		DU = T.getDataT();
+    	}else if (u instanceof Proveedor)
+    	{
+    		Proveedor P = (Proveedor) u;
+    		DU = P.getDataP();
+    	}
+        return DU;
+    }
     
     public String getNombre() {
         return nombre;
