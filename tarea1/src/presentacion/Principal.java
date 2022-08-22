@@ -59,15 +59,15 @@ public class Principal {
         creUsrInternalFrame.setVisible(false);
 
         //conUsrInternalFrame = new ConsultarUsuario(ICU);
-        conUsrInternalFrame.setVisible(false);
+        //conUsrInternalFrame.setVisible(false);
 
         //lisUsrInternalFrame = new ListaUsuarios(ICU);
-        lisUsrInternalFrame.setVisible(false);
+        //lisUsrInternalFrame.setVisible(false);
         frmGestionDeUsuarios.getContentPane().setLayout(null);
 
-        frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
+        //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
+        //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
     }
 
     /**
