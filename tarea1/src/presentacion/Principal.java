@@ -19,6 +19,7 @@ public class Principal {
     private JFrame frmGestionDeUsuarios;
     private IControladorAlta ICA;
     private CrearUsuario creUsrInternalFrame;
+    private CrearActividad creActInternalFrame;
     private ConsultarUsuario conUsrInternalFrame;
     private ListaUsuarios lisUsrInternalFrame;
 
@@ -44,7 +45,7 @@ public class Principal {
     public Principal() {
         initialize();
 
-        // Inicialización
+     // Inicialización
         Fabrica fabrica = Fabrica.getInstance();
         ICA = fabrica.getIControladorAlta();
         
@@ -63,6 +64,25 @@ public class Principal {
 
         //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
+        //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
+        
+        //****** CREAR_ACTIVIDAD *********/
+               
+        // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
+        // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
+        // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
+        creActInternalFrame = new CrearActividad(ICA);
+        creActInternalFrame.setVisible(false);
+
+        //conUsrInternalFrame = new ConsultarUsuario(ICU);
+        //conUsrInternalFrame.setVisible(false);
+
+        //lisUsrInternalFrame = new ListaUsuarios(ICU);
+        //lisUsrInternalFrame.setVisible(false);
+        frmGestionDeUsuarios.getContentPane().setLayout(null);
+
+        //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
         //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
     }
 
