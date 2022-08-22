@@ -46,7 +46,7 @@ public class Departamento {
 	public String getUrl() {
 		return this.url;
 	}
-	
+	/*
 	private Map<String,Actividad> colAct;
 	
 	public Departamento() {
@@ -64,5 +64,5 @@ public class Departamento {
 	}
 	
 	
-	
+	*/
 }

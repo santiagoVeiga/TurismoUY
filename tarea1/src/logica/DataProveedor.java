@@ -21,4 +21,10 @@ public class DataProveedor extends DataUsuario {
     public String getLink() {
         return link;
     }
+    
+    public Set<DataActividad> getActividades()
+    {
+    	return actividades;
+    }
+    
 }
