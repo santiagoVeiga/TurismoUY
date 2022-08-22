@@ -13,9 +13,10 @@ public class ControladorConsulta implements IControladorConsulta {
     public DataUsuario ingresarDatos(String ci)
     {
     	ManejadorUsuario mu = ManejadorUsuario.getinstance();
-    	Turista u = mu.obtenerUsuarioNick(ci);
-    	return u.getDataT();
+    	Usuario u = mu.obtenerUsuarioNick(ci);
+    	return u.getDataUsuario(u);
     }
+
     
     
 }
