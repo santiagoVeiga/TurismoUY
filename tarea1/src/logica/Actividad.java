@@ -101,11 +101,6 @@ public class Actividad {
 		departamento = dep;
 	}	
 	
-	public Map<String,Salida> getColSal() {
-		return colSal;
-	}
-
-	
 	public void addSalida(Salida s) {
 		this.colSal.put(s.getNombre(), s);
 	}

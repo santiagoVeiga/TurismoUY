@@ -8,11 +8,15 @@ public class CompraGeneral{
 	private int costo; 
 	private Salida salida;
 	
+	public CompraGeneral(Date f, int cant, int costo) {
+		this.cantidad = cant;
+		this.fecha = f;
+		this.costo = costo;
+	}
 
-	public CompraGeneral(int cant, Date f, int costo, Salida salida) {
+	public CompraGeneral(int cant, Date f,Salida salida) {
     	this.cantidad = cant;
     	this.fecha = f;
-		this.costo = salida.getActividad().getCosto()*cant ;
     	this.salida = salida;
 
 
@@ -47,9 +51,9 @@ public class CompraGeneral{
     	costo = c;
     }
 
-    /*public void setFecha(Date f) {
-    	costo = c;
-    }*/
+    public void setFecha(Date f) {
+    	fecha = f;
+    }
 
     public void setCosto(int c) {
     	costo = c;

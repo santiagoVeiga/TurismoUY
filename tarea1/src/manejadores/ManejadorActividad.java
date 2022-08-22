@@ -13,7 +13,7 @@ import logica.Usuario;
 public class ManejadorActividad {
 
 	// Atributos
->>>>>>> rama_santi_2
+
 	private static ManejadorActividad instancia = null;
 
 	private Map<String,Actividad> colAct;
