@@ -19,9 +19,10 @@ public class Principal {
     private JFrame frmGestionDeUsuarios;
     private IControladorAlta ICA;
     private CrearUsuario creUsrInternalFrame;
-    private CrearActividad creActInternalFrame;
     private ConsultarUsuario conUsrInternalFrame;
     private ListaUsuarios lisUsrInternalFrame;
+    private CrearActividad creActInternalFrame;
+    private CrearActividad conActInternalFrame;
 
     /**
      * Launch the application.
@@ -63,25 +64,19 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().setLayout(null);
 
         //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
         //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
         
-        //****** CREAR_ACTIVIDAD *********/
-               
-        // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
-        // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
-        // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
+        //****** ACTIVIDAD *********/
+
         creActInternalFrame = new CrearActividad(ICA);
         creActInternalFrame.setVisible(false);
 
-        //conUsrInternalFrame = new ConsultarUsuario(ICU);
-        //conUsrInternalFrame.setVisible(false);
+        //conActInternalFrame = new ConsultarActividad(ICU);
+        //conActInternalFrame.setVisible(false);
 
-        //lisUsrInternalFrame = new ListaUsuarios(ICU);
-        //lisUsrInternalFrame.setVisible(false);
-        frmGestionDeUsuarios.getContentPane().setLayout(null);
-
+        
         //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
         //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
     }
@@ -115,7 +110,9 @@ public class Principal {
             }
         });
         menuSistema.add(menuSalir);
-
+        
+        /* **** Usuarios **** */
+        
         JMenu menuUsuarios = new JMenu("Usuarios");
         menuBar.add(menuUsuarios);
 
@@ -147,5 +144,26 @@ public class Principal {
             }
         });
         menuUsuarios.add(mntmListaUsuarios);
+        
+        /* **** Actividad **** */
+        
+        JMenu menuActividad = new JMenu("Actividad");
+        menuBar.add(menuActividad);
+
+        JMenuItem menuItemRegistrarActividad = new JMenuItem("Registrar Actividad");
+        menuItemRegistrarActividad.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                creActInternalFrame.setVisible(true);
+            }
+        });
+        menuActividad.add(menuItemRegistrarActividad);
+        
+        JMenuItem menuItemConsultaActividad = new JMenuItem("Consulta Actividad");
+        menuItemConsultaActividad.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                conActInternalFrame.setVisible(true);
+            }
+        });
+        menuActividad.add(menuItemConsultaActividad);
     }
 }
