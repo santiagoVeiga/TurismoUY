@@ -3,9 +3,12 @@ package logica;
 import java.util.Date;
 
 import excepciones.ActividadRepetidaException;
+import excepciones.DepartamentoYaExisteExeption;
+import excepciones.SalidaYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import manejadores.ManejadorActividad;
+import manejadores.ManejadorDepartamentos;
 import manejadores.ManejadorUsuario;
 
 /**
@@ -15,7 +18,8 @@ import manejadores.ManejadorUsuario;
  */
 public class ControladorAlta implements IControladorAlta {
 
-    public ControladorAlta() {
+    public ControladorAlta() throws DepartamentoYaExisteExeption{
+    	confirmarAltaDepartamento("Canelones","","");
     }
 
     public void confirmarAltaTurista(String nick, String nom , String ap, String mail ,Date nacimiento ,String nacionalidad) throws UsuarioRepetidoException {
@@ -44,10 +48,11 @@ public class ControladorAlta implements IControladorAlta {
     
     public void registrarActividad(Departamento dep, String nom , String desc,int dur, int costo, String ciudad ,Date f) throws ActividadRepetidaException {
     	ManejadorActividad mAct = ManejadorActividad.getInstance();
-        if (mAct.actividadEstaRegistrada(mAct.getActividad(nom)))
+    	Actividad act = mAct.getActividad(nom);
+        if (act != null)
             throw new ActividadRepetidaException("Ya existe una actividad registrada con el nombre:  " + nom);        
-        Actividad actividad = new Actividad(nom, desc,f,ciudad, costo, dur, dep);
-        mAct.addActividad(actividad);
+        act = new Actividad(nom, desc,f,ciudad, costo, dur, dep);
+        mAct.addActividad(act);
     }
     
     public DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException {
@@ -83,7 +88,7 @@ public class ControladorAlta implements IControladorAlta {
 
 
     public void confirmarAltaDepartamento(String nombre, String descripcion, String URL) throws DepartamentoYaExisteExeption {
-        ManejadorDepartamento md = ManejadorDepartamento.getinstance();
+        ManejadorDepartamentos md = ManejadorDepartamentos.getInstance();
 
         Departamento deptoprueba = md.getDepartamento(nombre);
         if (deptoprueba != null)

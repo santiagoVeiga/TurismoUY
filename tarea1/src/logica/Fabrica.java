@@ -1,5 +1,7 @@
 package logica;
 
+import excepciones.DepartamentoYaExisteExeption;
+
 /**
  * Fábrica para la construcción de un controlador de usuarios (uno distinto para cada invocación).
  * Se implementa en base al patrón Singleton.
@@ -20,17 +22,9 @@ public class Fabrica {
         return instancia;
     }
 
-    public IControladorAlta getIControladorAlta() {
+    public IControladorAlta getIControladorAlta() throws DepartamentoYaExisteExeption {
         return new ControladorAlta();
     }
-    
-    //public IControladorUsuario getIControladorUsuario() {
-      //  return new ControladorUsuario();
-    //}
-
-	//public IControladorAlta getIControladorAlta() {
-//		return null;
-//	}
     
     public IControladorConsulta getIControladorConsulta() {
        return new ControladorConsulta();

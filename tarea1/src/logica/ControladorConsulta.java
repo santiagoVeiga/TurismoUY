@@ -1,4 +1,6 @@
 package logica;
+import excepciones.DepartamentoNoExisteException;
+import manejadores.ManejadorDepartamentos;
 import manejadores.ManejadorUsuario;
 
 public class ControladorConsulta implements IControladorConsulta {
@@ -9,6 +11,14 @@ public class ControladorConsulta implements IControladorConsulta {
 		return  mu.getUsuarios();
 	}
 
-    
+    public DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException{
+    	ManejadorDepartamentos md = ManejadorDepartamentos.getInstance();
+    	DataDepartamento[] res = md.obtenerDataDepartamentos();
+    	if (res == null) {
+    		throw new DepartamentoNoExisteException("No existen departamentos");
+    	} else {
+    	return res;
+    	}
+    }
     
 }
