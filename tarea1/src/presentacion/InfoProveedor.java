@@ -7,9 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import excepciones.UsuarioNoExisteException;
 import logica.DataActividad;
 import logica.DataProveedor;
 import logica.DataSalida;
+import logica.DataUsuario;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -23,6 +25,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
 public class InfoProveedor extends JFrame {
@@ -216,7 +219,7 @@ public class InfoProveedor extends JFrame {
         }
 		
 		
-		JComboBox comboBox = new JComboBox<DataActividad>(usuarios);
+		JComboBox<DataActividad> comboBox = new JComboBox<DataActividad>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 4;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -225,7 +228,11 @@ public class InfoProveedor extends JFrame {
 		gbc_comboBox.gridy = 8;
 		contentPane.add(comboBox, gbc_comboBox);
 		
-		JButton btnNewButton = new JButton("Info. Salida");
+		DefaultComboBoxModel<DataActividad> model;
+        model = new DefaultComboBoxModel<DataActividad>(usuarios);
+        comboBox.setModel(model);
+		
+		JButton btnNewButton = new JButton("Info. Actividad");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 7;
@@ -235,6 +242,8 @@ public class InfoProveedor extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	int i = comboBox.getSelectedIndex();
+            	InfoActividades ia = new InfoActividades(usuarios[i]);
+            	ia.setVisible(true);
             	setVisible(false);
             }
         });

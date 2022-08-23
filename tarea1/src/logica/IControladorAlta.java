@@ -5,6 +5,7 @@ import java.util.Date;
 
 import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoYaExisteExeption;
+
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 

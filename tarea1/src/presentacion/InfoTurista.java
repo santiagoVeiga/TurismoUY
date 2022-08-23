@@ -195,7 +195,7 @@ public class InfoTurista extends JFrame {
         	usuarios[i] = (DataSalida) o[i];
         }
 
-		JComboBox comboBox = new JComboBox<DataSalida>(usuarios);
+		JComboBox<DataSalida> comboBox = new JComboBox<DataSalida>(usuarios);
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 4;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -217,7 +217,6 @@ public class InfoTurista extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	int i = comboBox.getSelectedIndex();
-            	Set<DataSalida> DS = DT.getDataSalidas();
             	InfoSalida is = new InfoSalida(usuarios[i]);
             	is.setVisible(true);
             }
@@ -233,7 +232,6 @@ public class InfoTurista extends JFrame {
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	int i = comboBox.getSelectedIndex();
             	setVisible(false);
             }
         });

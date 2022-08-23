@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import logica.DataActividad;
+import logica.DataSalida;
 import logica.DataTurista;
 
 import java.awt.GridBagLayout;
@@ -15,9 +17,14 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
 public class InfoActividades extends JFrame {
@@ -38,7 +45,10 @@ public class InfoActividades extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InfoActividades(DataTurista DT) {
+	public InfoActividades(DataActividad DT) {
+		
+		if(DT!=null)
+			setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -68,7 +78,7 @@ public class InfoActividades extends JFrame {
 		gbc_lblNewLabel_1.gridy = 1;
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField = new JTextField();
+		textField = new JTextField(DT.getCosto());
 		textField.setEditable(false);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 4;
@@ -88,7 +98,7 @@ public class InfoActividades extends JFrame {
 		gbc_lblNewLabel_1_1.gridy = 2;
 		contentPane.add(lblNewLabel_1_1, gbc_lblNewLabel_1_1);
 		
-		textField_1 = new JTextField();
+		textField_1 = new JTextField(DT.getNombre());
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
@@ -107,7 +117,7 @@ public class InfoActividades extends JFrame {
 		gbc_lblNewLabel_1_2.gridy = 3;
 		contentPane.add(lblNewLabel_1_2, gbc_lblNewLabel_1_2);
 		
-		textField_2 = new JTextField();
+		textField_2 = new JTextField(DT.getDuracion());
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
@@ -126,7 +136,7 @@ public class InfoActividades extends JFrame {
 		gbc_lblNewLabel_1_3.gridy = 4;
 		contentPane.add(lblNewLabel_1_3, gbc_lblNewLabel_1_3);
 		
-		textField_3 = new JTextField();
+		textField_3 = new JTextField(DT.getFechaAlta().getDay() +"/"+ DT.getFechaAlta().getMonth() + "/"+DT.getFechaAlta().getYear());
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
@@ -145,7 +155,7 @@ public class InfoActividades extends JFrame {
 		gbc_lblNewLabel_1_3_1.gridy = 5;
 		contentPane.add(lblNewLabel_1_3_1, gbc_lblNewLabel_1_3_1);
 		
-		textField_4 = new JTextField();
+		textField_4 = new JTextField(DT.getCiudad());
 		textField_4.setEditable(false);
 		textField_4.setColumns(10);
 		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
@@ -163,7 +173,7 @@ public class InfoActividades extends JFrame {
 		gbc_lblNewLabel_1_3_1_1.gridy = 6;
 		contentPane.add(lblNewLabel_1_3_1_1, gbc_lblNewLabel_1_3_1_1);
 		
-		textField_5 = new JTextField();
+		textField_5 = new JTextField(DT.getDescripcion());
 		textField_5.setEditable(false);
 		textField_5.setColumns(10);
 		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
@@ -182,7 +192,13 @@ public class InfoActividades extends JFrame {
 		gbc_lblNewLabel_1_3_2_1.gridy = 7;
 		contentPane.add(lblNewLabel_1_3_2_1, gbc_lblNewLabel_1_3_2_1);
 		
-		JComboBox comboBox = new JComboBox();
+		Object[] o = DT.getSalidas().toArray();
+        DataSalida[] usuarios = new DataSalida[o.length];
+        for (int i = 0; i < o.length; i++) {
+        	usuarios[i] = (DataSalida) o[i];
+        }
+		
+		JComboBox<DataSalida> comboBox = new JComboBox<DataSalida>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 4;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -191,12 +207,25 @@ public class InfoActividades extends JFrame {
 		gbc_comboBox.gridy = 7;
 		contentPane.add(comboBox, gbc_comboBox);
 		
+		ComboBoxModel<DataSalida> model;
+        model = new DefaultComboBoxModel<DataSalida>(usuarios);
+        comboBox.setModel(model);
+		
 		JButton btnNewButton = new JButton("Info. Salida");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.gridx = 6;
 		gbc_btnNewButton.gridy = 8;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
+		
+		btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	int i = comboBox.getSelectedIndex();
+            	InfoSalida is = new InfoSalida(usuarios[i]);
+            	is.setVisible(true);
+            }
+        });
+		
 		
 		JButton btnNewButton_1 = new JButton("Salir");
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
@@ -207,5 +236,4 @@ public class InfoActividades extends JFrame {
 		
 		
 	}
-
 }

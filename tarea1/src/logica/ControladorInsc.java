@@ -11,11 +11,6 @@ import manejadores.ManejadorDepartamentos;
 import manejadores.ManejadorUsuario;
 
 public class ControladorInsc implements IControladorInsc {
-	
-	public ControladorInsc() {
-		
-	}
-	
 	public Set<DataActividad> selecDepartamento(String dep){
 		ManejadorDepartamentos m = ManejadorDepartamentos.getInstance();
 		Departamento d = m.getDepartamento(dep);

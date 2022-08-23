@@ -1,7 +1,10 @@
 package logica;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+import java.util.Map.Entry;
 
 public class DataActividad {
 	public DataActividad() {
@@ -40,6 +43,10 @@ public class DataActividad {
     public String getNombre() {
     	return this.nombre;
     }
+    
+    public Set<DataSalida> getSalidas() {
+		return DS;
+	}
 	
 	public String getDescripcion() {
 		return this.descripcion;

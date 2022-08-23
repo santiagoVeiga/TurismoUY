@@ -18,6 +18,7 @@ import logica.IControladorInsc;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JInternalFrame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -29,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
 import javax.swing.DefaultComboBoxModel;
+
 
 
 public class Principal {
@@ -78,7 +80,6 @@ public class Principal {
         // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
         // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
         creUsrInternalFrame = new CrearUsuario(ICA);
-        creUsrInternalFrame.setLocation(296, 36);
         creUsrInternalFrame.setVisible(false);
 
         //conUsrInternalFrame = new ConsultarUsuario(ICU);
@@ -121,7 +122,7 @@ public class Principal {
         // Se crea el Frame con las dimensiones indicadas.
         frmGestionDeUsuarios = new JFrame();
         frmGestionDeUsuarios.setTitle("Gestion de Usuarios 1.0");
-        frmGestionDeUsuarios.setBounds(100, 100, 956, 472);
+        frmGestionDeUsuarios.setBounds(100, 100, 450, 400);
         frmGestionDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Se crea una barra de menú (JMenuBar) con dos menú (JMenu) desplegables.
@@ -194,7 +195,7 @@ public class Principal {
         });
         menuActividad.add(menuItemRegistrarActividad);
         
-        /*JMenuItem menuItemConsultaActividad = new JMenuItem("Consulta Actividad");
+        JMenuItem menuItemConsultaActividad = new JMenuItem("Consulta Actividad");
         menuItemConsultaActividad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 conActInternalFrame.setVisible(true);

@@ -25,10 +25,6 @@ public class Fabrica {
     public IControladorAlta getIControladorAlta() throws DepartamentoYaExisteExeption {
         return new ControladorAlta();
     }
-
-	public IControladorInsc getIControladorInsc() {
-		return new ControladorInsc();
-	}
     
     public IControladorConsulta getIControladorConsulta() {
        return new ControladorConsulta();
