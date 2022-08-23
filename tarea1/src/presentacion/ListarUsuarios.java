@@ -139,6 +139,7 @@ public class ListarUsuarios extends JInternalFrame {
             // No se imprime mensaje de error sino que simplemente no se muestra ningún elemento
         	ErrorUsuario EU = new ErrorUsuario();
         	EU.setVisible(true);
+        	setVisible(false);
         }
 
     }

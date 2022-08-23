@@ -232,7 +232,7 @@ public class InfoProveedor extends JFrame {
         model = new DefaultComboBoxModel<DataActividad>(usuarios);
         comboBox.setModel(model);
 		
-		JButton btnNewButton = new JButton("Info. Salida");
+		JButton btnNewButton = new JButton("Info. Actividad");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 7;

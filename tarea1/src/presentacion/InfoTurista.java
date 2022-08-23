@@ -195,7 +195,7 @@ public class InfoTurista extends JFrame {
         	usuarios[i] = (DataSalida) o[i];
         }
 
-		JComboBox comboBox = new JComboBox<DataSalida>(usuarios);
+		JComboBox<DataSalida> comboBox = new JComboBox<DataSalida>(usuarios);
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 4;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);

@@ -146,7 +146,6 @@ public class Principal {
                 // cargando previamente la lista
                 
 			    lisUsrInternalFrame.cargarUsuarios();
-                lisUsrInternalFrame.setVisible(true);
             }
         });
         menuUsuarios.add(mntmListaUsuarios);
