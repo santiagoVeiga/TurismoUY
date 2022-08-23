@@ -217,7 +217,6 @@ public class InfoTurista extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	int i = comboBox.getSelectedIndex();
-            	Set<DataSalida> DS = DT.getDataSalidas();
             	InfoSalida is = new InfoSalida(usuarios[i]);
             	is.setVisible(true);
             }
@@ -233,7 +232,6 @@ public class InfoTurista extends JFrame {
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	int i = comboBox.getSelectedIndex();
             	setVisible(false);
             }
         });

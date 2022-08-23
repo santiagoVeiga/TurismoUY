@@ -31,7 +31,6 @@ import javax.swing.JInternalFrame;
 
 import excepciones.UsuarioNoExisteException;
 import logica.DataUsuario;
-import logica.IControladorUsuario;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
@@ -60,10 +59,13 @@ public class ListarUsuarios extends JInternalFrame {
     public ListarUsuarios(IControladorConsulta ICC) {
         // Se inicializa con el controlador de usuarios
         controlUsr = ICC;
-        
         // Propiedades del JInternalFrame como dimensión, posición dentro del frame, etc.
         setResizable(true);
+        setIconifiable(true);
+        setMaximizable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setClosable(true);
+        
         
         setTitle("Consultar un Usuario");
         setBounds(30, 30, 300, 100);
@@ -93,7 +95,7 @@ public class ListarUsuarios extends JInternalFrame {
                 setVisible(false);
                 if(DU2[i] instanceof DataTurista)
                 {
-                	InfoActividades it = new InfoActividades((DataTurista) DU2[i]);
+                	InfoTurista it = new InfoTurista((DataTurista) DU2[i]);
                 	it.setVisible(true);
                 }else if(DU2[i] instanceof DataProveedor)
                 {
@@ -112,7 +114,7 @@ public class ListarUsuarios extends JInternalFrame {
     
     
     
-    public void cargarUsuarios() throws UsuarioNoExisteException {
+    public void cargarUsuarios(){
         
         setVisible(false);
         try {
@@ -132,7 +134,7 @@ public class ListarUsuarios extends JInternalFrame {
         	DU2 = DU;
             model = new DefaultComboBoxModel<String>(nomUsuarios);
             comboBoxUsuarios.setModel(model);
-            LU.setVisible(true);
+            setVisible(true);
         } catch (NullPointerException e) {
             // No se imprime mensaje de error sino que simplemente no se muestra ningún elemento
         	ErrorUsuario EU = new ErrorUsuario();

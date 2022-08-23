@@ -64,7 +64,7 @@ public class Principal {
 
         lisUsrInternalFrame = new ListarUsuarios(ICC);
         lisUsrInternalFrame.setVisible(false);
-        frmGestionDeUsuarios.getContentPane().setLayout(null);
+        //frmGestionDeUsuarios.getContentPane().setLayout(null);
 
         //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
         //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
@@ -81,7 +81,7 @@ public class Principal {
         //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
-        //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
     }
 
     /**
@@ -142,11 +142,8 @@ public class Principal {
             public void actionPerformed(ActionEvent e) {
                 // Muestro el InternalFrame para ver la lista de todos los usuarios,
                 // cargando previamente la lista
-                try {
-					lisUsrInternalFrame.cargarUsuarios();
-				} catch (UsuarioNoExisteException e1) {
-					e1.printStackTrace();
-				}
+                
+			    lisUsrInternalFrame.cargarUsuarios();
                 lisUsrInternalFrame.setVisible(true);
             }
         });
