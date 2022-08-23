@@ -1,7 +1,9 @@
 package presentacion;
 
 import java.awt.EventQueue;
+import java.awt.Window;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -10,10 +12,20 @@ import excepciones.UsuarioNoExisteException;
 import logica.Fabrica;
 import logica.IControladorAlta;
 import logica.IControladorConsulta;
+import logica.IControladorInsc;
 
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JInternalFrame;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JToolBar;
+import javax.swing.DefaultComboBoxModel;
 
 
 public class Principal {
@@ -21,11 +33,13 @@ public class Principal {
     private JFrame frmGestionDeUsuarios;
     private IControladorConsulta ICC;
     private IControladorAlta ICA;
+    private IControladorInsc ICI;
     private CrearUsuario creUsrInternalFrame;
     private ConsultarUsuario conUsrInternalFrame;
     private ListarUsuarios lisUsrInternalFrame;
     private CrearActividad creActInternalFrame;
     private CrearActividad conActInternalFrame;
+    private Inscribir insInternalFrame;
 
     /**
      * Launch the application.
@@ -53,10 +67,13 @@ public class Principal {
         Fabrica fabrica = Fabrica.getInstance();
         ICA = fabrica.getIControladorAlta();
         ICC = fabrica.getIControladorConsulta();
+
+        ICI = fabrica.getIControladorInsc();
         // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
         // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
         // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
         creUsrInternalFrame = new CrearUsuario(ICA);
+        creUsrInternalFrame.setLocation(296, 36);
         creUsrInternalFrame.setVisible(false);
 
         //conUsrInternalFrame = new ConsultarUsuario(ICU);
@@ -81,7 +98,14 @@ public class Principal {
         //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
-        //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
+        
+        /* Inscripcion */
+        
+        insInternalFrame = new Inscribir(ICI);
+        insInternalFrame.setVisible(false);
+        frmGestionDeUsuarios.getContentPane().add(insInternalFrame);
+        insInternalFrame.setLocation(10, 30);
+        
     }
 
     /**
@@ -92,7 +116,7 @@ public class Principal {
         // Se crea el Frame con las dimensiones indicadas.
         frmGestionDeUsuarios = new JFrame();
         frmGestionDeUsuarios.setTitle("Gestion de Usuarios 1.0");
-        frmGestionDeUsuarios.setBounds(100, 100, 450, 400);
+        frmGestionDeUsuarios.setBounds(100, 100, 956, 472);
         frmGestionDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Se crea una barra de menú (JMenuBar) con dos menú (JMenu) desplegables.
@@ -171,6 +195,21 @@ public class Principal {
                 conActInternalFrame.setVisible(true);
             }
         });
-        menuActividad.add(menuItemConsultaActividad);*/
+
+        menuActividad.add(menuItemConsultaActividad);
+        
+        /* Inscripcion */
+        
+        JMenu mnInscripcion = new JMenu("Inscripcion");
+        menuBar.add(mnInscripcion);
+        
+        JMenuItem mntmInscribirTuristaA = new JMenuItem("Inscribir turista a salida");
+        mntmInscribirTuristaA.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		insInternalFrame.setVisible(true);
+        	}
+        });
+        mnInscripcion.add(mntmInscribirTuristaA);
+    
     }
 }
