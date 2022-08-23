@@ -23,6 +23,10 @@ public class Fabrica {
     public IControladorAlta getIControladorAlta() {
         return new ControladorAlta();
     }
+
+	public IControladorInsc getIControladorInsc() {
+		return new ControladorInsc();
+	}
     
 //    public IControladorConsulta getIControladorConsulta() {
 //        return new ControladorConsulta();
