@@ -1,8 +1,9 @@
 package logica;
 
-import manejadores.ManejadorUsuario;
+import excepciones.DepartamentoNoExisteException;
 
 public interface IControladorConsulta {
-
-	public DataUsuario[] listarUsuarios();
+	public abstract DataUsuario[] listarUsuarios();
+	public abstract DataUsuario ingresarDatos(String ci);
+	public abstract DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException;
 }

@@ -14,7 +14,6 @@ import logica.Fabrica;
 import logica.IControladorAlta;
 import logica.IControladorConsulta;
 import logica.IControladorInsc;
-
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,7 +42,7 @@ public class Principal {
     private ConsultarUsuario conUsrInternalFrame;
     private ListarUsuarios lisUsrInternalFrame;
     private CrearActividad creActInternalFrame;
-    private CrearActividad conActInternalFrame;
+    private ConsultarActividad conActInternalFrame;
     private Inscribir insInternalFrame;
 
     /**
@@ -85,9 +84,9 @@ public class Principal {
         //conUsrInternalFrame = new ConsultarUsuario(ICU);
         //conUsrInternalFrame.setVisible(false);
 
-        lisUsrInternalFrame = new ListarUsuarios(ICC);
-        lisUsrInternalFrame.setVisible(false);
-        frmGestionDeUsuarios.getContentPane().setLayout(null);
+        //lisUsrInternalFrame = new ListarUsuarios(ICC);
+        //lisUsrInternalFrame.setVisible(false);
+        
 
         //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
         //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
@@ -97,20 +96,22 @@ public class Principal {
         creActInternalFrame = new CrearActividad(ICA);
         creActInternalFrame.setVisible(false);
 
-        //conActInternalFrame = new ConsultarActividad(ICU);
-        //conActInternalFrame.setVisible(false);
+        conActInternalFrame = new ConsultarActividad(ICC);
+        conActInternalFrame.setVisible(false);
 
         
-        //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
         
         /* Inscripcion */
         
         insInternalFrame = new Inscribir(ICI);
         insInternalFrame.setVisible(false);
-        frmGestionDeUsuarios.getContentPane().add(insInternalFrame);
         insInternalFrame.setLocation(10, 30);
+        
+        frmGestionDeUsuarios.getContentPane().setLayout(null);
+        frmGestionDeUsuarios.getContentPane().add(insInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(conActInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
         
     }
 
@@ -198,10 +199,10 @@ public class Principal {
         JMenuItem menuItemConsultaActividad = new JMenuItem("Consulta Actividad");
         menuItemConsultaActividad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	conActInternalFrame.cargarDepartamentos();
                 conActInternalFrame.setVisible(true);
             }
         });
-
         menuActividad.add(menuItemConsultaActividad);
         
         /* Inscripcion */

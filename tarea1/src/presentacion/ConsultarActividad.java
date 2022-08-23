@@ -2,7 +2,9 @@ package presentacion;
 
 import javax.swing.JInternalFrame;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.DepartamentoNoExisteException;
+import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.IControladorConsulta;
 
@@ -15,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 
 /**
@@ -29,8 +33,11 @@ public class ConsultarActividad extends JInternalFrame {
     private IControladorConsulta controlCons;
     private JButton btnBuscar;
     private JButton btnCerrar;
-    private JComboBox<DataDepartamento> jcbDepartamentos;
-    private DataDepartamento[] DD2;
+    private JComboBox<String> jcbDepartamentos;
+    private JComboBox<DataActividad> jcbActividades;
+    private DataDepartamento[] DD;
+    private DataActividad[] DA;
+    private JLabel Actividades;
 
     /**
      * Create the frame.
@@ -45,16 +52,45 @@ public class ConsultarActividad extends JInternalFrame {
         setMaximizable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
-        setTitle("Consultar un Usuario");
+        setTitle("Consultar una Actividad");
         setBounds(30, 30, 400, 280);
 
         // En este caso usaremos el Absolute Layout y deberemos indicar
         // la posición absoluta de todos los componentes
         getContentPane().setLayout(null);
 
-        jcbDepartamentos = new JComboBox<DataDepartamento>();
-        jcbDepartamentos.setBounds(59, 12, 160, 24);
+        JLabel Departamento = new JLabel("Departamento: ");
+        Departamento.setSize(125, 32);
+        Departamento.setLocation(40, 12);
+		GridBagConstraints gbc_Departamento = new GridBagConstraints();
+		gbc_Departamento.anchor = GridBagConstraints.EAST;
+		gbc_Departamento.insets = new Insets(2, 2, 5, 5);
+		getContentPane().add(Departamento, gbc_Departamento);
+        
+        jcbDepartamentos = new JComboBox<String>();
+        jcbDepartamentos.setBounds(183, 16, 160, 24);
         getContentPane().add(jcbDepartamentos);
+        jcbDepartamentos.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e) {
+        		Actividades.setVisible(true);
+        		jcbActividades.setVisible(true);
+        		cargarActividades();
+        	}
+        });
+        
+        Actividades = new JLabel("Actividades: ");
+        Actividades.setSize(125, 32);
+        Actividades.setLocation(40, 50);
+		GridBagConstraints gbc_Actividades = new GridBagConstraints();
+		gbc_Actividades.anchor = GridBagConstraints.EAST;
+		gbc_Actividades.insets = new Insets(2, 2, 5, 5);
+		getContentPane().add(Actividades, gbc_Actividades);
+		Actividades.setVisible(false);
+		
+        jcbActividades = new JComboBox<DataActividad>();
+        jcbActividades.setBounds(183, 54, 160, 24);
+        getContentPane().add(jcbActividades);
+        jcbActividades.setVisible(false);
         
         // Un botón (JButton) con un evento asociado que permite buscar un usuario.
         // Dado que el código de registro tiene cierta complejidad, conviene delegarlo
@@ -74,7 +110,7 @@ public class ConsultarActividad extends JInternalFrame {
         btnCerrar = new JButton("Cerrar");
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                limpiarFormulario();
+                jcbDepartamentos.removeAllItems();
                 setVisible(false);
             }
         });
@@ -83,14 +119,36 @@ public class ConsultarActividad extends JInternalFrame {
     }
 
 public void cargarDepartamentos(){
-    	DefaultComboBoxModel<DataDepartamento> model;
+    	DefaultComboBoxModel<String> model;
     	try {
-    	model = new DefaultComboBoxModel<DataDepartamento>(controlCons.obtenerDataDepartamentos());
-        jcbDepartamentos.setModel(model);
-    	} catch (DepartamentoNoExisteException e) {
-    		
+    		DD = controlCons.obtenerDataDepartamentos();
+    		String[] DepartamentosNombres = new String[DD.length];
+    		for (int i = 0; i < DD.length;i++) {
+    			DepartamentosNombres[i] = DD[i].getNombre();
+    		}
+	    	model = new DefaultComboBoxModel<String>(DepartamentosNombres);
+	        jcbDepartamentos.setModel(model);
+	    } catch (DepartamentoNoExisteException e) {
     	}
     }
+
+public void cargarActividades(){
+	DefaultComboBoxModel<DataActividad> model;
+	try {
+		String aux = (String) jcbDepartamentos.getSelectedItem();
+		int i = 0;
+		while (i<DD.length && DD[i].getNombre() != aux) {
+			i++;
+		}
+		DA = null;
+		if (DA == null) {
+			throw new ActividadNoExisteException("No hay actividades asociadas a dicho Departamento");
+		}
+    	model = new DefaultComboBoxModel<DataActividad>(DA);
+        jcbActividades.setModel(model);
+    } catch (ActividadNoExisteException e) {
+	}
+}
 
     
     // Este método es invocado al querer buscar un usuario, funcionalidad
