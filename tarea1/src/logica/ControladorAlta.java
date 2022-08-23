@@ -3,9 +3,12 @@ package logica;
 import java.util.Date;
 
 import excepciones.ActividadRepetidaException;
+import excepciones.DepartamentoYaExisteExeption;
+import excepciones.SalidaYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import manejadores.ManejadorActividad;
+import manejadores.ManejadorDepartamentos;
 import manejadores.ManejadorUsuario;
 
 /**
@@ -15,7 +18,8 @@ import manejadores.ManejadorUsuario;
  */
 public class ControladorAlta implements IControladorAlta {
 
-    public ControladorAlta() {
+    public ControladorAlta() throws DepartamentoYaExisteExeption{
+    	confirmarAltaDepartamento("Canelones","","");
     }
 
     public void confirmarAltaTurista(String nick, String nom , String ap, String mail ,Date nacimiento ,String nacionalidad) throws UsuarioRepetidoException {
@@ -83,7 +87,7 @@ public class ControladorAlta implements IControladorAlta {
 
 
     public void confirmarAltaDepartamento(String nombre, String descripcion, String URL) throws DepartamentoYaExisteExeption {
-        ManejadorDepartamento md = ManejadorDepartamento.getinstance();
+        ManejadorDepartamentos md = ManejadorDepartamentos.getInstance();
 
         Departamento deptoprueba = md.getDepartamento(nombre);
         if (deptoprueba != null)

@@ -1,13 +1,21 @@
 package manejadores;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
+
+import logica.DataDepartamento;
 import logica.Departamento;
+import logica.Usuario;
 
 public class ManejadorDepartamentos {
 	
 	private static ManejadorDepartamentos instancia = null;
 	
 	private Map<String,Departamento> colDep;
+	
+	private ManejadorDepartamentos() {
+		colDep = new HashMap<String, Departamento>();
+	}
 	
 	public static ManejadorDepartamentos getInstance() {
         if (instancia == null) {
@@ -26,17 +34,17 @@ public class ManejadorDepartamentos {
         colDep.put(ci, usu);
     }
 
-    public Departamento[] getDepartamentos() {
+    public DataDepartamento[] obtenerDataDepartamentos() {
         if (colDep.isEmpty())
             return null;
         else {
-            Collection<Departamento> usrs = colDep.values();
-            Object[] o = usrs.toArray();
-            Departamento[] usuarios = new Departamento[o.length];
+            Collection<Departamento> dep = colDep.values();
+            Object[] o = dep.toArray();
+            DataDepartamento[] dataDep = new DataDepartamento[o.length];
             for (int i = 0; i < o.length; i++) {
-                usuarios[i] = (Departamento) o[i];
+                dataDep[i] = ((Departamento) o[i]).obtenerDataDepartamento();
             }
-            return usuarios;
+            return dataDep;
         }
     }
 }

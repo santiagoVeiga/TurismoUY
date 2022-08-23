@@ -8,6 +8,7 @@ import javax.swing.JMenuItem;
 
 import logica.Fabrica;
 import logica.IControladorAlta;
+import logica.IControladorConsulta;
 
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
@@ -18,11 +19,12 @@ public class Principal {
 
     private JFrame frmGestionDeUsuarios;
     private IControladorAlta ICA;
+    private IControladorConsulta ICC;
     private CrearUsuario creUsrInternalFrame;
     private ConsultarUsuario conUsrInternalFrame;
     private ListaUsuarios lisUsrInternalFrame;
     private CrearActividad creActInternalFrame;
-    private CrearActividad conActInternalFrame;
+    private ConsultarActividad conActInternalFrame;
 
     /**
      * Launch the application.
@@ -49,6 +51,7 @@ public class Principal {
      // Inicialización
         Fabrica fabrica = Fabrica.getInstance();
         ICA = fabrica.getIControladorAlta();
+        ICC = fabrica.getIControladorConsulta();
         
         // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
         // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
@@ -56,13 +59,12 @@ public class Principal {
         creUsrInternalFrame = new CrearUsuario(ICA);
         creUsrInternalFrame.setVisible(false);
 
-        //conUsrInternalFrame = new ConsultarUsuario(ICU);
+        //conUsrInternalFrame = new ConsultarUsuario(ICC);
         //conUsrInternalFrame.setVisible(false);
 
         //lisUsrInternalFrame = new ListaUsuarios(ICU);
         //lisUsrInternalFrame.setVisible(false);
-        frmGestionDeUsuarios.getContentPane().setLayout(null);
-
+        
         //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
         //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
         
@@ -71,12 +73,12 @@ public class Principal {
         creActInternalFrame = new CrearActividad(ICA);
         creActInternalFrame.setVisible(false);
 
-        //conActInternalFrame = new ConsultarActividad(ICU);
-        //conActInternalFrame.setVisible(false);
+        conActInternalFrame = new ConsultarActividad(ICC);
+        conActInternalFrame.setVisible(false);
 
-        
-        //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
+        frmGestionDeUsuarios.getContentPane().setLayout(null);
         frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(conActInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
         //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
     }
@@ -161,6 +163,7 @@ public class Principal {
         JMenuItem menuItemConsultaActividad = new JMenuItem("Consulta Actividad");
         menuItemConsultaActividad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	conActInternalFrame.cargarDepartamentos();
                 conActInternalFrame.setVisible(true);
             }
         });
