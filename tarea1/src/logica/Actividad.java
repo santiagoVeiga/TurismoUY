@@ -37,6 +37,7 @@ public class Actividad {
 		this.costo = costo;
 		this.duracion = dur;
 		this.departamento = dep;
+		this.colpaq = null;
 	}
 	
 	//Getters
@@ -114,14 +115,16 @@ public class Actividad {
 		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion,this.getSalidas(),this.getPaquetes());
 	}
 	
-	public Set<DataPaquete> getPaquetes()
-	{
-		Set<DataPaquete> res = new HashSet<DataPaquete>();
-		Set<Entry<String, Paquete>> aux = colpaq.entrySet();
-    	Iterator<Entry<String, Paquete>> it = aux.iterator();
-    	while(it.hasNext()){
-    			res.add(it.next().getValue().getDataP());
-    	}
+	public Set<DataPaquete> getPaquetes(){	
+		Set<DataPaquete> res = null;
+		if(colpaq != null) {
+			res = new HashSet<DataPaquete>();
+			Set<Entry<String, Paquete>> aux = colpaq.entrySet();
+	    	Iterator<Entry<String, Paquete>> it = aux.iterator();
+	    	while(it.hasNext()){
+	    			res.add(it.next().getValue().getDataP());
+	    	}
+		}
 		return res;
 	}
 

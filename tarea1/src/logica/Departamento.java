@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -50,12 +51,14 @@ public class Departamento {
 	}
 	
 	public Set<DataActividad> getActividades() {
-		Set<DataActividad> res = null;
-		Set<Entry<String, Actividad>> aux = colAct.entrySet();
-    	Iterator<Entry<String, Actividad>> it = aux.iterator();
-    	while(it.hasNext()){
-    		res.add(it.next().getValue().getDataAT());
-    	}
+		Set<DataActividad> res = new HashSet<DataActividad>();
+		if (!colAct.isEmpty()) {
+			Set<Entry<String, Actividad>> aux = colAct.entrySet();
+	    	Iterator<Entry<String, Actividad>> it = aux.iterator();
+	    	while(it.hasNext()){
+	    		res.add(it.next().getValue().getDataAT());
+	    	}
+		}
 		return res;
 	}
 	
