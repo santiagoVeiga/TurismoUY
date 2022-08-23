@@ -63,4 +63,8 @@ public class Departamento {
 		DataDepartamento res = new DataDepartamento(this.nombre, this.descripcion,this.url,this.getActividades());
 		return res;
 	}
+	
+	public void agregarActividad(Actividad act) {
+		colAct.put(act.getNombre(),act);
+	}
 }

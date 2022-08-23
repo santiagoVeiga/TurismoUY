@@ -81,16 +81,13 @@ public class Principal {
         creUsrInternalFrame = new CrearUsuario(ICA);
         creUsrInternalFrame.setVisible(false);
 
-        //conUsrInternalFrame = new ConsultarUsuario(ICU);
-        //conUsrInternalFrame.setVisible(false);
+        conUsrInternalFrame = new ConsultarUsuario(ICC);
+        conUsrInternalFrame.setVisible(false);
 
-        //lisUsrInternalFrame = new ListarUsuarios(ICC);
-        //lisUsrInternalFrame.setVisible(false);
+        lisUsrInternalFrame = new ListarUsuarios(ICC);
+        lisUsrInternalFrame.setVisible(false);
         
 
-        //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
-        //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
-        
         //****** ACTIVIDAD *********/
 
         creActInternalFrame = new CrearActividad(ICA);
@@ -112,6 +109,9 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().add(conActInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
+        
         
     }
 
@@ -185,7 +185,8 @@ public class Principal {
         JMenuItem menuItemRegistrarActividad = new JMenuItem("Registrar Actividad");
         menuItemRegistrarActividad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                creActInternalFrame.setVisible(true);
+                creActInternalFrame.cargarDepartamentos();
+            	creActInternalFrame.setVisible(true);
             }
         });
         menuActividad.add(menuItemRegistrarActividad);
