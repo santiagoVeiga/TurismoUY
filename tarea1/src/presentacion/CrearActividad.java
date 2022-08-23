@@ -3,6 +3,8 @@ package presentacion;
 import javax.swing.JInternalFrame;
 
 import excepciones.ActividadRepetidaException;
+import excepciones.DepartamentoNoExisteException;
+import logica.DataDepartamento;
 import logica.Departamento;
 import logica.IControladorAlta;
 
@@ -26,6 +28,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JToggleButton;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import javax.swing.SpringLayout;
@@ -45,7 +48,8 @@ public class CrearActividad extends JInternalFrame {
 	private JTextField duracionTextField;
 	private JTextField ciudadTextField;
     private JCalendar calendario;
-    private JComboBox departamentoComboBox;
+    private JComboBox<String> departamentoComboBox;
+    private DataDepartamento[] DD;
 
 	public CrearActividad(IControladorAlta ica) {
 		
@@ -160,7 +164,7 @@ public class CrearActividad extends JInternalFrame {
 		gbc_departamento.gridy = 4;
 		getContentPane().add(departamento, gbc_departamento);
 		
-		departamentoComboBox = new JComboBox<Departamento>();
+		departamentoComboBox = new JComboBox<String>();
 		GridBagConstraints gbc_departamentoComboBox = new GridBagConstraints();
 		gbc_departamentoComboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_departamentoComboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -225,7 +229,7 @@ public class CrearActividad extends JInternalFrame {
         String duracionAct = this.duracionTextField.getText();
         Date fechaAct = calendario.getDate();
         String ciudadAct = this.ciudadTextField.getText();
-        Departamento departamentoAct = (Departamento)departamentoComboBox.getSelectedItem();
+        String departamentoAct = (String)departamentoComboBox.getSelectedItem();
         
         if (checkFormulario()) {
             try {
@@ -272,6 +276,20 @@ public class CrearActividad extends JInternalFrame {
         return true;
     }
 
+    public void cargarDepartamentos(){
+    	DefaultComboBoxModel<String> model;
+    	try {
+    		DD = controlAlta.obtenerDataDepartamentos();
+    		String[] DepartamentosNombres = new String[DD.length];
+    		for (int i = 0; i < DD.length;i++) {
+    			DepartamentosNombres[i] = DD[i].getNombre();
+    		}
+	    	model = new DefaultComboBoxModel<String>(DepartamentosNombres);
+	    	departamentoComboBox.setModel(model);
+	    } catch (DepartamentoNoExisteException e) {
+    	}
+    }
+    
     private void limpiarFormulario() {
         nombreTextField.setText("");
         descripcionTextField.setText("");

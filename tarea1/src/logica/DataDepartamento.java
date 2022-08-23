@@ -15,7 +15,7 @@ public class DataDepartamento {
 		this.nombre = nombre ; 
 		this.descripcion = descripcion ; 
 		this.url = URL ; 
-		this.colAct = setAct;
+		this.setColAct(setAct);
 	}
 
 
@@ -45,5 +45,17 @@ public class DataDepartamento {
 
 	public String getUrl() {
 		return this.url;
+	}
+
+
+
+	public Set<DataActividad> getColAct() {
+		return colAct;
+	}
+
+
+
+	public void setColAct(Set<DataActividad> colAct) {
+		this.colAct = colAct;
 	}
 }

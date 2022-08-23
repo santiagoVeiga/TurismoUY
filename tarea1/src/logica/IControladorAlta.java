@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.Date;
 
 import excepciones.ActividadRepetidaException;
+import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 
 import excepciones.UsuarioNoExisteException;
@@ -27,7 +28,9 @@ public interface IControladorAlta {
 
     public abstract void confirmarAltaProveedor(String nick, String nom , String ap, String mail ,Date nacimiento ,String descripcion, String link, boolean hayLink) throws UsuarioRepetidoException;
     
-    public abstract void registrarActividad(Departamento dep, String nom , String desc,int dur, int costo, String ciudad ,Date f) throws ActividadRepetidaException;
+    public abstract DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException;
+    
+    public abstract void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f) throws ActividadRepetidaException;
 
     /**
      * Retorna la información de un usuario con la cédula indicada.

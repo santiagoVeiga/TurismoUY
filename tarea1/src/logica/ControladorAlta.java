@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import com.opencsv.CSVReader;
 
 import excepciones.ActividadRepetidaException;
+import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
@@ -71,7 +72,7 @@ public class ControladorAlta implements IControladorAlta {
 	      }
 	 }
 
-    public ControladorAlta() throws DepartamentoYaExisteExeption{
+    public ControladorAlta(){
     }
 
     public void confirmarAltaTurista(String nick, String nom , String ap, String mail ,Date nacimiento ,String nacionalidad) throws UsuarioRepetidoException {
@@ -98,13 +99,26 @@ public class ControladorAlta implements IControladorAlta {
         mu.addUsuario(u);
     }
     
-    public void registrarActividad(Departamento dep, String nom , String desc,int dur, int costo, String ciudad ,Date f) throws ActividadRepetidaException {
+    public void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f) throws ActividadRepetidaException {
     	ManejadorActividad mAct = ManejadorActividad.getInstance();
+    	ManejadorDepartamentos mDep = ManejadorDepartamentos.getInstance();
     	Actividad act = mAct.getActividad(nom);
         if (act != null)
-            throw new ActividadRepetidaException("Ya existe una actividad registrada con el nombre:  " + nom);        
-        act = new Actividad(nom, desc,f,ciudad, costo, dur, dep);
+            throw new ActividadRepetidaException("Ya existe una actividad registrada con el nombre:  " + nom);
+        Departamento insDep = mDep.getDepartamento(dep);
+        act = new Actividad(nom, desc,f,ciudad, costo, dur, insDep);
         mAct.addActividad(act);
+        insDep.agregarActividad(act);
+    }
+    
+    public DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException{
+    	ManejadorDepartamentos md = ManejadorDepartamentos.getInstance();
+    	DataDepartamento[] res = md.obtenerDataDepartamentos();
+    	if (res == null) {
+    		throw new DepartamentoNoExisteException("No existen departamentos");
+    	} else {
+    	return res;
+    	}
     }
     
     public DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException {

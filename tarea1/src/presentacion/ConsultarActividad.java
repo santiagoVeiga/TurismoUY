@@ -11,15 +11,22 @@ import logica.IControladorConsulta;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.Set;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import java.awt.Color;
+import java.awt.Font;
 
 /**
  * JInternalFrame que permite consultar la información de un usuario del sistema.
@@ -33,12 +40,23 @@ public class ConsultarActividad extends JInternalFrame {
     private IControladorConsulta controlCons;
     private JButton btnBuscar;
     private JButton btnCerrar;
+    private JButton btnSeleccionar;
     private JComboBox<String> jcbDepartamentos;
-    private JComboBox<DataActividad> jcbActividades;
+    private JComboBox<String> jcbActividades;
     private DataDepartamento[] DD;
-    private DataActividad[] DA;
     private JLabel Actividades;
-
+    private JLabel actNombre;
+    private JLabel actNombreR;
+    private JLabel actDesc;
+    private JTextArea actDescR;
+    private JLabel actCiudad;
+    private JLabel actCiudadR;
+    private JLabel actCosto;
+    private JLabel actCostoR;
+    private JLabel actDuracion;
+    private JLabel actDuracionR;
+    private Set<DataActividad> auxi;
+    private DataActividad actElegida;
     /**
      * Create the frame.
      */
@@ -53,7 +71,7 @@ public class ConsultarActividad extends JInternalFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
         setTitle("Consultar una Actividad");
-        setBounds(30, 30, 400, 280);
+        setBounds(30, 30, 504, 372);
 
         // En este caso usaremos el Absolute Layout y deberemos indicar
         // la posición absoluta de todos los componentes
@@ -68,55 +86,167 @@ public class ConsultarActividad extends JInternalFrame {
 		getContentPane().add(Departamento, gbc_Departamento);
         
         jcbDepartamentos = new JComboBox<String>();
-        jcbDepartamentos.setBounds(183, 16, 160, 24);
+        jcbDepartamentos.setBounds(253, 16, 160, 24);
         getContentPane().add(jcbDepartamentos);
         jcbDepartamentos.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
-        		Actividades.setVisible(true);
-        		jcbActividades.setVisible(true);
-        		cargarActividades();
+        		btnBuscar.setVisible(true);
         	}
         });
         
-        Actividades = new JLabel("Actividades: ");
+        
+    	Actividades = new JLabel("Actividades: ");
         Actividades.setSize(125, 32);
         Actividades.setLocation(40, 50);
-		GridBagConstraints gbc_Actividades = new GridBagConstraints();
-		gbc_Actividades.anchor = GridBagConstraints.EAST;
-		gbc_Actividades.insets = new Insets(2, 2, 5, 5);
-		getContentPane().add(Actividades, gbc_Actividades);
-		Actividades.setVisible(false);
-		
-        jcbActividades = new JComboBox<DataActividad>();
-        jcbActividades.setBounds(183, 54, 160, 24);
+    	GridBagConstraints gbc_Actividades = new GridBagConstraints();
+    	gbc_Actividades.anchor = GridBagConstraints.EAST;
+    	gbc_Actividades.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(Actividades, gbc_Actividades);
+    	Actividades.setVisible(false);
+    	
+        jcbActividades = new JComboBox<String>();
+        jcbActividades.setBounds(253, 54, 160, 24);
         getContentPane().add(jcbActividades);
+        jcbActividades.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e) {
+        		btnSeleccionar.setVisible(true);
+        	}
+        });
         jcbActividades.setVisible(false);
         
         // Un botón (JButton) con un evento asociado que permite buscar un usuario.
         // Dado que el código de registro tiene cierta complejidad, conviene delegarlo
         // a otro método en lugar de incluirlo directamente de el método actionPerformed 
-        /*
-        btnBuscar = new JButton("Buscar");
-        btnBuscar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cmdBuscarUsuarioActionPerformed(e);
-            }
-        });
-        btnBuscar.setBounds(160, 187, 95, 30);
-        getContentPane().add(btnBuscar);
-        */
+        
         // Un botón (JButton) con un evento asociado que permite cerrar el formulario (solo ocultarlo).
         // Dado que antes de cerrar se limpia el formulario, se invoca un método reutilizable para ello. 
         btnCerrar = new JButton("Cerrar");
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 jcbDepartamentos.removeAllItems();
+                btnBuscar.setVisible(false);
+                Actividades.setVisible(false);
+                jcbActividades.setVisible(false);
                 setVisible(false);
             }
         });
-        btnCerrar.setBounds(262, 191, 89, 23);
+        btnCerrar.setBounds(366, 305, 89, 23);
         getContentPane().add(btnCerrar);
-    }
+        
+        btnBuscar = new JButton("Buscar");
+        btnBuscar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	cargarActividades();
+            	Actividades.setVisible(true);
+                jcbActividades.setVisible(true);
+            }
+        });
+        btnBuscar.setBounds(38, 305, 89, 23);
+        getContentPane().add(btnBuscar);
+        btnBuscar.setVisible(false);
+        
+        btnSeleccionar = new JButton("Seleccionar");
+        btnSeleccionar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	mostrarActividad();
+            }
+        });
+        btnSeleccionar.setBounds(139, 305, 116, 23);
+        getContentPane().add(btnSeleccionar);
+        btnSeleccionar.setVisible(false);
+        
+        actNombre = new JLabel("Nombre de la Actividad:");
+        actNombre.setSize(173, 32);
+        actNombre.setLocation(40, 88);
+    	GridBagConstraints gbc_actNombre = new GridBagConstraints();
+    	gbc_actNombre.anchor = GridBagConstraints.EAST;
+    	gbc_actNombre.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(actNombre, gbc_actNombre);
+    	actNombre.setVisible(false);
+    	
+    	actNombreR = new JLabel("Aca va el nombre");
+    	actNombreR.setSize(125, 32);
+        actNombreR.setLocation(253, 88);
+    	GridBagConstraints gbc_actNombreR = new GridBagConstraints();
+    	gbc_actNombreR.anchor = GridBagConstraints.EAST;
+    	gbc_actNombreR.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(actNombreR, gbc_actNombreR);
+    	actNombreR.setVisible(false);
+    
+    	actDesc = new JLabel("Descripcion de la Actividad:");
+        actDesc.setSize(201, 32);
+        actDesc.setLocation(40, 109);
+    	GridBagConstraints gbc_actDesc = new GridBagConstraints();
+    	gbc_actDesc.anchor = GridBagConstraints.EAST;
+    	gbc_actDesc.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(actDesc, gbc_actDesc);
+    	actDesc.setVisible(false);
+    	
+    	actDescR = new JTextArea("Aca va la Descripcion");
+    	actDescR.setFont(new Font("Dialog", Font.BOLD, 12));
+    	actDescR.setBackground(UIManager.getColor("Menu.background"));
+    	actDescR.setSize(202, 59);
+        actDescR.setLocation(253, 118);
+    	GridBagConstraints gbc_actDescR = new GridBagConstraints();
+    	gbc_actDescR.anchor = GridBagConstraints.EAST;
+    	gbc_actDescR.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(actDescR, gbc_actDescR);
+    	actDescR.setVisible(false);
+    
+    	actCiudad = new JLabel("Ciudad de la Actividad:");
+        actCiudad.setSize(173, 32);
+        actCiudad.setLocation(40, 172);
+    	GridBagConstraints gbc_actCiudad = new GridBagConstraints();
+    	gbc_actCiudad.anchor = GridBagConstraints.EAST;
+    	gbc_actCiudad.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(actCiudad, gbc_actCiudad);
+    	actCiudad.setVisible(false);
+    	
+    	actCiudadR = new JLabel("Aca va la Ciudad");
+    	actCiudadR.setSize(125, 32);
+        actCiudadR.setLocation(253, 172);
+    	GridBagConstraints gbc_actCiudadR = new GridBagConstraints();
+    	gbc_actCiudadR.anchor = GridBagConstraints.EAST;
+    	gbc_actCiudadR.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(actCiudadR, gbc_actCiudadR);
+    	actCiudadR.setVisible(false);
+    
+    	actCosto = new JLabel("Costo de la Actividad:");
+        actCosto.setSize(173, 32);
+        actCosto.setLocation(40, 202);
+    	GridBagConstraints gbc_actCosto = new GridBagConstraints();
+    	gbc_actCosto.anchor = GridBagConstraints.EAST;
+    	gbc_actCosto.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(actCosto, gbc_actCosto);
+    	actCosto.setVisible(false);
+    	
+    	actCostoR = new JLabel("Aca va el Costo");
+    	actCostoR.setSize(125, 32);
+        actCostoR.setLocation(253, 202);
+    	GridBagConstraints gbc_actCostoR = new GridBagConstraints();
+    	gbc_actCostoR.anchor = GridBagConstraints.EAST;
+    	gbc_actCostoR.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(actCostoR, gbc_actCostoR);
+    	actCostoR.setVisible(false);
+    	
+    	actDuracion = new JLabel("Duracion de la Actividad:");
+        actDuracion.setSize(189, 32);
+        actDuracion.setLocation(40, 230);
+    	GridBagConstraints gbc_actDuracion = new GridBagConstraints();
+    	gbc_actDuracion.anchor = GridBagConstraints.EAST;
+    	gbc_actDuracion.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(actDuracion, gbc_actDuracion);
+    	actDuracion.setVisible(false);
+    	
+    	actDuracionR = new JLabel("Aca va la Duracion");
+    	actDuracionR.setSize(125, 32);
+        actDuracionR.setLocation(253, 230);
+    	GridBagConstraints gbc_actDuracionR = new GridBagConstraints();
+    	gbc_actDuracionR.anchor = GridBagConstraints.EAST;
+    	gbc_actDuracionR.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(actDuracionR, gbc_actDuracionR);
+    	actDuracionR.setVisible(false);
+    }	
 
 public void cargarDepartamentos(){
     	DefaultComboBoxModel<String> model;
@@ -133,21 +263,52 @@ public void cargarDepartamentos(){
     }
 
 public void cargarActividades(){
-	DefaultComboBoxModel<DataActividad> model;
+	DefaultComboBoxModel<String> model;
 	try {
 		String aux = (String) jcbDepartamentos.getSelectedItem();
 		int i = 0;
 		while (i<DD.length && DD[i].getNombre() != aux) {
 			i++;
 		}
-		DA = null;
-		if (DA == null) {
+		if (DD[i].getColAct().size() == 0) {
 			throw new ActividadNoExisteException("No hay actividades asociadas a dicho Departamento");
 		}
-    	model = new DefaultComboBoxModel<DataActividad>(DA);
+		auxi = DD[i].getColAct();
+		Iterator<DataActividad> it = auxi.iterator();
+		int j = 0;
+		String[] ActividadesNombres = new String[auxi.size()];
+		while(it.hasNext()) {
+			ActividadesNombres[j] = it.next().getNombre();
+			j++;
+		}
+    	model = new DefaultComboBoxModel<String>(ActividadesNombres);
         jcbActividades.setModel(model);
     } catch (ActividadNoExisteException e) {
+    	JOptionPane.showMessageDialog(this, e.getMessage(), "No hay actividades", JOptionPane.ERROR_MESSAGE);
 	}
+}
+
+public void mostrarActividad() {
+	Iterator<DataActividad> it = auxi.iterator();
+	actElegida = it.next();
+	while(it.hasNext() && (actElegida.getNombre() != (String) jcbActividades.getSelectedItem())) {
+		actElegida = it.next();
+	}
+	actNombre.setVisible(true);
+	actNombreR.setText(actElegida.getNombre());
+	actNombreR.setVisible(true);
+	actDesc.setVisible(true);
+	actDescR.setText(actElegida.getDescripcion());
+	actDescR.setVisible(true);
+	actCiudad.setVisible(true);
+	actCiudadR.setText(actElegida.getCiudad());
+	actCiudadR.setVisible(true);
+	actCosto.setVisible(true);
+	actCostoR.setText("actElegida.getCosto()");
+	actCostoR.setVisible(true);
+	actDuracion.setVisible(true);
+	actDuracionR.setText("actElegida.getCosto()");
+	actDuracionR.setVisible(true);
 }
 
     
