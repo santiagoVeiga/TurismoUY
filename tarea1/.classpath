@@ -10,10 +10,5 @@
 	<classpathentry kind="lib" path="/home/vagrant/git/tpgr29/tarea1/lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="/home/vagrant/git/tpgr29/tarea1/lib/jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-common-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="/home/vagrant/git/tpgr29/tarea1/lib/opencsv-3.8.jar"/>
-=======
-	<classpathentry kind="lib" path="C:/Users/franc/git/tpgr29_1/tarea1/lib/jcalendar-1.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/franc/git/tpgr29_1/tarea1/lib/jgoodies-common-1.8.0.jar" sourcepath="jgoodies-common-1.8.0-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/franc/git/tpgr29_1/tarea1/lib/jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
->>>>>>> branch 'main' of https://gitlab.fing.edu.uy/tprog/tpgr29
 	<classpathentry kind="output" path="bin"/>
 </classpath>
