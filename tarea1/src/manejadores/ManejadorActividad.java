@@ -55,9 +55,10 @@ public class ManejadorActividad {
     	return colAct.get(nom);
     }
     
-	public boolean actividadEstaRegistrada(Actividad actividad) {
+	/* Da problemas cuando consultas por una Actividad que no esta registrada. Quitar del DCD (ya fue entregado)
+	 * public boolean actividadEstaRegistrada(Actividad actividad) {
 		Actividad res = colAct.get(actividad.getNombre());
 		return res != null;
-	}
+	}*/
 
 }

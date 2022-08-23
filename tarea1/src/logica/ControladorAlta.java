@@ -44,10 +44,11 @@ public class ControladorAlta implements IControladorAlta {
     
     public void registrarActividad(Departamento dep, String nom , String desc,int dur, int costo, String ciudad ,Date f) throws ActividadRepetidaException {
     	ManejadorActividad mAct = ManejadorActividad.getInstance();
-        if (mAct.actividadEstaRegistrada(mAct.getActividad(nom)))
+    	Actividad act = mAct.getActividad(nom);
+        if (act != null)
             throw new ActividadRepetidaException("Ya existe una actividad registrada con el nombre:  " + nom);        
-        Actividad actividad = new Actividad(nom, desc,f,ciudad, costo, dur, dep);
-        mAct.addActividad(actividad);
+        act = new Actividad(nom, desc,f,ciudad, costo, dur, dep);
+        mAct.addActividad(act);
     }
     
     public DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException {

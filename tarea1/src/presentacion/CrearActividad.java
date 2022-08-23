@@ -31,6 +31,7 @@ import java.awt.GridLayout;
 import javax.swing.SpringLayout;
 import javax.swing.Box;
 import javax.swing.JSplitPane;
+import javax.swing.JComboBox;
 
 
 @SuppressWarnings("serial")
@@ -43,8 +44,8 @@ public class CrearActividad extends JInternalFrame {
 	private JTextField costoTextField;
 	private JTextField duracionTextField;
 	private JTextField ciudadTextField;
-	private JTextField departamentoTextField;
     private JCalendar calendario;
+    private JComboBox departamentoComboBox;
 
 	public CrearActividad(IControladorAlta ica) {
 		
@@ -56,7 +57,7 @@ public class CrearActividad extends JInternalFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
 		setTitle("Alta Actividad");
-        setBounds(10, 40, 776, 462);
+        setBounds(10, 40, 579, 462);
         
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {30, 30, 30, 30, 30, 30, 30};
@@ -159,14 +160,13 @@ public class CrearActividad extends JInternalFrame {
 		gbc_departamento.gridy = 4;
 		getContentPane().add(departamento, gbc_departamento);
 		
-		departamentoTextField = new JTextField();
-		GridBagConstraints gbc_departamentoTextField = new GridBagConstraints();
-		gbc_departamentoTextField.insets = new Insets(0, 0, 5, 5);
-		gbc_departamentoTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_departamentoTextField.gridx = 2;
-		gbc_departamentoTextField.gridy = 4;
-		getContentPane().add(departamentoTextField, gbc_departamentoTextField);
-		departamentoTextField.setColumns(10);
+		departamentoComboBox = new JComboBox<Departamento>();
+		GridBagConstraints gbc_departamentoComboBox = new GridBagConstraints();
+		gbc_departamentoComboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_departamentoComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_departamentoComboBox.gridx = 2;
+		gbc_departamentoComboBox.gridy = 4;
+		getContentPane().add(departamentoComboBox, gbc_departamentoComboBox);
 		
 		JLabel fechaAlta = new JLabel("Fecha Alta: ");
 		GridBagConstraints gbc_fechaAlta = new GridBagConstraints();
@@ -187,6 +187,7 @@ public class CrearActividad extends JInternalFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.gridheight = 3;
 		gbc_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 2;
@@ -197,9 +198,20 @@ public class CrearActividad extends JInternalFrame {
 		panel.add(splitPane);
 		
 		JButton cancelarBtn = new JButton("Cancelar");
+		cancelarBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                limpiarFormulario();
+                setVisible(false);
+            }
+        });
 		splitPane.setRightComponent(cancelarBtn);
 		
 		JButton aceptarBtn = new JButton("Aceptar");
+		aceptarBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	cmdRegistroActividadActionPerformed(arg0);
+            }
+        });
 		splitPane.setLeftComponent(aceptarBtn);
 	}
 	
@@ -212,17 +224,17 @@ public class CrearActividad extends JInternalFrame {
         String costoAct = this.costoTextField.getText(); //	Ver que se pueda ingresar solo numero
         String duracionAct = this.duracionTextField.getText(); //	Ver que se pueda ingresar solo numero
         Date fechaAct = calendario.getDate();
-        String ciudadAct = this.ciudadTextField.getText(); 
-        String departamentoAct = this.departamentoTextField.getText(); // Tiene que ser tipo departamento ListarDepto y seleccionar
+        String ciudadAct = this.ciudadTextField.getText();
+        Departamento departamentoAct = (Departamento)departamentoComboBox.getSelectedItem(); // Tiene que ser tipo departamento ListarDepto y seleccionar
         
         if (checkFormulario()) {
             try {
-                controlAlta.registrarActividad(null, nombreAct, descripcionAct,Integer.parseInt(duracionAct),Integer.parseInt(costoAct),ciudadAct ,fechaAct);
+                controlAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct,Integer.parseInt(duracionAct),Integer.parseInt(costoAct),ciudadAct ,fechaAct);
                 //Exito
-                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con exito", "Registrar Usuario",
+                JOptionPane.showMessageDialog(this, "La Actividad ha sido registrada exitosamente.", "Registrar Actividad",
                         JOptionPane.INFORMATION_MESSAGE);
 
-            } catch (UsuarioRepetidoException e) {
+            } catch (ActividadRepetidaException e) {
                 // Muestro error de registro
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
             }
@@ -233,21 +245,15 @@ public class CrearActividad extends JInternalFrame {
         }
     }
 
-    // Permite validar la informacion introducida en los campos e indicar
-    // a traves de un mensaje de error (JOptionPane) cuando algo sucede.
-    // Este tipo de chequeos se puede realizar de otras formas y con otras librerias de Java, 
-    // por ejemplo impidiendo que se escriban caracteres no numericos al momento de escribir en
-    // en el campo de la cedula, o mostrando un mensaje de error apenas el foco pasa a otro campo.
     private boolean checkFormulario() {
     	String nombreAct = this.nombreTextField.getText();
         String descripcionAct = this.descripcionTextField.getText();
         String costoAct = this.costoTextField.getText(); //	Ver que se pueda ingresar solo numero
         String duracionAct = this.duracionTextField.getText(); //	Ver que se pueda ingresar solo numero
-        //String fechaAct = this.fechaTextField.getText(); //	Ver que se pueda ingresar solo fecha JCalendar
+        //Date nacimientoU = calendario.getDate();
         String ciudadAct = this.ciudadTextField.getText();
-        String departamentoAct = this.departamentoTextField.getText(); // Tiene que ser tipo departamento ListarDepto y seleccionar
 
-        if (nombreAct.isEmpty() || descripcionAct.isEmpty() || costoAct.isEmpty() || duracionAct.isEmpty()) {
+        if (nombreAct.isEmpty() || descripcionAct.isEmpty() || costoAct.isEmpty() || duracionAct.isEmpty() || ciudadAct.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Registrar Actividad",
                     JOptionPane.ERROR_MESSAGE);
             return false;
@@ -280,7 +286,7 @@ public class CrearActividad extends JInternalFrame {
         costoTextField.setText("");
         duracionTextField.setText("");
         ciudadTextField.setText("");
-        fechaTextField.setText(""); // Ver como hacer con Fecha JCalendar
-        departamentoTextField.setText("");
+        //fechaTextField.setText(""); // Ver como hacer con Fecha JCalendar
+        //departamentoTextField.setText("");
     }
 }
