@@ -165,12 +165,12 @@ public class Principal {
         });
         menuActividad.add(menuItemRegistrarActividad);
         
-        JMenuItem menuItemConsultaActividad = new JMenuItem("Consulta Actividad");
+        /*JMenuItem menuItemConsultaActividad = new JMenuItem("Consulta Actividad");
         menuItemConsultaActividad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 conActInternalFrame.setVisible(true);
             }
         });
-        menuActividad.add(menuItemConsultaActividad);
+        menuActividad.add(menuItemConsultaActividad);*/
     }
 }
