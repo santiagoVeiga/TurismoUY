@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 
 import com.toedter.calendar.JCalendar;
 
+import logica.DataDepartamento;
 import logica.IControladorInsc;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -18,12 +19,15 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Iterator;
+import java.util.Set;
 
 @SuppressWarnings("serial")
 public class Inscribir extends JInternalFrame {
 	private IControladorInsc icon;
 	private JCalendar calendario;
 	private int seleccion1 = 0;
+	private Set<DataDepartamento> deps;
 	public Inscribir(IControladorInsc i) {
 		setMaximizable(true);
 		setIconifiable(true);
@@ -61,7 +65,16 @@ public class Inscribir extends JInternalFrame {
 	    	}
 	    });
 	    comboBox.setMaximumRowCount(1000);
-	    comboBox.setModel(new DefaultComboBoxModel(new String[] {"hola", "chau"}));
+	    /*tabla de deptos*/
+	    deps = icon.listarDepartamentos();
+	    String[] aux = new String[deps.size()];
+	    int cont = 0;
+	    for(DataDepartamento iter:deps) {
+	    	aux[cont] = iter.getNombre();
+	    	cont++;
+	    }
+	    comboBox.setModel(new DefaultComboBoxModel(aux));
+	    /*fin de tabla*/
 	    getContentPane().add(comboBox);
 	    
 

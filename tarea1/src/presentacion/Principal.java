@@ -21,6 +21,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JInternalFrame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+
 import javax.swing.JComboBox;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
@@ -61,8 +63,9 @@ public class Principal {
     /**
      * Create the application.
      * @throws DepartamentoYaExisteExeption 
+     * @throws IOException 
      */
-    public Principal() throws DepartamentoYaExisteExeption {
+    public Principal() throws DepartamentoYaExisteExeption, IOException {
         initialize();
 
      // Inicialización

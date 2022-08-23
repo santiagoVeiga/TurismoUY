@@ -1,6 +1,11 @@
 package logica;
 
 import java.util.Date;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import com.opencsv.CSVReader;
 
 import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoYaExisteExeption;
@@ -17,9 +22,22 @@ import manejadores.ManejadorUsuario;
  *
  */
 public class ControladorAlta implements IControladorAlta {
+	
+	public void cargarDptos() throws IOException, DepartamentoYaExisteExeption {
+	    CSVReader reader = null;
+	      //parsing a CSV file into CSVReader class constructor  
+	      reader = new CSVReader(new FileReader("/home/vagrant/git/tpgr29/tarea1/lib/Departamentos.csv"));
+	      String[] nextLine;
+	      //reads one line at a time  
+	      int cont = 0;
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont>0)
+	    		  confirmarAltaDepartamento(nextLine[1],nextLine[2],nextLine[3]);
+	    	  cont++;
+	      }
+	 }
 
     public ControladorAlta() throws DepartamentoYaExisteExeption{
-    	confirmarAltaDepartamento("Canelones","","");
     }
 
     public void confirmarAltaTurista(String nick, String nom , String ap, String mail ,Date nacimiento ,String nacionalidad) throws UsuarioRepetidoException {

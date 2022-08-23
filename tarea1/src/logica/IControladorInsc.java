@@ -3,9 +3,12 @@ package logica;
 import java.util.Date;
 import java.util.Set;
 
+import excepciones.ExcedeTuristas;
+import excepciones.TuristaConSalida;
+
 public interface IControladorInsc {
 	public abstract Set<DataDepartamento> listarDepartamentos();
-	public abstract void inscribir(String a ,String b ,int c ,Date d ,String e);
+	public abstract void inscribir(String a ,String b ,int c ,Date d ,String e) throws TuristaConSalida, ExcedeTuristas;
 	public abstract Set<DataSalida> salidas(String s);
 	public abstract Set<DataActividad> selecDepartamento(String s);
 	public abstract Set<DataPaquete> listarPaquetes();

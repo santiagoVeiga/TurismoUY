@@ -1,8 +1,10 @@
 package logica;
 
+import java.io.IOException;
 import java.util.Date;
 
 import excepciones.ActividadRepetidaException;
+import excepciones.DepartamentoYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 
@@ -39,4 +41,6 @@ public interface IControladorAlta {
      * @throws UsuarioNoExisteException Si no existen usuarios registrados en el sistema.
      */
     public abstract DataUsuario[] getUsuarios() throws UsuarioNoExisteException;
+
+	public abstract void cargarDptos() throws IOException, DepartamentoYaExisteExeption;
 }

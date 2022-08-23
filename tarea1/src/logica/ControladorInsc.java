@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import excepciones.ExcedeTuristas;
@@ -46,5 +47,34 @@ public class ControladorInsc implements IControladorInsc {
 		CompraGeneral cg = new CompraGeneral(fecha,cantTuristas,costo);
 		cg.setSalida(s);
 		((Turista) t).agregarCompraGeneral(cg);
+	}
+
+	@Override
+	public Set<DataDepartamento> listarDepartamentos() {
+		ManejadorDepartamentos m = ManejadorDepartamentos.getInstance();
+		Set<DataDepartamento> res = new HashSet<DataDepartamento>();
+		if(m.obtenerDataDepartamentos()!=null)
+		for(DataDepartamento iter:m.obtenerDataDepartamentos()) {
+			boolean u = res.add(iter);
+		}
+		return res;
+	}
+
+	@Override
+	public Set<DataPaquete> listarPaquetes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<DataActividad> actividadesPorDepartamentoNoEnPaquete(String s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void confirmar(String paq, String act) {
+		// TODO Auto-generated method stub
+		
 	}
 }
