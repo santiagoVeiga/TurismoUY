@@ -28,6 +28,8 @@ public class Inscribir extends JInternalFrame {
 	private JCalendar calendario;
 	private int seleccion1 = 0;
 	private Set<DataDepartamento> deps;
+	private JComboBox comboBox;
+	
 	public Inscribir(IControladorInsc i) {
 		setMaximizable(true);
 		setIconifiable(true);
@@ -56,7 +58,7 @@ public class Inscribir extends JInternalFrame {
 	    lblSeleccionarActividad.setVisible(false);
 	    
 	    
-	    JComboBox comboBox = new JComboBox();
+	    comboBox = new JComboBox();
 	    comboBox.setBounds(243, 5, 354, 24);
 	    comboBox.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
@@ -65,16 +67,7 @@ public class Inscribir extends JInternalFrame {
 	    	}
 	    });
 	    comboBox.setMaximumRowCount(1000);
-	    /*tabla de deptos*/
-	    deps = icon.listarDepartamentos();
-	    String[] aux = new String[deps.size()];
-	    int cont = 0;
-	    for(DataDepartamento iter:deps) {
-	    	aux[cont] = iter.getNombre();
-	    	cont++;
-	    }
-	    comboBox.setModel(new DefaultComboBoxModel(aux));
-	    /*fin de tabla*/
+	    
 	    getContentPane().add(comboBox);
 	    
 
@@ -170,5 +163,18 @@ public class Inscribir extends JInternalFrame {
 	    	}
 	    });
 	    
+	}
+	
+	public void actualizarDptos() {
+		/*tabla de deptos*/
+	    deps = icon.listarDepartamentos();
+	    String[] aux = new String[deps.size()];
+	    int cont = 0;
+	    for(DataDepartamento iter:deps) {
+	    	aux[cont] = iter.getNombre();
+	    	cont++;
+	    }
+	    comboBox.setModel(new DefaultComboBoxModel(aux));
+	    /*fin de tabla*/
 	}
 }

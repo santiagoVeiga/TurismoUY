@@ -29,4 +29,9 @@ public class Fabrica {
     public IControladorConsulta getIControladorConsulta() {
        return new ControladorConsulta();
     }
+
+	public IControladorInsc getIControladorInsc() {
+		// TODO Auto-generated method stub
+		return new ControladorInsc();
+	}
 }

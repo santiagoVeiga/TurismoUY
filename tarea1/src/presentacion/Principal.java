@@ -170,13 +170,7 @@ public class Principal {
         JMenuItem mntmListaUsuarios = new JMenuItem("ListarUsuarios");
         mntmListaUsuarios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Muestro el InternalFrame para ver la lista de todos los usuarios,
-                // cargando previamente la lista
-                try {
-					lisUsrInternalFrame.cargarUsuarios();
-				} catch (UsuarioNoExisteException e1) {
-					e1.printStackTrace();
-				}
+                lisUsrInternalFrame.cargarUsuarios();
                 lisUsrInternalFrame.setVisible(true);
             }
         });
@@ -212,10 +206,30 @@ public class Principal {
         JMenuItem mntmInscribirTuristaA = new JMenuItem("Inscribir turista a salida");
         mntmInscribirTuristaA.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		insInternalFrame.actualizarDptos();
         		insInternalFrame.setVisible(true);
         	}
         });
         mnInscripcion.add(mntmInscribirTuristaA);
+        
+        JMenu mnCargar = new JMenu("Cargar");
+        menuBar.add(mnCargar);
+        
+        JMenuItem mntmCargarDepartamentos = new JMenuItem("Cargar Departamentos");
+        mntmCargarDepartamentos.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ICA.cargarDptos();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (DepartamentoYaExisteExeption e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        mnCargar.add(mntmCargarDepartamentos);
     
     }
 }
