@@ -10,6 +10,13 @@ public class ControladorConsulta implements IControladorConsulta {
 		ManejadorUsuario mu = ManejadorUsuario.getinstance();
 		return  mu.getUsuarios();
 	}
+	
+    public DataUsuario ingresarDatos(String ci)
+    {
+    	ManejadorUsuario mu = ManejadorUsuario.getinstance();
+    	Usuario u = mu.obtenerUsuarioNick(ci);
+    	return u.getDataUsuario();
+    }
 
     public DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException{
     	ManejadorDepartamentos md = ManejadorDepartamentos.getInstance();
