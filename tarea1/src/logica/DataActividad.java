@@ -8,13 +8,15 @@ public class DataActividad {
 		  
 	}
 	
-	public DataActividad(String n, String d, Date f, String c, int cos, int dur) {
+	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds,Set<DataPaquete> dp) {
 		this.nombre = n;
 		this.descripcion = d;
 		this.fechaAlta = f;
 		this.ciudad = c;
 		this.costo = cos;
 		this.duracion = dur;
+		DS = ds;
+		DP = dp;
 	}
 	
 	private String nombre;
@@ -30,6 +32,8 @@ public class DataActividad {
 	private int duracion;
 	
 	private Set<DataSalida> DS;
+	
+	private Set<DataPaquete> DP;
 	
 //Getters y Setters
     

@@ -52,7 +52,7 @@ public class Proveedor extends Usuario {
         actividades.put(nomAct, act);
         }
     
-    public DataProveedor getDataP()
+    public DataProveedor getDataUsuario()
     {
     	
     	Set<DataActividad> DS = new HashSet<DataActividad>();

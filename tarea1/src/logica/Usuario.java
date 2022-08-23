@@ -7,7 +7,7 @@ import java.util.Date;
  * @author TProg2017
  *
  */
-public class Usuario {
+public abstract class Usuario {
 
 	private String nickname;
     private String nombre;
@@ -24,19 +24,7 @@ public class Usuario {
     }
     
     /* Getters */
-    public DataUsuario getDataUsuario(Usuario u) {
-    	DataUsuario DU = null;
-    	if(u instanceof Turista)
-    	{
-    		Turista T = (Turista) u;
-    		DU = T.getDataT();
-    	}else if (u instanceof Proveedor)
-    	{
-    		Proveedor P = (Proveedor) u;
-    		DU = P.getDataP();
-    	}
-        return DU;
-    }
+    public abstract DataUsuario getDataUsuario();
     
     public String getNombre() {
         return nombre;

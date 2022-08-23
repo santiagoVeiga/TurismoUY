@@ -6,8 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import excepciones.UsuarioNoExisteException;
 import logica.Fabrica;
 import logica.IControladorAlta;
+import logica.IControladorConsulta;
 
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
@@ -17,10 +19,11 @@ import java.awt.event.ActionListener;
 public class Principal {
 
     private JFrame frmGestionDeUsuarios;
+    private IControladorConsulta ICC;
     private IControladorAlta ICA;
     private CrearUsuario creUsrInternalFrame;
     private ConsultarUsuario conUsrInternalFrame;
-    private ListaUsuarios lisUsrInternalFrame;
+    private ListarUsuarios lisUsrInternalFrame;
     private CrearActividad creActInternalFrame;
     private CrearActividad conActInternalFrame;
 
@@ -49,7 +52,7 @@ public class Principal {
      // Inicialización
         Fabrica fabrica = Fabrica.getInstance();
         ICA = fabrica.getIControladorAlta();
-        
+        ICC = fabrica.getIControladorConsulta();
         // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
         // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
         // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
@@ -59,8 +62,8 @@ public class Principal {
         //conUsrInternalFrame = new ConsultarUsuario(ICU);
         //conUsrInternalFrame.setVisible(false);
 
-        //lisUsrInternalFrame = new ListaUsuarios(ICU);
-        //lisUsrInternalFrame.setVisible(false);
+        lisUsrInternalFrame = new ListarUsuarios(ICC);
+        lisUsrInternalFrame.setVisible(false);
         frmGestionDeUsuarios.getContentPane().setLayout(null);
 
         //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
@@ -139,7 +142,11 @@ public class Principal {
             public void actionPerformed(ActionEvent e) {
                 // Muestro el InternalFrame para ver la lista de todos los usuarios,
                 // cargando previamente la lista
-                lisUsrInternalFrame.cargarUsuarios();
+                try {
+					lisUsrInternalFrame.cargarUsuarios();
+				} catch (UsuarioNoExisteException e1) {
+					e1.printStackTrace();
+				}
                 lisUsrInternalFrame.setVisible(true);
             }
         });

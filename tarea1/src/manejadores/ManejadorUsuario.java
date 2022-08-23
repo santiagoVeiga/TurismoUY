@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import logica.DataUsuario;
 import logica.Usuario;
 
 /**
@@ -44,18 +45,19 @@ public class ManejadorUsuario {
         return ((Usuario) usuariosMail.get(mail));
     }
 
-    public Usuario[] getUsuarios() {
+    public DataUsuario[] getUsuarios() {
         if (usuariosNick.isEmpty())
             return null;
         else {
             Collection<Usuario> usrs = usuariosNick.values();
             Object[] o = usrs.toArray();
             Usuario[] usuarios = new Usuario[o.length];
+            DataUsuario[] DU = new DataUsuario[usuarios.length];
             for (int i = 0; i < o.length; i++) {
                 usuarios[i] = (Usuario) o[i];
+                DU[i] = usuarios[i].getDataUsuario();
             }
-
-            return usuarios;
+            return DU;
         }
     }
 

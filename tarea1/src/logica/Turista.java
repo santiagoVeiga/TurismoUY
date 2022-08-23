@@ -38,7 +38,7 @@ public class Turista extends Usuario{
     	return res;
     }
     
-    public DataTurista getDataT()
+    public DataTurista getDataUsuario()
     {
     	Iterator<CompraGeneral> itr = comprasG.iterator();
     	Set<DataSalida> DS = new HashSet<DataSalida>();

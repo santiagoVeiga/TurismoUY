@@ -3,19 +3,11 @@ import manejadores.ManejadorUsuario;
 
 public class ControladorConsulta implements IControladorConsulta {
 	
-	public Usuario[] listarUsuarios() 
+	public DataUsuario[] listarUsuarios() 
 	{
 		ManejadorUsuario mu = ManejadorUsuario.getinstance();
-    	Usuario[] u = mu.getUsuarios();
-		return u;
+		return  mu.getUsuarios();
 	}
-	
-    public DataUsuario ingresarDatos(String ci)
-    {
-    	ManejadorUsuario mu = ManejadorUsuario.getinstance();
-    	Usuario u = mu.obtenerUsuarioNick(ci);
-    	return u.getDataUsuario(u);
-    }
 
     
     

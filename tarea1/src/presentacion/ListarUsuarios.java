@@ -50,16 +50,16 @@ import javax.swing.JComboBox;
 @SuppressWarnings("serial")
 public class ListarUsuarios extends JInternalFrame {
 
-	private IControladorUsuario controlUsr;
+	private IControladorConsulta controlUsr;
 	private JComboBox<String> comboBoxUsuarios;
     private JLabel lblUsuarios;
     private JButton btnCerrar;
     private DataUsuario[] DU2;
 	
 	
-    public ListarUsuarios(IControladorUsuario icu) {
+    public ListarUsuarios(IControladorConsulta ICC) {
         // Se inicializa con el controlador de usuarios
-        controlUsr = icu;
+        controlUsr = ICC;
         
         // Propiedades del JInternalFrame como dimensión, posición dentro del frame, etc.
         setResizable(true);
@@ -112,12 +112,12 @@ public class ListarUsuarios extends JInternalFrame {
     
     
     
-    public void cargarUsuarios(ListarUsuarios LU) throws UsuarioNoExisteException {
+    public void cargarUsuarios() throws UsuarioNoExisteException {
         
-        LU.setVisible(false);
+        setVisible(false);
         try {
         	DefaultComboBoxModel<String> model;
-        	DataUsuario[] DU = controlUsr.getUsuarios();
+        	DataUsuario[] DU = controlUsr.listarUsuarios();
         	String[] nomUsuarios = new String[DU.length]; 
         	int i=0;
         	while(i<DU.length) 
