@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import excepciones.DepartamentoYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import logica.Fabrica;
 import logica.IControladorAlta;
@@ -59,8 +60,9 @@ public class Principal {
 
     /**
      * Create the application.
+     * @throws DepartamentoYaExisteExeption 
      */
-    public Principal() {
+    public Principal() throws DepartamentoYaExisteExeption {
         initialize();
 
      // Inicialización
