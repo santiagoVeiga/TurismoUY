@@ -4,6 +4,8 @@ import java.util.Date;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import com.opencsv.CSVReader;
 
@@ -33,6 +35,38 @@ public class ControladorAlta implements IControladorAlta {
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont>0)
 	    		  confirmarAltaDepartamento(nextLine[1],nextLine[2],nextLine[3]);
+	    	  cont++;
+	      }
+	 }
+	
+	public void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException {
+	    CSVReader usu = null;
+	    CSVReader tur = null;
+	    CSVReader pro = null;
+	      //parsing a CSV file into CSVReader class constructor  
+	      usu = new CSVReader(new FileReader("/home/vagrant/git/tpgr29/tarea1/lib/Usuarios.csv"));
+	      
+	      String[] nextLineusu;
+	      
+	      //reads one line at a time  
+	      int cont = 0;
+	      while ((nextLineusu = usu.readNext()) != null) {
+	    	  if(cont>0) {
+	    		  
+	    		  if(nextLineusu[1].equals(" T")) {
+	    			  
+	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    			  Date fecha = formato.parse(nextLineusu[6]);
+	    			  confirmarAltaTurista(nextLineusu[2],nextLineusu[3],nextLineusu[4],nextLineusu[5],fecha,nextLineusu[7]);
+	    		  }
+	    		  else if (nextLineusu[1].equals(" P")) {
+	    			
+	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    			  Date fecha = formato.parse(nextLineusu[6]);
+	    			  confirmarAltaProveedor(nextLineusu[2],nextLineusu[3],nextLineusu[4],nextLineusu[5],fecha,nextLineusu[8],nextLineusu[9],true);
+	    		  }
+	    	  }
+	    		  
 	    	  cont++;
 	      }
 	 }

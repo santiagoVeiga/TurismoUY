@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 
 import com.toedter.calendar.JCalendar;
 
+import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.IControladorInsc;
 import java.awt.GridBagConstraints;
@@ -29,6 +30,8 @@ public class Inscribir extends JInternalFrame {
 	private int seleccion1 = 0;
 	private Set<DataDepartamento> deps;
 	private JComboBox comboBox;
+	private JComboBox comboBox_1;
+	private JComboBox comboBox_2;
 	
 	public Inscribir(IControladorInsc i) {
 		setMaximizable(true);
@@ -45,8 +48,7 @@ public class Inscribir extends JInternalFrame {
 	    getContentPane().add(lblSeleccionarDepartamento);
 	    
 	    
-	    JComboBox comboBox_1 = new JComboBox();
-	    comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3"}));
+	    comboBox_1 = new JComboBox();
 	    comboBox_1.setVisible(false);
 	    comboBox_1.setBounds(243, 41, 354, 24);
 	    getContentPane().add(comboBox_1);
@@ -64,6 +66,7 @@ public class Inscribir extends JInternalFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    		comboBox_1.setVisible(true);
 	    		lblSeleccionarActividad.setVisible(true);
+	    		obtAct((String) comboBox.getSelectedItem());
 	    	}
 	    });
 	    comboBox.setMaximumRowCount(1000);
@@ -76,7 +79,7 @@ public class Inscribir extends JInternalFrame {
 	    getContentPane().add(lblSeleccionarSalida);
 	    lblSeleccionarSalida.setVisible(false);
 	    
-	    JComboBox comboBox_2 = new JComboBox();
+	    comboBox_2 = new JComboBox();
 	    comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"8", "7"}));
 	    comboBox_2.setBounds(243, 77, 354, 24);
 	    getContentPane().add(comboBox_2);
@@ -176,5 +179,16 @@ public class Inscribir extends JInternalFrame {
 	    }
 	    comboBox.setModel(new DefaultComboBoxModel(aux));
 	    /*fin de tabla*/
+	}
+	
+	public void obtAct(String dpto) {
+		Set<DataActividad> auxi = icon.selecDepartamento(dpto);
+		String[] aux = new String[auxi.size()];
+	    int cont = 0;
+	    for(DataActividad iter:auxi) {
+	    	aux[cont] = iter.getNombre();
+	    	cont++;
+	    }
+	    comboBox_1.setModel(new DefaultComboBoxModel(aux));
 	}
 }

@@ -10,6 +10,7 @@ import javax.swing.JMenuItem;
 
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
+import excepciones.UsuarioRepetidoException;
 import logica.Fabrica;
 import logica.IControladorAlta;
 import logica.IControladorConsulta;
@@ -22,6 +23,7 @@ import javax.swing.JInternalFrame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.text.ParseException;
 
 import javax.swing.JComboBox;
 import java.awt.BorderLayout;
@@ -84,12 +86,12 @@ public class Principal {
         //conUsrInternalFrame = new ConsultarUsuario(ICU);
         //conUsrInternalFrame.setVisible(false);
 
-        //lisUsrInternalFrame = new ListarUsuarios(ICC);
-        //lisUsrInternalFrame.setVisible(false);
+        lisUsrInternalFrame = new ListarUsuarios(ICC);
+        lisUsrInternalFrame.setVisible(false);
         
 
         //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
-        //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
         
         //****** ACTIVIDAD *********/
 
@@ -123,7 +125,7 @@ public class Principal {
         // Se crea el Frame con las dimensiones indicadas.
         frmGestionDeUsuarios = new JFrame();
         frmGestionDeUsuarios.setTitle("Gestion de Usuarios 1.0");
-        frmGestionDeUsuarios.setBounds(100, 100, 450, 400);
+        frmGestionDeUsuarios.setBounds(100, 100, 680, 400);
         frmGestionDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Se crea una barra de menú (JMenuBar) con dos menú (JMenu) desplegables.
@@ -221,6 +223,7 @@ public class Principal {
         	public void actionPerformed(ActionEvent e) {
         		try {
 					ICA.cargarDptos();
+					mntmCargarDepartamentos.setVisible(false);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -230,6 +233,26 @@ public class Principal {
 				}
         	}
         });
+        
+        JMenuItem mntmCargarusuarios = new JMenuItem("Cargar Usuarios");
+        mntmCargarusuarios.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ICA.cargarUsuarios();
+					mntmCargarusuarios.setVisible(false);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (UsuarioRepetidoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        mnCargar.add(mntmCargarusuarios);
         mnCargar.add(mntmCargarDepartamentos);
     
     }

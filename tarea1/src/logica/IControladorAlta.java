@@ -1,6 +1,7 @@
 package logica;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 
 import excepciones.ActividadRepetidaException;
@@ -44,4 +45,6 @@ public interface IControladorAlta {
     public abstract DataUsuario[] getUsuarios() throws UsuarioNoExisteException;
 
 	public abstract void cargarDptos() throws IOException, DepartamentoYaExisteExeption;
+
+	public abstract void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException;
 }
