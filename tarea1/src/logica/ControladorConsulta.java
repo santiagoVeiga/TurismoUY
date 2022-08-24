@@ -32,5 +32,7 @@ public class ControladorConsulta implements IControladorConsulta {
     	//implementar
     }
 	
+    
+   
 
 }
