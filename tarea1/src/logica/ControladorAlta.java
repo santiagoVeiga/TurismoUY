@@ -29,7 +29,7 @@ public class ControladorAlta implements IControladorAlta {
 	public void cargarDptos() throws IOException, DepartamentoYaExisteExeption {
 	    CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
-	      reader = new CSVReader(new FileReader("C:\\Users\\karin\\OneDrive\\Escritorio\\tpgr29\\tarea1\\lib\\\\Departamentos.csv"));
+	      reader = new CSVReader(new FileReader("/home/vagrant/git/tpgr29/tarea1/lib/Departamentos.csv"));
 	      String[] nextLine;
 	      //reads one line at a time  
 	      int cont = 0;
