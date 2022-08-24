@@ -14,4 +14,5 @@ public interface IControladorInsc {
 	public abstract Set<DataPaquete> listarPaquetes();
 	public abstract Set<DataActividad> actividadesPorDepartamentoNoEnPaquete(String s);
 	public abstract void confirmar(String paq, String act);
+	public abstract DataUsuario[] listarUsuarios();
 }

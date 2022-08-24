@@ -12,6 +12,9 @@ import com.toedter.calendar.JCalendar;
 
 import logica.DataActividad;
 import logica.DataDepartamento;
+import logica.DataSalida;
+import logica.DataTurista;
+import logica.DataUsuario;
 import logica.IControladorInsc;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -20,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -32,6 +36,7 @@ public class Inscribir extends JInternalFrame {
 	private JComboBox comboBox;
 	private JComboBox comboBox_1;
 	private JComboBox comboBox_2;
+	private JComboBox comboBox_3;
 	
 	public Inscribir(IControladorInsc i) {
 		setMaximizable(true);
@@ -80,7 +85,6 @@ public class Inscribir extends JInternalFrame {
 	    lblSeleccionarSalida.setVisible(false);
 	    
 	    comboBox_2 = new JComboBox();
-	    comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"8", "7"}));
 	    comboBox_2.setBounds(243, 77, 354, 24);
 	    getContentPane().add(comboBox_2);
 	    
@@ -89,7 +93,7 @@ public class Inscribir extends JInternalFrame {
 	    getContentPane().add(lblTurista);
 	    lblTurista.setVisible(false);
 	    
-	    JComboBox comboBox_3 = new JComboBox();
+	    comboBox_3 = new JComboBox();
 	    comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"r", "t"}));
 	    comboBox_3.setBounds(243, 116, 354, 24);
 	    getContentPane().add(comboBox_3);
@@ -110,6 +114,8 @@ public class Inscribir extends JInternalFrame {
 	    
 	    comboBox_1.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
+	    		obtSal((String) comboBox_1.getSelectedItem());
+	    		obtTur();
 	    		comboBox_2.setVisible(true);
 	    		lblSeleccionarSalida.setVisible(true);
 	    		comboBox_3.setVisible(true);
@@ -168,6 +174,26 @@ public class Inscribir extends JInternalFrame {
 	    
 	}
 	
+	public void obtTur() {
+		DataUsuario[] array = icon.listarUsuarios();
+		int i = 0;
+		Set<String> aux = new HashSet<String>();
+ 		while(i<array.length) {
+			if(array[i] instanceof DataTurista) {
+				DataTurista dt = (DataTurista) array[i];
+				aux.add(dt.getNick());
+			}
+			i++;
+		}
+		String[] model = new String[aux.size()];
+		i=0;
+		for(String iter:aux) {
+			model[i] = iter;
+			i++;
+		}
+		comboBox_3.setModel(new DefaultComboBoxModel(model));
+	}
+
 	public void actualizarDptos() {
 		/*tabla de deptos*/
 	    deps = icon.listarDepartamentos();
@@ -190,5 +216,16 @@ public class Inscribir extends JInternalFrame {
 	    	cont++;
 	    }
 	    comboBox_1.setModel(new DefaultComboBoxModel(aux));
+	}
+	
+	public void obtSal(String act) {
+		Set<DataSalida> auxi = icon.salidas(act);
+		String[] aux = new String[auxi.size()];
+	    int cont = 0;
+	    for(DataSalida iter:auxi) {
+	    	aux[cont] = iter.getNombre();
+	    	cont++;
+	    }
+		comboBox_2.setModel(new DefaultComboBoxModel(aux));
 	}
 }

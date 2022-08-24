@@ -72,4 +72,10 @@ public class ControladorInsc implements IControladorInsc {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public DataUsuario[] listarUsuarios() {
+		ManejadorUsuario mu = ManejadorUsuario.getinstance();
+		return  mu.getUsuarios();
+	}
 }
