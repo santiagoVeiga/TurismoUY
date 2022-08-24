@@ -108,7 +108,9 @@ public class ControladorAlta implements IControladorAlta {
         Departamento insDep = mDep.getDepartamento(dep);
         act = new Actividad(nom, desc,f,ciudad, costo, dur, insDep);
         mAct.addActividad(act);
-        insDep.agregarActividad(act);
+        // if agregado por si Departamento no esta cargado da errror VER SI QUITAR
+        if(insDep != null)
+        	insDep.agregarActividad(act);
     }
     
     public DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException{

@@ -54,20 +54,18 @@ public class CrearActividad extends JInternalFrame {
 	public CrearActividad(IControladorAlta ica) {
 		
         controlAlta = ica;
-
-        setResizable(true);
         setIconifiable(true);
         setMaximizable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
 		setTitle("Alta Actividad");
-        setBounds(10, 40, 579, 462);
+        setBounds(10, 40, 541, 446);
         
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {30, 30, 30, 30, 30, 30, 30};
-		gridBagLayout.rowHeights = new int[] {30, 30, 30, 30, 30, 100, 30, 30, 30, 30, 30};
+		gridBagLayout.rowHeights = new int[] {30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
 		JLabel Nombre = new JLabel("Nombre: ");
@@ -87,23 +85,6 @@ public class CrearActividad extends JInternalFrame {
 		getContentPane().add(nombreTextField, gbc_nombreTextField);
 		nombreTextField.setColumns(10);
 		
-		JLabel costo = new JLabel("Costo: ");
-		GridBagConstraints gbc_costo = new GridBagConstraints();
-		gbc_costo.anchor = GridBagConstraints.EAST;
-		gbc_costo.insets = new Insets(0, 0, 5, 5);
-		gbc_costo.gridx = 3;
-		gbc_costo.gridy = 1;
-		getContentPane().add(costo, gbc_costo);
-		
-		costoTextField = new JTextField();
-		GridBagConstraints gbc_costoTextField = new GridBagConstraints();
-		gbc_costoTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_costoTextField.insets = new Insets(0, 0, 5, 5);
-		gbc_costoTextField.gridx = 4;
-		gbc_costoTextField.gridy = 1;
-		getContentPane().add(costoTextField, gbc_costoTextField);
-		costoTextField.setColumns(10);
-		
 		JLabel descripcion = new JLabel("Descripcion: ");
 		descripcion.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_descripcion = new GridBagConstraints();
@@ -121,23 +102,6 @@ public class CrearActividad extends JInternalFrame {
 		gbc_descripcionTextField.gridy = 2;
 		getContentPane().add(descripcionTextField, gbc_descripcionTextField);
 		descripcionTextField.setColumns(10);
-		
-		JLabel duracion = new JLabel("Duraci\u00F3n: ");
-		GridBagConstraints gbc_duracion = new GridBagConstraints();
-		gbc_duracion.anchor = GridBagConstraints.EAST;
-		gbc_duracion.insets = new Insets(0, 0, 5, 5);
-		gbc_duracion.gridx = 3;
-		gbc_duracion.gridy = 2;
-		getContentPane().add(duracion, gbc_duracion);
-		
-		duracionTextField = new JTextField();
-		GridBagConstraints gbc_duracionTextField = new GridBagConstraints();
-		gbc_duracionTextField.insets = new Insets(0, 0, 5, 5);
-		gbc_duracionTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_duracionTextField.gridx = 4;
-		gbc_duracionTextField.gridy = 2;
-		getContentPane().add(duracionTextField, gbc_duracionTextField);
-		duracionTextField.setColumns(10);
 		
 		JLabel ciudad = new JLabel("Ciudad: ");
 		GridBagConstraints gbc_ciudad = new GridBagConstraints();
@@ -188,14 +152,47 @@ public class CrearActividad extends JInternalFrame {
 		gbc_calendario_1.gridy = 5;
 		getContentPane().add(calendario, gbc_calendario_1);
 		
+		JLabel costo = new JLabel("Costo: ");
+		GridBagConstraints gbc_costo = new GridBagConstraints();
+		gbc_costo.anchor = GridBagConstraints.EAST;
+		gbc_costo.insets = new Insets(0, 0, 5, 5);
+		gbc_costo.gridx = 1;
+		gbc_costo.gridy = 6;
+		getContentPane().add(costo, gbc_costo);
+		
+		costoTextField = new JTextField();
+		GridBagConstraints gbc_costoTextField = new GridBagConstraints();
+		gbc_costoTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_costoTextField.insets = new Insets(0, 0, 5, 5);
+		gbc_costoTextField.gridx = 2;
+		gbc_costoTextField.gridy = 6;
+		getContentPane().add(costoTextField, gbc_costoTextField);
+		costoTextField.setColumns(10);
+		
+		JLabel duracion = new JLabel("Duraci\u00F3n: ");
+		GridBagConstraints gbc_duracion = new GridBagConstraints();
+		gbc_duracion.anchor = GridBagConstraints.EAST;
+		gbc_duracion.insets = new Insets(0, 0, 5, 5);
+		gbc_duracion.gridx = 1;
+		gbc_duracion.gridy = 7;
+		getContentPane().add(duracion, gbc_duracion);
+		
+		duracionTextField = new JTextField();
+		GridBagConstraints gbc_duracionTextField = new GridBagConstraints();
+		gbc_duracionTextField.insets = new Insets(0, 0, 5, 5);
+		gbc_duracionTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_duracionTextField.gridx = 2;
+		gbc_duracionTextField.gridy = 7;
+		getContentPane().add(duracionTextField, gbc_duracionTextField);
+		duracionTextField.setColumns(10);
+		
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridheight = 3;
-		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.insets = new Insets(0, 0, 0, 5);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 2;
-		gbc_panel.gridy = 6;
+		gbc_panel.gridy = 8;
 		getContentPane().add(panel, gbc_panel);
 		
 		JSplitPane splitPane = new JSplitPane();
