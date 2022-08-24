@@ -7,7 +7,7 @@ import java.util.Date;
 import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
-
+import excepciones.SalidaYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 
@@ -49,5 +49,7 @@ public interface IControladorAlta {
 
 	public abstract void cargarDptos() throws IOException, DepartamentoYaExisteExeption;
 
-	public abstract void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException;
+	public abstract void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException ;
+    public abstract void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta) throws SalidaYaExisteExeption ;
+   
 }
