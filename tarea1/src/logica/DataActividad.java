@@ -47,6 +47,11 @@ public class DataActividad {
     public Set<DataSalida> getSalidas() {
 		return DS;
 	}
+    
+    public Set<DataPaquete> getPaquete()
+    {
+    	return DP;
+    }
 	
 	public String getDescripcion() {
 		return this.descripcion;
