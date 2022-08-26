@@ -28,12 +28,7 @@ public class ControladorConsulta implements IControladorConsulta {
     	}
     }
     
-    public DataActividad[] listaActividadesEnDepartamento(String departamento) {
-    	//implementar
-    	return null;
-    }
-	
-    
-   
+
+	   
 
 }
