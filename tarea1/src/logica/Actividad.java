@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import excepciones.SalidaYaExisteExeption;
+
 public class Actividad {
 	
 	private Map<String,Salida> colSal;
@@ -134,14 +136,26 @@ public class Actividad {
 		Set<Entry<String, Salida>> aux = colSal.entrySet();
     	Iterator<Entry<String, Salida>> it = aux.iterator();
     	while(it.hasNext()){
-    		if(it.next().getValue().estaVigente())
+    		//if(it.next().getValue().estaVigente())
     			res.add(it.next().getValue().getDataST());
-    	}
+    	//
+    			}
 		return res;
 	}
 
 	public Salida getSalida(String s) {
 		return colSal.get(s);
+	}
+
+	public void altaSalida(String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas,
+			Date fechaAlta2) throws SalidaYaExisteExeption {
+		// TODO Auto-generated method stub
+		Salida aux = this.getSalida(nombreSalida);
+		if(aux != null) {
+			throw new SalidaYaExisteExeption("Ya existe una salida con el nombre: " + nombreSalida);
+		}
+		aux = new Salida(nombreSalida, lugar, hora, fecha, fechaAlta, maxCantTuristas);
+		colSal.put(nombreSalida,aux);
 	}
 	
 }

@@ -106,7 +106,7 @@ public class Principal {
         conActInternalFrame.setVisible(false);
 
         //****** SALIDA *********/----------------------------------------------------
-       creSalInternalFrame = new AltaSalida(ICC);
+       creSalInternalFrame = new AltaSalida(ICA);
        creSalInternalFrame.setVisible(false);
        
        consultaSalidaInternalFrame = new ConsultaSalidaTuristica(ICC);
@@ -232,7 +232,6 @@ public class Principal {
         menuItemAltaSalida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	creSalInternalFrame.cargarDepartamentos();
-            	creSalInternalFrame.cargarActividades();
             	creSalInternalFrame.setVisible(true);
             }
         });
