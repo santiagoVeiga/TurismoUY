@@ -7,9 +7,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JCalendar;
 
+import excepciones.ExcedeTuristas;
+import excepciones.NumeroNegativoException;
+import excepciones.TuristaConSalida;
 import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataSalida;
@@ -37,6 +41,7 @@ public class Inscribir extends JInternalFrame {
 	private JComboBox comboBox_1;
 	private JComboBox comboBox_2;
 	private JComboBox comboBox_3;
+	private JTextField textField;
 	
 	public Inscribir(IControladorInsc i) {
 		setMaximizable(true);
@@ -129,19 +134,19 @@ public class Inscribir extends JInternalFrame {
         calendario.setVisible(false);
         
         JButton btnInscribir = new JButton("Inscribir");
+        btnInscribir.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		inscri();
+        	}
+        });
         btnInscribir.setBounds(480, 331, 117, 25);
         getContentPane().add(btnInscribir);
         
-        JComboBox comboBox_4 = new JComboBox();
-        comboBox_4.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnInscribir.setVisible(true);
-        	}
-        });
-        comboBox_4.setVisible(false);
-        comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35"}));
-        comboBox_4.setBounds(243, 158, 354, 24);
-        getContentPane().add(comboBox_4);
+        textField = new JTextField();
+        textField.setBounds(243, 161, 354, 19);
+        getContentPane().add(textField);
+        textField.setColumns(10);
+        textField.setVisible(false);
         btnInscribir.setVisible(false);
         
         comboBox_2.addActionListener(new ActionListener() {
@@ -150,7 +155,7 @@ public class Inscribir extends JInternalFrame {
 	    			lblCantidadDeTuristas.setVisible(true);
 	    			lblFecha.setVisible(true);
 	    			calendario.setVisible(true);
-	    			comboBox_4.setVisible(true);
+	    			textField.setVisible(true);
 	    		}
 	    		else {
 	    			seleccion1++;
@@ -164,7 +169,7 @@ public class Inscribir extends JInternalFrame {
 	    			lblCantidadDeTuristas.setVisible(true);
 	    			lblFecha.setVisible(true);
 	    			calendario.setVisible(true);
-	    			comboBox_4.setVisible(true);
+	    			textField.setVisible(true);
 	    		}
 	    		else {
 	    			seleccion1++;
@@ -227,5 +232,33 @@ public class Inscribir extends JInternalFrame {
 	    	cont++;
 	    }
 		comboBox_2.setModel(new DefaultComboBoxModel(aux));
+	}
+	
+	public void inscri() {
+		try {
+            Integer.parseInt(textField.getText());
+            if(Integer.parseInt(textField.getText()) < 0) {
+            	throw new NumeroNegativoException();
+            }
+            icon.inscribir((String) comboBox_2.getSelectedItem(), (String) comboBox_3.getSelectedItem(),Integer.parseInt(textField.getText()) , null,(String) comboBox_1.getSelectedItem());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "La cantidad de turistas debe ser un numero", "Inscribir",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+		catch (NumeroNegativoException e) {
+            JOptionPane.showMessageDialog(this, "La cantidad de turistas debe ser un numero no negativo", "Inscribir",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+		catch (TuristaConSalida e1) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, "El turista ya pertenece a la salida", "Inscribir",
+                    JOptionPane.ERROR_MESSAGE);
+			e1.printStackTrace();
+		} catch (ExcedeTuristas e1) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, "La cantidad de turistas excede los cupos disponibles para la salida", "Inscribir",
+                    JOptionPane.ERROR_MESSAGE);
+			e1.printStackTrace();
+		}
 	}
 }
