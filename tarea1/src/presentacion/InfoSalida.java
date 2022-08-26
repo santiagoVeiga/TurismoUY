@@ -108,7 +108,7 @@ public class InfoSalida extends JFrame {
 		gbc_lblNewLabel_1_2.gridy = 3;
 		contentPane.add(lblNewLabel_1_2, gbc_lblNewLabel_1_2);
 		
-		textField_2 = new JTextField(usuarios.getFechaAlta().getDay() +"/"+ usuarios.getFechaAlta().getMonth() + "/"+usuarios.getFechaAlta().getYear());
+		textField_2 = new JTextField(usuarios.getFechaAlta().getDate() +"/"+ (usuarios.getFechaAlta().getMonth()+1) + "/"+(usuarios.getFechaAlta().getYear()+1900));
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
@@ -127,7 +127,7 @@ public class InfoSalida extends JFrame {
 		gbc_lblNewLabel_1_3.gridy = 4;
 		contentPane.add(lblNewLabel_1_3, gbc_lblNewLabel_1_3);
 		
-		textField_3 = new JTextField(usuarios.getFecha().getDay() +"/"+ usuarios.getFecha().getMonth() + "/"+usuarios.getFecha().getYear());
+		textField_3 = new JTextField(usuarios.getFecha().getDate() +"/"+ (usuarios.getFecha().getMonth()+1) + "/"+(usuarios.getFecha().getYear()+1900));
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
