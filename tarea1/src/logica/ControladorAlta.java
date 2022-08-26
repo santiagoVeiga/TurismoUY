@@ -138,14 +138,20 @@ public class ControladorAlta implements IControladorAlta {
         mu.addUsuario(u);
     }
     
-    public void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f) throws ActividadRepetidaException {
+    public void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f,String proveedor) throws ActividadRepetidaException {
     	ManejadorActividad mAct = ManejadorActividad.getInstance();
     	ManejadorDepartamentos mDep = ManejadorDepartamentos.getInstance();
+        ManejadorUsuario mu = ManejadorUsuario.getinstance();
     	Actividad act = mAct.getActividad(nom);
         if (act != null)
             throw new ActividadRepetidaException("Ya existe una actividad registrada con el nombre:  " + nom);
         Departamento insDep = mDep.getDepartamento(dep);
         act = new Actividad(nom, desc,f,ciudad, costo, dur, insDep);
+        Usuario u =  mu.obtenerUsuarioNick(proveedor);
+        if(u instanceof Proveedor) {
+        	((Proveedor) u).agregarActividad(act);
+        }
+        
         mAct.addActividad(act);
         // if agregado por si Departamento no esta cargado da errror VER SI QUITAR
         if(insDep != null)
@@ -174,20 +180,10 @@ public class ControladorAlta implements IControladorAlta {
 
     public DataUsuario[] getUsuarios() throws UsuarioNoExisteException {
         ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        Usuario[] usrs = mu.getUsuarios();
+        DataUsuario[] usrs = mu.getUsuarios();
 
         if (usrs != null) {
-            DataUsuario[] du = new DataUsuario[usrs.length];
-            Usuario usuario;
-
-            // Para separar lógica de presentación, no se deben devolver los Usuario,
-            // sino los DataUsuario
-            for (int i = 0; i < usrs.length; i++) {
-                usuario = usrs[i];
-                du[i] = null; //new DataUsuario(usuario.getNombre(), usuario.getApellido(), usuario.getCedulaIdentidad());
-            }
-
-            return du;
+            return usrs;
         } else
             throw new UsuarioNoExisteException("No existen usuarios registrados");
 
