@@ -204,16 +204,8 @@ public class InfoTurista extends JFrame {
         	usuarios2[i] = (DataSalida) o[i];
         	usuarios[i] = ((DataSalida) o[i]).getNombre();   
         }
-        String[] modelo = new String[o.length];
-        for (int i = 0; i < o.length; i++) {
-        	modelo[i] = usuarios[i].getNombre();
-        }
-
-<<<<<<< HEAD
+        
 		JComboBox<String> comboBox = new JComboBox<String>();
-=======
-		JComboBox<String> comboBox = new JComboBox<String>(modelo);
->>>>>>> branch 'main' of https://gitlab.fing.edu.uy/tprog/tpgr29.git
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 4;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
