@@ -3,6 +3,7 @@ package presentacion;
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
@@ -15,7 +16,9 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.DepartamentoNoExisteException;
+import excepciones.SalidaYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import logica.DataActividad;
 import logica.DataDepartamento;
@@ -28,6 +31,8 @@ import java.awt.event.ItemListener;
 import java.awt.Button;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 
 public class AltaSalida extends JInternalFrame {
@@ -41,16 +46,21 @@ public class AltaSalida extends JInternalFrame {
 	private JComboBox minutosCAMPO;
 	private Button aceptarCAMPO;
 	private Button cancelarCAMPO;
-	//private JComboBox FechaAltaCAMPO;
 	private JComboBox SeleccionarDptoCAMPO;
 	private JComboBox SeleccionarActividadCAMPO;
 	private IControladorAlta controlAlta;
+    private DataDepartamento[] DD;
+    private IControladorConsulta controlCons;
+    private Set<DataActividad> auxi;
+
+
+
 	
 	
 	@SuppressWarnings("unchecked")
-	public AltaSalida(IControladorConsulta icu) throws DepartamentoNoExisteException {
-		
-        //controlConsulta = icu;
+	public AltaSalida(IControladorConsulta icu)  {
+        controlCons = icu;
+
         
         setResizable(true);
         setIconifiable(true);
@@ -74,50 +84,55 @@ public class AltaSalida extends JInternalFrame {
 		getContentPane().add(lblSeleccionarActividad); //
 		
 		//--------------------departamentos--------------------
-		
-		DataDepartamento[] ArrDpto = icu.obtenerDataDepartamentos() ; 
-		
-		SeleccionarDptoCAMPO = new JComboBox<String>(); //va a ser un combobox de strings
-		SeleccionarDptoCAMPO.setBounds(218, 31, 162, 21);
-		for (int i = 0; i < ArrDpto.length; i++){ //AGREGO LOS NOMBRES DE DEPARTAMENTOS AL CAMPO
-			SeleccionarDptoCAMPO.addItem(ArrDpto[i].getNombre());
-		}
-		getContentPane().add(SeleccionarDptoCAMPO);
-		String NombreDpto = (String)SeleccionarDptoCAMPO.getSelectedItem();
-		 
-		SeleccionarActividadCAMPO = new JComboBox<String>(); //va a ser un combobox de strings 
-		SeleccionarActividadCAMPO.setBounds(218, 68, 162, 21);
-		
-		ItemListener itemListener = new ItemListener() {
-		      public void itemStateChanged(ItemEvent itemEvent) {
-		        int state = itemEvent.getStateChange();
-		        
-		        
-				DataActividad[] ArrAct = icu.listaActividadesEnDepartamento(NombreDpto);
-				for (int i = 0; i < ArrAct.length; i++){ //AGREGO LOS NOMBRES DE DEPARTAMENTOS AL CAMPO
-					SeleccionarActividadCAMPO.addItem(ArrAct[i].getNombre());
-				}
-				getContentPane().add(SeleccionarActividadCAMPO);
-		        
-
-		        
-		   		       
-		      }
-		    };
-		    SeleccionarDptoCAMPO.addItemListener(itemListener);
-		
 	
-		//--------------------actividades-----------------------
-//		SeleccionarActividadCAMPO = new JComboBox<String>(); //va a ser un combobox de strings 
-//		SeleccionarActividadCAMPO.setBounds(218, 68, 162, 21);
-//		
-//		DataActividad[] ArrAct = icu.listaActividadesEnDepartamento(NombreDpto);
-//	
-//		for (int i = 0; i < ArrAct.length; i++){ //AGREGO LOS NOMBRES DE DEPARTAMENTOS AL CAMPO
-//			SeleccionarActividadCAMPO.addItem(ArrAct[i].getNombre());
-//		}
-//		getContentPane().add(SeleccionarActividadCAMPO);
-		//------------------------------------------------------
+		//DataDepartamento[] ArrDpto = null;
+		SeleccionarDptoCAMPO = new JComboBox<String>(); //creo el combobox de strings
+		SeleccionarDptoCAMPO.setBounds(218, 31, 162, 21);
+		//try {
+			//ArrDpto = icu.obtenerDataDepartamentos();
+			//for (int i = 0; i < ArrDpto.length; i++){ //AGREGO LOS NOMBRES DE DEPARTAMENTOS AL CAMPO
+			//	SeleccionarDptoCAMPO.addItem(ArrDpto[i].getNombre());
+			//}
+		//} catch (DepartamentoNoExisteException e2) {
+		//} 
+		getContentPane().add(SeleccionarDptoCAMPO);//agrego el combobox al panel
+		
+		
+		
+		
+		SeleccionarDptoCAMPO.addActionListener(new ActionListener() { //action listener para cuando se selecciona el dpto
+	    	public void actionPerformed(ActionEvent e) {
+	    		SeleccionarActividadCAMPO = new JComboBox<String>(); //va a ser un combobox de strings 
+				SeleccionarActividadCAMPO.setBounds(218, 68, 162, 21);
+			    getContentPane().add(SeleccionarActividadCAMPO);
+            	cargarActividades();
+
+	    		
+	    		
+//	    		String nombreDpto = (String)SeleccionarDptoCAMPO.getSelectedItem(); 
+//	    		DataDepartamento dtd = null ; 
+//	    		for (int i = 0; i < ArrDpto.length; i++){ //AGREGO LOS NOMBRES DE DEPARTAMENTOS AL CAMPO
+//					if (ArrDpto[i].getNombre()==nombreDpto)
+//						dtd = ArrDpto[i] ; 
+//				}
+//	    		
+//	 			Set<DataActividad> colDTAct = dtd.getColAct();
+//				
+//				SeleccionarActividadCAMPO = new JComboBox<String>(); //va a ser un combobox de strings 
+//				SeleccionarActividadCAMPO.setBounds(218, 68, 162, 21);
+//				Iterator<DataActividad> iterator = colDTAct.iterator();
+//				while(iterator.hasNext()) {
+//					DataActividad setElement = iterator.next(); 
+//					SeleccionarActividadCAMPO.addItem(setElement.getNombre());
+//				}
+//			    getContentPane().add(SeleccionarActividadCAMPO);
+
+				
+	    	}
+	    });
+		
+		
+
 		
 		//----------------------salida-------------------------
 		NombreSalidaCAMPO = new JTextField();
@@ -180,10 +195,34 @@ public class AltaSalida extends JInternalFrame {
 		
 		horaCAMPO = new JComboBox();
 		horaCAMPO.setBounds(298, 171, 29, 21);
+		horaCAMPO.addItem(0); 
+		horaCAMPO.addItem(1); 
+		horaCAMPO.addItem(2); 
+		horaCAMPO.addItem(3); 
+		horaCAMPO.addItem(4); 
+		horaCAMPO.addItem(5); 
+		horaCAMPO.addItem(6); 
+		horaCAMPO.addItem(7); 
+		horaCAMPO.addItem(8); 
+		horaCAMPO.addItem(9); 
+		horaCAMPO.addItem(10); 
+		horaCAMPO.addItem(11); 
+		horaCAMPO.addItem(12); 
+		horaCAMPO.addItem(13); 
+
+
 		getContentPane().add(horaCAMPO);
 		
 		minutosCAMPO = new JComboBox();
 		minutosCAMPO.setBounds(351, 171, 29, 21);
+		minutosCAMPO.addItem(0);
+		minutosCAMPO.addItem(2);
+		minutosCAMPO.addItem(3);
+		minutosCAMPO.addItem(4);
+		minutosCAMPO.addItem(5);
+		minutosCAMPO.addItem(6);
+		minutosCAMPO.addItem(7);
+
 		getContentPane().add(minutosCAMPO);
 		
 		JLabel lblNewLabel_1_3 = new JLabel(":");
@@ -191,7 +230,7 @@ public class AltaSalida extends JInternalFrame {
 		lblNewLabel_1_3.setBounds(337, 179, 14, 13);
 		getContentPane().add(lblNewLabel_1_3);
 		
-		SeleccionarActividadCAMPO = new JComboBox();
+		SeleccionarActividadCAMPO = new JComboBox<String>();
 		SeleccionarActividadCAMPO.setBounds(218, 67, 162, 21);
 		getContentPane().add(SeleccionarActividadCAMPO);
 		
@@ -207,9 +246,17 @@ public class AltaSalida extends JInternalFrame {
 				String Lugar = LugarSalidaCAMPO.getText();
 				Integer maxCantTuristas = Integer.parseInt(MaximaCantTuristasCAMPO.getText());
 				Date fechaAlta = FechaAltaDatePickerCAMPO.getDate(); 
+		        setVisible(false);
 				
+		        
+		        
 			
-				controlAlta.confirmarAltaSalida(NombreActividad, NombreSalida, Fecha, Hora, Lugar, maxCantTuristas, fechaAlta);
+				try {
+					controlAlta.confirmarAltaSalida(NombreActividad, NombreSalida, Fecha, Hora, Lugar, maxCantTuristas, fechaAlta);
+				} catch (SalidaYaExisteExeption e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			
 			}
 		});
@@ -228,5 +275,46 @@ public class AltaSalida extends JInternalFrame {
 		getContentPane().add(cancelarCAMPO);
 		
 
+	}
+	@SuppressWarnings("unchecked")
+	public void cargarDepartamentos(){
+    	DefaultComboBoxModel<String> model;
+    	try {
+    		DD = controlCons.obtenerDataDepartamentos();
+    		String[] DepartamentosNombres = new String[DD.length];
+    		for (int i = 0; i < DD.length;i++) {
+    			DepartamentosNombres[i] = DD[i].getNombre();
+    		}
+	    	model = new DefaultComboBoxModel<String>(DepartamentosNombres);
+	    	SeleccionarDptoCAMPO.setModel(model);
+	    } catch (DepartamentoNoExisteException e) {
+    	}
+    }
+	
+	@SuppressWarnings("unchecked")
+	public void cargarActividades(){
+		DefaultComboBoxModel<String> model;
+		try {
+			String aux = (String) SeleccionarDptoCAMPO.getSelectedItem();
+			int i = 0;
+			while (i<DD.length && DD[i].getNombre() != aux) {
+				i++;
+			}
+			if (DD[i].getColAct().size() == 0) {
+				throw new ActividadNoExisteException("No hay actividades asociadas a dicho Departamento");
+			}
+			auxi = DD[i].getColAct();
+			Iterator<DataActividad> it = auxi.iterator();
+			int j = 0;
+			String[] ActividadesNombres = new String[auxi.size()];
+			while(it.hasNext()) {
+				ActividadesNombres[j] = it.next().getNombre();
+				j++;
+			}
+	    	model = new DefaultComboBoxModel<String>(ActividadesNombres);
+	    	SeleccionarActividadCAMPO.setModel(model);
+	    } catch (ActividadNoExisteException e) {
+	    	JOptionPane.showMessageDialog(this, e.getMessage(), "No hay actividades", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

@@ -47,6 +47,8 @@ public class Principal {
     private ConsultarActividad conActInternalFrame;
     private Inscribir insInternalFrame;
     private AltaSalida creSalInternalFrame ;
+    private ConsultaSalidaTuristica consultaSalidaInternalFrame ;
+
 
     /**
      * Launch the application.
@@ -104,9 +106,13 @@ public class Principal {
         conActInternalFrame.setVisible(false);
 
         //****** SALIDA *********/----------------------------------------------------
-        //creSalInternalFrame = new AltaSalida(ICC);
-       // creSalInternalFrame.setVisible(false);
+       creSalInternalFrame = new AltaSalida(ICC);
+       creSalInternalFrame.setVisible(false);
+       
+       consultaSalidaInternalFrame = new ConsultaSalidaTuristica(ICC);
+       consultaSalidaInternalFrame.setVisible(false);
         //----------------------------------------------------------------------------
+      
         
         
         /* Inscripcion */
@@ -122,7 +128,10 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
-        //frmGestionDeUsuarios.getContentPane().add(creSalInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(creSalInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(consultaSalidaInternalFrame);
+        
+
 
         
         
@@ -216,19 +225,29 @@ public class Principal {
         
         /* Salida */
 
-//        JMenu menuSalida = new JMenu("Salida");
-//        menuBar.add(menuSalida);
-//
-//        JMenuItem menuItemAltaSalida = new JMenuItem("Alta Salida");
-//        menuItemAltaSalida.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-////                creActInternalFrame.cargarDepartamentos();
-////            	creActInternalFrame.setVisible(true);
-//            }
-//        });
-//        menuActividad.add(menuItemRegistrarActividad);
-//        
-//              
+        JMenu menuSalida = new JMenu("Salida");
+        menuBar.add(menuSalida);
+
+        JMenuItem menuItemAltaSalida = new JMenuItem("Alta Salida");
+        menuItemAltaSalida.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	creSalInternalFrame.cargarDepartamentos();
+            	creSalInternalFrame.cargarActividades();
+            	creSalInternalFrame.setVisible(true);
+            }
+        });
+        menuSalida.add(menuItemAltaSalida);
+        
+        JMenuItem menuItemConsultaSalida = new JMenuItem("Consulta Salida");
+        menuItemConsultaSalida.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	consultaSalidaInternalFrame.cargarDepartamentos();
+            	consultaSalidaInternalFrame.setVisible(true);
+            }
+        });
+        menuSalida.add(menuItemConsultaSalida);
+        
+
         
         /* Inscripcion */
         
