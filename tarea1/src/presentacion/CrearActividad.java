@@ -314,6 +314,7 @@ public class CrearActividad extends JInternalFrame {
     
     
     
+    
     public void cargarProveedores(){
     	DefaultComboBoxModel<String> model;
     	try {

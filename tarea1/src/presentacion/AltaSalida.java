@@ -184,7 +184,7 @@ public class AltaSalida extends JInternalFrame {
 		getContentPane().add(FechaAltaDatePickerCAMPO);
 		
 		horaCAMPO = new JComboBox();
-		horaCAMPO.setBounds(298, 171, 29, 21);
+		horaCAMPO.setBounds(282, 173, 32, 21);
 		horaCAMPO.addItem(0); 
 		horaCAMPO.addItem(1); 
 		horaCAMPO.addItem(2); 
@@ -204,7 +204,7 @@ public class AltaSalida extends JInternalFrame {
 		getContentPane().add(horaCAMPO);
 		
 		minutosCAMPO = new JComboBox();
-		minutosCAMPO.setBounds(351, 171, 29, 21);
+		minutosCAMPO.setBounds(324, 173, 32, 21);
 		minutosCAMPO.addItem(0);
 		minutosCAMPO.addItem(2);
 		minutosCAMPO.addItem(3);

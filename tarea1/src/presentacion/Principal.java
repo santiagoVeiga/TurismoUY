@@ -200,7 +200,9 @@ public class Principal {
         });
         menuUsuarios.add(mntmListaUsuarios);
         
+        /* ******************** */
         /* **** Actividad **** */
+        /* ******************** */
         
         JMenu menuActividad = new JMenu("Actividad");
         menuBar.add(menuActividad);
@@ -224,7 +226,9 @@ public class Principal {
         });
         menuActividad.add(menuItemConsultaActividad);
         
-        /* Salida */
+        /* ******************** */
+        /* ****  Salida ****** */
+        /* ******************** */
 
         JMenu menuSalida = new JMenu("Salida");
         menuBar.add(menuSalida);
@@ -248,8 +252,9 @@ public class Principal {
         menuSalida.add(menuItemConsultaSalida);
         
 
-        
+        /* ************ */
         /* Inscripcion */
+        /* ************ */
         
         JMenu mnInscripcion = new JMenu("Inscripcion");
         menuBar.add(mnInscripcion);
@@ -262,6 +267,11 @@ public class Principal {
         	}
         });
         mnInscripcion.add(mntmInscribirTuristaA);
+        
+        
+        /* *************** */
+        /* Carga de Datos */
+        /* ************* */
         
         JMenu mnCargar = new JMenu("Cargar");
         menuBar.add(mnCargar);
