@@ -53,5 +53,7 @@ public interface IControladorAlta {
     public abstract void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta) throws SalidaYaExisteExeption ;
 
 	public abstract void cargarActs() throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException, ParseException;
+
+	public abstract void cargarSalidas() throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption;
    
 }

@@ -11,6 +11,7 @@ import javax.swing.JMenuItem;
 import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
+import excepciones.SalidaYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.Fabrica;
@@ -327,6 +328,28 @@ public class Principal {
         	}
         });
         mnCargar.add(mntmCargarActividades);
+        
+        JMenuItem mntmCargarsalidas = new JMenuItem("CargarSalidas");
+        mntmCargarsalidas.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ICA.cargarSalidas();
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SalidaYaExisteExeption e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        mnCargar.add(mntmCargarsalidas);
     
     }
 }

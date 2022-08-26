@@ -72,6 +72,8 @@ public class Inscribir extends JInternalFrame {
 	    getContentPane().add(lblSeleccionarActividad);
 	    lblSeleccionarActividad.setVisible(false);
 	    
+	    JLabel lblSeleccionarSalida = new JLabel("Salida");
+        JButton btnInscribir = new JButton("Inscribir");
 	    
 	    comboBox = new JComboBox();
 	    comboBox.setBounds(243, 5, 354, 24);
@@ -80,6 +82,15 @@ public class Inscribir extends JInternalFrame {
 	    		comboBox_1.setVisible(true);
 	    		lblSeleccionarActividad.setVisible(true);
 	    		obtAct((String) comboBox.getSelectedItem());
+	    		if(lblSeleccionarSalida.isVisible()) {
+	    			lblSeleccionarSalida.setVisible(false);
+	    		}
+	    		if(comboBox_2.isVisible()) {
+	    			comboBox_2.setVisible(false);
+	    		}
+	    		if(btnInscribir.isVisible()) {
+	    			btnInscribir.setVisible(false);
+	    		}
 	    	}
 	    });
 	    comboBox.setMaximumRowCount(1000);
@@ -87,7 +98,7 @@ public class Inscribir extends JInternalFrame {
 	    getContentPane().add(comboBox);
 	    
 
-	    JLabel lblSeleccionarSalida = new JLabel("Salida");
+	    
 	    lblSeleccionarSalida.setBounds(179, 82, 44, 15);
 	    getContentPane().add(lblSeleccionarSalida);
 	    lblSeleccionarSalida.setVisible(false);
@@ -135,7 +146,7 @@ public class Inscribir extends JInternalFrame {
         getContentPane().add(calendario);
         calendario.setVisible(false);
         
-        JButton btnInscribir = new JButton("Inscribir");
+
         btnInscribir.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		inscri();
@@ -159,6 +170,9 @@ public class Inscribir extends JInternalFrame {
         
         comboBox_2.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
+	    		if(!btnInscribir.isVisible()&&lblCantidadDeTuristas.isVisible()) {
+	    			btnInscribir.setVisible(true);
+	    		}
 	    		if(seleccions==true) {
 	    			lblCantidadDeTuristas.setVisible(true);
 	    			lblFecha.setVisible(true);

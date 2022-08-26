@@ -90,7 +90,7 @@ public class Salida {
 
 	
 	public boolean excedeTuristas(int cantTuristas) {
-    	return (cantRestante+cantTuristas)<=this.getCant();
+    	return cantTuristas>cantRestante;
 	}
 
 	public int getCantRestante() {

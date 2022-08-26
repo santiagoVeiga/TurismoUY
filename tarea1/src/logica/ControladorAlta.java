@@ -26,6 +26,28 @@ import manejadores.ManejadorUsuario;
  */
 public class ControladorAlta implements IControladorAlta {
 	
+	public void cargarSalidas() throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption {
+		CSVReader reader = null;
+	      //parsing a CSV file into CSVReader class constructor  
+	      reader = new CSVReader(new FileReader("./lib/Salidas.csv"));
+	      String[] nextLine;
+	      int cont = 0;
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    		  Date f = formato.parse(nextLine[3].strip());
+	    		  Date fa = formato.parse(nextLine[7].strip());
+	    		  int hora = Integer.parseInt(nextLine[4].strip());
+	    		  Date h = new Date(0,0,0,hora,0);
+	    		  confirmarAltaSalida(nextLine[1].strip(),nextLine[2].strip(),f,h,nextLine[6].strip(),Integer.parseInt(nextLine[5]),fa);
+	    	  }
+	    	  else {
+	    		  cont++;
+	    	  }
+	      }
+	}
+	
 	public void cargarActs() throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException, ParseException {
 		CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
