@@ -145,7 +145,7 @@ public class Principal {
         // Se crea el Frame con las dimensiones indicadas.
         frmGestionDeUsuarios = new JFrame();
         frmGestionDeUsuarios.setTitle("Gestion de Usuarios 1.0");
-        frmGestionDeUsuarios.setBounds(100, 100, 891, 604);
+        frmGestionDeUsuarios.setBounds(100, 100, 953, 667);
         frmGestionDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Se crea una barra de menú (JMenuBar) con dos menú (JMenu) desplegables.
@@ -209,6 +209,7 @@ public class Principal {
         menuItemRegistrarActividad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 creActInternalFrame.cargarDepartamentos();
+                creActInternalFrame.cargarProveedores();
             	creActInternalFrame.setVisible(true);
             }
         });

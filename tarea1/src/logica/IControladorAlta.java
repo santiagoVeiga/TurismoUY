@@ -30,7 +30,7 @@ public interface IControladorAlta {
     
     public abstract DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException;
     
-    public abstract void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f) throws ActividadRepetidaException;
+    public abstract void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f,String proveedor) throws ActividadRepetidaException;
 
     /**
      * Retorna la información de un usuario con la cédula indicada.
