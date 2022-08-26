@@ -53,8 +53,6 @@ public class ControladorAlta implements IControladorAlta {
 	
 	public void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException {
 	    CSVReader usu = null;
-	    CSVReader tur = null;
-	    CSVReader pro = null;
 	      //parsing a CSV file into CSVReader class constructor  
 	      usu = new CSVReader(new FileReader("./lib/Usuarios.csv"));
 	      
