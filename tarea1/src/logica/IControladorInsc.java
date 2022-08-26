@@ -7,7 +7,6 @@ import java.util.Set;
 
 import excepciones.ExcedeTuristas;
 import excepciones.TuristaConSalida;
-import excepciones.TuristaConSalidaEnFecha;
 
 public interface IControladorInsc {
 	public abstract Set<DataDepartamento> listarDepartamentos();
