@@ -249,8 +249,9 @@ public class CrearActividad extends JInternalFrame {
         String duracionAct = this.duracionTextField.getText();
         //Date nacimientoU = calendario.getDate();
         String ciudadAct = this.ciudadTextField.getText();
+        String departamentoAct = (String)departamentoComboBox.getSelectedItem();
 
-        if (nombreAct.isEmpty() || descripcionAct.isEmpty() || costoAct.isEmpty() || duracionAct.isEmpty() || ciudadAct.isEmpty()) {
+        if (nombreAct.isEmpty() || descripcionAct.isEmpty() || costoAct.isEmpty() || duracionAct.isEmpty() || ciudadAct.isEmpty() || (departamentoAct == null)) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Registrar Actividad",
                     JOptionPane.ERROR_MESSAGE);
             return false;
@@ -293,6 +294,7 @@ public class CrearActividad extends JInternalFrame {
         costoTextField.setText("");
         duracionTextField.setText("");
         ciudadTextField.setText("");
+        departamentoComboBox.setSelectedItem(null);
         //fechaTextField.setText(""); // Ver como hacer con Fecha JCalendar
         //departamentoTextField.setText("");
     }

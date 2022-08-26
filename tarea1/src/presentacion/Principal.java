@@ -145,7 +145,7 @@ public class Principal {
         // Se crea el Frame con las dimensiones indicadas.
         frmGestionDeUsuarios = new JFrame();
         frmGestionDeUsuarios.setTitle("Gestion de Usuarios 1.0");
-        frmGestionDeUsuarios.setBounds(100, 100, 680, 400);
+        frmGestionDeUsuarios.setBounds(100, 100, 891, 604);
         frmGestionDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Se crea una barra de menú (JMenuBar) con dos menú (JMenu) desplegables.
