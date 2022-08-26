@@ -285,9 +285,6 @@ public class Inscribir extends JInternalFrame {
 			JOptionPane.showMessageDialog(this, "La cantidad de turistas excede los cupos disponibles para la salida", "Inscribir",
                     JOptionPane.ERROR_MESSAGE);
 			e1.printStackTrace();
-		} catch (TuristaConSalidaEnFecha e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 	}
 }
