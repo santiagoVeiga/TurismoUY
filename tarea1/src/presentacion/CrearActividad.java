@@ -318,7 +318,14 @@ public class CrearActividad extends JInternalFrame {
     	DefaultComboBoxModel<String> model;
     	try {
     		DU = controlAlta.getUsuarios();
-    		String[] DP = new String[DU.length];
+    		//Cantidad de proveedores
+    		int cant = 0;
+    		for (int i = 0; i < DU.length;i++) {
+    			if (DU[i] instanceof DataProveedor) {
+        			cant++;
+    			}
+    		}
+    		String[] DP = new String[cant];
     		//DP = controlAlta.getUsuarios();
     		int ctr = 0;
     		for (int i = 0; i < DU.length;i++) {
