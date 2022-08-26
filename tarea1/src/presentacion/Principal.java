@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
@@ -33,7 +34,6 @@ import javax.swing.JToolBar;
 import javax.swing.DefaultComboBoxModel;
 
 
-
 public class Principal {
 
     private JFrame frmGestionDeUsuarios;
@@ -46,6 +46,7 @@ public class Principal {
     private CrearActividad creActInternalFrame;
     private ConsultarActividad conActInternalFrame;
     private Inscribir insInternalFrame;
+    private AltaSalida creSalInternalFrame ;
 
     /**
      * Launch the application.
@@ -67,15 +68,15 @@ public class Principal {
      * Create the application.
      * @throws DepartamentoYaExisteExeption 
      * @throws IOException 
+     * @throws DepartamentoNoExisteException 
      */
-    public Principal() throws DepartamentoYaExisteExeption, IOException {
+    public Principal() throws DepartamentoYaExisteExeption, IOException, DepartamentoNoExisteException {
         initialize();
 
      // Inicialización
         Fabrica fabrica = Fabrica.getInstance();
         ICA = fabrica.getIControladorAlta();
         ICC = fabrica.getIControladorConsulta();
-
         ICI = fabrica.getIControladorInsc();
         // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
         // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
@@ -102,6 +103,10 @@ public class Principal {
         conActInternalFrame = new ConsultarActividad(ICC);
         conActInternalFrame.setVisible(false);
 
+        //****** SALIDA *********/----------------------------------------------------
+        //creSalInternalFrame = new AltaSalida(ICC);
+       // creSalInternalFrame.setVisible(false);
+        //----------------------------------------------------------------------------
         
         
         /* Inscripcion */
@@ -117,6 +122,8 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
+        //frmGestionDeUsuarios.getContentPane().add(creSalInternalFrame);
+
         
         
     }
@@ -164,6 +171,7 @@ public class Principal {
             }
         });
         menuUsuarios.add(menuItemRegistrar);
+        
 
         JMenuItem menuItemVerInfo = new JMenuItem("Ver Información");
         menuItemVerInfo.addActionListener(new ActionListener() {
@@ -205,6 +213,22 @@ public class Principal {
             }
         });
         menuActividad.add(menuItemConsultaActividad);
+        
+        /* Salida */
+
+//        JMenu menuSalida = new JMenu("Salida");
+//        menuBar.add(menuSalida);
+//
+//        JMenuItem menuItemAltaSalida = new JMenuItem("Alta Salida");
+//        menuItemAltaSalida.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+////                creActInternalFrame.cargarDepartamentos();
+////            	creActInternalFrame.setVisible(true);
+//            }
+//        });
+//        menuActividad.add(menuItemRegistrarActividad);
+//        
+//              
         
         /* Inscripcion */
         

@@ -47,9 +47,14 @@ public interface IControladorAlta {
      */
     public abstract DataUsuario[] getUsuarios() throws UsuarioNoExisteException;
 
+<<<<<<< HEAD
 	public abstract void cargarDptos() throws IOException, DepartamentoYaExisteExeption;
 
-	public abstract void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException ;
+	public abstract void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException;
+=======
     public abstract void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta) throws SalidaYaExisteExeption ;
-   
+    
+    
+    public abstract void cargarDptos() throws IOException, DepartamentoYaExisteExeption;
+>>>>>>> rama_santi_5
 }

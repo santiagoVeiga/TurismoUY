@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import logica.DataActividad;
+import logica.DataPaquete;
 import logica.DataSalida;
 import logica.DataTurista;
 
@@ -197,6 +198,12 @@ public class InfoActividades extends JFrame {
         for (int i = 0; i < o.length; i++) {
         	usuarios[i] = (DataSalida) o[i];
         }
+        
+        Object[] o1 = DT.getPaquete().toArray();
+        DataPaquete[] DP = new DataPaquete[o1.length];
+        for (int i = 0; i < o1.length; i++) {
+        	DP[i] = (DataPaquete) o1[i];
+        }
 		
 		JComboBox<DataSalida> comboBox = new JComboBox<DataSalida>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
@@ -211,17 +218,56 @@ public class InfoActividades extends JFrame {
         model = new DefaultComboBoxModel<DataSalida>(usuarios);
         comboBox.setModel(model);
 		
+		JLabel lblNewLabel_1_3_2_1_1 = new JLabel("Paquetes :");
+		GridBagConstraints gbc_lblNewLabel_1_3_2_1_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1_3_2_1_1.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_1_3_2_1_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_1_3_2_1_1.gridx = 1;
+		gbc_lblNewLabel_1_3_2_1_1.gridy = 8;
+		contentPane.add(lblNewLabel_1_3_2_1_1, gbc_lblNewLabel_1_3_2_1_1);
+		
+		
+		
+		JComboBox<DataPaquete> comboBox_1 = new JComboBox<DataPaquete>();
+		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
+		gbc_comboBox_1.gridwidth = 4;
+		gbc_comboBox_1.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox_1.gridx = 5;
+		gbc_comboBox_1.gridy = 8;
+		contentPane.add(comboBox_1, gbc_comboBox_1);
+		
+		ComboBoxModel<DataPaquete> model2;
+        model2 = new DefaultComboBoxModel<DataPaquete>(DP);
+        comboBox_1.setModel(model2);
+		
 		JButton btnNewButton = new JButton("Info. Salida");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton.gridwidth = 2;
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 6;
-		gbc_btnNewButton.gridy = 8;
+		gbc_btnNewButton.gridy = 9;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
 		
 		btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	int i = comboBox.getSelectedIndex();
             	InfoSalida is = new InfoSalida(usuarios[i]);
+            	is.setVisible(true);
+            }
+        });
+		
+		JButton btnInfoPaquete = new JButton("Info. Paquete");
+		GridBagConstraints gbc_btnInfoPaquete = new GridBagConstraints();
+		gbc_btnInfoPaquete.insets = new Insets(0, 0, 0, 5);
+		gbc_btnInfoPaquete.gridx = 8;
+		gbc_btnInfoPaquete.gridy = 9;
+		contentPane.add(btnInfoPaquete, gbc_btnInfoPaquete);
+		
+		btnInfoPaquete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	int i = comboBox_1.getSelectedIndex();
+            	InfoPaquete is = new InfoPaquete(DP[i]);
             	is.setVisible(true);
             }
         });

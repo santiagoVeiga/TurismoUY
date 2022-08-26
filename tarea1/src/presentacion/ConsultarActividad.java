@@ -304,10 +304,10 @@ public void mostrarActividad() {
 	actCiudadR.setText(actElegida.getCiudad());
 	actCiudadR.setVisible(true);
 	actCosto.setVisible(true);
-	actCostoR.setText("actElegida.getCosto()");
+	actCostoR.setText(Integer.toString(actElegida.getCosto()));
 	actCostoR.setVisible(true);
 	actDuracion.setVisible(true);
-	actDuracionR.setText("actElegida.getCosto()");
+	actDuracionR.setText(Integer.toString(actElegida.getDuracion()));
 	actDuracionR.setVisible(true);
 }
 

@@ -29,7 +29,7 @@ public class ControladorAlta implements IControladorAlta {
 	public void cargarDptos() throws IOException, DepartamentoYaExisteExeption {
 	    CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
-	      reader = new CSVReader(new FileReader("/home/vagrant/git/tpgr29/tarea1/lib/Departamentos.csv"));
+	      reader = new CSVReader(new FileReader("./lib/Departamentos.csv"));
 	      String[] nextLine;
 	      //reads one line at a time  
 	      int cont = 0;
@@ -45,7 +45,7 @@ public class ControladorAlta implements IControladorAlta {
 	    CSVReader tur = null;
 	    CSVReader pro = null;
 	      //parsing a CSV file into CSVReader class constructor  
-	      usu = new CSVReader(new FileReader("/home/vagrant/git/tpgr29/tarea1/lib/Usuarios.csv"));
+	      usu = new CSVReader(new FileReader("./lib/Usuarios.csv"));
 	      
 	      String[] nextLineusu;
 	      
@@ -108,7 +108,9 @@ public class ControladorAlta implements IControladorAlta {
         Departamento insDep = mDep.getDepartamento(dep);
         act = new Actividad(nom, desc,f,ciudad, costo, dur, insDep);
         mAct.addActividad(act);
-        insDep.agregarActividad(act);
+        // if agregado por si Departamento no esta cargado da errror VER SI QUITAR
+        if(insDep != null)
+        	insDep.agregarActividad(act);
     }
     
     public DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException{
