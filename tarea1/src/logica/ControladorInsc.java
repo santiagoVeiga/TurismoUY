@@ -11,9 +11,9 @@ import java.util.Set;
 import com.opencsv.CSVReader;
 
 import excepciones.ExcedeTuristas;
+import excepciones.InscFechaInconsistente;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
-import excepciones.TuristaConSalidaEnFecha;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorDepartamentos;
 import manejadores.ManejadorUsuario;
@@ -32,7 +32,7 @@ public class ControladorInsc implements IControladorInsc {
 	}
 	
 	
-	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, TuristaConSalidaEnFecha {
+	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente {
 		  CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
 	      reader = new CSVReader(new FileReader("./lib/Inscripciones.csv"));
@@ -52,7 +52,7 @@ public class ControladorInsc implements IControladorInsc {
 	}
 	
 	
-	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, TuristaConSalidaEnFecha {
+	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente {
 		ManejadorActividad m = ManejadorActividad.getInstance();
 		Actividad a = m.getActividad(nombreAct);
 		ManejadorUsuario mu = ManejadorUsuario.getinstance();
@@ -67,8 +67,8 @@ public class ControladorInsc implements IControladorInsc {
 		if(s.excedeTuristas(cantTuristas)) {
 			throw new ExcedeTuristas("La salida no cuenta con capacidad para la cantidad de turistas solicitados");
 		}
-		if (((Turista)t).tieneSalidaEnFecha(s)) {
-			throw new TuristaConSalidaEnFecha("El turista ya tiene una salida para esa fecha");
+		if(fecha.before(s.getFechaAlta())) {
+			throw new InscFechaInconsistente("La fecha de inscripcion debe ser igual o posterior a la fecha de salida");
 		}
 		// Se realiza la inscripcion
 		CompraGeneral cg = new CompraGeneral(fecha,cantTuristas,costo);

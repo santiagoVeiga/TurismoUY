@@ -210,11 +210,7 @@ public class AltaSalida extends JInternalFrame {
 		horaCAMPO.addItem(21); 
 		horaCAMPO.addItem(22); 
 		horaCAMPO.addItem(23); 
-		horaCAMPO.addItem(24); 
-		horaCAMPO.addItem(25); 
-		horaCAMPO.addItem(26); 
-		horaCAMPO.addItem(27); 
-
+		horaCAMPO.addItem(24);
 
 		getContentPane().add(horaCAMPO);
 		

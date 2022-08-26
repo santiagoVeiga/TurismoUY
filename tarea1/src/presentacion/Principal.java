@@ -12,9 +12,9 @@ import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.ExcedeTuristas;
+import excepciones.InscFechaInconsistente;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
-import excepciones.TuristaConSalidaEnFecha;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.Fabrica;
@@ -195,7 +195,9 @@ public class Principal {
         });
         menuUsuarios.add(mntmListaUsuarios);
         
+        /* ******************** */
         /* **** Actividad **** */
+        /* ******************** */
         
         JMenu menuActividad = new JMenu("Actividad");
         menuBar.add(menuActividad);
@@ -219,7 +221,9 @@ public class Principal {
         });
         menuActividad.add(menuItemConsultaActividad);
         
-        /* Salida */
+        /* ******************** */
+        /* ****  Salida ****** */
+        /* ******************** */
 
         JMenu menuSalida = new JMenu("Salida");
         menuBar.add(menuSalida);
@@ -243,8 +247,9 @@ public class Principal {
         menuSalida.add(menuItemConsultaSalida);
         
 
-        
+        /* ************ */
         /* Inscripcion */
+        /* ************ */
         
         JMenu mnInscripcion = new JMenu("Inscripcion");
         menuBar.add(mnInscripcion);
@@ -257,6 +262,11 @@ public class Principal {
         	}
         });
         mnInscripcion.add(mntmInscribirTuristaA);
+        
+        
+        /* *************** */
+        /* Carga de Datos */
+        /* ************* */
         
         JMenu mnCargar = new JMenu("Cargar");
         menuBar.add(mnCargar);
@@ -365,10 +375,10 @@ public class Principal {
 				} catch (ExcedeTuristas e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch (TuristaConSalidaEnFecha e1) {
+				} catch (InscFechaInconsistente e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				} 
         	}
         });
         mnCargar.add(mntmCargarInscripciones);

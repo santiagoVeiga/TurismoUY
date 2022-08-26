@@ -12,9 +12,9 @@ import javax.swing.JOptionPane;
 import com.toedter.calendar.JCalendar;
 
 import excepciones.ExcedeTuristas;
+import excepciones.InscFechaInconsistente;
 import excepciones.NumeroNegativoException;
 import excepciones.TuristaConSalida;
-import excepciones.TuristaConSalidaEnFecha;
 import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataSalida;
@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -46,6 +47,7 @@ public class Inscribir extends JInternalFrame {
 	private JTextField textField;
 	protected boolean selecciont = false;
 	protected boolean seleccions = false;
+	private Date fechaInsc;
 	
 	public Inscribir(IControladorInsc i) {
 		setMaximizable(true);
@@ -263,7 +265,8 @@ public class Inscribir extends JInternalFrame {
             if(Integer.parseInt(textField.getText()) < 0) {
             	throw new NumeroNegativoException();
             }
-            icon.inscribir((String) comboBox_3.getSelectedItem(), (String) comboBox_2.getSelectedItem(),Integer.parseInt(textField.getText()) , null,(String) comboBox_1.getSelectedItem());
+            fechaInsc = calendario.getDate();
+            icon.inscribir((String) comboBox_3.getSelectedItem(), (String) comboBox_2.getSelectedItem(),Integer.parseInt(textField.getText()) , fechaInsc,(String) comboBox_1.getSelectedItem());
             JOptionPane.showMessageDialog(this, "Inscripcion existosa", "Inscribir",
                     JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
@@ -285,9 +288,11 @@ public class Inscribir extends JInternalFrame {
 			JOptionPane.showMessageDialog(this, "La cantidad de turistas excede los cupos disponibles para la salida", "Inscribir",
                     JOptionPane.ERROR_MESSAGE);
 			e1.printStackTrace();
-		} catch (TuristaConSalidaEnFecha e) {
+		} catch (InscFechaInconsistente e) {
 			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, "La fecha de inscripcion debe ser igual o posterior a la fecha de salida", "Inscribir",
+                    JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
-		}
+		} 
 	}
 }
