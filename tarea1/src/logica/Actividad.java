@@ -136,9 +136,7 @@ public class Actividad {
 		Set<Entry<String, Salida>> aux = colSal.entrySet();
     	Iterator<Entry<String, Salida>> it = aux.iterator();
     	while(it.hasNext()){
-    		//if(it.next().getValue().estaVigente())
     			res.add(it.next().getValue().getDataST());
-    	//
     			}
 		return res;
 	}
