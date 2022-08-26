@@ -13,7 +13,6 @@ import com.opencsv.CSVReader;
 import excepciones.ExcedeTuristas;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
-import excepciones.TuristaConSalidaEnFecha;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorDepartamentos;
 import manejadores.ManejadorUsuario;
@@ -66,9 +65,6 @@ public class ControladorInsc implements IControladorInsc {
 		}
 		if(s.excedeTuristas(cantTuristas)) {
 			throw new ExcedeTuristas("La salida no cuenta con capacidad para la cantidad de turistas solicitados");
-		}
-		if (((Turista)t).tieneSalidaEnFecha(s)) {
-			throw new TuristaConSalidaEnFecha("El turista ya tiene una salida para esa fecha");
 		}
 		// Se realiza la inscripcion
 		CompraGeneral cg = new CompraGeneral(fecha,cantTuristas,costo);

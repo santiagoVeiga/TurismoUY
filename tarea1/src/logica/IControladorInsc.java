@@ -11,7 +11,7 @@ import excepciones.TuristaConSalidaEnFecha;
 
 public interface IControladorInsc {
 	public abstract Set<DataDepartamento> listarDepartamentos();
-	public abstract void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, TuristaConSalidaEnFecha;
+	public abstract void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas;
 	public abstract Set<DataSalida> salidas(String s);
 	public abstract Set<DataActividad> selecDepartamento(String s);
 	public abstract Set<DataPaquete> listarPaquetes();

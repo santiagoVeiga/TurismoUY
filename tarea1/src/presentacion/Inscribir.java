@@ -14,7 +14,6 @@ import com.toedter.calendar.JCalendar;
 import excepciones.ExcedeTuristas;
 import excepciones.NumeroNegativoException;
 import excepciones.TuristaConSalida;
-import excepciones.TuristaConSalidaEnFecha;
 import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataSalida;
