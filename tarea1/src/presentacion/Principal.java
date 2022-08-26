@@ -12,6 +12,7 @@ import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.ExcedeTuristas;
+import excepciones.InscFechaInconsistente;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import excepciones.UsuarioNoExisteException;
@@ -362,6 +363,9 @@ public class Principal {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (ExcedeTuristas e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InscFechaInconsistente e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} 
