@@ -79,7 +79,7 @@ public class InfoActividades extends JFrame {
 		gbc_lblNewLabel_1.gridy = 1;
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField = new JTextField(DT.getCosto());
+		textField = new JTextField(String.valueOf(DT.getCosto()));
 		textField.setEditable(false);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 4;
@@ -118,7 +118,7 @@ public class InfoActividades extends JFrame {
 		gbc_lblNewLabel_1_2.gridy = 3;
 		contentPane.add(lblNewLabel_1_2, gbc_lblNewLabel_1_2);
 		
-		textField_2 = new JTextField(DT.getDuracion());
+		textField_2 = new JTextField(String.valueOf(DT.getDuracion()));
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
@@ -192,20 +192,7 @@ public class InfoActividades extends JFrame {
 		gbc_lblNewLabel_1_3_2_1.gridx = 1;
 		gbc_lblNewLabel_1_3_2_1.gridy = 7;
 		contentPane.add(lblNewLabel_1_3_2_1, gbc_lblNewLabel_1_3_2_1);
-		
-		Object[] o = DT.getSalidas().toArray();
-        DataSalida[] usuarios = new DataSalida[o.length];
-        for (int i = 0; i < o.length; i++) {
-        	usuarios[i] = (DataSalida) o[i];
-        }
-        
-        Object[] o1 = DT.getPaquete().toArray();
-        DataPaquete[] DP = new DataPaquete[o1.length];
-        for (int i = 0; i < o1.length; i++) {
-        	DP[i] = (DataPaquete) o1[i];
-        }
-		
-		JComboBox<DataSalida> comboBox = new JComboBox<DataSalida>();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 4;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -214,10 +201,28 @@ public class InfoActividades extends JFrame {
 		gbc_comboBox.gridy = 7;
 		contentPane.add(comboBox, gbc_comboBox);
 		
-		ComboBoxModel<DataSalida> model;
-        model = new DefaultComboBoxModel<DataSalida>(usuarios);
-        comboBox.setModel(model);
+
 		
+		
+		JButton btnNewButton = new JButton("Info. Salida");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.gridwidth = 2;
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.gridx = 6;
+		gbc_btnNewButton.gridy = 9;
+		contentPane.add(btnNewButton, gbc_btnNewButton);
+		
+		
+		
+		JButton btnInfoPaquete = new JButton("Info. Paquete");
+		GridBagConstraints gbc_btnInfoPaquete = new GridBagConstraints();
+		gbc_btnInfoPaquete.insets = new Insets(0, 0, 0, 5);
+		gbc_btnInfoPaquete.gridx = 8;
+		gbc_btnInfoPaquete.gridy = 9;
+		contentPane.add(btnInfoPaquete, gbc_btnInfoPaquete);
+		
+		
+
 		JLabel lblNewLabel_1_3_2_1_1 = new JLabel("Paquetes :");
 		GridBagConstraints gbc_lblNewLabel_1_3_2_1_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1_3_2_1_1.anchor = GridBagConstraints.WEST;
@@ -228,7 +233,7 @@ public class InfoActividades extends JFrame {
 		
 		
 		
-		JComboBox<DataPaquete> comboBox_1 = new JComboBox<DataPaquete>();
+		JComboBox<String> comboBox_1 = new JComboBox<String>();
 		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
 		gbc_comboBox_1.gridwidth = 4;
 		gbc_comboBox_1.insets = new Insets(0, 0, 5, 5);
@@ -237,40 +242,62 @@ public class InfoActividades extends JFrame {
 		gbc_comboBox_1.gridy = 8;
 		contentPane.add(comboBox_1, gbc_comboBox_1);
 		
-		ComboBoxModel<DataPaquete> model2;
-        model2 = new DefaultComboBoxModel<DataPaquete>(DP);
-        comboBox_1.setModel(model2);
 		
-		JButton btnNewButton = new JButton("Info. Salida");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridwidth = 2;
-		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton.gridx = 6;
-		gbc_btnNewButton.gridy = 9;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
+		if(DT.HaySalidas()) {
+			Object[] o = DT.getSalidas().toArray();
+	        DataSalida[] usuarios2 = new DataSalida[o.length];
+	        String[] usuarios = new String[o.length];
+	        for (int i = 0; i < o.length; i++) {
+	        	usuarios[i] = ((DataSalida) o[i]).getNombre();
+	        	usuarios2[i] = (DataSalida) o[i];
+	        }
+	        ComboBoxModel<String> model;
+	        model = new DefaultComboBoxModel<String>(usuarios);
+	        comboBox.setModel(model);
 		
-		btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	int i = comboBox.getSelectedIndex();
-            	InfoSalida is = new InfoSalida(usuarios[i]);
-            	is.setVisible(true);
-            }
-        });
+	        btnNewButton.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	            	int i = comboBox.getSelectedIndex();
+	            	InfoSalida is = new InfoSalida(usuarios2[i]);
+	            	is.setVisible(true);
+	            }
+	        });
 		
-		JButton btnInfoPaquete = new JButton("Info. Paquete");
-		GridBagConstraints gbc_btnInfoPaquete = new GridBagConstraints();
-		gbc_btnInfoPaquete.insets = new Insets(0, 0, 0, 5);
-		gbc_btnInfoPaquete.gridx = 8;
-		gbc_btnInfoPaquete.gridy = 9;
-		contentPane.add(btnInfoPaquete, gbc_btnInfoPaquete);
+		}else
+		{
+			lblNewLabel_1_3_2_1.setVisible(false);
+			comboBox.setVisible(false);
+			btnNewButton.setVisible(false);
+		}
+        if(DT.HayPaquetes()) {
+	        Object[] o1 = DT.getPaquete().toArray();
+	        String[] DP = new String[o1.length];
+	        DataPaquete[] DP2 = new DataPaquete[o1.length];
+	        for (int i = 0; i < o1.length; i++) {
+	        	DP[i] = ((DataPaquete) o1[i]).getNombre();
+	        	DP2[i] = (DataPaquete) o1[i];
+	        }
+	    	ComboBoxModel<String> model2;
+	        model2 = new DefaultComboBoxModel<String>(DP);
+	        comboBox_1.setModel(model2);
 		
-		btnInfoPaquete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	int i = comboBox_1.getSelectedIndex();
-            	InfoPaquete is = new InfoPaquete(DP[i]);
-            	is.setVisible(true);
-            }
-        });
+	        btnInfoPaquete.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	            	int i = comboBox_1.getSelectedIndex();
+	            	InfoPaquete is = new InfoPaquete(DP2[i]);
+	            	is.setVisible(true);
+	            }
+	        });
+			
+        }else
+        {
+        	lblNewLabel_1_3_2_1_1.setVisible(false);
+        	btnInfoPaquete.setVisible(false);
+        	comboBox_1.setVisible(false);
+        }
+		
+		
+		
 		
 		
 		JButton btnNewButton_1 = new JButton("Salir");
@@ -279,6 +306,12 @@ public class InfoActividades extends JFrame {
 		gbc_btnNewButton_1.gridx = 9;
 		gbc_btnNewButton_1.gridy = 9;
 		contentPane.add(btnNewButton_1, gbc_btnNewButton_1);
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	setVisible(false);
+            }
+        });
 		
 		
 	}

@@ -213,13 +213,15 @@ public class InfoProveedor extends JFrame {
 		
 		
 		Object[] o = DP.getActividades().toArray();
-        DataActividad[] usuarios = new DataActividad[o.length];
+        DataActividad[] usuarios2 = new DataActividad[o.length];
+        String[] usuarios = new String[o.length];
         for (int i = 0; i < o.length; i++) {
-        	usuarios[i] = (DataActividad) o[i];
+        	usuarios2[i] = (DataActividad) o[i];
+        	usuarios[i] = ((DataActividad) o[i]).getNombre();
         }
 		
 		
-		JComboBox<DataActividad> comboBox = new JComboBox<DataActividad>();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 4;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -228,10 +230,10 @@ public class InfoProveedor extends JFrame {
 		gbc_comboBox.gridy = 8;
 		contentPane.add(comboBox, gbc_comboBox);
 		
-		DefaultComboBoxModel<DataActividad> model;
-        model = new DefaultComboBoxModel<DataActividad>(usuarios);
+		DefaultComboBoxModel<String> model;
+        model = new DefaultComboBoxModel<String>(usuarios);
         comboBox.setModel(model);
-		
+        
 		JButton btnNewButton = new JButton("Info. Actividad");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
@@ -242,7 +244,7 @@ public class InfoProveedor extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	int i = comboBox.getSelectedIndex();
-            	InfoActividades ia = new InfoActividades(usuarios[i]);
+            	InfoActividades ia = new InfoActividades(usuarios2[i]);
             	ia.setVisible(true);
             	setVisible(false);
             }

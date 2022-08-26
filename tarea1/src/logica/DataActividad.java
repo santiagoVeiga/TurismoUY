@@ -72,4 +72,20 @@ public class DataActividad {
 	public int getDuracion() {
 		return this.duracion;
 	}
+
+	public boolean HayPaquetes() {
+		// TODO Auto-generated method stub
+		if(DP!=null)
+			return DP.size()>0;
+		else
+			return false;
+	}
+
+	public boolean HaySalidas() {
+		// TODO Auto-generated method stub
+		if(DS!=null)
+			return DS.size()>0;
+		else
+			return false;
+	}
 }
