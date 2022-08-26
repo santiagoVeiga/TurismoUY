@@ -1,10 +1,17 @@
 package logica;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.opencsv.CSVReader;
+
 import excepciones.ExcedeTuristas;
+import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorDepartamentos;
@@ -22,6 +29,27 @@ public class ControladorInsc implements IControladorInsc {
 		Actividad a = m.getActividad(nombreAct);
 		return a.getSalidas();
 	}
+	
+	
+	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas {
+		  CSVReader reader = null;
+	      //parsing a CSV file into CSVReader class constructor  
+	      reader = new CSVReader(new FileReader("./lib/Inscripciones.csv"));
+	      String[] nextLine;
+	      int cont = 0;
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    		  Date f = formato.parse(nextLine[5].strip());
+	    		  inscribir(nextLine[2].strip(),nextLine[1].strip(),Integer.parseInt(nextLine[3]),f,nextLine[6].strip());
+	    	  }
+	    	  else {
+	    		  cont++;
+	    	  }
+	      }
+	}
+	
 	
 	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas {
 		ManejadorActividad m = ManejadorActividad.getInstance();

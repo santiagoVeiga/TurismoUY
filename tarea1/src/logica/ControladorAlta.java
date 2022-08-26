@@ -25,7 +25,7 @@ import manejadores.ManejadorUsuario;
  *
  */
 public class ControladorAlta implements IControladorAlta {
-	
+
 	public void cargarSalidas() throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption {
 		CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
