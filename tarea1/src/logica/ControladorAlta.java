@@ -26,6 +26,17 @@ import manejadores.ManejadorUsuario;
  */
 public class ControladorAlta implements IControladorAlta {
 	
+	public void cargarActs() throws IOException, DepartamentoYaExisteExeption {
+		CSVReader reader = null;
+	      //parsing a CSV file into CSVReader class constructor  
+	      reader = new CSVReader(new FileReader("./lib/Actividades.csv"));
+	      String[] nextLine;
+	      //reads one line at a time  
+	      int cont = 0;
+	      while ((nextLine = reader.readNext()) != null) {
+	      }
+	}
+	
 	public void cargarDptos() throws IOException, DepartamentoYaExisteExeption {
 	    CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
@@ -42,8 +53,6 @@ public class ControladorAlta implements IControladorAlta {
 	
 	public void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException {
 	    CSVReader usu = null;
-	    CSVReader tur = null;
-	    CSVReader pro = null;
 	      //parsing a CSV file into CSVReader class constructor  
 	      usu = new CSVReader(new FileReader("./lib/Usuarios.csv"));
 	      

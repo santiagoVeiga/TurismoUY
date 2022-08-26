@@ -23,11 +23,11 @@ public class ControladorInsc implements IControladorInsc {
 		return a.getSalidas();
 	}
 	
-	public void inscribir(String correo, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas {
+	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas {
 		ManejadorActividad m = ManejadorActividad.getInstance();
 		Actividad a = m.getActividad(nombreAct);
 		ManejadorUsuario mu = ManejadorUsuario.getinstance();
-		Usuario t = mu.obtenerUsuarioMail(correo);
+		Usuario t = mu.obtenerUsuarioNick(nick);
 		int c = a.getCosto();
 		int costo = c*cantTuristas;
 		Salida s = a.getSalida(nomSalida);
@@ -41,6 +41,7 @@ public class ControladorInsc implements IControladorInsc {
 		// Se realiza la inscripcion
 		CompraGeneral cg = new CompraGeneral(fecha,cantTuristas,costo);
 		cg.setSalida(s);
+		s.setCantRestante(s.getCantRestante()-cantTuristas);
 		((Turista) t).agregarCompraGeneral(cg);
 	}
 

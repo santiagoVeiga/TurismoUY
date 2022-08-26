@@ -30,18 +30,21 @@ import java.awt.event.MouseEvent;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class Inscribir extends JInternalFrame {
 	private IControladorInsc icon;
 	private JCalendar calendario;
-	private int seleccion1 = 0;
 	private Set<DataDepartamento> deps;
 	private JComboBox comboBox;
 	private JComboBox comboBox_1;
 	private JComboBox comboBox_2;
 	private JComboBox comboBox_3;
 	private JTextField textField;
+	protected boolean selecciont = false;
+	protected boolean seleccions = false;
 	
 	public Inscribir(IControladorInsc i) {
 		setMaximizable(true);
@@ -99,7 +102,6 @@ public class Inscribir extends JInternalFrame {
 	    lblTurista.setVisible(false);
 	    
 	    comboBox_3 = new JComboBox();
-	    comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"r", "t"}));
 	    comboBox_3.setBounds(243, 116, 354, 24);
 	    getContentPane().add(comboBox_3);
 	    
@@ -143,6 +145,12 @@ public class Inscribir extends JInternalFrame {
         getContentPane().add(btnInscribir);
         
         textField = new JTextField();
+        textField.addKeyListener(new KeyAdapter() {
+        	@Override
+        	public void keyPressed(KeyEvent e) {
+        		btnInscribir.setVisible(true);
+        	}
+        });
         textField.setBounds(243, 161, 354, 19);
         getContentPane().add(textField);
         textField.setColumns(10);
@@ -151,28 +159,28 @@ public class Inscribir extends JInternalFrame {
         
         comboBox_2.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		if(seleccion1==1) {
+	    		if(seleccions==true) {
 	    			lblCantidadDeTuristas.setVisible(true);
 	    			lblFecha.setVisible(true);
 	    			calendario.setVisible(true);
 	    			textField.setVisible(true);
 	    		}
 	    		else {
-	    			seleccion1++;
+	    			selecciont=true;
 	    		}
 	    	}
 	    });
         
         comboBox_3.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		if(seleccion1==1) {
+	    		if(selecciont==true) {
 	    			lblCantidadDeTuristas.setVisible(true);
 	    			lblFecha.setVisible(true);
 	    			calendario.setVisible(true);
 	    			textField.setVisible(true);
 	    		}
 	    		else {
-	    			seleccion1++;
+	    			seleccions=true;;
 	    		}
 	    	}
 	    });
@@ -240,7 +248,7 @@ public class Inscribir extends JInternalFrame {
             if(Integer.parseInt(textField.getText()) < 0) {
             	throw new NumeroNegativoException();
             }
-            icon.inscribir((String) comboBox_2.getSelectedItem(), (String) comboBox_3.getSelectedItem(),Integer.parseInt(textField.getText()) , null,(String) comboBox_1.getSelectedItem());
+            icon.inscribir((String) comboBox_3.getSelectedItem(), (String) comboBox_2.getSelectedItem(),Integer.parseInt(textField.getText()) , null,(String) comboBox_1.getSelectedItem());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "La cantidad de turistas debe ser un numero", "Inscribir",
                     JOptionPane.ERROR_MESSAGE);
