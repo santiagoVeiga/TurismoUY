@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 
 import excepciones.ActividadNoExisteException;
+import excepciones.ActividadRepetidaException;
 import excepciones.DatosNoValidosException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.SalidaYaExisteExeption;
@@ -54,7 +55,7 @@ public class AltaSalida extends JInternalFrame {
     private Set<DataActividad> auxi;
 
 
-
+    
 	
 	
 	@SuppressWarnings("unchecked")
@@ -184,7 +185,7 @@ public class AltaSalida extends JInternalFrame {
 		getContentPane().add(FechaAltaDatePickerCAMPO);
 		
 		horaCAMPO = new JComboBox();
-		horaCAMPO.setBounds(298, 171, 29, 21);
+		horaCAMPO.setBounds(298, 171, 36, 21);
 		horaCAMPO.addItem(0); 
 		horaCAMPO.addItem(1); 
 		horaCAMPO.addItem(2); 
@@ -199,12 +200,26 @@ public class AltaSalida extends JInternalFrame {
 		horaCAMPO.addItem(11); 
 		horaCAMPO.addItem(12); 
 		horaCAMPO.addItem(13); 
+		horaCAMPO.addItem(14); 
+		horaCAMPO.addItem(15); 
+		horaCAMPO.addItem(16); 
+		horaCAMPO.addItem(17); 
+		horaCAMPO.addItem(18); 
+		horaCAMPO.addItem(19); 
+		horaCAMPO.addItem(20); 
+		horaCAMPO.addItem(21); 
+		horaCAMPO.addItem(22); 
+		horaCAMPO.addItem(23); 
+		horaCAMPO.addItem(24); 
+		horaCAMPO.addItem(25); 
+		horaCAMPO.addItem(26); 
+		horaCAMPO.addItem(27); 
 
 
 		getContentPane().add(horaCAMPO);
 		
 		minutosCAMPO = new JComboBox();
-		minutosCAMPO.setBounds(351, 171, 29, 21);
+		minutosCAMPO.setBounds(351, 171, 36, 21);
 		minutosCAMPO.addItem(0);
 		minutosCAMPO.addItem(2);
 		minutosCAMPO.addItem(3);
@@ -212,6 +227,63 @@ public class AltaSalida extends JInternalFrame {
 		minutosCAMPO.addItem(5);
 		minutosCAMPO.addItem(6);
 		minutosCAMPO.addItem(7);
+		minutosCAMPO.addItem(8);
+		minutosCAMPO.addItem(9);
+		minutosCAMPO.addItem(10);
+		minutosCAMPO.addItem(11);
+		minutosCAMPO.addItem(12);
+		minutosCAMPO.addItem(13);
+		minutosCAMPO.addItem(14);
+		minutosCAMPO.addItem(15);
+		minutosCAMPO.addItem(16);
+		minutosCAMPO.addItem(17);
+		minutosCAMPO.addItem(18);
+		minutosCAMPO.addItem(19);
+		minutosCAMPO.addItem(20);
+		minutosCAMPO.addItem(21);
+		minutosCAMPO.addItem(22);
+		minutosCAMPO.addItem(23);
+		minutosCAMPO.addItem(24);
+		minutosCAMPO.addItem(25);
+		minutosCAMPO.addItem(26);
+		minutosCAMPO.addItem(27);
+		minutosCAMPO.addItem(28);
+		minutosCAMPO.addItem(29);
+		minutosCAMPO.addItem(30);
+		minutosCAMPO.addItem(31);
+		minutosCAMPO.addItem(32);
+		minutosCAMPO.addItem(33);
+		minutosCAMPO.addItem(34);
+		minutosCAMPO.addItem(35);
+		minutosCAMPO.addItem(36);
+		minutosCAMPO.addItem(37);
+		minutosCAMPO.addItem(38);
+		minutosCAMPO.addItem(39);
+		minutosCAMPO.addItem(40);
+		minutosCAMPO.addItem(41);
+		minutosCAMPO.addItem(42);
+		minutosCAMPO.addItem(43);
+		minutosCAMPO.addItem(44);
+		minutosCAMPO.addItem(45);
+		minutosCAMPO.addItem(46);
+		minutosCAMPO.addItem(47);
+		minutosCAMPO.addItem(48);
+		minutosCAMPO.addItem(49);
+		minutosCAMPO.addItem(50);
+		minutosCAMPO.addItem(51);
+		minutosCAMPO.addItem(52);
+		minutosCAMPO.addItem(53);
+		minutosCAMPO.addItem(54);
+		minutosCAMPO.addItem(55);
+		minutosCAMPO.addItem(56);
+		minutosCAMPO.addItem(57);
+		minutosCAMPO.addItem(58);
+		minutosCAMPO.addItem(59);
+		minutosCAMPO.addItem(60);
+
+
+
+
 
 		getContentPane().add(minutosCAMPO);
 		
@@ -246,7 +318,7 @@ public class AltaSalida extends JInternalFrame {
 		getContentPane().add(cancelarCAMPO);
 		
 
-	}
+	}//----------------------------------------------------------------------------------------------------------------------------------------------
 	@SuppressWarnings("unchecked")
 	public void cargarDepartamentos(){
     	DefaultComboBoxModel<String> model;
@@ -292,29 +364,82 @@ public class AltaSalida extends JInternalFrame {
 	public void limpiarFormulario() {
 	}
 	
-	public void chequeoAlta() {
+	//--------------------------------------------------------------------------------------------------
+	
+	
+
+
+
+
+
+public void chequeoAlta() {
+	
+	String NombreActividad = (String)SeleccionarActividadCAMPO.getSelectedItem();
+	String NombreSalida = NombreSalidaCAMPO.getText();
+	Date Fecha = FechaSalidaCAMPO.getDate();
+	Date Hora = new Date(0,0,0,(Integer)horaCAMPO.getSelectedItem(), (Integer)minutosCAMPO.getSelectedItem());
+	String Lugar = LugarSalidaCAMPO.getText();
+	String maxCantTuristas = MaximaCantTuristasCAMPO.getText();
+	Date fechaAlta = FechaAltaDatePickerCAMPO.getDate();
+	if (checkFormulario()) {
 		try {
-			String NombreActividad = (String)SeleccionarActividadCAMPO.getSelectedItem();
-			String NombreSalida = NombreSalidaCAMPO.getText();
-			Date Fecha = FechaSalidaCAMPO.getDate();
-			Date Hora = new Date(0,0,0,(Integer)horaCAMPO.getSelectedItem(), (Integer)minutosCAMPO.getSelectedItem());
-			String Lugar = LugarSalidaCAMPO.getText();
-			Integer maxCantTuristas = Integer.parseInt(MaximaCantTuristasCAMPO.getText());
-			Date fechaAlta = FechaAltaDatePickerCAMPO.getDate();
-			if (Lugar.isEmpty() || maxCantTuristas < 0) {
-				throw new DatosNoValidosException();
-			}
-			controlAlta.confirmarAltaSalida(NombreActividad, NombreSalida, Fecha, Hora, Lugar, maxCantTuristas, fechaAlta);
+			controlAlta.confirmarAltaSalida(NombreActividad, NombreSalida, Fecha, Hora, Lugar, Integer.parseInt(maxCantTuristas), fechaAlta);
 		} catch (SalidaYaExisteExeption e1) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(this, e1.getMessage(), "Salida ya exisye", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, e1.getMessage(), "Salida ya existe", JOptionPane.ERROR_MESSAGE);
 		}
-		catch (DatosNoValidosException e2) {
-			JOptionPane.showMessageDialog(this, "Algun campo esta vacio o posee datos no validos", "Datos No Validos", JOptionPane.ERROR_MESSAGE);
-		}
-		catch (NumberFormatException e3) {
-			JOptionPane.showMessageDialog(this, "La cantidad de turistas debe ser un numero", "Datos No Validos", JOptionPane.ERROR_MESSAGE);
-		}
-        setVisible(false);
+	    setVisible(false);
 	}
+}
+
+	
+	
+	//--------------------------------------------------------------------------------------------------
+	
+	
+	
+	
+	
+	private boolean checkFormulario() {
+		String NombreActividad = (String)SeleccionarActividadCAMPO.getSelectedItem();
+		String NombreSalida = NombreSalidaCAMPO.getText();
+		Date Fecha = FechaSalidaCAMPO.getDate();
+		Date Hora = new Date(0,0,0,(Integer)horaCAMPO.getSelectedItem(), (Integer)minutosCAMPO.getSelectedItem());
+		String Lugar = LugarSalidaCAMPO.getText();
+		String maxCantTuristas = MaximaCantTuristasCAMPO.getText();
+		Date fechaAlta = FechaAltaDatePickerCAMPO.getDate();
+		
+		
+	    if (NombreActividad == null || NombreSalida == null || Lugar.isEmpty()) {
+	        JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Registrar Salida",
+	                JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    }
+	
+	    try {
+	        Integer.parseInt(maxCantTuristas);
+	    } catch (NumberFormatException e) {
+	        JOptionPane.showMessageDialog(this, "El Costo debe ser un numero", "Registrar Actividad",
+	                JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    }
+	    
+	    return true;
+}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
