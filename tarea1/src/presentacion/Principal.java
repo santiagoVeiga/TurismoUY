@@ -14,7 +14,6 @@ import excepciones.DepartamentoYaExisteExeption;
 import excepciones.ExcedeTuristas;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
-import excepciones.TuristaConSalidaEnFecha;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.Fabrica;
@@ -365,10 +364,7 @@ public class Principal {
 				} catch (ExcedeTuristas e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch (TuristaConSalidaEnFecha e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				} 
         	}
         });
         mnCargar.add(mntmCargarInscripciones);
