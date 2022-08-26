@@ -51,4 +51,5 @@ public class Turista extends Usuario{
     	return DT;
     }
 
+
 }

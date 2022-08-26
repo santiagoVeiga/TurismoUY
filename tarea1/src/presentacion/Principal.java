@@ -8,8 +8,13 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
+import excepciones.ExcedeTuristas;
+import excepciones.InscFechaInconsistente;
+import excepciones.SalidaYaExisteExeption;
+import excepciones.TuristaConSalida;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.Fabrica;
@@ -180,18 +185,8 @@ public class Principal {
             }
         });
         menuUsuarios.add(menuItemRegistrar);
-        
 
-        JMenuItem menuItemVerInfo = new JMenuItem("Ver Información");
-        menuItemVerInfo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Muestro el InternalFrame para ver información de un usuario
-                conUsrInternalFrame.setVisible(true);
-            }
-        });
-        menuUsuarios.add(menuItemVerInfo);
-
-        JMenuItem mntmListaUsuarios = new JMenuItem("ListarUsuarios");
+        JMenuItem mntmListaUsuarios = new JMenuItem("Consulta de Usuario");
         mntmListaUsuarios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 lisUsrInternalFrame.cargarUsuarios();
@@ -312,6 +307,81 @@ public class Principal {
         });
         mnCargar.add(mntmCargarusuarios);
         mnCargar.add(mntmCargarDepartamentos);
+        
+        JMenuItem mntmCargarActividades = new JMenuItem("Cargar Actividades");
+        mntmCargarActividades.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ICA.cargarActs();
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (DepartamentoYaExisteExeption e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ActividadRepetidaException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        mnCargar.add(mntmCargarActividades);
+        
+        JMenuItem mntmCargarsalidas = new JMenuItem("CargarSalidas");
+        mntmCargarsalidas.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ICA.cargarSalidas();
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SalidaYaExisteExeption e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        mnCargar.add(mntmCargarsalidas);
+        
+        JMenuItem mntmCargarInscripciones = new JMenuItem("Cargar Inscripciones");
+        mntmCargarInscripciones.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ICI.cargarInsc();
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (TuristaConSalida e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ExcedeTuristas e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InscFechaInconsistente e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+        	}
+        });
+        mnCargar.add(mntmCargarInscripciones);
     
     }
 }

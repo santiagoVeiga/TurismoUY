@@ -1,10 +1,18 @@
 package logica;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.opencsv.CSVReader;
+
 import excepciones.ExcedeTuristas;
+import excepciones.InscFechaInconsistente;
+import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorDepartamentos;
@@ -23,7 +31,28 @@ public class ControladorInsc implements IControladorInsc {
 		return a.getSalidas();
 	}
 	
-	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas {
+	
+	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente {
+		  CSVReader reader = null;
+	      //parsing a CSV file into CSVReader class constructor  
+	      reader = new CSVReader(new FileReader("./lib/Inscripciones.csv"));
+	      String[] nextLine;
+	      int cont = 0;
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    		  Date f = formato.parse(nextLine[5].strip());
+	    		  inscribir(nextLine[2].strip(),nextLine[1].strip(),Integer.parseInt(nextLine[3]),f,nextLine[6].strip());
+	    	  }
+	    	  else {
+	    		  cont++;
+	    	  }
+	      }
+	}
+	
+	
+	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente {
 		ManejadorActividad m = ManejadorActividad.getInstance();
 		Actividad a = m.getActividad(nombreAct);
 		ManejadorUsuario mu = ManejadorUsuario.getinstance();
@@ -37,6 +66,9 @@ public class ControladorInsc implements IControladorInsc {
 		}
 		if(s.excedeTuristas(cantTuristas)) {
 			throw new ExcedeTuristas("La salida no cuenta con capacidad para la cantidad de turistas solicitados");
+		}
+		if(fecha.before(s.getFechaAlta())) {
+			throw new InscFechaInconsistente("La fecha de inscripcion debe ser igual o posterior a la fecha de salida");
 		}
 		// Se realiza la inscripcion
 		CompraGeneral cg = new CompraGeneral(fecha,cantTuristas,costo);
