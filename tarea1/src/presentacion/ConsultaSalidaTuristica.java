@@ -1,194 +1,177 @@
-//incompleto
-
-
 package presentacion;
 
-import javax.swing.JInternalFrame;
+import java.awt.EventQueue;
 
-import excepciones.ActividadNoExisteException;
+
+
+
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+
 import excepciones.DepartamentoNoExisteException;
 import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataSalida;
 import logica.IControladorConsulta;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.util.Iterator;
+import java.util.Set;
+import java.awt.event.ItemEvent;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import java.awt.event.ActionListener;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-
-/**
- * JInternalFrame que permite consultar la información de un usuario del sistema.
- * @author TProg2017
- *
- */
-@SuppressWarnings("serial")
 public class ConsultaSalidaTuristica extends JInternalFrame {
-
-    // Controlador de usuarios que se utilizará para las acciones del JFrame
-    private IControladorConsulta controlCons;
-    private JButton btnBuscar;
-    private JButton btnCerrar;
-    private JComboBox<String> jcbDepartamentos;
-    private JComboBox<DataSalida> jcbActividades;
+	
+	private IControladorConsulta controlCons ; 
     private DataDepartamento[] DD;
-    private DataSalida[] DA;
-    private JLabel Actividades;
+    JComboBox<String> SeleccionarDptoCOMBOBOX ; 
 
-    /**
-     * Create the frame.
-     */
-    public ConsultaSalidaTuristica(IControladorConsulta icc) {
-        // Se inicializa con el controlador de usuarios
-        controlCons = icc;
-        
-        // Propiedades del JInternalFrame como dimensión, posición dentro del frame, etc.
-        setResizable(true);
-        setIconifiable(true);
-        setMaximizable(true);
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        setClosable(true);
-        setTitle("Consultar una Actividad");
-        setBounds(30, 30, 400, 280);
 
-        // En este caso usaremos el Absolute Layout y deberemos indicar
-        // la posición absoluta de todos los componentes
-        getContentPane().setLayout(null);
-
-        JLabel Departamento = new JLabel("Departamento: ");
-        Departamento.setSize(125, 32);
-        Departamento.setLocation(40, 12);
-		GridBagConstraints gbc_Departamento = new GridBagConstraints();
-		gbc_Departamento.anchor = GridBagConstraints.EAST;
-		gbc_Departamento.insets = new Insets(2, 2, 5, 5);
-		getContentPane().add(Departamento, gbc_Departamento);
-        
-        jcbDepartamentos = new JComboBox<String>();
-        jcbDepartamentos.setBounds(183, 16, 160, 24);
-        getContentPane().add(jcbDepartamentos);
-        jcbDepartamentos.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
-        		Actividades.setVisible(true);
-        		jcbActividades.setVisible(true);
-        		cargarSalidas();
-        	}
-        });
-        
-        Actividades = new JLabel("Salidas: ");
-        Actividades.setSize(125, 32);
-        Actividades.setLocation(40, 50);
-		GridBagConstraints gbc_Actividades = new GridBagConstraints();
-		gbc_Actividades.anchor = GridBagConstraints.EAST;
-		gbc_Actividades.insets = new Insets(2, 2, 5, 5);
-		getContentPane().add(Actividades, gbc_Actividades);
-		Actividades.setVisible(false);
+	public ConsultaSalidaTuristica(IControladorConsulta icu)  {
 		
-        jcbActividades = new JComboBox<DataSalida>();
-        jcbActividades.setBounds(183, 54, 160, 24);
-        getContentPane().add(jcbActividades);
-        jcbActividades.setVisible(false);
-        
-        // Un botón (JButton) con un evento asociado que permite buscar un usuario.
-        // Dado que el código de registro tiene cierta complejidad, conviene delegarlo
-        // a otro método en lugar de incluirlo directamente de el método actionPerformed 
-        /*
-        btnBuscar = new JButton("Buscar");
-        btnBuscar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cmdBuscarUsuarioActionPerformed(e);
-            }
-        });
-        btnBuscar.setBounds(160, 187, 95, 30);
-        getContentPane().add(btnBuscar);
-        */
-        // Un botón (JButton) con un evento asociado que permite cerrar el formulario (solo ocultarlo).
-        // Dado que antes de cerrar se limpia el formulario, se invoca un método reutilizable para ello. 
-        btnCerrar = new JButton("Cerrar");
-        btnCerrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jcbDepartamentos.removeAllItems();
+		controlCons = icu ;
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(null);
+		JButton cancelar = new JButton("Cancelar");
+		cancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-            }
-        });
-        btnCerrar.setBounds(262, 191, 89, 23);
-        getContentPane().add(btnCerrar);
-    }
+			}
+		});
+		cancelar.setBounds(176, 224, 89, 23);
+		getContentPane().add(cancelar);
+		
+		
+		JLabel SeleccionarDpto = new JLabel("Seleccionar Departamento");
+		SeleccionarDpto.setBounds(70, 122, 126, 14);
+		getContentPane().add(SeleccionarDpto);
+		
+		SeleccionarDptoCOMBOBOX = new JComboBox<String>();
 
-public void cargarDepartamentos(){
-    	DefaultComboBoxModel<String> model;
-    	try {
-    		DD = controlCons.obtenerDataDepartamentos();
-    		String[] DepartamentosNombres = new String[DD.length];
-    		for (int i = 0; i < DD.length;i++) {
-    			DepartamentosNombres[i] = DD[i].getNombre();
-    		}
-	    	model = new DefaultComboBoxModel<String>(DepartamentosNombres);
-	        jcbDepartamentos.setModel(model);
-	    } catch (DepartamentoNoExisteException e) {
-    	}
-    }
+//		DataDepartamento[] ArrDpto = null;
+//		try {
+//			ArrDpto = icu.obtenerDataDepartamentos();
+//			for (int i = 0; i < ArrDpto.length; i++){ //AGREGO LOS NOMBRES DE DEPARTAMENTOS AL CAMPO
+//				SeleccionarDptoCOMBOBOX.addItem(ArrDpto[i]);
+//			}
+//			
+//		} catch (DepartamentoNoExisteException e1) {
+//		} 
+	
+		
+		
+		SeleccionarDptoCOMBOBOX.setBounds(222, 118, 134, 22);
+		getContentPane().add(SeleccionarDptoCOMBOBOX);
+		
+		
+		//------------------------------------listener-dpto-------------------------------------------
+				SeleccionarDptoCOMBOBOX.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						
+						SeleccionarDpto.setVisible(false);
+						SeleccionarDptoCOMBOBOX.setVisible(false);
+					
+						//DataDepartamento dtd = (DataDepartamento) SeleccionarDptoCOMBOBOX.getSelectedItem(); //tengo el data departamento seleccionado
+						//Set<DataActividad> colDTAct = dtd.getColAct();
+						
+						
+						JLabel seleccionarAct = new JLabel("Seleccionar Actividad");
+						seleccionarAct.setBounds(70, 122, 126, 14);
+						getContentPane().add(seleccionarAct);
+						seleccionarAct.setVisible(true);
 
+						
+						//JComboBox<DataActividad> SelccionarActividadCOMBOBOX = new JComboBox<DataActividad>();
+						
+						//agregar las actividades al combobox 
+						Iterator<DataActividad> iterator = colDTAct.iterator();
+						while(iterator.hasNext()) {
+							DataActividad setElement = iterator.next(); 
+							SelccionarActividadCOMBOBOX.addItem(setElement);
+						}
 
-public void cargarSalidas(){
-	DefaultComboBoxModel<DataSalida> model;
-	try {
-		String aux = (String) jcbDepartamentos.getSelectedItem();
-		int i = 0;
-		while (i<DD.length && DD[i].getNombre() != aux) {
-			i++;
-		}
-		DA = null;
-		if (DA == null) {
-			throw new ActividadNoExisteException("No hay salidas asociadas a dicho Departamento");
-		}
-    	model = new DefaultComboBoxModel<DataSalida>(DA);
-        jcbActividades.setModel(model);
-    } catch (ActividadNoExisteException e) {
+					
+						SelccionarActividadCOMBOBOX.setBounds(222, 118, 134, 22);
+						getContentPane().add(SelccionarActividadCOMBOBOX);
+//						seleccionarAct.setVisible(true);
+//						SelccionarActividadCOMBOBOX.setVisible(true);
+						//------------------------------------listener-actividad------------------------------
+						SelccionarActividadCOMBOBOX.addItemListener(new ItemListener() {
+							public void itemStateChanged(ItemEvent e) {
+								
+								seleccionarAct.setVisible(false);
+								SelccionarActividadCOMBOBOX.setVisible(false);
+								
+								JLabel lblNewLabel = new JLabel("Seleccionar Salida");
+								lblNewLabel.setBounds(70, 122, 126, 14);
+								getContentPane().add(lblNewLabel);
+								
+								DataActividad dta = (DataActividad) SelccionarActividadCOMBOBOX.getSelectedItem();
+								Set<DataSalida> salidas = dta.getSalidas() ; 
+								
+								JComboBox<DataSalida> SeleccionarSalidaCOMBOBOX = new JComboBox<DataSalida>();
+								
+								Iterator<DataSalida> iterator = salidas.iterator();
+								while(iterator.hasNext()) {
+									DataSalida setElement = iterator.next(); 
+									SeleccionarSalidaCOMBOBOX.addItem(setElement);
+								}
+								
+								SeleccionarSalidaCOMBOBOX.setBounds(222, 118, 134, 22);
+					
+								
+								getContentPane().add(SeleccionarSalidaCOMBOBOX);
+								//-------------------------------------listener-salida---------------------------------
+								SeleccionarSalidaCOMBOBOX.addItemListener(new ItemListener() {
+									public void itemStateChanged(ItemEvent e) {
+										
+									
+										SeleccionarSalidaCOMBOBOX.setVisible(false);
+										lblNewLabel.setVisible(false);
+						                setVisible(false);
+
+										DataSalida dts = (DataSalida) SeleccionarSalidaCOMBOBOX.getSelectedItem();
+										
+										
+										//llamar a la clase de franco
+										InfoSalida mostrarDatos = new InfoSalida(dts) ; 
+										mostrarDatos.setVisible(true);
+
+									}
+								});
+								//--------------------------------------------------------------------------------------
+							}
+						});
+						//------------------------------------------------------------------------------------
+					}
+				});
+		//-----------------------------------------------------------------------------------------
 	}
-}
-
-    
-    // Este método es invocado al querer buscar un usuario, funcionalidad
-    // provista por la operación del sistem verInfoUsuario().
-    // En caso de que haya un error de búsqueda se despliega
-    // un mensaje utilizando un panel de mensaje (JOptionPane).
-    // No es necesario verificar que el campo con la cédula sea un número ya
-    // que internamente el sistema almacena la cédula como un string.
-    /*
-    protected void cmdBuscarUsuarioActionPerformed(ActionEvent e) {
-        DataUsuario du;
-        try {
-            du = controlCons.verInfoUsuario(textFieldCI.getText());
-            textFieldNombre.setText(du.getNombre());
-            textFieldApellido.setText(du.getApellido());
-        } catch (UsuarioNoExisteException e1) {
-            // Si el usuario no existe, se muestra mensaje de error y se limpia el
-            // formulario.
-            JOptionPane.showMessageDialog(this, e1.getMessage(), "Buscar Usuario", JOptionPane.ERROR_MESSAGE);
-            limpiarFormulario();
-        }
-
-    }
-    */
-
-    // Permite borrar el contenido de un formulario antes de cerrarlo.
-    // Recordar que las ventanas no se destruyen, sino que simplemente 
-    // se ocultan, por lo que conviene borrar la información para que 
-    // no aparezca al mostrarlas nuevamente.
-    private void limpiarFormulario() {
-        //textFieldNombre.setText("");
-        //textFieldApellido.setText("");
-        //textFieldCI.setText("");
+	
+	@SuppressWarnings("unchecked")
+	public void cargarDepartamentos(){
+    	DefaultComboBoxModel<String> model;
+    	
+    		try {
+				DD = controlCons.obtenerDataDepartamentos();
+				String[] DepartamentosNombres = new String[DD.length];
+	    		for (int i = 0; i < DD.length;i++) {
+	    			DepartamentosNombres[i] = DD[i].getNombre();
+	    		}
+		    	model = new DefaultComboBoxModel<String>(DepartamentosNombres);
+		    	SeleccionarDptoCOMBOBOX.setModel(model);
+			} catch (DepartamentoNoExisteException e) {
+		
+			}
+    		
+	  
     }
 }
-
-
-//es igual que el consulta actividad nada mas que dentro del DataActividad devovlemos las salidas
