@@ -263,6 +263,9 @@ public class Inscribir extends JInternalFrame {
             	throw new NumeroNegativoException();
             }
             icon.inscribir((String) comboBox_3.getSelectedItem(), (String) comboBox_2.getSelectedItem(),Integer.parseInt(textField.getText()) , null,(String) comboBox_1.getSelectedItem());
+            JOptionPane.showMessageDialog(this, "Inscripcion existosa", "Inscribir",
+                    JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "La cantidad de turistas debe ser un numero", "Inscribir",
                     JOptionPane.ERROR_MESSAGE);
