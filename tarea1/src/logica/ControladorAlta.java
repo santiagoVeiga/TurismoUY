@@ -26,14 +26,22 @@ import manejadores.ManejadorUsuario;
  */
 public class ControladorAlta implements IControladorAlta {
 	
-	public void cargarActs() throws IOException, DepartamentoYaExisteExeption {
+	public void cargarActs() throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException, ParseException {
 		CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
 	      reader = new CSVReader(new FileReader("./lib/Actividades.csv"));
 	      String[] nextLine;
-	      //reads one line at a time  
 	      int cont = 0;
+	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    		  Date f = formato.parse(nextLine[7].strip());
+	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),f);
+	    	  }
+	    	  else {
+	    		  cont++;
+	    	  }
 	      }
 	}
 	
@@ -46,7 +54,7 @@ public class ControladorAlta implements IControladorAlta {
 	      int cont = 0;
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont>0)
-	    		  confirmarAltaDepartamento(nextLine[1],nextLine[2],nextLine[3]);
+	    		  confirmarAltaDepartamento(nextLine[1].strip(),nextLine[2].strip(),nextLine[3].strip());
 	    	  cont++;
 	      }
 	 }
@@ -66,14 +74,14 @@ public class ControladorAlta implements IControladorAlta {
 	    		  if(nextLineusu[1].equals(" T")) {
 	    			  
 	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
-	    			  Date fecha = formato.parse(nextLineusu[6]);
-	    			  confirmarAltaTurista(nextLineusu[2],nextLineusu[3],nextLineusu[4],nextLineusu[5],fecha,nextLineusu[7]);
+	    			  Date fecha = formato.parse(nextLineusu[6].strip());
+	    			  confirmarAltaTurista(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[7].strip());
 	    		  }
 	    		  else if (nextLineusu[1].equals(" P")) {
 	    			
 	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    			  Date fecha = formato.parse(nextLineusu[6]);
-	    			  confirmarAltaProveedor(nextLineusu[2],nextLineusu[3],nextLineusu[4],nextLineusu[5],fecha,nextLineusu[8],nextLineusu[9],true);
+	    			  confirmarAltaProveedor(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[8].strip(),nextLineusu[9].strip(),true);
 	    		  }
 	    	  }
 	    		  

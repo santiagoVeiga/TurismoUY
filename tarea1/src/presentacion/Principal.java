@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
@@ -301,6 +302,31 @@ public class Principal {
         });
         mnCargar.add(mntmCargarusuarios);
         mnCargar.add(mntmCargarDepartamentos);
+        
+        JMenuItem mntmCargarActividades = new JMenuItem("Cargar Actividades");
+        mntmCargarActividades.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ICA.cargarActs();
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (DepartamentoYaExisteExeption e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ActividadRepetidaException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        mnCargar.add(mntmCargarActividades);
     
     }
 }
