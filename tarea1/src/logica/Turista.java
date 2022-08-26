@@ -51,4 +51,15 @@ public class Turista extends Usuario{
     	return DT;
     }
 
+	public boolean tieneSalidaEnFecha(Salida s) {
+		Iterator<CompraGeneral> itr = comprasG.iterator();
+		boolean res = false;
+    	while(itr.hasNext()) 
+    	{
+    		CompraGeneral cg = itr.next();
+    		res = res || (cg.getSalida().getFecha().equals(s.getFecha())&&cg.getSalida().getHora().equals(s.getHora()));
+    	}
+		return res;
+	}
+
 }
