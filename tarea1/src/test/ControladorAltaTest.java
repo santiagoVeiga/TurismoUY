@@ -6,39 +6,84 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 import java.text.ParseException;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoYaExisteExeption;
+import excepciones.ExcedeTuristas;
+import excepciones.InscFechaInconsistente;
+import excepciones.SalidaYaExisteExeption;
+import excepciones.TuristaConSalida;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.DataUsuario;
 import logica.Fabrica;
 import logica.IControladorAlta;
+import logica.IControladorConsulta;
+import logica.IControladorInsc;
 
 class ControladorAltaTest {
 	
 	private static IControladorAlta IctrAlta;
 	
 	@BeforeAll
-	public static void iniciar() throws DepartamentoYaExisteExeption, IOException, UsuarioRepetidoException, ParseException {
+	public static void iniciar() throws DepartamentoYaExisteExeption {
 		Fabrica fabrica = Fabrica.getInstance();
 		IctrAlta = fabrica.getIControladorAlta();
-		//IctrAlta.cargarDptos();
-		//IctrAlta.cargarUsuarios();
 	}
 	
 	@Test
-	void testCargarDptos() {
-		fail("Not yet implemented");
+	void testCargarDptos(){
+		try {
+			IctrAlta.cargarDptos();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DepartamentoYaExisteExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
-	void testCargarUsuarios() {
-		fail("Not yet implemented");
+	void testCargarUsuarios(){
+		try {
+			IctrAlta.cargarUsuarios();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioRepetidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	void testCargarActs() {
+		try {
+			IctrAlta.cargarActs();
+		} catch (NumberFormatException | IOException | DepartamentoYaExisteExeption | ActividadRepetidaException
+				| ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-
+	@Test
+	void testCargarSalidas()  {
+		try {
+			IctrAlta.cargarSalidas();
+		} catch (NumberFormatException | IOException | ParseException | SalidaYaExisteExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	@Test
 	void testConfirmarAltaTuristaOk() {
 		try {
@@ -93,6 +138,64 @@ class ControladorAltaTest {
 	@Test
 	void testConfirmarAltaSalida() {
 		fail("Not yet implemented");
+	}
+	
+	@Test
+	void testExcp() {
+		try {
+			IctrAlta.cargarDptos();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DepartamentoYaExisteExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			IctrAlta.cargarUsuarios();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioRepetidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			IctrAlta.cargarActs();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DepartamentoYaExisteExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ActividadRepetidaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			IctrAlta.cargarSalidas();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SalidaYaExisteExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
