@@ -172,7 +172,7 @@ public class ControladorAlta implements IControladorAlta {
         ManejadorUsuario mu = ManejadorUsuario.getinstance();
         Usuario u = mu.obtenerUsuarioNick(ci);
         if (u != null)
-            return null; //new DataUsuario(u.getNombre(), u.getApellido(), u.getCedulaIdentidad());
+            return u.getDataUsuario();
         else
             throw new UsuarioNoExisteException("El usuario " + ci + " no existe");
 

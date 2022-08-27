@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -29,13 +30,13 @@ import logica.IControladorInsc;
 class ControladorAltaTest {
 	
 	private static IControladorAlta IctrAlta;
-	private static IControladorConsulta ccon;
+	private static IControladorConsulta IctrCons;
 	
 	@BeforeAll
 	public static void iniciar() throws DepartamentoYaExisteExeption {
 		Fabrica fabrica = Fabrica.getInstance();
 		IctrAlta = fabrica.getIControladorAlta();
-		ccon = fabrica.getIControladorConsulta();
+		IctrCons = fabrica.getIControladorConsulta();
 	}
 	
 	@Test
@@ -91,12 +92,16 @@ class ControladorAltaTest {
 	@Test
 	void testConfirmarAltaTuristaOk() {
 		try {
-			IctrAlta.confirmarAltaTurista("lucasnick","lucas","pode","lucasmail",null,"uruguaya");
-			DataUsuario dusuarios = IctrAlta.verInfoUsuario("nick");
+			Date auxi = new Date(2000,6,20);
+			IctrAlta.confirmarAltaTurista("lucasnick","lucas","pode","lucasmail",auxi,"uruguaya");
+			DataUsuario dusuarios = IctrAlta.verInfoUsuario("lucasnick");
 			assertEquals(dusuarios.getNombre(),"lucas");
 			assertEquals(dusuarios.getApellido(),"pode");
 			assertEquals(dusuarios.getMail(),"lucasmail");
-			//assertEquals(dusuarios.getNacionalidad,"uruguaya");
+			assertEquals(((DataTurista) dusuarios).getNacionalidad(),"uruguaya");
+			assertEquals(dusuarios.getNacimiento().getDate(),auxi.getDate());
+			assertEquals(dusuarios.getNacimiento().getMonth(),auxi.getMonth());
+			assertEquals(dusuarios.getNacimiento().getYear(),auxi.getYear());
 		} catch (UsuarioRepetidoException e) {
 			// TODO Auto-generated catch block
 			fail(e.getMessage());
@@ -111,7 +116,7 @@ class ControladorAltaTest {
 	
 	@Test
 	void testListarUsuarios() {
-		DataUsuario[] aux = ccon.listarUsuarios();
+		DataUsuario[] aux = IctrCons.listarUsuarios();
 		boolean res1 = false;
 		boolean res2 = false;
 		for(DataUsuario it:aux) {
@@ -128,7 +133,28 @@ class ControladorAltaTest {
 
 	@Test
 	void testConfirmarAltaProveedor() {
-		fail("Not yet implemented");
+		try {
+			Date auxi = new Date(2000,6,20);
+			IctrAlta.confirmarAltaProveedor("agus","Agustin","de Leon","a@mail",auxi,"Un proveedor","link",true);
+			DataUsuario dusuarios = IctrAlta.verInfoUsuario("agus");
+			assertEquals(dusuarios.getNombre(),"Agustin");
+			assertEquals(dusuarios.getApellido(),"de Leon");
+			assertEquals(dusuarios.getMail(),"a@mail");
+			assertEquals(((DataProveedor) dusuarios).getDescripcion(),"Un proveedor");
+			assertEquals(((DataProveedor) dusuarios).getLink(),"link");
+			assertEquals(dusuarios.getNacimiento().getDate(),auxi.getDate());
+			assertEquals(dusuarios.getNacimiento().getMonth(),auxi.getMonth());
+			assertEquals(dusuarios.getNacimiento().getYear(),auxi.getYear());
+		} catch (UsuarioRepetidoException e) {
+			// TODO Auto-generated catch block
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+		catch (UsuarioNoExisteException e) {
+			// TODO Auto-generated catch block
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	@Test
