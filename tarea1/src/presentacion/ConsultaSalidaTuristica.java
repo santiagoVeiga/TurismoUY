@@ -49,13 +49,23 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 	private IControladorAlta controlAlta;
     private DataDepartamento[] DD;
     private Set<DataActividad> auxi;
-    private JComboBox SeleccionarSalidasCAMPO;
+    private JComboBox SeleccionarSalidaCAMPO;
     private Set<DataSalida> Salidas;
+    private JTextField horaSalida;
+    private JTextField fechaSalida;
+    private JTextField lugarSalida;
+    private JTextField cantidadMaxima;
+    private JTextField fechaAlta;
+    private JLabel horaLabel;
+    private JLabel lugarSalidaLabel;
+	private JLabel cantidadMaximaLabel;
+	private JLabel fechaSalidaLabel;
+	private JLabel fechaAltaLabel;
+    private DataSalida salidaSeleccionada;
 
 
 	public ConsultaSalidaTuristica(IControladorConsulta icu)  {
 		controlCons = icu;
-
         
         setResizable(true);
         setIconifiable(true);
@@ -63,10 +73,9 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
 		setTitle("Consulta Salida Turistica");
-        setBounds(100, 100, 456, 423);
+        setBounds(100, 100, 540, 423);
 		getContentPane().setLayout(null);
 		
-	
 		
 		JLabel lblNewLabel = new JLabel("Seleccionar Departamento");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -74,11 +83,8 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		getContentPane().add(lblNewLabel);
 		
 		
-		
-		
-		//--------------------departamentos--------------------
+		/*	**** Departamentos *****	*/ 
 	
-		//DataDepartamento[] ArrDpto = null;
 		SeleccionarDptoCAMPO = new JComboBox<String>(); 
 		SeleccionarDptoCAMPO.setBounds(218, 31, 162, 21);
 		getContentPane().add(SeleccionarDptoCAMPO);
@@ -112,40 +118,48 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		salidas.setBounds(46, 117, 162, 13);
 		getContentPane().add(salidas);
 		
-		SeleccionarSalidasCAMPO = new JComboBox();
-		SeleccionarSalidasCAMPO.setBounds(218, 113, 162, 22);
-		SeleccionarSalidasCAMPO.addActionListener(new ActionListener() { //action listener para cuando se selecciona el dpto
+		SeleccionarSalidaCAMPO = new JComboBox();
+		SeleccionarSalidaCAMPO.setBounds(218, 113, 162, 22);
+		SeleccionarSalidaCAMPO.addActionListener(new ActionListener() { //action listener para cuando se selecciona el dpto
 	    	public void actionPerformed(ActionEvent e) {
-	    		//mostrar datos de actividad;				
+	    		cargarDatosSalida();				
 	    	}
 	    });
-		getContentPane().add(SeleccionarSalidasCAMPO);
+		getContentPane().add(SeleccionarSalidaCAMPO);
 		
-		JLabel lblNewLabel_1 = new JLabel("hora");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(244, 179, 45, 13);
-		getContentPane().add(lblNewLabel_1);
+		horaLabel = new JLabel("hora");
+		horaLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		horaLabel.setBounds(335, 227, 45, 13);
+		getContentPane().add(horaLabel);
+		horaLabel.setVisible(false);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Lugar De Salida");
-		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_1_1.setBounds(46, 227, 162, 13);
-		getContentPane().add(lblNewLabel_1_1_1);
 		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("Maxima Cantidad Turistas");
-		lblNewLabel_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_1_1_1.setBounds(46, 265, 162, 13);
-		getContentPane().add(lblNewLabel_1_1_1_1);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Fecha Salida");
-		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_2.setBounds(46, 179, 89, 13);
-		getContentPane().add(lblNewLabel_1_2);
+		lugarSalidaLabel = new JLabel("Lugar De Salida");
+		lugarSalidaLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lugarSalidaLabel.setBounds(264, 179, 116, 13);
+		getContentPane().add(lugarSalidaLabel);
+		lugarSalidaLabel.setVisible(false);
+
+		cantidadMaximaLabel = new JLabel("Maxima Cantidad Turistas");
+		cantidadMaximaLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		cantidadMaximaLabel.setBounds(46, 227, 162, 13);
+		getContentPane().add(cantidadMaximaLabel);
+		cantidadMaximaLabel.setVisible(false);
+
 		
-		JLabel lblNewLabel_1_2_1 = new JLabel("Fecha Alta");
-		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_2_1.setBounds(46, 297, 89, 13);
-		getContentPane().add(lblNewLabel_1_2_1);
-		
+		fechaSalidaLabel = new JLabel("Fecha Salida");
+		fechaSalidaLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		fechaSalidaLabel.setBounds(46, 179, 89, 13);
+		getContentPane().add(fechaSalidaLabel);
+		fechaSalidaLabel.setVisible(false);
+
+		fechaAltaLabel = new JLabel("Fecha Alta");
+		fechaAltaLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		fechaAltaLabel.setBounds(46, 269, 89, 13);
+		getContentPane().add(fechaAltaLabel);
+		fechaAltaLabel.setVisible(false);
+
 		
 		
 		aceptarCAMPO = new Button("Aceptar");
@@ -166,9 +180,39 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 			}
 		});
 		cancelarCAMPO.setFont(new Font("Dialog", Font.BOLD, 12));
-		cancelarCAMPO.setBounds(34, 348, 101, 22);
+		cancelarCAMPO.setBounds(146, 348, 101, 22);
 		getContentPane().add(cancelarCAMPO);
 		
+		horaSalida = new JTextField();
+		horaSalida.setBounds(378, 224, 86, 20);
+		getContentPane().add(horaSalida);
+		horaSalida.setColumns(10);
+		horaSalida.setVisible(false);
+		
+		fechaSalida = new JTextField();
+		fechaSalida.setColumns(10);
+		fechaSalida.setBounds(148, 176, 86, 20);
+		getContentPane().add(fechaSalida);
+		fechaSalida.setVisible(false);
+
+		lugarSalida = new JTextField();
+		lugarSalida.setColumns(10);
+		lugarSalida.setBounds(378, 176, 86, 20);
+		getContentPane().add(lugarSalida);
+		lugarSalida.setVisible(false);
+
+		cantidadMaxima = new JTextField();
+		cantidadMaxima.setColumns(10);
+		cantidadMaxima.setBounds(219, 224, 86, 20);
+		getContentPane().add(cantidadMaxima);
+		cantidadMaxima.setVisible(false);
+
+		fechaAlta = new JTextField();
+		fechaAlta.setColumns(10);
+		fechaAlta.setBounds(148, 266, 86, 20);
+		getContentPane().add(fechaAlta);
+		fechaAlta.setVisible(false);
+
 		
 
 	}
@@ -231,7 +275,8 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 				encontrada = true;
 				//Salidas = new HashSet<DataSalida> ();
 				Salidas = ((DataActividad) arr[j]).getSalidas();
-			}
+			}else
+				j++;
 		}
 		
 		Iterator<DataSalida> iter = Salidas.iterator();
@@ -243,6 +288,39 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		}
 		
 		model = new DefaultComboBoxModel<String>(SalidasNombres);
-		SeleccionarSalidasCAMPO.setModel(model);
+		SeleccionarSalidaCAMPO.setModel(model);
+	}
+	
+	public void cargarDatosSalida(){
+		String salSeleccionada = (String) SeleccionarSalidaCAMPO.getSelectedItem();
+		Object[] arraySalidas = Salidas.toArray();
+		int i=0;
+		//Iterator<DataActividad> it = auxi.iterator();
+		boolean encontrada = false;
+		while(i<arraySalidas.length && !encontrada) {
+			if(((DataSalida) arraySalidas[i]).getNombre() == salSeleccionada) {
+				encontrada = true;
+				salidaSeleccionada = (DataSalida) arraySalidas[i];
+			}else
+				i++;
+		}
+		lugarSalidaLabel.setVisible(true);
+		cantidadMaximaLabel.setVisible(true);
+		fechaSalidaLabel.setVisible(true);
+		fechaAltaLabel.setVisible(true);
+		horaLabel.setVisible(true);
+		
+		cantidadMaxima.setVisible(true);
+		fechaAlta.setVisible(true);
+		lugarSalida.setVisible(true);
+		fechaSalida.setVisible(true);
+		horaSalida.setVisible(true);
+		
+		//horaSalida.setText(salidaSeleccionada.gethora().getHours());
+	    fechaSalida.setText(salidaSeleccionada.getFecha().getDay() + "/" + salidaSeleccionada.getFecha().getMonth() + "/"  + salidaSeleccionada.getFecha().getYear());
+	    lugarSalida.setText(salidaSeleccionada.getLugar());
+	    cantidadMaxima.setText(String.valueOf(salidaSeleccionada.getCant()));
+	    fechaAlta.setText(salidaSeleccionada.getFechaAlta().getDay() + "/" + salidaSeleccionada.getFechaAlta().getMonth() + "/"  + salidaSeleccionada.getFechaAlta().getYear());
+		
 	}
 }
