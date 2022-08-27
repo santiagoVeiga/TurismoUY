@@ -53,6 +53,8 @@ public class Principal {
     private AltaSalida creSalInternalFrame ;
     private ConsultaSalidaTuristica consultaSalidaInternalFrame;
     private CrearPaquete crePaqInternalFrame;
+    private ModificarUsuario modUsrInternalFrame;
+
 
 
     /**
@@ -88,6 +90,8 @@ public class Principal {
         // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
         // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
         // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
+        
+        // ******** USUARIO *******
         creUsrInternalFrame = new CrearUsuario(ICA);
         creUsrInternalFrame.setVisible(false);
 
@@ -95,7 +99,11 @@ public class Principal {
         lisUsrInternalFrame.setVisible(false);
         
         frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
- 
+        //****** MODIFICAR *********/
+        modUsrInternalFrame= new ModificarUsuario(ICA);
+        modUsrInternalFrame.setVisible(false);
+
+
         //****** ACTIVIDAD *********/
 
         creActInternalFrame = new CrearActividad(ICA);
@@ -105,11 +113,11 @@ public class Principal {
         conActInternalFrame.setVisible(false);
 
         //****** SALIDA *********/----------------------------------------------------
-       creSalInternalFrame = new AltaSalida(ICA);
-       creSalInternalFrame.setVisible(false);
+        creSalInternalFrame = new AltaSalida(ICA);
+        creSalInternalFrame.setVisible(false);
        
-       consultaSalidaInternalFrame = new ConsultaSalidaTuristica(ICC);
-       consultaSalidaInternalFrame.setVisible(false);
+        consultaSalidaInternalFrame = new ConsultaSalidaTuristica(ICC);
+        consultaSalidaInternalFrame.setVisible(false);
         //----------------------------------------------------------------------------
 
         /* Inscripcion */
@@ -132,7 +140,8 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().add(creSalInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(consultaSalidaInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(crePaqInternalFrame);
-        
+        frmGestionDeUsuarios.getContentPane().add(modUsrInternalFrame);
+
         
     }
 
@@ -166,8 +175,10 @@ public class Principal {
         });
         menuSistema.add(menuSalir);
         
+        /* ******************* */
         /* **** Usuarios **** */
-        
+        /* ****************** */
+
         JMenu menuUsuarios = new JMenu("Usuarios");
         menuBar.add(menuUsuarios);
 
@@ -187,6 +198,30 @@ public class Principal {
             }
         });
         menuUsuarios.add(mntmListaUsuarios);
+
+        /* *** *** *** *** ***  *** */
+        /* *** Modificar usuario *** */
+        /* *** *** *** *** ****** */
+
+        JMenu menuModificar = new JMenu("Modificar Usuario");
+        menuBar.add(menuModificar);
+
+        JMenuItem menuItemModificar = new JMenuItem("Modificar Datos");
+        menuItemModificar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	try {
+					modUsrInternalFrame.limpiarFormulario();
+					modUsrInternalFrame.cargarUsuarios();
+				} catch (UsuarioNoExisteException e1) {	//Da error si no hay usuarios cargados
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+                modUsrInternalFrame.setVisible(true);
+            }
+        });
+        menuModificar.add(menuItemModificar);
+
+        
         
         /* ******************** */
         /* **** Actividad **** */
@@ -320,6 +355,7 @@ public class Principal {
         	public void actionPerformed(ActionEvent e) {
         		try {
 					ICA.cargarActs();
+					mntmCargarActividades.setVisible(false);
 				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -345,6 +381,7 @@ public class Principal {
         	public void actionPerformed(ActionEvent e) {
         		try {
 					ICA.cargarSalidas();
+					mntmCargarsalidas.setVisible(false);
 				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -367,6 +404,7 @@ public class Principal {
         	public void actionPerformed(ActionEvent e) {
         		try {
 					ICI.cargarInsc();
+					mntmCargarInscripciones.setVisible(false);
 				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

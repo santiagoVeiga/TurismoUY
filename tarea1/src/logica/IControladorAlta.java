@@ -60,5 +60,9 @@ public interface IControladorAlta {
 	public abstract void cargarSalidas() throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption;
 
 	public abstract void altaPaquete(String nombre, String descripcion, int descuento, int validez, Date fechaAlta) throws PaqueteRepetidoException;
+	
+    public abstract void actualizarDatosTurista(String nick,String mail,String nombre,String apellido,Date fechaN,String nacionalidad);
+
+	public abstract void actualizarDatosProveedor(String nick,String mail,String nombre,String apellido,Date fechaN,String descripcion,String link,boolean hayLink);
    
 }
