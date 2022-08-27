@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import excepciones.ActividadNoExisteException;
 import logica.Actividad;
 import logica.DataActividad;
 import logica.Usuario;
@@ -51,7 +52,7 @@ public class ManejadorActividad {
     	return colAct ;
     }
 
-    public Actividad getActividad(String nom) {
+    public Actividad getActividad(String nom) throws ActividadNoExisteException {
     	return colAct.get(nom);
     }
     

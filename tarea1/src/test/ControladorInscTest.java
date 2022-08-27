@@ -38,6 +38,7 @@ class ControladorInscTest {
 			res = res || (it.getCiudad().equals("Rocha") && it.getCosto()==800 && it.getNombre().equals("Degusta"));
 		}
 		assertEquals(true,res);
+		
 	}
 	
 	@Test
