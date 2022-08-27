@@ -18,6 +18,8 @@ import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
+import logica.DataProveedor;
+import logica.DataTurista;
 import logica.DataUsuario;
 import logica.Fabrica;
 import logica.IControladorAlta;
@@ -27,11 +29,13 @@ import logica.IControladorInsc;
 class ControladorAltaTest {
 	
 	private static IControladorAlta IctrAlta;
+	private static IControladorConsulta ccon;
 	
 	@BeforeAll
 	public static void iniciar() throws DepartamentoYaExisteExeption {
 		Fabrica fabrica = Fabrica.getInstance();
 		IctrAlta = fabrica.getIControladorAlta();
+		ccon = fabrica.getIControladorConsulta();
 	}
 	
 	@Test
@@ -103,6 +107,23 @@ class ControladorAltaTest {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	void testListarUsuarios() {
+		DataUsuario[] aux = ccon.listarUsuarios();
+		boolean res1 = false;
+		boolean res2 = false;
+		for(DataUsuario it:aux) {
+			if(it instanceof DataTurista) {
+				res1 = res1 || (it.getApellido().equals("Windsor")&&it.getMail().equals("isabelita@thecrown.co.uk")&&it.getNombre().equals("Elizabeth")&&it.getNick().equals("isabelita")&&((DataTurista)it).getNacionalidad().equals("inglesa"));
+			}
+			else if (it instanceof DataProveedor) {
+				res2 = res2 || (it.getApellido().equals("Rocha")&&it.getMail().equals("washington@turismorocha.gub.uy")&&it.getNombre().equals("Washington")&&it.getNick().equals("washington")&&((DataProveedor)it).getLink().equals("http://turismorocha.gub.uy/"));
+			}
+		}
+		assertEquals(res1,true);
+		assertEquals(res2,true);
 	}
 
 	@Test
