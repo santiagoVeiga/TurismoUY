@@ -90,7 +90,10 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		SeleccionarDepartamentoCAMPO.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
             	cargarActividades();				
-	    	}
+        	    ocultarTextAndLabel();
+        		salidasLabel.setVisible(false);
+        		SeleccionarSalidaCAMPO.setVisible(false);
+	    	}	    	
 	    });
 
 		/*	**** Actividades *****	*/ 
@@ -105,7 +108,8 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		SeleccionarActividadCAMPO.setBounds(218, 63, 219, 21);
 		SeleccionarActividadCAMPO.addActionListener(new ActionListener() { 
 	    	public void actionPerformed(ActionEvent e) {
-            	cargarSalidas();				
+            	cargarSalidas();
+        	    ocultarTextAndLabel();
 	    	}
 	    });
 		getContentPane().add(SeleccionarActividadCAMPO);
@@ -189,42 +193,43 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		getContentPane().add(cancelarCAMPO);
 		
 		horaSalida = new JTextField();
+		horaSalida.setEditable(false);
 		horaSalida.setBounds(218, 177, 219, 20);
 		getContentPane().add(horaSalida);
 		horaSalida.setColumns(10);
 		horaSalida.setVisible(false);
 		
 		fechaSalida = new JTextField();
+		fechaSalida.setEditable(false);
 		fechaSalida.setColumns(10);
 		fechaSalida.setBounds(218, 146, 219, 20);
 		getContentPane().add(fechaSalida);
 		fechaSalida.setVisible(false);
 
 		lugarSalida = new JTextField();
+		lugarSalida.setEditable(false);
 		lugarSalida.setColumns(10);
 		lugarSalida.setBounds(218, 206, 219, 20);
 		getContentPane().add(lugarSalida);
 		lugarSalida.setVisible(false);
 
 		cantidadMaxima = new JTextField();
+		cantidadMaxima.setEditable(false);
 		cantidadMaxima.setColumns(10);
 		cantidadMaxima.setBounds(218, 265, 219, 20);
 		getContentPane().add(cantidadMaxima);
 		cantidadMaxima.setVisible(false);
 
 		fechaAlta = new JTextField();
+		fechaAlta.setEditable(false);
 		fechaAlta.setColumns(10);
 		fechaAlta.setBounds(218, 237, 219, 20);
 		getContentPane().add(fechaAlta);
 		fechaAlta.setVisible(false);
 
-		
-
 	}
 	
-	/* ************** */
-	/* *** Cargas *** */
-	/* ************** */
+	/* ***** Cargas ****** */
 	
 	public void cargarDepartamentos(){
     	DefaultComboBoxModel<String> model;
@@ -333,7 +338,23 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		
 	}
 
-	/* ******Limpiar Formulario **************** */
+	
+	/* ***** Limpiar datos visibles ***** */
+	
+	public void ocultarTextAndLabel() {
+		lugarSalidaLabel.setVisible(false);
+		cantidadMaximaLabel.setVisible(false);
+		fechaSalidaLabel.setVisible(false);
+		fechaAltaLabel.setVisible(false);
+		horaLabel.setVisible(false);
+		
+		cantidadMaxima.setVisible(false);
+		fechaAlta.setVisible(false);
+		lugarSalida.setVisible(false);
+		fechaSalida.setVisible(false);
+		horaSalida.setVisible(false);
+	}
+	
 	public void limpiarFormulario() {
 		horaSalida.setText("");
 	    fechaSalida.setText("");
@@ -347,17 +368,7 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 	    actividadesLabel.setVisible(false);
 	    salidasLabel.setVisible(false);
 	    
-	    lugarSalidaLabel.setVisible(false);
-		cantidadMaximaLabel.setVisible(false);
-		fechaSalidaLabel.setVisible(false);
-		fechaAltaLabel.setVisible(false);
-		horaLabel.setVisible(false);
-		
-		cantidadMaxima.setVisible(false);
-		fechaAlta.setVisible(false);
-		lugarSalida.setVisible(false);
-		fechaSalida.setVisible(false);
-		horaSalida.setVisible(false);
+	    ocultarTextAndLabel();
 		
 		//if(SeleccionarSalidaCAMPO.getSelectedItem() != null)
 			//SeleccionarSalidaCAMPO.setSelectedItem(null);
