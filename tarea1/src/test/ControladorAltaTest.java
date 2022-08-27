@@ -168,30 +168,27 @@ class ControladorAltaTest {
 		Date auxi = new Date(2000,6,20);
 		try {
 			IctrAlta.confirmarAltaDepartamento("parasaindu", "d", "www.parasaindu.com.uy");
-		} catch (DepartamentoYaExisteExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
 			IctrAlta.registrarActividad("parasaindu", "Bici por la rambla", "bici rambla coso",1, 200, "Ciudad de la costa" ,auxi,"agus");
+			Actividad ActividadRegistrada = ManejadorActividades.getActividad("Bici por la rambla") ; 
+			assertEquals(ActividadRegistrada.getDepartamento().getNombre(),"parasaindu");
+			assertEquals(ActividadRegistrada.getNombre(),"Bici por la rambla");
+			assertEquals(ActividadRegistrada.getDescripcion(),"bici rambla coso");
+			assertEquals(ActividadRegistrada.getFechaAlta().getDate(),auxi.getDate());
+			assertEquals(ActividadRegistrada.getFechaAlta().getMonth(),auxi.getMonth());
+			assertEquals(ActividadRegistrada.getFechaAlta().getYear(),auxi.getYear());
+			assertEquals(ActividadRegistrada.getDuracion(),1);
+			assertEquals(ActividadRegistrada.getCosto(),200);
+			assertEquals(ActividadRegistrada.getCiudad(),"Ciudad de la costa");
+		
 		} catch (ActividadRepetidaException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Actividad ActividadRegistrada = ManejadorActividades.getActividad("Bici por la rambla") ; 
+		catch (DepartamentoYaExisteExeption e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
 		
-		assertEquals(ActividadRegistrada.getDepartamento().getNombre(),"parasaindu");
-		assertEquals(ActividadRegistrada.getNombre(),"Bici por la rambla");
-		assertEquals(ActividadRegistrada.getDescripcion(),"bici rambla coso");
-		
-		assertEquals(ActividadRegistrada.getFechaAlta().getDate(),auxi.getDate());
-		assertEquals(ActividadRegistrada.getFechaAlta().getMonth(),auxi.getMonth());
-		assertEquals(ActividadRegistrada.getFechaAlta().getYear(),auxi.getYear());
-		
-		assertEquals(ActividadRegistrada.getDuracion(),1);
-		assertEquals(ActividadRegistrada.getCosto(),200);
-		
-		assertEquals(ActividadRegistrada.getCiudad(),"Ciudad de la costa");
 	}
 
 	@Test
