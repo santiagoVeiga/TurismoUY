@@ -5,13 +5,14 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Set;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaInconsistente;
 import excepciones.TuristaConSalida;
 
 public interface IControladorInsc {
 	public abstract Set<DataDepartamento> listarDepartamentos();
-	public abstract void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente;
+	public abstract void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException;
 	public abstract Set<DataSalida> salidas(String s);
 	public abstract Set<DataActividad> selecDepartamento(String s);
 	public abstract Set<DataPaquete> listarPaquetes();

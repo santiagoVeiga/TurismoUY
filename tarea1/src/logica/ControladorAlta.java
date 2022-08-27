@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 
 import com.opencsv.CSVReader;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
@@ -49,6 +50,7 @@ public class ControladorAlta implements IControladorAlta {
 	    	  }
 	      }
 	}
+	
 	
 	public void cargarActs() throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException, ParseException {
 		CSVReader reader = null;
@@ -144,7 +146,13 @@ public class ControladorAlta implements IControladorAlta {
     	ManejadorActividad mAct = ManejadorActividad.getInstance();
     	ManejadorDepartamentos mDep = ManejadorDepartamentos.getInstance();
         ManejadorUsuario mu = ManejadorUsuario.getinstance();
-    	Actividad act = mAct.getActividad(nom);
+    	Actividad act = null;
+		try {
+			act = mAct.getActividad(nom);
+		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         if (act != null)
             throw new ActividadRepetidaException("Ya existe una actividad registrada con el nombre:  " + nom);
         Departamento insDep = mDep.getDepartamento(dep);
@@ -206,7 +214,13 @@ public class ControladorAlta implements IControladorAlta {
 
     public void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta) throws SalidaYaExisteExeption{
         ManejadorActividad ma = ManejadorActividad.getInstance();
-        Actividad act = ma.getActividad(nombreActividad);
+        Actividad act = null;
+		try {
+			act = ma.getActividad(nombreActividad);
+		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         act.altaSalida(nombreSalida, fecha, hora, lugar, maxCantTuristas,fechaAlta);
     }
     
