@@ -97,10 +97,12 @@ public class ListarUsuarios extends JInternalFrame {
                 {
                 	InfoTurista it = new InfoTurista((DataTurista) DU2[i]);
                 	it.setVisible(true);
+                	it.Cargar();
                 }else if(DU2[i] instanceof DataProveedor)
                 {
                 	InfoProveedor it = new InfoProveedor((DataProveedor) DU2[i]);
                 	it.setVisible(true);
+                	it.Cargar();
                 }
                 
             }

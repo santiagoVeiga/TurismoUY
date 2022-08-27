@@ -41,7 +41,10 @@ public class InfoTurista extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
-
+	private JComboBox<String> CU;
+	private JButton B;
+	private JLabel L;
+	private DataTurista dt;
 	/**
 	 * Launch the application.
 	 */
@@ -52,6 +55,7 @@ public class InfoTurista extends JFrame {
 
 	@SuppressWarnings("deprecation")
 	public InfoTurista(DataTurista DT) {
+		dt = DT;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -196,7 +200,7 @@ public class InfoTurista extends JFrame {
 		gbc_lblNewLabel_1_3_2_1.gridy = 7;
 		contentPane.add(lblNewLabel_1_3_2_1, gbc_lblNewLabel_1_3_2_1);
 		
-		
+		L=lblNewLabel_1_3_2_1;
 		Object[] o = DT.getDataSalidas().toArray();
         DataSalida[] usuarios2 = new DataSalida[o.length];
         String[] usuarios = new String[o.length];
@@ -214,10 +218,7 @@ public class InfoTurista extends JFrame {
 		gbc_comboBox.gridy = 7;
 		contentPane.add(comboBox, gbc_comboBox);
 		
-		DefaultComboBoxModel<String> model;
-        model = new DefaultComboBoxModel<String>(usuarios);
-        comboBox.setModel(model);
-		
+		CU = comboBox;
 		
 		JButton btnNewButton = new JButton("Info. Salida");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -225,7 +226,7 @@ public class InfoTurista extends JFrame {
 		gbc_btnNewButton.gridx = 6;
 		gbc_btnNewButton.gridy = 8;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
-		
+		B=btnNewButton;
 		btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	int i = comboBox.getSelectedIndex();
@@ -234,6 +235,16 @@ public class InfoTurista extends JFrame {
             }
         });
 		
+		if(o.length>0) {
+			DefaultComboBoxModel<String> model;
+	        model = new DefaultComboBoxModel<String>(usuarios);
+	        comboBox.setModel(model);
+		}else
+		{
+			comboBox.setVisible(false);
+			lblNewLabel_1_3_2_1.setVisible(false);
+			btnNewButton.setVisible(false);
+		}	
 		
 		JButton btnNewButton_1 = new JButton("Salir");
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
@@ -247,6 +258,27 @@ public class InfoTurista extends JFrame {
             	setVisible(false);
             }
         });
+	}
+
+	public void Cargar() {
+		// TODO Auto-generated method stub
+		
+		Object[] o = dt.getDataSalidas().toArray();
+        DataSalida[] usuarios2 = new DataSalida[o.length];
+        String[] usuarios = new String[o.length];
+        for (int i = 0; i < o.length; i++) {
+        	usuarios2[i] = (DataSalida) o[i];
+        	usuarios[i] = ((DataSalida) o[i]).getNombre();   
+        }
+		
+		if(o.length>0) {
+			DefaultComboBoxModel<String> model;
+	        model = new DefaultComboBoxModel<String>(usuarios);
+	        CU.setModel(model);
+	        CU.setVisible(true);
+			L.setVisible(true);
+			B.setVisible(true);
+		}
 	}
 
 }

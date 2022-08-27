@@ -38,6 +38,10 @@ public class InfoProveedor extends JFrame {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
+	private DataProveedor dp;
+	private JComboBox<String> CU;
+	private JButton B;
+	private JLabel L;
 
 	/**
 	 * Launch the application.
@@ -211,7 +215,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_3_2_1.gridy = 8;
 		contentPane.add(lblNewLabel_1_3_2_1, gbc_lblNewLabel_1_3_2_1);
 		
-		
+		L=lblNewLabel_1_3_2_1;
 		Object[] o = DP.getActividades().toArray();
         DataActividad[] usuarios2 = new DataActividad[o.length];
         String[] usuarios = new String[o.length];
@@ -229,23 +233,31 @@ public class InfoProveedor extends JFrame {
 		gbc_comboBox.gridx = 6;
 		gbc_comboBox.gridy = 8;
 		contentPane.add(comboBox, gbc_comboBox);
-		
-		DefaultComboBoxModel<String> model;
-        model = new DefaultComboBoxModel<String>(usuarios);
-        comboBox.setModel(model);
-        
 		JButton btnNewButton = new JButton("Info. Actividad");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 7;
 		gbc_btnNewButton.gridy = 9;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
+		B=btnNewButton;
+		CU = comboBox;
+		if(o.length!=0) {
+			DefaultComboBoxModel<String> model;
+	        model = new DefaultComboBoxModel<String>(usuarios);
+	        comboBox.setModel(model);
+		}else
+		{
+			CU.setVisible(false);
+			L.setVisible(false);
+			B.setVisible(false);
+		}
 		
 		btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	int i = comboBox.getSelectedIndex();
             	InfoActividades ia = new InfoActividades(usuarios2[i]);
             	ia.setVisible(true);
+            	ia.Cargar();
             	setVisible(false);
             }
         });
@@ -263,6 +275,27 @@ public class InfoProveedor extends JFrame {
             	setVisible(false);
             }
         });
+	}
+
+	public void Cargar() {
+		// TODO Auto-generated method stub
+		
+			Object[] o = dp.getActividades().toArray();
+	        DataActividad[] usuarios2 = new DataActividad[o.length];
+	        String[] usuarios = new String[o.length];
+	        for (int i = 0; i < o.length; i++) {
+	        	usuarios2[i] = (DataActividad) o[i];
+	        	usuarios[i] = ((DataActividad) o[i]).getNombre();
+	        }
+	        if(o.length!=0) {
+				DefaultComboBoxModel<String> model;
+		        model = new DefaultComboBoxModel<String>(usuarios);
+		        CU.setModel(model);
+		    	CU.setVisible(true);
+				L.setVisible(true);
+				B.setVisible(true);
+			}
+		
 	}
 
 }

@@ -37,7 +37,13 @@ public class InfoActividades extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
-
+	private JComboBox<String> CU;
+	private JButton B;
+	private JLabel L;
+	private JComboBox<String> CU2;
+	private JButton B2;
+	private JLabel L2;
+	private DataActividad dt;
 	/**
 	 * Launch the application.
 	 */
@@ -47,7 +53,7 @@ public class InfoActividades extends JFrame {
 	 * Create the frame.
 	 */
 	public InfoActividades(DataActividad DT) {
-		
+		dt=DT;
 		if(DT!=null)
 			setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -201,7 +207,7 @@ public class InfoActividades extends JFrame {
 		gbc_comboBox.gridy = 7;
 		contentPane.add(comboBox, gbc_comboBox);
 		
-
+		L=lblNewLabel_1_3_2_1;
 		
 		
 		JButton btnNewButton = new JButton("Info. Salida");
@@ -211,7 +217,7 @@ public class InfoActividades extends JFrame {
 		gbc_btnNewButton.gridx = 6;
 		gbc_btnNewButton.gridy = 9;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
-		
+		B=btnNewButton;
 		
 		
 		JButton btnInfoPaquete = new JButton("Info. Paquete");
@@ -221,7 +227,7 @@ public class InfoActividades extends JFrame {
 		gbc_btnInfoPaquete.gridy = 9;
 		contentPane.add(btnInfoPaquete, gbc_btnInfoPaquete);
 		
-		
+		B2=btnInfoPaquete;
 
 		JLabel lblNewLabel_1_3_2_1_1 = new JLabel("Paquetes :");
 		GridBagConstraints gbc_lblNewLabel_1_3_2_1_1 = new GridBagConstraints();
@@ -231,7 +237,7 @@ public class InfoActividades extends JFrame {
 		gbc_lblNewLabel_1_3_2_1_1.gridy = 8;
 		contentPane.add(lblNewLabel_1_3_2_1_1, gbc_lblNewLabel_1_3_2_1_1);
 		
-		
+		L2=lblNewLabel_1_3_2_1_1 ;
 		
 		JComboBox<String> comboBox_1 = new JComboBox<String>();
 		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
@@ -242,6 +248,8 @@ public class InfoActividades extends JFrame {
 		gbc_comboBox_1.gridy = 8;
 		contentPane.add(comboBox_1, gbc_comboBox_1);
 		
+		CU=comboBox ;
+		CU2=comboBox_1;
 		
 		if(DT.HaySalidas()) {
 			Object[] o = DT.getSalidas().toArray();
@@ -314,5 +322,42 @@ public class InfoActividades extends JFrame {
         });
 		
 		
+		
+	}
+	public void Cargar() {
+		// TODO Auto-generated method stub
+		
+		Object[] o = dt.getSalidas().toArray();
+        DataSalida[] usuarios2 = new DataSalida[o.length];
+        String[] usuarios = new String[o.length];
+        for (int i = 0; i < o.length; i++) {
+        	usuarios2[i] = (DataSalida) o[i];
+        	usuarios[i] = ((DataSalida) o[i]).getNombre();   
+        }
+		
+		if(o.length>0) {
+			DefaultComboBoxModel<String> model;
+	        model = new DefaultComboBoxModel<String>(usuarios);
+	        CU.setModel(model);
+	        CU.setVisible(true);
+			L.setVisible(true);
+			B.setVisible(true);
+		}
+		Object[] o2 = dt.getPaquete().toArray();
+        DataPaquete[] usuarios22 = new DataPaquete[o2.length];
+        String[] usuarios3 = new String[o2.length];
+        for (int i = 0; i < o.length; i++) {
+        	usuarios22[i] = (DataPaquete) o2[i];
+        	usuarios3[i] = ((DataPaquete) o2[i]).getNombre();   
+        }
+		
+		if(o.length>0) {
+			DefaultComboBoxModel<String> model;
+	        model = new DefaultComboBoxModel<String>(usuarios3);
+	        CU2.setModel(model);
+	        CU2.setVisible(true);
+			L2.setVisible(true);
+			B2.setVisible(true);
+		}
 	}
 }
