@@ -51,7 +51,8 @@ public class Principal {
     private ConsultarActividad conActInternalFrame;
     private Inscribir insInternalFrame;
     private AltaSalida creSalInternalFrame ;
-    private ConsultaSalidaTuristica consultaSalidaInternalFrame ;
+    private ConsultaSalidaTuristica consultaSalidaInternalFrame;
+    private CrearPaquete crePaqInternalFrame;
 
 
     /**
@@ -110,14 +111,17 @@ public class Principal {
        consultaSalidaInternalFrame = new ConsultaSalidaTuristica(ICC);
        consultaSalidaInternalFrame.setVisible(false);
         //----------------------------------------------------------------------------
-      
-        
-        
+
         /* Inscripcion */
         
         insInternalFrame = new Inscribir(ICI);
         insInternalFrame.setVisible(false);
         insInternalFrame.setLocation(10, 30);
+        
+        //Paquetes
+        
+        crePaqInternalFrame = new CrearPaquete(ICA);
+        crePaqInternalFrame.setVisible(false);
         
         frmGestionDeUsuarios.getContentPane().setLayout(null);
         frmGestionDeUsuarios.getContentPane().add(insInternalFrame);
@@ -127,9 +131,7 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creSalInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(consultaSalidaInternalFrame);
-        
-
-
+        frmGestionDeUsuarios.getContentPane().add(crePaqInternalFrame);
         
         
     }
@@ -141,7 +143,7 @@ public class Principal {
 
         // Se crea el Frame con las dimensiones indicadas.
         frmGestionDeUsuarios = new JFrame();
-        frmGestionDeUsuarios.setTitle("Gestion de Usuarios 1.0");
+        frmGestionDeUsuarios.setTitle("Gestion de Actividades Turisticas");
         frmGestionDeUsuarios.setBounds(100, 100, 953, 667);
         frmGestionDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -254,6 +256,20 @@ public class Principal {
         });
         mnInscripcion.add(mntmInscribirTuristaA);
         
+        /* ******************** */
+        /* **** Paquete **** */
+        /* ******************** */
+        
+        JMenu menuPaquete = new JMenu("Paquete");
+        menuBar.add(menuPaquete);
+
+        JMenuItem menuItemRegistrarPaquete = new JMenuItem("Crear Paquete");
+        menuItemRegistrarPaquete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	crePaqInternalFrame.setVisible(true);
+            }
+        });
+        menuPaquete.add(menuItemRegistrarPaquete);
         
         /* *************** */
         /* Carga de Datos */

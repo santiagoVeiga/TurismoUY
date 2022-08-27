@@ -12,11 +12,13 @@ import com.opencsv.CSVReader;
 import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
+import excepciones.PaqueteRepetidoException;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorDepartamentos;
+import manejadores.ManejadorPaquete;
 import manejadores.ManejadorUsuario;
 
 /**
@@ -125,7 +127,7 @@ public class ControladorAlta implements IControladorAlta {
         u = new Turista(nick, nom, ap, mail, nacimiento, nacionalidad);
         mu.addUsuario(u);
     }
-
+    
     public void confirmarAltaProveedor(String nick, String nom , String ap, String mail ,Date nacimiento ,String descripcion, String link, boolean hayLink) throws UsuarioRepetidoException {
     	ManejadorUsuario mu = ManejadorUsuario.getinstance();
         Usuario u = mu.obtenerUsuarioNick(nick);
@@ -206,5 +208,14 @@ public class ControladorAlta implements IControladorAlta {
         ManejadorActividad ma = ManejadorActividad.getInstance();
         Actividad act = ma.getActividad(nombreActividad);
         act.altaSalida(nombreSalida, fecha, hora, lugar, maxCantTuristas,fechaAlta);
+    }
+    
+    public void altaPaquete(String nombre, String descripcion, int descuento, int validez, Date fechaAlta) throws PaqueteRepetidoException {
+    	ManejadorPaquete mp = ManejadorPaquete.getInstance();
+        Paquete p = mp.getPaquete(nombre);
+        if (p != null)
+            throw new PaqueteRepetidoException("Ya existe un paquete registrado con el nombre:  " + nombre);
+        p = new Paquete(nombre, descripcion, descuento, fechaAlta, validez);
+        mp.addPaquete(p);
     }
 }

@@ -4,44 +4,58 @@ import java.util.*;
 
 public class DataPaquete {
 	
-	private String N;
-	private String D;
-	private String desc;
-	private Date F;
-	private String V;
+	private String nombre;
+	private int descuento;
+	private String descripcion;
+	private Date fechaAlta;
+	private int validez;
 
-	public DataPaquete(String N,String D,String desc,Date F,String V)
+	public DataPaquete(String nom,String desc,int descuento,Date fecha, int val)
 	{
-		this.N = N;
-		this.D = D;
-		this.desc = desc;
-		this.F = F;
-		this.V = V;
+		this.setNombre(nom);
+		this.setDescuento(descuento);
+		this.setDescripcion(desc);
+		this.setFechaAlta(fecha);
+		this.setValidez(val);
 	}
-	
+
 	public String getNombre() {
-		// TODO Auto-generated method stub
-		return N;
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(int descuento) {
+		this.descuento = descuento;
 	}
 
 	public String getDescripcion() {
-		// TODO Auto-generated method stub
-		return D;
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public Date getFechaAlta() {
-		// TODO Auto-generated method stub
-		return F;
+		return fechaAlta;
 	}
 
-	public String getDescuento() {
-		// TODO Auto-generated method stub
-		return desc;
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
 	}
 
-	public String getValidez() {
-		// TODO Auto-generated method stub
-		return V;
+	public int getValidez() {
+		return validez;
 	}
 
+	public void setValidez(int validez) {
+		this.validez = validez;
+	}
 }
