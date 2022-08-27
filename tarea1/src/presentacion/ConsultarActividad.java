@@ -43,6 +43,7 @@ public class ConsultarActividad extends JInternalFrame {
     private JButton btnBuscar;
     private JButton btnCerrar;
     private JButton btnSeleccionar;
+    private JButton btnInfoSalida;
     private JComboBox<String> jcbDepartamentos;
     private JComboBox<String> jcbActividades;
     private JComboBox<String> jcbSalidas;
@@ -58,6 +59,8 @@ public class ConsultarActividad extends JInternalFrame {
     private JLabel actCostoR;
     private JLabel actDuracion;
     private JLabel actDuracionR;
+    private JLabel actFecha;
+    private JLabel actFechaR;
     private JLabel Salidas;
     private Set<DataActividad> auxi;
     private DataActividad actElegida;
@@ -122,7 +125,7 @@ public class ConsultarActividad extends JInternalFrame {
         
     	Salidas = new JLabel("Salidas: ");
         Salidas.setSize(125, 32);
-        Salidas.setLocation(40, 296);
+        Salidas.setLocation(40, 316);
     	GridBagConstraints gbc_Salidas = new GridBagConstraints();
     	gbc_Salidas.anchor = GridBagConstraints.EAST;
     	gbc_Salidas.insets = new Insets(2, 2, 5, 5);
@@ -130,10 +133,11 @@ public class ConsultarActividad extends JInternalFrame {
     	Salidas.setVisible(false);
     	
         jcbSalidas = new JComboBox<String>();
-        jcbSalidas.setBounds(253, 300, 276, 24);
+        jcbSalidas.setBounds(253, 320, 276, 24);
         getContentPane().add(jcbSalidas);
         jcbSalidas.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+        		btnInfoSalida.setVisible(true);
         	}
         });
         jcbSalidas.setVisible(false);
@@ -151,16 +155,17 @@ public class ConsultarActividad extends JInternalFrame {
                 setVisible(false);
             }
         });
-        btnCerrar.setBounds(440, 351, 89, 23);
+        btnCerrar.setBounds(440, 371, 89, 23);
         getContentPane().add(btnCerrar);
         
         btnBuscar = new JButton("Buscar");
         btnBuscar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	limpiarFormularioActividad();
             	cargarActividades();
             }
         });
-        btnBuscar.setBounds(40, 351, 89, 23);
+        btnBuscar.setBounds(40, 371, 89, 23);
         getContentPane().add(btnBuscar);
         btnBuscar.setVisible(false);
         
@@ -170,9 +175,18 @@ public class ConsultarActividad extends JInternalFrame {
             	mostrarActividad();
             }
         });
-        btnSeleccionar.setBounds(159, 351, 116, 23);
+        btnSeleccionar.setBounds(159, 371, 116, 23);
         getContentPane().add(btnSeleccionar);
         btnSeleccionar.setVisible(false);
+        
+        btnInfoSalida = new JButton("Info Salida");
+        btnInfoSalida.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        btnInfoSalida.setBounds(298, 371, 116, 23);
+        getContentPane().add(btnInfoSalida);
+        btnInfoSalida.setVisible(false);
         
         actNombre = new JLabel("Nombre de la Actividad:");
         actNombre.setSize(173, 32);
@@ -254,7 +268,7 @@ public class ConsultarActividad extends JInternalFrame {
     	
     	actDuracion = new JLabel("Duracion de la Actividad:");
         actDuracion.setSize(189, 32);
-        actDuracion.setLocation(40, 252);
+        actDuracion.setLocation(40, 246);
     	GridBagConstraints gbc_actDuracion = new GridBagConstraints();
     	gbc_actDuracion.anchor = GridBagConstraints.EAST;
     	gbc_actDuracion.insets = new Insets(2, 2, 5, 5);
@@ -263,13 +277,32 @@ public class ConsultarActividad extends JInternalFrame {
     	
     	actDuracionR = new JLabel("Aca va la Duracion");
     	actDuracionR.setSize(276, 32);
-        actDuracionR.setLocation(253, 252);
+        actDuracionR.setLocation(253, 246);
     	GridBagConstraints gbc_actDuracionR = new GridBagConstraints();
     	gbc_actDuracionR.anchor = GridBagConstraints.EAST;
     	gbc_actDuracionR.insets = new Insets(2, 2, 5, 5);
     	getContentPane().add(actDuracionR, gbc_actDuracionR);
     	actDuracionR.setVisible(false);
+    	
+    	actFecha = new JLabel("Fecha de la Actividad:");
+        actFecha.setSize(189, 32);
+        actFecha.setLocation(40, 278);
+    	GridBagConstraints gbc_actFecha = new GridBagConstraints();
+    	gbc_actFecha.anchor = GridBagConstraints.EAST;
+    	gbc_actFecha.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(actFecha, gbc_actFecha);
+    	actFecha.setVisible(false);
+    	
+    	actFechaR = new JLabel("Aca va la Fecha");
+    	actFechaR.setSize(276, 32);
+        actFechaR.setLocation(253, 278);
+    	GridBagConstraints gbc_actFechaR = new GridBagConstraints();
+    	gbc_actFechaR.anchor = GridBagConstraints.EAST;
+    	gbc_actFechaR.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(actFechaR, gbc_actFechaR);
+    	actFechaR.setVisible(false);
     }	
+    
 
 public void cargarDepartamentos(){
     	DefaultComboBoxModel<String> model;
@@ -288,11 +321,7 @@ public void cargarDepartamentos(){
 public void cargarActividades(){
 	DefaultComboBoxModel<String> model;
 	try {
-		String aux = (String) jcbDepartamentos.getSelectedItem();
-		int i = 0;
-		while (i<DD.length && DD[i].getNombre() != aux) {
-			i++;
-		}
+		int i = jcbDepartamentos.getSelectedIndex();
 		if (DD[i].getColAct().size() == 0) {
 			throw new ActividadNoExisteException("No hay actividades asociadas a dicho Departamento");
 		}
@@ -364,6 +393,9 @@ public void mostrarActividad() {
 	actDuracion.setVisible(true);
 	actDuracionR.setText(Integer.toString(actElegida.getDuracion()) + " horas");
 	actDuracionR.setVisible(true);
+	actFecha.setVisible(true);
+	actFechaR.setText(actElegida.getFechaAlta().getDate() + "/" + (actElegida.getFechaAlta().getMonth() + 1) + "/" + (actElegida.getFechaAlta().getYear() +1900));
+	actFechaR.setVisible(true);
 	cargarSalidas();
 }
 
@@ -377,6 +409,7 @@ public void mostrarActividad() {
         jcbSalidas.removeAllItems();
         btnBuscar.setVisible(false);
         btnSeleccionar.setVisible(false);
+        btnInfoSalida.setVisible(false);
     	jcbActividades.setVisible(false);
     	jcbSalidas.setVisible(false);
         limpiarFormularioActividad();
@@ -384,16 +417,20 @@ public void mostrarActividad() {
     }
 
     private void limpiarFormularioActividad() {
-    	actNombre.setVisible(true);
-    	actNombreR.setVisible(true);
-    	actDesc.setVisible(true);
-    	actDescR.setVisible(true);
-    	actCiudad.setVisible(true);
-    	actCiudadR.setVisible(true);
-    	actCosto.setVisible(true);
-    	actCostoR.setVisible(true);
-    	actDuracion.setVisible(true);
-    	actDuracionR.setVisible(true);
+    	actNombre.setVisible(false);
+    	actNombreR.setVisible(false);
+    	actDesc.setVisible(false);
+    	actDescR.setVisible(false);
+    	actCiudad.setVisible(false);
+    	actCiudadR.setVisible(false);
+    	actCosto.setVisible(false);
+    	actCostoR.setVisible(false);
+    	actDuracion.setVisible(false);
+    	actDuracionR.setVisible(false);
+    	actFecha.setVisible(false);
+    	actFechaR.setVisible(false);
+    	Salidas.setVisible(false);
+    	jcbSalidas.setVisible(false);
     }
 }
 

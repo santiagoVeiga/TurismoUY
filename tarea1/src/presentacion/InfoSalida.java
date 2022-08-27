@@ -89,7 +89,7 @@ public class InfoSalida extends JFrame {
 		gbc_lblNewLabel_1.gridy = 2;
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField_1 = new JTextField(usuarios.getCant());
+		textField_1 = new JTextField(String.valueOf(usuarios.getCant()));
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
@@ -165,7 +165,7 @@ public class InfoSalida extends JFrame {
 		gbc_lblNewLabel_1_3_2.gridy = 6;
 		contentPane.add(lblNewLabel_1_3_2, gbc_lblNewLabel_1_3_2);
 		
-		textField_5 = new JTextField(usuarios.gethora().getHours());
+		textField_5 = new JTextField(String.valueOf(usuarios.gethora().getHours()));
 		textField_5.setEditable(false);
 		textField_5.setColumns(10);
 		GridBagConstraints gbc_textField_5 = new GridBagConstraints();

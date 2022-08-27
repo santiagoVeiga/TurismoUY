@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import logica.DataActividad;
 import logica.DataProveedor;
 import logica.DataSalida;
 import logica.DataTurista;
@@ -197,16 +198,14 @@ public class InfoTurista extends JFrame {
 		
 		
 		Object[] o = DT.getDataSalidas().toArray();
-        DataSalida[] usuarios = new DataSalida[o.length];
+        DataSalida[] usuarios2 = new DataSalida[o.length];
+        String[] usuarios = new String[o.length];
         for (int i = 0; i < o.length; i++) {
-        	usuarios[i] = (DataSalida) o[i];
+        	usuarios2[i] = (DataSalida) o[i];
+        	usuarios[i] = ((DataSalida) o[i]).getNombre();   
         }
-        String[] modelo = new String[o.length];
-        for (int i = 0; i < o.length; i++) {
-        	modelo[i] = usuarios[i].getNombre();
-        }
-
-		JComboBox<String> comboBox = new JComboBox<String>(modelo);
+        
+		JComboBox<String> comboBox = new JComboBox<String>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 4;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -215,7 +214,9 @@ public class InfoTurista extends JFrame {
 		gbc_comboBox.gridy = 7;
 		contentPane.add(comboBox, gbc_comboBox);
 		
-		
+		DefaultComboBoxModel<String> model;
+        model = new DefaultComboBoxModel<String>(usuarios);
+        comboBox.setModel(model);
 		
 		
 		JButton btnNewButton = new JButton("Info. Salida");
@@ -228,7 +229,7 @@ public class InfoTurista extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	int i = comboBox.getSelectedIndex();
-            	InfoSalida is = new InfoSalida(usuarios[i]);
+            	InfoSalida is = new InfoSalida(usuarios2[i]);
             	is.setVisible(true);
             }
         });

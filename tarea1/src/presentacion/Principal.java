@@ -190,7 +190,6 @@ public class Principal {
         mntmListaUsuarios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 lisUsrInternalFrame.cargarUsuarios();
-                lisUsrInternalFrame.setVisible(true);
             }
         });
         menuUsuarios.add(mntmListaUsuarios);
