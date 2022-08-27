@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Set;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,6 +20,8 @@ import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
+import logica.Actividad;
+import logica.DataActividad;
 import logica.DataProveedor;
 import logica.DataTurista;
 import logica.DataUsuario;
@@ -26,11 +29,13 @@ import logica.Fabrica;
 import logica.IControladorAlta;
 import logica.IControladorConsulta;
 import logica.IControladorInsc;
+import manejadores.ManejadorActividad;
 
 class ControladorAltaTest {
 	
 	private static IControladorAlta IctrAlta;
 	private static IControladorConsulta IctrCons;
+	private static ManejadorActividad ManejadorActividades ; 
 	
 	@BeforeAll
 	public static void iniciar() throws DepartamentoYaExisteExeption {
@@ -159,7 +164,34 @@ class ControladorAltaTest {
 
 	@Test
 	void testRegistrarActividad() {
-		fail("Not yet implemented");
+		
+		Date auxi = new Date(2000,6,20);
+		try {
+			IctrAlta.confirmarAltaDepartamento("parasaindu", "d", "www.parasaindu.com.uy");
+		} catch (DepartamentoYaExisteExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			IctrAlta.registrarActividad("parasaindu", "Bici por la rambla", "bici rambla coso",1, 200, "Ciudad de la costa" ,auxi,"agus");
+		} catch (ActividadRepetidaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Actividad ActividadRegistrada = ManejadorActividades.getActividad("Bici por la rambla") ; 
+		
+		assertEquals(ActividadRegistrada.getDepartamento().getNombre(),"parasaindu");
+		assertEquals(ActividadRegistrada.getNombre(),"Bici por la rambla");
+		assertEquals(ActividadRegistrada.getDescripcion(),"bici rambla coso");
+		
+		assertEquals(ActividadRegistrada.getFechaAlta().getDate(),auxi.getDate());
+		assertEquals(ActividadRegistrada.getFechaAlta().getMonth(),auxi.getMonth());
+		assertEquals(ActividadRegistrada.getFechaAlta().getYear(),auxi.getYear());
+		
+		assertEquals(ActividadRegistrada.getDuracion(),1);
+		assertEquals(ActividadRegistrada.getCosto(),200);
+		
+		assertEquals(ActividadRegistrada.getCiudad(),"Ciudad de la costa");
 	}
 
 	@Test
@@ -186,6 +218,11 @@ class ControladorAltaTest {
 	void testConfirmarAltaSalida() {
 		fail("Not yet implemented");
 	}
+	
+	
+	
+	
+	
 	
 	@Test
 	void testExcp() {
@@ -244,5 +281,53 @@ class ControladorAltaTest {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	@Test
+	void testExepcionRegistrarTuristaRepetido() {
+		Date auxi = new Date(2000,6,20);
+		try {
+			IctrAlta.confirmarAltaTurista("lucasnick","lucas","pode","lucasmail",auxi,"uruguaya");
+		} catch (UsuarioRepetidoException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		};
+		//esta es la prueba
+		assertThrows(UsuarioRepetidoException.class, ()->{IctrAlta.confirmarAltaTurista("lucasnick","lucas","pode","lucasmail",auxi,"uruguaya");});	
+	}
+	
+	@Test
+	void testExepcionRegistrarProveedorRepetido() {
+		Date auxi = new Date(2000,6,20);
+		
+		try {
+			IctrAlta.confirmarAltaProveedor("agus","Agustin","de Leon","a@mail",auxi,"Un proveedor","link",true);
+		} catch (UsuarioRepetidoException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		};
+		//esta es la prueba
+		assertThrows(UsuarioRepetidoException.class, ()->{IctrAlta.confirmarAltaProveedor("agus","Agustin","de Leon","a@mail",auxi,"Un proveedor","link",true);});	
+	}
+	
+	
+	@Test
+	void testExepcionSalidaYaExiste() {
+		Date auxi = new Date(2000,6,20);
+		try {
+			IctrAlta.confirmarAltaProveedor("agus","Agustin","de Leon","a@mail",auxi,"Un proveedor","link",true);
+		} catch (UsuarioRepetidoException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		};
+		//esta es la prueba
+		assertThrows(UsuarioRepetidoException.class, ()->{IctrAlta.confirmarAltaProveedor("agus","Agustin","de Leon","a@mail",auxi,"Un proveedor","link",true);});	
+	}
+	
+	
+	
+	
+	
 
 }
