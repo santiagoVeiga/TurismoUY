@@ -13,7 +13,7 @@ import com.toedter.calendar.JDateChooser;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.DepartamentoNoExisteException;
-import excepciones.SalidaNoExisteException;
+import excepciones.SalidasNoExisteException;
 import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataSalida;

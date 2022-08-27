@@ -46,7 +46,6 @@ public class Principal {
     private IControladorAlta ICA;
     private IControladorInsc ICI;
     private CrearUsuario creUsrInternalFrame;
-    private ConsultarUsuario conUsrInternalFrame;
     private ListarUsuarios lisUsrInternalFrame;
     private CrearActividad creActInternalFrame;
     private ConsultarActividad conActInternalFrame;
@@ -91,15 +90,9 @@ public class Principal {
         creUsrInternalFrame = new CrearUsuario(ICA);
         creUsrInternalFrame.setVisible(false);
 
-        conUsrInternalFrame = new ConsultarUsuario(ICC);
-        conUsrInternalFrame.setVisible(false);
-
         lisUsrInternalFrame = new ListarUsuarios(ICC);
         lisUsrInternalFrame.setVisible(false);
         
-
-
-        //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
  
         //****** ACTIVIDAD *********/
@@ -131,7 +124,6 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().add(conActInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creSalInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(consultaSalidaInternalFrame);
