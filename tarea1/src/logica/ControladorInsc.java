@@ -10,12 +10,14 @@ import java.util.Set;
 
 import com.opencsv.CSVReader;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaInconsistente;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorDepartamentos;
+import manejadores.ManejadorPaquete;
 import manejadores.ManejadorUsuario;
 
 public class ControladorInsc implements IControladorInsc {
@@ -89,21 +91,43 @@ public class ControladorInsc implements IControladorInsc {
 	}
 
 	@Override
-	public Set<DataPaquete> listarPaquetes() {
-		// TODO Auto-generated method stub
-		return null;
+	public String[] listarPaquetes() {
+		ManejadorPaquete mp = ManejadorPaquete.getInstance();
+		return mp.getPaquetesN();
 	}
 
 	@Override
-	public Set<DataActividad> actividadesPorDepartamentoNoEnPaquete(String s) {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<DataActividad> actividadesPorDepartamentoNoEnPaquete(String Dep, String s) {
+		ManejadorDepartamentos md = ManejadorDepartamentos.getInstance();
+		Departamento dep = md.getDepartamento(Dep);
+		Actividad[] auxi = dep.getActividadesDep();
+		Set<DataActividad> res = new HashSet<DataActividad>();
+		for(int i = 0; i<auxi.length; i++) {
+			if(!auxi[i].pertenecePaquete(s)) {
+				res.add(auxi[i].getDataAT());
+			}
+		}
+		return res;
 	}
 
+	public DataPaquete obtenerDataPaquete(String p) {
+		ManejadorPaquete mp = ManejadorPaquete.getInstance();
+		return mp.getDataPaquete(p);
+	}
+	
 	@Override
 	public void confirmar(String paq, String act) {
-		// TODO Auto-generated method stub
-		
+		ManejadorActividad ma = ManejadorActividad.getInstance();
+		ManejadorPaquete mp = ManejadorPaquete.getInstance();
+		try {
+			Actividad actIns = ma.getActividad(act);
+			Paquete paqIns = mp.getPaquete(paq);
+			paqIns.agregarActividad(actIns);
+			actIns.addPaquete(paqIns);
+		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

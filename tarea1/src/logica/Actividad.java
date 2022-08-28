@@ -39,7 +39,7 @@ public class Actividad {
 		this.costo = costo;
 		this.duracion = dur;
 		this.departamento = dep;
-		this.colpaq = null;
+		this.colpaq = new HashMap<String,Paquete>();
 	}
 	
 	//Getters
@@ -111,6 +111,10 @@ public class Actividad {
 		this.colSal.put(s.getNombre(), s);
 	}
 	
+	public void addPaquete(Paquete p) {
+		this.colpaq.put(p.getNombre(), p);
+	}
+	
 	//Operaciones
 	
 	public DataActividad getDataAT() {
@@ -154,6 +158,10 @@ public class Actividad {
 		}
 		aux = new Salida(nombreSalida, lugar, hora, fecha, fechaAlta, maxCantTuristas);
 		colSal.put(nombreSalida,aux);
+	}
+	
+	public boolean pertenecePaquete(String paqN) {
+		return colpaq.get(paqN) != null;
 	}
 	
 }

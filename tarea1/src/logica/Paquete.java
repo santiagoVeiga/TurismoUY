@@ -2,7 +2,10 @@ package logica;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 public class Paquete {
 
@@ -23,9 +26,15 @@ public class Paquete {
 		this.colAct = new HashMap<String,Actividad>();
 	}
 	
-	public DataPaquete getDataP()
-	{
-		return new DataPaquete(nombre, descripcion, descuento, fechaAlta, validez);
+	public DataPaquete getDataP(){
+		DataActividad[] dtAct = new DataActividad[colAct.size()];
+		int i = 0;
+		for (Iterator<Map.Entry<String, Actividad>> entries = colAct.entrySet().iterator(); entries.hasNext(); ) {
+		    Map.Entry<String, Actividad> entry = entries.next();
+		    dtAct[i] = entry.getValue().getDataAT();
+		    i++;
+		}
+		return new DataPaquete(nombre, descripcion, descuento, fechaAlta, validez, dtAct);
 	}
 	
 	public String getNombre() {

@@ -53,6 +53,7 @@ public class Principal {
     private AltaSalida creSalInternalFrame ;
     private ConsultaSalidaTuristica consultaSalidaInternalFrame;
     private CrearPaquete crePaqInternalFrame;
+    private AgregarActPaquete agrPaqInternalFrame;
     private ModificarUsuario modUsrInternalFrame;
 
 
@@ -131,6 +132,9 @@ public class Principal {
         crePaqInternalFrame = new CrearPaquete(ICA);
         crePaqInternalFrame.setVisible(false);
         
+        agrPaqInternalFrame = new AgregarActPaquete(ICI);
+        agrPaqInternalFrame.setVisible(false);
+        
         frmGestionDeUsuarios.getContentPane().setLayout(null);
         frmGestionDeUsuarios.getContentPane().add(insInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(conActInternalFrame);
@@ -140,6 +144,7 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().add(creSalInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(consultaSalidaInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(crePaqInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(agrPaqInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(modUsrInternalFrame);
 
         
@@ -305,6 +310,16 @@ public class Principal {
             }
         });
         menuPaquete.add(menuItemRegistrarPaquete);
+        
+        JMenuItem menuItemAgregarPaquete = new JMenuItem("Agregar Actvidad a Paquete");
+        menuItemAgregarPaquete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	agrPaqInternalFrame.cargarDepartamentos();
+            	agrPaqInternalFrame.cargarPaquetes();
+            	agrPaqInternalFrame.setVisible(true);
+            }
+        });
+        menuPaquete.add(menuItemAgregarPaquete);
         
         /* *************** */
         /* Carga de Datos */

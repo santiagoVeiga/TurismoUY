@@ -1,6 +1,7 @@
 package manejadores;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -39,7 +40,7 @@ public class ManejadorActividad {
     }
 
     public Set<DataActividad> getDAct() {
-    	Set<DataActividad> resultado = null;
+    	Set<DataActividad> resultado = new HashSet<DataActividad>();
     	Set<Entry<String, Actividad>> aux = colAct.entrySet();
     	Iterator<Entry<String, Actividad>> it = aux.iterator();
     	while(it.hasNext()){
