@@ -20,4 +20,5 @@ public interface IControladorInsc {
 	public abstract void confirmar(String paq, String act);
 	public abstract DataUsuario[] listarUsuarios();
 	public abstract void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException;
+	public abstract void cargarActsPaqs() throws Exception;
 }

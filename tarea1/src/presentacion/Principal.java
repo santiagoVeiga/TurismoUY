@@ -347,27 +347,17 @@ public class Principal {
         JMenu mnCargar = new JMenu("Cargar");
         menuBar.add(mnCargar);
         
-        JMenuItem mntmCargarDepartamentos = new JMenuItem("Cargar Departamentos");
-        mntmCargarDepartamentos.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		try {
-					ICA.cargarDptos();
-					mntmCargarDepartamentos.setVisible(false);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (DepartamentoYaExisteExeption e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-        	}
-        });
-        
-        JMenuItem mntmCargarusuarios = new JMenuItem("Cargar Usuarios");
+        JMenuItem mntmCargarusuarios = new JMenuItem("Cargar Datos");
         mntmCargarusuarios.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
 					ICA.cargarUsuarios();
+					ICA.cargarDptos();
+					ICA.cargarActs();
+					ICA.cargarSalidas();
+					ICI.cargarInsc();
+					ICA.cargarPaquetes();
+					ICI.cargarActsPaqs();
 					mntmCargarusuarios.setVisible(false);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -378,74 +368,16 @@ public class Principal {
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
-        	}
-        });
-        mnCargar.add(mntmCargarusuarios);
-        mnCargar.add(mntmCargarDepartamentos);
-        
-        JMenuItem mntmCargarActividades = new JMenuItem("Cargar Actividades");
-        mntmCargarActividades.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		try {
-					ICA.cargarActs();
-					mntmCargarActividades.setVisible(false);
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				} catch (DepartamentoYaExisteExeption e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (ActividadRepetidaException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-        	}
-        });
-        mnCargar.add(mntmCargarActividades);
-        
-        JMenuItem mntmCargarsalidas = new JMenuItem("CargarSalidas");
-        mntmCargarsalidas.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		try {
-					ICA.cargarSalidas();
-					mntmCargarsalidas.setVisible(false);
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				} catch (SalidaYaExisteExeption e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-        	}
-        });
-        mnCargar.add(mntmCargarsalidas);
-        
-        JMenuItem mntmCargarInscripciones = new JMenuItem("Cargar Inscripciones");
-        mntmCargarInscripciones.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		try {
-					ICI.cargarInsc();
-					mntmCargarInscripciones.setVisible(false);
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (TuristaConSalida e1) {
@@ -460,40 +392,16 @@ public class Principal {
 				} catch (ActividadNoExisteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} 
-        	}
-        });
-        mnCargar.add(mntmCargarInscripciones);
-        
-        JMenuItem mntmCargarPaquetes = new JMenuItem("Cargar Paquetes");
-        mntmCargarPaquetes.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		try {
-					ICA.cargarPaquetes();
-					mntmCargarPaquetes.setVisible(false);
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SalidaYaExisteExeption e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				} catch (PaqueteRepetidoException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-        		
         	}
         });
-        mnCargar.add(mntmCargarPaquetes);
+        mnCargar.add(mntmCargarusuarios);
     
     }
 }

@@ -1,5 +1,6 @@
 package logica;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -110,6 +111,23 @@ public class ControladorInsc implements IControladorInsc {
 			}
 		}
 		return res;
+	}
+	
+	public void cargarActsPaqs() throws Exception {
+		CSVReader reader = null;
+	      //parsing a CSV file into CSVReader class constructor  
+	      reader = new CSVReader(new FileReader("./lib/ActividadesPaquetes.csv"));
+	      String[] nextLine;
+	      int cont = 0;
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  confirmar(nextLine[1].strip(),nextLine[2].strip());
+	    	  }
+	    	  else {
+	    		  cont++;
+	    	  }
+	      }
 	}
 	
 	@Override
