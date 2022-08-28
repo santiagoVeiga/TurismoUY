@@ -40,12 +40,14 @@ public class ManejadorPaquete {
         colPaq.put(nombre, paq);
     }
 
-    public Set<DataPaquete> getDataPaquetes() {
-    	Set<DataPaquete> resultado = null;
+    public String[] getPaquetesN() {
+    	String[] resultado = new String[colPaq.size()];
     	Set<Entry<String, Paquete>> aux = colPaq.entrySet();
     	Iterator<Entry<String, Paquete>> it = aux.iterator();
+    	int i = 0;
     	while(it.hasNext()){
-    		resultado.add(it.next().getValue().getDataP());
+    		resultado[i] = it.next().getValue().getNombre();
+    		i++;
     	}
     	return resultado;
     }
@@ -56,18 +58,12 @@ public class ManejadorPaquete {
 
     public Paquete getPaquete(String nom) {
     	Paquete paq = colPaq.get(nom);
-    	/*
-    	if (paq == null) {
-    		throw new PaqueteNoExisteException("No existe un Paquete con ese nombre");
-    	}
-    	*/
     	return paq;
     }
     
-	/* Da problemas cuando consultas por una Actividad que no esta registrada. Quitar del DCD (ya fue entregado)
-	 * public boolean actividadEstaRegistrada(Actividad actividad) {
-		Actividad res = colPaq.get(actividad.getNombre());
-		return res != null;
-	}*/
+    public DataPaquete getDataPaquete(String nom) {
+    	Paquete paq = colPaq.get(nom);
+    	return paq.getDataP();
+    }
 
 }

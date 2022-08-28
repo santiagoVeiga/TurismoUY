@@ -3,6 +3,7 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
@@ -18,6 +19,7 @@ import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaInconsistente;
+import excepciones.PaqueteRepetidoException;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import excepciones.UsuarioNoExisteException;
@@ -65,6 +67,30 @@ class ControladorAltaTest {
 		}
 	}
 	
+	@Test
+	void testCargarPaqs() {
+		try {
+			IctrAlta.cargarPaquetes();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SalidaYaExisteExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (PaqueteRepetidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 
 	@Test

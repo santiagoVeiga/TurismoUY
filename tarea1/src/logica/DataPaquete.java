@@ -9,14 +9,15 @@ public class DataPaquete {
 	private String descripcion;
 	private Date fechaAlta;
 	private int validez;
+	private DataActividad[] dtAct;
 
-	public DataPaquete(String nom,String desc,int descuento,Date fecha, int val)
-	{
+	public DataPaquete(String nom,String desc,int descuento,Date fecha, int val, DataActividad[] dtAct){
 		this.setNombre(nom);
 		this.setDescuento(descuento);
 		this.setDescripcion(desc);
 		this.setFechaAlta(fecha);
 		this.setValidez(val);
+		this.setDtAct(dtAct);
 	}
 
 	public String getNombre() {
@@ -57,5 +58,13 @@ public class DataPaquete {
 
 	public void setValidez(int validez) {
 		this.validez = validez;
+	}
+
+	public DataActividad[] getDtAct() {
+		return dtAct;
+	}
+
+	public void setDtAct(DataActividad[] dtAct) {
+		this.dtAct = dtAct;
 	}
 }

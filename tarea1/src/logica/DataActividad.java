@@ -7,20 +7,6 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 public class DataActividad {
-	public DataActividad() {
-		  
-	}
-	
-	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds,Set<DataPaquete> dp) {
-		this.nombre = n;
-		this.descripcion = d;
-		this.fechaAlta = f;
-		this.ciudad = c;
-		this.costo = cos;
-		this.duracion = dur;
-		DS = ds;
-		DP = dp;
-	}
 	
 	private String nombre;
 	
@@ -36,7 +22,21 @@ public class DataActividad {
 	
 	private Set<DataSalida> DS;
 	
-	private Set<DataPaquete> DP;
+	private Set<String> paquetes;
+	
+	public DataActividad() {	  
+	}
+	
+	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds,Set<String> paquetes) {
+		this.nombre = n;
+		this.descripcion = d;
+		this.fechaAlta = f;
+		this.ciudad = c;
+		this.costo = cos;
+		this.duracion = dur;
+		DS = ds;
+		this.paquetes = paquetes;
+	}
 	
 //Getters y Setters
     
@@ -48,10 +48,6 @@ public class DataActividad {
 		return DS;
 	}
     
-    public Set<DataPaquete> getPaquete()
-    {
-    	return DP;
-    }
 	
 	public String getDescripcion() {
 		return this.descripcion;
@@ -73,12 +69,12 @@ public class DataActividad {
 		return this.duracion;
 	}
 
+	public Set<String> getPaquetes() {
+		return paquetes;
+	}
+
 	public boolean HayPaquetes() {
-		// TODO Auto-generated method stub
-		if(DP!=null)
-			return DP.size()>0;
-		else
-			return false;
+		return paquetes.size() > 0;
 	}
 
 	public boolean HaySalidas() {

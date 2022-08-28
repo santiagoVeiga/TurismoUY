@@ -39,7 +39,7 @@ public class Actividad {
 		this.costo = costo;
 		this.duracion = dur;
 		this.departamento = dep;
-		this.colpaq = null;
+		this.colpaq = new HashMap<String,Paquete>();
 	}
 	
 	//Getters
@@ -111,23 +111,18 @@ public class Actividad {
 		this.colSal.put(s.getNombre(), s);
 	}
 	
+	public void addPaquete(Paquete p) {
+		this.colpaq.put(p.getNombre(), p);
+	}
+	
 	//Operaciones
 	
 	public DataActividad getDataAT() {
 		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion,this.getSalidas(),this.getPaquetes());
 	}
 	
-	public Set<DataPaquete> getPaquetes(){	
-		Set<DataPaquete> res = null;
-		if(colpaq != null) {
-			res = new HashSet<DataPaquete>();
-			Set<Entry<String, Paquete>> aux = colpaq.entrySet();
-	    	Iterator<Entry<String, Paquete>> it = aux.iterator();
-	    	while(it.hasNext()){
-	    			res.add(it.next().getValue().getDataP());
-	    	}
-		}
-		return res;
+	public Set<String> getPaquetes(){	
+		return colpaq.keySet();
 	}
 
 	//revisar
@@ -154,6 +149,10 @@ public class Actividad {
 		}
 		aux = new Salida(nombreSalida, lugar, hora, fecha, fechaAlta, maxCantTuristas);
 		colSal.put(nombreSalida,aux);
+	}
+	
+	public boolean pertenecePaquete(String paqN) {
+		return colpaq.get(paqN) != null;
 	}
 	
 }

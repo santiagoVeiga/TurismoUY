@@ -1,6 +1,7 @@
 package logica;
 import excepciones.DepartamentoNoExisteException;
 import manejadores.ManejadorDepartamentos;
+import manejadores.ManejadorPaquete;
 import manejadores.ManejadorUsuario;
 
 public class ControladorConsulta implements IControladorConsulta {
@@ -28,7 +29,15 @@ public class ControladorConsulta implements IControladorConsulta {
     	}
     }
     
-
+    public String[] listarPaquetes() {
+		ManejadorPaquete mp = ManejadorPaquete.getInstance();
+		return mp.getPaquetesN();
+	}
+    
+	public DataPaquete obtenerDataPaquete(String p) {
+		ManejadorPaquete mp = ManejadorPaquete.getInstance();
+		return mp.getDataPaquete(p);
+	}
 	   
 
 }

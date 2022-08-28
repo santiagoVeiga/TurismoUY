@@ -1,5 +1,6 @@
 package logica;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -10,12 +11,14 @@ import java.util.Set;
 
 import com.opencsv.CSVReader;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaInconsistente;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorDepartamentos;
+import manejadores.ManejadorPaquete;
 import manejadores.ManejadorUsuario;
 
 public class ControladorInsc implements IControladorInsc {
@@ -25,14 +28,14 @@ public class ControladorInsc implements IControladorInsc {
 		return d.getActividades();
 	}
 	
-	public Set<DataSalida> salidas(String nombreAct){
+	public Set<DataSalida> salidas(String nombreAct) throws ActividadNoExisteException{
 		ManejadorActividad m = ManejadorActividad.getInstance();
 		Actividad a = m.getActividad(nombreAct);
 		return a.getSalidas();
 	}
 	
 	
-	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente {
+	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException {
 		  CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
 	      reader = new CSVReader(new FileReader("./lib/Inscripciones.csv"));
@@ -52,7 +55,7 @@ public class ControladorInsc implements IControladorInsc {
 	}
 	
 	
-	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente {
+	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException {
 		ManejadorActividad m = ManejadorActividad.getInstance();
 		Actividad a = m.getActividad(nombreAct);
 		ManejadorUsuario mu = ManejadorUsuario.getinstance();
@@ -89,21 +92,57 @@ public class ControladorInsc implements IControladorInsc {
 	}
 
 	@Override
-	public Set<DataPaquete> listarPaquetes() {
-		// TODO Auto-generated method stub
-		return null;
+	public String[] listarPaquetes() {
+		ManejadorPaquete mp = ManejadorPaquete.getInstance();
+		return mp.getPaquetesN();
 	}
 
 	@Override
-	public Set<DataActividad> actividadesPorDepartamentoNoEnPaquete(String s) {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<DataActividad> actividadesPorDepartamentoNoEnPaquete(String Dep, String paquete) {
+		ManejadorDepartamentos md = ManejadorDepartamentos.getInstance();
+		ManejadorPaquete mp = ManejadorPaquete.getInstance();
+		Date fecha = mp.getPaquete(paquete).getFechaAlta();
+		Departamento dep = md.getDepartamento(Dep);
+		Actividad[] auxi = dep.getActividadesDep();
+		Set<DataActividad> res = new HashSet<DataActividad>();
+		for(int i = 0; i<auxi.length; i++) {
+			if(!auxi[i].pertenecePaquete(paquete) && !auxi[i].getFechaAlta().after(fecha)) {
+				res.add(auxi[i].getDataAT());
+			}
+		}
+		return res;
 	}
-
+	
+	public void cargarActsPaqs() throws Exception {
+		CSVReader reader = null;
+	      //parsing a CSV file into CSVReader class constructor  
+	      reader = new CSVReader(new FileReader("./lib/ActividadesPaquetes.csv"));
+	      String[] nextLine;
+	      int cont = 0;
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  confirmar(nextLine[1].strip(),nextLine[2].strip());
+	    	  }
+	    	  else {
+	    		  cont++;
+	    	  }
+	      }
+	}
+	
 	@Override
 	public void confirmar(String paq, String act) {
-		// TODO Auto-generated method stub
-		
+		ManejadorActividad ma = ManejadorActividad.getInstance();
+		ManejadorPaquete mp = ManejadorPaquete.getInstance();
+		try {
+			Actividad actIns = ma.getActividad(act);
+			Paquete paqIns = mp.getPaquete(paq);
+			paqIns.agregarActividad(actIns);
+			actIns.addPaquete(paqIns);
+		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

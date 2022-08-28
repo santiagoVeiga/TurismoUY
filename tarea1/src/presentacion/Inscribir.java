@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JCalendar;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaInconsistente;
 import excepciones.NumeroNegativoException;
@@ -48,11 +49,15 @@ public class Inscribir extends JInternalFrame {
 	protected boolean selecciont = false;
 	protected boolean seleccions = false;
 	private Date fechaInsc;
+	JLabel lblSeleccionarActividad;
+	JLabel lblSeleccionarSalida;
+	JButton btnInscribir;
+	JLabel lblTurista;
+	JLabel lblCantidadDeTuristas;
+	JLabel lblFecha;
 	
 	public Inscribir(IControladorInsc i) {
 		setMaximizable(true);
-		setIconifiable(true);
-		setClosable(true);
 		icon = i;
 		this.setTitle("Inscribir");
 	    setResizable(true);
@@ -70,13 +75,13 @@ public class Inscribir extends JInternalFrame {
 	    getContentPane().add(comboBox_1);
 	    
 	    
-	    JLabel lblSeleccionarActividad = new JLabel("Actividad");
+	    lblSeleccionarActividad = new JLabel("Actividad");
 	    lblSeleccionarActividad.setBounds(155, 41, 70, 24);
 	    getContentPane().add(lblSeleccionarActividad);
 	    lblSeleccionarActividad.setVisible(false);
 	    
-	    JLabel lblSeleccionarSalida = new JLabel("Salida");
-        JButton btnInscribir = new JButton("Inscribir");
+	    lblSeleccionarSalida = new JLabel("Salida");
+        btnInscribir = new JButton("Inscribir");
 	    
 	    comboBox = new JComboBox();
 	    comboBox.setBounds(243, 5, 354, 24);
@@ -110,7 +115,7 @@ public class Inscribir extends JInternalFrame {
 	    comboBox_2.setBounds(243, 77, 354, 24);
 	    getContentPane().add(comboBox_2);
 	    
-	    JLabel lblTurista = new JLabel("Turista");
+	    lblTurista = new JLabel("Turista");
 	    lblTurista.setBounds(173, 121, 50, 15);
 	    getContentPane().add(lblTurista);
 	    lblTurista.setVisible(false);
@@ -119,12 +124,12 @@ public class Inscribir extends JInternalFrame {
 	    comboBox_3.setBounds(243, 116, 354, 24);
 	    getContentPane().add(comboBox_3);
 	    
-	    JLabel lblCantidadDeTuristas = new JLabel("Cantidad de Turistas");
+	    lblCantidadDeTuristas = new JLabel("Cantidad de Turistas");
 	    lblCantidadDeTuristas.setBounds(75, 163, 154, 15);
 	    getContentPane().add(lblCantidadDeTuristas);
 	    lblCantidadDeTuristas.setVisible(false);
 	    
-	    JLabel lblFecha = new JLabel("Fecha");
+	    lblFecha = new JLabel("Fecha");
 	    lblFecha.setBounds(179, 201, 44, 15);
 	    getContentPane().add(lblFecha);
 	    lblFecha.setVisible(false);
@@ -168,6 +173,16 @@ public class Inscribir extends JInternalFrame {
         textField.setBounds(243, 161, 354, 19);
         getContentPane().add(textField);
         textField.setColumns(10);
+        
+        JButton btnCerrar = new JButton("Cerrar");
+        btnCerrar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		limpiar();
+        		setVisible(false);
+        	}
+        });
+        btnCerrar.setBounds(351, 331, 117, 25);
+        getContentPane().add(btnCerrar);
         textField.setVisible(false);
         btnInscribir.setVisible(false);
         
@@ -204,6 +219,21 @@ public class Inscribir extends JInternalFrame {
 	    
 	}
 	
+	protected void limpiar() {
+		// TODO Auto-generated method stub
+		this.lblCantidadDeTuristas.setVisible(false);
+		this.lblFecha.setVisible(false);
+		this.lblSeleccionarActividad.setVisible(false);
+		this.lblSeleccionarSalida.setVisible(false);
+		this.lblTurista.setVisible(false);
+		this.comboBox_1.setVisible(false);
+		this.comboBox_2.setVisible(false);
+		this.comboBox_3.setVisible(false);
+		this.btnInscribir.setVisible(false);
+		this.calendario.setVisible(false);
+		this.textField.setVisible(false);
+	}
+
 	public void obtTur() {
 		DataUsuario[] array = icon.listarUsuarios();
 		int i = 0;
@@ -249,14 +279,20 @@ public class Inscribir extends JInternalFrame {
 	}
 	
 	public void obtSal(String act) {
-		Set<DataSalida> auxi = icon.salidas(act);
-		String[] aux = new String[auxi.size()];
-	    int cont = 0;
-	    for(DataSalida iter:auxi) {
-	    	aux[cont] = iter.getNombre();
-	    	cont++;
-	    }
-		comboBox_2.setModel(new DefaultComboBoxModel(aux));
+		Set<DataSalida> auxi;
+		try {
+			auxi = icon.salidas(act);
+			String[] aux = new String[auxi.size()];
+		    int cont = 0;
+		    for(DataSalida iter:auxi) {
+		    	aux[cont] = iter.getNombre();
+		    	cont++;
+		    }
+			comboBox_2.setModel(new DefaultComboBoxModel(aux));
+		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void inscri() {
@@ -269,6 +305,7 @@ public class Inscribir extends JInternalFrame {
             icon.inscribir((String) comboBox_3.getSelectedItem(), (String) comboBox_2.getSelectedItem(),Integer.parseInt(textField.getText()) , fechaInsc,(String) comboBox_1.getSelectedItem());
             JOptionPane.showMessageDialog(this, "Inscripcion existosa", "Inscribir",
                     JOptionPane.INFORMATION_MESSAGE);
+            limpiar();
             this.dispose();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "La cantidad de turistas debe ser un numero", "Inscribir",
@@ -292,6 +329,9 @@ public class Inscribir extends JInternalFrame {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(this, "La fecha de inscripcion debe ser igual o posterior a la fecha de salida", "Inscribir",
                     JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	}

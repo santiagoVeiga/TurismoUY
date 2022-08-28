@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -48,6 +49,11 @@ public class Departamento {
 
 	public String getUrl() {
 		return this.url;
+	}
+	
+	public Actividad[] getActividadesDep() {
+		Actividad[] res = colAct.values().toArray(new Actividad[0]);
+		return res;
 	}
 	
 	public Set<DataActividad> getActividades() {

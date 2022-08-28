@@ -65,7 +65,7 @@ public class ModificarUsuario extends JInternalFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
         
-        setTitle("Consultar un Usuario");
+        setTitle("Modificar Datos de Usuario");
         setBounds(30, 30, 499, 389);
         
         // En este caso se utiliza un BorderLayout en donde los componentes se ubican según una orientación.
