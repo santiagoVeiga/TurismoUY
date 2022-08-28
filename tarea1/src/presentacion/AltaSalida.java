@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
+
 import com.toedter.calendar.JDateChooser;
 
 import excepciones.ActividadNoExisteException;
@@ -146,7 +148,8 @@ public class AltaSalida extends JInternalFrame {
 		FechaSalidaCAMPO = new JDateChooser();
 		FechaSalidaCAMPO.setBounds(135, 173, 73, 19);
 		getContentPane().add(FechaSalidaCAMPO);
-		
+		((JTextComponent) FechaSalidaCAMPO.getDateEditor()).setEditable(false);
+
 		JLabel lblNewLabel_1 = new JLabel("hora");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_1.setBounds(244, 179, 45, 13);
@@ -185,7 +188,8 @@ public class AltaSalida extends JInternalFrame {
 		FechaAltaDatePickerCAMPO = new JDateChooser();
 		FechaAltaDatePickerCAMPO.setBounds(145, 297, 73, 19);
 		getContentPane().add(FechaAltaDatePickerCAMPO);
-		
+		((JTextComponent) FechaAltaDatePickerCAMPO.getDateEditor()).setEditable(false);
+
 		horaCAMPO = new JComboBox();
 		horaCAMPO.setBounds(289, 173, 45, 19);
 		horaCAMPO.addItem(0); 
@@ -361,10 +365,6 @@ public class AltaSalida extends JInternalFrame {
 	
 	//--------------------------------------------------------------------------------------------------
 	
-	
-
-
-
 
 
 public void chequeoAlta() {
@@ -398,13 +398,8 @@ public void chequeoAlta() {
 	    setVisible(false);
 	}
 }
-
-	
 	
 	//--------------------------------------------------------------------------------------------------
-	
-	
-	
 	
 	
 	private boolean checkFormulario() {
@@ -417,7 +412,7 @@ public void chequeoAlta() {
 		Date fechaAlta = FechaAltaDatePickerCAMPO.getDate();
 		
 		
-	    if (NombreActividad == null || NombreSalida == null || Lugar.isEmpty()) {
+	    if (NombreActividad == null || NombreSalida == null || Lugar.isEmpty() || (Hora==null) || (Fecha==null) || (fechaAlta==null)) {
 	        JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Registrar Salida",
 	                JOptionPane.ERROR_MESSAGE);
 	        return false;
@@ -433,20 +428,6 @@ public void chequeoAlta() {
 	    
 	    return true;
 }
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }

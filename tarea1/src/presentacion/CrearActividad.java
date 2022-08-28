@@ -14,6 +14,7 @@ import logica.IControladorAlta;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.text.JTextComponent;
 
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
@@ -166,6 +167,8 @@ public class CrearActividad extends JInternalFrame {
 		gbc_fechaAlta.gridx = 1;
 		gbc_fechaAlta.gridy = 7;
 		getContentPane().add(fechaAlta, gbc_fechaAlta);
+
+
 		
 		calendario = new JDateChooser();
 		GridBagConstraints gbc_calendario_1 = new GridBagConstraints();
@@ -174,7 +177,8 @@ public class CrearActividad extends JInternalFrame {
 		gbc_calendario_1.gridx = 2;
 		gbc_calendario_1.gridy = 7;
 		getContentPane().add(calendario, gbc_calendario_1);
-		
+		((JTextComponent) calendario.getDateEditor()).setEditable(false);
+
 		JLabel costo = new JLabel("Costo: ");
 		GridBagConstraints gbc_costo = new GridBagConstraints();
 		gbc_costo.anchor = GridBagConstraints.EAST;

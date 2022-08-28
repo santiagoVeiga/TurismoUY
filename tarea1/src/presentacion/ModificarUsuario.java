@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 
 import excepciones.UsuarioNoExisteException;
 import com.toedter.calendar.JDateChooser;
@@ -151,7 +152,8 @@ public class ModificarUsuario extends JInternalFrame {
 		gbc_fechaField.gridx = 5;
 		gbc_fechaField.gridy = 5;
 		getContentPane().add(fechaField, gbc_fechaField);
-		
+		((JTextComponent) fechaField.getDateEditor()).setEditable(false);
+
 		nacionalidadLabel = new JLabel("Nacionalidad:");
 		GridBagConstraints gbc_nacionalidadLabel = new GridBagConstraints();
 		gbc_nacionalidadLabel.anchor = GridBagConstraints.WEST;
