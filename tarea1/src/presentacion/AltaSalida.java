@@ -384,16 +384,13 @@ public void chequeoAlta() {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(this, e1.getMessage(), "Salida ya existe", JOptionPane.ERROR_MESSAGE);
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Formato de entrada invalido", "Dato Invalido", JOptionPane.ERROR_MESSAGE);
 		} catch (FechaAltaSalidaInvalida e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(this, "La fecha de alta no debe ser posterior a la fecha de la salida", "Fecha Invalida", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
 		} catch (FechaAltaSalidaAnteriorActividad e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(this, "La fecha de alta de la salida no debe ser anterior a la fecha de alta de la actividad", "Fecha Invalida", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
 		}
 	    setVisible(false);
 	}
@@ -421,7 +418,7 @@ public void chequeoAlta() {
 	    try {
 	        Integer.parseInt(maxCantTuristas);
 	    } catch (NumberFormatException e) {
-	        JOptionPane.showMessageDialog(this, "El Costo debe ser un numero", "Registrar Actividad",
+	        JOptionPane.showMessageDialog(this, "La cantidad maxima debe ser un numero", "Registrar Actividad",
 	                JOptionPane.ERROR_MESSAGE);
 	        return false;
 	    }
