@@ -19,6 +19,5 @@ public interface IControladorInsc {
 	public abstract Set<DataActividad> actividadesPorDepartamentoNoEnPaquete(String Dep, String s);
 	public abstract void confirmar(String paq, String act);
 	public abstract DataUsuario[] listarUsuarios();
-	public abstract DataPaquete obtenerDataPaquete(String p);
 	public abstract void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente;
 }

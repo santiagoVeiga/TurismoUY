@@ -54,6 +54,7 @@ public class Principal {
     private ConsultaSalidaTuristica consultaSalidaInternalFrame;
     private CrearPaquete crePaqInternalFrame;
     private AgregarActPaquete agrPaqInternalFrame;
+    private ConsultaPaquete conPaqInternalFrame;
     private ModificarUsuario modUsrInternalFrame;
 
 
@@ -135,6 +136,9 @@ public class Principal {
         agrPaqInternalFrame = new AgregarActPaquete(ICI);
         agrPaqInternalFrame.setVisible(false);
         
+        conPaqInternalFrame = new ConsultaPaquete(ICC);
+        conPaqInternalFrame.setVisible(false);
+        
         frmGestionDeUsuarios.getContentPane().setLayout(null);
         frmGestionDeUsuarios.getContentPane().add(insInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(conActInternalFrame);
@@ -145,6 +149,7 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().add(consultaSalidaInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(crePaqInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(agrPaqInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(conPaqInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(modUsrInternalFrame);
 
         
@@ -320,6 +325,15 @@ public class Principal {
             }
         });
         menuPaquete.add(menuItemAgregarPaquete);
+        
+        JMenuItem menuItemConsultaPaquete = new JMenuItem("Consultar un Paquete");
+        menuItemConsultaPaquete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	conPaqInternalFrame.cargarPaquetes();
+            	conPaqInternalFrame.setVisible(true);
+            }
+        });
+        menuPaquete.add(menuItemConsultaPaquete);
         
         /* *************** */
         /* Carga de Datos */

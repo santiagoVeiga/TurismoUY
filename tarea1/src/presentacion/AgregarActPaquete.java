@@ -168,6 +168,7 @@ public class AgregarActPaquete extends JInternalFrame {
         btnSeleccionar = new JButton("Agregar");
         btnSeleccionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	agregarAct();
             	limpiarFormulario();
             	setVisible(false);
             }
@@ -198,7 +199,7 @@ public void cargarActividades(){
 		String paqu = (String) jcbPaquetes.getSelectedItem();
 		auxi = controlInsc.actividadesPorDepartamentoNoEnPaquete(depa, paqu);
 		if (auxi.size() == 0) {
-			throw new ActividadNoExisteException("No hay actividades asociadas a dicho Departamento");
+			throw new ActividadNoExisteException("No hay actividades asociadas a dicho Departamento o todas pertenecen al Paquete");
 		}
 		Iterator<DataActividad> it = auxi.iterator();
 		int j = 0;
@@ -232,13 +233,16 @@ public void cargarPaquetes(){
 	}
 }
 
+	private void agregarAct() {
+    	controlInsc.confirmar((String) jcbPaquetes.getSelectedItem(), (String) jcbActividades.getSelectedItem());
+    	JOptionPane.showMessageDialog(this, "La actividad se ha agregado con exito", "Agregar Actividad",JOptionPane.INFORMATION_MESSAGE);
+	}
+
     // Permite borrar el contenido de un formulario antes de cerrarlo.
     // Recordar que las ventanas no se destruyen, sino que simplemente 
     // se ocultan, por lo que conviene borrar la información para que 
     // no aparezca al mostrarlas nuevamente.
     private void limpiarFormulario() {
-    	controlInsc.confirmar((String) jcbPaquetes.getSelectedItem(), (String) jcbActividades.getSelectedItem());
-    	JOptionPane.showMessageDialog(this, "La actividad se ha agregado con exito", "Agregar Actividad",JOptionPane.INFORMATION_MESSAGE);
         jcbDepartamentos.removeAllItems();
         jcbActividades.removeAllItems();
         jcbPaquetes.removeAllItems();
@@ -247,6 +251,7 @@ public void cargarPaquetes(){
     	jcbActividades.setVisible(false);
 		jcbDepartamentos.setEditable(true);
 		jcbPaquetes.setEditable(true);
+		Actividades.setVisible(false);
     }
 
 }

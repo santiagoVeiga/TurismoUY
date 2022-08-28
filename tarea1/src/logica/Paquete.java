@@ -78,6 +78,8 @@ public class Paquete {
 	}
 	
 	public void agregarActividad(Actividad act) {
-		colAct.put(act.getNombre(), act);
+		if(act!=null) {
+			colAct.put(act.getNombre(), act);
+		}
 	}
 }

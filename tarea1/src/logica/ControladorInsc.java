@@ -109,11 +109,6 @@ public class ControladorInsc implements IControladorInsc {
 		}
 		return res;
 	}
-
-	public DataPaquete obtenerDataPaquete(String p) {
-		ManejadorPaquete mp = ManejadorPaquete.getInstance();
-		return mp.getDataPaquete(p);
-	}
 	
 	@Override
 	public void confirmar(String paq, String act) {
