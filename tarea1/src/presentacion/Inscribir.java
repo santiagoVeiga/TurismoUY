@@ -320,25 +320,25 @@ public class Inscribir extends JInternalFrame {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(this, "El turista ya pertenece a la salida", "Inscribir",
                     JOptionPane.ERROR_MESSAGE);
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		} catch (ExcedeTuristas e1) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(this, "La cantidad de turistas excede los cupos disponibles para la salida", "Inscribir",
                     JOptionPane.ERROR_MESSAGE);
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		} catch (InscFechaInconsistente e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(this, "La fecha de inscripcion debe ser igual o posterior a la fecha de alta de la salida", "Inscribir",
                     JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (ActividadNoExisteException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (InscFechaDespSalida e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(this, "La fecha de inscripcion no debe ser posterior a la fecha de realizacion de la salida", "Inscribir",
                     JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
+			//e.printStackTrace();
 		} 
 	}
 }
