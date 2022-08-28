@@ -27,6 +27,7 @@ import excepciones.UsuarioRepetidoException;
 import logica.Actividad;
 import logica.DataActividad;
 import logica.DataDepartamento;
+import logica.DataPaquete;
 import logica.DataProveedor;
 import logica.DataSalida;
 import logica.DataTurista;
@@ -533,6 +534,51 @@ class ControladorAltaTest {
 		assertEquals(true,res);
 	}
 	
+	@Test
+	void testactnoenpaq() {
+		Set<DataActividad> aux = IctrInsc.actividadesPorDepartamentoNoEnPaquete("Rocha","Un día en Colonia");
+		boolean res = false;
+		for(DataActividad it : aux) {
+			res = res || (it.getNombre().equals("Degusta"));
+		}
+		assertEquals(res,true);
+	}
+	
+	@Test
+	void testGetusu()
+	{
+		DataUsuario dt = IctrCons.ingresarDatos("lachiqui");
+		assertEquals(dt.getNick(),"lachiqui");
+	}
+	
+	@Test
+	void testGetdptoscons() throws DepartamentoNoExisteException {
+		DataDepartamento[] aux = IctrCons.obtenerDataDepartamentos();
+		boolean res = false;
+		for(DataDepartamento it : aux) {
+			res = res || (it.getNombre().equals("Canelones")&&it.getDescripcion().equals("División Turismo de la Intendencia")&&it.getUrl().equals("https://www.imcanelones.gub.uy/es"));
+		}
+		assertEquals(res,true);
+	}
+	
+	@Test
+	void testListPaqs() {
+		String[] aux = IctrCons.listarPaquetes();
+		boolean res = false;
+		for(String it : aux) {
+			res = res || (it.equals("Disfrutar Rocha"));
+		}
+		assertEquals(res,true);
+	}
+	
+	@Test
+	void testDatapaq() {
+		DataPaquete dt = IctrCons.obtenerDataPaquete("Disfrutar Rocha");
+		assertEquals(dt.getNombre().equals("Disfrutar Rocha"),true);
+		assertEquals(dt.getDescripcion().equals("Actividades para hacer en familia y disfrutar arte y gastronomía"),true);
+		assertEquals(dt.getDescuento(),20);
+		assertEquals(dt.getValidez(),60);
+	}
 	
 //	@Test
 //	void testExepcionUsuariosNoExisten() {
@@ -559,9 +605,6 @@ class ControladorAltaTest {
 //		//esta es la prueba
 //		assertThrows(DepartamentoNoExisteException.class, ()->{IctrAlta.obtenerDataDepartamentos();});	
 //	}
-	 
-	
-	
 	
 
 }
