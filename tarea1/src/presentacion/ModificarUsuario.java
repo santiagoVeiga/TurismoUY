@@ -378,6 +378,7 @@ public class ModificarUsuario extends JInternalFrame {
             comboUsuarios.setVisible(true);
             setVisible(true);
         } catch (UsuarioNoExisteException e) {
+        	JOptionPane.showMessageDialog(this, e.getMessage(), "Modificar Usuario", JOptionPane.ERROR_MESSAGE);
         }
 
     }

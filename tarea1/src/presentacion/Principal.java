@@ -209,14 +209,13 @@ public class Principal {
         JMenuItem menuItemModificar = new JMenuItem("Modificar Datos");
         menuItemModificar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	try {
 					modUsrInternalFrame.limpiarFormulario();
-					modUsrInternalFrame.cargarUsuarios();
-				} catch (UsuarioNoExisteException e1) {	//Da error si no hay usuarios cargados
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-                modUsrInternalFrame.setVisible(true);
+					try {
+						modUsrInternalFrame.cargarUsuarios();
+					} catch (UsuarioNoExisteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
             }
         });
         menuModificar.add(menuItemModificar);
