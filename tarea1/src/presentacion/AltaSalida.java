@@ -379,6 +379,7 @@ public void chequeoAlta() {
 	if (checkFormulario()) {
 		try {
 			controlAlta.confirmarAltaSalida(NombreActividad, NombreSalida, Fecha, Hora, Lugar, Integer.parseInt(maxCantTuristas), fechaAlta);
+			JOptionPane.showMessageDialog(this, "Alta exitosa", "Salida", JOptionPane.INFORMATION_MESSAGE);
 		} catch (SalidaYaExisteExeption e1) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(this, e1.getMessage(), "Salida ya existe", JOptionPane.ERROR_MESSAGE);
