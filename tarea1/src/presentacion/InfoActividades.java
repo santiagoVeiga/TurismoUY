@@ -11,6 +11,7 @@ import logica.DataActividad;
 import logica.DataPaquete;
 import logica.DataSalida;
 import logica.DataTurista;
+import logica.IControladorConsulta;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -48,11 +49,12 @@ public class InfoActividades extends JFrame {
 	 * Launch the application.
 	 */
 	
-
+	private IControladorConsulta ICC;
 	/**
 	 * Create the frame.
 	 */
-	public InfoActividades(DataActividad DT) {
+	public InfoActividades(DataActividad DT,IControladorConsulta icc) {
+		ICC = icc;
 		dt=DT;
 		if(DT!=null)
 			setVisible(true);
@@ -280,7 +282,6 @@ public class InfoActividades extends JFrame {
         if(DT.HayPaquetes()) {
 	        Object[] o1 = DT.getPaquetes().toArray();
 	        String[] DP = new String[o1.length];
-	        DataPaquete[] DP2 = new DataPaquete[o1.length];
 	        for (int i = 0; i < o1.length; i++) {
 	        	DP[i] = (String) o1[i];
 	        	//DP2[i] = o1[i];
@@ -291,8 +292,8 @@ public class InfoActividades extends JFrame {
 		
 	        btnInfoPaquete.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
-	            	int i = comboBox_1.getSelectedIndex();
-	            	InfoPaquete is = new InfoPaquete(DP2[i]);
+	            	String i = (String) comboBox_1.getSelectedItem();
+	            	InfoPaquete is = new InfoPaquete(ICC.obtenerDataPaquete(i));
 	            	is.setVisible(true);
 	            }
 	        });
@@ -344,11 +345,9 @@ public class InfoActividades extends JFrame {
 			B.setVisible(true);
 		}
 		Object[] o2 = dt.getPaquetes().toArray();
-        DataPaquete[] usuarios22 = new DataPaquete[o2.length];
         String[] usuarios3 = new String[o2.length];
-        for (int i = 0; i < o.length; i++) {
-        	usuarios22[i] = (DataPaquete) o2[i];
-        	usuarios3[i] = ((DataPaquete) o2[i]).getNombre();   
+        for (int i = 0; i < o2.length; i++) {
+        	usuarios3[i] = (String) o2[i];   
         }
 		
 		if(o.length>0) {

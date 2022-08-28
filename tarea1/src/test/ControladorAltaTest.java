@@ -340,6 +340,42 @@ class ControladorAltaTest {
 		assertEquals(res1,true);
 		assertEquals(res2,true);
 	}
+	
+	@Test
+	void testingresarDatos() {
+		//turista
+		DataUsuario aux = IctrCons.ingresarDatos("isabelita");
+		DataUsuario aux2 = IctrCons.ingresarDatos("anibal");
+		DataUsuario aux3 = IctrCons.ingresarDatos("bobesponja");
+		//proveedor
+		//------------------------------
+		DataUsuario aux4 = IctrCons.ingresarDatos("washington");
+		DataUsuario aux5 = IctrCons.ingresarDatos("eldiez");
+		//proveedor
+		assertEquals(((DataProveedor)aux4).getLink(),"http://turismorocha.gub.uy/");
+		assertEquals(aux4.getApellido(),"Rocha");
+		assertEquals(aux4.getMail(),"washington@turismorocha.gub.uy");
+		assertEquals(aux4.getNombre(),"Washington");
+		assertEquals(aux4.getNick(),"washington");
+		
+		
+		assertEquals((aux5.getApellido().equals("Bengoechea") && aux5.getMail().equals("eldiez@socfomturriv.org.uy") && aux5.getNombre().equals("Pablo")&&aux5.getNick().equals("eldiez")&&((DataProveedor)aux5).getLink().equals("http://wwww.socfomturriv.org.uy")),true);
+		//turista
+		assertEquals((aux3.getApellido().equals("Esponja")&&aux3.getMail().equals("bobesponja@nickelodeon.com")&&aux3.getNombre().equals("Bob")&&aux3.getNick().equals("bobesponja")&&((DataTurista)aux3).getNacionalidad().equals("japonesa")),true);
+		assertEquals(aux2.getApellido(),"Lecter");
+		assertEquals(aux2.getMail(),"anibal@fing.edu.uy");
+		assertEquals(aux2.getNombre(),"Aníbal");
+		assertEquals(aux2.getNick(),"anibal");
+		assertEquals(((DataTurista)aux2).getNacionalidad(),"lituana");
+		
+		assertEquals(((DataTurista)aux).getNacionalidad(),"inglesa");
+		assertEquals(aux.getApellido(),"Windsor");
+		assertEquals(aux.getMail(),"isabelita@thecrown.co.uk");
+		assertEquals(aux.getNombre(),"Elizabeth");
+		assertEquals(aux.getNick(),"isabelita");
+	
+	}
+
 
 	@Test
 	void testConfirmarAltaProveedor() {

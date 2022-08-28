@@ -128,7 +128,7 @@ public class InfoPaquete extends JFrame {
 		gbc_lblNewLabel_1_3.gridy = 4;
 		contentPane.add(lblNewLabel_1_3, gbc_lblNewLabel_1_3);
 		
-		textField_3 = new JTextField(P.getDescuento());
+		textField_3 = new JTextField(String.valueOf(P.getDescuento()));
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
@@ -147,7 +147,7 @@ public class InfoPaquete extends JFrame {
 		gbc_lblNewLabel_1_3_1.gridy = 5;
 		contentPane.add(lblNewLabel_1_3_1, gbc_lblNewLabel_1_3_1);
 		
-		textField_4 = new JTextField(P.getValidez());
+		textField_4 = new JTextField(String.valueOf(P.getValidez()));
 		textField_4.setEditable(false);
 		textField_4.setColumns(10);
 		GridBagConstraints gbc_textField_4 = new GridBagConstraints();

@@ -12,6 +12,7 @@ import logica.DataActividad;
 import logica.DataProveedor;
 import logica.DataSalida;
 import logica.DataUsuario;
+import logica.IControladorConsulta;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -47,12 +48,12 @@ public class InfoProveedor extends JFrame {
 	 * Launch the application.
 	 */
 	
-
+	private IControladorConsulta ICC;
 	/**
 	 * Create the frame.
 	 */
-	public InfoProveedor(DataProveedor DP) {
-		
+	public InfoProveedor(DataProveedor DP,IControladorConsulta icc) {
+		ICC=icc;
 		dp =DP;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -258,7 +259,7 @@ public class InfoProveedor extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	int i = comboBox.getSelectedIndex();
-            	InfoActividades ia = new InfoActividades(usuarios2[i]);
+            	InfoActividades ia = new InfoActividades(usuarios2[i],ICC);
             	ia.setVisible(true);
             	ia.Cargar();
             	setVisible(false);
@@ -293,6 +294,7 @@ public class InfoProveedor extends JFrame {
 	        if(o.length!=0) {
 				DefaultComboBoxModel<String> model;
 		        model = new DefaultComboBoxModel<String>(usuarios);
+		        CU.removeAllItems();
 		        CU.setModel(model);
 		    	CU.setVisible(true);
 				L.setVisible(true);

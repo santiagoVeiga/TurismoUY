@@ -100,7 +100,7 @@ public class ListarUsuarios extends JInternalFrame {
                 	it.Cargar();
                 }else if(DU2[i] instanceof DataProveedor)
                 {
-                	InfoProveedor it = new InfoProveedor((DataProveedor) DU2[i]);
+                	InfoProveedor it = new InfoProveedor((DataProveedor) DU2[i],ICC);
                 	it.setVisible(true);
                 	it.Cargar();
                 }
