@@ -58,7 +58,7 @@ class ControladorAltaTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UsuarioRepetidoException e) {
-			// TODO Auto-generated catch block
+			//  TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -72,7 +72,7 @@ class ControladorAltaTest {
 		} catch (DepartamentoYaExisteExeption e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 		try {
 			IctrAlta.cargarActs();
 		} catch (NumberFormatException e) {
@@ -161,7 +161,18 @@ class ControladorAltaTest {
 	
 	
 	
-	/*@Test
+	/*
+	@Test
+	void testExepcionUsuariosNoExisten() {
+		assertThrows(UsuarioNoExisteException.class, ()->{IctrAlta.getUsuarios();});	
+	}
+
+	@Test
+	void testExepcionDepartamentosNoExisten() {
+		assertThrows(DepartamentoNoExisteException.class, ()->{IctrAlta.obtenerDataDepartamentos();});	
+	}
+	
+	@Test
 	void testCargarDptos(){
 		try {
 			IctrAlta.cargarDptos();
@@ -526,6 +537,18 @@ class ControladorAltaTest {
 		//esta es la prueba
 		assertThrows(DepartamentoYaExisteExeption.class, ()->{IctrAlta.confirmarAltaDepartamento("muertevideo", "d", "www.muertevideo.com.uy");});	
 	}
+	
+	@Test
+	void testExepcionPaqueteRepetido() {
+		Date auxi = new Date(2000,6,20);
+		try {
+			IctrAlta.altaPaquete("pakete", "pakete coso", 5, 5, auxi);
+		} catch (PaqueteRepetidoException e) {
+
+		};
+		//esta es la prueba
+		assertThrows(PaqueteRepetidoException.class, ()->{IctrAlta.altaPaquete("pakete", "pakete coso", 5, 5, auxi);});	
+	}
 
 	
 	@Test
@@ -611,31 +634,7 @@ class ControladorAltaTest {
 		assertEquals(dt.getValidez(),60);
 	}
 	
-//	@Test
-//	void testExepcionUsuariosNoExisten() {
-//		try {
-//			//como hago que el conjunto de usuarios sea vacio para testear la exepcion? 
-//			IctrAlta.getUsuarios();
-//		} catch (UsuarioNoExisteException e) {
-//			fail(e.getMessage());
-//			e.printStackTrace();
-//		};
-//		//esta es la prueba
-//		assertThrows(UsuarioNoExisteException.class, ()->{IctrAlta.getUsuarios();});	
-//	}
-//
-//	@Test
-//	void testExepcionDepartamentosNoExisten() {
-//		try {
-//			//como hago que el conjunto de usuarios sea vacio para testear la exepcion? 
-//			IctrAlta.obtenerDataDepartamentos();
-//		} catch (DepartamentoNoExisteException e) {
-//			fail(e.getMessage());
-//			e.printStackTrace();
-//		};
-//		//esta es la prueba
-//		assertThrows(DepartamentoNoExisteException.class, ()->{IctrAlta.obtenerDataDepartamentos();});	
-//	}
+
 	
 
 }

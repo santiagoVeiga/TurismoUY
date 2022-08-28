@@ -57,27 +57,32 @@ public class ControladorInsc implements IControladorInsc {
 	
 	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException {
 		ManejadorActividad m = ManejadorActividad.getInstance();
-		Actividad a = m.getActividad(nombreAct);
-		ManejadorUsuario mu = ManejadorUsuario.getinstance();
-		Usuario t = mu.obtenerUsuarioNick(nick);
-		int c = a.getCosto();
-		int costo = c*cantTuristas;
-		Salida s = a.getSalida(nomSalida);
-		// Chequeo de condiciones
-		if (((Turista) t).yaTieneSalida(s)) { // Sabemos por precondicion que se puede hacer el downcast
-			throw new TuristaConSalida("El turista ya pertenece a la salida");
+		try {
+			Actividad a = m.getActividad(nombreAct);
+			ManejadorUsuario mu = ManejadorUsuario.getinstance();
+			Usuario t = mu.obtenerUsuarioNick(nick);
+			int c = a.getCosto();
+			int costo = c*cantTuristas;
+			Salida s = a.getSalida(nomSalida);
+			// Chequeo de condiciones
+			if (((Turista) t).yaTieneSalida(s)) { // Sabemos por precondicion que se puede hacer el downcast
+				throw new TuristaConSalida("El turista ya pertenece a la salida");
+			}
+			if(s.excedeTuristas(cantTuristas)) {
+				throw new ExcedeTuristas("La salida no cuenta con capacidad para la cantidad de turistas solicitados");
+			}
+			if(fecha.before(s.getFechaAlta())) {
+				throw new InscFechaInconsistente("La fecha de inscripcion debe ser igual o posterior a la fecha de salida");
+			}
+			// Se realiza la inscripcion
+			CompraGeneral cg = new CompraGeneral(fecha,cantTuristas,costo);
+			cg.setSalida(s);
+			s.setCantRestante(s.getCantRestante()-cantTuristas);
+			((Turista) t).agregarCompraGeneral(cg);
 		}
-		if(s.excedeTuristas(cantTuristas)) {
-			throw new ExcedeTuristas("La salida no cuenta con capacidad para la cantidad de turistas solicitados");
+		catch(ActividadNoExisteException e) {
+			 
 		}
-		if(fecha.before(s.getFechaAlta())) {
-			throw new InscFechaInconsistente("La fecha de inscripcion debe ser igual o posterior a la fecha de salida");
-		}
-		// Se realiza la inscripcion
-		CompraGeneral cg = new CompraGeneral(fecha,cantTuristas,costo);
-		cg.setSalida(s);
-		s.setCantRestante(s.getCantRestante()-cantTuristas);
-		((Turista) t).agregarCompraGeneral(cg);
 	}
 
 	@Override

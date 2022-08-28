@@ -337,7 +337,7 @@ public class Principal {
             	conPaqInternalFrame.setVisible(true);
             }
         });
-        menuPaquete.add(menuItemConsultaPaquete);
+        menuPaquete.add(menuItemConsultaPaquete); 
         
         /* *************** */
         /* Carga de Datos */
@@ -391,6 +391,7 @@ public class Principal {
 				} catch (ActividadNoExisteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+<<<<<<< HEAD
 				} catch (PaqueteRepetidoException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -398,6 +399,9 @@ public class Principal {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+=======
+				} 
+>>>>>>> rama_santi_testing_3
         	}
         });
         mnCargar.add(mntmCargarusuarios);

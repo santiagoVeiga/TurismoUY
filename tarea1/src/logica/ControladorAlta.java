@@ -199,6 +199,7 @@ public class ControladorAlta implements IControladorAlta {
 
     }
 
+    
 
     public void confirmarAltaDepartamento(String nombre, String descripcion, String URL) throws DepartamentoYaExisteExeption {
         ManejadorDepartamentos md = ManejadorDepartamentos.getInstance();
