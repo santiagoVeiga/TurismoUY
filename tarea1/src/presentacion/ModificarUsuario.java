@@ -99,7 +99,8 @@ public class ModificarUsuario extends JInternalFrame {
 	    	}	    	
 	    });
 		getContentPane().add(comboUsuarios, gbc_comboUsuarios);
-		
+        comboUsuarios.setVisible(false);
+
 		nombreLabel = new JLabel("Nombre:");
 		GridBagConstraints gbc_nombreLabel = new GridBagConstraints();
 		gbc_nombreLabel.anchor = GridBagConstraints.WEST;
@@ -143,6 +144,11 @@ public class ModificarUsuario extends JInternalFrame {
 		getContentPane().add(fechaLabel, gbc_fechaLabel);
 		
 		fechaField = new JDateChooser();
+		//fechaField.getDateEditor().setEnabled(false);
+		fechaField.getCalendarButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GridBagConstraints gbc_fechaField = new GridBagConstraints();
 		gbc_fechaField.insets = new Insets(0, 0, 5, 5);
 		gbc_fechaField.fill = GridBagConstraints.BOTH;
@@ -369,12 +375,9 @@ public class ModificarUsuario extends JInternalFrame {
         	//DU2 = DU;
             model = new DefaultComboBoxModel<String>(nomUsuarios);
             comboUsuarios.setModel(model);
+            comboUsuarios.setVisible(true);
             setVisible(true);
-        } catch (NullPointerException e) {
-            // No se imprime mensaje de error sino que simplemente no se muestra ningún elemento
-        	ErrorUsuario EU = new ErrorUsuario();
-        	EU.setVisible(true);
-        	setVisible(false);
+        } catch (UsuarioNoExisteException e) {
         }
 
     }
