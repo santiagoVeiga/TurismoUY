@@ -108,7 +108,7 @@ public class AgregarActPaquete extends JInternalFrame {
         
         jcbDepartamentos = new JComboBox<String>();
         jcbDepartamentos.setBounds(253, 54, 276, 24);
-        getContentPane().add(jcbDepartamentos);
+        
         jcbDepartamentos.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
         		if(paqB) {
@@ -119,6 +119,8 @@ public class AgregarActPaquete extends JInternalFrame {
         		}
         	}
         });
+        getContentPane().add(jcbDepartamentos);
+        
         
     	Actividades = new JLabel("Actividades: ");
         Actividades.setSize(125, 32);
@@ -131,14 +133,14 @@ public class AgregarActPaquete extends JInternalFrame {
     	
         jcbActividades = new JComboBox<String>();
         jcbActividades.setBounds(253, 98, 276, 24);
-        getContentPane().add(jcbActividades);
+        
         jcbActividades.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
         		btnSeleccionar.setVisible(true);
         	}
         });
         jcbActividades.setVisible(false);
-        
+        getContentPane().add(jcbActividades);
         // Un botón (JButton) con un evento asociado que permite buscar un usuario.
         // Dado que el código de registro tiene cierta complejidad, conviene delegarlo
         // a otro método en lugar de incluirlo directamente de el método actionPerformed 
