@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
@@ -383,6 +384,9 @@ public class Principal {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (InscFechaInconsistente e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ActividadNoExisteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} 

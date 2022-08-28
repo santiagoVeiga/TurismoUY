@@ -18,6 +18,7 @@ import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaInconsistente;
+import excepciones.PaqueteRepetidoException;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import excepciones.UsuarioNoExisteException;
@@ -45,6 +46,16 @@ class ControladorAltaTest {
 		IctrAlta = fabrica.getIControladorAlta();
 		IctrCons = fabrica.getIControladorConsulta();
 		ManejadorActividades = ManejadorActividad.getInstance();
+	}
+	
+	@Test
+	void testExepcionUsuariosNoExisten() {
+		assertThrows(UsuarioNoExisteException.class, ()->{IctrAlta.getUsuarios();});	
+	}
+
+	@Test
+	void testExepcionDepartamentosNoExisten() {
+		assertThrows(DepartamentoNoExisteException.class, ()->{IctrAlta.obtenerDataDepartamentos();});	
 	}
 	
 	@Test
@@ -323,36 +334,25 @@ class ControladorAltaTest {
 		//esta es la prueba
 		assertThrows(DepartamentoYaExisteExeption.class, ()->{IctrAlta.confirmarAltaDepartamento("muertevideo", "d", "www.muertevideo.com.uy");});	
 	}
+	
+	@Test
+	void testExepcionPaqueteRepetido() {
+		Date auxi = new Date(2000,6,20);
+		try {
+			IctrAlta.altaPaquete("pakete", "pakete coso", 5, 5, auxi);
+		} catch (PaqueteRepetidoException e) {
+
+		};
+		//esta es la prueba
+		assertThrows(PaqueteRepetidoException.class, ()->{IctrAlta.altaPaquete("pakete", "pakete coso", 5, 5, auxi);});	
+	}
 
 	
 	
 	
 	
-//	@Test
-//	void testExepcionUsuariosNoExisten() {
-//		try {
-//			//como hago que el conjunto de usuarios sea vacio para testear la exepcion? 
-//			IctrAlta.getUsuarios();
-//		} catch (UsuarioNoExisteException e) {
-//			fail(e.getMessage());
-//			e.printStackTrace();
-//		};
-//		//esta es la prueba
-//		assertThrows(UsuarioNoExisteException.class, ()->{IctrAlta.getUsuarios();});	
-//	}
-//
-//	@Test
-//	void testExepcionDepartamentosNoExisten() {
-//		try {
-//			//como hago que el conjunto de usuarios sea vacio para testear la exepcion? 
-//			IctrAlta.obtenerDataDepartamentos();
-//		} catch (DepartamentoNoExisteException e) {
-//			fail(e.getMessage());
-//			e.printStackTrace();
-//		};
-//		//esta es la prueba
-//		assertThrows(DepartamentoNoExisteException.class, ()->{IctrAlta.obtenerDataDepartamentos();});	
-//	}
+	
+
 	 
 	
 	
