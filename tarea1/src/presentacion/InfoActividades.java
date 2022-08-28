@@ -282,8 +282,8 @@ public class InfoActividades extends JFrame {
 	        String[] DP = new String[o1.length];
 	        DataPaquete[] DP2 = new DataPaquete[o1.length];
 	        for (int i = 0; i < o1.length; i++) {
-	        	DP[i] = ((DataPaquete) o1[i]).getNombre();
-	        	DP2[i] = (DataPaquete) o1[i];
+	        	DP[i] = (String) o1[i];
+	        	//DP2[i] = o1[i];
 	        }
 	    	ComboBoxModel<String> model2;
 	        model2 = new DefaultComboBoxModel<String>(DP);
