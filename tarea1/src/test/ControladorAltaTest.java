@@ -366,6 +366,37 @@ class ControladorAltaTest {
 	}
 
 	@Test
+	void actualizarDatosTuristaOk() throws UsuarioNoExisteException {
+		Date auxFecha = new Date(2000,6,20);
+		IctrAlta.actualizarDatosTurista("chino","chino@trico.org.uy","Alexander","Recoba",auxFecha,"uruguaya");
+		DataUsuario dUsuario = IctrAlta.verInfoUsuario("chino");
+		assertEquals(dUsuario.getNick(),"chino");
+		assertEquals(dUsuario.getMail(),"chino@trico.org.uy");
+		assertEquals(dUsuario.getNombre(),"Alexander");
+		assertEquals(dUsuario.getApellido(),"Recoba");
+		assertEquals(((DataTurista) dUsuario).getNacionalidad(),"uruguaya");
+		assertEquals(dUsuario.getNacimiento().getDate(),auxFecha.getDate());
+		assertEquals(dUsuario.getNacimiento().getMonth(),auxFecha.getMonth());
+		assertEquals(dUsuario.getNacimiento().getYear(),auxFecha.getYear());
+	}
+	
+	@Test
+	void actualizarDatosProveedorOk() throws UsuarioNoExisteException {
+		Date auxFecha = new Date(2010,8,20);
+		IctrAlta.actualizarDatosProveedor("meche","meche@colonia.gub.uy","Carmen","Venn",auxFecha,"Carmen la proveedora",null,false);
+		DataUsuario dUsuario = IctrAlta.verInfoUsuario("meche");
+		assertEquals(dUsuario.getNombre(),"Carmen");
+		assertEquals(dUsuario.getApellido(),"Venn");
+		assertEquals(dUsuario.getMail(),"meche@colonia.gub.uy");
+		assertEquals(((DataProveedor) dUsuario).getDescripcion(),"Carmen la proveedora");
+		assertEquals(((DataProveedor) dUsuario).getLink(),null);
+		//assertEquals(((DataProveedor) dUsuario).getHayLink(),false);
+		assertEquals(dUsuario.getNacimiento().getDate(),auxFecha.getDate());
+		assertEquals(dUsuario.getNacimiento().getMonth(),auxFecha.getMonth());
+		assertEquals(dUsuario.getNacimiento().getYear(),auxFecha.getYear());
+	}
+	
+	@Test
 	void testObtenerDataDepartamentos() {
 		fail("Not yet implemented");
 	}
