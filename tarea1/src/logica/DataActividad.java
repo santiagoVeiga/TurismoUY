@@ -69,6 +69,10 @@ public class DataActividad {
 		return this.duracion;
 	}
 
+	public Set<String> getPaquetes() {
+		return paquetes;
+	}
+
 	public boolean HayPaquetes() {
 		return paquetes.size() > 0;
 	}

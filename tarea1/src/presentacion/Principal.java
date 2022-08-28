@@ -253,6 +253,7 @@ public class Principal {
         JMenuItem menuItemConsultaActividad = new JMenuItem("Consulta Actividad");
         menuItemConsultaActividad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	conActInternalFrame.setConPaquete(conPaqInternalFrame);
             	conActInternalFrame.cargarDepartamentos();
                 conActInternalFrame.setVisible(true);
             }
@@ -329,6 +330,7 @@ public class Principal {
         JMenuItem menuItemConsultaPaquete = new JMenuItem("Consultar un Paquete");
         menuItemConsultaPaquete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                conPaqInternalFrame.setConActividad(conActInternalFrame);
             	conPaqInternalFrame.cargarPaquetes();
             	conPaqInternalFrame.setVisible(true);
             }

@@ -199,7 +199,7 @@ public void cargarActividades(){
 		String paqu = (String) jcbPaquetes.getSelectedItem();
 		auxi = controlInsc.actividadesPorDepartamentoNoEnPaquete(depa, paqu);
 		if (auxi.size() == 0) {
-			throw new ActividadNoExisteException("No hay actividades asociadas a dicho Departamento o todas pertenecen al Paquete");
+			throw new ActividadNoExisteException("No hay actividades de dicho Departamento disponibles para agregar");
 		}
 		Iterator<DataActividad> it = auxi.iterator();
 		int j = 0;

@@ -4,6 +4,7 @@ import javax.swing.JInternalFrame;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.DepartamentoNoExisteException;
+import excepciones.PaqueteNoExisteException;
 import excepciones.SalidasNoExisteException;
 import logica.DataActividad;
 import logica.DataDepartamento;
@@ -44,10 +45,13 @@ public class ConsultarActividad extends JInternalFrame {
     private JButton btnCerrar;
     private JButton btnSeleccionar;
     private JButton btnInfoSalida;
+    private JButton btnInfoPaquete;
     private JComboBox<String> jcbDepartamentos;
     private JComboBox<String> jcbActividades;
     private JComboBox<String> jcbSalidas;
+    private JComboBox<String> jcbPaquetes;
     private DataDepartamento[] DD;
+    JLabel Departamento;
     private JLabel Actividades;
     private JLabel actNombre;
     private JTextArea actNombreR;
@@ -62,10 +66,13 @@ public class ConsultarActividad extends JInternalFrame {
     private JLabel actFecha;
     private JLabel actFechaR;
     private JLabel Salidas;
+    private JLabel Paquetes;
     private Set<DataActividad> auxi;
     private DataActividad actElegida;
     private Set<DataSalida> auxiSal;
     private DataSalida salElegida;
+    private String[] nombresPaq;
+    private ConsultaPaquete conPaquete;
     /**
      * Create the frame.
      */
@@ -80,28 +87,30 @@ public class ConsultarActividad extends JInternalFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
         setTitle("Consultar una Actividad");
-        setBounds(30, 30, 578, 438);
+        setBounds(30, 30, 618, 464);
 
         // En este caso usaremos el Absolute Layout y deberemos indicar
         // la posición absoluta de todos los componentes
         getContentPane().setLayout(null);
 
-        JLabel Departamento = new JLabel("Departamento: ");
+        Departamento = new JLabel("Departamento: ");
         Departamento.setSize(125, 32);
         Departamento.setLocation(40, 12);
 		GridBagConstraints gbc_Departamento = new GridBagConstraints();
 		gbc_Departamento.anchor = GridBagConstraints.EAST;
 		gbc_Departamento.insets = new Insets(2, 2, 5, 5);
 		getContentPane().add(Departamento, gbc_Departamento);
+		Departamento.setVisible(false);
         
         jcbDepartamentos = new JComboBox<String>();
-        jcbDepartamentos.setBounds(253, 16, 276, 24);
+        jcbDepartamentos.setBounds(253, 16, 320, 24);
         getContentPane().add(jcbDepartamentos);
         jcbDepartamentos.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
         		btnBuscar.setVisible(true);
         	}
         });
+        jcbDepartamentos.setVisible(false);
         
         
     	Actividades = new JLabel("Actividades: ");
@@ -114,7 +123,7 @@ public class ConsultarActividad extends JInternalFrame {
     	Actividades.setVisible(false);
     	
         jcbActividades = new JComboBox<String>();
-        jcbActividades.setBounds(253, 54, 276, 24);
+        jcbActividades.setBounds(253, 54, 320, 24);
         getContentPane().add(jcbActividades);
         jcbActividades.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
@@ -133,7 +142,7 @@ public class ConsultarActividad extends JInternalFrame {
     	Salidas.setVisible(false);
     	
         jcbSalidas = new JComboBox<String>();
-        jcbSalidas.setBounds(253, 320, 276, 24);
+        jcbSalidas.setBounds(253, 320, 320, 24);
         getContentPane().add(jcbSalidas);
         jcbSalidas.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
@@ -141,6 +150,25 @@ public class ConsultarActividad extends JInternalFrame {
         	}
         });
         jcbSalidas.setVisible(false);
+        
+    	Paquetes = new JLabel("Paquetes: ");
+        Paquetes.setSize(125, 32);
+        Paquetes.setLocation(40, 353);
+    	GridBagConstraints gbc_Paquetes = new GridBagConstraints();
+    	gbc_Paquetes.anchor = GridBagConstraints.EAST;
+    	gbc_Paquetes.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(Paquetes, gbc_Paquetes);
+    	Paquetes.setVisible(false);
+        
+        jcbPaquetes = new JComboBox<String>();
+        jcbPaquetes.setBounds(253, 357, 320, 24);
+        getContentPane().add(jcbPaquetes);
+        jcbPaquetes.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e) {
+        		btnInfoPaquete.setVisible(true);
+        	}
+        });
+        jcbPaquetes.setVisible(false);
         
         // Un botón (JButton) con un evento asociado que permite buscar un usuario.
         // Dado que el código de registro tiene cierta complejidad, conviene delegarlo
@@ -155,7 +183,7 @@ public class ConsultarActividad extends JInternalFrame {
                 setVisible(false);
             }
         });
-        btnCerrar.setBounds(440, 371, 89, 23);
+        btnCerrar.setBounds(507, 397, 89, 23);
         getContentPane().add(btnCerrar);
         
         btnBuscar = new JButton("Buscar");
@@ -165,28 +193,47 @@ public class ConsultarActividad extends JInternalFrame {
             	cargarActividades();
             }
         });
-        btnBuscar.setBounds(40, 371, 89, 23);
+        btnBuscar.setBounds(12, 397, 89, 23);
         getContentPane().add(btnBuscar);
         btnBuscar.setVisible(false);
         
         btnSeleccionar = new JButton("Seleccionar");
         btnSeleccionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	Iterator<DataActividad> it = auxi.iterator();
+            	actElegida = it.next();
+            	while(it.hasNext() && (actElegida.getNombre() != (String) jcbActividades.getSelectedItem())) {
+            		actElegida = it.next();
+            	}
             	mostrarActividad();
             }
         });
-        btnSeleccionar.setBounds(159, 371, 116, 23);
+        btnSeleccionar.setBounds(113, 397, 116, 23);
         getContentPane().add(btnSeleccionar);
         btnSeleccionar.setVisible(false);
         
         btnInfoSalida = new JButton("Info Salida");
         btnInfoSalida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	DataSalida[] dtSalidas = auxiSal.toArray(new DataSalida[0]);
+            	InfoSalida is = new InfoSalida(dtSalidas[jcbSalidas.getSelectedIndex()]);
+            	is.setVisible(true);
             }
         });
-        btnInfoSalida.setBounds(298, 371, 116, 23);
+        btnInfoSalida.setBounds(241, 397, 116, 23);
         getContentPane().add(btnInfoSalida);
         btnInfoSalida.setVisible(false);
+        
+        btnInfoPaquete = new JButton("Info Paquete");
+        btnInfoPaquete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	conPaquete.seleccionarPaquete((String) jcbPaquetes.getSelectedItem());
+            	conPaquete.setVisible(true);
+            }
+        });
+        btnInfoPaquete.setBounds(369, 397, 126, 23);
+        getContentPane().add(btnInfoPaquete);
+        btnInfoPaquete.setVisible(false);
         
         actNombre = new JLabel("Nombre de la Actividad:");
         actNombre.setSize(173, 32);
@@ -200,7 +247,7 @@ public class ConsultarActividad extends JInternalFrame {
     	actNombreR = new JTextArea("Aca va la Nombre");
     	actNombreR.setFont(new Font("Dialog", Font.BOLD, 12));
     	actNombreR.setBackground(UIManager.getColor("Menu.background"));
-    	actNombreR.setSize(276, 23);
+    	actNombreR.setSize(320, 23);
         actNombreR.setLocation(253, 97);
     	GridBagConstraints gbc_actNombreR = new GridBagConstraints();
     	gbc_actNombreR.anchor = GridBagConstraints.EAST;
@@ -220,7 +267,7 @@ public class ConsultarActividad extends JInternalFrame {
     	actDescR = new JTextArea("Aca va la Descripcion");
     	actDescR.setFont(new Font("Dialog", Font.BOLD, 12));
     	actDescR.setBackground(UIManager.getColor("Menu.background"));
-    	actDescR.setSize(276, 23);
+    	actDescR.setSize(320, 23);
         actDescR.setLocation(253, 141);
     	GridBagConstraints gbc_actDescR = new GridBagConstraints();
     	gbc_actDescR.anchor = GridBagConstraints.EAST;
@@ -240,7 +287,7 @@ public class ConsultarActividad extends JInternalFrame {
     	actCiudadR = new JTextArea("Aca va la Ciudad");
     	actCiudadR.setFont(new Font("Dialog", Font.BOLD, 12));
     	actCiudadR.setBackground(UIManager.getColor("Menu.background"));
-    	actCiudadR.setSize(276, 32);
+    	actCiudadR.setSize(320, 32);
         actCiudadR.setLocation(253, 179);
     	GridBagConstraints gbc_actCiudadR = new GridBagConstraints();
     	gbc_actCiudadR.anchor = GridBagConstraints.EAST;
@@ -284,7 +331,7 @@ public class ConsultarActividad extends JInternalFrame {
     	getContentPane().add(actDuracionR, gbc_actDuracionR);
     	actDuracionR.setVisible(false);
     	
-    	actFecha = new JLabel("Fecha de la Actividad:");
+    	actFecha = new JLabel("Fecha de Alta de la Actividad:");
         actFecha.setSize(189, 32);
         actFecha.setLocation(40, 278);
     	GridBagConstraints gbc_actFecha = new GridBagConstraints();
@@ -314,6 +361,8 @@ public void cargarDepartamentos(){
     		}
 	    	model = new DefaultComboBoxModel<String>(DepartamentosNombres);
 	        jcbDepartamentos.setModel(model);
+	        jcbDepartamentos.setVisible(true);
+	        Departamento.setVisible(true);
 	    } catch (DepartamentoNoExisteException e) {
     	}
     }
@@ -345,16 +394,9 @@ public void cargarActividades(){
 public void cargarSalidas(){
 	DefaultComboBoxModel<String> model;
 	try {
-		String aux = (String) jcbActividades.getSelectedItem();
-		boolean bandera = false;
-		Iterator<DataActividad> it = auxi.iterator();
-		while(it.hasNext() && !bandera) {
-			actElegida = it.next();
-			bandera = actElegida.getNombre() ==aux;
-		}
 		auxiSal = actElegida.getSalidas();
 		if (auxiSal.size() == 0) {
-			throw new SalidasNoExisteException("No hay salidas asociadas a dicho Actividad");
+			throw new SalidasNoExisteException("No hay salidas asociadas a dicha Actividad");
 		}
     	Salidas.setVisible(true);
 		jcbSalidas.setVisible(true);
@@ -372,12 +414,28 @@ public void cargarSalidas(){
 	}
 }
 
-public void mostrarActividad() {
-	Iterator<DataActividad> it = auxi.iterator();
-	actElegida = it.next();
-	while(it.hasNext() && (actElegida.getNombre() != (String) jcbActividades.getSelectedItem())) {
-		actElegida = it.next();
+public void cargarPaquetes() {
+	DefaultComboBoxModel<String> model;
+	try {
+		if (actElegida.getPaquetes().size() == 0) {
+			throw new PaqueteNoExisteException("No hay paquetes asociadas a dicha Actividad");
+		}
+		nombresPaq = actElegida.getPaquetes().toArray(new String[0]);
+    	Paquetes.setVisible(true);
+		jcbPaquetes.setVisible(true);
+    	model = new DefaultComboBoxModel<String>(nombresPaq);
+        jcbPaquetes.setModel(model);
+    } catch (PaqueteNoExisteException e) {
+    	JOptionPane.showMessageDialog(this, e.getMessage(), "No hay Paquetes", JOptionPane.ERROR_MESSAGE);
 	}
+}
+
+public void seleccionarActvidad(DataActividad act) {
+	actElegida = act;
+	mostrarActividad();
+}
+
+public void mostrarActividad() {
 	actNombre.setVisible(true);
 	actNombreR.setText(actElegida.getNombre());
 	actNombreR.setVisible(true);
@@ -397,6 +455,7 @@ public void mostrarActividad() {
 	actFechaR.setText(actElegida.getFechaAlta().getDate() + "/" + (actElegida.getFechaAlta().getMonth() + 1) + "/" + (actElegida.getFechaAlta().getYear() +1900));
 	actFechaR.setVisible(true);
 	cargarSalidas();
+	cargarPaquetes();
 }
 
     // Permite borrar el contenido de un formulario antes de cerrarlo.
@@ -410,10 +469,13 @@ public void mostrarActividad() {
         btnBuscar.setVisible(false);
         btnSeleccionar.setVisible(false);
         btnInfoSalida.setVisible(false);
+        btnInfoPaquete.setVisible(false);
     	jcbActividades.setVisible(false);
     	jcbSalidas.setVisible(false);
         limpiarFormularioActividad();
-        jcbSalidas.setVisible(false);
+        Actividades.setVisible(false);
+        jcbDepartamentos.setVisible(false);
+        Departamento.setVisible(false);
     }
 
     private void limpiarFormularioActividad() {
@@ -431,7 +493,14 @@ public void mostrarActividad() {
     	actFechaR.setVisible(false);
     	Salidas.setVisible(false);
     	jcbSalidas.setVisible(false);
+    	Paquetes.setVisible(false);
+    	jcbPaquetes.setVisible(false);
     }
+
+
+	public void setConPaquete(ConsultaPaquete conPaquete) {
+		this.conPaquete = conPaquete;
+	}
 }
 
 	

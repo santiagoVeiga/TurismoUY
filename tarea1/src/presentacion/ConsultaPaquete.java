@@ -62,6 +62,9 @@ public class ConsultaPaquete extends JInternalFrame {
     private DataActividad[] auxi;
     private DataPaquete paqElegido;
     private DataActividad actElegida;
+    private ConsultarActividad conActividad;
+    private String paq;
+    private JLabel Paquete;
     /**
      * Create the frame.
      */
@@ -82,14 +85,15 @@ public class ConsultaPaquete extends JInternalFrame {
         // la posición absoluta de todos los componentes
         getContentPane().setLayout(null);
 
-        JLabel Paquete = new JLabel("Paquete:");
+        Paquete = new JLabel("Paquete:");
         Paquete.setSize(125, 32);
         Paquete.setLocation(40, 12);
 		GridBagConstraints gbc_Paquete = new GridBagConstraints();
 		gbc_Paquete.anchor = GridBagConstraints.EAST;
 		gbc_Paquete.insets = new Insets(2, 2, 5, 5);
 		getContentPane().add(Paquete, gbc_Paquete);
-        
+        Paquete.setVisible(false);
+		
         jcbPaquete = new JComboBox<String>();
         jcbPaquete.setBounds(253, 16, 276, 24);
         getContentPane().add(jcbPaquete);
@@ -98,6 +102,7 @@ public class ConsultaPaquete extends JInternalFrame {
         		btnBuscar.setVisible(true);
         	}
         });
+        jcbPaquete.setVisible(false);
         
         
     	Actividades = new JLabel("Actividades del Paquete: ");
@@ -129,6 +134,7 @@ public class ConsultaPaquete extends JInternalFrame {
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	limpiarFormulario();
+            	btnInfoActividad.setVisible(false);
                 setVisible(false);
             }
         });
@@ -139,6 +145,7 @@ public class ConsultaPaquete extends JInternalFrame {
         btnBuscar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	limpiarFormularioPaquete();
+            	paq = (String) jcbPaquete.getSelectedItem();
             	mostrarPaquete();
             	cargarActividades();
             }
@@ -150,6 +157,9 @@ public class ConsultaPaquete extends JInternalFrame {
         btnInfoActividad = new JButton("Info Actividad");
         btnInfoActividad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	actElegida = auxi[jcbActividades.getSelectedIndex()];
+            	conActividad.seleccionarActvidad(actElegida);
+            	conActividad.setVisible(true);
             }
         });
         btnInfoActividad.setBounds(281, 272, 129, 23);
@@ -261,13 +271,19 @@ public void cargarPaquetes(){
 		}
     	model = new DefaultComboBoxModel<String>(paquetes);
         jcbPaquete.setModel(model);
+        Paquete.setVisible(true);
+        jcbPaquete.setVisible(true);
     } catch (PaqueteNoExisteException e) {
     	JOptionPane.showMessageDialog(this, e.getMessage(), "No hay Paquetes", JOptionPane.ERROR_MESSAGE);
 	}
 }
 
+public void seleccionarPaquete(String nomP) {
+	paq = nomP;
+	mostrarPaquete();
+}
+
 public void mostrarPaquete() {
-	String paq = (String) jcbPaquete.getSelectedItem();
 	paqElegido = controlCons.obtenerDataPaquete(paq);
 	paqNombre.setVisible(true);
 	paqNombreR.setText(paqElegido.getNombre());
@@ -315,6 +331,8 @@ public void cargarActividades(){
     // no aparezca al mostrarlas nuevamente.
     private void limpiarFormulario() {
         jcbPaquete.removeAllItems();
+        Paquete.setVisible(false);
+        jcbPaquete.setVisible(false);
         btnBuscar.setVisible(false);
         btnInfoActividad.setVisible(false);
         limpiarFormularioPaquete();
@@ -335,6 +353,11 @@ public void cargarActividades(){
         jcbActividades.removeAllItems();
     	jcbActividades.setVisible(false);
     }
+
+	public void setConActividad(ConsultarActividad conActividad) {
+		this.conActividad = conActividad;
+	}
+    
 }
 
 	

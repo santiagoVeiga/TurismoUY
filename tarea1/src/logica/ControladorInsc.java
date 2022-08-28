@@ -97,13 +97,15 @@ public class ControladorInsc implements IControladorInsc {
 	}
 
 	@Override
-	public Set<DataActividad> actividadesPorDepartamentoNoEnPaquete(String Dep, String s) {
+	public Set<DataActividad> actividadesPorDepartamentoNoEnPaquete(String Dep, String paquete) {
 		ManejadorDepartamentos md = ManejadorDepartamentos.getInstance();
+		ManejadorPaquete mp = ManejadorPaquete.getInstance();
+		Date fecha = mp.getPaquete(paquete).getFechaAlta();
 		Departamento dep = md.getDepartamento(Dep);
 		Actividad[] auxi = dep.getActividadesDep();
 		Set<DataActividad> res = new HashSet<DataActividad>();
 		for(int i = 0; i<auxi.length; i++) {
-			if(!auxi[i].pertenecePaquete(s)) {
+			if(!auxi[i].pertenecePaquete(paquete) && fecha.before(auxi[i].getFechaAlta())) {
 				res.add(auxi[i].getDataAT());
 			}
 		}
