@@ -13,6 +13,7 @@ import com.toedter.calendar.JCalendar;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.ExcedeTuristas;
+import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
 import excepciones.NumeroNegativoException;
 import excepciones.TuristaConSalida;
@@ -327,11 +328,16 @@ public class Inscribir extends JInternalFrame {
 			e1.printStackTrace();
 		} catch (InscFechaInconsistente e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(this, "La fecha de inscripcion debe ser igual o posterior a la fecha de salida", "Inscribir",
+			JOptionPane.showMessageDialog(this, "La fecha de inscripcion debe ser igual o posterior a la fecha de alta de la salida", "Inscribir",
                     JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		} catch (ActividadNoExisteException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InscFechaDespSalida e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, "La fecha de inscripcion no debe ser posterior a la fecha de realizacion de la salida", "Inscribir",
+                    JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		} 
 	}

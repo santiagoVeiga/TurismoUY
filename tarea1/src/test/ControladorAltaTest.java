@@ -20,6 +20,7 @@ import excepciones.DepartamentoYaExisteExeption;
 import excepciones.ExcedeTuristas;
 import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
+import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
 import excepciones.PaqueteRepetidoException;
 import excepciones.SalidaYaExisteExeption;
@@ -156,6 +157,9 @@ class ControladorAltaTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InscFechaDespSalida e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
