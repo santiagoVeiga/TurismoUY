@@ -303,16 +303,27 @@ public class ModificarUsuario extends JInternalFrame {
         if(usuarioSeleccionado instanceof DataTurista) {
         	String nacionalidadU = nacionalidadField.getText();
         	if ((nombreU.isEmpty() || apellidoU.isEmpty() || nacionalidadU.isEmpty()) || (fechaN==null)) {
-                JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Modificar Usuario",
-                        JOptionPane.ERROR_MESSAGE);
+        		if((fechaN == null)) {
+	            	JOptionPane.showMessageDialog(this, "Fecha erronea o vac�a", "Modificar Usuario",
+	                        JOptionPane.ERROR_MESSAGE);
+	            }else {
+	            	JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Modificar Usuario",
+	                        JOptionPane.ERROR_MESSAGE);
+	            }
                 return false;
             }			
 		}else if(usuarioSeleccionado instanceof DataProveedor) {
 			String descripcionU = descripcionField.getText();
 			//String linkU = linkField.getText();
 			if (nombreU.isEmpty() || apellidoU.isEmpty() || descripcionU.isEmpty() || (fechaN==null)) {
-	            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Modificar Usuario",
-	                    JOptionPane.ERROR_MESSAGE);
+				if((fechaN == null)) {
+	            	JOptionPane.showMessageDialog(this, "Fecha erronea o vac�a", "Modificar Usuario",
+	                        JOptionPane.ERROR_MESSAGE);
+	            }else {
+	            	JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Modificar Usuario",
+	                        JOptionPane.ERROR_MESSAGE);
+	            }
+	            
 	            return false;
 	        }
 		}
