@@ -58,12 +58,8 @@ public class ModificarUsuario extends JInternalFrame {
 	public ModificarUsuario(IControladorAlta ICA)  {
 		
 		controlUsr = ICA;
-        // Propiedades del JInternalFrame como dimensión, posición dentro del frame, etc.
-        setResizable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        setClosable(true);
         
         setTitle("Modificar Datos de Usuario");
         setBounds(30, 30, 499, 389);
