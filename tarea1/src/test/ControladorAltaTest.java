@@ -39,6 +39,7 @@ class ControladorAltaTest {
 	
 	private static IControladorAlta IctrAlta;
 	private static IControladorConsulta IctrCons;
+	private static IControladorInsc IctrInsc;
 	private static ManejadorActividad ManejadorActividades ; 
 	
 	@BeforeAll
@@ -46,10 +47,118 @@ class ControladorAltaTest {
 		Fabrica fabrica = Fabrica.getInstance();
 		IctrAlta = fabrica.getIControladorAlta();
 		IctrCons = fabrica.getIControladorConsulta();
+		IctrInsc = fabrica.getIControladorInsc();
 		ManejadorActividades = ManejadorActividad.getInstance();
+		try {
+			IctrAlta.cargarUsuarios();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioRepetidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			IctrAlta.cargarDptos();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DepartamentoYaExisteExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			IctrAlta.cargarActs();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DepartamentoYaExisteExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ActividadRepetidaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			IctrAlta.cargarSalidas();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SalidaYaExisteExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			IctrAlta.cargarPaquetes();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SalidaYaExisteExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (PaqueteRepetidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			IctrInsc.cargarInsc();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TuristaConSalida e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExcedeTuristas e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InscFechaInconsistente e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			IctrInsc.cargarActsPaqs();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	@Test
+	
+	
+	/*@Test
 	void testCargarDptos(){
 		try {
 			IctrAlta.cargarDptos();
@@ -113,6 +222,8 @@ class ControladorAltaTest {
 		}
 	}
 	
+	
+	
 	@Test
 	void testCargarActs() {
 		try {
@@ -135,7 +246,37 @@ class ControladorAltaTest {
 			e.printStackTrace();
 		}
 	}
+	@Test
+	void testCargarInscripciones(){
+		try {
+			IctrInsc.cargarInsc();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TuristaConSalida e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExcedeTuristas e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InscFechaInconsistente e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
+	*
+	*
+	*/
 	@Test
 	void testConfirmarAltaTuristaOk() {
 		try {
@@ -155,8 +296,10 @@ class ControladorAltaTest {
 		}
 	}
 	
+	
 	@Test
 	void testListarUsuarios() {
+	
 		DataUsuario[] aux = IctrCons.listarUsuarios();
 		boolean res1 = false;
 		boolean res2 = false;
