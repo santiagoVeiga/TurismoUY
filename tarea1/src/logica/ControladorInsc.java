@@ -27,14 +27,14 @@ public class ControladorInsc implements IControladorInsc {
 		return d.getActividades();
 	}
 	
-	public Set<DataSalida> salidas(String nombreAct){
+	public Set<DataSalida> salidas(String nombreAct) throws ActividadNoExisteException{
 		ManejadorActividad m = ManejadorActividad.getInstance();
 		Actividad a = m.getActividad(nombreAct);
 		return a.getSalidas();
 	}
 	
 	
-	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente {
+	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException {
 		  CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
 	      reader = new CSVReader(new FileReader("./lib/Inscripciones.csv"));
@@ -54,7 +54,7 @@ public class ControladorInsc implements IControladorInsc {
 	}
 	
 	
-	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente {
+	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException {
 		ManejadorActividad m = ManejadorActividad.getInstance();
 		Actividad a = m.getActividad(nombreAct);
 		ManejadorUsuario mu = ManejadorUsuario.getinstance();
@@ -105,7 +105,7 @@ public class ControladorInsc implements IControladorInsc {
 		Actividad[] auxi = dep.getActividadesDep();
 		Set<DataActividad> res = new HashSet<DataActividad>();
 		for(int i = 0; i<auxi.length; i++) {
-			if(!auxi[i].pertenecePaquete(paquete) && fecha.before(auxi[i].getFechaAlta())) {
+			if(!auxi[i].pertenecePaquete(paquete) && !auxi[i].getFechaAlta().after(fecha)) {
 				res.add(auxi[i].getDataAT());
 			}
 		}

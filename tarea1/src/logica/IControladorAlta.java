@@ -1,5 +1,6 @@
 package logica;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
@@ -64,5 +65,7 @@ public interface IControladorAlta {
     public abstract void actualizarDatosTurista(String nick,String mail,String nombre,String apellido,Date fechaN,String nacionalidad);
 
 	public abstract void actualizarDatosProveedor(String nick,String mail,String nombre,String apellido,Date fechaN,String descripcion,String link,boolean hayLink);
+
+	public abstract void cargarPaquetes() throws FileNotFoundException, NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException;
    
 }

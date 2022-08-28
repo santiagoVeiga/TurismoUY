@@ -278,7 +278,7 @@ public class InfoActividades extends JFrame {
 			btnNewButton.setVisible(false);
 		}
         if(DT.HayPaquetes()) {
-	        Object[] o1 = DT.getPaquete().toArray();
+	        Object[] o1 = DT.getPaquetes().toArray();
 	        String[] DP = new String[o1.length];
 	        DataPaquete[] DP2 = new DataPaquete[o1.length];
 	        for (int i = 0; i < o1.length; i++) {
@@ -343,7 +343,7 @@ public class InfoActividades extends JFrame {
 			L.setVisible(true);
 			B.setVisible(true);
 		}
-		Object[] o2 = dt.getPaquete().toArray();
+		Object[] o2 = dt.getPaquetes().toArray();
         DataPaquete[] usuarios22 = new DataPaquete[o2.length];
         String[] usuarios3 = new String[o2.length];
         for (int i = 0; i < o.length; i++) {

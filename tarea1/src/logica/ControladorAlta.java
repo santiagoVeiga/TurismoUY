@@ -283,4 +283,26 @@ public class ControladorAlta implements IControladorAlta {
 
     	
     }
+
+
+	@Override
+	public void cargarPaquetes() throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException {
+		// TODO Auto-generated method stub
+		CSVReader reader = null;
+	      //parsing a CSV file into CSVReader class constructor  
+	      reader = new CSVReader(new FileReader("./lib/Paquetes.csv"));
+	      String[] nextLine;
+	      int cont = 0;
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    		  Date fa = formato.parse(nextLine[4].strip());
+	    		  altaPaquete(nextLine[1].strip(),nextLine[5].strip(),Integer.parseInt(nextLine[3].strip()),Integer.parseInt(nextLine[2].strip()),fa);
+	    	  }
+	    	  else {
+	    		  cont++;
+	    	  }
+	      }
+	}
 }

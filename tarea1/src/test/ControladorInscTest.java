@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaInconsistente;
 import excepciones.TuristaConSalida;
@@ -43,12 +44,18 @@ class ControladorInscTest {
 	
 	@Test
 	void testCargarInscSalidas()  {
-		Set<DataSalida> sed = cin.salidas("Degusta");
-		boolean res = false;
-		for(DataSalida it : sed) {
-			res = res || (it.getCant()==20 && it.getNombre().equals("Degusta Agosto"));
+		Set<DataSalida> sed;
+		try {
+			sed = cin.salidas("Degusta");
+			boolean res = false;
+			for(DataSalida it : sed) {
+				res = res || (it.getCant()==20 && it.getNombre().equals("Degusta Agosto"));
+			}
+			assertEquals(true,res);
+		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		assertEquals(true,res);
 	}
 	
 	@Test

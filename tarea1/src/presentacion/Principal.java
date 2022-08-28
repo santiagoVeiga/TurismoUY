@@ -8,11 +8,13 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaInconsistente;
+import excepciones.PaqueteRepetidoException;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import excepciones.UsuarioNoExisteException;
@@ -28,6 +30,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JInternalFrame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -454,10 +457,43 @@ public class Principal {
 				} catch (InscFechaInconsistente e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch (ActividadNoExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				} 
         	}
         });
         mnCargar.add(mntmCargarInscripciones);
+        
+        JMenuItem mntmCargarPaquetes = new JMenuItem("Cargar Paquetes");
+        mntmCargarPaquetes.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					ICA.cargarPaquetes();
+					mntmCargarPaquetes.setVisible(false);
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SalidaYaExisteExeption e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (PaqueteRepetidoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		
+        	}
+        });
+        mnCargar.add(mntmCargarPaquetes);
     
     }
 }
