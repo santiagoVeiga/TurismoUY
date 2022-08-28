@@ -20,6 +20,8 @@ import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
 import excepciones.DatosNoValidosException;
 import excepciones.DepartamentoNoExisteException;
+import excepciones.FechaAltaSalidaAnteriorActividad;
+import excepciones.FechaAltaSalidaInvalida;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import logica.DataActividad;
@@ -291,6 +293,7 @@ public class AltaSalida extends JInternalFrame {
 		aceptarCAMPO.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				chequeoAlta();
+				limpiarFormulario();
 			}
 		});
 		aceptarCAMPO.setFont(new Font("Dialog", Font.BOLD, 12));
@@ -353,6 +356,7 @@ public class AltaSalida extends JInternalFrame {
 	}
 	
 	public void limpiarFormulario() {
+		SeleccionarActividadCAMPO.setModel(new DefaultComboBoxModel<String>(new String[0]));
 	}
 	
 	//--------------------------------------------------------------------------------------------------
@@ -375,9 +379,21 @@ public void chequeoAlta() {
 	if (checkFormulario()) {
 		try {
 			controlAlta.confirmarAltaSalida(NombreActividad, NombreSalida, Fecha, Hora, Lugar, Integer.parseInt(maxCantTuristas), fechaAlta);
+			JOptionPane.showMessageDialog(this, "Alta exitosa", "Salida", JOptionPane.INFORMATION_MESSAGE);
 		} catch (SalidaYaExisteExeption e1) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(this, e1.getMessage(), "Salida ya existe", JOptionPane.ERROR_MESSAGE);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FechaAltaSalidaInvalida e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, "La fecha de alta no debe ser posterior a la fecha de la salida", "Fecha Invalida", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		} catch (FechaAltaSalidaAnteriorActividad e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, "La fecha de alta de la salida no debe ser anterior a la fecha de alta de la actividad", "Fecha Invalida", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		}
 	    setVisible(false);
 	}

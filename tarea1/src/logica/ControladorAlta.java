@@ -13,6 +13,8 @@ import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
+import excepciones.FechaAltaSalidaAnteriorActividad;
+import excepciones.FechaAltaSalidaInvalida;
 import excepciones.PaqueteRepetidoException;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
@@ -29,7 +31,7 @@ import manejadores.ManejadorUsuario;
  */
 public class ControladorAlta implements IControladorAlta {
 
-	public void cargarSalidas() throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption {
+	public void cargarSalidas() throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad {
 		CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
 	      reader = new CSVReader(new FileReader("./lib/Salidas.csv"));
@@ -213,7 +215,7 @@ public class ControladorAlta implements IControladorAlta {
     }
 
 
-    public void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta) throws SalidaYaExisteExeption{
+    public void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta) throws SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad{
         ManejadorActividad ma = ManejadorActividad.getInstance();
         Actividad act = null;
 		try {
@@ -221,6 +223,12 @@ public class ControladorAlta implements IControladorAlta {
 		} catch (ActividadNoExisteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		if(fecha.before(fechaAlta)) {
+			throw new FechaAltaSalidaInvalida();
+		}
+		if(fecha.before(act.getFechaAlta())) {
+			throw new FechaAltaSalidaAnteriorActividad();
 		}
         act.altaSalida(nombreSalida, fecha, hora, lugar, maxCantTuristas,fechaAlta);
     }
