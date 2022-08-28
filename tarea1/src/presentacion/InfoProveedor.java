@@ -52,6 +52,9 @@ public class InfoProveedor extends JFrame {
 	 * Create the frame.
 	 */
 	public InfoProveedor(DataProveedor DP) {
+		
+		dp =DP;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -279,7 +282,7 @@ public class InfoProveedor extends JFrame {
 
 	public void Cargar() {
 		// TODO Auto-generated method stub
-		
+			
 			Object[] o = dp.getActividades().toArray();
 	        DataActividad[] usuarios2 = new DataActividad[o.length];
 	        String[] usuarios = new String[o.length];
