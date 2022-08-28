@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 
 //import com.toedter.calendar.JCalendar;
 
@@ -50,7 +51,7 @@ public class CrearActividad extends JInternalFrame {
 	private JTextField costoTextField;
 	private JTextField duracionTextField;
 	private JTextField ciudadTextField;
-    private JCalendar calendario;
+    private JDateChooser calendario;
     private JComboBox<String> departamentoComboBox;
     private JComboBox<String> proveedoresComboBox;
     private DataDepartamento[] DD;
@@ -69,9 +70,9 @@ public class CrearActividad extends JInternalFrame {
         
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {30, 30, 30, 30, 30, 30, 30};
-		gridBagLayout.rowHeights = new int[] {30, 30, 30, 30, 30, 0, 30, 100, 30, 30, 30, 30};
+		gridBagLayout.rowHeights = new int[] {30, 30, 30, 30, 30, 0, 30, 30, 30, 30, 30, 30};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
 		JLabel Nombre = new JLabel("Nombre: ");
@@ -166,7 +167,7 @@ public class CrearActividad extends JInternalFrame {
 		gbc_fechaAlta.gridy = 7;
 		getContentPane().add(fechaAlta, gbc_fechaAlta);
 		
-		calendario = new JCalendar();
+		calendario = new JDateChooser();
 		GridBagConstraints gbc_calendario_1 = new GridBagConstraints();
 		gbc_calendario_1.insets = new Insets(0, 0, 5, 5);
 		gbc_calendario_1.fill = GridBagConstraints.BOTH;
@@ -270,15 +271,20 @@ public class CrearActividad extends JInternalFrame {
         String descripcionAct = this.descripcionTextField.getText();
         String costoAct = this.costoTextField.getText(); 
         String duracionAct = this.duracionTextField.getText();
-        //Date nacimientoU = calendario.getDate();
+        Date nacimientoU = calendario.getDate();
         String ciudadAct = this.ciudadTextField.getText();
         String departamentoAct = (String)departamentoComboBox.getSelectedItem();
         String proveedorAct = (String)proveedoresComboBox.getSelectedItem();
 
-        if (nombreAct.isEmpty() || descripcionAct.isEmpty() || costoAct.isEmpty() || duracionAct.isEmpty() || ciudadAct.isEmpty() || (departamentoAct == null) || (proveedorAct == null)) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Registrar Actividad",
+        if (nombreAct.isEmpty() || descripcionAct.isEmpty() || costoAct.isEmpty() || duracionAct.isEmpty() || ciudadAct.isEmpty() || (departamentoAct == null) || (proveedorAct == null) || (nacimientoU == null)) {
+            if((nacimientoU == null)) {
+            	JOptionPane.showMessageDialog(this, "Fecha erronea o vacía", "Registrar Actividad",
+                        JOptionPane.ERROR_MESSAGE);
+            }else {
+            	JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Registrar Actividad",
                     JOptionPane.ERROR_MESSAGE);
-            return false;
+            }
+            	return false;
         }
 
         try {
