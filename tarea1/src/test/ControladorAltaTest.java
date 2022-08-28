@@ -26,7 +26,9 @@ import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.Actividad;
 import logica.DataActividad;
+import logica.DataDepartamento;
 import logica.DataProveedor;
+import logica.DataSalida;
 import logica.DataTurista;
 import logica.DataUsuario;
 import logica.Fabrica;
@@ -494,7 +496,42 @@ class ControladorAltaTest {
 	}
 
 	
+	@Test
+	void testCargarInscSelecDpto()  {
+		Set<DataActividad> se = IctrInsc.selecDepartamento("Rocha");
+		boolean res = false;
+		for(DataActividad it : se) {
+			res = res || (it.getCiudad().equals("Rocha") && it.getCosto()==800 && it.getNombre().equals("Degusta"));
+		}
+		assertEquals(true,res);
+		
+	}
 	
+	@Test
+	void testCargarInscSalidas()  {
+		Set<DataSalida> sed;
+		try {
+			sed = IctrInsc.salidas("Degusta");
+			boolean res = false;
+			for(DataSalida it : sed) {
+				res = res || (it.getCant()==20 && it.getNombre().equals("Degusta Agosto"));
+			}
+			assertEquals(true,res);
+		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	void testListarDptos() {
+		Set<DataDepartamento> sed = IctrInsc.listarDepartamentos();
+		boolean res = false;
+		for(DataDepartamento it : sed) {
+			res = res || (it.getUrl().equals("https://montevideo.gub.uy/areas-tematicas/turismo") && it.getNombre().equals("Montevideo"));
+		}
+		assertEquals(true,res);
+	}
 	
 	
 //	@Test
