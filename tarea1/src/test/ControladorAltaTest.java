@@ -273,7 +273,7 @@ class ControladorAltaTest {
 		Date auxi = new Date(2000,6,20);
 		try {
 			IctrAlta.confirmarAltaDepartamento("parasaindu", "d", "www.parasaindu.com.uy");
-			IctrAlta.registrarActividad("parasaindu", "Bici", "Bici",1, 200, "Ciudad de la costa" ,auxi,"agus");
+			IctrAlta.registrarActividad("parasaindu", "Bici", "Bici",1, 200, "Ciudad de la costa" ,auxi,"eldiez");
 			Actividad ActividadRegistrada = ManejadorActividades.getActividad("Bici") ; 
 			assertEquals(ActividadRegistrada.getDepartamento().getNombre(),"parasaindu");
 			assertEquals(ActividadRegistrada.getNombre(),"Bici");
@@ -285,30 +285,56 @@ class ControladorAltaTest {
 			assertEquals(ActividadRegistrada.getCosto(),200);
 			assertEquals(ActividadRegistrada.getCiudad(),"Ciudad de la costa");
 		} catch (ActividadRepetidaException e) {
+			fail(e.getMessage());
 		}
 		catch (DepartamentoYaExisteExeption e) {
+			fail(e.getMessage());
 		}
 		catch (ActividadNoExisteException e) {
+			fail(e.getMessage());
 		} catch (UsuarioNoExisteException e) {
-			
+			fail(e.getMessage());
 		} catch (ProveedorNoNacidoException e) {
-			
+			fail(e.getMessage());
 		}
 	}
-
+	
 	@Test
-	void actualizarDatosTuristaOk() throws UsuarioNoExisteException {
+	void registroActividadExcepcionProveedor() {
+		Date auxi = new Date(2000,6,20);
+		assertThrows(UsuarioNoExisteException.class, ()->{IctrAlta.registrarActividad("Colonia", "Bici", "Bici",1, 200, "Ciudad de la costa" ,auxi,"nickquenopuedeexister");;});
+	}
+	
+	@Test
+	void registroActividadExcepcionYaExiste() {
+		Date auxi = new Date(2000,6,20);
+		try {
+			IctrAlta.registrarActividad("Colonia", "Bici", "Bici",1, 200, "Ciudad de la costa" ,auxi,"nickquenopuedeexister");
+		} catch (ActividadRepetidaException | UsuarioNoExisteException | ProveedorNoNacidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertThrows(UsuarioNoExisteException.class, ()->{IctrAlta.registrarActividad("Colonia", "Bici", "Bici",1, 200, "Ciudad de la costa" ,auxi,"nickquenopuedeexister");;});
+	}
+	
+	@Test
+	void actualizarDatosTuristaOk() {
 		Date auxFecha = new Date(2000,6,20);
 		IctrAlta.actualizarDatosTurista("chino","chino@trico.org.uy","Alexander","Recoba",auxFecha,"uruguaya");
-		DataUsuario dUsuario = IctrAlta.verInfoUsuario("chino");
-		assertEquals(dUsuario.getNick(),"chino");
-		assertEquals(dUsuario.getMail(),"chino@trico.org.uy");
-		assertEquals(dUsuario.getNombre(),"Alexander");
-		assertEquals(dUsuario.getApellido(),"Recoba");
-		assertEquals(((DataTurista) dUsuario).getNacionalidad(),"uruguaya");
-		assertEquals(dUsuario.getNacimiento().getDate(),auxFecha.getDate());
-		assertEquals(dUsuario.getNacimiento().getMonth(),auxFecha.getMonth());
-		assertEquals(dUsuario.getNacimiento().getYear(),auxFecha.getYear());
+		DataUsuario dUsuario;
+		try {
+			dUsuario = IctrAlta.verInfoUsuario("chino");
+			assertEquals(dUsuario.getNick(),"chino");
+			assertEquals(dUsuario.getMail(),"chino@trico.org.uy");
+			assertEquals(dUsuario.getNombre(),"Alexander");
+			assertEquals(dUsuario.getApellido(),"Recoba");
+			assertEquals(((DataTurista) dUsuario).getNacionalidad(),"uruguaya");
+			assertEquals(dUsuario.getNacimiento().getDate(),auxFecha.getDate());
+			assertEquals(dUsuario.getNacimiento().getMonth(),auxFecha.getMonth());
+			assertEquals(dUsuario.getNacimiento().getYear(),auxFecha.getYear());
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+		}
 	}
 	
 	@Test
