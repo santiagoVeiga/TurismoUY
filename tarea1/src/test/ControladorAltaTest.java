@@ -348,7 +348,7 @@ class ControladorAltaTest {
 		Date auxFecha = new Date(130,8,20);
 		assertThrows(TuristaConSalida.class, ()->{IctrInsc.inscribir("lachiqui", "Degusta Agosto", 1, auxFecha, "Degusta");});
 	}
-	
+
 	@Test
 	void inscribirExcCantidadTuristas() {
 		Date auxFecha = new Date(130,8,20);
