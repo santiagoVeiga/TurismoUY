@@ -368,6 +368,18 @@ class ControladorAltaTest {
 	}
 	
 	@Test
+	void inscribirTuristaNoHaNacido() {
+		Date auxFecha = new Date(122,7,19);
+		Date auxFecha2 = new Date(1000,8,20);
+		try {
+			IctrAlta.confirmarAltaTurista("Turista no ha nacido", "Turista no ha nacido", "Turista no ha nacido", "Turista no ha nacido", auxFecha2, "Turista no ha nacido");
+		} catch (UsuarioRepetidoException e) {
+			fail(e.getMessage());
+		}
+		assertThrows(TuristaNoHaNacido.class, ()->{IctrInsc.inscribir("Turista no ha nacido", "Degusta Agosto", 1, auxFecha, "Degusta");});
+	}
+	
+	@Test
 	void actualizarDatosProveedorOk() throws UsuarioNoExisteException {
 		Date auxFecha = new Date(2010,8,20);
 		IctrAlta.actualizarDatosProveedor("meche","meche@colonia.gub.uy","Carmen","Venn",auxFecha,"Carmen la proveedora",null,false);
@@ -490,6 +502,21 @@ class ControladorAltaTest {
 			bandera = bandera || (aux[i].equals("Disfrutar Rocha"));
 		}
 		assertEquals(bandera, true);
+	}
+	
+	@Test
+	void listarDepartamentos() {
+		try {
+			DataDepartamento[] aux = IctrAlta.obtenerDataDepartamentos();
+			int i = 0;
+			while(i<aux.length && !(aux[i].getNombre().equals("Colonia"))){
+				i++;
+			}
+			assertEquals(aux[i].getNombre(),"Colonia");
+			assertEquals(aux[i].getUrl(),"https://colonia.gub.uy/turismo/");
+		} catch (DepartamentoNoExisteException e) {
+			fail(e.getMessage());
+		}
 	}
 	
 	@Test
