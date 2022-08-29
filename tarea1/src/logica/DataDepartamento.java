@@ -24,7 +24,8 @@ public class DataDepartamento {
 	{
 		return nombre;
 	}
-	
+
+	/*
 	public void setNombre(String n) {
 		this.nombre = n;
 	}
@@ -32,16 +33,17 @@ public class DataDepartamento {
 	
 	public void setDescripcion(String d) {
 		this.descripcion = d;
-	}
+	}*/
 
 	public String getDescripcion() {
 		return this.descripcion;
 	}
 	
-	
+	/*
 	public void setUrl(String d) {
 		this.descripcion = d;
 	}
+	*/
 
 	public String getUrl() {
 		return this.url;

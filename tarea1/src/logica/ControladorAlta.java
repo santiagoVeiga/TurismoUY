@@ -226,17 +226,16 @@ public class ControladorAlta implements IControladorAlta {
         Actividad act = null;
 		try {
 			act = ma.getActividad(nombreActividad);
+			if(fecha.before(fechaAlta)) {
+				throw new FechaAltaSalidaInvalida();
+			}
+			if(fechaAlta.before(act.getFechaAlta())) {
+				throw new FechaAltaSalidaAnteriorActividad();
+			}
+	        act.altaSalida(nombreSalida, fecha, hora, lugar, maxCantTuristas,fechaAlta);
 		} catch (ActividadNoExisteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(fecha.before(fechaAlta)) {
-			throw new FechaAltaSalidaInvalida();
-		}
-		if(fecha.before(act.getFechaAlta())) {
-			throw new FechaAltaSalidaAnteriorActividad();
-		}
-        act.altaSalida(nombreSalida, fecha, hora, lugar, maxCantTuristas,fechaAlta);
     }
     
     public void altaPaquete(String nombre, String descripcion, int descuento, int validez, Date fechaAlta) throws PaqueteRepetidoException {
