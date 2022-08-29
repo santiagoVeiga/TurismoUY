@@ -119,7 +119,7 @@ public class ControladorInsc implements IControladorInsc {
 		Actividad[] auxi = dep.getActividadesDep();
 		Set<DataActividad> res = new HashSet<DataActividad>();
 		for(int i = 0; i<auxi.length; i++) {
-			if(!auxi[i].pertenecePaquete(paquete) && !auxi[i].getFechaAlta().after(fecha)) {
+			if(!auxi[i].pertenecePaquete(paquete)) {
 				res.add(auxi[i].getDataAT());
 			}
 		}

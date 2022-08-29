@@ -23,6 +23,7 @@ import excepciones.FechaAltaSalidaInvalida;
 import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
 import excepciones.PaqueteRepetidoException;
+import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
@@ -92,6 +93,12 @@ class ControladorAltaTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProveedorNoNacidoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -428,6 +435,10 @@ class ControladorAltaTest {
 		catch (DepartamentoYaExisteExeption e) {
 		}
 		catch (ActividadNoExisteException e) {
+		} catch (UsuarioNoExisteException e) {
+			
+		} catch (ProveedorNoNacidoException e) {
+			
 		}
 	}
 
