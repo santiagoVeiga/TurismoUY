@@ -350,7 +350,7 @@ public class InfoActividades extends JFrame {
         	usuarios3[i] = (String) o2[i];   
         }
 		
-		if(o.length>0) {
+		if(o2.length>0) {
 			DefaultComboBoxModel<String> model;
 	        model = new DefaultComboBoxModel<String>(usuarios3);
 	        CU2.setModel(model);
