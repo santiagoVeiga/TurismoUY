@@ -17,6 +17,7 @@ import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
 import excepciones.NumeroNegativoException;
 import excepciones.TuristaConSalida;
+import excepciones.TuristaNoHaNacido;
 import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataSalida;
@@ -339,6 +340,10 @@ public class Inscribir extends JInternalFrame {
 			JOptionPane.showMessageDialog(this, "La fecha de inscripcion no debe ser posterior a la fecha de realizacion de la salida", "Inscribir",
                     JOptionPane.ERROR_MESSAGE);
 			//e.printStackTrace();
+		} catch (TuristaNoHaNacido e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(this, "El turista debe haber nacido al momento de realizar la salida", "Inscribir",
+                    JOptionPane.ERROR_MESSAGE);
 		} 
 	}
 }

@@ -17,6 +17,7 @@ import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
+import excepciones.TuristaNoHaNacido;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorDepartamentos;
 import manejadores.ManejadorPaquete;
@@ -36,7 +37,7 @@ public class ControladorInsc implements IControladorInsc {
 	}
 	
 	
-	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida {
+	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido {
 		  CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
 	      reader = new CSVReader(new FileReader("./lib/Inscripciones.csv"));
@@ -56,7 +57,7 @@ public class ControladorInsc implements IControladorInsc {
 	}
 	
 	
-	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida {
+	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido {
 		ManejadorActividad m = ManejadorActividad.getInstance();
 		try {
 			Actividad a = m.getActividad(nombreAct);
@@ -78,14 +79,17 @@ public class ControladorInsc implements IControladorInsc {
 			if(fecha.after(s.getFecha())) {
 				throw new InscFechaDespSalida();
 			}
+			if(((Turista) t).getNacimiento().after(s.getFecha())) {
+				throw new TuristaNoHaNacido();
+			}
 			// Se realiza la inscripcion
 			CompraGeneral cg = new CompraGeneral(fecha,cantTuristas,costo);
 			cg.setSalida(s);
 			s.setCantRestante(s.getCantRestante()-cantTuristas);
 			((Turista) t).agregarCompraGeneral(cg);
 		}
-		catch(ActividadNoExisteException e) {
-			 
+		catch (ActividadNoExisteException e) {
+			throw new ActividadNoExisteException("La actividad con nombre " + nombreAct + " no existe");
 		}
 	}
 

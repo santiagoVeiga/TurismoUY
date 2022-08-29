@@ -49,7 +49,7 @@ public class DataUsuario {
     public String toString() {
         return " (" + getNombre() + " " + getApellido() + ")";
     }
-
+/* Esta comentado porque no se ha usado al momento para nada
     private void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -57,4 +57,5 @@ public class DataUsuario {
     private void setApellido(String apellido) {
         this.apellido = apellido;
     }
+    */
 }

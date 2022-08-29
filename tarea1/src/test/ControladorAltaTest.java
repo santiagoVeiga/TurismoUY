@@ -25,6 +25,7 @@ import excepciones.InscFechaInconsistente;
 import excepciones.PaqueteRepetidoException;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
+import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.Actividad;
@@ -160,6 +161,9 @@ class ControladorAltaTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InscFechaDespSalida e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TuristaNoHaNacido e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -682,7 +686,15 @@ class ControladorAltaTest {
 		assertEquals(dt.getValidez(),60);
 	}
 	
-
+	@Test
+	void testDTAct() {
+		Set<DataActividad> aux = IctrInsc.selecDepartamento("Rocha");
+		boolean res = false;
+		for(DataActividad it : aux) {
+			res = res || (it.HaySalidas()&&it.HayPaquetes()&&it.getCiudad().equals("Rocha"));
+		}
+		assertEquals(res,true);
+	}
 	
 
 }
