@@ -32,13 +32,13 @@ public class Actividad {
 
 	public Actividad(String nom, String desc, Date f, String ciudad, int costo, int dur, Departamento dep) {
 		colSal = new HashMap<String,Salida>();
-		nombre = nom;
-		descripcion = desc;
+		setNombre(nom);
+		setDescripcion(desc);
 		fechaAlta = f;
-		this.ciudad = ciudad;
-		this.costo = costo;
-		this.duracion = dur;
-		this.departamento = dep;
+		setCiudad(ciudad);
+		setCosto(costo);
+		setDuracion(dur);
+		setDepartamento(dep);
 		this.colpaq = new HashMap<String,Paquete>();
 	}
 	
@@ -87,12 +87,9 @@ public class Actividad {
 	}
 	
 	public void setCiudad(String n) {
-		nombre = n;
+		ciudad = n;
 	}
 	
-	public void setNombre(Date n) {
-		fechaAlta = n;
-	}
 	
 	public void setCosto(int n) {
 		costo = n;

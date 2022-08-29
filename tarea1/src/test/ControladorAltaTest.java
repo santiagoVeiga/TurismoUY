@@ -382,11 +382,63 @@ class ControladorAltaTest {
 		assertEquals(dUsuario.getNacimiento().getMonth(),auxFecha.getMonth());
 		assertEquals(dUsuario.getNacimiento().getYear(),auxFecha.getYear());
 	}
-/*
+
 	@Test
-	void testGetUsuarios() {
-		fail("Not yet implemented");
+	void testGetUsuarios()  {
+		DataUsuario[] datosUsuario;
+		try {
+			Date fechaN = new Date(2002,6,4);
+			try {
+				IctrAlta.confirmarAltaTurista("jorgito", "Jorge","Perez", "jorgito@mail.com", fechaN, "chilena");
+			} catch (UsuarioRepetidoException e) {
+				// TODO Auto-generated catch block
+				fail(e.getMessage());
+				e.printStackTrace();
+			}
+			datosUsuario = IctrAlta.getUsuarios();
+			int i=0;
+			boolean encontrado = false;			
+			while(i<datosUsuario.length && !encontrado) {
+				if(datosUsuario[i].getNick() == "jorgito") {
+					encontrado=true;
+				}else
+					i++;
+			}
+			assertEquals(datosUsuario[i].getNick(),"jorgito");
+			assertEquals(datosUsuario[i].getNombre(),"Jorge");
+			assertEquals(datosUsuario[i].getApellido(),"Perez");
+			assertEquals(datosUsuario[i].getMail(),"jorgito@mail.com");
+			assertEquals(datosUsuario[i].getNacimiento(),fechaN);
+			assertEquals(((DataTurista) datosUsuario[i]).getNacionalidad(),"chilena");
+		} catch (UsuarioNoExisteException e) {
+			// TODO Auto-generated catch block
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		
 	}
+	
+	//VER ESTE TEST quiero que la salida sea la excepcion
+		/*@Test
+		void registrarSalidaErronea () throws FechaAltaSalidaAnteriorActividad, SalidaYaExisteExeption {
+			Date salidaF = new Date(2000,6,30);
+			Date altaF = new Date(2000,6,22);
+			Date hora = new Date();
+			hora.setHours(10);
+			hora.setMinutes(0);
+			try {
+				IctrAlta.confirmarAltaSalida( "Degusta", "salidaNueva", salidaF, hora, "placita", 10, altaF);
+			} catch (FechaAltaSalidaInvalida e) {
+				fail(e.getMessage());
+				e.printStackTrace();
+			}
+
+			//Assertions.assertThrows(FechaAltaSalidaAnteriorActividad.class, IctrAlta.confirmarAltaSalida( "Degusta", "salidaNueva", salidaF, hora, "placita", 10, altaF));
+		   
+			//assertThrows(FechaAltaSalidaAnteriorActividad.class, ()->{IctrAlta.confirmarAltaSalida( "Degusta", "salidaNueva", salidaF, hora, "placita", 10, altaF));});
+		}*/
+	/*
 
 	@Test
 	void testConfirmarAltaDepartamento() {
