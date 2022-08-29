@@ -74,7 +74,7 @@ public class ControladorInsc implements IControladorInsc {
 				throw new ExcedeTuristas("La salida no cuenta con capacidad para la cantidad de turistas solicitados");
 			}
 			if(fecha.before(s.getFechaAlta())) {
-				throw new InscFechaInconsistente("La fecha de inscripcion debe ser igual o posterior a la fecha de salida");
+				throw new InscFechaInconsistente("La fecha de inscripcion debe ser igual o posterior a la fecha de alta de salida");
 			}
 			if(fecha.after(s.getFecha())) {
 				throw new InscFechaDespSalida();
