@@ -300,21 +300,27 @@ class ControladorAltaTest {
 	}
 	
 	@Test
+	void registroActividadExcepcionProveedorNoNacido() {
+		Date auxi = new Date(2000,6,20);
+		Date auxi2 = new Date(2023,6,20);
+		try {
+			IctrAlta.confirmarAltaProveedor("proveedorNoNacido", "proveedorNoNacido", "proveedorNoNacido", "proveedorNoNacido", auxi2, "proveedorNoNacido", "proveedorNoNacido", true);
+		} catch (UsuarioRepetidoException e) {
+			fail(e.getMessage());
+		}
+		assertThrows(ProveedorNoNacidoException.class, ()->{IctrAlta.registrarActividad("Colonia", "ProveedorNoNacidoPruebaAct", "Bici",1, 200, "Ciudad de la costa" ,auxi,"proveedorNoNacido");;});
+	}
+	
+	@Test
 	void registroActividadExcepcionProveedor() {
 		Date auxi = new Date(2000,6,20);
-		assertThrows(UsuarioNoExisteException.class, ()->{IctrAlta.registrarActividad("Colonia", "Bici", "Bici",1, 200, "Ciudad de la costa" ,auxi,"nickquenopuedeexister");;});
+		assertThrows(UsuarioNoExisteException.class, ()->{IctrAlta.registrarActividad("Colonia", "Bicicleta", "Bici",1, 200, "Ciudad de la costa" ,auxi,"nickquenopuedeexister");;});
 	}
 	
 	@Test
 	void registroActividadExcepcionYaExiste() {
 		Date auxi = new Date(2000,6,20);
-		try {
-			IctrAlta.registrarActividad("Colonia", "Bici", "Bici",1, 200, "Ciudad de la costa" ,auxi,"nickquenopuedeexister");
-		} catch (ActividadRepetidaException | UsuarioNoExisteException | ProveedorNoNacidoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertThrows(UsuarioNoExisteException.class, ()->{IctrAlta.registrarActividad("Colonia", "Bici", "Bici",1, 200, "Ciudad de la costa" ,auxi,"nickquenopuedeexister");;});
+		assertThrows(ActividadRepetidaException.class, ()->{IctrAlta.registrarActividad("Rocha", "Degusta", "Bici",1, 200, "Ciudad de la costa" ,auxi,"eldiez");;});
 	}
 	
 	@Test
@@ -352,7 +358,7 @@ class ControladorAltaTest {
 		assertEquals(dUsuario.getNacimiento().getMonth(),auxFecha.getMonth());
 		assertEquals(dUsuario.getNacimiento().getYear(),auxFecha.getYear());
 	}
-
+/*
 	@Test
 	void testGetUsuarios() {
 		fail("Not yet implemented");
@@ -367,7 +373,7 @@ class ControladorAltaTest {
 	void testConfirmarAltaSalida() {
 		fail("Not yet implemented");
 	}
-	
+*/
 	
 	@Test
 	void testExepcionRegistrarTuristaRepetido() {
