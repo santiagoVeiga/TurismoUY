@@ -23,6 +23,7 @@ import excepciones.FechaAltaSalidaInvalida;
 import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
 import excepciones.PaqueteRepetidoException;
+import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
@@ -84,6 +85,11 @@ class ControladorAltaTest {
 			fail(e.getMessage());
 		} catch (ParseException e) {
 			fail(e.getMessage());
+			// TODO Auto-generated catch block
+		} catch (UsuarioNoExisteException e) {
+			// TODO Auto-generated catch block
+		} catch (ProveedorNoNacidoException e) {
+			// TODO Auto-generated catch block
 		}
 		try {
 			IctrAlta.cargarSalidas();
@@ -283,6 +289,10 @@ class ControladorAltaTest {
 		catch (DepartamentoYaExisteExeption e) {
 		}
 		catch (ActividadNoExisteException e) {
+		} catch (UsuarioNoExisteException e) {
+			
+		} catch (ProveedorNoNacidoException e) {
+			
 		}
 	}
 

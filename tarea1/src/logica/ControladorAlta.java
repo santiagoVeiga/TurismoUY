@@ -16,6 +16,7 @@ import excepciones.DepartamentoYaExisteExeption;
 import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
 import excepciones.PaqueteRepetidoException;
+import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
@@ -54,7 +55,7 @@ public class ControladorAlta implements IControladorAlta {
 	}
 	
 	
-	public void cargarActs() throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException, ParseException {
+	public void cargarActs() throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException, ParseException, UsuarioNoExisteException, ProveedorNoNacidoException {
 		CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
 	      reader = new CSVReader(new FileReader("./lib/Actividades.csv"));
@@ -144,22 +145,27 @@ public class ControladorAlta implements IControladorAlta {
         mu.addUsuario(u);
     }
     
-    public void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f,String proveedor) throws ActividadRepetidaException {
+    public void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f,String proveedor) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException {
     	ManejadorActividad mAct = ManejadorActividad.getInstance();
     	ManejadorDepartamentos mDep = ManejadorDepartamentos.getInstance();
         ManejadorUsuario mu = ManejadorUsuario.getinstance();
+        Usuario u =  mu.obtenerUsuarioNick(proveedor);
     	Actividad act = null;
 		try {
 			act = mAct.getActividad(nom);
 		} catch (ActividadNoExisteException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
         if (act != null)
             throw new ActividadRepetidaException("Ya existe una actividad registrada con el nombre:  " + nom);
+        if (u == null) {
+        	throw new UsuarioNoExisteException("No existe el Usuario");
+        }
+        if (u.getNacimiento().after(f)) {
+        	throw new ProveedorNoNacidoException();
+        }
         Departamento insDep = mDep.getDepartamento(dep);
         act = new Actividad(nom, desc,f,ciudad, costo, dur, insDep);
-        Usuario u =  mu.obtenerUsuarioNick(proveedor);
         if(u instanceof Proveedor) {
         	((Proveedor) u).agregarActividad(act);
         }

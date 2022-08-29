@@ -4,6 +4,7 @@ import javax.swing.JInternalFrame;
 
 import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
+import excepciones.ProveedorNoNacidoException;
 import excepciones.UsuarioNoExisteException;
 import logica.DataDepartamento;
 import logica.DataProveedor;
@@ -263,8 +264,14 @@ public class CrearActividad extends JInternalFrame {
                         JOptionPane.INFORMATION_MESSAGE);
 
             } catch (ActividadRepetidaException e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-            }
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Actividad", JOptionPane.ERROR_MESSAGE);
+            } catch (NumberFormatException e) {
+				
+			} catch (UsuarioNoExisteException e) {
+				JOptionPane.showMessageDialog(this, "El usuario no existe en el Sistema", "Registrar Actividad", JOptionPane.ERROR_MESSAGE);
+			} catch (ProveedorNoNacidoException e) {
+				JOptionPane.showMessageDialog(this, "El proveedor debe haber nacido antes de la fecha de alta de la actividad", "Registrar Actividad", JOptionPane.ERROR_MESSAGE);
+			}
             limpiarFormulario();
             setVisible(false);
         }
@@ -282,7 +289,7 @@ public class CrearActividad extends JInternalFrame {
 
         if (nombreAct.isEmpty() || descripcionAct.isEmpty() || costoAct.isEmpty() || duracionAct.isEmpty() || ciudadAct.isEmpty() || (departamentoAct == null) || (proveedorAct == null) || (nacimientoU == null)) {
             if((nacimientoU == null)) {
-            	JOptionPane.showMessageDialog(this, "Fecha erronea o vacía", "Registrar Actividad",
+            	JOptionPane.showMessageDialog(this, "Fecha erronea o vacï¿½a", "Registrar Actividad",
                         JOptionPane.ERROR_MESSAGE);
             }else {
             	JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Registrar Actividad",
