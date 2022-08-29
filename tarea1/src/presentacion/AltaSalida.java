@@ -222,6 +222,7 @@ public class AltaSalida extends JInternalFrame {
 		minutosCAMPO = new JComboBox();
 		minutosCAMPO.setBounds(351, 173, 45, 19);
 		minutosCAMPO.addItem(0);
+		minutosCAMPO.addItem(1);
 		minutosCAMPO.addItem(2);
 		minutosCAMPO.addItem(3);
 		minutosCAMPO.addItem(4);
