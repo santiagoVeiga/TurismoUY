@@ -108,6 +108,7 @@ public class ModificarUsuario extends JInternalFrame {
 		
 		nombreField = new JTextField();
 		GridBagConstraints gbc_nombreField = new GridBagConstraints();
+		gbc_nombreField.gridwidth = 3;
 		gbc_nombreField.insets = new Insets(0, 0, 5, 5);
 		gbc_nombreField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_nombreField.gridx = 5;
@@ -125,6 +126,7 @@ public class ModificarUsuario extends JInternalFrame {
 		
 		apellidoField = new JTextField();
 		GridBagConstraints gbc_apellidoField = new GridBagConstraints();
+		gbc_apellidoField.gridwidth = 3;
 		gbc_apellidoField.insets = new Insets(0, 0, 5, 5);
 		gbc_apellidoField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_apellidoField.gridx = 5;
@@ -147,6 +149,7 @@ public class ModificarUsuario extends JInternalFrame {
 			}
 		});
 		GridBagConstraints gbc_fechaField = new GridBagConstraints();
+		gbc_fechaField.gridwidth = 3;
 		gbc_fechaField.insets = new Insets(0, 0, 5, 5);
 		gbc_fechaField.fill = GridBagConstraints.BOTH;
 		gbc_fechaField.gridx = 5;
@@ -164,6 +167,7 @@ public class ModificarUsuario extends JInternalFrame {
 		
 		nacionalidadField = new JTextField();
 		GridBagConstraints gbc_nacionalidadField = new GridBagConstraints();
+		gbc_nacionalidadField.gridwidth = 3;
 		gbc_nacionalidadField.insets = new Insets(0, 0, 5, 5);
 		gbc_nacionalidadField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_nacionalidadField.gridx = 5;
@@ -181,6 +185,7 @@ public class ModificarUsuario extends JInternalFrame {
 		
 		descripcionField = new JTextField();
 		GridBagConstraints gbc_descripcionField = new GridBagConstraints();
+		gbc_descripcionField.gridwidth = 3;
 		gbc_descripcionField.insets = new Insets(0, 0, 5, 5);
 		gbc_descripcionField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_descripcionField.gridx = 5;
@@ -198,6 +203,7 @@ public class ModificarUsuario extends JInternalFrame {
 		
 		linkField = new JTextField();
 		GridBagConstraints gbc_linkField = new GridBagConstraints();
+		gbc_linkField.gridwidth = 3;
 		gbc_linkField.insets = new Insets(0, 0, 5, 5);
 		gbc_linkField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_linkField.gridx = 5;
@@ -306,7 +312,7 @@ public class ModificarUsuario extends JInternalFrame {
         	String nacionalidadU = nacionalidadField.getText();
         	if ((nombreU.isEmpty() || apellidoU.isEmpty() || nacionalidadU.isEmpty()) || (fechaN==null)) {
         		if((fechaN == null)) {
-	            	JOptionPane.showMessageDialog(this, "Fecha erronea o vacía", "Modificar Usuario",
+	            	JOptionPane.showMessageDialog(this, "Fecha erronea o vacï¿½a", "Modificar Usuario",
 	                        JOptionPane.ERROR_MESSAGE);
 	            }else {
 	            	JOptionPane.showMessageDialog(this, "No puede haber campos vacÃ­os", "Modificar Usuario",
@@ -319,7 +325,7 @@ public class ModificarUsuario extends JInternalFrame {
 			//String linkU = linkField.getText();
 			if (nombreU.isEmpty() || apellidoU.isEmpty() || descripcionU.isEmpty() || (fechaN==null)) {
 				if((fechaN == null)) {
-	            	JOptionPane.showMessageDialog(this, "Fecha erronea o vacía", "Modificar Usuario",
+	            	JOptionPane.showMessageDialog(this, "Fecha erronea o vacï¿½a", "Modificar Usuario",
 	                        JOptionPane.ERROR_MESSAGE);
 	            }else {
 	            	JOptionPane.showMessageDialog(this, "No puede haber campos vacÃ­os", "Modificar Usuario",
