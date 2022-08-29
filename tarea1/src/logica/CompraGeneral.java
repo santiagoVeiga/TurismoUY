@@ -14,18 +14,19 @@ public class CompraGeneral{
 		this.costo = costo;
 	}
 
+	/*
 	public CompraGeneral(int cant, Date f,Salida salida) {
     	this.cantidad = cant;
     	this.fecha = f;
     	this.salida = salida;
 
 
-		/*El costo de una CompraGeneral se calcula com
+		El costo de una CompraGeneral se calcula com
 		o el costo de la Actividad asociada a la instancia
 		 de Salida correspondiente por el atributo cantidad 
-		 de CompraGeneral y se le sustrae el porcentaje dado por descuento de Paquete si corresponde.*/
-
+		 de CompraGeneral y se le sustrae el porcentaje dado por descuento de Paquete si corresponde.
 	}
+	 */
 	
 	/* Getters */
     

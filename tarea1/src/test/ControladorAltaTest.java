@@ -59,250 +59,98 @@ class ControladorAltaTest {
 		try {
 			IctrAlta.cargarUsuarios();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UsuarioRepetidoException e) {
-			//  TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage()); 
+		}catch  (UsuarioRepetidoException e) {
+			fail(e.getMessage());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		}
 		try {
 			IctrAlta.cargarDptos();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (DepartamentoYaExisteExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} 
 		try {
 			IctrAlta.cargarActs();
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (DepartamentoYaExisteExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (ActividadRepetidaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		}
 		try {
 			IctrAlta.cargarSalidas();
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (SalidaYaExisteExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (FechaAltaSalidaInvalida e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (FechaAltaSalidaAnteriorActividad e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		}
 		try {
 			IctrAlta.cargarPaquetes();
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (SalidaYaExisteExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (PaqueteRepetidoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		}
 		try {
 			IctrInsc.cargarInsc();
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (TuristaConSalida e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (ExcedeTuristas e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (InscFechaInconsistente e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (ActividadNoExisteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (InscFechaDespSalida e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (TuristaNoHaNacido e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		}
 		try {
 			IctrInsc.cargarActsPaqs();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		}
 	}
 	
 	
 	
 	/*
-	@Test
-	void testExepcionUsuariosNoExisten() {
-		assertThrows(UsuarioNoExisteException.class, ()->{IctrAlta.getUsuarios();});	
-	}
 
 	@Test
 	void testExepcionDepartamentosNoExisten() {
 		assertThrows(DepartamentoNoExisteException.class, ()->{IctrAlta.obtenerDataDepartamentos();});	
-	}
-	
-	@Test
-	void testCargarDptos(){
-		try {
-			IctrAlta.cargarDptos();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (DepartamentoYaExisteExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			assertNotNull(IctrAlta.obtenerDataDepartamentos());
-		} catch (DepartamentoNoExisteException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Test
-	void testCargarPaqs() {
-		try {
-			IctrAlta.cargarPaquetes();
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SalidaYaExisteExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (PaqueteRepetidoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 
-	@Test
-	void testCargarUsuarios(){
-		try {
-			IctrAlta.cargarUsuarios();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UsuarioRepetidoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			assertNotNull(IctrAlta.getUsuarios());
-		} catch (UsuarioNoExisteException e) {
-		}
-	}
-	
-	
-	
-	@Test
-	void testCargarActs() {
-		try {
-			IctrAlta.cargarActs();
-		} catch (NumberFormatException | IOException | DepartamentoYaExisteExeption | ActividadRepetidaException
-				| ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		assertNotNull(ManejadorActividades.getColAct());
-
-	}
-
-	@Test
-	void testCargarSalidas()  {
-		try {
-			IctrAlta.cargarSalidas();
-		} catch (NumberFormatException | IOException | ParseException | SalidaYaExisteExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	@Test
-	void testCargarInscripciones(){
-		try {
-			IctrInsc.cargarInsc();
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TuristaConSalida e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExcedeTuristas e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InscFechaInconsistente e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ActividadNoExisteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	*
 	*
@@ -321,8 +169,10 @@ class ControladorAltaTest {
 			assertEquals(dusuarios.getNacimiento().getMonth(),auxi.getMonth());
 			assertEquals(dusuarios.getNacimiento().getYear(),auxi.getYear());
 		} catch (UsuarioRepetidoException e) {
+			fail(e.getMessage());
 		}
 		catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
 		}
 	}
 	
@@ -343,6 +193,11 @@ class ControladorAltaTest {
 		}
 		assertEquals(res1,true);
 		assertEquals(res2,true);
+	}
+	
+	@Test
+	void testExepcionUsuariosNoExisten() {
+		assertThrows(UsuarioNoExisteException.class, ()->{IctrAlta.verInfoUsuario("nickquenoexiste");});	
 	}
 	
 	@Test
@@ -461,16 +316,6 @@ class ControladorAltaTest {
 		assertEquals(dUsuario.getNacimiento().getMonth(),auxFecha.getMonth());
 		assertEquals(dUsuario.getNacimiento().getYear(),auxFecha.getYear());
 	}
-	
-	@Test
-	void testObtenerDataDepartamentos() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testVerInfoUsuario() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	void testGetUsuarios() {
@@ -488,73 +333,6 @@ class ControladorAltaTest {
 	}
 	
 	
-	
-	
-	
-	
-//	@Test
-//	void testExcp() {
-//		try {
-//			IctrAlta.cargarDptos();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (DepartamentoYaExisteExeption e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			IctrAlta.cargarUsuarios();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (UsuarioRepetidoException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			IctrAlta.cargarActs();
-//		} catch (NumberFormatException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (DepartamentoYaExisteExeption e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ActividadRepetidaException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		try {
-//			IctrAlta.cargarSalidas();
-//		} catch (NumberFormatException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SalidaYaExisteExeption e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-	
-	
-	
-	
-	
-	
 	@Test
 	void testExepcionRegistrarTuristaRepetido() {
 		Date auxi = new Date(2000,6,20);
@@ -568,6 +346,18 @@ class ControladorAltaTest {
 	}
 	
 	@Test
+	void testExepcionRegistrarTuristaRepetidoMail() {
+		Date auxi = new Date(2000,6,20);
+		try {
+			IctrAlta.confirmarAltaTurista("elsantive","elsantive","sfhuafhbna","santimail",auxi,"uruguaya");
+		} catch (UsuarioRepetidoException e) {
+
+		};
+		//esta es la prueba
+		assertThrows(UsuarioRepetidoException.class, ()->{IctrAlta.confirmarAltaTurista("elsantiv","elsantive","sfhuafhbna","santimail",auxi,"uruguaya");});	
+	}
+	
+	@Test
 	void testExepcionRegistrarProveedorRepetido() {
 		Date auxi = new Date(2000,6,20);
 		try {
@@ -576,6 +366,17 @@ class ControladorAltaTest {
 		};
 		//esta es la prueba
 		assertThrows(UsuarioRepetidoException.class, ()->{IctrAlta.confirmarAltaProveedor("santi","santiago","veiga","sssa@mail",auxi,"proveedor","sv.com",true);});	
+	}
+	
+	@Test
+	void testExepcionRegistrarProveedorRepetidoMail() {
+		Date auxi = new Date(2000,6,20);
+		try {
+			IctrAlta.confirmarAltaProveedor("santi","santiago","veiga","sssa@mail",auxi,"proveedor","sv.com",true);
+		} catch (UsuarioRepetidoException e) {
+		};
+		//esta es la prueba
+		assertThrows(UsuarioRepetidoException.class, ()->{IctrAlta.confirmarAltaProveedor("santiOtroNick","santiago","veiga","sssa@mail",auxi,"proveedor","sv.com",true);});	
 	}
 	
 	@Test
@@ -611,7 +412,6 @@ class ControladorAltaTest {
 			res = res || (it.getCiudad().equals("Rocha") && it.getCosto()==800 && it.getNombre().equals("Degusta"));
 		}
 		assertEquals(true,res);
-		
 	}
 	
 	@Test
@@ -625,8 +425,7 @@ class ControladorAltaTest {
 			}
 			assertEquals(true,res);
 		} catch (ActividadNoExisteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
 		}
 	}
 	

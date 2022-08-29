@@ -24,9 +24,6 @@ public class DataActividad {
 	
 	private Set<String> paquetes;
 	
-	public DataActividad() {	  
-	}
-	
 	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds,Set<String> paquetes) {
 		this.nombre = n;
 		this.descripcion = d;

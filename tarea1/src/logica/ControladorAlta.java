@@ -253,15 +253,6 @@ public class ControladorAlta implements IControladorAlta {
     			((Turista) u).setNacionalidad(nacionalidad);
     		}
     	}
-    	u = mu.obtenerUsuarioNick(mail);
-    	if(u!=null) {
-    		if(u instanceof Turista) {
-    			u.setNombre(nombre);
-    			u.setApellido(apellido);
-    			u.setNacimiento(fechaN);
-    			((Turista) u).setNacionalidad(nacionalidad);
-    		}
-    	}
     }
     
     public void actualizarDatosProveedor(String nick,String mail,String nombre,String apellido,Date fechaN,String descripcion,String link,boolean hayLink) {
@@ -277,20 +268,6 @@ public class ControladorAlta implements IControladorAlta {
         		((Proveedor) u).setHayLink(hayLink);
         	}
     	}
-    	//doble if por las dudas, para asegurar que esta en ambos "map's"
-    	u = mu.obtenerUsuarioNick(mail);
-    	if(u!=null) {
-    		if(u instanceof Proveedor) {
-        		u.setNombre(nombre);
-        		u.setApellido(apellido);
-        		u.setNacimiento(fechaN);
-        		((Proveedor) u).setDescripcion(descripcion);
-        		((Proveedor) u).setLink(link);
-        		((Proveedor) u).setHayLink(hayLink);
-        	}
-    	}
-
-    	
     }
 
 

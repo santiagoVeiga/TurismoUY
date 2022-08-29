@@ -45,10 +45,10 @@ public class DataUsuario {
     }
 
     /* Sirve para mostrar textualmente la información del usuario, por ejemplo en un ComboBox
-     */
-    public String toString() {
+         public String toString() {
         return " (" + getNombre() + " " + getApellido() + ")";
     }
+     */
 /* Esta comentado porque no se ha usado al momento para nada
     private void setNombre(String nombre) {
         this.nombre = nombre;
