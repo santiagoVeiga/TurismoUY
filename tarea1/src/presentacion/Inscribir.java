@@ -300,7 +300,7 @@ public class Inscribir extends JInternalFrame {
 	public void inscri() {
 		try {
             Integer.parseInt(textField.getText());
-            if(Integer.parseInt(textField.getText()) < 0) {
+            if(Integer.parseInt(textField.getText()) <= 0) {
             	throw new NumeroNegativoException();
             }
             fechaInsc = calendario.getDate();
@@ -314,7 +314,7 @@ public class Inscribir extends JInternalFrame {
                     JOptionPane.ERROR_MESSAGE);
         }
 		catch (NumeroNegativoException e) {
-            JOptionPane.showMessageDialog(this, "La cantidad de turistas debe ser un numero no negativo", "Inscribir",
+            JOptionPane.showMessageDialog(this, "La cantidad de turistas debe ser un numero positivo (>0)", "Inscribir",
                     JOptionPane.ERROR_MESSAGE);
         }
 		catch (TuristaConSalida e1) {

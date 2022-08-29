@@ -344,6 +344,30 @@ class ControladorAltaTest {
 	}
 	
 	@Test
+	void inscribirExcYaTieneSalida() {
+		Date auxFecha = new Date(130,8,20);
+		assertThrows(TuristaConSalida.class, ()->{IctrInsc.inscribir("lachiqui", "Degusta Agosto", 1, auxFecha, "Degusta");});
+	}
+	
+	@Test
+	void inscribirExcCantidadTuristas() {
+		Date auxFecha = new Date(130,8,20);
+		assertThrows(ExcedeTuristas.class, ()->{IctrInsc.inscribir("chino", "Degusta Agosto", 1000000, auxFecha, "Degusta");});
+	}
+	
+	@Test
+	void inscribirExcFechaAntAlta() {
+		Date auxFecha = new Date(100,8,20);
+		assertThrows(InscFechaInconsistente.class, ()->{IctrInsc.inscribir("chino", "Degusta Agosto", 1, auxFecha, "Degusta");});
+	}
+	
+	@Test
+	void inscribirExcFechaPostSalida() {
+		Date auxFecha = new Date(130,8,20);
+		assertThrows(InscFechaDespSalida.class, ()->{IctrInsc.inscribir("chino", "Degusta Agosto", 1, auxFecha, "Degusta");});
+	}
+	
+	@Test
 	void actualizarDatosProveedorOk() throws UsuarioNoExisteException {
 		Date auxFecha = new Date(2010,8,20);
 		IctrAlta.actualizarDatosProveedor("meche","meche@colonia.gub.uy","Carmen","Venn",auxFecha,"Carmen la proveedora",null,false);
@@ -368,12 +392,53 @@ class ControladorAltaTest {
 	void testConfirmarAltaDepartamento() {
 		fail("Not yet implemented");
 	}
-
+*/
+	
 	@Test
 	void testConfirmarAltaSalida() {
-		fail("Not yet implemented");
+		Date auxi = new Date(2023,6,20);
+		Date auxi2 = new Date(2023,6,21);
+		Date auxi3 = new Date(0,0,0,1,2);
+		try {
+			IctrAlta.confirmarAltaSalida("Degusta", "Salidita por Rocha", auxi2, auxi3, "algun lugar", 1, auxi);
+		} catch (SalidaYaExisteExeption | FechaAltaSalidaInvalida | FechaAltaSalidaAnteriorActividad e) {
+			fail(e.getMessage());
+		}
 	}
-*/
+	
+	@Test
+	void testConfirmarAltaSalidaYaExiste() {
+		Date auxi = new Date(2023,6,20);
+		Date auxi2 = new Date(2023,6,21);
+		Date auxi3 = new Date(0,0,0,1,2);
+		assertThrows(SalidaYaExisteExeption.class, ()->{IctrAlta.confirmarAltaSalida("Degusta", "Degusta Agosto", auxi2, auxi3, "algun lugar", 1, auxi);});
+	}
+	
+	@Test
+	void testConfirmarAltaSalidaFechaAlta() {
+		Date auxi = new Date(2023,6,20);
+		Date auxi2 = new Date(2023,6,21);
+		Date auxi3 = new Date(0,0,0,1,2);
+		assertThrows(FechaAltaSalidaInvalida.class, ()->{IctrAlta.confirmarAltaSalida("Degusta", "Salidita por Rocha con fecha mal", auxi, auxi3, "algun lugar", 1, auxi2);});
+	}
+	
+	@Test
+	void testConfirmarAltaSalidaFechaActividad() {
+		Date auxi = new Date(100,6,20);
+		Date auxi2 = new Date(100,6,21);
+		Date auxi3 = new Date(0,0,0,1,2);
+		assertThrows(FechaAltaSalidaAnteriorActividad.class, ()->{IctrAlta.confirmarAltaSalida("Degusta", "Salidita por Rocha con fecha anterior a Actividad", auxi2, auxi3, "algun lugar", 1, auxi);});
+	}
+	
+	@Test
+	void testListarPaquetes() {
+		String[] aux = IctrInsc.listarPaquetes();
+		boolean bandera = false;
+		for (int i = 0; i<aux.length;i++) {
+			bandera = bandera || (aux[i].equals("Disfrutar Rocha"));
+		}
+		assertEquals(bandera, true);
+	}
 	
 	@Test
 	void testExepcionRegistrarTuristaRepetido() {
@@ -403,18 +468,18 @@ class ControladorAltaTest {
 	void testExepcionRegistrarProveedorRepetido() {
 		Date auxi = new Date(2000,6,20);
 		try {
-			IctrAlta.confirmarAltaProveedor("santi","santiago","veiga","sssa@mail",auxi,"proveedor","sv.com",true);
+			IctrAlta.confirmarAltaProveedor("santi","santiago","veiga","sssaa@mail",auxi,"proveedor","sv.com",true);
 		} catch (UsuarioRepetidoException e) {
 		};
 		//esta es la prueba
-		assertThrows(UsuarioRepetidoException.class, ()->{IctrAlta.confirmarAltaProveedor("santi","santiago","veiga","sssa@mail",auxi,"proveedor","sv.com",true);});	
+		assertThrows(UsuarioRepetidoException.class, ()->{IctrAlta.confirmarAltaProveedor("santi","santiago","veiga","sssaaa@mail",auxi,"proveedor","sv.com",true);});	
 	}
 	
 	@Test
 	void testExepcionRegistrarProveedorRepetidoMail() {
 		Date auxi = new Date(2000,6,20);
 		try {
-			IctrAlta.confirmarAltaProveedor("santi","santiago","veiga","sssa@mail",auxi,"proveedor","sv.com",true);
+			IctrAlta.confirmarAltaProveedor("santiOtroNick1","santiago","veiga","sssa@mail",auxi,"proveedor","sv.com",true);
 		} catch (UsuarioRepetidoException e) {
 		};
 		//esta es la prueba
