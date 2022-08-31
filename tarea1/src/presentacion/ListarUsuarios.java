@@ -1,4 +1,4 @@
-package presentacion;
+ package presentacion;
 import logica.*;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
