@@ -226,6 +226,7 @@ public class ControladorAlta implements IControladorAlta {
         Actividad act = null;
 		try {
 			act = ma.getActividad(nombreActividad);
+			ma.verificarSalida(nombreSalida);
 			if(fecha.before(fechaAlta)) {
 				throw new FechaAltaSalidaInvalida();
 			}
