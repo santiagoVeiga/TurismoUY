@@ -157,8 +157,9 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().add(agrPaqInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(conPaqInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(modUsrInternalFrame);
-
-        
+        lisUsrInternalFrame.setSal(consultaSalidaInternalFrame);
+        lisUsrInternalFrame.setAct(conActInternalFrame);
+        conActInternalFrame.setSalida(consultaSalidaInternalFrame);
     }
 
     /**

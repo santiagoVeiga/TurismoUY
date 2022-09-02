@@ -45,19 +45,22 @@ public class InfoTurista extends JFrame {
 	private JButton B;
 	private JLabel L;
 	private DataTurista dt;
+	private ConsultaSalidaTuristica salida;
 	/**
 	 * Launch the application.
 	 */
 
 	/**
 	 * Create the frame.
+	 * @param sal 
 	 */
 
 	@SuppressWarnings("deprecation")
-	public InfoTurista(DataTurista DT) {
+	public InfoTurista(DataTurista DT, ConsultaSalidaTuristica sal) {
 		dt = DT;
+		salida = sal;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 600, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -230,8 +233,9 @@ public class InfoTurista extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	int i = comboBox.getSelectedIndex();
-            	InfoSalida is = new InfoSalida(usuarios2[i]);
-            	is.setVisible(true);
+            	salida.cargarDatosSalidaPorDataSalida(usuarios2[i]);
+            	salida.setVisible(true);
+            	setVisible(false);
             }
         });
 		

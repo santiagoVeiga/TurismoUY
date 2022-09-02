@@ -43,6 +43,8 @@ public class InfoProveedor extends JFrame {
 	private JComboBox<String> CU;
 	private JButton B;
 	private JLabel L;
+	private ConsultaSalidaTuristica salida;
+	private ConsultarActividad activ;
 
 	/**
 	 * Launch the application.
@@ -51,13 +53,16 @@ public class InfoProveedor extends JFrame {
 	private IControladorConsulta ICC;
 	/**
 	 * Create the frame.
+	 * @param sal 
+	 * @param act 
 	 */
-	public InfoProveedor(DataProveedor DP,IControladorConsulta icc) {
+	public InfoProveedor(DataProveedor DP,IControladorConsulta icc, ConsultaSalidaTuristica sal, ConsultarActividad act) {
 		ICC=icc;
 		dp =DP;
-		
+		salida = sal;
+		activ = act;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 700, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -259,9 +264,8 @@ public class InfoProveedor extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	int i = comboBox.getSelectedIndex();
-            	InfoActividades ia = new InfoActividades(usuarios2[i],ICC);
-            	ia.setVisible(true);
-            	ia.Cargar();
+            	activ.seleccionarActvidad(usuarios2[i]);
+            	activ.setVisible(true);
             	setVisible(false);
             }
         });

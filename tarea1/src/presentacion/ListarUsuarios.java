@@ -54,6 +54,8 @@ public class ListarUsuarios extends JInternalFrame {
     private JLabel lblUsuarios;
     private JButton btnCerrar;
     private DataUsuario[] DU2;
+    private ConsultaSalidaTuristica sal;
+    private ConsultarActividad act;
 	
 	
     public ListarUsuarios(IControladorConsulta ICC) {
@@ -95,12 +97,12 @@ public class ListarUsuarios extends JInternalFrame {
                 setVisible(false);
                 if(DU2[i] instanceof DataTurista)
                 {
-                	InfoTurista it = new InfoTurista((DataTurista) DU2[i]);
+                	InfoTurista it = new InfoTurista((DataTurista) DU2[i],sal);
                 	it.setVisible(true);
                 	it.Cargar();
                 }else if(DU2[i] instanceof DataProveedor)
                 {
-                	InfoProveedor it = new InfoProveedor((DataProveedor) DU2[i],ICC);
+                	InfoProveedor it = new InfoProveedor((DataProveedor) DU2[i],ICC,sal,act);
                 	it.setVisible(true);
                 	it.Cargar();
                 }
@@ -145,5 +147,13 @@ public class ListarUsuarios extends JInternalFrame {
         }
 
     }
+
+	public void setSal(ConsultaSalidaTuristica sal) {
+		this.sal = sal;
+	}
+
+	public void setAct(ConsultarActividad act) {
+		this.act = act;
+	}
 
 }

@@ -73,6 +73,7 @@ public class ConsultarActividad extends JInternalFrame {
     private DataSalida salElegida;
     private String[] nombresPaq;
     private ConsultaPaquete conPaquete;
+    private ConsultaSalidaTuristica salida;
     /**
      * Create the frame.
      */
@@ -216,8 +217,8 @@ public class ConsultarActividad extends JInternalFrame {
         btnInfoSalida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	DataSalida[] dtSalidas = auxiSal.toArray(new DataSalida[0]);
-            	InfoSalida is = new InfoSalida(dtSalidas[jcbSalidas.getSelectedIndex()]);
-            	is.setVisible(true);
+            	salida.cargarDatosSalidaPorDataSalida(dtSalidas[jcbSalidas.getSelectedIndex()]);
+            	salida.setVisible(true);
             }
         });
         btnInfoSalida.setBounds(241, 397, 116, 23);
@@ -500,6 +501,11 @@ public void mostrarActividad() {
 
 	public void setConPaquete(ConsultaPaquete conPaquete) {
 		this.conPaquete = conPaquete;
+	}
+
+
+	public void setSalida(ConsultaSalidaTuristica salida) {
+		this.salida = salida;
 	}
 }
 
