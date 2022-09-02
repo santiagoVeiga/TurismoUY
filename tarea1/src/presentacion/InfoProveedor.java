@@ -162,7 +162,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_3_1.gridy = 5;
 		contentPane.add(lblNewLabel_1_3_1, gbc_lblNewLabel_1_3_1);
 		
-		textField_4 = new JTextField(DP.getNacimiento().getDay() +"/"+ DP.getNacimiento().getMonth() + "/"+DP.getNacimiento().getYear());
+		textField_4 = new JTextField(DP.getNacimiento().getDate() +"/"+ (DP.getNacimiento().getMonth()+1) + "/"+ (DP.getNacimiento().getYear()+1900));
 		textField_4.setEditable(false);
 		textField_4.setColumns(10);
 		GridBagConstraints gbc_textField_4 = new GridBagConstraints();

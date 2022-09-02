@@ -129,7 +129,7 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		SeleccionarSalidaCAMPO.setBounds(218, 91, 219, 22);
 		SeleccionarSalidaCAMPO.addActionListener(new ActionListener() { //action listener para cuando se selecciona el dpto
 	    	public void actionPerformed(ActionEvent e) {
-	    		cargarDatosSalida();				
+	    		cargarDatosSalidaPorListado();				
 	    	}
 	    });
 		getContentPane().add(SeleccionarSalidaCAMPO);
@@ -305,7 +305,7 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		SeleccionarSalidaCAMPO.setModel(model);
 	}
 	
-	public void cargarDatosSalida(){
+	public void cargarDatosSalidaPorListado() {
 		String salSeleccionada = (String) SeleccionarSalidaCAMPO.getSelectedItem();
 		Object[] arraySalidas = Salidas.toArray();
 		int i=0;
@@ -318,6 +318,15 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 			}else
 				i++;
 		}
+		cargarDatosSalida();
+	}
+	
+	public void cargarDatosSalidaPorDataSalida(DataSalida aux) {
+		salidaSeleccionada = aux;
+		cargarDatosSalida();
+	}
+	
+	public void cargarDatosSalida(){
 		lugarSalidaLabel.setVisible(true);
 		cantidadMaximaLabel.setVisible(true);
 		fechaSalidaLabel.setVisible(true);

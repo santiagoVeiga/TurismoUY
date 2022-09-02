@@ -418,6 +418,11 @@ public void chequeoAlta() {
 	
 	    try {
 	        Integer.parseInt(maxCantTuristas);
+	        if (Integer.parseInt(maxCantTuristas)<0) {
+		        JOptionPane.showMessageDialog(this, "La cantidad maxima debe ser un valor no negativo", "Registrar Salida",
+		                JOptionPane.ERROR_MESSAGE);
+		        return false;
+		    }
 	    } catch (NumberFormatException e) {
 	        JOptionPane.showMessageDialog(this, "La cantidad maxima debe ser un numero", "Registrar Salida",
 	                JOptionPane.ERROR_MESSAGE);

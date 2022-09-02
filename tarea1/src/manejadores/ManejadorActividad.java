@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import excepciones.ActividadNoExisteException;
+import excepciones.SalidaYaExisteExeption;
 import logica.Actividad;
 import logica.DataActividad;
 import logica.Usuario;
@@ -57,10 +58,12 @@ public class ManejadorActividad {
     	return colAct.get(nom);
     }
     
-	/* Da problemas cuando consultas por una Actividad que no esta registrada. Quitar del DCD (ya fue entregado)
-	 * public boolean actividadEstaRegistrada(Actividad actividad) {
-		Actividad res = colAct.get(actividad.getNombre());
-		return res != null;
-	}*/
+	public void verificarSalida(String nombreSalida) throws SalidaYaExisteExeption {
+		Set<Entry<String, Actividad>> aux = colAct.entrySet();
+    	Iterator<Entry<String, Actividad>> it = aux.iterator();
+    	while(it.hasNext()){
+    		it.next().getValue().perteneceSalida(nombreSalida);
+    	}
+	}
 
 }

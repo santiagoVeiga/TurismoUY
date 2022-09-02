@@ -145,7 +145,7 @@ public class InfoActividades extends JFrame {
 		gbc_lblNewLabel_1_3.gridy = 4;
 		contentPane.add(lblNewLabel_1_3, gbc_lblNewLabel_1_3);
 		
-		textField_3 = new JTextField(DT.getFechaAlta().getDay() +"/"+ DT.getFechaAlta().getMonth() + "/"+DT.getFechaAlta().getYear());
+		textField_3 = new JTextField(DT.getFechaAlta().getDate() +"/"+ (DT.getFechaAlta().getMonth()+1) + "/"+ (DT.getFechaAlta().getYear()+1900));
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();

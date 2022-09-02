@@ -138,14 +138,18 @@ public class Actividad {
 	}
 
 	public void altaSalida(String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas,
-			Date fechaAlta2) throws SalidaYaExisteExeption {
+			Date fechaAlta2){
 		// TODO Auto-generated method stub
-		Salida aux = this.getSalida(nombreSalida);
-		if(aux != null) {
-			throw new SalidaYaExisteExeption("Ya existe una salida con el nombre: " + nombreSalida);
-		}
+		Salida aux; 
 		aux = new Salida(nombreSalida, lugar, hora, fecha, fechaAlta, maxCantTuristas);
 		colSal.put(nombreSalida,aux);
+	}
+	
+	public boolean perteneceSalida(String salN) throws SalidaYaExisteExeption {
+		if(colSal.get(salN) != null) {
+			throw new SalidaYaExisteExeption("Ya existe una salida con el nombre: " + salN);
+		}
+		return colSal.get(salN) != null;
 	}
 	
 	public boolean pertenecePaquete(String paqN) {

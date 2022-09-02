@@ -109,7 +109,7 @@ public class InfoPaquete extends JFrame {
 		gbc_lblNewLabel_1_2.gridy = 3;
 		contentPane.add(lblNewLabel_1_2, gbc_lblNewLabel_1_2);
 		
-		textField_2 = new JTextField(P.getFechaAlta().getDay() +"/"+ P.getFechaAlta().getMonth() + "/"+P.getFechaAlta().getYear());
+		textField_2 = new JTextField(P.getFechaAlta().getDate() +"/"+ (P.getFechaAlta().getMonth()+1) + "/"+ (P.getFechaAlta().getYear()+1900));
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
