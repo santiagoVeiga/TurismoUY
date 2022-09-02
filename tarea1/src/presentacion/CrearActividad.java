@@ -58,6 +58,7 @@ public class CrearActividad extends JInternalFrame {
     private JComboBox<String> proveedoresComboBox;
     private DataDepartamento[] DD;
     private DataUsuario[] DU;
+    private DataProveedor[] DataProveedorArray;
     //private DataUsuario[] DP;
 
 	public CrearActividad(IControladorAlta ica) {
@@ -255,7 +256,7 @@ public class CrearActividad extends JInternalFrame {
         Date fechaAct = calendario.getDate();
         String ciudadAct = this.ciudadTextField.getText();
         String departamentoAct = (String)departamentoComboBox.getSelectedItem();
-        String proveedorAct = (String)proveedoresComboBox.getSelectedItem();
+        String proveedorAct = DataProveedorArray[proveedoresComboBox.getSelectedIndex()].getNick();
 
         if (checkFormulario()) {
             try {
@@ -344,10 +345,11 @@ public class CrearActividad extends JInternalFrame {
     			}
     		}
     		String[] DP = new String[cant];
-    		//DP = controlAlta.getUsuarios();
+    		DataProveedorArray = new DataProveedor[cant];
     		int ctr = 0;
     		for (int i = 0; i < DU.length;i++) {
     			if (DU[i] instanceof DataProveedor) {
+    				DataProveedorArray[ctr] = (DataProveedor) DU[i];
         			DP[ctr] = DU[i].getNombre();
         			ctr++;
     			}
