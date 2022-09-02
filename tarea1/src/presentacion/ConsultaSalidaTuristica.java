@@ -56,6 +56,7 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
     private JTextField lugarSalida;
     private JTextField cantidadMaxima;
     private JTextField fechaAlta;
+    private JLabel Departamento;
     private JLabel horaLabel;
     private JLabel lugarSalidaLabel;
 	private JLabel cantidadMaximaLabel;
@@ -75,10 +76,11 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		
-		JLabel lblNewLabel = new JLabel("Seleccionar Departamento");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel.setBounds(46, 34, 162, 18);
-		getContentPane().add(lblNewLabel);
+		Departamento = new JLabel("Seleccionar Departamento");
+		Departamento.setFont(new Font("Tahoma", Font.BOLD, 12));
+		Departamento.setBounds(46, 34, 162, 18);
+		getContentPane().add(Departamento);
+		Departamento.setVisible(false);
 		
 		
 		/*	**** Departamentos *****	*/ 
@@ -86,6 +88,7 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		SeleccionarDepartamentoCAMPO = new JComboBox<String>(); 
 		SeleccionarDepartamentoCAMPO.setBounds(218, 31, 219, 21);
 		getContentPane().add(SeleccionarDepartamentoCAMPO);
+		SeleccionarDepartamentoCAMPO.setVisible(false);
 
 		SeleccionarDepartamentoCAMPO.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
@@ -241,6 +244,8 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
     		}
 	    	model = new DefaultComboBoxModel<String>(DepartamentosNombres);
 	    	SeleccionarDepartamentoCAMPO.setModel(model);
+	    	Departamento.setVisible(true);
+	    	SeleccionarDepartamentoCAMPO.setVisible(true);
 	    } catch (DepartamentoNoExisteException e) {
     	}
     }
@@ -323,6 +328,7 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 	
 	public void cargarDatosSalidaPorDataSalida(DataSalida aux) {
 		salidaSeleccionada = aux;
+    	limpiarFormulario();
 		cargarDatosSalida();
 	}
 	
@@ -356,7 +362,6 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		fechaSalidaLabel.setVisible(false);
 		fechaAltaLabel.setVisible(false);
 		horaLabel.setVisible(false);
-		
 		cantidadMaxima.setVisible(false);
 		fechaAlta.setVisible(false);
 		lugarSalida.setVisible(false);
@@ -376,6 +381,9 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 	    
 	    actividadesLabel.setVisible(false);
 	    salidasLabel.setVisible(false);
+	    
+	    Departamento.setVisible(false);
+    	SeleccionarDepartamentoCAMPO.setVisible(false);
 	    
 	    ocultarTextAndLabel();
 		

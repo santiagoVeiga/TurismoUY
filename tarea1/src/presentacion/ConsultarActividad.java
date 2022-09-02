@@ -432,6 +432,7 @@ public void cargarPaquetes() {
 }
 
 public void seleccionarActvidad(DataActividad act) {
+	limpiarFormulario();
 	actElegida = act;
 	mostrarActividad();
 }
