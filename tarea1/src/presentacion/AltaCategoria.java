@@ -46,15 +46,15 @@ public class AltaCategoria extends JInternalFrame {
        // setMaximizable(true);
 		getContentPane().setLayout(null);
 		//setTitle("Alta Categoria");
-        setBounds(10, 40, 541, 537);
+        setBounds(10, 40, 477, 356);
 
 
 		NombreCategoria = new JLabel("NombreCategoria");
-		NombreCategoria.setBounds(71, 117, 86, 16);
+		NombreCategoria.setBounds(91, 117, 86, 16);
 		getContentPane().add(NombreCategoria);
 		
 		campoCategoria = new JTextField();
-		campoCategoria.setBounds(215, 116, 96, 19);
+		campoCategoria.setBounds(225, 116, 150, 19);
 		getContentPane().add(campoCategoria);
 		campoCategoria.setColumns(10);
 		
@@ -62,9 +62,15 @@ public class AltaCategoria extends JInternalFrame {
 		botoncancelar.setVerticalAlignment(SwingConstants.BOTTOM);
 		botoncancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+	            setVisible(false);
+	            limpiarFormulario();
+				
+				
+				
 			}
 		});
-		botoncancelar.setBounds(71, 218, 85, 21);
+		botoncancelar.setBounds(92, 218, 85, 21);
 		getContentPane().add(botoncancelar);
 		
 		botonaceptar = new JButton("aceptar");
@@ -96,7 +102,7 @@ public class AltaCategoria extends JInternalFrame {
             } catch (CategoriaYaExiste e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Categoria", JOptionPane.ERROR_MESSAGE);
             }
-            //limpiarFormulario();
+            limpiarFormulario();
             setVisible(false);
         }
     }
@@ -113,5 +119,12 @@ public class AltaCategoria extends JInternalFrame {
 		 }
 		 else return true;
 	 }
+	 
+	 
+	 private void limpiarFormulario() {
+		 campoCategoria.setText("");
+	 }
 
+	 
+	 
 }

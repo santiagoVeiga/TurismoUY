@@ -293,7 +293,7 @@ public class CrearActividad extends JInternalFrame {
         Set<String> setCat = new HashSet<String>();
         setCat.add("hola") ; 
       
-
+        
         if (checkFormulario()) {
             try {
                 controlAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct,Integer.parseInt(duracionAct),Integer.parseInt(costoAct),ciudadAct ,fechaAct,proveedorAct,setCat);

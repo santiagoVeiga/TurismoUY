@@ -53,7 +53,7 @@ public class ManejadorCategoria {
     }
     
     public boolean pertenece(String cat) {
-    	return false ; 
+    	return (colCat.get(cat)!=null); 
     }
 
 
