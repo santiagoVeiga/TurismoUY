@@ -59,6 +59,8 @@ public class Principal {
     private AgregarActPaquete agrPaqInternalFrame;
     private ConsultaPaquete conPaqInternalFrame;
     private ModificarUsuario modUsrInternalFrame;
+    private AltaCategoria creCatInternalFrame;
+
 
 
 
@@ -110,13 +112,18 @@ public class Principal {
 
 
         //****** ACTIVIDAD *********/
-
+        
+     
         creActInternalFrame = new CrearActividad(ICA);
         creActInternalFrame.setVisible(false);
 
         conActInternalFrame = new ConsultarActividad(ICC);
         conActInternalFrame.setVisible(false);
-
+        //categoria
+        
+        creCatInternalFrame = new AltaCategoria();
+        creCatInternalFrame.setVisible(false);
+        
         //****** SALIDA *********/----------------------------------------------------
         creSalInternalFrame = new AltaSalida(ICA);
         creSalInternalFrame.setVisible(false);
@@ -150,6 +157,7 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().add(conActInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(creCatInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(creSalInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(consultaSalidaInternalFrame);
@@ -252,6 +260,7 @@ public class Principal {
                 creActInternalFrame.cargarDepartamentos();
                 creActInternalFrame.cargarProveedores();
             	creActInternalFrame.setVisible(true);
+                creActInternalFrame.cargarCategorias();
             }
         });
         menuActividad.add(menuItemRegistrarActividad);
@@ -264,6 +273,28 @@ public class Principal {
             }
         });
         menuActividad.add(menuItemConsultaActividad);
+       
+        
+        
+        /* ******************** */
+        /* ****  Categoria ****** */
+        /* ******************** */
+        
+        
+        JMenu menuCategoria = new JMenu("Categoria");
+        menuBar.add(menuCategoria);
+
+        JMenuItem menuItemRegistrarCategoria = new JMenuItem("Registrar Categoria");
+        menuItemRegistrarCategoria.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	creCatInternalFrame.setVisible(true);
+            }
+        });
+        menuCategoria.add(menuItemRegistrarCategoria);
+        
+        
+        
+        
         
         /* ******************** */
         /* ****  Salida ****** */

@@ -13,6 +13,7 @@ import logica.Departamento;
 import logica.IControladorAlta;
 
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.text.JTextComponent;
@@ -30,17 +31,23 @@ import java.awt.Insets;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JToggleButton;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import javax.swing.SpringLayout;
 import javax.swing.Box;
 import javax.swing.JSplitPane;
 import javax.swing.JComboBox;
+import javax.swing.ListSelectionModel;
 
 
 @SuppressWarnings("serial")
@@ -55,27 +62,24 @@ public class CrearActividad extends JInternalFrame {
 	private JTextField ciudadTextField;
     private JDateChooser calendario;
     private JComboBox<String> departamentoComboBox;
+    //private JList<String> myList ; 
     private JComboBox<String> proveedoresComboBox;
     private DataDepartamento[] DD;
     private DataUsuario[] DU;
     private DataProveedor[] DataProveedorArray;
     //private DataUsuario[] DP;
+    JList CategoriasList ;
 
 	public CrearActividad(IControladorAlta ica) {
 		
         controlAlta = ica;
-        setIconifiable(true);
-        setMaximizable(true);
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        setClosable(true);
-		setTitle("Alta Actividad");
         setBounds(10, 40, 541, 537);
         
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {30, 30, 30, 30, 30, 30, 30};
 		gridBagLayout.rowHeights = new int[] {30, 30, 30, 30, 30, 0, 30, 30, 30, 30, 30, 30};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
 		JLabel Nombre = new JLabel("Nombre: ");
@@ -146,6 +150,17 @@ public class CrearActividad extends JInternalFrame {
 		gbc_departamentoComboBox.gridy = 4;
 		getContentPane().add(departamentoComboBox, gbc_departamentoComboBox);
 		
+		//hay que posicionarlo bien 
+//		categoriasComboBox = new JComboBox<String>();
+//		GridBagConstraints gbc_categoriasComboBox = new GridBagConstraints();
+//		gbc_categoriasComboBox.insets = new Insets(0, 0, 5, 5);//posicionar
+//		gbc_categoriasComboBox.fill = GridBagConstraints.HORIZONTAL;
+//		gbc_categoriasComboBox.gridx = 2;
+//		gbc_categoriasComboBox.gridy = 4;
+//		getContentPane().add(categoriasComboBox, gbc_categoriasComboBox);
+
+
+		
 		JLabel proveedores = new JLabel("Proveedores");
 		GridBagConstraints gbc_proveedores = new GridBagConstraints();
 		gbc_proveedores.anchor = GridBagConstraints.EAST;
@@ -161,6 +176,23 @@ public class CrearActividad extends JInternalFrame {
 		gbc_proveedoresComboBox.gridx = 2;
 		gbc_proveedoresComboBox.gridy = 5;
 		getContentPane().add(proveedoresComboBox, gbc_proveedoresComboBox);
+		
+		JLabel categoriasText = new JLabel("Categorias  : ");
+		GridBagConstraints gbc_categoriasText = new GridBagConstraints();
+		gbc_categoriasText.insets = new Insets(0, 0, 5, 5);
+		gbc_categoriasText.gridx = 1;
+		gbc_categoriasText.gridy = 6;
+		getContentPane().add(categoriasText, gbc_categoriasText);
+		
+		CategoriasList = new JList();
+		GridBagConstraints gbc_CategoriasList = new GridBagConstraints();
+		gbc_CategoriasList.insets = new Insets(0, 0, 5, 5);
+		gbc_CategoriasList.fill = GridBagConstraints.BOTH;
+		gbc_CategoriasList.gridx = 2;
+		gbc_CategoriasList.gridy = 6;
+		getContentPane().add(CategoriasList, gbc_CategoriasList);
+		CategoriasList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
 		
 		JLabel fechaAlta = new JLabel("Fecha Alta: ");
 		GridBagConstraints gbc_fechaAlta = new GridBagConstraints();
@@ -257,10 +289,14 @@ public class CrearActividad extends JInternalFrame {
         String ciudadAct = this.ciudadTextField.getText();
         String departamentoAct = (String)departamentoComboBox.getSelectedItem();
         String proveedorAct = DataProveedorArray[proveedoresComboBox.getSelectedIndex()].getNick();
+	    //Object[] selectedValues = CategoriasList.getSelectedValues(); // no se puede castear?? 
+        Set<String> setCat = new HashSet<String>();
+        setCat.add("hola") ; 
+      
 
         if (checkFormulario()) {
             try {
-                controlAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct,Integer.parseInt(duracionAct),Integer.parseInt(costoAct),ciudadAct ,fechaAct,proveedorAct);
+                controlAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct,Integer.parseInt(duracionAct),Integer.parseInt(costoAct),ciudadAct ,fechaAct,proveedorAct,setCat);
                 JOptionPane.showMessageDialog(this, "La actividad ha sido registrada exitosamente.", "Registrar Actividad",
                         JOptionPane.INFORMATION_MESSAGE);
 
@@ -358,6 +394,42 @@ public class CrearActividad extends JInternalFrame {
 	    	proveedoresComboBox.setModel(model);
 	    } catch (UsuarioNoExisteException e) {
     	}
+    }
+    
+    @SuppressWarnings("unchecked")
+	public void cargarCategorias(){
+    	//try {
+    		Set<String> coso = controlAlta.obtenerDataCategorias();
+    	
+    		int cont = 0 ;
+    		String basura ; 
+    		Iterator<String> it = coso.iterator();
+    	    while(it.hasNext()){
+	    		basura = it.next() ;
+	    	    cont = cont +1 ;
+    	    }
+     		String[] NombresAlta = new String[cont];
+
+    	    int cont2 = 0 ; 
+    	    Iterator<String> it2 = coso.iterator();
+    	    while(it2.hasNext()){
+	    	    NombresAlta[cont2] = it2.next() ;
+	    	    cont2 = cont2 + 1 ; 
+    	    }
+    		
+			DefaultListModel listModel = new DefaultListModel();
+    	    for(int i=0; i<NombresAlta.length; i++) {
+    	    	    //System.out.println(NombresAlta[i]);
+    	    	 //Añadir cada elemento del ArrayList en el modelo de la lista
+    	    	listModel.addElement(NombresAlta[i]);
+    	    }
+    	   
+    	    CategoriasList.setModel(listModel);
+
+	    	//model = new DefaultComboBoxModel<String>(NombresAlta);
+	    	//categoriasComboBox.setModel(model);
+	    //} catch () {
+    	//}
     }
     
     private void limpiarFormulario() {

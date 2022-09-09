@@ -1,6 +1,10 @@
 package logica;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +15,7 @@ import com.opencsv.CSVReader;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
+import excepciones.CategoriaYaExiste;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.FechaAltaSalidaAnteriorActividad;
@@ -21,6 +26,7 @@ import excepciones.SalidaYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import manejadores.ManejadorActividad;
+import manejadores.ManejadorCategoria;
 import manejadores.ManejadorDepartamentos;
 import manejadores.ManejadorPaquete;
 import manejadores.ManejadorUsuario;
@@ -66,7 +72,8 @@ public class ControladorAlta implements IControladorAlta {
 	    	  if(cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date f = formato.parse(nextLine[7].strip());
-	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),f,nextLine[9].strip());
+	    		  Set<String> coso = new HashSet<String>(); 
+	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),f,nextLine[9].strip(), coso);
 	    	  }
 	    	  else {
 	    		  cont++;
@@ -145,10 +152,11 @@ public class ControladorAlta implements IControladorAlta {
         mu.addUsuario(u);
     }
     
-    public void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f,String proveedor) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException {
+    public void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f,String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException {
     	ManejadorActividad mAct = ManejadorActividad.getInstance();
     	ManejadorDepartamentos mDep = ManejadorDepartamentos.getInstance();
         ManejadorUsuario mu = ManejadorUsuario.getinstance();
+        ManejadorCategoria mc = ManejadorCategoria.getInstance();
         Usuario u =  mu.obtenerUsuarioNick(proveedor);
     	Actividad act = null;
 		try {
@@ -165,7 +173,13 @@ public class ControladorAlta implements IControladorAlta {
         	throw new ProveedorNoNacidoException();
         }
         Departamento insDep = mDep.getDepartamento(dep);
-        act = new Actividad(nom, desc,f,ciudad, costo, dur, insDep);
+        
+        Map<String,Categoria> categorias = new HashMap<String,Categoria>();
+        for(String stringCat : cat){
+        	Categoria categ = mc.getCategoria(stringCat);
+        	categorias.put(categ.getCategoria(), categ);
+        }
+        act = new Actividad(nom, desc,f,ciudad, costo, dur, insDep, categorias);
         if(u instanceof Proveedor) {
         	((Proveedor) u).agregarActividad(act);
         }
@@ -174,6 +188,21 @@ public class ControladorAlta implements IControladorAlta {
         // if agregado por si Departamento no esta cargado da errror VER SI QUITAR
         if(insDep != null)
         	insDep.agregarActividad(act);
+        
+      
+
+    }
+    
+    
+    public void registrarCategoria(String Categoria) throws CategoriaYaExiste{
+    	//si existe una categoria con nombre categoria tiro exepcion 
+    	ManejadorCategoria mc = ManejadorCategoria.getInstance();
+    	if(mc.pertenece(Categoria)) {
+    		throw new CategoriaYaExiste("la categoria ya esta en el sistema");
+    	} else {
+    		Categoria cat = new Categoria(Categoria) ; 
+    		mc.addCategoria(cat);
+    	}
     }
     
     public DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException{
@@ -185,6 +214,15 @@ public class ControladorAlta implements IControladorAlta {
     	return res;
     	}
     }
+    
+    public Set<String> obtenerDataCategorias(){
+    	ManejadorCategoria mc = ManejadorCategoria.getInstance();
+    	Set<String> res = mc.obtenerNombreCategorias();
+    	return res;
+    }
+    
+    
+    
     
     public DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException {
         ManejadorUsuario mu = ManejadorUsuario.getinstance();

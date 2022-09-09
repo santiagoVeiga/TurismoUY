@@ -4,8 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Set;
 
 import excepciones.ActividadRepetidaException;
+import excepciones.CategoriaYaExiste;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.FechaAltaSalidaAnteriorActividad;
@@ -35,7 +37,7 @@ public interface IControladorAlta {
     
     public abstract DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException;
     
-    public abstract void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f,String proveedor) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException;
+    public abstract void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f,String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException;
 
     /**
      * Retorna la información de un usuario con la cédula indicada.
@@ -70,5 +72,12 @@ public interface IControladorAlta {
 	public abstract void actualizarDatosProveedor(String nick,String mail,String nombre,String apellido,Date fechaN,String descripcion,String link,boolean hayLink);
 
 	public abstract void cargarPaquetes() throws FileNotFoundException, NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException;
-   
+
+	public abstract Set<String> obtenerDataCategorias();
+
+	public abstract void registrarCategoria(String text) throws CategoriaYaExiste;
+
+
+
+
 }

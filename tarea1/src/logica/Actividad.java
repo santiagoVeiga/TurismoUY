@@ -29,8 +29,10 @@ public class Actividad {
 	private int duracion;
 
 	private Departamento departamento;
+	
+	private Map<String,Categoria> categorias ; 
 
-	public Actividad(String nom, String desc, Date f, String ciudad, int costo, int dur, Departamento dep) {
+	public Actividad(String nom, String desc, Date f, String ciudad, int costo, int dur, Departamento dep, Map<String,Categoria> categorias) {
 		colSal = new HashMap<String,Salida>();
 		setNombre(nom);
 		setDescripcion(desc);
@@ -40,6 +42,7 @@ public class Actividad {
 		setDuracion(dur);
 		setDepartamento(dep);
 		this.colpaq = new HashMap<String,Paquete>();
+		setCategorias(categorias); 
 	}
 	
 	//Getters
@@ -74,6 +77,10 @@ public class Actividad {
 	
 	public Map<String,Salida> getColSal() {
 		return colSal;
+	}
+	
+	public Map<String,Categoria> getCategorias(){
+		return this.categorias ; 
 	}
 	
 	// Setters
@@ -131,6 +138,10 @@ public class Actividad {
     			res.add(it.next().getValue().getDataST());
     			}
 		return res;
+	}
+	
+	public void setCategorias(Map<String,Categoria> cat) {
+		categorias = cat ; 
 	}
 
 	public Salida getSalida(String s) {

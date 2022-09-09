@@ -39,7 +39,7 @@ public class ManejadorDepartamentos {
             return null;
         else {
             Collection<Departamento> dep = colDep.values();
-            Object[] o = dep.toArray();
+            Object[] o =  dep.toArray();
             DataDepartamento[] dataDep = new DataDepartamento[o.length];
             for (int i = 0; i < o.length; i++) {
                 dataDep[i] = ((Departamento) o[i]).obtenerDataDepartamento();
