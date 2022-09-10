@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 
 import com.toedter.calendar.JCalendar;
@@ -30,6 +32,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -54,7 +58,6 @@ import javax.swing.ListSelectionModel;
 public class CrearActividad extends JInternalFrame {
 	
     private IControladorAlta controlAlta;
-
 	private JTextField nombreTextField;
 	private JTextField descripcionTextField;
 	private JTextField costoTextField;
@@ -192,7 +195,6 @@ public class CrearActividad extends JInternalFrame {
 		gbc_CategoriasList.gridy = 6;
 		getContentPane().add(CategoriasList, gbc_CategoriasList);
 		CategoriasList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-
 		
 		JLabel fechaAlta = new JLabel("Fecha Alta: ");
 		GridBagConstraints gbc_fechaAlta = new GridBagConstraints();
@@ -289,10 +291,11 @@ public class CrearActividad extends JInternalFrame {
         String ciudadAct = this.ciudadTextField.getText();
         String departamentoAct = (String)departamentoComboBox.getSelectedItem();
         String proveedorAct = DataProveedorArray[proveedoresComboBox.getSelectedIndex()].getNick();
-	    //Object[] selectedValues = CategoriasList.getSelectedValues(); // no se puede castear?? 
-        Set<String> setCat = new HashSet<String>();
-        setCat.add("hola") ; 
-      
+        Set<String> setCat = new HashSet<String>(); 
+        Object[] elementos = CategoriasList.getSelectedValues();
+        for(int i = 0 ; i < elementos.length; i++) { 
+        	setCat.add((String) elementos[i]);
+        }
         
         if (checkFormulario()) {
             try {
@@ -399,24 +402,16 @@ public class CrearActividad extends JInternalFrame {
     @SuppressWarnings("unchecked")
 	public void cargarCategorias(){
     	//try {
-    		Set<String> coso = controlAlta.obtenerDataCategorias();
+    		Set<String> coso = controlAlta.obtenerCategorias();
     	
     		int cont = 0 ;
-    		String basura ; 
-    		Iterator<String> it = coso.iterator();
-    	    while(it.hasNext()){
-	    		basura = it.next() ;
-	    	    cont = cont +1 ;
-    	    }
-     		String[] NombresAlta = new String[cont];
-
+     		String[] NombresAlta = new String[coso.size()];
     	    int cont2 = 0 ; 
     	    Iterator<String> it2 = coso.iterator();
     	    while(it2.hasNext()){
 	    	    NombresAlta[cont2] = it2.next() ;
 	    	    cont2 = cont2 + 1 ; 
     	    }
-    		
 			DefaultListModel listModel = new DefaultListModel();
     	    for(int i=0; i<NombresAlta.length; i++) {
     	    	    //System.out.println(NombresAlta[i]);

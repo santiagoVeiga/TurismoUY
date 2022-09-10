@@ -215,7 +215,7 @@ public class ControladorAlta implements IControladorAlta {
     	}
     }
     
-    public Set<String> obtenerDataCategorias(){
+    public Set<String> obtenerCategorias(){
     	ManejadorCategoria mc = ManejadorCategoria.getInstance();
     	Set<String> res = mc.obtenerNombreCategorias();
     	return res;

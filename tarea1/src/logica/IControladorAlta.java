@@ -73,7 +73,7 @@ public interface IControladorAlta {
 
 	public abstract void cargarPaquetes() throws FileNotFoundException, NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException;
 
-	public abstract Set<String> obtenerDataCategorias();
+	public abstract Set<String> obtenerCategorias();
 
 	public abstract void registrarCategoria(String text) throws CategoriaYaExiste;
 
