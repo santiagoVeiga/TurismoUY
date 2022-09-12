@@ -431,6 +431,7 @@ ol {
 
 .header__logo {
 	padding: 15px 0;
+	max-width: 200px;
 }
 
 .header__logo a {
