@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Before;
@@ -273,8 +274,10 @@ class ControladorAltaTest {
 	void testRegistrarActividad() {
 		Date auxi = new Date(2000,6,20);
 		try {
+			Set<String> auxCat = new HashSet<String>();
+			auxCat.add("Categoria");
 			IctrAlta.confirmarAltaDepartamento("parasaindu", "d", "www.parasaindu.com.uy");
-			IctrAlta.registrarActividad("parasaindu", "Bici", "Bici",1, 200, "Ciudad de la costa" ,auxi,"eldiez");
+			IctrAlta.registrarActividad("parasaindu", "Bici", "Bici",1, 200, "Ciudad de la costa" ,auxi,"eldiez", auxCat);
 			Actividad ActividadRegistrada = ManejadorActividades.getActividad("Bici") ; 
 			assertEquals(ActividadRegistrada.getDepartamento().getNombre(),"parasaindu");
 			assertEquals(ActividadRegistrada.getNombre(),"Bici");
@@ -304,24 +307,30 @@ class ControladorAltaTest {
 	void registroActividadExcepcionProveedorNoNacido() {
 		Date auxi = new Date(2000,6,20);
 		Date auxi2 = new Date(2023,6,20);
+		Set<String> auxCat = new HashSet<String>();
+		auxCat.add("Categoria");
 		try {
 			IctrAlta.confirmarAltaProveedor("proveedorNoNacido", "proveedorNoNacido", "proveedorNoNacido", "proveedorNoNacido", auxi2, "proveedorNoNacido", "proveedorNoNacido", true);
 		} catch (UsuarioRepetidoException e) {
 			fail(e.getMessage());
 		}
-		assertThrows(ProveedorNoNacidoException.class, ()->{IctrAlta.registrarActividad("Colonia", "ProveedorNoNacidoPruebaAct", "Bici",1, 200, "Ciudad de la costa" ,auxi,"proveedorNoNacido");;});
+		assertThrows(ProveedorNoNacidoException.class, ()->{IctrAlta.registrarActividad("Colonia", "ProveedorNoNacidoPruebaAct", "Bici",1, 200, "Ciudad de la costa" ,auxi,"proveedorNoNacido",auxCat);;});
 	}
 	
 	@Test
 	void registroActividadExcepcionProveedor() {
 		Date auxi = new Date(2000,6,20);
-		assertThrows(UsuarioNoExisteException.class, ()->{IctrAlta.registrarActividad("Colonia", "Bicicleta", "Bici",1, 200, "Ciudad de la costa" ,auxi,"nickquenopuedeexister");;});
+		Set<String> auxCat = new HashSet<String>();
+		auxCat.add("Categoria");
+		assertThrows(UsuarioNoExisteException.class, ()->{IctrAlta.registrarActividad("Colonia", "Bicicleta", "Bici",1, 200, "Ciudad de la costa" ,auxi,"nickquenopuedeexister",auxCat);;});
 	}
 	
 	@Test
 	void registroActividadExcepcionYaExiste() {
 		Date auxi = new Date(2000,6,20);
-		assertThrows(ActividadRepetidaException.class, ()->{IctrAlta.registrarActividad("Rocha", "Degusta", "Bici",1, 200, "Ciudad de la costa" ,auxi,"eldiez");;});
+		Set<String> auxCat = new HashSet<String>();
+		auxCat.add("Categoria");
+		assertThrows(ActividadRepetidaException.class, ()->{IctrAlta.registrarActividad("Rocha", "Degusta", "Bici",1, 200, "Ciudad de la costa" ,auxi,"eldiez", auxCat);;});
 	}
 	
 	@Test
