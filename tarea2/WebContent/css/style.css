@@ -418,9 +418,24 @@ ol {
 	margin-right: 6px;
 }
 
+.header__top__right__csesion {
+	align-self: right;
+}
+
+.header__top__right__csesion a {
+	display: block;
+	font-size: 15px;
+		font-style: italic;
+	color: #1c1c1c;
+	align-self: right;
+	margin-right:8px;
+	margin-top:5px;
+}
+
+
 .header__top__right__Usu a {
 	display: inline-block;
-	font-size: 14px;
+	font-size: 16px;
 	color: #1c1c1c;
 	margin-left: 30px;
 }
