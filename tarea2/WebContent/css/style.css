@@ -605,6 +605,20 @@ ol {
 	background: #ffffff;
 }
 
+.hero.hero-normal .hero__perfil {
+	position: relative;
+}
+
+.hero.hero-normal .hero__perfil ul {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 46px;
+	width: 100%;
+	z-index: 9;
+	background: #ffffff;
+}
+
 
 .hero.hero-normal .hero__deps {
 	position: relative;
@@ -631,6 +645,16 @@ ol {
 	padding: 10px 10px 10px 10px;
 	cursor: pointer;
 	margin: 10px;
+	width: 220px;
+}
+
+.hero__perfil__all {
+	background: #7fad39;
+	position: relative;
+	padding: 10px 10px 10px 10px;
+	cursor: pointer;
+	margin: 10px;
+	width: 220px;
 }
 
 .hero__deps__all {
@@ -639,12 +663,19 @@ ol {
 	padding: 10px 10px 10px 10px;
 	cursor: pointer;
 	margin: 10px;
+	width: 220px;
 }
 
 .hero__categories__all i {
 	font-size: 16px;
 	color: #ffffff;
 	margin-right: 5px;
+}
+
+.hero__perfil__all i {
+	font-size: 16px;
+	color: #ffffff;
+	margin-right: 0px;
 }
 
 .hero__deps__all i {
@@ -659,6 +690,12 @@ ol {
 	color: #ffffff;
 }
 
+.hero__perfil__all span {
+	font-size: 18px;
+	font-weight: 700;
+	color: #ffffff;
+}
+
 .hero__deps__all span {
 	font-size: 18px;
 	font-weight: 700;
@@ -667,6 +704,12 @@ ol {
 
 .hero__categories__all:after {
 	content: "3";
+	font-family: "ElegantIcons";
+	font-size: 18px;
+	color: #ffffff;
+}
+
+.hero__perfil__all:after {
 	font-family: "ElegantIcons";
 	font-size: 18px;
 	color: #ffffff;
@@ -691,6 +734,23 @@ ol {
 }
 
 .hero__categories ul li a {
+	font-size: 16px;
+	color: #1c1c1c;
+	line-height: 39px;
+	display: block;
+}
+
+.hero__perfil ul {
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-bottom: 12px;
+}
+
+.hero__perfil ul li {
+	list-style: none;
+}
+
+.hero__perfil ul li a {
 	font-size: 16px;
 	color: #1c1c1c;
 	line-height: 39px;
@@ -752,6 +812,34 @@ ol {
 }
 
 .hero__search__form form .hero__search__categories span {
+	position: absolute;
+	right: 14px;
+	top: 14px;
+}
+
+.hero__search__form form .hero__search__perfil {
+	width: 30%;
+	float: left;
+	font-size: 16px;
+	color: #1c1c1c;
+	font-weight: 700;
+	padding-left: 18px;
+	padding-top: 11px;
+	position: relative;
+}
+
+.hero__search__form form .hero__search__perfil:after {
+	position: absolute;
+	right: 0;
+	top: 14px;
+	height: 20px;
+	width: 1px;
+	background: #000000;
+	opacity: 0.1;
+	content: "";
+}
+
+.hero__search__form form .hero__search__perfil span {
 	position: absolute;
 	right: 14px;
 	top: 14px;
@@ -3088,6 +3176,13 @@ ol {
 		padding-left: 20px;
 	}
 
+	.hero__perfil__all {
+		padding: 10px 25px 10px 20px;
+	}
+	.hero__perfil ul {
+		padding-left: 20px;
+	}
+	
 	.hero__deps__all {
 		padding: 10px 25px 10px 20px;
 	}
@@ -3112,6 +3207,9 @@ ol {
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 	.hero__categories {
+		margin-bottom: 30px;
+	}
+	.hero__perfil {
 		margin-bottom: 30px;
 	}
 	.hero__deps {
@@ -3338,6 +3436,9 @@ ol {
 
 @media only screen and (max-width: 767px) {
 	.hero__categories {
+		margin-bottom: 30px;
+	}
+	.hero__perfil {
 		margin-bottom: 30px;
 	}
 	.hero__deps {
