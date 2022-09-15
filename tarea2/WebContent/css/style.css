@@ -398,7 +398,16 @@ ol {
 }
 
 .header__top__right__Usu {
+	display: flex;
+	margin-top:25px;
+}
+
+.header__top__right__Usu span{
 	display: inline-block;
+	width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: pre;
 }
 
 .header__top__right__Usu img {
@@ -419,17 +428,15 @@ ol {
 }
 
 .header__top__right__csesion {
-	align-self: right;
+	display: flex;
+	align-items: right;
 }
 
 .header__top__right__csesion a {
-	display: block;
 	font-size: 15px;
-		font-style: italic;
+	font-style: italic;
 	color: #1c1c1c;
-	align-self: right;
-	margin-right:8px;
-	margin-top:5px;
+	
 }
 
 
@@ -791,7 +798,7 @@ ol {
 }
 
 .hero__search {
-	margin-top: 10px;
+	margin-top: 25px;
 	overflow: hidden;
 	margin-bottom: 30px;
 }
