@@ -287,11 +287,17 @@ $().ready(function() {
 					required: true,
 					email: true
 				},
-				topic: {
-					required: "#newsletter:checked",
-					minlength: 2
+				input_date:{
+					required:true,
+					date:true
 				},
-				agree: "required"
+				nacionalidad:{
+					required:true
+				},
+				descripcion:{
+					required:true
+				}
+				
 			},
 			messages: {
 				firstname: "Please enter your firstname",
@@ -310,7 +316,17 @@ $().ready(function() {
 					equalTo: "Please enter the same password as above"
 				},
 				email: "Please enter a valid email address",
-				agree: "Please accept our policy",
-				topic: "Please select at least 2 topics"
 			}
-		}); });
+		}); 
+		$( "button" ).click(function() {
+			$("#registro").validate();
+		    if($("#registro").valid() && this.id == "btn-tur-reg"){
+				window.location.href="./index_turista.html";
+			}
+			else if($("#registro").valid() && this.id == "btn-prov-reg"){
+				window.location.href="./index_proveedor.html";
+			}
+		});
+		});
+		
+
