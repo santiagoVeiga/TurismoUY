@@ -3166,6 +3166,27 @@ ol {
 	letter-spacing: 2px;
 }
 
+/*- Inicio de sesion -*/
+
+.container-fluid{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+.d-flex img{
+	max-width:200px;
+	display: block; margin-left: auto; margin-right: auto;
+}
+
+@media (min-width: 1025px) {
+.h-custom-2 {
+height: 100%;
+}
+}
+
+/*- fin Inicio de sesion -*/
 
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
 
