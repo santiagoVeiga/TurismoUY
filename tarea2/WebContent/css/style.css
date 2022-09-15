@@ -969,6 +969,60 @@ ol {
 	margin-bottom: 35px;
 }
 
+
+
+/*Consulta Salida*/
+
+.info_salida {
+	background: #4bb1ff;
+	position: relative;
+	padding: 10px 10px 10px 10px;
+	cursor: pointer;
+	margin: 10px;
+}
+
+.info_salida span {
+	font-size: 22px;
+	font-weight: 700;
+	color: #ffffff;
+}
+
+.cabezales_salida {
+	background: #ffffff;
+	position: relative;
+	padding: 10px 10px 10px 10px;
+	cursor: pointer;
+	margin: 10px 10px 10px 50px;
+}
+
+.cabezales_salida span {
+	font-size: 16px;
+	font-weight: 700;
+	color: #000000;
+}
+
+.datos_salida {
+	background: #ffffff;
+	position: relative;
+	padding: 10px 10px 10px 10px;
+	margin: 10px 50px 10px 10px;
+	cursor: pointer;
+	margin: 10px;
+}
+
+.datos_salida span {
+	font-size: 14px;
+	font-weight: 700;
+	color: #000000;
+}
+
+.imagen_salida {
+	background: #ffffff;
+	margin: 20px;
+	padding: 5px;
+	max-width: 500px;
+}
+
 /*---------------------
   Categories
 -----------------------*/
