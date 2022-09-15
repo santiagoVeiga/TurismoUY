@@ -109,72 +109,84 @@
 
         <div class="d-flex align-items-center">
 			
-          <form style="width: 23rem;">
+          <form id="registro" style="width: 23rem;">
 			<a href="./index.html"><img alt="" src="../img/logo.png"></a>
 			<br>
             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Registro</h3>
 
             <div class="form-outline mb-4">
-              <input type="text" id="form2Example18" class="form-control form-control-lg" />
+              <input type="text" id="form2Example18" class="form-control form-control-lg" required/>
               <label class="form-label" for="form2Example18">Nickname</label>
             </div>
             
             <div class="form-outline mb-4">
-              <input type="text" id="form2Example28" class="form-control form-control-lg" />
+              <input type="text" id="form2Example28" class="form-control form-control-lg" required/>
               <label class="form-label" for="form2Example28">Nombre</label>
             </div>
             
             <div class="form-outline mb-4">
-              <input type="text" id="form2Example28" class="form-control form-control-lg" />
+              <input type="text" id="form2Example28" class="form-control form-control-lg" required/>
               <label class="form-label" for="form2Example28">Apellido</label>
             </div>
             
             <div class="form-outline mb-4">
-              <input type="password" id="form2Example28" class="form-control form-control-lg" />
+              <input type="password" id="form2Example28" class="form-control form-control-lg" required/>
               <label class="form-label" for="form2Example28">Contraseña</label>
             </div>
 
             <div class="form-outline mb-4">
-              <input type="password" id="form2Example28" class="form-control form-control-lg" />
+              <input type="hidden" id="form2Example28" class="form-control form-control-lg" required/>
               <label class="form-label" for="form2Example28">Confirmar Contraseña</label>
             </div>
 			
 			<div class="form-outline mb-4">
-              <input type="email" id="form2Example28" class="form-control form-control-lg" />
+              <input type="email" id="form2Example28" class="form-control form-control-lg" required/>
               <label class="form-label" for="form2Example28">Email</label>
             </div>
           
 		      <div class="cont-fechaNac">
-			      <input id="input-date" type="date"/>
+			      <input id="input-date" type="date" required/>
 			  </div>
 			<div class="form-outline mb-4" style="margin-top:5px;">
               <label class="form-label" for="form2Example28">Fecha de Nacimiento</label>
             </div>
             
             <div class="form-outline mb-4">
-			    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+			    <input type="file" class="form-control-file" id="exampleFormControlFile1" required>
               <label class="form-label" for="form2Example28">Imagen (opcional)</label>
             </div>
-			<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Inicio</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Perfil</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Contacto</button>
-  </li>
-</ul>
-<div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">s</div>
-  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">q</div>
-</div>
 			
-			<div class="pt-1 mb-4" >
-              <a href="./index_proveedor.html"> <button class="btn btn-info btn-lg btn-block" style="background : #4bb1ff;" type="button">Registrarme</button> </a>
-            </div>            
+			<nav>
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Turista</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Proveedor</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <div class="form-outline mb-4">
+					              <input type="text" id="form2Example28" class="form-control form-control-lg" required/>
+					              <label class="form-label" for="form2Example28">Nacionalidad</label>
+					            </div>
+					            <div class="pt-1 mb-4" >
+					              <a href="./index_proveedor.html"> <button class="btn btn-info btn-lg btn-block" style="background : #4bb1ff;" type="button">Registrarme</button> </a>
+					            </div>   
+                            </div>
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <div class="form-outline mb-4">
+					              <input type="text" id="form2Example28" class="form-control form-control-lg" required/>
+					              <label class="form-label" for="form2Example28">Descripcion</label>
+					            </div>
+					            <div class="form-outline mb-4">
+					              <input type="url" id="form2Example28" class="form-control form-control-lg" />
+					              <label class="form-label" for="form2Example28">Link (opcional)</label>
+					            </div>
+					            <div class="pt-1 mb-4" >
+					              <a href="./index_proveedor.html"> <button class="btn btn-info btn-lg btn-block" style="background : #4bb1ff;" type="button">Registrarme</button> </a>
+					            </div>   
+                            </div>
+                            
+                        </div>         
 
 
           </form>
