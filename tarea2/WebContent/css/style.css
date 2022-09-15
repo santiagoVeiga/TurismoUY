@@ -974,7 +974,7 @@ ol {
 /*Consulta Salida*/
 
 .info_salida {
-	background: #7fad39;
+	background: #4bb1ff;
 	position: relative;
 	padding: 10px 10px 10px 10px;
 	cursor: pointer;
@@ -982,7 +982,7 @@ ol {
 }
 
 .info_salida span {
-	font-size: 18px;
+	font-size: 22px;
 	font-weight: 700;
 	color: #ffffff;
 }
@@ -992,7 +992,7 @@ ol {
 	position: relative;
 	padding: 10px 10px 10px 10px;
 	cursor: pointer;
-	margin: 10px;
+	margin: 10px 10px 10px 50px;
 }
 
 .cabezales_salida span {
@@ -1005,6 +1005,7 @@ ol {
 	background: #ffffff;
 	position: relative;
 	padding: 10px 10px 10px 10px;
+	margin: 10px 50px 10px 10px;
 	cursor: pointer;
 	margin: 10px;
 }
@@ -1015,6 +1016,12 @@ ol {
 	color: #000000;
 }
 
+.imagen_salida {
+	background: #ffffff;
+	margin: 20px;
+	padding: 5px;
+	max-width: 500px;
+}
 
 /*---------------------
   Categories
