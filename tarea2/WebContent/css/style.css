@@ -3195,6 +3195,20 @@ height: 100%;
 
 /*- fin Inicio de sesion -*/
 
+/*- Cierre sesion -*/
+
+.cont-csesion{
+	display: flex;
+	position: relative;
+	height:100%;
+}
+
+.cont-csesion p{
+	text-align:center;
+}
+
+/*- fin cierre sesion -*/
+
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
 
 @media only screen and (min-width: 1200px) {
