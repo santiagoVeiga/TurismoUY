@@ -3216,6 +3216,10 @@ height: 100%;
 	justify-content:left;
 }
 
+/*-- error registro--*/
+
+span.error{ color: red; }
+
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
 
 @media only screen and (min-width: 1200px) {

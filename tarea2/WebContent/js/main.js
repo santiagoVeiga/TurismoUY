@@ -271,46 +271,67 @@ $().ready(function() {
 				firstname: "required",
 				lastname: "required",
 				username: {
-					required: true,
-					minlength: 2
+					required: true
 				},
 				password: {
-					required: true,
-					minlength: 5
+					required: true
 				},
 				confirm_password: {
 					required: true,
-					minlength: 5,
 					equalTo: "#password"
 				},
 				email: {
 					required: true,
 					email: true
 				},
-				topic: {
-					required: "#newsletter:checked",
-					minlength: 2
+				input_date:{
+					required:true,
+					date:true
 				},
-				agree: "required"
+				nacionalidad:{
+					required:true
+				},
+				descripcion:{
+					required:true
+				}
+				
 			},
 			messages: {
-				firstname: "Please enter your firstname",
-				lastname: "Please enter your lastname",
+				firstname: "Por favor ingrese su nombre",
+				lastname: "Por favor ingrese su apellido",
 				username: {
-					required: "Please enter a username",
-					minlength: "Your username must consist of at least 2 characters"
+					required: "Por favor ingrese un nickname",
 				},
 				password: {
-					required: "Please provide a password",
-					minlength: "Your password must be at least 5 characters long"
+					required: "Por favor ingrese su contraseña"
 				},
 				confirm_password: {
-					required: "Please provide a password",
-					minlength: "Your password must be at least 5 characters long",
-					equalTo: "Please enter the same password as above"
+					required: "Por favor ingrese su contraseña",
+					equalTo: "Por favor ingrese la misma contraseña"
 				},
-				email: "Please enter a valid email address",
-				agree: "Please accept our policy",
-				topic: "Please select at least 2 topics"
+				email: "Por favor ingrese un email valido",
+				input_date:{
+					required: "Por favor ingrese una fecha",
+					date: "Ingrese una fecha valida"
+				},
+				nacionalidad:{
+					required:"Por favor ingrese su nacionalidad"
+				},
+				descripcion:{
+					required:"Por favor ingrese una descripcion"
+				}
+			},
+      		errorElement : 'span'
+		}); 
+		$( "button" ).click(function() {
+			$("#registro").validate();
+		    if($("#registro").valid() && this.id == "btn-tur-reg"){
+				window.location.href="./index_turista.html";
 			}
-		}); });
+			else if($("#registro").valid() && this.id == "btn-prov-reg"){
+				window.location.href="./index_proveedor.html";
+			}
+		});
+		});
+		
+
