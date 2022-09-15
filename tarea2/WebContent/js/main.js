@@ -38,7 +38,8 @@
         var bg = $(this).data('setbg');
         $(this).css('background-image', 'url(' + bg + ')');
     });
-
+    
+   
     //Humberger Menu
     $(".humberger__open").on('click', function () {
         $(".humberger__menu__wrapper").addClass("show__humberger__menu__wrapper");
@@ -222,6 +223,8 @@
         Select
     ----------------------------*/
     $("select").niceSelect();
+   
+   
 
     /*------------------
 		Single Product
@@ -260,3 +263,25 @@
     });
 
 })(jQuery);
+
+function init() {
+  
+    var _inputs = document.getElementsByTagName('input');
+
+    for (var i = 0; i < _inputs.length; i++) {
+
+        if(!Modernizr.inputtypes[_inputs[i].type]) {
+            _inputs[i].className = 'not-supported';
+        }
+
+        _inputs[i].parentNode.getElementsByClassName('result')[0].innerHTML = _inputs[i].value;
+
+        _inputs[i].onchange = function () {
+            //console.log(this.value);
+            var result_node = this.parentNode.getElementsByClassName('result');
+            result_node[0].innerHTML = this.value;
+        }
+    }
+}
+
+window.onload = init;
