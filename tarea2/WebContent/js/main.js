@@ -271,16 +271,13 @@ $().ready(function() {
 				firstname: "required",
 				lastname: "required",
 				username: {
-					required: true,
-					minlength: 2
+					required: true
 				},
 				password: {
-					required: true,
-					minlength: 5
+					required: true
 				},
 				confirm_password: {
 					required: true,
-					minlength: 5,
 					equalTo: "#password"
 				},
 				email: {
@@ -300,23 +297,31 @@ $().ready(function() {
 				
 			},
 			messages: {
-				firstname: "Please enter your firstname",
-				lastname: "Please enter your lastname",
+				firstname: "Por favor ingrese su nombre",
+				lastname: "Por favor ingrese su apellido",
 				username: {
-					required: "Please enter a username",
-					minlength: "Your username must consist of at least 2 characters"
+					required: "Por favor ingrese un nickname",
 				},
 				password: {
-					required: "Please provide a password",
-					minlength: "Your password must be at least 5 characters long"
+					required: "Por favor ingrese su contraseña"
 				},
 				confirm_password: {
-					required: "Please provide a password",
-					minlength: "Your password must be at least 5 characters long",
-					equalTo: "Please enter the same password as above"
+					required: "Por favor ingrese su contraseña",
+					equalTo: "Por favor ingrese la misma contraseña"
 				},
-				email: "Please enter a valid email address",
-			}
+				email: "Por favor ingrese un email valido",
+				input_date:{
+					required: "Por favor ingrese una fecha",
+					date: "Ingrese una fecha valida"
+				},
+				nacionalidad:{
+					required:"Por favor ingrese su nacionalidad"
+				},
+				descripcion:{
+					required:"Por favor ingrese una descripcion"
+				}
+			},
+      		errorElement : 'span'
 		}); 
 		$( "button" ).click(function() {
 			$("#registro").validate();
