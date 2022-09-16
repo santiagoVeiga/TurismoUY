@@ -25,11 +25,8 @@
 
 <body>
     <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
-
-    <!-- Humberger Begin -->
+   
+    <!-- Humberger -->
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
@@ -87,7 +84,8 @@
         </div>
     </div>
     <!-- Humberger End -->
-    <!-- Header Section Begin -->
+
+    <!-- Header  -->
     <header class="header">
         <div class="container">
             <div class="row">
@@ -106,17 +104,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2">
-                    <div class="header__top__right">
-                        <div class="row">
-                            <div class="header__top__right__Usu">
-                                <a href="#"><img src="../img/logo.png"> &nbsp; &nbsp; <span>Harry Estilos</span></a>
-                            </div>
-                        </div>
-                        <div class="header__top__right__csesion">
-                            <a href="#"> Cerrar Sesion</a>
+                <div class="col-lg-2 ">
+                	<div class="row float-right">
+                        <div class="header__top__right__Usu">
+                            <span><a href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI6iVebQtM32FoIZFXUPSIhJlQo2asvOouzw&usqp=CAU"> &nbsp; Pablo Bengoechea</a></span>
                         </div>
                     </div>
+                    <div class="row float-right">
+                    	<div class="header__top__right__csesion ">
+                           	<a href="./logout.html"> Cerrar Sesion</a>
+                        </div>
+                    </div>
+                        
                 </div>
             </div>
             <div class="humberger__open">
@@ -124,38 +123,35 @@
             </div>
         </div>
     </header>
-    <!-- Header Section End -->
-    <!-- Hero Section Begin -->
+    <!-- Header End -->
+
+    <!-- Contenido Begin -->
     <section class="hero">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
                     <div class="row">
-                        <div class="hero__perfil">
-                            <div class="hero__perfil__all">
-                                <span>Mi Perfil</span>
-                                <a href="#"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i></a>
-                            </div>
-                            <ul>
-                                <li><a href="#"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta
-                                        de Actividad Turistica</a></li>
-                                <li><a href="#"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta
-                                        de Salida Turistica</a></li>
-                                <li><a href="#"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp;
-                                        Consultar Paquete</a></li>
-                                <li><a href="#"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp;
-                                        Consultar Salida Turistica</a></li>
+                    	<div class="hero__perfil">
+                    		<div class="hero__perfil__all">
+                    			<span>Mi Perfil</span>
+                    			<div class="ax float-right">
+                    				<a href="#"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i></a>
+                    			</div>
+                    		</div>
+                    		<ul>
+                                <li><a href="#"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Actividad Turistica</a></li>
+                                <li><a href="#"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Salida Turistica</a></li>
+                                <li><a href="#"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
+                               
                             </ul>
-                        </div>
+                    	</div>
                         <div class="hero__deps">
                             <div class="hero__deps__all">
-                                <i class="fa fa-bars"></i>
+                                <i class="fa fa-bars"  ></i>
                                 <span>Departamentos</span>
                             </div>
                             <ul>
-                                <li><a href="#">Montevideo</a></li>
-                                <li><a href="#">Canelones</a></li>
-                                <li><a href="#">Colonia</a></li>
+                                <li><a href="#">Rocha</a></li>
                             </ul>
                         </div>
                         <div class="hero__categories">
@@ -165,14 +161,12 @@
                             </div>
                             <ul>
                                 <li><a href="#">Gastronomia</a></li>
-                                <li><a href="#">Buceo</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <!-- Actividades -->
+                <!-- Alta Actividad -->
                 <div class="col-lg-9" border-radius: 25px; padding: 20px; padding-top:30px">
-                    <!-- Seccion de Consulta de actividades -->
                     <div class="container">
                         <div class="text-center p-4">
                           <h2>Alta Actividad Turística</h2>
@@ -185,17 +179,17 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="productName">Nombre</label>
-                                        <input type="text" class="form-control" id="productName" placeholder="" value="" >
-                                        <div class="invalid-feedback">
+                                        <input type="text" class="form-control" id="actividadNombre" required=""placeholder="" value="" >
+                                        <!-- <div class="invalid-feedback">
                                         Ingresa un nombre
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                               
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="productDescription">Descripción</label>
-                                        <textarea class="form-control" id="productDescription" rows="3"></textarea>
+                                        <textarea class="form-control" id="actividadDescripcion" rows="3" required=""></textarea>
                                     </div>
                                 </div>
                                 <!-- Costo y Duracion -->
@@ -225,22 +219,25 @@
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="actividadCiudad">Ciudad</label>
-                                        <textarea class="form-control" id="actividadCiudad" rows="1"></textarea>
+                                        <textarea class="form-control" id="actividadCiudad" rows="1" required=""></textarea>
                                     </div>
                                 </div>
                                 <!-- Categorias-->
                                 <div class="row">
                                     <div class="col-md-7 mb-3">
-                                    <label for="actividadCategoria">Categorías</label>
-                                    <select class="custom-select d-block w-100" id="actividadCategoria">
-                                        <option value="">Ver categorías</option>
-                                        <option>Categoria1</option>
-                                        <option>Categoria2</option>
-                                        <option>Categoria3</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Por favor ingresa una categoría válida.
-                                    </div>
+                                        <label for="actividadCategoria">Categorías</label>
+                                        <select class="d-block w-100" id="actividadCategoria">
+                                            <option value="">Añadir Categorías</option>
+                                            <option class="catSelecc">Gastronomía</option>
+                                        </select>
+                                        <!-- <div class="invalid-feedback">
+                                            Por favor ingresa una categoría válida.
+                                        </div> -->
+                                        <div class="col" id="categoriasBox">
+                                            <div class="row">
+                                                <p class="catActual"></p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Imagenes opcionales-->
@@ -265,16 +262,22 @@
             </div>
         </div>
     </section>
-    <!-- Hero Section End -->
+    <!-- Contenido End -->
+
     <!-- Js Plugins -->
+    <script src="../js/main.js"></script>
+    <script src="../js/altaActividad.js"></script>
+    <script src="..js/bootstrap.min.js"></script>
+    <script src="..js/popper.min.js"></script>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery.nice-select.min.js"></script>
     <script src="../js/jquery-ui.min.js"></script>
     <script src="../js/jquery.slicknav.js"></script>
+    <script src="../js/jquery.validate.js"></script>
     <script src="../js/mixitup.min.js"></script>
     <script src="../js/owl.carousel.min.js"></script>
-    <script src="../js/main.js"></script>
+    
 </body>
 
 </html>
