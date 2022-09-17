@@ -176,12 +176,26 @@
                           <div class="col-md-8 order-md-1">
                             <h4 class="mb-3">Información de la Actividad</h4>
                             <form class="needs-validation" id="sell-info">
+
+                                <!-- Nombre y Departamento -->                                
                                 <div class="row">
+                                    <!-- Nombre -->
                                     <div class="col-md-6 mb-3">
                                         <label for="productName">Nombre</label>
                                         <input type="text" class="form-control" id="actividadNombre" required=""placeholder="" value="" >
                                         <!-- <div class="invalid-feedback">
                                         Ingresa un nombre
+                                        </div> -->
+                                    </div>
+                                    <!-- Departamento -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="actividadCategoria">Departamento</label>
+                                        <select class="d-block w-100" id="actividadDepartamento" required>
+                                            <option value="" disabled selected>seleccione departamento</option>
+                                            <option class="depSelecc">Rocha</option>
+                                        </select>
+                                        <!-- <div class="invalid-feedback">
+                                            Por favor ingresa una categoría válida.
                                         </div> -->
                                     </div>
                                 </div>
@@ -209,7 +223,7 @@
                                     <!-- Duracion -->
                                     <div class="col-md-3 mb-3">
                                     <label for="actividadDuracion">Duración</label>
-                                    <input type="number" class="form-control" id="actividadDuracion" placeholder="ingrese la duracion en horas" required="" value="" min="0">
+                                    <input type="number" class="form-control" id="actividadDuracion" placeholder="ingrese la duracion en horas" required="" value="" min="1">
                                     <div class="invalid-feedback">
                                         La cantidad es requerida.
                                     </div>
@@ -227,7 +241,7 @@
                                     <div class="col-md-7 mb-3">
                                         <label for="actividadCategoria">Categorías</label>
                                         <select class="d-block w-100" id="actividadCategoria">
-                                            <option value="">Añadir Categorías</option>
+                                            <option value="" disabled selected>Agregar o quitar categoría</option>
                                             <option class="catSelecc">Gastronomía</option>
                                         </select>
                                         <!-- <div class="invalid-feedback">

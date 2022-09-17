@@ -4,16 +4,18 @@ let categorias = document.getElementsByClassName('catSelecc')
 
     for(let c of categorias) {
       c.addEventListener("click", function(e){
-        //console.log(e.target.value)
         let categoriaNueva = e.target.value
         if (chequearRepetidas(categoriaNueva)){
             htmlContentToAppend = ""
             htmlContentToAppend += `
-                    <div class="row">
+                    <div id="`+(categoriaNueva)+`Id"class="row">
                         <p class="catActual">` + (categoriaNueva) + `</p>
                     </div>
                     `
             document.getElementById("categoriasBox").innerHTML += htmlContentToAppend;
+        }else{
+            const element = document.getElementById(categoriaNueva+"Id");
+            element.remove();
         }
     });
 }
