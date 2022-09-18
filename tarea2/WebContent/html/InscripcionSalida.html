@@ -102,100 +102,74 @@
     </header>
     <!-- Header Section End -->
 
-	<section class="vh-100">
-  <div class="container-fluid">
-    <div class="row" >
-      <div class="col-sm-12 text-black">
+<section class="hero">
+	<div class="row content-justify-center">
+		<div class="col-lg-12" style:"border-radius: 25px; padding: 20px; padding-top:30px">
+                    <div class="container">
+                    	<div class="row justify-content-md-center">
+                          <div class="col-lg-6">
+               				<a href="./index_turista.html"><img alt="" src="../img/logo.png"></a>
+                          </div>
+                        </div>
+                        <div class="text-center p-4">
+                          <h2>Inscripción a Salida Turística</h2>
+                          <p class="lead">Ingrese los datos de la Inscripción</p>
+                        </div>
+                        <div class="row justify-content-md-center">
+                          <div class="col-md-8 order-md-1">
+                            <form class="needs-validation" id="sell-info">
 
-        <div class="d-flex align-items-center">
-			
-          <form id="registro" style="width: 23rem;">
-			<a href="./index.html"><img alt="" src="../img/logo.png"></a>
-			<br>
-            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inscripcion a Salida Turistica</h3>
-
-            <div class="form-outline mb-4">
-              <input type="text" id="form2Example18" class="form-control form-control-lg" required/>
-              <label class="form-label" for="form2Example18">Cantidad de Turistas</label>
-            </div>
-            
-            <div class="form-outline mb-4">
-              <input type="text" id="form2Example28" class="form-control form-control-lg" required/>
-              <label class="form-label" for="form2Example28">Nombre</label>
-            </div>
-            
-            <div class="form-outline mb-4">
-              <input type="text" id="form2Example28" class="form-control form-control-lg" required/>
-              <label class="form-label" for="form2Example28">Apellido</label>
-            </div>
-            
-            <div class="form-outline mb-4">
-              <input type="password" id="form2Example28" class="form-control form-control-lg" required/>
-              <label class="form-label" for="form2Example28">Contraseña</label>
-            </div>
-
-            <div class="form-outline mb-4">
-              <input type="hidden" id="form2Example28" class="form-control form-control-lg" required/>
-              <label class="form-label" for="form2Example28">Confirmar Contraseña</label>
-            </div>
-			
-			<div class="form-outline mb-4">
-              <input type="email" id="form2Example28" class="form-control form-control-lg" required/>
-              <label class="form-label" for="form2Example28">Email</label>
-            </div>
-          
-		      <div class="cont-fechaNac">
-			      <input id="input-date" type="date" required/>
-			  </div>
-			<div class="form-outline mb-4" style="margin-top:5px;">
-              <label class="form-label" for="form2Example28">Fecha de Nacimiento</label>
-            </div>
-            
-            <div class="form-outline mb-4">
-			    <input type="file" class="form-control-file" id="exampleFormControlFile1" required>
-              <label class="form-label" for="form2Example28">Imagen (opcional)</label>
-            </div>
-			
-			<nav>
+                                <!-- Nombre y Departamento -->                                
+                                <div class="row">
+                                    <!-- Cantidad de turistas -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="cantTur">Cantidad de Turistas</label>
+                                        <input type="number" class="form-control" id="cantTur" required placeholder="Ingrese un Valor" min="1" >
+                                        <!-- <div class="invalid-feedback">
+                                        Ingresa un nombre
+                                        </div> -->
+                                    </div>
+                                </div>
+                              
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        			<nav>
                             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Turista</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Proveedor</a>
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">General</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Por Paquete</a>
                             </div>
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                 <div class="form-outline mb-4">
-					              <input type="text" id="form2Example28" class="form-control form-control-lg" required/>
-					              <label class="form-label" for="form2Example28">Nacionalidad</label>
 					            </div>
 					            <div class="pt-1 mb-4" >
-					              <a href="./index_proveedor.html"> <button class="btn btn-info btn-lg btn-block" style="background : #4bb1ff;" type="button">Registrarme</button> </a>
+					              <a > <button class="btn btn-info btn-lg btn-block" id="btn-tur-reg" style="background : #4bb1ff;" type="button">Inscribirse</button> </a>
 					            </div>   
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                <div class="form-outline mb-4">
-					              <input type="text" id="form2Example28" class="form-control form-control-lg" required/>
-					              <label class="form-label" for="form2Example28">Descripcion</label>
-					            </div>
-					            <div class="form-outline mb-4">
-					              <input type="url" id="form2Example28" class="form-control form-control-lg" />
-					              <label class="form-label" for="form2Example28">Link (opcional)</label>
-					            </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="paqDisp">Paquetes Disponibles</label>
+                                    <select id="paqDisp" required>
+                                        <option selected>Disfrutar Rocha</option>
+                                        <option> Un día en Colonia</option>
+                                    </select>
+                                    <span></span><br />
+                                </div>
 					            <div class="pt-1 mb-4" >
-					              <a href="./index_proveedor.html"> <button class="btn btn-info btn-lg btn-block" style="background : #4bb1ff;" type="button">Registrarme</button> </a>
+					              <a > <button class="btn btn-info btn-lg btn-block" id="btn-prov-reg" style="background : #4bb1ff;" type="button">Inscribirse</button> </a>
 					            </div>   
                             </div>
                             
-                        </div>         
-
-
-          </form>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
+                        </div>      
+                                    </div>
+                                </div>
+                            </form>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+	</div>	
 </section>
 
     <!-- Js Plugins -->
