@@ -38,7 +38,8 @@
         var bg = $(this).data('setbg');
         $(this).css('background-image', 'url(' + bg + ')');
     });
-
+    
+   
     //Humberger Menu
     $(".humberger__open").on('click', function () {
         $(".humberger__menu__wrapper").addClass("show__humberger__menu__wrapper");
@@ -222,6 +223,8 @@
         Select
     ----------------------------*/
     $("select").niceSelect();
+   
+   
 
     /*------------------
 		Single Product
@@ -260,3 +263,75 @@
     });
 
 })(jQuery);
+
+$().ready(function() {
+		// validate signup form on keyup and submit
+		$("#registro").validate({
+			rules: {
+				firstname: "required",
+				lastname: "required",
+				username: {
+					required: true
+				},
+				password: {
+					required: true
+				},
+				confirm_password: {
+					required: true,
+					equalTo: "#password"
+				},
+				email: {
+					required: true,
+					email: true
+				},
+				input_date:{
+					required:true,
+					date:true
+				},
+				nacionalidad:{
+					required:true
+				},
+				descripcion:{
+					required:true
+				}
+				
+			},
+			messages: {
+				firstname: "Por favor ingrese su nombre",
+				lastname: "Por favor ingrese su apellido",
+				username: {
+					required: "Por favor ingrese un nickname",
+				},
+				password: {
+					required: "Por favor ingrese su contraseña"
+				},
+				confirm_password: {
+					required: "Por favor ingrese su contraseña",
+					equalTo: "Por favor ingrese la misma contraseña"
+				},
+				email: "Por favor ingrese un email valido",
+				input_date:{
+					required: "Por favor ingrese una fecha",
+					date: "Ingrese una fecha valida"
+				},
+				nacionalidad:{
+					required:"Por favor ingrese su nacionalidad"
+				},
+				descripcion:{
+					required:"Por favor ingrese una descripcion"
+				}
+			},
+      		errorElement : 'span'
+		}); 
+		$( "button" ).click(function() {
+			$("#registro").validate();
+		    if($("#registro").valid() && this.id == "btn-tur-reg"){
+				window.location.href="./index_turista.html";
+			}
+			else if($("#registro").valid() && this.id == "btn-prov-reg"){
+				window.location.href="./index_proveedor.html";
+			}
+		});
+		});
+		
+
