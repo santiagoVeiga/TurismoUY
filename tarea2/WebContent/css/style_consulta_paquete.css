@@ -190,12 +190,12 @@ ol {
 }
 
 .ingreso_datos{
-	margin 10px 0px 10px 0px;
+	margin: 10px 0px 10px 0px;
 }
 
 /* Carousel */
 
- %animation-default {
+ animation-default {
     opacity: 1 !important;
     z-index: 3;
   }
