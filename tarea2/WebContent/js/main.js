@@ -345,6 +345,11 @@ function enviarSalida() {
 	window.location.href='./index_proveedor.html';
 }
 
+function altaSActP(){
+	alert("Seleccione una de las actividades");
+	return True;
+}
+
 function compraPaq(){
 	var cantidad  = document.getElementById("cant").value;
 	if (cantidad !== "" && parseInt(cantidad) > 0){
