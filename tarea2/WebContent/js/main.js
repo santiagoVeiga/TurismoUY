@@ -340,6 +340,16 @@ function consSalidaIndexV(){
 	return True;
 }
 
+function seleccionarAct(){
+	alert("Seleccione una actividad del listado presentado");
+	return True;
+}
+
+function seleccionarPaq(){
+	alert("Seleccione un paquete del listado presentado");
+	return True;
+}
+
 function enviarSalida() {
 	alert("Alta de salida realizada con exito")
 	window.location.href='./index_proveedor.html';
