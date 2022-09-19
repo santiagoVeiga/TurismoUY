@@ -340,3 +340,11 @@ function consSalidaIndexV(){
 	return True;
 }
 
+function compraPaq(){
+	var cantidad  = document.getElementById("cant").value;
+	if (cantidad !== "" && parseInt(cantidad) > 0){
+		alert("Compra realizada con exito");
+	}
+	return True;
+}
+
