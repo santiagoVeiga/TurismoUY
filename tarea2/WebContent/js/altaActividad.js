@@ -2,8 +2,8 @@
 
 let categorias = document.getElementsByClassName('catSelecc')
 
-    for(let c of categorias) {
-      c.addEventListener("click", function(e){
+for(let c of categorias) {
+    c.addEventListener("click", function(e){
         let categoriaNueva = e.target.value
         if (chequearRepetidas(categoriaNueva)){
             htmlContentToAppend = ""
@@ -35,4 +35,3 @@ function chequearRepetidas(categoriaNueva){
     }else return true
 
 }
-//FALTA CHEQUEAR CATEGORIAS REPETIDAS
