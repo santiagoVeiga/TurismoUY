@@ -1266,11 +1266,12 @@ ol {
 .latest-product__item__pic {
 	float: left;
 	margin-right: 26px;
+	width: 150px;
 }
 
 .latest-product__item__pic img {
-	height: 110px;
-	width: 110px;
+	width: 150px;
+	height: auto;
 }
 
 .latest-product__item__text {
