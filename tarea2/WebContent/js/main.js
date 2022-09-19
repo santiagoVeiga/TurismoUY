@@ -340,6 +340,11 @@ function consSalidaIndexV(){
 	return True;
 }
 
+function enviarSalida() {
+	alert("Alta de salida realizada con exito")
+	window.location.href='./index_proveedor.html';
+}
+
 function compraPaq(){
 	var cantidad  = document.getElementById("cant").value;
 	if (cantidad !== "" && parseInt(cantidad) > 0){
