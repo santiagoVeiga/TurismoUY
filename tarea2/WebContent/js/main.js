@@ -332,6 +332,11 @@ $().ready(function() {
 				window.location.href="./index_proveedor.html";
 			}
 		});
+		
 		});
 		
+function consSalidaIndexV(){
+	alert("Elija un departamento o categoria (izquierda de la pantalla)");
+	return True;
+}
 
