@@ -345,6 +345,11 @@ function seleccionarAct(){
 	return True;
 }
 
+function seleccionarSal(){
+	alert("Seleccione una salida perteneciente a la actividad");
+	return True;
+}
+
 function seleccionarPaq(){
 	alert("Seleccione un paquete del listado presentado");
 	return True;
