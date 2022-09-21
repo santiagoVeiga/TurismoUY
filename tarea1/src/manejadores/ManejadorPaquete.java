@@ -1,6 +1,7 @@
 package manejadores;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -65,5 +66,26 @@ public class ManejadorPaquete {
     	Paquete paq = colPaq.get(nom);
     	return paq.getDataP();
     }
+
+	public String[] getPaquetesNoComp() {
+		Set<String> inter = new HashSet<String>();
+		Set<Entry<String, Paquete>> aux = colPaq.entrySet();
+    	Iterator<Entry<String, Paquete>> it = aux.iterator();
+    	int i = 0;
+    	while(it.hasNext()){
+    		Paquete elem = it.next().getValue();
+    		if(!elem.isComprado()) {
+    			inter.add(elem.getNombre());
+    		i++;
+    		}
+    	}
+    	String[] res = new String[i];
+    	i=0;
+    	for (String it1 : inter) {
+    		res[i] = it1;
+    		i++;
+    	}
+		return res;
+	}
 
 }

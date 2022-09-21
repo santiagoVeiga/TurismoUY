@@ -26,4 +26,5 @@ public interface IControladorInsc {
 	public abstract void cargarActsPaqs() throws Exception;
 	public abstract Set<String> listarActividadesAgregadas();
 	public abstract void aceptarRechazarAct(String nomAct,estadoAct estado) throws estadoActividadIncorrecto, ActividadNoExisteException;
+	public abstract String[] listarPaquetesNoComprados();
 }

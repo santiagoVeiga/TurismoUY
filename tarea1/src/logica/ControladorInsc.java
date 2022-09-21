@@ -185,4 +185,11 @@ public class ControladorInsc implements IControladorInsc {
 		ManejadorActividad ma = ManejadorActividad.getInstance();
 		ma.getActividad(nomAct).setEstado(estado);
 	}
+	
+	@Override
+	public String[] listarPaquetesNoComprados() {
+		ManejadorPaquete mp = ManejadorPaquete.getInstance();
+		return mp.getPaquetesNoComp();
+		
+	}
 }

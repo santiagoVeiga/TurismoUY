@@ -224,7 +224,7 @@ public void cargarActividades(){
 public void cargarPaquetes(){
 	DefaultComboBoxModel<String> model;
 	try {
-		paquetes = controlInsc.listarPaquetes();
+		paquetes = controlInsc.listarPaquetesNoComprados();
 		if(paquetes.length ==0) {
 			throw new PaqueteNoExisteException("No hay paquetes en el sistema");
 		}

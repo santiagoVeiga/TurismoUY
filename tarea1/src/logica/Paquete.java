@@ -15,6 +15,7 @@ public class Paquete {
 	private Date fechaAlta;
 	private int validez;
 	private Map<String,Actividad> colAct;
+	private boolean comprado;
 
 	public Paquete(String nom,String desc,int descuento,Date fecha, int val)
 	{
@@ -24,6 +25,7 @@ public class Paquete {
 		this.fechaAlta = fecha;
 		this.validez = val;
 		this.colAct = new HashMap<String,Actividad>();
+		comprado = false;
 	}
 	
 	public DataPaquete getDataP(){
@@ -81,5 +83,13 @@ public class Paquete {
 		if(act!=null) {
 			colAct.put(act.getNombre(), act);
 		}
+	}
+
+	public boolean isComprado() {
+		return comprado;
+	}
+
+	public void setComprado(boolean comprado) {
+		this.comprado = comprado;
 	}
 }
