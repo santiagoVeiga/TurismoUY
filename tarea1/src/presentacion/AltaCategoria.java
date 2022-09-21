@@ -33,7 +33,6 @@ public class AltaCategoria extends JInternalFrame {
 	private JTextField campoCategoria;
 	private JButton botoncancelar ; 
 	private JButton botonaceptar ; 
-	private JLabel NombreCategoria ; 
     private IControladorAlta controlAlta;
 
 
@@ -47,11 +46,6 @@ public class AltaCategoria extends JInternalFrame {
 		getContentPane().setLayout(null);
 		//setTitle("Alta Categoria");
         setBounds(10, 40, 477, 356);
-
-
-		NombreCategoria = new JLabel("NombreCategoria");
-		NombreCategoria.setBounds(91, 117, 86, 16);
-		getContentPane().add(NombreCategoria);
 		
 		campoCategoria = new JTextField();
 		campoCategoria.setBounds(225, 116, 150, 19);
@@ -70,12 +64,16 @@ public class AltaCategoria extends JInternalFrame {
 				
 			}
 		});
-		botoncancelar.setBounds(92, 218, 85, 21);
+		botoncancelar.setBounds(78, 218, 101, 21);
 		getContentPane().add(botoncancelar);
 		
 		botonaceptar = new JButton("aceptar");
-		botonaceptar.setBounds(290, 218, 85, 21);
+		botonaceptar.setBounds(262, 216, 113, 21);
 		getContentPane().add(botonaceptar);
+		
+		JLabel lblNombr = new JLabel("Nombre de Categoria");
+		lblNombr.setBounds(34, 118, 173, 15);
+		getContentPane().add(lblNombr);
 		botonaceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
             	cmdRegistroCategoriaActionPerformed(arg0);
@@ -124,7 +122,4 @@ public class AltaCategoria extends JInternalFrame {
 	 private void limpiarFormulario() {
 		 campoCategoria.setText("");
 	 }
-
-	 
-	 
 }
