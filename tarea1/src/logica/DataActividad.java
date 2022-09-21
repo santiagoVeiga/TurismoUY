@@ -24,7 +24,9 @@ public class DataActividad {
 	
 	private Set<String> paquetes;
 	
-	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds,Set<String> paquetes) {
+	private estadoAct estado;
+	
+	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds,Set<String> paquetes, estadoAct estado2) {
 		this.nombre = n;
 		this.descripcion = d;
 		this.fechaAlta = f;
@@ -33,6 +35,7 @@ public class DataActividad {
 		this.duracion = dur;
 		DS = ds;
 		this.paquetes = paquetes;
+		estado = estado2;
 	}
 	
 //Getters y Setters
@@ -80,5 +83,13 @@ public class DataActividad {
 			return DS.size()>0;
 		else
 			return false;
+	}
+
+	public estadoAct getEstado() {
+		return estado;
+	}
+
+	public void setEstado(estadoAct estado) {
+		this.estado = estado;
 	}
 }

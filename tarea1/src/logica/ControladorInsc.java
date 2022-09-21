@@ -18,6 +18,7 @@ import excepciones.InscFechaInconsistente;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
+import excepciones.estadoActividadIncorrecto;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorDepartamentos;
 import manejadores.ManejadorPaquete;
@@ -162,5 +163,26 @@ public class ControladorInsc implements IControladorInsc {
 	public DataUsuario[] listarUsuarios() {
 		ManejadorUsuario mu = ManejadorUsuario.getinstance();
 		return  mu.getUsuarios();
+	}
+
+	@Override
+	public Set<String> listarActividadesAgregadas() {
+		Set<String> res = new HashSet<String>();
+		ManejadorActividad ma = ManejadorActividad.getInstance();
+		for (DataActividad it : ma.getDAct()) {
+			if (it.getEstado().name() == estadoAct.agregada.name() ) {
+				res.add(it.getNombre());
+			}
+		}
+		return res;
+	}
+
+	@Override
+	public void aceptarRechazarAct(String nomAct, estadoAct estado) throws estadoActividadIncorrecto, ActividadNoExisteException {
+		if (estado.name() != estadoAct.confirmada.name() && estado.name() != estadoAct.rechazada.name()) {
+			throw new estadoActividadIncorrecto();
+		}
+		ManejadorActividad ma = ManejadorActividad.getInstance();
+		ma.getActividad(nomAct).setEstado(estado);
 	}
 }

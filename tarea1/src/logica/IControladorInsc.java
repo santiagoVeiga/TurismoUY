@@ -11,6 +11,7 @@ import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
+import excepciones.estadoActividadIncorrecto;
 
 public interface IControladorInsc {
 	public abstract Set<DataDepartamento> listarDepartamentos();
@@ -23,4 +24,6 @@ public interface IControladorInsc {
 	public abstract DataUsuario[] listarUsuarios();
 	public abstract void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido;
 	public abstract void cargarActsPaqs() throws Exception;
+	public abstract Set<String> listarActividadesAgregadas();
+	public abstract void aceptarRechazarAct(String nomAct,estadoAct estado) throws estadoActividadIncorrecto, ActividadNoExisteException;
 }

@@ -31,6 +31,8 @@ public class Actividad {
 	private Departamento departamento;
 	
 	private Map<String,Categoria> categorias ; 
+	
+	private estadoAct estado;
 
 	public Actividad(String nom, String desc, Date f, String ciudad, int costo, int dur, Departamento dep, Map<String,Categoria> categorias) {
 		colSal = new HashMap<String,Salida>();
@@ -122,7 +124,7 @@ public class Actividad {
 	//Operaciones
 	
 	public DataActividad getDataAT() {
-		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion,this.getSalidas(),this.getPaquetes());
+		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion,this.getSalidas(),this.getPaquetes(),this.estado);
 	}
 	
 	public Set<String> getPaquetes(){	
@@ -165,6 +167,14 @@ public class Actividad {
 	
 	public boolean pertenecePaquete(String paqN) {
 		return colpaq.get(paqN) != null;
+	}
+
+	public estadoAct getEstado() {
+		return estado;
+	}
+
+	public void setEstado(estadoAct estado) {
+		this.estado = estado;
 	}
 	
 }
