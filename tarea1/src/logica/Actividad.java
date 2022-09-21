@@ -45,6 +45,7 @@ public class Actividad {
 		setDepartamento(dep);
 		this.colpaq = new HashMap<String,Paquete>();
 		setCategorias(categorias); 
+		estado = estadoAct.agregada;
 	}
 	
 	//Getters

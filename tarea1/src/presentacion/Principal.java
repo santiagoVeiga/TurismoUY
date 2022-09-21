@@ -60,6 +60,7 @@ public class Principal {
     private ConsultaPaquete conPaqInternalFrame;
     private ModificarUsuario modUsrInternalFrame;
     private AltaCategoria creCatInternalFrame;
+	private AceptarRechazar acepRecInternalFrame;
 
 
 
@@ -119,6 +120,10 @@ public class Principal {
 
         conActInternalFrame = new ConsultarActividad(ICC);
         conActInternalFrame.setVisible(false);
+        
+        acepRecInternalFrame = new AceptarRechazar(ICI);
+        acepRecInternalFrame.setVisible(false);
+        
         //categoria
         
         creCatInternalFrame = new AltaCategoria();
@@ -165,6 +170,7 @@ public class Principal {
         frmGestionDeUsuarios.getContentPane().add(agrPaqInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(conPaqInternalFrame);
         frmGestionDeUsuarios.getContentPane().add(modUsrInternalFrame);
+        frmGestionDeUsuarios.getContentPane().add(acepRecInternalFrame);
         lisUsrInternalFrame.setSal(consultaSalidaInternalFrame);
         lisUsrInternalFrame.setAct(conActInternalFrame);
         conActInternalFrame.setSalida(consultaSalidaInternalFrame);
@@ -273,6 +279,15 @@ public class Principal {
             }
         });
         menuActividad.add(menuItemConsultaActividad);
+        
+        JMenuItem mntmAceptarRechazar = new JMenuItem("AceptarRechazar");
+        mntmAceptarRechazar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		acepRecInternalFrame.actCategorias();
+        		acepRecInternalFrame.setVisible(true);
+        	}
+        });
+        menuActividad.add(mntmAceptarRechazar);
        
         
         
