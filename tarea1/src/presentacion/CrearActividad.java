@@ -4,6 +4,7 @@ import javax.swing.JInternalFrame;
 
 import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
+import excepciones.NoExisteCategoriaException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.UsuarioNoExisteException;
 import logica.DataDepartamento;
@@ -71,7 +72,10 @@ public class CrearActividad extends JInternalFrame {
     private DataUsuario[] DU;
     private DataProveedor[] DataProveedorArray;
     //private DataUsuario[] DP;
-    JList CategoriasList ;
+    private JComboBox<String> categoriasComboBox;
+    private JList<String> CategoriasList;
+    private DefaultListModel<String> modelo;
+    
 
 	public CrearActividad(IControladorAlta ica) {
 		
@@ -90,7 +94,7 @@ public class CrearActividad extends JInternalFrame {
 		gbc_Nombre.anchor = GridBagConstraints.EAST;
 		gbc_Nombre.insets = new Insets(0, 0, 5, 5);
 		gbc_Nombre.gridx = 1;
-		gbc_Nombre.gridy = 1;
+		gbc_Nombre.gridy = 0;
 		getContentPane().add(Nombre, gbc_Nombre);
 		
 		nombreTextField = new JTextField();
@@ -98,7 +102,7 @@ public class CrearActividad extends JInternalFrame {
 		gbc_nombreTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_nombreTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_nombreTextField.gridx = 2;
-		gbc_nombreTextField.gridy = 1;
+		gbc_nombreTextField.gridy = 0;
 		getContentPane().add(nombreTextField, gbc_nombreTextField);
 		nombreTextField.setColumns(10);
 		
@@ -108,7 +112,7 @@ public class CrearActividad extends JInternalFrame {
 		gbc_descripcion.anchor = GridBagConstraints.EAST;
 		gbc_descripcion.insets = new Insets(0, 0, 5, 5);
 		gbc_descripcion.gridx = 1;
-		gbc_descripcion.gridy = 2;
+		gbc_descripcion.gridy = 1;
 		getContentPane().add(descripcion, gbc_descripcion);
 		
 		descripcionTextField = new JTextField();
@@ -116,7 +120,7 @@ public class CrearActividad extends JInternalFrame {
 		gbc_descripcionTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_descripcionTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_descripcionTextField.gridx = 2;
-		gbc_descripcionTextField.gridy = 2;
+		gbc_descripcionTextField.gridy = 1;
 		getContentPane().add(descripcionTextField, gbc_descripcionTextField);
 		descripcionTextField.setColumns(10);
 		
@@ -125,7 +129,7 @@ public class CrearActividad extends JInternalFrame {
 		gbc_ciudad.anchor = GridBagConstraints.EAST;
 		gbc_ciudad.insets = new Insets(0, 0, 5, 5);
 		gbc_ciudad.gridx = 1;
-		gbc_ciudad.gridy = 3;
+		gbc_ciudad.gridy = 2;
 		getContentPane().add(ciudad, gbc_ciudad);
 		
 		ciudadTextField = new JTextField();
@@ -133,7 +137,7 @@ public class CrearActividad extends JInternalFrame {
 		gbc_ciudadTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_ciudadTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_ciudadTextField.gridx = 2;
-		gbc_ciudadTextField.gridy = 3;
+		gbc_ciudadTextField.gridy = 2;
 		getContentPane().add(ciudadTextField, gbc_ciudadTextField);
 		ciudadTextField.setColumns(10);
 		
@@ -142,7 +146,7 @@ public class CrearActividad extends JInternalFrame {
 		gbc_departamento.anchor = GridBagConstraints.EAST;
 		gbc_departamento.insets = new Insets(0, 0, 5, 5);
 		gbc_departamento.gridx = 1;
-		gbc_departamento.gridy = 4;
+		gbc_departamento.gridy = 3;
 		getContentPane().add(departamento, gbc_departamento);
 		
 		departamentoComboBox = new JComboBox<String>();
@@ -150,44 +154,54 @@ public class CrearActividad extends JInternalFrame {
 		gbc_departamentoComboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_departamentoComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_departamentoComboBox.gridx = 2;
-		gbc_departamentoComboBox.gridy = 4;
+		gbc_departamentoComboBox.gridy = 3;
 		getContentPane().add(departamentoComboBox, gbc_departamentoComboBox);
-		
-		//hay que posicionarlo bien 
-//		categoriasComboBox = new JComboBox<String>();
-//		GridBagConstraints gbc_categoriasComboBox = new GridBagConstraints();
-//		gbc_categoriasComboBox.insets = new Insets(0, 0, 5, 5);//posicionar
-//		gbc_categoriasComboBox.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_categoriasComboBox.gridx = 2;
-//		gbc_categoriasComboBox.gridy = 4;
-//		getContentPane().add(categoriasComboBox, gbc_categoriasComboBox);
-
-
 		
 		JLabel proveedores = new JLabel("Proveedores");
 		GridBagConstraints gbc_proveedores = new GridBagConstraints();
 		gbc_proveedores.anchor = GridBagConstraints.EAST;
 		gbc_proveedores.insets = new Insets(0, 0, 5, 5);
 		gbc_proveedores.gridx = 1;
-		gbc_proveedores.gridy = 5;
+		gbc_proveedores.gridy = 4;
 		getContentPane().add(proveedores, gbc_proveedores);
 		
-		proveedoresComboBox = new JComboBox();
+		proveedoresComboBox = new JComboBox<String>();
 		GridBagConstraints gbc_proveedoresComboBox = new GridBagConstraints();
 		gbc_proveedoresComboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_proveedoresComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_proveedoresComboBox.gridx = 2;
-		gbc_proveedoresComboBox.gridy = 5;
+		gbc_proveedoresComboBox.gridy = 4;
 		getContentPane().add(proveedoresComboBox, gbc_proveedoresComboBox);
 		
-		JLabel categoriasText = new JLabel("Categorias  : ");
+		JLabel lblCategorias = new JLabel("Categorias");
+		GridBagConstraints gbc_lblCategorias = new GridBagConstraints();
+		gbc_lblCategorias.anchor = GridBagConstraints.EAST;
+		gbc_lblCategorias.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCategorias.gridx = 1;
+		gbc_lblCategorias.gridy = 5;
+		getContentPane().add(lblCategorias, gbc_lblCategorias);
+		
+		categoriasComboBox = new JComboBox<String>();
+		GridBagConstraints gbc_categoriasComboBox = new GridBagConstraints();
+		gbc_categoriasComboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_categoriasComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_categoriasComboBox.gridx = 2;
+		gbc_categoriasComboBox.gridy = 5;
+		getContentPane().add(categoriasComboBox, gbc_categoriasComboBox);
+		categoriasComboBox.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e) {
+        		modelo.addElement((String) categoriasComboBox.getSelectedItem());
+        	}
+        });
+		
+		JLabel categoriasText = new JLabel("Categorias Elegidas:  ");
 		GridBagConstraints gbc_categoriasText = new GridBagConstraints();
 		gbc_categoriasText.insets = new Insets(0, 0, 5, 5);
 		gbc_categoriasText.gridx = 1;
 		gbc_categoriasText.gridy = 6;
 		getContentPane().add(categoriasText, gbc_categoriasText);
 		
-		CategoriasList = new JList();
+		CategoriasList = new JList<String>();
 		GridBagConstraints gbc_CategoriasList = new GridBagConstraints();
 		gbc_CategoriasList.insets = new Insets(0, 0, 5, 5);
 		gbc_CategoriasList.fill = GridBagConstraints.BOTH;
@@ -195,6 +209,10 @@ public class CrearActividad extends JInternalFrame {
 		gbc_CategoriasList.gridy = 6;
 		getContentPane().add(CategoriasList, gbc_CategoriasList);
 		CategoriasList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		modelo = new DefaultListModel<>();
+		CategoriasList.setModel(modelo);
+		//CategoriasList.addContainerListener(new A);
+		
 		
 		JLabel fechaAlta = new JLabel("Fecha Alta: ");
 		GridBagConstraints gbc_fechaAlta = new GridBagConstraints();
@@ -366,6 +384,8 @@ public class CrearActividad extends JInternalFrame {
 	    	model = new DefaultComboBoxModel<String>(DepartamentosNombres);
 	    	departamentoComboBox.setModel(model);
 	    } catch (DepartamentoNoExisteException e) {
+	    	JOptionPane.showMessageDialog(this, e.getMessage(), "No hay Departamentos", JOptionPane.ERROR_MESSAGE);
+	    	this.setVisible(false);
     	}
     }
     
@@ -396,35 +416,22 @@ public class CrearActividad extends JInternalFrame {
 	    	model = new DefaultComboBoxModel<String>(DP);
 	    	proveedoresComboBox.setModel(model);
 	    } catch (UsuarioNoExisteException e) {
+	    	JOptionPane.showMessageDialog(this, e.getMessage(), "No hay Proveedores", JOptionPane.ERROR_MESSAGE);
+	    	this.setVisible(false);
     	}
     }
     
-    @SuppressWarnings("unchecked")
 	public void cargarCategorias(){
-    	//try {
-    		Set<String> coso = controlAlta.obtenerCategorias();
-    	
-    		int cont = 0 ;
-     		String[] NombresAlta = new String[coso.size()];
-    	    int cont2 = 0 ; 
-    	    Iterator<String> it2 = coso.iterator();
-    	    while(it2.hasNext()){
-	    	    NombresAlta[cont2] = it2.next() ;
-	    	    cont2 = cont2 + 1 ; 
-    	    }
-			DefaultListModel listModel = new DefaultListModel();
-    	    for(int i=0; i<NombresAlta.length; i++) {
-    	    	    //System.out.println(NombresAlta[i]);
-    	    	 //Añadir cada elemento del ArrayList en el modelo de la lista
-    	    	listModel.addElement(NombresAlta[i]);
-    	    }
-    	   
-    	    CategoriasList.setModel(listModel);
-
-	    	//model = new DefaultComboBoxModel<String>(NombresAlta);
-	    	//categoriasComboBox.setModel(model);
-	    //} catch () {
-    	//}
+    	DefaultComboBoxModel<String> model;
+    	try {
+    		Set<String> nombresCategorias = controlAlta.obtenerNombreCategorias();
+     		String[] NombresAlta = nombresCategorias.toArray(new String[0]);
+	    	model = new DefaultComboBoxModel<String>(NombresAlta);
+	    	categoriasComboBox.setModel(model);
+	    } catch (NoExisteCategoriaException e) {
+	    	JOptionPane.showMessageDialog(this, e.getMessage(), "No hay Categorias", JOptionPane.ERROR_MESSAGE);
+	    	this.setVisible(false);
+    	}
     }
     
     private void limpiarFormulario() {

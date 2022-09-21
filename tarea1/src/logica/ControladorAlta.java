@@ -20,6 +20,7 @@ import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
+import excepciones.NoExisteCategoriaException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
@@ -198,7 +199,7 @@ public class ControladorAlta implements IControladorAlta {
     	//si existe una categoria con nombre categoria tiro exepcion 
     	ManejadorCategoria mc = ManejadorCategoria.getInstance();
     	if(mc.pertenece(Categoria)) {
-    		throw new CategoriaYaExiste("la categoria ya esta en el sistema");
+    		throw new CategoriaYaExiste("Ya existe una categoria registrada con nombre:" + Categoria);
     	} else {
     		Categoria cat = new Categoria(Categoria) ; 
     		mc.addCategoria(cat);
@@ -215,9 +216,12 @@ public class ControladorAlta implements IControladorAlta {
     	}
     }
     
-    public Set<String> obtenerCategorias(){
+    public Set<String> obtenerNombreCategorias() throws NoExisteCategoriaException{
     	ManejadorCategoria mc = ManejadorCategoria.getInstance();
     	Set<String> res = mc.obtenerNombreCategorias();
+    	if (res.size() == 0){
+    		throw new NoExisteCategoriaException("No existen categorias registradas en el sistema");
+    	}
     	return res;
     }
     

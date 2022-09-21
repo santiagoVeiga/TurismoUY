@@ -12,6 +12,7 @@ import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
+import excepciones.NoExisteCategoriaException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
@@ -38,20 +39,7 @@ public interface IControladorAlta {
     public abstract DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException;
     
     public abstract void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f,String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException;
-
-    /**
-     * Retorna la información de un usuario con la cédula indicada.
-     * @param ci Cédula del usuario.
-     * @return Información del usuario.
-     * @throws UsuarioNoExisteException Si la cédula del usuario no está registrada en el sistema.
-     */
     public abstract DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException;
-
-    /**
-     * Retorna la información de todos los usuarios registrados en el sistema.
-     * @return Información de los usuarios del sistema.
-     * @throws UsuarioNoExisteException Si no existen usuarios registrados en el sistema.
-     */
     public abstract DataUsuario[] getUsuarios() throws UsuarioNoExisteException;
 
 	public abstract void cargarDptos() throws IOException, DepartamentoYaExisteExeption;
@@ -73,7 +61,7 @@ public interface IControladorAlta {
 
 	public abstract void cargarPaquetes() throws FileNotFoundException, NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException;
 
-	public abstract Set<String> obtenerCategorias();
+	public abstract Set<String> obtenerNombreCategorias() throws NoExisteCategoriaException;
 
 	public abstract void registrarCategoria(String text) throws CategoriaYaExiste;
 
