@@ -8,6 +8,7 @@ import logica.IControladorInsc;
 import logica.estadoAct;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
@@ -93,6 +94,8 @@ public class AceptarRechazar extends JInternalFrame {
 		String nomAct = selectedItem.toString();
 		try {
 			ici.aceptarRechazarAct(nomAct, estado);
+			JOptionPane.showMessageDialog(this, "Operacion exitosa", "Aceptar / Rechazar Actividad",
+                    JOptionPane.INFORMATION_MESSAGE);
 		} catch (estadoActividadIncorrecto e) {
 			
 		} catch (ActividadNoExisteException e) {
