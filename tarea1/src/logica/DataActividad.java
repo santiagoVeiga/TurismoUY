@@ -24,6 +24,8 @@ public class DataActividad {
 	
 	private Set<String> paquetes;
 	
+	private Set<String> categorias;
+	
 	private estadoAct estado;
 	
 	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds,Set<String> paquetes, estadoAct estado2) {
@@ -35,6 +37,19 @@ public class DataActividad {
 		this.duracion = dur;
 		DS = ds;
 		this.paquetes = paquetes;
+		estado = estado2;
+	}
+	
+	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds,Set<String> paquetes, estadoAct estado2, Set<String> categorias) {
+		this.nombre = n;
+		this.descripcion = d;
+		this.fechaAlta = f;
+		this.ciudad = c;
+		this.costo = cos;
+		this.duracion = dur;
+		DS = ds;
+		this.paquetes = paquetes;
+		this.setCategorias(categorias);
 		estado = estado2;
 	}
 	
@@ -87,6 +102,14 @@ public class DataActividad {
 
 	public estadoAct getEstado() {
 		return estado;
+	}
+
+	public Set<String> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(Set<String> categorias) {
+		this.categorias = categorias;
 	}
 
 	public void setEstado(estadoAct estado) {

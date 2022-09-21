@@ -190,6 +190,7 @@ public class CrearActividad extends JInternalFrame {
 		getContentPane().add(categoriasComboBox, gbc_categoriasComboBox);
 		categoriasComboBox.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+        		if(modelo.indexOf((String) categoriasComboBox.getSelectedItem()) == -1)
         		modelo.addElement((String) categoriasComboBox.getSelectedItem());
         	}
         });
@@ -211,7 +212,12 @@ public class CrearActividad extends JInternalFrame {
 		CategoriasList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		modelo = new DefaultListModel<>();
 		CategoriasList.setModel(modelo);
-		//CategoriasList.addContainerListener(new A);
+		CategoriasList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if(!CategoriasList.isSelectionEmpty())
+					modelo.remove(CategoriasList.getSelectedIndex());
+			}
+		});
 		
 		
 		JLabel fechaAlta = new JLabel("Fecha Alta: ");
@@ -310,7 +316,7 @@ public class CrearActividad extends JInternalFrame {
         String departamentoAct = (String)departamentoComboBox.getSelectedItem();
         String proveedorAct = DataProveedorArray[proveedoresComboBox.getSelectedIndex()].getNick();
         Set<String> setCat = new HashSet<String>(); 
-        Object[] elementos = CategoriasList.getSelectedValues();
+        Object[] elementos = modelo.toArray();
         for(int i = 0 ; i < elementos.length; i++) { 
         	setCat.add((String) elementos[i]);
         }
@@ -345,7 +351,7 @@ public class CrearActividad extends JInternalFrame {
         String departamentoAct = (String)departamentoComboBox.getSelectedItem();
         String proveedorAct = (String)proveedoresComboBox.getSelectedItem();
 
-        if (nombreAct.isEmpty() || descripcionAct.isEmpty() || costoAct.isEmpty() || duracionAct.isEmpty() || ciudadAct.isEmpty() || (departamentoAct == null) || (proveedorAct == null) || (nacimientoU == null)) {
+        if (nombreAct.isEmpty() || descripcionAct.isEmpty() || costoAct.isEmpty() || duracionAct.isEmpty() || ciudadAct.isEmpty() || (departamentoAct == null) || (proveedorAct == null) || (nacimientoU == null) || (modelo.isEmpty())) {
             if((nacimientoU == null)) {
             	JOptionPane.showMessageDialog(this, "Fecha erronea o vac�a", "Registrar Actividad",
                         JOptionPane.ERROR_MESSAGE);
@@ -441,6 +447,8 @@ public class CrearActividad extends JInternalFrame {
         duracionTextField.setText("");
         ciudadTextField.setText("");
         departamentoComboBox.setSelectedItem(null);
+        categoriasComboBox.removeAllItems();
+        modelo.removeAllElements();
         //fechaTextField.setText(""); // Ver como hacer con Fecha JCalendar
         //departamentoTextField.setText("");
     }

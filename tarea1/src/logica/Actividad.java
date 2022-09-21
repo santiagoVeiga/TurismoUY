@@ -125,11 +125,15 @@ public class Actividad {
 	//Operaciones
 	
 	public DataActividad getDataAT() {
-		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion,this.getSalidas(),this.getPaquetes(),this.estado);
+		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion,this.getSalidas(),this.getPaquetes(),this.estado, this.getNombreCategorias());
 	}
 	
 	public Set<String> getPaquetes(){	
 		return colpaq.keySet();
+	}
+	
+	public Set<String> getNombreCategorias(){
+		return categorias.keySet();
 	}
 
 	//revisar

@@ -50,8 +50,9 @@ public class ConsultarActividad extends JInternalFrame {
     private JComboBox<String> jcbActividades;
     private JComboBox<String> jcbSalidas;
     private JComboBox<String> jcbPaquetes;
+    private JComboBox<String> jcbCategorias;
     private DataDepartamento[] DD;
-    JLabel Departamento;
+    private JLabel Departamento;
     private JLabel Actividades;
     private JLabel actNombre;
     private JTextArea actNombreR;
@@ -67,11 +68,13 @@ public class ConsultarActividad extends JInternalFrame {
     private JLabel actFechaR;
     private JLabel Salidas;
     private JLabel Paquetes;
+    private JLabel Categorias;
     private Set<DataActividad> auxi;
     private DataActividad actElegida;
     private Set<DataSalida> auxiSal;
     private DataSalida salElegida;
     private String[] nombresPaq;
+    private String[] nombresCat;
     private ConsultaPaquete conPaquete;
     private ConsultaSalidaTuristica salida;
     /**
@@ -132,6 +135,20 @@ public class ConsultarActividad extends JInternalFrame {
         	}
         });
         jcbActividades.setVisible(false);
+        
+        Categorias = new JLabel("Categorias: ");
+        Categorias.setSize(125, 32);
+        Categorias.setLocation(40, 282);
+    	GridBagConstraints gbc_Categorias = new GridBagConstraints();
+    	gbc_Categorias.anchor = GridBagConstraints.EAST;
+    	gbc_Categorias.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(Categorias, gbc_Categorias);
+    	Categorias.setVisible(false);
+    	
+        jcbCategorias = new JComboBox<String>();
+        jcbCategorias.setBounds(253, 286, 320, 24);
+        getContentPane().add(jcbCategorias);
+        jcbCategorias.setVisible(false);
         
     	Salidas = new JLabel("Salidas: ");
         Salidas.setSize(125, 32);
@@ -258,7 +275,7 @@ public class ConsultarActividad extends JInternalFrame {
     
     	actDesc = new JLabel("Descripcion de la Actividad:");
         actDesc.setSize(201, 32);
-        actDesc.setLocation(40, 132);
+        actDesc.setLocation(40, 120);
     	GridBagConstraints gbc_actDesc = new GridBagConstraints();
     	gbc_actDesc.anchor = GridBagConstraints.EAST;
     	gbc_actDesc.insets = new Insets(2, 2, 5, 5);
@@ -269,7 +286,7 @@ public class ConsultarActividad extends JInternalFrame {
     	actDescR.setFont(new Font("Dialog", Font.BOLD, 12));
     	actDescR.setBackground(UIManager.getColor("Menu.background"));
     	actDescR.setSize(320, 23);
-        actDescR.setLocation(253, 141);
+        actDescR.setLocation(253, 129);
     	GridBagConstraints gbc_actDescR = new GridBagConstraints();
     	gbc_actDescR.anchor = GridBagConstraints.EAST;
     	gbc_actDescR.insets = new Insets(2, 2, 5, 5);
@@ -278,7 +295,7 @@ public class ConsultarActividad extends JInternalFrame {
     
     	actCiudad = new JLabel("Ciudad de la Actividad:");
         actCiudad.setSize(173, 32);
-        actCiudad.setLocation(40, 170);
+        actCiudad.setLocation(40, 150);
     	GridBagConstraints gbc_actCiudad = new GridBagConstraints();
     	gbc_actCiudad.anchor = GridBagConstraints.EAST;
     	gbc_actCiudad.insets = new Insets(2, 2, 5, 5);
@@ -289,7 +306,7 @@ public class ConsultarActividad extends JInternalFrame {
     	actCiudadR.setFont(new Font("Dialog", Font.BOLD, 12));
     	actCiudadR.setBackground(UIManager.getColor("Menu.background"));
     	actCiudadR.setSize(320, 32);
-        actCiudadR.setLocation(253, 179);
+        actCiudadR.setLocation(253, 159);
     	GridBagConstraints gbc_actCiudadR = new GridBagConstraints();
     	gbc_actCiudadR.anchor = GridBagConstraints.EAST;
     	gbc_actCiudadR.insets = new Insets(2, 2, 5, 5);
@@ -298,7 +315,7 @@ public class ConsultarActividad extends JInternalFrame {
     
     	actCosto = new JLabel("Costo de la Actividad:");
         actCosto.setSize(173, 32);
-        actCosto.setLocation(40, 208);
+        actCosto.setLocation(40, 180);
     	GridBagConstraints gbc_actCosto = new GridBagConstraints();
     	gbc_actCosto.anchor = GridBagConstraints.EAST;
     	gbc_actCosto.insets = new Insets(2, 2, 5, 5);
@@ -307,7 +324,7 @@ public class ConsultarActividad extends JInternalFrame {
     	
     	actCostoR = new JLabel("Aca va el Costo");
     	actCostoR.setSize(125, 32);
-        actCostoR.setLocation(253, 208);
+        actCostoR.setLocation(251, 180);
     	GridBagConstraints gbc_actCostoR = new GridBagConstraints();
     	gbc_actCostoR.anchor = GridBagConstraints.EAST;
     	gbc_actCostoR.insets = new Insets(2, 2, 5, 5);
@@ -316,7 +333,7 @@ public class ConsultarActividad extends JInternalFrame {
     	
     	actDuracion = new JLabel("Duracion de la Actividad:");
         actDuracion.setSize(189, 32);
-        actDuracion.setLocation(40, 246);
+        actDuracion.setLocation(40, 210);
     	GridBagConstraints gbc_actDuracion = new GridBagConstraints();
     	gbc_actDuracion.anchor = GridBagConstraints.EAST;
     	gbc_actDuracion.insets = new Insets(2, 2, 5, 5);
@@ -325,7 +342,7 @@ public class ConsultarActividad extends JInternalFrame {
     	
     	actDuracionR = new JLabel("Aca va la Duracion");
     	actDuracionR.setSize(276, 32);
-        actDuracionR.setLocation(253, 246);
+        actDuracionR.setLocation(253, 210);
     	GridBagConstraints gbc_actDuracionR = new GridBagConstraints();
     	gbc_actDuracionR.anchor = GridBagConstraints.EAST;
     	gbc_actDuracionR.insets = new Insets(2, 2, 5, 5);
@@ -334,7 +351,7 @@ public class ConsultarActividad extends JInternalFrame {
     	
     	actFecha = new JLabel("Fecha de Alta de la Actividad:");
         actFecha.setSize(189, 32);
-        actFecha.setLocation(40, 278);
+        actFecha.setLocation(40, 242);
     	GridBagConstraints gbc_actFecha = new GridBagConstraints();
     	gbc_actFecha.anchor = GridBagConstraints.EAST;
     	gbc_actFecha.insets = new Insets(2, 2, 5, 5);
@@ -343,7 +360,7 @@ public class ConsultarActividad extends JInternalFrame {
     	
     	actFechaR = new JLabel("Aca va la Fecha");
     	actFechaR.setSize(276, 32);
-        actFechaR.setLocation(253, 278);
+        actFechaR.setLocation(253, 242);
     	GridBagConstraints gbc_actFechaR = new GridBagConstraints();
     	gbc_actFechaR.anchor = GridBagConstraints.EAST;
     	gbc_actFechaR.insets = new Insets(2, 2, 5, 5);
@@ -431,6 +448,15 @@ public void cargarPaquetes() {
 	}
 }
 
+public void cargarCategorias() {
+	DefaultComboBoxModel<String> model;
+	nombresCat = actElegida.getCategorias().toArray(new String[0]);
+	Categorias.setVisible(true);
+	jcbCategorias.setVisible(true);
+	model = new DefaultComboBoxModel<String>(nombresCat);
+    jcbCategorias.setModel(model);
+}
+
 public void seleccionarActvidad(DataActividad act) {
 	limpiarFormulario();
 	actElegida = act;
@@ -456,6 +482,7 @@ public void mostrarActividad() {
 	actFecha.setVisible(true);
 	actFechaR.setText(actElegida.getFechaAlta().getDate() + "/" + (actElegida.getFechaAlta().getMonth() + 1) + "/" + (actElegida.getFechaAlta().getYear() +1900));
 	actFechaR.setVisible(true);
+	cargarCategorias();
 	cargarSalidas();
 	cargarPaquetes();
 }
@@ -497,6 +524,8 @@ public void mostrarActividad() {
     	jcbSalidas.setVisible(false);
     	Paquetes.setVisible(false);
     	jcbPaquetes.setVisible(false);
+    	Categorias.setVisible(false);
+    	jcbCategorias.setVisible(false);
     }
 
 

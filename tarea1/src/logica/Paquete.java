@@ -15,6 +15,7 @@ public class Paquete {
 	private Date fechaAlta;
 	private int validez;
 	private Map<String,Actividad> colAct;
+
 	private boolean comprado;
 
 	public Paquete(String nom,String desc,int descuento,Date fecha, int val)
@@ -91,5 +92,9 @@ public class Paquete {
 
 	public void setComprado(boolean comprado) {
 		this.comprado = comprado;
+	}
+	
+	public Map<String, Actividad> getColAct() {
+		return colAct;
 	}
 }
