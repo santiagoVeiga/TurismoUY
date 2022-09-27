@@ -27,6 +27,9 @@ public class CompraPaquete{
 		for(String aux: acts) {
 			this.restAct.put(aux, cant);
 		}
+		if(!this.paq.isComprado()) {
+			this.paq.setComprado(true);
+		}
 	}
 	
 	int obtenerCuposAct(String Act) {
@@ -39,7 +42,6 @@ public class CompraPaquete{
 		this.restAct.replace(Act, this.obtenerCuposAct(Act)-cant);
 	}
 	
-	/* Getters */
     
 	public int getCantidad() {
         return cantidad;
@@ -53,12 +55,14 @@ public class CompraPaquete{
         return costo;
     }
 	
-    
-    /* Setters */
 
     public Paquete getPaq() {
 		return paq;
 	}
+    
+    public int getDescuento() {
+    	return paq.getDescuento();
+    }
 
 	public Date getVencimiento() {
 		return vencimiento;

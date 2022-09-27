@@ -15,6 +15,9 @@ import excepciones.ActividadNoExisteException;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
+import excepciones.NoHayCuposException;
+import excepciones.PaqueteNoExisteException;
+import excepciones.PaqueteRepetidoException;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
@@ -60,38 +63,69 @@ public class ControladorInsc implements IControladorInsc {
 	
 	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido {
 		ManejadorActividad m = ManejadorActividad.getInstance();
-		try {
-			Actividad a = m.getActividad(nombreAct);
-			ManejadorUsuario mu = ManejadorUsuario.getinstance();
-			Usuario t = mu.obtenerUsuarioNick(nick);
-			int c = a.getCosto();
-			int costo = c*cantTuristas;
-			Salida s = a.getSalida(nomSalida);
-			// Chequeo de condiciones
-			if (((Turista) t).yaTieneSalida(s)) { // Sabemos por precondicion que se puede hacer el downcast
-				throw new TuristaConSalida("El turista ya pertenece a la salida");
-			}
-			if(s.excedeTuristas(cantTuristas)) {
-				throw new ExcedeTuristas("La salida no cuenta con capacidad para la cantidad de turistas solicitados");
-			}
-			if(fecha.before(s.getFechaAlta())) {
-				throw new InscFechaInconsistente("La fecha de inscripcion debe ser igual o posterior a la fecha de alta de salida");
-			}
-			if(fecha.after(s.getFecha())) {
-				throw new InscFechaDespSalida();
-			}
-			if(((Turista) t).getNacimiento().after(s.getFecha())) {
-				throw new TuristaNoHaNacido();
-			}
-			// Se realiza la inscripcion
-			CompraGeneral cg = new CompraGeneral(fecha,cantTuristas,costo);
-			cg.setSalida(s);
-			s.setCantRestante(s.getCantRestante()-cantTuristas);
-			((Turista) t).agregarCompraGeneral(cg);
+		Actividad a = m.getActividad(nombreAct);
+		ManejadorUsuario mu = ManejadorUsuario.getinstance();
+		Usuario t = mu.obtenerUsuarioNick(nick);
+		int c = a.getCosto();
+		int costo = c*cantTuristas;
+		Salida s = a.getSalida(nomSalida);
+		// Chequeo de condiciones
+		if (((Turista) t).yaTieneSalida(s)) { // Sabemos por precondicion que se puede hacer el downcast
+			throw new TuristaConSalida("El turista ya pertenece a la salida");
 		}
-		catch (ActividadNoExisteException e) {
-			throw new ActividadNoExisteException("La actividad con nombre " + nombreAct + " no existe");
+		if(s.excedeTuristas(cantTuristas)) {
+			throw new ExcedeTuristas("La salida no cuenta con capacidad para la cantidad de turistas solicitados");
 		}
+		if(fecha.before(s.getFechaAlta())) {
+			throw new InscFechaInconsistente("La fecha de inscripcion debe ser igual o posterior a la fecha de alta de salida");
+		}
+		if(fecha.after(s.getFecha())) {
+			throw new InscFechaDespSalida();
+		}
+		if(((Turista) t).getNacimiento().after(s.getFecha())) {
+			throw new TuristaNoHaNacido();
+		}
+		// Se realiza la inscripcion
+		CompraGeneral cg = new CompraGeneral(fecha,cantTuristas,costo);
+		cg.setSalida(s);
+		s.setCantRestante(s.getCantRestante()-cantTuristas);
+		((Turista) t).agregarCompraGeneral(cg);
+	}
+	
+	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct, String nombrePaq) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException {
+		ManejadorActividad m = ManejadorActividad.getInstance();
+		Actividad a = m.getActividad(nombreAct);
+		ManejadorUsuario mu = ManejadorUsuario.getinstance();
+		Usuario t = mu.obtenerUsuarioNick(nick);
+		Salida s = a.getSalida(nomSalida);
+		CompraPaquete cp = ((Turista) t).getCompraPaquete(nombrePaq);
+		// Chequeo de condiciones
+		if (((Turista) t).yaTieneSalida(s)) { // Sabemos por precondicion que se puede hacer el downcast
+			throw new TuristaConSalida("El turista ya pertenece a la salida");
+		}
+		if(s.excedeTuristas(cantTuristas)) {
+			throw new ExcedeTuristas("La salida no cuenta con capacidad para la cantidad de turistas solicitados");
+		}
+		if(fecha.before(s.getFechaAlta())) {
+			throw new InscFechaInconsistente("La fecha de inscripcion debe ser igual o posterior a la fecha de alta de salida");
+		}
+		if(fecha.after(s.getFecha())) {
+			throw new InscFechaDespSalida();
+		}
+		if(((Turista) t).getNacimiento().after(s.getFecha())) {
+			throw new TuristaNoHaNacido();
+		}
+		if(!((Turista) t).paqueteComprado(nombrePaq)) {
+			throw new PaqueteRepetidoException("El paquete: " + nombrePaq + " no ha sido comprado por el turista: " + nick);
+		}
+		cp.reducirCuposAct(nombreAct, cantTuristas);
+		int c = a.getCosto();
+		int costo = c*cantTuristas*(1 - (cp.getDescuento()/100));
+		// Se realiza la inscripcion
+		CompraGeneral cg = new CompraGeneral(fecha,cantTuristas,costo);
+		cg.setSalida(s);
+		s.setCantRestante(s.getCantRestante()-cantTuristas);
+		((Turista) t).agregarCompraGeneral(cg);
 	}
 
 	@Override
@@ -191,5 +225,17 @@ public class ControladorInsc implements IControladorInsc {
 		ManejadorPaquete mp = ManejadorPaquete.getInstance();
 		return mp.getPaquetesNoComp();
 		
+	}
+	
+	public void comprarPaquete(String nick, Date fecha, int cant, String paqString) throws PaqueteNoExisteException, PaqueteRepetidoException {
+		ManejadorPaquete mp = ManejadorPaquete.getInstance();
+		Paquete paq = mp.getPaqueteIns(paqString);
+		ManejadorUsuario mu = ManejadorUsuario.getinstance();
+		Turista t = ((Turista) mu.obtenerUsuarioNick(nick));
+		if(t.paqueteComprado(paqString)) {
+			throw new PaqueteRepetidoException("El paquete: " + paqString + " ya ha sido comprado por el turista: " + nick);
+		}
+		CompraPaquete cp = new CompraPaquete(fecha, cant, paq);
+		t.agregarCompraPaquete(paqString,cp);
 	}
 }

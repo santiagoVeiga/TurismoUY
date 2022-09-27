@@ -5,22 +5,30 @@ public class Turista extends Usuario{
 
     private String nacionalidad;
     private Set<CompraGeneral> comprasG;
+    private Map<String,CompraPaquete> comprasP;
 
     public Turista(String nick,String nom, String ap,String mail, Date fechaN, String nac) {
         super(nick,nom,ap,mail,fechaN);
     	this.nacionalidad = nac;
     	this.comprasG = new HashSet<CompraGeneral>();
+    	this.comprasP = new HashMap<String,CompraPaquete>();
     }
     
-    /* Getters */
     
     public String getNacionalidad() {
         return nacionalidad;
     }
     
-    /* Setters */
 
-    public void setNacionalidad(String n) {
+    public Map<String,CompraPaquete> getComprasP() {
+		return comprasP;
+	}
+
+	public void setComprasP(Map<String,CompraPaquete> comprasP) {
+		this.comprasP = comprasP;
+	}
+
+	public void setNacionalidad(String n) {
     	nacionalidad = n;
     }
     
@@ -36,6 +44,18 @@ public class Turista extends Usuario{
     		res = res || itr.next().esSalida(s);
     	}
     	return res;
+    }
+    
+    public void agregarCompraPaquete(String nomPaq, CompraPaquete compraP) {
+    	comprasP.put(nomPaq,compraP);
+    }
+
+    public boolean paqueteComprado(String paq) {
+    	return comprasP.get(paq) != null;
+    }
+    
+    public CompraPaquete getCompraPaquete(String paq) {
+    	return comprasP.get(paq);
     }
     
     public DataTurista getDataUsuario()

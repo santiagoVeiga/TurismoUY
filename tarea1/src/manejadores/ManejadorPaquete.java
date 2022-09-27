@@ -62,6 +62,14 @@ public class ManejadorPaquete {
     	return paq;
     }
     
+    public Paquete getPaqueteIns(String nom) throws PaqueteNoExisteException {
+    	Paquete paq = colPaq.get(nom);
+    	if(paq == null) {
+    		throw new PaqueteNoExisteException("No existe un paquete con el nombre: " + nom);
+    	}
+    	return paq;
+    }
+    
     public DataPaquete getDataPaquete(String nom) {
     	Paquete paq = colPaq.get(nom);
     	return paq.getDataP();
