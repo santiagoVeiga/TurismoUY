@@ -2,7 +2,7 @@
 <%@page errorPage="/WEB-INF/500.jsp" %>
 <%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataActividad,java.util.Set,logica.DataDepartamento" %>
 <!doctype html>
-<html lang="zxx">>
+<html lang="zxx">
    <head>
 	  <meta charset="UTF-8">
     <meta name="description" content="turismo.uy">
@@ -30,7 +30,7 @@
         <div class="loader"></div>
     </div>
 
-    <%DataUsuario usr = (DataUsuario) session.getAttribute("usuario"); // Veremos el tema del atributo ese %>
+    <%DataUsuario usr = (DataUsuario) session.getAttribute("usuario");  %>
 
     <!-- Header Section Begin -->
     <header class="header">

@@ -1,4 +1,4 @@
-package tarea2;
+package java.Controllers;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -69,7 +69,7 @@ public class ServletSesion extends HttpServlet {
 				for (DataUsuario it : ususSistema) {
 					if(it.getMail()==nickOrEmail) {
 						String password = (String) ses.getAttribute("pass_iniSesion");
-						if (password == it.getPassword()) {
+						if (password == it.getNombre()) { //CAMBIARRRRRRRRR
 							//Sesion iniciada correctamente
 							ses.setAttribute("usuario", it);
 							resp.sendRedirect("/turismo.uy/home");

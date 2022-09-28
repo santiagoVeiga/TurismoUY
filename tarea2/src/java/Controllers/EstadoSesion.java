@@ -1,4 +1,4 @@
-package tarea2;
+package java.Controllers;
 
 /**
 *
