@@ -30,7 +30,7 @@
         <div class="loader"></div>
     </div>
 
-    <%DataUsuario usr = (DataUsuario) request.getAttribute("usuario"); // Veremos el tema del atributo ese %>
+    <%DataUsuario usr = (DataUsuario) session.getAttribute("usuario"); // Veremos el tema del atributo ese %>
 
     <!-- Header Section Begin -->
     <header class="header">
@@ -68,7 +68,7 @@
                     <div class="header__top__right">
                         <div class="header__top__right__auth">
                         	<a href="/turismo.uy/alta_usuario"> Alta Usuario</a>
-                            <a href="/turismo.uy/login"><i class="fa fa-user"></i> Iniciar Sesion</a>
+                            <a href="/turismo.uy/iniciarSesion"><i class="fa fa-user"></i> Iniciar Sesion</a>
                         </div>
                     </div>
                 <%} else if (usr instanceof DataTurista){ %>
