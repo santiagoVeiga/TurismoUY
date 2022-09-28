@@ -168,7 +168,7 @@ public class ControladorAlta implements IControladorAlta {
         if (act != null)
             throw new ActividadRepetidaException("Ya existe una actividad registrada con el nombre:  " + nom);
         if (u == null) {
-        	throw new UsuarioNoExisteException("No existe el Usuario");
+        	throw new UsuarioNoExisteException("No existe el Usuario identificado como " + proveedor);
         }
         if (u.getNacimiento().after(f)) {
         	throw new ProveedorNoNacidoException();
