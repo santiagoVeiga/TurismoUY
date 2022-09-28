@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="turismo.uy">
+    <meta name="keywords" content="turismo, uruguay">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>turismo.uy</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="../css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+<!-- Header Section Begin -->
+    <header class="header">
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="./index_proveedor.html"><img src="../img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <input type="text" placeholder="Buscar en turismo.uy">
+                                <button type="submit" class="site-btn">BUSCAR</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 ">
+                	<div class="row float-right">
+                        <div class="header__top__right__Usu">
+                            <span><a href="./ConsultaUsuarioP.html"><img src="https://c.wallhere.com/photos/55/39/safe_house_cia_agent_tobin_frost_denzel_washington-584127.jpg!d"> &nbsp; Washington Rocha</a></span>
+                        </div>
+                    </div>
+                    <div class="row float-right">
+                    	<div class="header__top__right__csesion ">
+                           	<a href="./logout.html"> Cerrar Sesion</a>
+                        </div>
+                    </div>
+                        
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Hero Section Begin -->
+    <section class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="row">
+                    	<div class="hero__perfil">
+                    		<div class="hero__perfil__all" style="cursor: pointer;" onclick="window.location='./ConsultaUsuarioP.html';">
+                    			<span>Mi Perfil</span>
+                    			<div class="ax float-right">
+                    				<i class="fa fa-caret-square-o-right" aria-hidden="true"></i>
+                    			</div>
+                    		</div>
+                    		<ul>
+                                <li><a href="./alta_actividad.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Actividad Turistica</a></li>
+                                <li><a href="./ListaPaquetesP.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
+                               <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
+                               <li><a href="./listar_usuariosP.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
+                            </ul>
+                    	</div>
+                        <div class="hero__deps">
+                            <div class="hero__deps__all">
+                                <i class="fa fa-bars"  ></i>
+                                <span>Departamentos</span>
+                            </div>
+                            <ul>
+                                <li><a href="./ListaActividadP.html">Rocha</a></li>
+                            </ul>
+                        </div>
+                        <div class="hero__categories">
+                            <div class="hero__categories__all">
+                                <i class="fa fa-bars"></i>
+                                <span>Categorias</span>
+                            </div>
+                            <ul>
+                                <li><a href="./ListaActividadP.html">Gastronomia</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Actividades -->
+                <div class="col-lg-9" border-radius: 25px; padding: 20px; padding-top:30px">
+                    <!-- Seccion de Consulta de actividades -->
+                    <div class="card border-dark mb-3" style="background-color: rgba(80, 80, 80, 0.229);">
+                        <div class="card-header">Alta de Salida</div>
+                        <div class="card-body text-dark">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div style="padding-bottom: 20px;">
+                                            <label for="name">Nombre</label>
+
+                                            <input type="text" id="name" name="name" required minlength="4"
+                                                maxlength="8" size="20s">
+                                        </div>
+                                        <div style="padding-bottom: 20px;">
+                                            <label for="start">Fecha</label>
+
+                                            <input type="date" id="start" name="trip-start" >
+
+                                            <label for="start" style="padding-left: 40px">Hora </label>
+                                            <input type="time" name="hora" min="1:00" max="24:00" step="3600" />
+                                        </div>
+                                        <div style="padding-bottom: 20px;">
+                                            <label for="name">Lugar</label>
+
+                                            <input type="text" id="name" name="name" required minlength="4"
+                                                maxlength="8" size="20s">
+                                        </div>
+                                        <div style="padding-bottom: 20px;">
+                                            <label for="tentacles">Cantidad maxima de turistas </label>
+
+                                            <input type="number" id="tentacles" name="tentacles" min="1" required>
+                                        </div>
+
+                                    </div>
+                                    <div class="col" style="text-align :center">
+
+                                        <div style="margin:0px auto; position: absolute;top: 40%; padding-left: 20px;">
+                                            <label class="form-label" for="customFile">Imagen  </label>
+                                            <input type="file" id="customFile" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+                                <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='./index_proveedor.html';">Cancelar</button>
+                                <button type="button" class="btn btn-primary btn-lg" onclick="enviarSalida();">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+    <!-- Js Plugins -->
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.nice-select.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/jquery.slicknav.js"></script>
+    <script src="../js/mixitup.min.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
