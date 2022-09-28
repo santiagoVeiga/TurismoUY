@@ -49,8 +49,7 @@ public class ServletAlta extends HttpServlet {
 				resp.sendRedirect("/WEB-INF/alta_actividad.jsp");
 				break;
 			case "/AltaSalida":
-				// manda una redirección a otra URL (cambia la URL)
-				resp.sendRedirect("/WEB-INF/alta_salida.jsp");
+				req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);
 				break;
 			case "/UsuarioCreado":
 				DataUsuario du = req.getAttribute("DataUsuario");
