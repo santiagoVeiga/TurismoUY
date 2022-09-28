@@ -152,7 +152,16 @@
     <script src="../js/mixitup.min.js"></script>
     <script src="../js/owl.carousel.min.js"></script>
     <script src="../js/main.js"></script>
-
+    <%if("error"==request.getAttribute("error_contrasena")) {%>
+    <script>window.onload=function() {
+		alert('Contrasena equivocada');
+	}	</script> 
+	<%} %>
+	<%if("error"==request.getAttribute("error_emailnick")) {%>
+    <script>window.onload=function() {
+		alert('Email/nick equivocado');
+	}	</script> 
+	<%} %>
 
 
 </body>
