@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page errorPage="/WEB-INF/500.jsp" %>
-<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataActividad,java.util.Set" %>
+<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataActividad,java.util.Set,logica.DataDepartamento" %>
 <!doctype html>
 <html lang="zxx">>
    <head>
@@ -152,7 +152,11 @@
                                 <span>Departamentos</span>
                             </div>
                             <ul>
-                                <li><a href="./ListaActividadV.html">Rocha</a></li>
+                            <%Set<DataDepartamento> dptos = (Set<DataDepartamento>) request.getAttribute("dptos");
+                            for (DataDepartamento it : dptos){
+                            %>
+                                <li><a href="./ListaActividadV.html"><%it.getNombre(); %></a></li>
+                            <%} %>
                             </ul>
                         </div>
                         <div class="hero__categories">
