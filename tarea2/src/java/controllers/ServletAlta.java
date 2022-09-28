@@ -1,6 +1,8 @@
 package java.controllers;
 
 import java.io.IOException;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +15,13 @@ import com.gamebook.model.EstadoSesion;
 /**
  * Servlet implementation class Home
  */
-@WebServlet ("/servletAlta")
+@WebServlet ("/AltaUsuario")
+@WebServlet ("/AltaActividad")
+@WebServlet ("/AltaSalida")
+@WebServlet ("/ActividadCreada")
+@WebServlet ("/UsuarioCreado")
+@WebServlet ("/SalidaCreada")
+
 public class ServletAlta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -53,20 +61,72 @@ public class ServletAlta extends HttpServlet {
 			throws ServletException, IOException {
 		initSession(req);
 		
-		switch(getEstado(req)){
-			case NO_LOGIN:
+		switch(req.getServletPath()){
+			case "/AltaUsuario":
+				// manda una redirección a otra URL (cambia la URL)
+				resp.sendRedirect("/WEB-INF/alta_usuario.jsp");
+				break;
+			case "/AltaActividad":
+				// manda una redirección a otra URL (cambia la URL)
+				resp.sendRedirect("/WEB-INF/alta_actividad.jsp");
+				break;
+			case "/AltaSalida":
+				// manda una redirección a otra URL (cambia la URL)
+				resp.sendRedirect("/WEB-INF/alta_salida.jsp");
+				break;
+			case "/UsuarioCreado":
+				DataUsuario du = req.getAttribute("DataUsuario");
+				Fabrica fab = Fabrica.getInstance();
+				IControladorAlta conAlta = fab.getIControladorAlta();
+				try {
+					if(du instanceof DataTurista) {
+						conAlta.confirmarAltaTurista(du.getNick(), du.getNombre() , du.getApellido(), du.getMail() ,du.getNacimiento() ,((DataTurista) du).getNacionalidad());
+					} else {
+						conAlta.confirmarAltaProveedor(du.getNick(), du.getNombre() , du.getApellido(), du.getMail() ,du.getNacimiento() ,((DataProveedor) du).getDescripcion(),((DataProveedor) du).getLink(),((DataProveedor) du).getHayLink());
+					}
+					session.setAtributte("usuario",du);
+					resp.sendRedirect("/WEB-INF/iniciar.jsp");
+				} catch (UsuarioRepetidoException e) {
+					req.setAttribute("Exception", e.getMessage());
+					req.getRequestDispatcher("/WEB-INF/alta_usuario.jsp").forward(req,resp);
+				}
+				break;
+			case "/ActividadCreada":
+				DataActividad da = req.getAttribute("DataActividad");
+				String proveedor = req.getAttribute("Proveedor");
+				Fabrica fab = Fabrica.getInstance();
+				IControladorAlta conAlta = fab.getIControladorAlta();
+				try {
+					conAlta.registrarActividad(da.getDepartamento(), da.getNombre() , da.getDescripcion(), da.getDuracion() ,da.getCosto() ,da.getCiudad(),da.getFecha(),proveedor, da.getCategorias());
+					resp.sendRedirect("/WEB-INF/iniciar.jsp");
+				} catch (ActividadRepetidaException e1) {
+					req.setAttribute("Exception", e1.getMessage());
+					req.getRequestDispatcher("/WEB-INF/alta_actividad.jsp").forward(req,resp);
+				} catch (UsuarioNoExisteException e2) {
+					req.setAttribute("Exception", e2.getMessage());
+					req.getRequestDispatcher("/WEB-INF/alta_actividad.jsp").forward(req,resp);
+				}
+				break;
+			case "/ActividadCreada":
+				DataSalida ds = req.getAttribute("DataSalida");
+				String actividad = req.getAttribute("Actividad");
+				Fabrica fab = Fabrica.getInstance();
+				IControladorAlta conAlta = fab.getIControladorAlta();
+				try {
+					conAlta.confirmarAltaSalida(actividad, ds.getNombre() ,ds.getFecha(), ds.getHora(), ds.getLugar(), ds.getCant() ,ds.getFechaAlta());
+					resp.sendRedirect("/WEB-INF/iniciar.jsp");
+				} catch (FechaAltaSalidaInvalida e1) {
+					req.setAttribute("Exception", e1.getMessage());
+					req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);
+				} catch (FechaAltaSalidaAnteriorActividad e2) {
+					req.setAttribute("Exception", e2.getMessage());
+					req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);
+				}
+				break;
+			case "":
 				// hace que se ejecute el jsp sin cambiar la url
 				req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").
 						forward(req, resp);
-				break;
-			case LOGIN_INCORRECTO:
-				// hace que se ejecute el jsp sin cambiar la url
-				req.getRequestDispatcher("/WEB-INF/home/inicioErroneo.jsp").
-						forward(req, resp);
-				break;
-			case LOGIN_CORRECTO:
-				// manda una redirección a otra URL (cambia la URL)
-				resp.sendRedirect("/gamebook/perfil");
 				break;
 		}
 	}
