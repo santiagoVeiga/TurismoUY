@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import excepciones.ActividadRepetidaException;
 import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
+import excepciones.ProveedorNoNacidoException;
+import excepciones.SalidaYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.DataActividad;
@@ -64,9 +66,10 @@ public class ServletAlta extends HttpServlet {
 					if(du instanceof DataTurista) {
 						conAlta.confirmarAltaTurista(du.getNick(), du.getNombre() , du.getApellido(), du.getMail() ,du.getNacimiento() ,((DataTurista) du).getNacionalidad());
 					} else {
-						conAlta.confirmarAltaProveedor(du.getNick(), du.getNombre() , du.getApellido(), du.getMail() ,du.getNacimiento() ,((DataProveedor) du).getDescripcion(),((DataProveedor) du).getLink(),((DataProveedor) du).getHayLink());
+						conAlta.confirmarAltaProveedor(du.getNick(), du.getNombre() , du.getApellido(), du.getMail() ,du.getNacimiento() ,((DataProveedor) du).getDescripcion(),((DataProveedor) du).getLink(),true); //((DataProveedor) du).getHayLink());
 					}
-					session.setAtributte("usuario",du);
+					HttpSession session = req.getSession();
+					session.setAttribute("usuario",du);
 					resp.sendRedirect("/WEB-INF/iniciar.jsp");
 				} catch (UsuarioRepetidoException e) {
 					req.setAttribute("Exception", e.getMessage());
@@ -78,13 +81,11 @@ public class ServletAlta extends HttpServlet {
 				String proveedor = (String) req.getAttribute("Proveedor");
 				conAlta = fab.getIControladorAlta();
 				try {
-					conAlta.registrarActividad(da.getDepartamento(), da.getNombre() , da.getDescripcion(), da.getDuracion() ,da.getCosto() ,da.getCiudad(),da.getFecha(),proveedor, da.getCategorias());
+					//da.getDepartamento()
+					conAlta.registrarActividad("Rocha", da.getNombre() , da.getDescripcion(), da.getDuracion() ,da.getCosto() ,da.getCiudad(),da.getFechaAlta(),proveedor, da.getCategorias());
 					resp.sendRedirect("/WEB-INF/iniciar.jsp");
-				} catch (ActividadRepetidaException e1) {
-					req.setAttribute("Exception", e1.getMessage());
-					req.getRequestDispatcher("/WEB-INF/alta_actividad.jsp").forward(req,resp);
-				} catch (UsuarioNoExisteException e2) {
-					req.setAttribute("Exception", e2.getMessage());
+				} catch (ActividadRepetidaException | UsuarioNoExisteException | ProveedorNoNacidoException e) {
+					req.setAttribute("Exception", e.getMessage());
 					req.getRequestDispatcher("/WEB-INF/alta_actividad.jsp").forward(req,resp);
 				}
 				break;
@@ -95,13 +96,10 @@ public class ServletAlta extends HttpServlet {
 				try {
 					conAlta.confirmarAltaSalida(actividad, ds.getNombre() ,ds.getFecha(), ds.gethora(), ds.getLugar(), ds.getCant() ,ds.getFechaAlta());
 					resp.sendRedirect("/WEB-INF/iniciar.jsp");
-				} catch (FechaAltaSalidaInvalida e1) {
-					req.setAttribute("Exception", e1.getMessage());
+				} catch (SalidaYaExisteExeption | FechaAltaSalidaInvalida | FechaAltaSalidaAnteriorActividad e) {
+					req.setAttribute("Exception", e.getMessage());
 					req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);
-				} catch (FechaAltaSalidaAnteriorActividad e2) {
-					req.setAttribute("Exception", e2.getMessage());
-					req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);
-				}
+				}	
 				break;
 			case "/ModificarUsuario":
 				DataUsuario du1 = (DataUsuario) req.getAttribute("DataUsuario");
@@ -109,7 +107,7 @@ public class ServletAlta extends HttpServlet {
 				if(du1 instanceof DataTurista) {
 					conAlta.actualizarDatosTurista(du1.getNick(), du1.getNombre() , du1.getApellido(), du1.getMail() ,du1.getNacimiento() ,((DataTurista) du1).getNacionalidad());
 				} else {
-					conAlta.actualizarDatosProveedor(du1.getNick(), du1.getNombre() , du1.getApellido(), du1.getMail() ,du1.getNacimiento() ,((DataProveedor) du1).getDescripcion(),((DataProveedor) du1).getLink(),((DataProveedor) du1).getHayLink());
+					conAlta.actualizarDatosProveedor(du1.getNick(), du1.getNombre() , du1.getApellido(), du1.getMail() ,du1.getNacimiento() ,((DataProveedor) du1).getDescripcion(),((DataProveedor) du1).getLink(), true);//((DataProveedor) du1).getHayLink());
 				}
 				req.setAttribute("DataUsuario", du1);
 				req.getRequestDispatcher("/WEB-INF/ConsultaUsuario.jsp").forward(req,resp);

@@ -10,18 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.gamebook.model.EstadoSesion;
+import logica.DataActividad;
+import logica.DataDepartamento;
+import logica.DataPaquete;
+import logica.DataUsuario;
+import logica.Fabrica;
+import logica.IControladorConsulta;
 
 /**
  * Servlet implementation class Home
  */
-@WebServlet ("/DetalleUsuario")
-@WebServlet ("/ConsultaUsuario")
-@WebServlet ("/ConsultaActividad")
-@WebServlet ("/DetalleActividad")
-@WebServlet ("/UsuarioCreado")
-@WebServlet ("/SalidaCreada")
-@WebServlet ("/ModificarUsuario")
+@WebServlet (urlPatterns={"/DetalleUsuario","/ConsultaUsuario","/ConsultaActividad","/DetalleActividad","/UsuarioCreado","/SalidaCreada"})
 
 public class ServletConsulta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -52,9 +51,9 @@ public class ServletConsulta extends HttpServlet {
 			case "/ConsultaActividad":
 				// manda una redirección a otra URL (cambia la URL)
 				if(req.getAttribute("DataDepartamento")!= null) {
-					DataActividad[] actividades = req.getAttribute("DataDepartamento").toArray(new DataActividad[0]);
+					DataActividad[] actividades = ((DataDepartamento) req.getAttribute("DataDepartamento")).getColAct().toArray(new DataActividad[0]);
 				} else {
-					String categoria = req.getAttribute("Categoria");
+					String categoria = (String) req.getAttribute("Categoria");
 					DataActividad[] actividades = conCons.obtenerActividadCategoria(categoria);
 				}
 				req.getRequestDispatcher("/WEB-INF/ListaActividad.jsp").forward(req,resp);
