@@ -21,9 +21,12 @@ import com.gamebook.model.EstadoSesion;
 @WebServlet ("/ActividadCreada")
 @WebServlet ("/UsuarioCreado")
 @WebServlet ("/SalidaCreada")
+@WebServlet ("/ModificarUsuario")
 
 public class ServletAlta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private Fabrica fab = Fabrica.getInstance();;
+	private IControladorAlta conAlta;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,33 +36,8 @@ public class ServletAlta extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    /**
-	 * inicializa la sesión si no estaba creada 
-	 * @param request 
-	 */
-	public static void initSession(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		if (session.getAttribute("paginas_navegadas") == null) {
-			session.setAttribute("paginas_navegadas", 0);
-		}
-		if (session.getAttribute("estado_sesion") == null) {
-			session.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
-		}
-	}
-	
-	/**
-	 * Devuelve el estado de la sesión
-	 * @param request
-	 * @return 
-	 */
-	public static EstadoSesion getEstado(HttpServletRequest request)
-	{
-		return (EstadoSesion) request.getSession().getAttribute("estado_sesion");
-	}
-
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		initSession(req);
 		
 		switch(req.getServletPath()){
 			case "/AltaUsuario":
@@ -76,8 +54,7 @@ public class ServletAlta extends HttpServlet {
 				break;
 			case "/UsuarioCreado":
 				DataUsuario du = req.getAttribute("DataUsuario");
-				Fabrica fab = Fabrica.getInstance();
-				IControladorAlta conAlta = fab.getIControladorAlta();
+				conAlta = fab.getIControladorAlta();
 				try {
 					if(du instanceof DataTurista) {
 						conAlta.confirmarAltaTurista(du.getNick(), du.getNombre() , du.getApellido(), du.getMail() ,du.getNacimiento() ,((DataTurista) du).getNacionalidad());
@@ -94,8 +71,7 @@ public class ServletAlta extends HttpServlet {
 			case "/ActividadCreada":
 				DataActividad da = req.getAttribute("DataActividad");
 				String proveedor = req.getAttribute("Proveedor");
-				Fabrica fab = Fabrica.getInstance();
-				IControladorAlta conAlta = fab.getIControladorAlta();
+				conAlta = fab.getIControladorAlta();
 				try {
 					conAlta.registrarActividad(da.getDepartamento(), da.getNombre() , da.getDescripcion(), da.getDuracion() ,da.getCosto() ,da.getCiudad(),da.getFecha(),proveedor, da.getCategorias());
 					resp.sendRedirect("/WEB-INF/iniciar.jsp");
@@ -110,8 +86,7 @@ public class ServletAlta extends HttpServlet {
 			case "/ActividadCreada":
 				DataSalida ds = req.getAttribute("DataSalida");
 				String actividad = req.getAttribute("Actividad");
-				Fabrica fab = Fabrica.getInstance();
-				IControladorAlta conAlta = fab.getIControladorAlta();
+				conAlta = fab.getIControladorAlta();
 				try {
 					conAlta.confirmarAltaSalida(actividad, ds.getNombre() ,ds.getFecha(), ds.getHora(), ds.getLugar(), ds.getCant() ,ds.getFechaAlta());
 					resp.sendRedirect("/WEB-INF/iniciar.jsp");
@@ -123,10 +98,16 @@ public class ServletAlta extends HttpServlet {
 					req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);
 				}
 				break;
-			case "":
-				// hace que se ejecute el jsp sin cambiar la url
-				req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").
-						forward(req, resp);
+			case "/ModificarUsuario":
+				DataUsuario du = req.getAttribute("DataUsuario");
+				conAlta = fab.getIControladorAlta();
+				if(du instanceof DataTurista) {
+					conAlta.actualizarDatosTurista(du.getNick(), du.getNombre() , du.getApellido(), du.getMail() ,du.getNacimiento() ,((DataTurista) du).getNacionalidad());
+				} else {
+					conAlta.actualizarDatosProveedor(du.getNick(), du.getNombre() , du.getApellido(), du.getMail() ,du.getNacimiento() ,((DataProveedor) du).getDescripcion(),((DataProveedor) du).getLink(),((DataProveedor) du).getHayLink());
+				}
+				req.setAttribute("DataUsuario", du);
+				req.getRequestDispatcher("/WEB-INF/ConsultaUsuario.jsp").forward(req,resp);
 				break;
 		}
 	}
