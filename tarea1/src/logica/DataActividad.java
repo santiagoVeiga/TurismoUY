@@ -9,23 +9,15 @@ import java.util.Map.Entry;
 public class DataActividad {
 	
 	private String nombre;
-	
 	private String descripcion;
-	
 	private Date fechaAlta;
-	
 	private String ciudad;
-	
 	private int costo;
-	
 	private int duracion;
-	
+	private String departamento;
 	private Set<DataSalida> DS;
-	
 	private Set<String> paquetes;
-	
 	private Set<String> categorias;
-	
 	private estadoAct estado;
 	
 	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds,Set<String> paquetes, estadoAct estado2) {
@@ -40,7 +32,7 @@ public class DataActividad {
 		estado = estado2;
 	}
 	
-	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds,Set<String> paquetes, estadoAct estado2, Set<String> categorias) {
+	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds,Set<String> paquetes, estadoAct estado2, Set<String> categorias, String dep) {
 		this.nombre = n;
 		this.descripcion = d;
 		this.fechaAlta = f;
@@ -51,6 +43,7 @@ public class DataActividad {
 		this.paquetes = paquetes;
 		this.setCategorias(categorias);
 		estado = estado2;
+		this.setDepartamento(dep);
 	}
 	
 //Getters y Setters
@@ -86,6 +79,14 @@ public class DataActividad {
 
 	public Set<String> getPaquetes() {
 		return paquetes;
+	}
+
+	public String getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 
 	public boolean HayPaquetes() {

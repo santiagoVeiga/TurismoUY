@@ -1,5 +1,11 @@
 package logica;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Map.Entry;
+
 import excepciones.DepartamentoNoExisteException;
+import manejadores.ManejadorCategoria;
 import manejadores.ManejadorDepartamentos;
 import manejadores.ManejadorPaquete;
 import manejadores.ManejadorUsuario;
@@ -39,5 +45,19 @@ public class ControladorConsulta implements IControladorConsulta {
 		return mp.getDataPaquete(p);
 	}
 	   
-
+	public Set<String> obtenerNombreCategorias() {    	
+		ManejadorCategoria mc = ManejadorCategoria.getInstance();
+		return mc.obtenerNombreCategorias();
+    }
+	
+	public DataActividad[] obtenerActividadCategoria(String categoria) {
+		ManejadorCategoria mc = ManejadorCategoria.getInstance();
+		Categoria cat = mc.getCategoria(categoria);
+		Actividad[] arrAct = cat.getActividades();
+		DataActividad[] res = new DataActividad[arrAct.length];
+		for(int i = 0; i < arrAct.length;i++) {
+			res[i] = arrAct[i].getDataAT();
+		}
+		return res;
+	}
 }
