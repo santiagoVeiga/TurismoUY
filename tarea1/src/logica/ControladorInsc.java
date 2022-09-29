@@ -227,6 +227,12 @@ public class ControladorInsc implements IControladorInsc {
 		
 	}
 	
+	public String[] obtenerPaquetesComprados(String nickTurista) {
+		ManejadorUsuario mu = ManejadorUsuario.getinstance();
+		Turista t = ((Turista) mu.obtenerUsuarioNick(nickTurista));
+		return t.getComprasP().keySet().toArray(new String[0]);
+	}
+	
 	public void comprarPaquete(String nick, Date fecha, int cant, String paqString) throws PaqueteNoExisteException, PaqueteRepetidoException {
 		ManejadorPaquete mp = ManejadorPaquete.getInstance();
 		Paquete paq = mp.getPaqueteIns(paqString);
