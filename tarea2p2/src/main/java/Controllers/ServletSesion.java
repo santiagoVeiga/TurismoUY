@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import logica.DataUsuario;
@@ -58,18 +59,18 @@ public class ServletSesion extends HttpServlet {
 	}
 
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException, DepartamentoYaExisteExeption, UsuarioNoExisteException {
+			throws ServletException, IOException, DepartamentoYaExisteExeption, UsuarioNoExisteException, DepartamentoNoExisteException {
 		initSession(req);
 		String solicitud = req.getServletPath();
-		
+		Fabrica f = Fabrica.getInstance();
+		IControladorAlta ca = f.getIControladorAlta();
 		switch(solicitud) {
 			case "/home":
 				// hace que se ejecute el jsp sin cambiar la url
+				req.setAttribute("dptos", ca.obtenerDataDepartamentos());
 				req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
 				break;
 			case "/iniciarSesion":
-				Fabrica f = Fabrica.getInstance();
-				IControladorAlta ca = f.getIControladorAlta();
 				DataUsuario[] ususSistema = ca.getUsuarios();
 				HttpSession ses = req.getSession();
 				String nickOrEmail = (String) ses.getAttribute("emailnick_inicioSesion");
@@ -114,6 +115,8 @@ public class ServletSesion extends HttpServlet {
 			
 		} catch (UsuarioNoExisteException e) {
 			
+		} catch (DepartamentoNoExisteException e) {
+			
 		}
 	}
 
@@ -126,6 +129,8 @@ public class ServletSesion extends HttpServlet {
 		} catch (DepartamentoYaExisteExeption e) {
 			
 		} catch (UsuarioNoExisteException e) {
+			
+		} catch (DepartamentoNoExisteException e) {
 			
 		}
 	}
