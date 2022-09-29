@@ -20,7 +20,7 @@ import logica.IControladorConsulta;
 /**
  * Servlet implementation class Home
  */
-@WebServlet (urlPatterns={"/DetalleUsuario","/ConsultaUsuario","/ConsultaActividad","/DetalleActividad","/UsuarioCreado","/SalidaCreada"})
+@WebServlet (urlPatterns={"/DetalleUsuario","/ConsultaUsuario","/ConsultaActividad","/DetalleActividad"})
 
 public class ServletConsulta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
