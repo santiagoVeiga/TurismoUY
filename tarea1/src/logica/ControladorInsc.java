@@ -122,7 +122,7 @@ public class ControladorInsc implements IControladorInsc {
 		int c = a.getCosto();
 		int costo = c*cantTuristas*(1 - (cp.getDescuento()/100));
 		// Se realiza la inscripcion
-		CompraGeneral cg = new CompraGeneral(fecha,cantTuristas,costo);
+		CompraGeneral cg = new CompraGeneral(fecha,cantTuristas,costo,true);
 		cg.setSalida(s);
 		s.setCantRestante(s.getCantRestante()-cantTuristas);
 		((Turista) t).agregarCompraGeneral(cg);

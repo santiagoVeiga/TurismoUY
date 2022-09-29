@@ -7,11 +7,20 @@ public class CompraGeneral{
 	private Date fecha;
 	private int costo; 
 	private Salida salida;
+	private boolean porPaquete;
 	
 	public CompraGeneral(Date f, int cant, int costo) {
 		this.cantidad = cant;
 		this.fecha = f;
 		this.costo = costo;
+		this.setPorPaquete(false);
+	}
+	
+	public CompraGeneral(Date f, int cant, int costo, boolean paq) {
+		this.cantidad = cant;
+		this.fecha = f;
+		this.costo = costo;
+		this.setPorPaquete(paq);
 	}
 
 	/*
@@ -48,7 +57,15 @@ public class CompraGeneral{
     
     /* Setters */
 
-    public void setCantidad(int c) {
+    public boolean isPorPaquete() {
+		return porPaquete;
+	}
+
+	public void setPorPaquete(boolean porPaquete) {
+		this.porPaquete = porPaquete;
+	}
+
+	public void setCantidad(int c) {
     	costo = c;
     }
 
