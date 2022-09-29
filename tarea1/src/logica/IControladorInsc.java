@@ -9,6 +9,9 @@ import excepciones.ActividadNoExisteException;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
+import excepciones.NoHayCuposException;
+import excepciones.PaqueteNoExisteException;
+import excepciones.PaqueteRepetidoException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
 import excepciones.estadoActividadIncorrecto;
@@ -27,4 +30,6 @@ public interface IControladorInsc {
 	public abstract Set<String> listarActividadesAgregadas();
 	public abstract void aceptarRechazarAct(String nomAct,estadoAct estado) throws estadoActividadIncorrecto, ActividadNoExisteException;
 	public abstract String[] listarPaquetesNoComprados();
+	public abstract void comprarPaquete(String nick, Date fecha, int cant, String paqString) throws PaqueteNoExisteException, PaqueteRepetidoException;
+	public abstract void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct, String nombrePaq) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException;
 }
