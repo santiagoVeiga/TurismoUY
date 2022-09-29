@@ -50,19 +50,21 @@ public class ServletConsulta extends HttpServlet {
 				break;
 			case "/ConsultaActividad":
 				// manda una redirección a otra URL (cambia la URL)
+				DataActividad[] actividades;
 				if(req.getAttribute("DataDepartamento")!= null) {
-					DataActividad[] actividades = ((DataDepartamento) req.getAttribute("DataDepartamento")).getColAct().toArray(new DataActividad[0]);
+					actividades = ((DataDepartamento) req.getAttribute("DataDepartamento")).getColAct().toArray(new DataActividad[0]);
 				} else {
 					String categoria = (String) req.getAttribute("Categoria");
-					DataActividad[] actividades = conCons.obtenerActividadCategoria(categoria);
+					actividades = conCons.obtenerActividadCategoria(categoria);
 				}
+				req.setAttribute("ArregloActividades", actividades);
 				req.getRequestDispatcher("/WEB-INF/ListaActividad.jsp").forward(req,resp);
 				break;
 			case "/DetalleActividad":
 				req.getRequestDispatcher("/WEB-INF/ConsultaActividad.jsp").forward(req,resp);
 				break;
 			case "/ConsultaSalida":
-				req.getRequestDispatcher("/WEB-INF/ConsultaActividad.jsp").forward(req,resp); //Ver si entregar el set de salidas o no, por ahora se devuelve el DataActividad que viene desde la lista.
+				req.getRequestDispatcher("/WEB-INF/ConsultaActividad.jsp").forward(req,resp); //Ver si entregar el set de salidas o no, por ahora se devuelve el DataSalida que viene desde la lista.
 				break;
 			case "/ConsultaPaquete":
 				// manda una redirección a otra URL (cambia la URL)
@@ -72,6 +74,7 @@ public class ServletConsulta extends HttpServlet {
 				for(int i=0;i<nombresPaq.length;i++) {
 					dps[i] = conCons.obtenerDataPaquete(nombresPaq[i]);
 				}
+				req.setAttribute("ArregloPaquetes", dps);
 				req.getRequestDispatcher("/WEB-INF/ListaPaquetes.jsp").forward(req,resp);
 				break;
 			case "/DetallePaquete":
