@@ -54,7 +54,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="../img/logo.png" alt=""></a>
+                        <a href="/tarea2p2/home"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-7">
@@ -71,30 +71,30 @@
                 <% if (usr == null) {%>
                     <div class="header__top__right">
                         <div class="header__top__right__auth">
-                        	<a href="/turismo.uy/alta_usuario"> Alta Usuario</a>
-                            <a href="/turismo.uy/iniciarSesion"><i class="fa fa-user"></i> Iniciar Sesion</a>
+                        	<a href="/tarea2p2/AltaUsuario"> Alta Usuario</a>
+                            <a href="/tarea2p2/iniciarSesion"><i class="fa fa-user"></i> Iniciar Sesion</a>
                         </div>
                     </div>
                 <%} else if (usr instanceof DataTurista){ %>
                 	<div class="row float-right">
                         <div class="header__top__right__Usu" style="cursor: pointer;" onclick="window.location='./ConsultaUsuarioT.html';">
-                            <span><a href="/turismo.uy/ConsultaUsuario"><img src="https://pbs.twimg.com/media/EOHAP9zWoAsnkiM?format=jpg&name=small"> &nbsp; <% usr.getNombre(); %></a></span>
+                            <span><a href="/tarea2p2/ConsultaUsuario"><img src="https://pbs.twimg.com/media/EOHAP9zWoAsnkiM?format=jpg&name=small"> &nbsp; <% usr.getNombre(); %></a></span>
                         </div>
                     </div>
                     <div class="row float-right">
                     	<div class="header__top__right__csesion ">
-                           	<a href="/turismo.uy/logout"> Cerrar Sesion</a>
+                           	<a href="/tarea2p2/logout"> Cerrar Sesion</a>
                         </div>
                     </div>
                 <% } else if (usr instanceof DataProveedor) {%>
                 	<div class="row float-right">
                         <div class="header__top__right__Usu">
-                            <span><a href="/turismo.uy/ConsultaUsuario"><img src="https://c.wallhere.com/photos/55/39/safe_house_cia_agent_tobin_frost_denzel_washington-584127.jpg!d"> &nbsp; Washington Rocha</a></span>
+                            <span><a href="/tarea2p2/ConsultaUsuario"><img src="https://c.wallhere.com/photos/55/39/safe_house_cia_agent_tobin_frost_denzel_washington-584127.jpg!d"> &nbsp; Washington Rocha</a></span>
                         </div>
                     </div>
                     <div class="row float-right">
                     	<div class="header__top__right__csesion ">
-                           	<a href="/turismo.uy/logout"> Cerrar Sesion</a>
+                           	<a href="/tarea2p2/logout"> Cerrar Sesion</a>
                         </div>
                     </div>
                 <%} %>
@@ -178,7 +178,7 @@
                 </div>
                 <!-- Actividades -->
                 <div class="col-lg-9">
-                <% Set<DataActividad> actIndex = (Set<DataActividad>) request.getAttribute("actividades_index");
+                <% Set<DataActividad> actIndex = dptos[4].getColAct();
                 boolean addRow = true;
                 if(actIndex!=null)
                 for (DataActividad iter : actIndex){
@@ -194,10 +194,10 @@
                                 </div>
                                 <div class="blog__item__text">
                                     <ul>
-                                        <li><i class="fa fa-calendar-o"></i> <% iter.getFechaAlta();%></li>
+                                        <li><i class="fa fa-calendar-o"></i> <%= iter.getFechaAlta()%></li>
                                     </ul>
-                                    <h5><a href="./consulta_actividad_Visitante.html"><% iter.getNombre(); %></a></h5>
-                                    <p><%iter.getDescripcion(); %></p>
+                                    <h5><a href="./consulta_actividad_Visitante.html"><%= iter.getNombre() %></a></h5>
+                                    <p><%=iter.getDescripcion() %></p>
                                     <a href="./consulta_actividad_Visitante.html" class="blog__btn">LEER MÁS <span class="arrow_right"></span></a>
                                 </div>
                             </div>
@@ -206,9 +206,10 @@
                     <%if (addRow){
                 		addRow = false;
                 		%>    
-                    </div> 
-                <%} else addRow = true;
-                    }%>
+                    
+                <%} else {addRow = true; // esta para arreglar %>
+                </div> 
+                  <%   }}%> 
                 </div>
             </div>
         </div>
