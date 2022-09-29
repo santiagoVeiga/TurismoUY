@@ -37,6 +37,13 @@ public class ServletSesion extends HttpServlet {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("estado_sesion") == null) {
 			session.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
+			Fabrica f = Fabrica.getInstance();
+			IControladorAlta a = f.getIControladorAlta();
+			try {
+				a.cargarDatos();
+			} catch (Exception e) {
+				
+			}
 		}
 	}
 	
