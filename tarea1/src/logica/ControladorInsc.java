@@ -44,7 +44,7 @@ public class ControladorInsc implements IControladorInsc {
 	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido {
 		  CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
-	      reader = new CSVReader(new FileReader("./lib/Inscripciones.csv"));
+	      reader = new CSVReader(new FileReader("./src/data/Inscripciones.csv"));
 	      String[] nextLine;
 	      int cont = 0;
 	      //reads one line at a time  
@@ -164,7 +164,7 @@ public class ControladorInsc implements IControladorInsc {
 	public void cargarActsPaqs() throws Exception {
 		CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
-	      reader = new CSVReader(new FileReader("./lib/ActividadesPaquetes.csv"));
+	      reader = new CSVReader(new FileReader("./src/data/ActividadesPaquetes.csv"));
 	      String[] nextLine;
 	      int cont = 0;
 	      //reads one line at a time  

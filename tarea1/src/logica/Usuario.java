@@ -18,8 +18,10 @@ public abstract class Usuario {
         this.nickname = nickname;
         this.mail = mail;
         this.nacimiento = nacimiento;
+        password = "1234";
+        imagen = new byte[0];
     }
-    // ver si hay que borrar constructor viejo
+   
     public Usuario(String nickname, String nombre, String apellido, String mail, Date nacimiento, String pass, byte[] im) {
         this.nombre = nombre;
         this.apellido = apellido;

@@ -6,16 +6,22 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Set;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
 import excepciones.CategoriaYaExiste;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
+import excepciones.ExcedeTuristas;
 import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
+import excepciones.InscFechaDespSalida;
+import excepciones.InscFechaInconsistente;
 import excepciones.NoExisteCategoriaException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
+import excepciones.TuristaConSalida;
+import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 
@@ -43,14 +49,18 @@ public interface IControladorAlta {
     public abstract DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException;
     
     public abstract void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f,String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException;
+    public abstract void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f,String proveedor, Set<String> cat, byte[] imagen) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException;
+    
     public abstract DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException;
     public abstract DataUsuario[] getUsuarios() throws UsuarioNoExisteException;
 
 	public abstract void cargarDptos() throws IOException, DepartamentoYaExisteExeption;
 
 	public abstract void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException ;
-    public abstract void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta) throws SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad ;
-
+    
+	public abstract void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta) throws SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad ;
+	public abstract void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta, byte[] imagen) throws SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad ;
+	
 	public abstract void cargarActs() throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException, ParseException, UsuarioNoExisteException, ProveedorNoNacidoException;
 	
 	public abstract void confirmarAltaDepartamento(String nombre, String descripcion, String URL) throws DepartamentoYaExisteExeption ; 
@@ -65,6 +75,8 @@ public interface IControladorAlta {
 
 	public abstract void cargarPaquetes() throws FileNotFoundException, NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException;
 
+	public abstract void cargarDatos() throws  Exception;
+	
 	public abstract Set<String> obtenerNombreCategorias() throws NoExisteCategoriaException;
 
 	public abstract void registrarCategoria(String text) throws CategoriaYaExiste;

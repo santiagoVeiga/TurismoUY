@@ -15,7 +15,7 @@ public class Paquete {
 	private Date fechaAlta;
 	private int validez;
 	private Map<String,Actividad> colAct;
-
+	private byte[] imagen;
 	private boolean comprado;
 
 	public Paquete(String nom,String desc,int descuento,Date fecha, int val)
@@ -29,6 +29,19 @@ public class Paquete {
 		comprado = false;
 	}
 	
+	public Paquete(String nombre2, String descripcion2, int descuento2, Date fechaAlta2, int validez2,
+			byte[] imgBytes) {
+		// TODO Auto-generated constructor stub
+		this.nombre = nombre2;
+		this.descuento = descuento2;
+		this.descripcion = descripcion2;
+		this.fechaAlta = fechaAlta2;
+		this.validez = validez2;
+		this.colAct = new HashMap<String,Actividad>();
+		comprado = false;
+		imagen = imgBytes;
+	}
+
 	public DataPaquete getDataP(){
 		DataActividad[] dtAct = new DataActividad[colAct.size()];
 		int i = 0;
@@ -96,5 +109,13 @@ public class Paquete {
 	
 	public Map<String, Actividad> getColAct() {
 		return colAct;
+	}
+
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
 	}
 }

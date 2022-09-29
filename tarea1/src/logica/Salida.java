@@ -16,6 +16,7 @@ public class Salida {
 	private Date fechaAlta;
 	private int cant;
 	private int cantRestante;
+	private byte[] imagen;
 	
 	public Salida(String n,String l,Date h,Date f,Date fa,int c)
 	{
@@ -28,6 +29,19 @@ public class Salida {
 		setCantRestante(c);
 	};
 	
+	public Salida(String nombreSalida, String lugar2, Date hora2, Date fecha2, Date fechaAlta2, int maxCantTuristas,
+			byte[] imagen) {
+		// TODO Auto-generated constructor stub
+		setNombre(nombreSalida);
+		setLugar(lugar2);
+		setHora(hora2);
+		setFecha(fecha2);
+		setFechaAlta(fechaAlta2);
+		setCant(maxCantTuristas);
+		setCantRestante(maxCantTuristas);
+		this.imagen = imagen;
+	}
+
 	public boolean estaVigente()
 	{
 		LocalDate localDate = LocalDate.now();
@@ -99,6 +113,14 @@ public class Salida {
 
 	public void setCantRestante(int cantRestante) {
 		this.cantRestante = cantRestante;
+	}
+
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
 	}
 	
 }

@@ -23,6 +23,7 @@ public class Actividad {
 	private Departamento departamento;
 	private Map<String,Categoria> categorias ;	
 	private estadoAct estado;
+	private byte[] imagen;
 
 	public Actividad(String nom, String desc, Date f, String ciudad, int costo, int dur, Departamento dep, Map<String,Categoria> categorias) {
 		colSal = new HashMap<String,Salida>();
@@ -36,6 +37,21 @@ public class Actividad {
 		this.colpaq = new HashMap<String,Paquete>();
 		setCategorias(categorias); 
 		estado = estadoAct.agregada;
+	}
+	
+	public Actividad(String nom, String desc, Date f, String ciudad, int costo, int dur, Departamento dep, Map<String,Categoria> categorias, byte[] im) {
+		colSal = new HashMap<String,Salida>();
+		setNombre(nom);
+		setDescripcion(desc);
+		fechaAlta = f;
+		setCiudad(ciudad);
+		setCosto(costo);
+		setDuracion(dur);
+		setDepartamento(dep);
+		this.colpaq = new HashMap<String,Paquete>();
+		setCategorias(categorias); 
+		estado = estadoAct.agregada;
+		imagen = im;
 	}
 	
 	//Getters
@@ -170,6 +186,21 @@ public class Actividad {
 
 	public void setEstado(estadoAct estado) {
 		this.estado = estado;
+	}
+
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
+
+	public void altaSalida(String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas,
+			Date fechaAlta2, byte[] imagen2) {
+		Salida aux; 
+		aux = new Salida(nombreSalida, lugar, hora, fecha, fechaAlta, maxCantTuristas,imagen);
+		colSal.put(nombreSalida,aux);
 	}
 	
 }
