@@ -22,6 +22,8 @@ import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JToggleButton;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * JInternalFrame que permite registrar un nuevo usuario al sistema.
@@ -58,6 +60,10 @@ public class CrearUsuario extends JInternalFrame {
     private JButton btnCancelar;
     private JRadioButton rdbtnTurista;
     private JRadioButton rdbtnProveedor;
+    private JLabel lblContrasea;
+    private JLabel lblConfirmarContrasea;
+    private JTextField textField;
+    private JTextField textField_1;
 
     /**
      * Create the frame.
@@ -74,7 +80,7 @@ public class CrearUsuario extends JInternalFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
         setTitle("Dar de Alta un Usuario");
-        setBounds(10, 40, 776, 462);
+        setBounds(10, 40, 844, 462);
 
         // En este caso utilizaremos el GridBagLayout que permite armar una grilla
         // en donde las filas y columnas no son uniformes.
@@ -160,6 +166,24 @@ public class CrearUsuario extends JInternalFrame {
                                                                                 gbc_textFieldApellido.gridy = 3;
                                                                                 getContentPane().add(textFieldApellido, gbc_textFieldApellido);
                                                                                 textFieldApellido.setColumns(10);
+                                                                        
+                                                                        lblContrasea = new JLabel("Contraseña");
+                                                                        GridBagConstraints gbc_lblContrasea = new GridBagConstraints();
+                                                                        gbc_lblContrasea.anchor = GridBagConstraints.EAST;
+                                                                        gbc_lblContrasea.insets = new Insets(0, 0, 5, 5);
+                                                                        gbc_lblContrasea.gridx = 5;
+                                                                        gbc_lblContrasea.gridy = 3;
+                                                                        getContentPane().add(lblContrasea, gbc_lblContrasea);
+                                                                        
+                                                                        textField = new JTextField();
+                                                                        GridBagConstraints gbc_textField = new GridBagConstraints();
+                                                                        gbc_textField.gridwidth = 3;
+                                                                        gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+                                                                        gbc_textField.insets = new Insets(0, 0, 5, 5);
+                                                                        gbc_textField.gridx = 6;
+                                                                        gbc_textField.gridy = 3;
+                                                                        getContentPane().add(textField, gbc_textField);
+                                                                        textField.setColumns(10);
                                                                 
                                                                         // Una etiqueta (JLabel) indicandp que en el siguiente campo debe ingresarse 
                                                                         // el mail del usuario. El texto está alineado horizontalmente a la derecha para
@@ -184,6 +208,24 @@ public class CrearUsuario extends JInternalFrame {
                                                                 gbc_textFieldMail.gridy = 4;
                                                                 getContentPane().add(textFieldMail, gbc_textFieldMail);
                                                                 textFieldMail.setColumns(10);
+                                                
+                                                lblConfirmarContrasea = new JLabel("Confirmar Contraseña");
+                                                GridBagConstraints gbc_lblConfirmarContrasea = new GridBagConstraints();
+                                                gbc_lblConfirmarContrasea.anchor = GridBagConstraints.EAST;
+                                                gbc_lblConfirmarContrasea.insets = new Insets(0, 0, 5, 5);
+                                                gbc_lblConfirmarContrasea.gridx = 5;
+                                                gbc_lblConfirmarContrasea.gridy = 4;
+                                                getContentPane().add(lblConfirmarContrasea, gbc_lblConfirmarContrasea);
+                                                
+                                                textField_1 = new JTextField();
+                                                GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+                                                gbc_textField_1.gridwidth = 3;
+                                                gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+                                                gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+                                                gbc_textField_1.gridx = 6;
+                                                gbc_textField_1.gridy = 4;
+                                                getContentPane().add(textField_1, gbc_textField_1);
+                                                textField_1.setColumns(10);
                                                 
                                                 // Una etiqueta (JLabel) indicandp que en el siguiente campo debe ingresarse 
                                                 // el Nacimiento del usuario. El texto está alineado horizontalmente a la derecha para
@@ -361,11 +403,11 @@ public class CrearUsuario extends JInternalFrame {
             try {
             	if(rdbtnTurista.isSelected()) {
             		String nacionalidadU = this.textFieldNacionalidad.getText();
-            		controlAlta.confirmarAltaTurista(nickU,nombreU, apellidoU, mailU,nacimientoU,nacionalidadU);
+            		controlAlta.confirmarAltaTurista(nickU,nombreU, apellidoU, mailU,nacimientoU,nacionalidadU,textField.getText());
             	} else {
             		String descripcionU = this.textFieldDescripcion.getText();
             		String linkU = this.textFieldLink.getText();
-            		controlAlta.confirmarAltaProveedor(nickU,nombreU, apellidoU, mailU,nacimientoU,descripcionU,linkU,linkU.isEmpty());
+            		controlAlta.confirmarAltaProveedor(nickU,nombreU, apellidoU, mailU,nacimientoU,descripcionU,linkU,linkU.isEmpty(),textField.getText());
             	}
                 // Muestro éxito de la operación
                 JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
@@ -403,6 +445,12 @@ public class CrearUsuario extends JInternalFrame {
         
         if (rdbtnProveedor.isSelected() && (nombreU.isEmpty() || apellidoU.isEmpty() || nickU.isEmpty() || mailU.isEmpty() || descripcionU.isEmpty())) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if(!textField.getText().equals(textField_1.getText())) {
+        	JOptionPane.showMessageDialog(this, "Confirmacion de contraseña incorrecta", "Registrar Usuario",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }

@@ -339,4 +339,67 @@ public class ControladorAlta implements IControladorAlta {
 	    	  }
 	      }
 	}
+
+
+	@Override
+	public void confirmarAltaTurista(String nick, String nom, String ap, String mail, Date nacimiento,
+			String nacionalidad, String pass) throws UsuarioRepetidoException {
+		ManejadorUsuario mu = ManejadorUsuario.getinstance();
+        Usuario u = mu.obtenerUsuarioNick(nick);
+        if (u != null)
+            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
+        u = mu.obtenerUsuarioMail(mail);
+        if (u != null)
+            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
+        u = new Turista(nick, nom, ap, mail, nacimiento, nacionalidad,pass);
+        mu.addUsuario(u);
+		
+	}
+
+
+	@Override
+	public void confirmarAltaTurista(String nick, String nom, String ap, String mail, Date nacimiento,
+			String nacionalidad, String pass, byte[] imagen) throws UsuarioRepetidoException {
+		ManejadorUsuario mu = ManejadorUsuario.getinstance();
+        Usuario u = mu.obtenerUsuarioNick(nick);
+        if (u != null)
+            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
+        u = mu.obtenerUsuarioMail(mail);
+        if (u != null)
+            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
+        u = new Turista(nick, nom, ap, mail, nacimiento, nacionalidad,pass,imagen);
+        mu.addUsuario(u);
+		
+	}
+
+
+	@Override
+	public void confirmarAltaProveedor(String nick, String nom, String ap, String mail, Date nacimiento,
+			String descripcion, String link, boolean hayLink, String pass) throws UsuarioRepetidoException {
+		ManejadorUsuario mu = ManejadorUsuario.getinstance();
+        Usuario u = mu.obtenerUsuarioNick(nick);
+        if (u != null)
+            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
+        u = mu.obtenerUsuarioMail(mail);
+        if (u != null)
+            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
+        u = new Proveedor(nick, nom, ap, mail, nacimiento, descripcion, link, hayLink,pass);
+        mu.addUsuario(u);
+	}
+
+
+	@Override
+	public void confirmarAltaProveedor(String nick, String nom, String ap, String mail, Date nacimiento,
+			String descripcion, String link, boolean hayLink, String pass, byte[] imagen)
+			throws UsuarioRepetidoException {
+		ManejadorUsuario mu = ManejadorUsuario.getinstance();
+        Usuario u = mu.obtenerUsuarioNick(nick);
+        if (u != null)
+            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
+        u = mu.obtenerUsuarioMail(mail);
+        if (u != null)
+            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
+        u = new Proveedor(nick, nom, ap, mail, nacimiento, descripcion, link, hayLink,pass,imagen);
+        mu.addUsuario(u);
+	}
 }

@@ -15,6 +15,22 @@ public class Proveedor extends Usuario {
     	this.hayLink = hayl;
     	this.actividades = new HashMap<String, Actividad>();
     }
+    
+    public Proveedor(String nick, String nom,String apellido, String mail, Date nacimiento, String desc,String link,boolean hayl, String pass) {
+        super(nick,nom,apellido,mail,nacimiento,pass);
+    	this.descripcion = desc;
+    	this.link = link;
+    	this.hayLink = hayl;
+    	this.actividades = new HashMap<String, Actividad>();
+    }
+    
+    public Proveedor(String nick, String nom,String apellido, String mail, Date nacimiento, String desc,String link,boolean hayl,String pass, byte[] im) {
+        super(nick,nom,apellido,mail,nacimiento,pass,im);
+    	this.descripcion = desc;
+    	this.link = link;
+    	this.hayLink = hayl;
+    	this.actividades = new HashMap<String, Actividad>();
+    }
 
     /* Getters */
 

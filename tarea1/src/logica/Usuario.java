@@ -2,11 +2,6 @@ package logica;
 
 import java.util.Date;
 
-/**
- * Representa a un usuario en el sistema con nombre, apellido y cédula de identidad.
- * @author TProg2017
- *
- */
 public abstract class Usuario {
 
 	private String nickname;
@@ -14,6 +9,8 @@ public abstract class Usuario {
     private String apellido;
     private String mail;
     private Date nacimiento;
+    private String password;
+    private byte[] imagen;
 
     public Usuario(String nickname, String nombre, String apellido, String mail, Date nacimiento) {
         this.nombre = nombre;
@@ -21,6 +18,25 @@ public abstract class Usuario {
         this.nickname = nickname;
         this.mail = mail;
         this.nacimiento = nacimiento;
+    }
+    // ver si hay que borrar constructor viejo
+    public Usuario(String nickname, String nombre, String apellido, String mail, Date nacimiento, String pass, byte[] im) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.nickname = nickname;
+        this.mail = mail;
+        this.nacimiento = nacimiento;
+        password = pass;
+        imagen = im;
+    }
+    public Usuario(String nickname, String nombre, String apellido, String mail, Date nacimiento, String pass) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.nickname = nickname;
+        this.mail = mail;
+        this.nacimiento = nacimiento;
+        password = pass;
+        imagen = new byte[0];
     }
     
     /* Getters */
@@ -67,4 +83,18 @@ public abstract class Usuario {
     public void setNacimiento(Date nac) {
         nacimiento = nac;
     }
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public byte[] getImagen() {
+		return imagen;
+	}
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
 }

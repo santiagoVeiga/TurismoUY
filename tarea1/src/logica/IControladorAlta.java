@@ -33,8 +33,12 @@ public interface IControladorAlta {
      * @throws UsuarioRepetidoException Si la cédula del usuario se encuentra registrada en el sistema.
      */
     public abstract void confirmarAltaTurista(String nick, String nom , String ap, String mail ,Date nacimiento ,String nacionalidad) throws UsuarioRepetidoException;
+    public abstract void confirmarAltaTurista(String nick, String nom , String ap, String mail ,Date nacimiento ,String nacionalidad,String pass) throws UsuarioRepetidoException;
+    public abstract void confirmarAltaTurista(String nick, String nom , String ap, String mail ,Date nacimiento ,String nacionalidad,String pass, byte[] imagen) throws UsuarioRepetidoException;
 
     public abstract void confirmarAltaProveedor(String nick, String nom , String ap, String mail ,Date nacimiento ,String descripcion, String link, boolean hayLink) throws UsuarioRepetidoException;
+    public abstract void confirmarAltaProveedor(String nick, String nom , String ap, String mail ,Date nacimiento ,String descripcion, String link, boolean hayLink, String pass) throws UsuarioRepetidoException;
+    public abstract void confirmarAltaProveedor(String nick, String nom , String ap, String mail ,Date nacimiento ,String descripcion, String link, boolean hayLink, String pass, byte[] imagen) throws UsuarioRepetidoException;
     
     public abstract DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException;
     

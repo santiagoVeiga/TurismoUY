@@ -14,6 +14,20 @@ public class Turista extends Usuario{
     	this.comprasP = new HashMap<String,CompraPaquete>();
     }
     
+    public Turista(String nick,String nom, String ap,String mail, Date fechaN, String nac,String pass) {
+        super(nick,nom,ap,mail,fechaN,pass);
+    	this.nacionalidad = nac;
+    	this.comprasG = new HashSet<CompraGeneral>();
+    	this.comprasP = new HashMap<String,CompraPaquete>();
+    }
+    
+    public Turista(String nick,String nom, String ap,String mail, Date fechaN, String nac,String pass,byte[] im) {
+        super(nick,nom,ap,mail,fechaN,pass,im);
+    	this.nacionalidad = nac;
+    	this.comprasG = new HashSet<CompraGeneral>();
+    	this.comprasP = new HashMap<String,CompraPaquete>();
+    }
+    
     
     public String getNacionalidad() {
         return nacionalidad;
