@@ -1,10 +1,15 @@
 package logica;
 
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 public class DataDepartamento {
+	
+	public DataDepartamento() {
+		colAct = new HashSet<DataActividad>();
+	}
 	
 	private String nombre;
 	private String descripcion;
@@ -25,7 +30,7 @@ public class DataDepartamento {
 		return nombre;
 	}
 
-	/*
+
 	public void setNombre(String n) {
 		this.nombre = n;
 	}
@@ -33,17 +38,17 @@ public class DataDepartamento {
 	
 	public void setDescripcion(String d) {
 		this.descripcion = d;
-	}*/
+	}
 
 	public String getDescripcion() {
 		return this.descripcion;
 	}
 	
-	/*
+
 	public void setUrl(String d) {
 		this.descripcion = d;
 	}
-	*/
+
 
 	public String getUrl() {
 		return this.url;

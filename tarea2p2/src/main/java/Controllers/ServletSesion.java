@@ -1,6 +1,11 @@
 package Controllers;
 
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,12 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.opencsv.CSVReader;
+
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
+import logica.DataDepartamento;
 import logica.DataUsuario;
 import logica.Fabrica;
 import logica.IControladorAlta;
+import logica.IControladorConsulta;
 
 /**
  * Servlet implementation class Home
@@ -39,9 +48,12 @@ public class ServletSesion extends HttpServlet {
 		if (session.getAttribute("estado_sesion") == null) {
 			session.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
 			Fabrica f = Fabrica.getInstance();
-			IControladorAlta a = f.getIControladorAlta();
+			IControladorAlta ca = f.getIControladorAlta();
 			try {
-				a.cargarDatos();
+				ServletContext servletContext = request.getServletContext();
+				InputStream input = servletContext.getResourceAsStream("/WEB-INF/data/Departamentos.csv");
+			    CSVReader reader = new CSVReader(new InputStreamReader(input));
+				ca.cargarDptos(reader);
 			} catch (Exception e) {
 				
 			}
@@ -59,20 +71,27 @@ public class ServletSesion extends HttpServlet {
 	}
 
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException, DepartamentoYaExisteExeption, UsuarioNoExisteException, DepartamentoNoExisteException {
+			throws ServletException, IOException, DepartamentoYaExisteExeption, UsuarioNoExisteException {
 		initSession(req);
 		String solicitud = req.getServletPath();
 		Fabrica f = Fabrica.getInstance();
 		IControladorAlta ca = f.getIControladorAlta();
+		IControladorConsulta cc = f.getIControladorConsulta();
+		HttpSession ses = req.getSession();
 		switch(solicitud) {
 			case "/home":
 				// hace que se ejecute el jsp sin cambiar la url
-				req.setAttribute("dptos", ca.obtenerDataDepartamentos());
+				DataDepartamento[] aux = null;
+				try {
+					aux = cc.obtenerDataDepartamentos();
+				} catch (DepartamentoNoExisteException e) {
+					System.out.println("no hay deptos");
+				}
+				req.setAttribute("dptos", aux);
 				req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
 				break;
 			case "/iniciarSesion":
 				DataUsuario[] ususSistema = ca.getUsuarios();
-				HttpSession ses = req.getSession();
 				String nickOrEmail = (String) ses.getAttribute("emailnick_inicioSesion");
 				for (DataUsuario it : ususSistema) {
 					if(it.getMail()==nickOrEmail) {
@@ -112,12 +131,10 @@ public class ServletSesion extends HttpServlet {
 		try {
 			processRequest(request, response);
 		} catch (DepartamentoYaExisteExeption e) {
-			
+			System.out.println("no hay dptos get");
 		} catch (UsuarioNoExisteException e) {
 			
-		} catch (DepartamentoNoExisteException e) {
-			
-		}
+		} 
 	}
 
 	/**
@@ -127,10 +144,8 @@ public class ServletSesion extends HttpServlet {
 		try {
 			processRequest(request, response);
 		} catch (DepartamentoYaExisteExeption e) {
-			
+			System.out.println("no hay depntos post");
 		} catch (UsuarioNoExisteException e) {
-			
-		} catch (DepartamentoNoExisteException e) {
 			
 		}
 	}

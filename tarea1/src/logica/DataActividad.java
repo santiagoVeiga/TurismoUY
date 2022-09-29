@@ -8,7 +8,15 @@ import java.util.Map.Entry;
 
 public class DataActividad {
 	
+	public DataActividad() {
+		DS = new HashSet<DataSalida>();
+		paquetes = new HashSet<String>();
+		categorias = new HashSet<String>();
+	}
+	
 	private String nombre;
+	
+
 	private String descripcion;
 	private Date fechaAlta;
 	private String ciudad;
@@ -115,5 +123,41 @@ public class DataActividad {
 
 	public void setEstado(estadoAct estado) {
 		this.estado = estado;
+	}
+	
+	public Set<DataSalida> getDS() {
+		return DS;
+	}
+
+	public void setDS(Set<DataSalida> dS) {
+		DS = dS;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public void setCosto(int costo) {
+		this.costo = costo;
+	}
+
+	public void setDuracion(int duracion) {
+		this.duracion = duracion;
+	}
+
+	public void setPaquetes(Set<String> paquetes) {
+		this.paquetes = paquetes;
 	}
 }

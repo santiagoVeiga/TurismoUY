@@ -4,7 +4,13 @@ import java.util.Date;
 
 public class DataSalida {
 	
+	public DataSalida() {
+		
+	}
+	
 	private String nombre;
+	
+
 	private String lugar;
 	private Date hora;
 	private Date fecha;
@@ -48,5 +54,32 @@ public class DataSalida {
 	public int getCant()
 	{
 		return cant;
+	}
+	public Date getHora() {
+		return hora;
+	}
+
+	public void setHora(Date hora) {
+		this.hora = hora;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setLugar(String lugar) {
+		this.lugar = lugar;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	public void setCant(int cant) {
+		this.cant = cant;
 	}
 }

@@ -115,6 +115,18 @@ public class ControladorAlta implements IControladorAlta {
 	      }
 	 }
 	
+	public void cargarDptos(CSVReader reader) throws IOException, DepartamentoYaExisteExeption {
+
+	      String[] nextLine;
+	      //reads one line at a time  
+	      int cont = 0;
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont>0)
+	    		  confirmarAltaDepartamento(nextLine[1].strip(),nextLine[2].strip(),nextLine[3].strip());
+	    	  cont++;
+	      }
+	 }
+	
 	public void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException {
 	    CSVReader usu = null;
 	      //parsing a CSV file into CSVReader class constructor  

@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Set;
 
+import com.opencsv.CSVReader;
+
 import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
 import excepciones.CategoriaYaExiste;
@@ -55,6 +57,7 @@ public interface IControladorAlta {
     public abstract DataUsuario[] getUsuarios() throws UsuarioNoExisteException;
 
 	public abstract void cargarDptos() throws IOException, DepartamentoYaExisteExeption;
+	public void cargarDptos(CSVReader reader) throws IOException, DepartamentoYaExisteExeption;
 
 	public abstract void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException ;
     

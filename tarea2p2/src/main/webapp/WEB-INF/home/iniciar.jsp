@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page errorPage="/WEB-INF/errorPages/500.jsp" %>
-<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataActividad,java.util.Set,logica.DataDepartamento" %>
+<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataActividad,java.util.Set,logica.DataDepartamento,Controllers.EstadoSesion" %>
 <!doctype html>
 <html lang="zxx">
    <head>
@@ -30,7 +30,11 @@
         <div class="loader"></div>
     </div>
 
-    <%DataUsuario usr = (DataUsuario) session.getAttribute("usuario");  %>
+    <%DataUsuario usr = null;
+    if (session.getAttribute("estado_sesion") != EstadoSesion.NO_LOGIN) {
+    	usr = (DataUsuario) session.getAttribute("usuario");
+    }
+      %>
 
     <!-- Header Section Begin -->
     <header class="header">
@@ -152,11 +156,12 @@
                                 <span>Departamentos</span>
                             </div>
                             <ul>
-                            <%Set<DataDepartamento> dptos = (Set<DataDepartamento>) request.getAttribute("dptos");
+                            <%DataDepartamento[] dptos = (DataDepartamento[]) request.getAttribute("dptos");
                             if(dptos!=null)
                             for (DataDepartamento it : dptos){
                             %>
-                                <li><a href="./ListaActividadV.html"><%it.getNombre(); %></a></li>
+                                <li><a href="#"><%=it.getNombre()%></a></li>
+                                
                             <%} %>
                             </ul>
                         </div>
