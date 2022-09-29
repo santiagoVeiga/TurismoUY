@@ -11,27 +11,17 @@ import java.util.Set;
 import excepciones.SalidaYaExisteExeption;
 
 public class Actividad {
-	
-	private Map<String,Salida> colSal;
-	
-	private Map<String,Paquete> colpaq;
-	
-	private String nombre;
-	
-	private String descripcion;
-	
-	private Date fechaAlta;
-	
-	private String ciudad;
-	
-	private int costo;
-	
-	private int duracion;
 
+	private Map<String,Salida> colSal;
+	private Map<String,Paquete> colpaq;
+	private String nombre;
+	private String descripcion;
+	private Date fechaAlta;
+	private String ciudad;
+	private int costo;
+	private int duracion;
 	private Departamento departamento;
-	
-	private Map<String,Categoria> categorias ; 
-	
+	private Map<String,Categoria> categorias ;	
 	private estadoAct estado;
 
 	public Actividad(String nom, String desc, Date f, String ciudad, int costo, int dur, Departamento dep, Map<String,Categoria> categorias) {
@@ -125,7 +115,7 @@ public class Actividad {
 	//Operaciones
 	
 	public DataActividad getDataAT() {
-		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion,this.getSalidas(),this.getPaquetes(),this.estado, this.getNombreCategorias());
+		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion,this.getSalidas(),this.getPaquetes(),this.estado, this.getNombreCategorias(),this.getDepartamento().getNombre());
 	}
 	
 	public Set<String> getPaquetes(){	

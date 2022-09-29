@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class Categoria {
 	private String categoria ; 
-	
 	private Map<String,Actividad> colAct;
 	
 	public Categoria(String cat) {
@@ -17,5 +16,8 @@ public class Categoria {
 		return categoria ; 
 	}
 
+	public Actividad[] getActividades() {
+		return colAct.values().toArray(new Actividad[0]);
+	}
 	
 }

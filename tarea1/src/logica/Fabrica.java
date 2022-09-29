@@ -22,7 +22,7 @@ public class Fabrica {
         return instancia;
     }
 
-    public IControladorAlta getIControladorAlta() throws DepartamentoYaExisteExeption {
+    public IControladorAlta getIControladorAlta() {
         return new ControladorAlta();
     }
     
