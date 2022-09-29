@@ -13,13 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import excepciones.ActividadNoExisteException;
+import excepciones.ExcedeTuristas;
+import excepciones.InscFechaDespSalida;
+import excepciones.InscFechaInconsistente;
+import excepciones.NoHayCuposException;
+import excepciones.PaqueteNoExisteException;
+import excepciones.PaqueteRepetidoException;
+import excepciones.TuristaConSalida;
+import excepciones.TuristaNoHaNacido;
 import logica.DataActividad;
-import logica.DataDepartamento;
 import logica.DataPaquete;
 import logica.DataSalida;
 import logica.DataUsuario;
 import logica.Fabrica;
-import logica.IControladorConsulta;
 import logica.IControladorInsc;
 
 /**
@@ -57,24 +64,34 @@ public class ServletInsc extends HttpServlet {
 				DataPaquete dp = (DataPaquete) req.getAttribute("DataPaquete");
 				LocalDateTime ld = LocalDateTime.now();
 				Date fecha = java.util.Date.from(ld.atZone(ZoneId.systemDefault()).toInstant());
-				if(dp == null) {
-					// conInsc.inscribir(du.getNicK(), ds.getNombre(), cant, fecha, da.getNombre());
-				} else {
-					// conInsc.inscribir(du.getNicK(), ds.getNombre(), cant, fecha, da.getNombre(), dp.getNombre());
+				try {
+					if(dp == null) {
+						conInsc.inscribir(du.getNick(), ds.getNombre(), cant, fecha, da.getNombre());
+					} else {
+						conInsc.inscribir(du.getNick(), ds.getNombre(), cant, fecha, da.getNombre(), dp.getNombre());
+					}
+				} catch (TuristaConSalida | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException
+						| InscFechaDespSalida | TuristaNoHaNacido | PaqueteRepetidoException
+						| NoHayCuposException e) {
+					req.setAttribute("Exception", e.getMessage());
+					req.getRequestDispatcher("/WEB-INF/InscripcionSalida.jsp").forward(req,resp);
 				}
 				resp.sendRedirect("/WEB-INF/iniciar.jsp");
 				break;
 			case "/CompraPaquete":
 				conInsc = fab.getIControladorInsc();
-				DataActividad da1 = (DataActividad) req.getAttribute("DataActividad");
-				DataSalida ds1 = (DataSalida) req.getAttribute("DataSalida");
 				HttpSession session1 = req.getSession();
 				DataUsuario du1 = (DataUsuario) session1.getAttribute("usuario");
 				int cant1 = (int) req.getAttribute("cantidad");
 				DataPaquete dp1 = (DataPaquete) req.getAttribute("DataPaquete");
 				LocalDateTime ld1 = LocalDateTime.now();
 				Date fecha1 = java.util.Date.from(ld1.atZone(ZoneId.systemDefault()).toInstant());
-				// conInsc.comprarPaquete(du.getNick(), fecha1, cant1, dp1.getNombre());
+				try {
+					conInsc.comprarPaquete(du1.getNick(), fecha1, cant1, dp1.getNombre());
+				} catch (PaqueteNoExisteException | PaqueteRepetidoException e) {
+					req.setAttribute("Exception", e.getMessage());
+					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete.jsp").forward(req,resp);
+				}
 				resp.sendRedirect("/WEB-INF/iniciar.jsp");
 				break;
 		}
