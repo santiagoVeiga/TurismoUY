@@ -182,7 +182,7 @@
                 </div>
                 <!-- Actividades -->
                 <div class="col-lg-9">
-                <% Set<DataActividad> actIndex = dptos[4].getColAct();
+                <% Set<DataActividad> actIndex = dptos[4].getColAct(); // provisorio para ver alguna actividad
                 boolean addRow = true;
                 if(actIndex!=null)
                 for (DataActividad iter : actIndex){
