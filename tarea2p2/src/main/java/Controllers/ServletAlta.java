@@ -50,7 +50,7 @@ public class ServletAlta extends HttpServlet {
 		switch(req.getServletPath()){
 			case "/AltaUsuario":
 				// manda una redirección a otra URL (cambia la URL)
-				resp.sendRedirect("/WEB-INF/alta_usuario.jsp");
+				resp.sendRedirect("/WEB-INF/alta_usuario.jsp"); // Asi andara? O tiene que ser a un servlet?
 				break;
 			case "/AltaActividad":
 				// manda una redirección a otra URL (cambia la URL)
@@ -78,7 +78,9 @@ public class ServletAlta extends HttpServlet {
 				break;
 			case "/ActividadCreada":
 				DataActividad da = (DataActividad) req.getAttribute("DataActividad");
-				String proveedor = (String) req.getAttribute("Proveedor");
+				HttpSession session1 = req.getSession();
+				DataUsuario aux = (DataUsuario) session1.getAttribute("usuario");
+				String proveedor = aux.getNick();
 				conAlta = fab.getIControladorAlta();
 				try {
 					//da.getDepartamento()
