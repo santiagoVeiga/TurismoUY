@@ -73,7 +73,7 @@
                 <%} else if (usr instanceof DataTurista){ %>
                 	<div class="row float-right">
                         <div class="header__top__right__Usu" style="cursor: pointer;" onclick="window.location='./ConsultaUsuarioT.html';">
-                            <span><a href="/tarea2p2/ConsultaUsuario"><img src="https://pbs.twimg.com/media/EOHAP9zWoAsnkiM?format=jpg&name=small"> &nbsp; <% usr.getNombre(); %></a></span>
+                            <span><a href="/tarea2p2/ConsultaUsuario"><img src="https://pbs.twimg.com/media/EOHAP9zWoAsnkiM?format=jpg&name=small"> &nbsp; <%= usr.getNombre() %></a></span>
                         </div>
                     </div>
                     <div class="row float-right">

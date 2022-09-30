@@ -57,12 +57,12 @@
             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inicio de Sesion</h3>
 
             <div class="form-outline mb-4">
-              <input type="email" id="emailnick_inicioSesion" class="form-control form-control-lg" />
+              <input type="email" name="emailnick_inicioSesion" class="form-control form-control-lg" />
               <label class="form-label" for="emailnick_inicioSesion">Email address or nickname</label>
             </div>
 
             <div class="form-outline mb-4">
-              <input type="password" id="pass_iniSesion" class="form-control form-control-lg" />
+              <input type="password" name="pass_iniSesion" class="form-control form-control-lg" />
               <label class="form-label" for="pass_iniSesion">Password</label>
             </div>
             

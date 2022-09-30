@@ -144,21 +144,36 @@ public class ServletSesion extends HttpServlet {
 			case "/cerrarSesion":
 				break;
 			case "/sesionIniciada":
-				DataUsuario[] ususSistema = ca.getUsuarios();
+				DataUsuario[] ususSistema = ca.getUsuariosComp();
 				String nickOrEmail = (String) req.getParameter("emailnick_inicioSesion");
 				for (DataUsuario it : ususSistema) {
-					if(it.getMail()==nickOrEmail) {
+					if(it.getMail().equals(nickOrEmail)) {
 						String password = (String) req.getParameter("pass_iniSesion");
-						if (password == it.getNombre()) { //CAMBIARRRRRRRRR
+						if (it.getPassword().equals(password)) { 
 							//Sesion iniciada correctamente
 							ses.setAttribute("usuario", it);
-							resp.sendRedirect("/turismo.uy/home");
-							break;
+							resp.sendRedirect("/tarea2p2/home");
+							return;
 						}
 						else {
 							req.setAttribute("error_contrasena","error");
 							req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
-							break;
+							return;
+						}
+					}
+					else if(it.getNick().equals(nickOrEmail)) {
+						String password = (String) req.getParameter("pass_iniSesion");
+						if (it.getPassword().equals(password)) { 
+							//Sesion iniciada correctamente
+							ses.setAttribute("usuario", it);
+							ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
+							resp.sendRedirect("/tarea2p2/home");
+							return;
+						}
+						else {
+							req.setAttribute("error_contrasena","error");
+							req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
+							return;
 						}
 					}
 				}
