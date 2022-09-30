@@ -160,8 +160,7 @@
                             if(dptos!=null)
                             for (DataDepartamento it : dptos){
                             %>
-                                <li><a href="#"><%=it.getNombre()%></a></li>
-                                
+                                <li><a href="?DTDConsultaActividad=<%= it.getNombre() %>"><%= it.getNombre() %></a></li>
                             <%} %>
                             </ul>
                         </div>
@@ -171,7 +170,12 @@
                                 <span>Categorias</span>
                             </div>
                             <ul>
-                                <li><a href="./ListaActividadV.html">Gastronomia</a></li>
+                           	<%Set<String> cats = (Set<String>) request.getAttribute("categorias");
+                            if(cats!=null)
+                            for (String it : cats){
+                            %>
+                                <li><a href="?CatConsultaActividad=<%= it  %>"><%= it %></a></li>
+                            <%} %>
                             </ul>
                         </div>
                     </div>

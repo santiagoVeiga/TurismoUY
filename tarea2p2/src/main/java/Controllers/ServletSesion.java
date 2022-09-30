@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
@@ -116,7 +117,25 @@ public class ServletSesion extends HttpServlet {
 				} catch (DepartamentoNoExisteException e) {
 					System.out.println("no hay deptos");
 				}
+				String nomDpto = req.getParameter("DTDConsultaActividad");
+				if(nomDpto != null) {
+					for(DataDepartamento it : aux) {
+						if(it.getNombre()==nomDpto) {
+							ses.setAttribute("DTDConsultaActividad", it);
+						}
+					}
+					resp.sendRedirect("/tarea2p2/ConsultaActividad");
+					return;
+				}
+				Set<String> cats = cc.obtenerNombreCategorias();
+				String nomCat = req.getParameter("CatConsultaActividad");
+				if(nomCat!=null) {
+					ses.setAttribute("CatConsultaActividad", nomCat);
+					resp.sendRedirect("/tarea2p2/ConsultaActividad");
+					return;
+				}
 				req.setAttribute("dptos", aux);
+				req.setAttribute("categorias", cats);
 				req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
 				break;
 			case "/iniciarSesion":
