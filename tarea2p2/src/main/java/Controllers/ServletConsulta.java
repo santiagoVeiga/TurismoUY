@@ -20,7 +20,7 @@ import logica.IControladorConsulta;
 /**
  * Servlet implementation class Home
  */
-@WebServlet (urlPatterns={"/DetalleUsuario","/ConsultaUsuario","/ConsultaActividad","/DetalleActividad"})
+@WebServlet (urlPatterns={"/ConsultaUsuario","/ConsultaActividad","/ConsultaSalida","/ConsultaPaquete"})
 
 public class ServletConsulta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -40,45 +40,61 @@ public class ServletConsulta extends HttpServlet {
 		
 		switch(req.getServletPath()){
 			case "/ConsultaUsuario":
+				String usuario = (String) req.getParameter("usuario");
 				conCons = fab.getIControladorConsulta();
-				DataUsuario[] usuarios = conCons.listarUsuarios();
-				req.setAttribute("ArregloUsuarios", usuarios);
-				req.getRequestDispatcher("/WEB-INF/ListaUsuario.jsp").forward(req,resp);
-				break;
-			case "/DetalleUsuario":
-				req.getRequestDispatcher("/WEB-INF/ConsultaUsuario.jsp").forward(req,resp);
+				if(usuario == null) {
+					DataUsuario[] usuarios = conCons.listarUsuarios();
+					req.setAttribute("ArregloUsuarios", usuarios);
+					req.getRequestDispatcher("/WEB-INF/ListaUsuario.jsp").forward(req,resp);
+				} else {
+					DataUsuario du = conCons.ingresarDatos(usuario);
+					req.setAttribute("UsuarioElegido", du);
+					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario.jsp").forward(req,resp);
+				}				
 				break;
 			case "/ConsultaActividad":
-				// manda una redirección a otra URL (cambia la URL)
+				HttpSession session = req.getSession();
+				String actividad = (String) req.getParameter("actividad"); 
 				DataActividad[] actividades;
-				if(req.getAttribute("DataDepartamento")!= null) {
-					actividades = ((DataDepartamento) req.getAttribute("DataDepartamento")).getColAct().toArray(new DataActividad[0]);
+				if(session.getAttribute("DTDConsultaActividad")!= null) {
+					actividades = ((DataDepartamento) session.getAttribute("DTDConsultaActividad")).getColAct().toArray(new DataActividad[0]);
 				} else {
-					String categoria = (String) req.getAttribute("Categoria");
+					String categoria = (String) session.getAttribute("CatConsultaActividad");
 					actividades = conCons.obtenerActividadCategoria(categoria);
 				}
-				req.setAttribute("ArregloActividades", actividades);
-				req.getRequestDispatcher("/WEB-INF/ListaActividad.jsp").forward(req,resp);
-				break;
-			case "/DetalleActividad":
-				req.getRequestDispatcher("/WEB-INF/ConsultaActividad.jsp").forward(req,resp);
+				if(actividad == null) {
+					req.setAttribute("ArregloActividades", actividades);
+					req.getRequestDispatcher("/WEB-INF/ListaActividad.jsp").forward(req,resp);
+				} else {
+					int i = 0;
+					while (actividades[i].getNombre()!=actividad) {
+						i++;
+					}
+					req.setAttribute("ActividadElegida", actividades[i]);
+					req.getRequestDispatcher("/WEB-INF/ConsultaActividad.jsp").forward(req,resp);
+				}
 				break;
 			case "/ConsultaSalida":
 				req.getRequestDispatcher("/WEB-INF/ConsultaActividad.jsp").forward(req,resp); //Ver si entregar el set de salidas o no, por ahora se devuelve el DataSalida que viene desde la lista.
 				break;
 			case "/ConsultaPaquete":
-				// manda una redirección a otra URL (cambia la URL)
-				conCons = fab.getIControladorConsulta();
-				String[] nombresPaq = conCons.listarPaquetes();
-				DataPaquete[] dps = new DataPaquete[nombresPaq.length];
-				for(int i=0;i<nombresPaq.length;i++) {
-					dps[i] = conCons.obtenerDataPaquete(nombresPaq[i]);
+				String paquete = (String) req.getParameter("paquete");
+				if(paquete == null) {
+					conCons = fab.getIControladorConsulta();
+					String[] nombresPaq = conCons.listarPaquetes();
+					DataPaquete[] dps = new DataPaquete[nombresPaq.length];
+					for(int i=0;i<nombresPaq.length;i++) {
+						dps[i] = conCons.obtenerDataPaquete(nombresPaq[i]);
+					}
+					req.setAttribute("ArregloPaquetes", dps);
+					req.getRequestDispatcher("/WEB-INF/ListaPaquetes.jsp").forward(req,resp);
+				} else {
+					DataPaquete dp = conCons.obtenerDataPaquete(paquete);
+					req.setAttribute("PaqueteElegido", dp);
+					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete.jsp").forward(req,resp);
 				}
-				req.setAttribute("ArregloPaquetes", dps);
-				req.getRequestDispatcher("/WEB-INF/ListaPaquetes.jsp").forward(req,resp);
 				break;
 			case "/DetallePaquete":
-				req.getRequestDispatcher("/WEB-INF/ConsultaPaquete.jsp").forward(req,resp);
 				break;
 		}
 	}
