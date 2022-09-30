@@ -12,6 +12,12 @@ public class DataTurista extends DataUsuario {
     	this.salidas = Salidass;
     }
     
+    public DataTurista(String nick,String nom, String ap,String mail, Date nacimiento, String nacionalidad,Set<DataSalida> Salidass,String pass, byte[] im) {
+        super(nick,nom,ap,mail,nacimiento,pass,im);
+    	this.nacionalidad = nacionalidad;
+    	this.salidas = Salidass;
+    }
+    
     public Set<DataSalida> getDataSalidas()
     {
     	return salidas;

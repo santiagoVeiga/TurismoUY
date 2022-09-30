@@ -85,5 +85,18 @@ public class Turista extends Usuario{
     	return DT;
     }
 
+	@Override
+	public DataUsuario getDataUsuarioComp() {
+		Iterator<CompraGeneral> itr = comprasG.iterator();
+    	Set<DataSalida> DS = new HashSet<DataSalida>();
+    	while(itr.hasNext()) 
+    	{
+    		CompraGeneral S = itr.next();
+    		DS.add(S.getSalida().getDataST());
+    	}
+    	DataTurista DT = new DataTurista(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),nacionalidad,DS,getPassword(),getImagen());
+    	return DT;
+	}
+
 
 }

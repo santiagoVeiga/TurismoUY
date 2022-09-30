@@ -134,8 +134,8 @@ public class ServletSesion extends HttpServlet {
 					resp.sendRedirect("/tarea2p2/ConsultaActividad");
 					return;
 				}
-				req.setAttribute("dptos", aux);
-				req.setAttribute("categorias", cats);
+				ses.setAttribute("dptos", aux);
+				ses.setAttribute("categorias", cats);
 				req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
 				break;
 			case "/iniciarSesion":

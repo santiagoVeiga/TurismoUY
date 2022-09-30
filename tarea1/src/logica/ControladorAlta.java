@@ -609,4 +609,17 @@ public class ControladorAlta implements IControladorAlta {
 	      }
 		
 	}
+
+
+	@Override
+	public DataUsuario[] getUsuariosComp() throws UsuarioNoExisteException {
+		// TODO Auto-generated method stub
+		ManejadorUsuario mu = ManejadorUsuario.getinstance();
+        DataUsuario[] usrs = mu.getUsuariosComp();
+
+        if (usrs != null) {
+            return usrs;
+        } else
+            throw new UsuarioNoExisteException("No existen usuarios registrados");
+	}
 }

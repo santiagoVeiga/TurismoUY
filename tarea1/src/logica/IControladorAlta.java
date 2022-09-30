@@ -55,6 +55,7 @@ public interface IControladorAlta {
     
     public abstract DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException;
     public abstract DataUsuario[] getUsuarios() throws UsuarioNoExisteException;
+    public abstract DataUsuario[] getUsuariosComp() throws UsuarioNoExisteException;
 
 	public abstract void cargarDptos() throws IOException, DepartamentoYaExisteExeption;
 	public void cargarDptos(CSVReader reader) throws IOException, DepartamentoYaExisteExeption;

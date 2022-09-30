@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 <body>
+
 <%DataUsuario usr = null;
     if (session.getAttribute("estado_sesion") != EstadoSesion.NO_LOGIN) {
     	usr = (DataUsuario) session.getAttribute("usuario");
@@ -33,7 +34,7 @@
              <span>Departamentos</span>
          </div>
          <ul>
-         <%DataDepartamento[] dptos = (DataDepartamento[]) request.getAttribute("dptos");
+         <%DataDepartamento[] dptos = (DataDepartamento[]) session.getAttribute("dptos");
          if(dptos!=null)
          for (DataDepartamento it : dptos){
          %>
@@ -47,7 +48,7 @@
              <span>Categorias</span>
          </div>
          <ul>
-        	<%Set<String> cats = (Set<String>) request.getAttribute("categorias");
+        	<%Set<String> cats = (Set<String>) session.getAttribute("categorias");
          if(cats!=null)
          for (String it : cats){
          %>

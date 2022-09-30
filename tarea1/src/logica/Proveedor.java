@@ -81,4 +81,16 @@ public class Proveedor extends Usuario {
     	return DT;
     }
 
+	@Override
+	public DataUsuario getDataUsuarioComp() {
+		Set<DataActividad> DS = new HashSet<DataActividad>();
+    	for (Map.Entry<String, Actividad> entry : actividades.entrySet()) 
+    	{ 
+    		Actividad S = entry.getValue();
+    		DS.add(S.getDataAT());
+    	}
+    	DataProveedor DT = new DataProveedor(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),descripcion,link,DS,getPassword(),getImagen());
+    	return DT;
+	}
+
 }

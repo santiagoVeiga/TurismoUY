@@ -61,4 +61,20 @@ public class ManejadorUsuario {
         }
     }
 
+	public DataUsuario[] getUsuariosComp() {
+		if (usuariosNick.isEmpty())
+            return new DataUsuario[0];
+        else {
+            Collection<Usuario> usrs = usuariosNick.values();
+            Object[] o = usrs.toArray();
+            Usuario[] usuarios = new Usuario[o.length];
+            DataUsuario[] DU = new DataUsuario[usuarios.length];
+            for (int i = 0; i < o.length; i++) {
+                usuarios[i] = (Usuario) o[i];
+                DU[i] = usuarios[i].getDataUsuarioComp();
+            }
+            return DU;
+        }
+	}
+
 }

@@ -15,6 +15,8 @@ public class DataUsuario {
     private String apellido;
     private String mail;
     private Date nacimiento;
+    private String password;
+    private byte[] imagen;
 
     public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento) {
     	this.nick = nick;
@@ -22,6 +24,16 @@ public class DataUsuario {
         this.apellido = apellido;
         this.mail = mail;
         this.nacimiento = nacimiento;
+    }
+    
+    public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento, String pass, byte[] im) {
+    	this.nick = nick;
+    	this.nombre= nombre;
+        this.apellido = apellido;
+        this.mail = mail;
+        this.nacimiento = nacimiento;
+        password = pass;
+        imagen = im;
     }
 
     public String getNick() {
@@ -43,6 +55,22 @@ public class DataUsuario {
     public Date getNacimiento() {
         return nacimiento;
     }
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
 
     /* Sirve para mostrar textualmente la información del usuario, por ejemplo en un ComboBox
          public String toString() {

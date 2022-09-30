@@ -25,7 +25,10 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     </head>
    <body>
-   
+   <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
    <jsp:include page="/WEB-INF/template/header.jsp"/>
 	<%DataUsuario usr = null;
     if (session.getAttribute("estado_sesion") != EstadoSesion.NO_LOGIN) {
@@ -84,7 +87,7 @@
                 </div>
                 <!-- Actividades -->
                 <div class="col-lg-9">
-                <% DataDepartamento[] dptos = (DataDepartamento[]) request.getAttribute("dptos");
+                <% DataDepartamento[] dptos = (DataDepartamento[]) session.getAttribute("dptos");
                 Set<DataActividad> actIndex = dptos[4].getColAct(); 
                 for(DataDepartamento iter : dptos){
                 	if(iter.getColAct().size()!=0){

@@ -99,4 +99,6 @@ public abstract class Usuario {
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
 	}
+
+	public abstract DataUsuario getDataUsuarioComp();
 }
