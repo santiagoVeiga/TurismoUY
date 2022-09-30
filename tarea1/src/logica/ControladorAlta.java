@@ -530,4 +530,83 @@ public class ControladorAlta implements IControladorAlta {
 			
 		}
 	}
+
+
+	@Override
+	public void cargarUsuarios(CSVReader reader, byte[] imgBytes)
+			throws IOException, UsuarioRepetidoException, ParseException {
+		CSVReader usu = reader;
+	      String[] nextLineusu;
+	      
+	      //reads one line at a time  
+	      int cont = 0;
+	      while ((nextLineusu = usu.readNext()) != null) {
+	    	  if(cont>0) {
+	    		  
+	    		  if(nextLineusu[1].equals(" T")) {
+	    			  
+	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    			  Date fecha = formato.parse(nextLineusu[6].strip());
+	    			  confirmarAltaTurista(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[7].strip(),"1234",imgBytes);
+	    		  }
+	    		  else if (nextLineusu[1].equals(" P")) {
+	    			
+	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    			  Date fecha = formato.parse(nextLineusu[6]);
+	    			  confirmarAltaProveedor(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[8].strip(),nextLineusu[9].strip(),true,"1234",imgBytes);
+	    		  }
+	    	  }
+	    		  
+	    	  cont++;
+	      }
+		
+	}
+
+
+	@Override
+	public void cargarActs(CSVReader reader, byte[] imgBytes)
+			throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException,
+			ParseException, UsuarioNoExisteException, ProveedorNoNacidoException {
+		
+	      String[] nextLine;
+	      int cont = 0;
+	     
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    		  Date f = formato.parse(nextLine[7].strip());
+	    		  Set<String> coso = new HashSet<String>(); 
+	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),f,nextLine[9].strip(), coso,imgBytes);
+	    	  }
+	    	  else {
+	    		  cont++;
+	    	  }
+	      }
+	}
+
+
+	@Override
+	public void cargarSalidas(CSVReader reader, byte[] imgBytes) throws NumberFormatException, IOException,
+			ParseException, SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad {
+
+	      String[] nextLine;
+	      int cont = 0;
+	      
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    		  Date f = formato.parse(nextLine[3].strip());
+	    		  Date fa = formato.parse(nextLine[7].strip());
+	    		  int hora = Integer.parseInt(nextLine[4].strip());
+	    		  Date h = new Date(0,0,0,hora,0);
+	    		  confirmarAltaSalida(nextLine[1].strip(),nextLine[2].strip(),f,h,nextLine[6].strip(),Integer.parseInt(nextLine[5]),fa,imgBytes);
+	    	  }
+	    	  else {
+	    		  cont++;
+	    	  }
+	      }
+		
+	}
 }

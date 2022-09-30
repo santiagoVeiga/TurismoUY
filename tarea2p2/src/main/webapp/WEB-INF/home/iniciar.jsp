@@ -25,87 +25,13 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     </head>
    <body>
-	<!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
-
-    <%DataUsuario usr = null;
+   
+   <jsp:include page="/WEB-INF/template/header.jsp"/>
+	<%DataUsuario usr = null;
     if (session.getAttribute("estado_sesion") != EstadoSesion.NO_LOGIN) {
     	usr = (DataUsuario) session.getAttribute("usuario");
     }
       %>
-
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        <a href="./index.html"><img src="../img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <input type="text" placeholder="Buscar en turismo.uy">
-                                <button type="submit" class="site-btn">BUSCAR</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                <% if (usr == null) {%>
-                    <div class="header__top__right">
-                        <div class="header__top__right__auth">
-                        	<a href="/turismo.uy/alta_usuario"> Alta Usuario</a>
-                            <a href="/turismo.uy/iniciarSesion"><i class="fa fa-user"></i> Iniciar Sesion</a>
-                        </div>
-                    </div>
-                <%} else if (usr instanceof DataTurista){ %>
-                	<div class="row float-right">
-                        <div class="header__top__right__Usu" style="cursor: pointer;" onclick="window.location='./ConsultaUsuarioT.html';">
-                            <span><a href="/turismo.uy/ConsultaUsuario"><img src="https://pbs.twimg.com/media/EOHAP9zWoAsnkiM?format=jpg&name=small"> &nbsp; <% usr.getNombre(); %></a></span>
-                        </div>
-                    </div>
-                    <div class="row float-right">
-                    	<div class="header__top__right__csesion ">
-                           	<a href="/turismo.uy/logout"> Cerrar Sesion</a>
-                        </div>
-                    </div>
-                <% } else if (usr instanceof DataProveedor) {%>
-                	<div class="row float-right">
-                        <div class="header__top__right__Usu">
-                            <span><a href="/turismo.uy/ConsultaUsuario"><img src="https://c.wallhere.com/photos/55/39/safe_house_cia_agent_tobin_frost_denzel_washington-584127.jpg!d"> &nbsp; Washington Rocha</a></span>
-                        </div>
-                    </div>
-                    <div class="row float-right">
-                    	<div class="header__top__right__csesion ">
-                           	<a href="/turismo.uy/logout"> Cerrar Sesion</a>
-                        </div>
-                    </div>
-                <%} %>
-                </div>
-            </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    <!-- Header Section End -->
     <!-- Hero Section Begin -->
     <section class="hero">
         <div class="container">
@@ -150,35 +76,21 @@
                     	<% } %>
                     		
                     	</div>
-                        <div class="hero__deps">
-                            <div class="hero__deps__all">
-                                <i class="fa fa-bars"  ></i>
-                                <span>Departamentos</span>
-                            </div>
-                            <ul>
-                            <%DataDepartamento[] dptos = (DataDepartamento[]) request.getAttribute("dptos");
-                            if(dptos!=null)
-                            for (DataDepartamento it : dptos){
-                            %>
-                                <li><a href="#"><%=it.getNombre()%></a></li>
-                                
-                            <%} %>
-                            </ul>
-                        </div>
-                        <div class="hero__categories">
-                            <div class="hero__categories__all">
-                                <i class="fa fa-bars"></i>
-                                <span>Categorias</span>
-                            </div>
-                            <ul>
-                                <li><a href="./ListaActividadV.html">Gastronomia</a></li>
-                            </ul>
-                        </div>
+                        
+                        <jsp:include page="/WEB-INF/template/dptosCats.jsp"/>
+                        
+                        
                     </div>
                 </div>
                 <!-- Actividades -->
                 <div class="col-lg-9">
-                <% Set<DataActividad> actIndex = (Set<DataActividad>) request.getAttribute("actividades_index");
+                <% DataDepartamento[] dptos = (DataDepartamento[]) request.getAttribute("dptos");
+                Set<DataActividad> actIndex = dptos[4].getColAct(); 
+                for(DataDepartamento iter : dptos){
+                	if(iter.getColAct().size()!=0){
+                		actIndex = iter.getColAct();
+                	}
+                }
                 boolean addRow = true;
                 if(actIndex!=null)
                 for (DataActividad iter : actIndex){
@@ -194,10 +106,10 @@
                                 </div>
                                 <div class="blog__item__text">
                                     <ul>
-                                        <li><i class="fa fa-calendar-o"></i> <% iter.getFechaAlta();%></li>
+                                        <li><i class="fa fa-calendar-o"></i> <%= iter.getFechaAlta()%></li>
                                     </ul>
-                                    <h5><a href="./consulta_actividad_Visitante.html"><% iter.getNombre(); %></a></h5>
-                                    <p><%iter.getDescripcion(); %></p>
+                                    <h5><a href="./consulta_actividad_Visitante.html"><%= iter.getNombre() %></a></h5>
+                                    <p><%=iter.getDescripcion() %></p>
                                     <a href="./consulta_actividad_Visitante.html" class="blog__btn">LEER MÁS <span class="arrow_right"></span></a>
                                 </div>
                             </div>
@@ -206,9 +118,10 @@
                     <%if (addRow){
                 		addRow = false;
                 		%>    
-                    </div> 
-                <%} else addRow = true;
-                    }%>
+                    
+                <%} else {addRow = true; // esta para arreglar %>
+                </div> 
+                  <%   }}%> 
                 </div>
             </div>
         </div>

@@ -1,10 +1,15 @@
 package Controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,16 +52,41 @@ public class ServletSesion extends HttpServlet {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("estado_sesion") == null) {
 			session.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
-			Fabrica f = Fabrica.getInstance();
-			IControladorAlta ca = f.getIControladorAlta();
-			try {
-				ServletContext servletContext = request.getServletContext();
-				InputStream input = servletContext.getResourceAsStream("/WEB-INF/data/Departamentos.csv");
-			    CSVReader reader = new CSVReader(new InputStreamReader(input));
-				ca.cargarDptos(reader);
-			} catch (Exception e) {
-				
-			}
+			
+		}
+		Fabrica f = Fabrica.getInstance();
+		IControladorAlta ca = f.getIControladorAlta();
+		try {
+			ServletContext servletContext = request.getServletContext();
+			InputStream input = servletContext.getResourceAsStream("/WEB-INF/data/Departamentos.csv");
+		    CSVReader reader = new CSVReader(new InputStreamReader(input));
+			ca.cargarDptos(reader);
+			// dptos listos
+			input = servletContext.getResourceAsStream("/WEB-INF/data/Usuarios.csv");
+		    reader = new CSVReader(new InputStreamReader(input));
+		    BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/u1.jpg"));
+	        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	        ImageIO.write(img, "jpg", baos);
+	        byte[] imgBytes = baos.toByteArray();
+	        ca.cargarUsuarios(reader,imgBytes);
+	        // usus listos
+	        input = servletContext.getResourceAsStream("/WEB-INF/data/Actividades.csv");
+		    reader = new CSVReader(new InputStreamReader(input));
+		    img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/a1.jpg"));
+	        baos = new ByteArrayOutputStream();
+	        ImageIO.write(img, "jpg", baos);
+	        imgBytes = baos.toByteArray();
+	        ca.cargarActs(reader,imgBytes);
+	        // acts listas
+	        input = servletContext.getResourceAsStream("/WEB-INF/data/Salidas.csv");
+		    reader = new CSVReader(new InputStreamReader(input));
+		    img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/s1.jpg"));
+	        baos = new ByteArrayOutputStream();
+	        ImageIO.write(img, "jpg", baos);
+	        imgBytes = baos.toByteArray();
+	        ca.cargarSalidas(reader,imgBytes);
+		} catch (Exception e) {
+			
 		}
 	}
 	
@@ -87,15 +117,38 @@ public class ServletSesion extends HttpServlet {
 				} catch (DepartamentoNoExisteException e) {
 					System.out.println("no hay deptos");
 				}
+				String nomDpto = req.getParameter("DTDConsultaActividad");
+				if(nomDpto != null) {
+					for(DataDepartamento it : aux) {
+						if(it.getNombre()==nomDpto) {
+							ses.setAttribute("DTDConsultaActividad", it);
+						}
+					}
+					resp.sendRedirect("/tarea2p2/ConsultaActividad");
+					return;
+				}
+				Set<String> cats = cc.obtenerNombreCategorias();
+				String nomCat = req.getParameter("CatConsultaActividad");
+				if(nomCat!=null) {
+					ses.setAttribute("CatConsultaActividad", nomCat);
+					resp.sendRedirect("/tarea2p2/ConsultaActividad");
+					return;
+				}
 				req.setAttribute("dptos", aux);
+				req.setAttribute("categorias", cats);
 				req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
 				break;
 			case "/iniciarSesion":
+				req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
+				break;
+			case "/cerrarSesion":
+				break;
+			case "/sesionIniciada":
 				DataUsuario[] ususSistema = ca.getUsuarios();
-				String nickOrEmail = (String) ses.getAttribute("emailnick_inicioSesion");
+				String nickOrEmail = (String) req.getParameter("emailnick_inicioSesion");
 				for (DataUsuario it : ususSistema) {
 					if(it.getMail()==nickOrEmail) {
-						String password = (String) ses.getAttribute("pass_iniSesion");
+						String password = (String) req.getParameter("pass_iniSesion");
 						if (password == it.getNombre()) { //CAMBIARRRRRRRRR
 							//Sesion iniciada correctamente
 							ses.setAttribute("usuario", it);
@@ -104,17 +157,13 @@ public class ServletSesion extends HttpServlet {
 						}
 						else {
 							req.setAttribute("error_contrasena","error");
-							resp.sendRedirect("/turismo.uy/iniciarSesion");
+							req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
 							break;
 						}
 					}
 				}
 				req.setAttribute("error_emailnick","error");
-				resp.sendRedirect("/turismo.uy/iniciarSesion");
-				break;
-			case "/cerrarSesion":
-				break;
-			case "/sesionIniciada":
+				req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
 				break;
 			case "/sesionCerrada":
 				break;
