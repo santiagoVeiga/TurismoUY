@@ -82,7 +82,7 @@ public class ServletInsc extends HttpServlet {
 				conInsc = fab.getIControladorInsc();
 				HttpSession session1 = req.getSession();
 				DataUsuario du1 = (DataUsuario) session1.getAttribute("usuario");
-				int cant1 = (int) req.getAttribute("cantidad");
+				int cant1 = Integer.parseInt(req.getParameter("cantTur"));
 				DataPaquete dp1 = (DataPaquete) req.getAttribute("DataPaquete");
 				LocalDateTime ld1 = LocalDateTime.now();
 				Date fecha1 = java.util.Date.from(ld1.atZone(ZoneId.systemDefault()).toInstant());
