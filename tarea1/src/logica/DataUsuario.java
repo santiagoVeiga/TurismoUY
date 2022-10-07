@@ -11,7 +11,7 @@ import java.util.Date;
 public class DataUsuario {
 
 	private String nick;
-    private String nombre;
+	private String nombre;
     private String apellido;
     private String mail;
     private Date nacimiento;
@@ -72,18 +72,23 @@ public class DataUsuario {
 		this.imagen = imagen;
 	}
 
-    /* Sirve para mostrar textualmente la información del usuario, por ejemplo en un ComboBox
-         public String toString() {
-        return " (" + getNombre() + " " + getApellido() + ")";
-    }
-     */
-/* Esta comentado porque no se ha usado al momento para nada
-    private void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
 
-    private void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-    */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public void setNacimiento(Date nacimiento) {
+		this.nacimiento = nacimiento;
+	}
 }

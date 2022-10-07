@@ -1,12 +1,14 @@
 package Controllers;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Base64;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -152,7 +154,15 @@ public class ServletSesion extends HttpServlet {
 						if (it.getPassword().equals(password)) { 
 							//Sesion iniciada correctamente
 							ses.setAttribute("usuario", it);
-							resp.sendRedirect("/tarea2p2/home");
+							// Setear imagen
+							InputStream is = new ByteArrayInputStream(it.getImagen());
+					        BufferedImage bi = ImageIO.read(is);
+					        ByteArrayOutputStream output = new ByteArrayOutputStream();
+							ImageIO.write(bi, "jpg", output);
+							String imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+					        ses.setAttribute("imagenUsuario", imageAsBase64);
+					        //
+							req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
 							return;
 						}
 						else {

@@ -49,8 +49,7 @@ public class ServletAlta extends HttpServlet {
 		
 		switch(req.getServletPath()){
 			case "/AltaUsuario":
-				// manda una redirección a otra URL (cambia la URL)
-				resp.sendRedirect("/WEB-INF/alta_usuario.jsp"); // Asi andara? O tiene que ser a un servlet?
+				req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req,resp);
 				break;
 			case "/AltaActividad":
 				// manda una redirección a otra URL (cambia la URL)

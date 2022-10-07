@@ -70,21 +70,10 @@
                             <a href="/tarea2p2/iniciarSesion"><i class="fa fa-user"></i> Iniciar Sesion</a>
                         </div>
                     </div>
-                <%} else if (usr instanceof DataTurista){ %>
+                <%} else { %>
                 	<div class="row float-right">
-                        <div class="header__top__right__Usu" style="cursor: pointer;" onclick="window.location='./ConsultaUsuarioT.html';">
-                            <span><a href="/tarea2p2/ConsultaUsuario"><img src="https://pbs.twimg.com/media/EOHAP9zWoAsnkiM?format=jpg&name=small"> &nbsp; <%= usr.getNombre() %></a></span>
-                        </div>
-                    </div>
-                    <div class="row float-right">
-                    	<div class="header__top__right__csesion ">
-                           	<a href="/tarea2p2/logout"> Cerrar Sesion</a>
-                        </div>
-                    </div>
-                <% } else if (usr instanceof DataProveedor) {%>
-                	<div class="row float-right">
-                        <div class="header__top__right__Usu">
-                            <span><a href="/tarea2p2/ConsultaUsuario"><img src="https://c.wallhere.com/photos/55/39/safe_house_cia_agent_tobin_frost_denzel_washington-584127.jpg!d"> &nbsp; Washington Rocha</a></span>
+                        <div class="header__top__right__Usu" style="cursor: pointer;" onclick="window.location='/tarea2p2/ConsultaUsuario';">
+                            <span><a href="/tarea2p2/ConsultaUsuario"><img src="data:image/jpg;base64,${imagenUsuario}"> &nbsp; <%= usr.getNombre() %> <%= usr.getApellido() %></a></span>
                         </div>
                     </div>
                     <div class="row float-right">
