@@ -182,6 +182,26 @@
 			                    			<img src="../img/consulta_paquete_img.jpg" alt="">
 			                    		</div>
 			                    </div>
+			                    <%! DataUsuario dataUsu; %>
+			                    <% 
+			                    dataUsu = (DataUsuario) session.getAttribute("usuario");
+			                    if( (dataUsu!= null) && (dataUsu instanceof DataTurista) ){
+			                    %>
+			                    <div class="row">
+			                    	<div class="compra_paquete">
+	                    				<span> Realizar Compra Paquete: </span><br />
+	                    				<form action="CompraPaquete" method="POST">
+			                    			<div class="ingreso_datos">
+				                    			<label for="cant">Cantidad de Turistas</label>
+											    <input type="number" id="cant" name="cantTurs" min="1" value="1" placeholder="Ingrese un numero" required>
+											</div>
+											<div class="row justify-content-end" >
+											   <input type="submit" value="Realizar Compra" onclick="submit()">
+											</div>
+			                    		</form>
+			                    	</div>
+	                    		</div>
+			                    <%} %>
 	                    	</div>
 	                    </div>
 				      </div> 
