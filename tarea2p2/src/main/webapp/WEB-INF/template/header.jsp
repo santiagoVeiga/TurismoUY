@@ -78,7 +78,7 @@
                     </div>
                     <div class="row float-right">
                     	<div class="header__top__right__csesion ">
-                           	<a href="/tarea2p2/logout"> Cerrar Sesion</a>
+                           	<a href="/tarea2p2/cerrarSesion"> Cerrar Sesion</a>
                         </div>
                     </div>
                 <%} %>

@@ -144,6 +144,9 @@ public class ServletSesion extends HttpServlet {
 				req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
 				break;
 			case "/cerrarSesion":
+				ses.setAttribute("usuario", null);
+				ses.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
+				req.getRequestDispatcher("/WEB-INF/home/cerrarSesion.jsp").forward(req, resp);
 				break;
 			case "/sesionIniciada":
 				DataUsuario[] ususSistema = ca.getUsuariosComp();
@@ -162,6 +165,7 @@ public class ServletSesion extends HttpServlet {
 							String imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
 					        ses.setAttribute("imagenUsuario", imageAsBase64);
 					        //
+					        ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
 							req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
 							return;
 						}
@@ -176,6 +180,14 @@ public class ServletSesion extends HttpServlet {
 						if (it.getPassword().equals(password)) { 
 							//Sesion iniciada correctamente
 							ses.setAttribute("usuario", it);
+							// Setear imagen
+							InputStream is = new ByteArrayInputStream(it.getImagen());
+					        BufferedImage bi = ImageIO.read(is);
+					        ByteArrayOutputStream output = new ByteArrayOutputStream();
+							ImageIO.write(bi, "jpg", output);
+							String imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+					        ses.setAttribute("imagenUsuario", imageAsBase64);
+					        //
 							ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
 							resp.sendRedirect("/tarea2p2/home");
 							return;

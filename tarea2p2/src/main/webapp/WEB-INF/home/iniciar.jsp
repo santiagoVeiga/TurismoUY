@@ -31,7 +31,7 @@
     </div>
    <jsp:include page="/WEB-INF/template/header.jsp"/>
 	<%DataUsuario usr = null;
-    if (session.getAttribute("estado_sesion") != EstadoSesion.NO_LOGIN) {
+    if (session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO) {
     	usr = (DataUsuario) session.getAttribute("usuario");
     }
       %>
@@ -58,7 +58,7 @@
                     		<ul>
                                 <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Inscripcion a Salida Turistica</a></li>
                                 <li><a href="./ListaPaquetesT.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Comprar Paquete</a></li>
-                                <li><a href="./ListaPaquetesT.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
+                                <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
                                 <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
                                 <li><a href="./listar_usuariosT.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
                             </ul>
