@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page errorPage="/WEB-INF/errorPages/500.jsp" %>
-<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataActividad,java.util.Set,logica.DataDepartamento,Controllers.EstadoSesion" %>
+<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataActividad,java.util.Set,logica.DataDepartamento,Controllers.EstadoSesion,java.text.SimpleDateFormat" %>
 <!doctype html>
 <html lang="zxx">
    <head>
@@ -97,6 +97,8 @@
                 boolean addRow = true;
                 if(actIndex!=null)
                 for (DataActividad iter : actIndex){
+                	SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                	String date = format.format(iter.getFechaAlta());
                 %>
                 	<%if (addRow){
                 		%>
@@ -109,11 +111,11 @@
                                 </div>
                                 <div class="blog__item__text">
                                     <ul>
-                                        <li><i class="fa fa-calendar-o"></i> <%= iter.getFechaAlta()%></li>
+                                        <li><i class="fa fa-calendar-o"></i> <%= date%></li>
                                     </ul>
-                                    <h5><a href="./consulta_actividad_Visitante.html"><%= iter.getNombre() %></a></h5>
+                                    <h5><a href="?actividad=<%= iter.getNombre() %>" ><%= iter.getNombre() %></a></h5>
                                     <p><%=iter.getDescripcion() %></p>
-                                    <a href="./consulta_actividad_Visitante.html" class="blog__btn">LEER MÁS <span class="arrow_right"></span></a>
+                                    <a href="?actividad=<%= iter.getNombre() %>" class="blog__btn">LEER MÁS <span class="arrow_right"></span></a>
                                 </div>
                             </div>
                         </div>

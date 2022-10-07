@@ -265,6 +265,18 @@
 })(jQuery);
 
 $().ready(function() {
+	
+		$("#iniSes").validate({
+			rules:{
+				emailnick_inicioSesion: "required",
+				pass_iniSesion: "required"
+			},
+			messages:{
+				emailnick_inicioSesion: "Por favor ingrese email o nick",
+				pass_iniSesion: "Por favor ingrese contraseña"
+			},
+			errorElement: 'span'
+		});
 		// validate signup form on keyup and submit
 		$("#registro").validate({
 			rules: {
@@ -323,14 +335,16 @@ $().ready(function() {
 			},
       		errorElement : 'span'
 		}); 
+		
 		$( "button" ).click(function() {
 			$("#registro").validate();
 		    if($("#registro").valid() && this.id == "btn-tur-reg"){
-				window.location.href="./index_turista.html";
+				window.location.href="/tarea2p2/UsuarioCreado";
 			}
 			else if($("#registro").valid() && this.id == "btn-prov-reg"){
-				window.location.href="./index_proveedor.html";
+				window.location.href="/tarea2p2/UsuarioCreado";
 			}
+		
 		});
 		
 		});

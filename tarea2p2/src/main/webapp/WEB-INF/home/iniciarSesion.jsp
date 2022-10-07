@@ -51,24 +51,38 @@
 
         <div class="d-flex align-items-center">
 			
-          <form style="width: 23rem;" id="formu" action = "sesionIniciada" method="post">
+          <form id="iniSes" style="width: 23rem;" action = "sesionIniciada" method="post">
 			<a href="/tarea2p2/home"><img alt="" src="img/logo.png"></a>
 			<br>
             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inicio de Sesion</h3>
-
-            <div class="form-outline mb-4">
-              <input type="email" name="emailnick_inicioSesion" class="form-control form-control-lg" />
-              <label class="form-label" for="emailnick_inicioSesion">Email address or nickname</label>
-            </div>
-
-            <div class="form-outline mb-4">
-              <input type="password" name="pass_iniSesion" class="form-control form-control-lg" />
-              <label class="form-label" for="pass_iniSesion">Password</label>
-            </div>
             
+            <% String ec = (String) request.getAttribute("error_contrasena"); 
+               String een = (String) request.getAttribute("error_emailnick");
+               if(een != null && een.equals("error")){%>
+               <div class="alert alert-danger" role="alert" style="display: flex;justify-content: space-between;">
+				  Email o nickname incorrecto
+				  <button id="closei" onclick="this.parentNode.remove(); return false;" >x</button>
+				</div>
+			<%} else if (ec != null && ec.equals("error")){ %>
+				<div class="alert alert-danger" role="alert" style="display: flex;justify-content: space-between;">
+				  Contraseña incorrecta
+				  <button id="closei" onclick="this.parentNode.remove(); return false;" >x</button>
+				</div>
+			<%} %>
+		<fieldset>
+            <div class="form-outline mb-4">
+            	<label class="form-label" for="emailnick_inicioSesion">Email address or nickname</label>
+              <input type="text" id="emailnick_inicioSesion" name="emailnick_inicioSesion" class="form-control form-control-lg" required/>
+            </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label" for="pass_iniSesion">Password</label>
+              <input type="password" id="pass_iniSesion" name="pass_iniSesion" class="form-control form-control-lg" required/>
+            </div>
+         </fieldset>   
 			
 			<div class="pt-1 mb-4" >
-              <button class="btn btn-info btn-lg btn-block" style="background : #4bb1ff;" onclick="enviarIniSesion();" type="button">Iniciar Sesion</button>
+              <button class="btn btn-info btn-lg btn-block" id="btn-iniS" onclick="inicioSesion();" style="background : #4bb1ff;" type="button">Iniciar Sesion</button>
             </div>            
 
             <p>No estas registrado? <a href="/tarea2p2/AltaUsuario" class="link-info" style = "color:#4bb1ff">Registrate aqui</a></p>
@@ -91,10 +105,25 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/jquery.validate.js"></script>
     
-	<script>	function enviarIniSesion(){
-		document.getElementById("formu").submit();
-	}</script>
+	<script> function inicioSesion(){
+		$("#iniSes").validate({
+			rules:{
+				emailnick_inicioSesion: "required",
+				pass_iniSesion: "required"
+			},
+			messages:{
+				emailnick_inicioSesion: "Por favor ingrese email o nick",
+				pass_iniSesion: "Por favor ingrese contraseña"
+			},
+			errorElement: 'span'
+		});
+		if($("#iniSes").valid()){
+			document.getElementById("iniSes").submit();
+		}
+	}
+	</script>
 
 </body>
 

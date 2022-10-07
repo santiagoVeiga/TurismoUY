@@ -3176,6 +3176,17 @@ ol {
 
 /*- Inicio de sesion -*/
 
+#closei {
+    display:inline-block;
+    padding:2px 2px;
+}
+
+#closei:hover {
+    display:inline-block;
+    padding:2px 2px;
+    color:#fff;
+}
+
 .container-fluid{
 	display: flex;
 	align-items: center;
@@ -3220,6 +3231,7 @@ height: 100%;
 /*-- error registro--*/
 
 span.error{ color: red; }
+
 
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
 
