@@ -25,11 +25,11 @@ public class Actividad {
 	private estadoAct estado;
 	private byte[] imagen;
 
-	public Actividad(String nom, String desc, Date f, String ciudad, int costo, int dur, Departamento dep, Map<String,Categoria> categorias) {
+	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String,Categoria> categorias) {
 		colSal = new HashMap<String,Salida>();
 		setNombre(nom);
 		setDescripcion(desc);
-		fechaAlta = f;
+		fechaAlta = fecha;
 		setCiudad(ciudad);
 		setCosto(costo);
 		setDuracion(dur);
@@ -39,11 +39,11 @@ public class Actividad {
 		estado = estadoAct.agregada;
 	}
 	
-	public Actividad(String nom, String desc, Date f, String ciudad, int costo, int dur, Departamento dep, Map<String,Categoria> categorias, byte[] im) {
+	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String,Categoria> categorias, byte[] imagen) {
 		colSal = new HashMap<String,Salida>();
 		setNombre(nom);
 		setDescripcion(desc);
-		fechaAlta = f;
+		fechaAlta = fecha;
 		setCiudad(ciudad);
 		setCosto(costo);
 		setDuracion(dur);
@@ -51,7 +51,7 @@ public class Actividad {
 		this.colpaq = new HashMap<String,Paquete>();
 		setCategorias(categorias); 
 		estado = estadoAct.agregada;
-		imagen = im;
+		this.imagen = imagen;
 	}
 	
 	//Getters
@@ -94,38 +94,38 @@ public class Actividad {
 	
 	// Setters
 	
-	public void setNombre(String n) {
-		nombre = n;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
-	public void setDescripcion(String n) {
-		descripcion = n;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	
-	public void setCiudad(String n) {
-		ciudad = n;
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad ;
 	}
 	
 	
-	public void setCosto(int n) {
-		costo = n;
+	public void setCosto(int costo) {
+		this.costo = costo;
 	}
 	
-	public void setDuracion(int n) {
-		duracion = n;
+	public void setDuracion(int duracion) {
+		this.duracion = duracion;
 	}
 	
 
-	public void setDepartamento(Departamento dep) {
-		departamento = dep;
+	public void setDepartamento(Departamento depart) {
+		departamento = depart;
 	}	
 	
-	public void addSalida(Salida s) {
-		this.colSal.put(s.getNombre(), s);
+	public void addSalida(Salida salida) {
+		this.colSal.put(salida.getNombre(), salida);
 	}
 	
-	public void addPaquete(Paquete p) {
-		this.colpaq.put(p.getNombre(), p);
+	public void addPaquete(Paquete paquete) {
+		this.colpaq.put(paquete.getNombre(), paquete);
 	}
 	
 	//Operaciones
@@ -146,9 +146,9 @@ public class Actividad {
 	public Set<DataSalida> getSalidas() {
 		Set<DataSalida> res = new HashSet<DataSalida>();
 		Set<Entry<String, Salida>> aux = colSal.entrySet();
-    	Iterator<Entry<String, Salida>> it = aux.iterator();
-    	while(it.hasNext()){
-    			res.add(it.next().getValue().getDataST());
+    	Iterator<Entry<String, Salida>> iter = aux.iterator();
+    	while(iter.hasNext()){
+    			res.add(iter.next().getValue().getDataST());
     			}
 		return res;
 	}
@@ -157,8 +157,8 @@ public class Actividad {
 		categorias = cat ; 
 	}
 
-	public Salida getSalida(String s) {
-		return colSal.get(s);
+	public Salida getSalida(String salida) {
+		return colSal.get(salida);
 	}
 
 	public void altaSalida(String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas,

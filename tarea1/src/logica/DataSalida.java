@@ -17,13 +17,13 @@ public class DataSalida {
 	private Date fechaAlta;
 	private int cant;
 
-	public DataSalida(String n,String l,Date h,Date f,Date fa,int c) {
-		nombre = n;
-		lugar = l;
-		hora = h;
-		fecha = f;
-		fechaAlta = fa;
-		cant = c;
+	public DataSalida(String nom,String lug,Date hor,Date fech,Date fechAlta,int can) {
+		nombre = nom;
+		lugar = lug;
+		hora = hor;
+		fecha = fech;
+		fechaAlta = fechAlta;
+		cant = can;
 	}
 	
 	public String getNombre()

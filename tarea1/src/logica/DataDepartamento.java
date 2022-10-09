@@ -31,13 +31,13 @@ public class DataDepartamento {
 	}
 
 
-	public void setNombre(String n) {
-		this.nombre = n;
+	public void setNombre(String nom) {
+		this.nombre = nom;
 	}
 	
 	
-	public void setDescripcion(String d) {
-		this.descripcion = d;
+	public void setDescripcion(String des) {
+		this.descripcion = des;
 	}
 
 	public String getDescripcion() {
@@ -45,8 +45,8 @@ public class DataDepartamento {
 	}
 	
 
-	public void setUrl(String d) {
-		this.descripcion = d;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 

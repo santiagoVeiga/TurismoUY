@@ -44,11 +44,11 @@ public class ManejadorPaquete {
     public String[] getPaquetesN() {
     	String[] resultado = new String[colPaq.size()];
     	Set<Entry<String, Paquete>> aux = colPaq.entrySet();
-    	Iterator<Entry<String, Paquete>> it = aux.iterator();
-    	int i = 0;
-    	while(it.hasNext()){
-    		resultado[i] = it.next().getValue().getNombre();
-    		i++;
+    	Iterator<Entry<String, Paquete>> iter = aux.iterator();
+    	int cont = 0;
+    	while(iter.hasNext()){
+    		resultado[cont] = iter.next().getValue().getNombre();
+    		cont++;
     	}
     	return resultado;
     }
@@ -78,20 +78,20 @@ public class ManejadorPaquete {
 	public String[] getPaquetesNoComp() {
 		Set<String> inter = new HashSet<String>();
 		Set<Entry<String, Paquete>> aux = colPaq.entrySet();
-    	Iterator<Entry<String, Paquete>> it = aux.iterator();
-    	int i = 0;
-    	while(it.hasNext()){
-    		Paquete elem = it.next().getValue();
+    	Iterator<Entry<String, Paquete>> iter = aux.iterator();
+    	int cont = 0;
+    	while(iter.hasNext()){
+    		Paquete elem = iter.next().getValue();
     		if(!elem.isComprado()) {
     			inter.add(elem.getNombre());
-    		i++;
+    		cont++;
     		}
     	}
-    	String[] res = new String[i];
-    	i=0;
+    	String[] res = new String[cont];
+    	cont=0;
     	for (String it1 : inter) {
-    		res[i] = it1;
-    		i++;
+    		res[cont] = it1;
+    		cont++;
     	}
 		return res;
 	}

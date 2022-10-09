@@ -9,16 +9,16 @@ public class CompraGeneral{
 	private Salida salida;
 	private boolean porPaquete;
 	
-	public CompraGeneral(Date f, int cant, int costo) {
+	public CompraGeneral(Date fecha, int cant, int costo) {
 		this.cantidad = cant;
-		this.fecha = f;
+		this.fecha = fecha;
 		this.costo = costo;
 		this.setPorPaquete(false);
 	}
 	
-	public CompraGeneral(Date f, int cant, int costo, boolean paq) {
+	public CompraGeneral(Date fecha, int cant, int costo, boolean paq) {
 		this.cantidad = cant;
-		this.fecha = f;
+		this.fecha = fecha;
 		this.costo = costo;
 		this.setPorPaquete(paq);
 	}
@@ -65,24 +65,24 @@ public class CompraGeneral{
 		this.porPaquete = porPaquete;
 	}
 
-	public void setCantidad(int c) {
-    	costo = c;
+	public void setCantidad(int cost) {
+    	costo = cost;
     }
 
-    public void setFecha(Date f) {
-    	fecha = f;
+    public void setFecha(Date fechaC) {
+    	fecha = fechaC;
     }
 
-    public void setCosto(int c) {
-    	costo = c;
+    public void setCosto(int costoC) {
+    	costo = costoC;
     }
     
-    public void setSalida(Salida s) {
-    	this.salida = s;
+    public void setSalida(Salida salida) {
+    	this.salida = salida;
     }
 
-	public boolean esSalida(Salida s) {
-		return salida.equals(s);
+	public boolean esSalida(Salida salida) {
+		return salida.equals(salida);
 	}
     
 }

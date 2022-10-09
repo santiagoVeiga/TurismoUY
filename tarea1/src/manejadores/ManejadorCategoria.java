@@ -44,9 +44,9 @@ public class ManejadorCategoria {
     	
     	Set<String> resultado = new HashSet<String>();
     	Set<Entry<String, Categoria>> aux = colCat.entrySet();
-    	Iterator<Entry<String, Categoria>> it = aux.iterator();
-    	while(it.hasNext()){
-    		resultado.add(it.next().getValue().getCategoria());
+    	Iterator<Entry<String, Categoria>> iter = aux.iterator();
+    	while(iter.hasNext()){
+    		resultado.add(iter.next().getValue().getCategoria());
     	}
     	return resultado;
     	

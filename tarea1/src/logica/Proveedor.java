@@ -24,8 +24,8 @@ public class Proveedor extends Usuario {
     	this.actividades = new HashMap<String, Actividad>();
     }
     
-    public Proveedor(String nick, String nom,String apellido, String mail, Date nacimiento, String desc,String link,boolean hayl,String pass, byte[] im) {
-        super(nick,nom,apellido,mail,nacimiento,pass,im);
+    public Proveedor(String nick, String nom,String apellido, String mail, Date nacimiento, String desc,String link,boolean hayl,String pass, byte[] imagen) {
+        super(nick,nom,apellido,mail,nacimiento,pass,imagen);
     	this.descripcion = desc;
     	this.link = link;
     	this.hayLink = hayl;
@@ -48,16 +48,16 @@ public class Proveedor extends Usuario {
    
     /* Setters */
 
-    public void setDescripcion(String d) {
-    	descripcion = d;
+    public void setDescripcion(String des) {
+    	descripcion = des;
     }
 
-    public void setLink(String l) {
-    	link = l;
+    public void setLink(String link) {
+    	this.link = link;
     }
     
-    public void setHayLink(boolean h) {
-    	hayLink = h;
+    public void setHayLink(boolean hayL) {
+    	hayLink = hayL;
     }
 
     /* Otras */
@@ -71,26 +71,26 @@ public class Proveedor extends Usuario {
     public DataProveedor getDataUsuario()
     {
     	
-    	Set<DataActividad> DS = new HashSet<DataActividad>();
+    	Set<DataActividad> dAct = new HashSet<DataActividad>();
     	for (Map.Entry<String, Actividad> entry : actividades.entrySet()) 
     	{ 
-    		Actividad S = entry.getValue();
-    		DS.add(S.getDataAT());
+    		Actividad act = entry.getValue();
+    		dAct.add(act.getDataAT());
     	}
-    	DataProveedor DT = new DataProveedor(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),descripcion,link,DS);
-    	return DT;
+    	DataProveedor dProv = new DataProveedor(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),descripcion,link,dAct);
+    	return dProv;
     }
 
 	@Override
 	public DataUsuario getDataUsuarioComp() {
-		Set<DataActividad> DS = new HashSet<DataActividad>();
+		Set<DataActividad> dAct = new HashSet<DataActividad>();
     	for (Map.Entry<String, Actividad> entry : actividades.entrySet()) 
     	{ 
-    		Actividad S = entry.getValue();
-    		DS.add(S.getDataAT());
+    		Actividad act = entry.getValue();
+    		dAct.add(act.getDataAT());
     	}
-    	DataProveedor DT = new DataProveedor(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),descripcion,link,DS,getPassword(),getImagen());
-    	return DT;
+    	DataProveedor dProv = new DataProveedor(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),descripcion,link,dAct,getPassword(),getImagen());
+    	return dProv;
 	}
 
 }

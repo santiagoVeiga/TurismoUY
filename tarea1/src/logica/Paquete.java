@@ -44,11 +44,11 @@ public class Paquete {
 
 	public DataPaquete getDataP(){
 		DataActividad[] dtAct = new DataActividad[colAct.size()];
-		int i = 0;
+		int cont = 0;
 		for (Iterator<Map.Entry<String, Actividad>> entries = colAct.entrySet().iterator(); entries.hasNext(); ) {
 		    Map.Entry<String, Actividad> entry = entries.next();
-		    dtAct[i] = entry.getValue().getDataAT();
-		    i++;
+		    dtAct[cont] = entry.getValue().getDataAT();
+		    cont++;
 		}
 		return new DataPaquete(nombre, descripcion, descuento, fechaAlta, validez, dtAct);
 	}

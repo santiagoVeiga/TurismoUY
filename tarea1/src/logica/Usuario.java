@@ -22,14 +22,14 @@ public abstract class Usuario {
         imagen = new byte[0];
     }
    
-    public Usuario(String nickname, String nombre, String apellido, String mail, Date nacimiento, String pass, byte[] im) {
+    public Usuario(String nickname, String nombre, String apellido, String mail, Date nacimiento, String pass, byte[] imagen) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.nickname = nickname;
         this.mail = mail;
         this.nacimiento = nacimiento;
         password = pass;
-        imagen = im;
+        this.imagen = imagen;
     }
     public Usuario(String nickname, String nombre, String apellido, String mail, Date nacimiento, String pass) {
         this.nombre = nombre;
@@ -66,20 +66,20 @@ public abstract class Usuario {
     
     /* Setters */
     
-    public void setNombre(String n) {
-        nombre = n;
+    public void setNombre(String nom) {
+        nombre = nom;
     }
 
-    public void setApellido(String ap) {
-        apellido = ap;
+    public void setApellido(String apellidoU) {
+        apellido = apellidoU;
     }
 
     public void setNickname(String nick) {
     	nickname = nick;
     }
 
-    public void setMail(String m) {
-    	mail = m;
+    public void setMail(String mailU) {
+    	mail = mailU;
     }
 
     public void setNacimiento(Date nac) {

@@ -30,8 +30,8 @@ public class ManejadorDepartamentos {
 	}
 	
     public void addDepartamento(Departamento usu) {
-        String ci = usu.getNombre();
-        colDep.put(ci, usu);
+        String nom = usu.getNombre();
+        colDep.put(nom, usu);
     }
 
     public DataDepartamento[] obtenerDataDepartamentos() {
@@ -39,10 +39,10 @@ public class ManejadorDepartamentos {
             return null;
         else {
             Collection<Departamento> dep = colDep.values();
-            Object[] o =  dep.toArray();
-            DataDepartamento[] dataDep = new DataDepartamento[o.length];
-            for (int i = 0; i < o.length; i++) {
-                dataDep[i] = ((Departamento) o[i]).obtenerDataDepartamento();
+            Object[] obj =  dep.toArray();
+            DataDepartamento[] dataDep = new DataDepartamento[obj.length];
+            for (int i = 0; i < obj.length; i++) {
+                dataDep[i] = ((Departamento) obj[i]).obtenerDataDepartamento();
             }
             return dataDep;
         }

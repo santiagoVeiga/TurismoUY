@@ -43,9 +43,9 @@ public class ManejadorActividad {
     public Set<DataActividad> getDAct() {
     	Set<DataActividad> resultado = new HashSet<DataActividad>();
     	Set<Entry<String, Actividad>> aux = colAct.entrySet();
-    	Iterator<Entry<String, Actividad>> it = aux.iterator();
-    	while(it.hasNext()){
-    		resultado.add(it.next().getValue().getDataAT());
+    	Iterator<Entry<String, Actividad>> iter = aux.iterator();
+    	while(iter.hasNext()){
+    		resultado.add(iter.next().getValue().getDataAT());
     	}
     	return resultado;
     }
@@ -60,9 +60,9 @@ public class ManejadorActividad {
     
 	public void verificarSalida(String nombreSalida) throws SalidaYaExisteExeption {
 		Set<Entry<String, Actividad>> aux = colAct.entrySet();
-    	Iterator<Entry<String, Actividad>> it = aux.iterator();
-    	while(it.hasNext()){
-    		it.next().getValue().perteneceSalida(nombreSalida);
+    	Iterator<Entry<String, Actividad>> iter = aux.iterator();
+    	while(iter.hasNext()){
+    		iter.next().getValue().perteneceSalida(nombreSalida);
     	}
 	}
 

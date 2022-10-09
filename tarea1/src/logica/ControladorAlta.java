@@ -64,11 +64,11 @@ public class ControladorAlta implements IControladorAlta {
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
-	    		  Date f = formato.parse(nextLine[3].strip());
-	    		  Date fa = formato.parse(nextLine[7].strip());
+	    		  Date fecha = formato.parse(nextLine[3].strip());
+	    		  Date fechaA = formato.parse(nextLine[7].strip());
 	    		  int hora = Integer.parseInt(nextLine[4].strip());
-	    		  Date h = new Date(0,0,0,hora,0);
-	    		  confirmarAltaSalida(nextLine[1].strip(),nextLine[2].strip(),f,h,nextLine[6].strip(),Integer.parseInt(nextLine[5]),fa,imgBytes);
+	    		  Date horaS = new Date(0,0,0,hora,0);
+	    		  confirmarAltaSalida(nextLine[1].strip(),nextLine[2].strip(),fecha,horaS,nextLine[6].strip(),Integer.parseInt(nextLine[5]),fechaA,imgBytes);
 	    	  }
 	    	  else {
 	    		  cont++;
@@ -91,9 +91,9 @@ public class ControladorAlta implements IControladorAlta {
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
-	    		  Date f = formato.parse(nextLine[7].strip());
+	    		  Date fecha = formato.parse(nextLine[7].strip());
 	    		  Set<String> coso = new HashSet<String>(); 
-	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),f,nextLine[9].strip(), coso,imgBytes);
+	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),fecha,nextLine[9].strip(), coso,imgBytes);
 	    	  }
 	    	  else {
 	    		  cont++;
@@ -163,36 +163,36 @@ public class ControladorAlta implements IControladorAlta {
     public ControladorAlta(){
     }
 
-    public void confirmarAltaTurista(String nick, String nom , String ap, String mail ,Date nacimiento ,String nacionalidad) throws UsuarioRepetidoException {
-    	ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        Usuario u = mu.obtenerUsuarioNick(nick);
-        if (u != null)
+    public void confirmarAltaTurista(String nick, String nom , String apellido, String mail ,Date nacimiento ,String nacionalidad) throws UsuarioRepetidoException {
+    	ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
+        Usuario usu = manUsu.obtenerUsuarioNick(nick);
+        if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
-        u = mu.obtenerUsuarioMail(mail);
-        if (u != null)
+        usu = manUsu.obtenerUsuarioMail(mail);
+        if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-        u = new Turista(nick, nom, ap, mail, nacimiento, nacionalidad);
-        mu.addUsuario(u);
+        usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad);
+        manUsu.addUsuario(usu);
     }
     
-    public void confirmarAltaProveedor(String nick, String nom , String ap, String mail ,Date nacimiento ,String descripcion, String link, boolean hayLink) throws UsuarioRepetidoException {
-    	ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        Usuario u = mu.obtenerUsuarioNick(nick);
-        if (u != null)
+    public void confirmarAltaProveedor(String nick, String nom , String apellido, String mail ,Date nacimiento ,String descripcion, String link, boolean hayLink) throws UsuarioRepetidoException {
+    	ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
+        Usuario usu = manUsu.obtenerUsuarioNick(nick);
+        if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
-        u = mu.obtenerUsuarioMail(mail);
-        if (u != null)
+        usu = manUsu.obtenerUsuarioMail(mail);
+        if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-        u = new Proveedor(nick, nom, ap, mail, nacimiento, descripcion, link, hayLink);
-        mu.addUsuario(u);
+        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink);
+        manUsu.addUsuario(usu);
     }
     
-    public void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date f,String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException {
+    public void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date fecha,String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException {
     	ManejadorActividad mAct = ManejadorActividad.getInstance();
     	ManejadorDepartamentos mDep = ManejadorDepartamentos.getInstance();
-        ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        ManejadorCategoria mc = ManejadorCategoria.getInstance();
-        Usuario u =  mu.obtenerUsuarioNick(proveedor);
+        ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
+        ManejadorCategoria mCat = ManejadorCategoria.getInstance();
+        Usuario usu =  manUsu.obtenerUsuarioNick(proveedor);
     	Actividad act = null;
 		try {
 			act = mAct.getActividad(nom);
@@ -201,48 +201,45 @@ public class ControladorAlta implements IControladorAlta {
 		}
         if (act != null)
             throw new ActividadRepetidaException("Ya existe una actividad registrada con el nombre:  " + nom);
-        if (u == null) {
+        if (usu == null) {
         	throw new UsuarioNoExisteException("No existe el Usuario identificado como " + proveedor);
         }
-        if (u.getNacimiento().after(f)) {
+        if (usu.getNacimiento().after(fecha)) {
         	throw new ProveedorNoNacidoException();
         }
         Departamento insDep = mDep.getDepartamento(dep);
         
         Map<String,Categoria> categorias = new HashMap<String,Categoria>();
         for(String stringCat : cat){
-        	Categoria categ = mc.getCategoria(stringCat);
+        	Categoria categ = mCat.getCategoria(stringCat);
         	categorias.put(categ.getCategoria(), categ);
         }
-        act = new Actividad(nom, desc,f,ciudad, costo, dur, insDep, categorias);
-        if(u instanceof Proveedor) {
-        	((Proveedor) u).agregarActividad(act);
+        act = new Actividad(nom, desc,fecha,ciudad, costo, dur, insDep, categorias);
+        if(usu instanceof Proveedor) {
+        	((Proveedor) usu).agregarActividad(act);
         }
         
         mAct.addActividad(act);
         // if agregado por si Departamento no esta cargado da errror VER SI QUITAR
         if(insDep != null)
         	insDep.agregarActividad(act);
-        
-      
-
     }
     
     
     public void registrarCategoria(String Categoria) throws CategoriaYaExiste{
     	//si existe una categoria con nombre categoria tiro exepcion 
-    	ManejadorCategoria mc = ManejadorCategoria.getInstance();
-    	if(mc.pertenece(Categoria)) {
+    	ManejadorCategoria mCat = ManejadorCategoria.getInstance();
+    	if(mCat.pertenece(Categoria)) {
     		throw new CategoriaYaExiste("Ya existe una categoria registrada con nombre:" + Categoria);
     	} else {
     		Categoria cat = new Categoria(Categoria) ; 
-    		mc.addCategoria(cat);
+    		mCat.addCategoria(cat);
     	}
     }
     
     public DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException{
-    	ManejadorDepartamentos md = ManejadorDepartamentos.getInstance();
-    	DataDepartamento[] res = md.obtenerDataDepartamentos();
+    	ManejadorDepartamentos mDep = ManejadorDepartamentos.getInstance();
+    	DataDepartamento[] res = mDep.obtenerDataDepartamentos();
     	if (res == null) {
     		throw new DepartamentoNoExisteException("No existen departamentos");
     	} else {
@@ -251,8 +248,8 @@ public class ControladorAlta implements IControladorAlta {
     }
     
     public Set<String> obtenerNombreCategorias() throws NoExisteCategoriaException{
-    	ManejadorCategoria mc = ManejadorCategoria.getInstance();
-    	Set<String> res = mc.obtenerNombreCategorias();
+    	ManejadorCategoria mCat = ManejadorCategoria.getInstance();
+    	Set<String> res = mCat.obtenerNombreCategorias();
     	if (res.size() == 0){
     		throw new NoExisteCategoriaException("No existen categorias registradas en el sistema");
     	}
@@ -262,19 +259,19 @@ public class ControladorAlta implements IControladorAlta {
     
     
     
-    public DataUsuario verInfoUsuario(String ci) throws UsuarioNoExisteException {
-        ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        Usuario u = mu.obtenerUsuarioNick(ci);
-        if (u != null)
-            return u.getDataUsuario();
+    public DataUsuario verInfoUsuario(String nick) throws UsuarioNoExisteException {
+        ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+        Usuario usu = mUsu.obtenerUsuarioNick(nick);
+        if (usu != null)
+            return usu.getDataUsuario();
         else
-            throw new UsuarioNoExisteException("El usuario " + ci + " no existe");
+            throw new UsuarioNoExisteException("El usuario " + nick + " no existe");
 
     }
 
     public DataUsuario[] getUsuarios() throws UsuarioNoExisteException {
-        ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        DataUsuario[] usrs = mu.getUsuarios();
+        ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+        DataUsuario[] usrs = mUsu.getUsuarios();
 
         if (usrs != null) {
             return usrs;
@@ -286,23 +283,23 @@ public class ControladorAlta implements IControladorAlta {
     
 
     public void confirmarAltaDepartamento(String nombre, String descripcion, String URL) throws DepartamentoYaExisteExeption {
-        ManejadorDepartamentos md = ManejadorDepartamentos.getInstance();
+        ManejadorDepartamentos mDep = ManejadorDepartamentos.getInstance();
 
-        Departamento deptoprueba = md.getDepartamento(nombre);
+        Departamento deptoprueba = mDep.getDepartamento(nombre);
         if (deptoprueba != null)
             throw new DepartamentoYaExisteExeption("Ya existe un departamento registrado con el nombre:  " + nombre);
 
         Departamento dpto = new Departamento(nombre, descripcion, URL) ;
-        md.addDepartamento(dpto) ;
+        mDep.addDepartamento(dpto) ;
     }
 
 
     public void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta) throws SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad{
-        ManejadorActividad ma = ManejadorActividad.getInstance();
+        ManejadorActividad mAct = ManejadorActividad.getInstance();
         Actividad act = null;
 		try {
-			act = ma.getActividad(nombreActividad);
-			ma.verificarSalida(nombreSalida);
+			act = mAct.getActividad(nombreActividad);
+			mAct.verificarSalida(nombreSalida);
 			if(fecha.before(fechaAlta)) {
 				throw new FechaAltaSalidaInvalida();
 			}
@@ -316,38 +313,38 @@ public class ControladorAlta implements IControladorAlta {
     }
     
     public void altaPaquete(String nombre, String descripcion, int descuento, int validez, Date fechaAlta) throws PaqueteRepetidoException {
-    	ManejadorPaquete mp = ManejadorPaquete.getInstance();
-        Paquete p = mp.getPaquete(nombre);
-        if (p != null)
+    	ManejadorPaquete mPaq = ManejadorPaquete.getInstance();
+        Paquete paq = mPaq.getPaquete(nombre);
+        if (paq != null)
             throw new PaqueteRepetidoException("Ya existe un paquete registrado con el nombre:  " + nombre);
-        p = new Paquete(nombre, descripcion, descuento, fechaAlta, validez);
-        mp.addPaquete(p);
+        paq = new Paquete(nombre, descripcion, descuento, fechaAlta, validez);
+        mPaq.addPaquete(paq);
     }
 
     public void actualizarDatosTurista(String nick,String mail,String nombre,String apellido,Date fechaN,String nacionalidad) {
-    	ManejadorUsuario mu = ManejadorUsuario.getinstance();
-    	Usuario u = mu.obtenerUsuarioNick(nick);
-    	if(u!=null) {
-    		if(u instanceof Turista) {
-    			u.setNombre(nombre);
-    			u.setApellido(apellido);
-    			u.setNacimiento(fechaN);
-    			((Turista) u).setNacionalidad(nacionalidad);
+    	ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+    	Usuario usu = mUsu.obtenerUsuarioNick(nick);
+    	if(usu!=null) {
+    		if(usu instanceof Turista) {
+    			usu.setNombre(nombre);
+    			usu.setApellido(apellido);
+    			usu.setNacimiento(fechaN);
+    			((Turista) usu).setNacionalidad(nacionalidad);
     		}
     	}
     }
     
     public void actualizarDatosProveedor(String nick,String mail,String nombre,String apellido,Date fechaN,String descripcion,String link,boolean hayLink) {
-    	ManejadorUsuario mu = ManejadorUsuario.getinstance();
-    	Usuario u = mu.obtenerUsuarioNick(nick);
-    	if(u!=null) {
-    		if(u instanceof Proveedor) {
-        		u.setNombre(nombre);
-        		u.setApellido(apellido);
-        		u.setNacimiento(fechaN);
-        		((Proveedor) u).setDescripcion(descripcion);
-        		((Proveedor) u).setLink(link);
-        		((Proveedor) u).setHayLink(hayLink);
+    	ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+    	Usuario usu = mUsu.obtenerUsuarioNick(nick);
+    	if(usu!=null) {
+    		if(usu instanceof Proveedor) {
+        		usu.setNombre(nombre);
+        		usu.setApellido(apellido);
+        		usu.setNacimiento(fechaN);
+        		((Proveedor) usu).setDescripcion(descripcion);
+        		((Proveedor) usu).setLink(link);
+        		((Proveedor) usu).setHayLink(hayLink);
         	}
     	}
     }
@@ -369,8 +366,8 @@ public class ControladorAlta implements IControladorAlta {
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
-	    		  Date fa = formato.parse(nextLine[4].strip());
-	    		  altaPaquete(nextLine[1].strip(),nextLine[5].strip(),Integer.parseInt(nextLine[3].strip()),Integer.parseInt(nextLine[2].strip()),fa,imgBytes);
+	    		  Date fechaA = formato.parse(nextLine[4].strip());
+	    		  altaPaquete(nextLine[1].strip(),nextLine[5].strip(),Integer.parseInt(nextLine[3].strip()),Integer.parseInt(nextLine[2].strip()),fechaA,imgBytes);
 	    	  }
 	    	  else {
 	    		  cont++;
@@ -381,75 +378,74 @@ public class ControladorAlta implements IControladorAlta {
 
 	private void altaPaquete(String nombre, String descripcion, int descuento, int validez, Date fechaAlta, byte[] imgBytes) throws PaqueteRepetidoException {
 		// TODO Auto-generated method stub
-		ManejadorPaquete mp = ManejadorPaquete.getInstance();
-        Paquete p = mp.getPaquete(nombre);
-        if (p != null)
+		ManejadorPaquete mPaq = ManejadorPaquete.getInstance();
+        Paquete paq = mPaq.getPaquete(nombre);
+        if (paq != null)
             throw new PaqueteRepetidoException("Ya existe un paquete registrado con el nombre:  " + nombre);
-        p = new Paquete(nombre, descripcion, descuento, fechaAlta, validez, imgBytes);
-        mp.addPaquete(p);
+        paq = new Paquete(nombre, descripcion, descuento, fechaAlta, validez, imgBytes);
+        mPaq.addPaquete(paq);
 	}
 
 
 	@Override
-	public void confirmarAltaTurista(String nick, String nom, String ap, String mail, Date nacimiento,
+	public void confirmarAltaTurista(String nick, String nom, String apellido, String mail, Date nacimiento,
 			String nacionalidad, String pass) throws UsuarioRepetidoException {
-		ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        Usuario u = mu.obtenerUsuarioNick(nick);
-        if (u != null)
+		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+        Usuario usu = mUsu.obtenerUsuarioNick(nick);
+        if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
-        u = mu.obtenerUsuarioMail(mail);
-        if (u != null)
+        usu = mUsu.obtenerUsuarioMail(mail);
+        if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-        u = new Turista(nick, nom, ap, mail, nacimiento, nacionalidad,pass);
-        mu.addUsuario(u);
+        usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad,pass);
+        mUsu.addUsuario(usu);
 		
 	}
 
 
 	@Override
-	public void confirmarAltaTurista(String nick, String nom, String ap, String mail, Date nacimiento,
+	public void confirmarAltaTurista(String nick, String nom, String apellido, String mail, Date nacimiento,
 			String nacionalidad, String pass, byte[] imagen) throws UsuarioRepetidoException {
-		ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        Usuario u = mu.obtenerUsuarioNick(nick);
-        if (u != null)
+		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+        Usuario usu = mUsu.obtenerUsuarioNick(nick);
+        if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
-        u = mu.obtenerUsuarioMail(mail);
-        if (u != null)
+        usu = mUsu.obtenerUsuarioMail(mail);
+        if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-        u = new Turista(nick, nom, ap, mail, nacimiento, nacionalidad,pass,imagen);
-        mu.addUsuario(u);
-		
+        usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad,pass,imagen);
+        mUsu.addUsuario(usu);
 	}
 
 
 	@Override
-	public void confirmarAltaProveedor(String nick, String nom, String ap, String mail, Date nacimiento,
+	public void confirmarAltaProveedor(String nick, String nom, String apellido, String mail, Date nacimiento,
 			String descripcion, String link, boolean hayLink, String pass) throws UsuarioRepetidoException {
-		ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        Usuario u = mu.obtenerUsuarioNick(nick);
-        if (u != null)
+		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+        Usuario usu = mUsu.obtenerUsuarioNick(nick);
+        if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
-        u = mu.obtenerUsuarioMail(mail);
-        if (u != null)
+        usu = mUsu.obtenerUsuarioMail(mail);
+        if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-        u = new Proveedor(nick, nom, ap, mail, nacimiento, descripcion, link, hayLink,pass);
-        mu.addUsuario(u);
+        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink,pass);
+        mUsu.addUsuario(usu);
 	}
 
 
 	@Override
-	public void confirmarAltaProveedor(String nick, String nom, String ap, String mail, Date nacimiento,
+	public void confirmarAltaProveedor(String nick, String nom, String apellido, String mail, Date nacimiento,
 			String descripcion, String link, boolean hayLink, String pass, byte[] imagen)
 			throws UsuarioRepetidoException {
-		ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        Usuario u = mu.obtenerUsuarioNick(nick);
-        if (u != null)
+		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+        Usuario usu = mUsu.obtenerUsuarioNick(nick);
+        if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
-        u = mu.obtenerUsuarioMail(mail);
-        if (u != null)
+        usu = mUsu.obtenerUsuarioMail(mail);
+        if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-        u = new Proveedor(nick, nom, ap, mail, nacimiento, descripcion, link, hayLink,pass,imagen);
-        mu.addUsuario(u);
+        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink,pass,imagen);
+        mUsu.addUsuario(usu);
 	}
 
 
@@ -459,23 +455,23 @@ public class ControladorAlta implements IControladorAlta {
 		cargarDptos();
 		cargarActs();
 		cargarSalidas();
-		Fabrica f = Fabrica.getInstance();
-		IControladorInsc i = f.getIControladorInsc();
-		i.cargarInsc();
+		Fabrica fabr = Fabrica.getInstance();
+		IControladorInsc conIns = fabr.getIControladorInsc();
+		conIns.cargarInsc();
 		cargarPaquetes();
-		i.cargarActsPaqs();
+		conIns.cargarActsPaqs();
 	}
 
 
 	@Override
-	public void registrarActividad(String dep, String nom, String desc, int dur, int costo, String ciudad, Date f,
+	public void registrarActividad(String dep, String nom, String desc, int dur, int costo, String ciudad, Date fecha,
 			String proveedor, Set<String> cat, byte[] imagen)
 			throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException {
 		ManejadorActividad mAct = ManejadorActividad.getInstance();
     	ManejadorDepartamentos mDep = ManejadorDepartamentos.getInstance();
-        ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        ManejadorCategoria mc = ManejadorCategoria.getInstance();
-        Usuario u =  mu.obtenerUsuarioNick(proveedor);
+        ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+        ManejadorCategoria mCat = ManejadorCategoria.getInstance();
+        Usuario usu =  mUsu.obtenerUsuarioNick(proveedor);
     	Actividad act = null;
 		try {
 			act = mAct.getActividad(nom);
@@ -484,22 +480,22 @@ public class ControladorAlta implements IControladorAlta {
 		}
         if (act != null)
             throw new ActividadRepetidaException("Ya existe una actividad registrada con el nombre:  " + nom);
-        if (u == null) {
+        if (usu == null) {
         	throw new UsuarioNoExisteException("No existe el Usuario identificado como " + proveedor);
         }
-        if (u.getNacimiento().after(f)) {
+        if (usu.getNacimiento().after(fecha)) {
         	throw new ProveedorNoNacidoException();
         }
         Departamento insDep = mDep.getDepartamento(dep);
         
         Map<String,Categoria> categorias = new HashMap<String,Categoria>();
         for(String stringCat : cat){
-        	Categoria categ = mc.getCategoria(stringCat);
+        	Categoria categ = mCat.getCategoria(stringCat);
         	categorias.put(categ.getCategoria(), categ);
         }
-        act = new Actividad(nom, desc,f,ciudad, costo, dur, insDep, categorias,imagen);
-        if(u instanceof Proveedor) {
-        	((Proveedor) u).agregarActividad(act);
+        act = new Actividad(nom, desc,fecha,ciudad, costo, dur, insDep, categorias,imagen);
+        if(usu instanceof Proveedor) {
+        	((Proveedor) usu).agregarActividad(act);
         }
         
         mAct.addActividad(act);
@@ -514,11 +510,11 @@ public class ControladorAlta implements IControladorAlta {
 	public void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar,
 			int maxCantTuristas, Date fechaAlta, byte[] imagen)
 			throws SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad {
-		ManejadorActividad ma = ManejadorActividad.getInstance();
+		ManejadorActividad mAct = ManejadorActividad.getInstance();
         Actividad act = null;
 		try {
-			act = ma.getActividad(nombreActividad);
-			ma.verificarSalida(nombreSalida);
+			act = mAct.getActividad(nombreActividad);
+			mAct.verificarSalida(nombreSalida);
 			if(fecha.before(fechaAlta)) {
 				throw new FechaAltaSalidaInvalida();
 			}
@@ -575,9 +571,9 @@ public class ControladorAlta implements IControladorAlta {
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
-	    		  Date f = formato.parse(nextLine[7].strip());
+	    		  Date fecha = formato.parse(nextLine[7].strip());
 	    		  Set<String> coso = new HashSet<String>(); 
-	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),f,nextLine[9].strip(), coso,imgBytes);
+	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),fecha,nextLine[9].strip(), coso,imgBytes);
 	    	  }
 	    	  else {
 	    		  cont++;
@@ -597,11 +593,11 @@ public class ControladorAlta implements IControladorAlta {
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
-	    		  Date f = formato.parse(nextLine[3].strip());
-	    		  Date fa = formato.parse(nextLine[7].strip());
+	    		  Date fecha = formato.parse(nextLine[3].strip());
+	    		  Date fechaA = formato.parse(nextLine[7].strip());
 	    		  int hora = Integer.parseInt(nextLine[4].strip());
-	    		  Date h = new Date(0,0,0,hora,0);
-	    		  confirmarAltaSalida(nextLine[1].strip(),nextLine[2].strip(),f,h,nextLine[6].strip(),Integer.parseInt(nextLine[5]),fa,imgBytes);
+	    		  Date horaS = new Date(0,0,0,hora,0);
+	    		  confirmarAltaSalida(nextLine[1].strip(),nextLine[2].strip(),fecha,horaS,nextLine[6].strip(),Integer.parseInt(nextLine[5]),fechaA,imgBytes);
 	    	  }
 	    	  else {
 	    		  cont++;
@@ -614,8 +610,8 @@ public class ControladorAlta implements IControladorAlta {
 	@Override
 	public DataUsuario[] getUsuariosComp() throws UsuarioNoExisteException {
 		// TODO Auto-generated method stub
-		ManejadorUsuario mu = ManejadorUsuario.getinstance();
-        DataUsuario[] usrs = mu.getUsuariosComp();
+		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+        DataUsuario[] usrs = mUsu.getUsuariosComp();
 
         if (usrs != null) {
             return usrs;

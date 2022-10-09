@@ -19,10 +19,10 @@ import excepciones.estadoActividadIncorrecto;
 public interface IControladorInsc {
 	public abstract Set<DataDepartamento> listarDepartamentos();
 	public abstract void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido;
-	public abstract Set<DataSalida> salidas(String s) throws ActividadNoExisteException;
-	public abstract Set<DataActividad> selecDepartamento(String s);
+	public abstract Set<DataSalida> salidas(String sal) throws ActividadNoExisteException;
+	public abstract Set<DataActividad> selecDepartamento(String sal);
 	public abstract String[] listarPaquetes();
-	public abstract Set<DataActividad> actividadesPorDepartamentoNoEnPaquete(String Dep, String s);
+	public abstract Set<DataActividad> actividadesPorDepartamentoNoEnPaquete(String dep, String sal);
 	public abstract void confirmar(String paq, String act);
 	public abstract DataUsuario[] listarUsuarios();
 	public abstract void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido;

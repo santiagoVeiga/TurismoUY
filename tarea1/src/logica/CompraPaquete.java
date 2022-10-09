@@ -3,7 +3,6 @@ import java.util.*;
 
 import excepciones.NoHayCuposException;
 
-import java.util.Calendar;
 
 public class CompraPaquete{
 	
@@ -14,12 +13,12 @@ public class CompraPaquete{
 	private Date vencimiento;
 	private Map<String,Integer> restAct;
 	
-	public CompraPaquete(Date f, int cant, Paquete paquete) {
+	public CompraPaquete(Date fecha, int cant, Paquete paquete) {
 		this.cantidad = cant;
-		this.fecha = f;
+		this.fecha = fecha;
 		this.paq = paquete;
 		Calendar calendario = Calendar.getInstance();
-		calendario.setTime(f);
+		calendario.setTime(fecha);
 		calendario.add(Calendar.DAY_OF_MONTH, -paquete.getValidez());
 		this.vencimiento = calendario.getTime();
 		Set<String> acts = paquete.getColAct().keySet();
@@ -32,14 +31,14 @@ public class CompraPaquete{
 		}
 	}
 	
-	int obtenerCuposAct(String Act) {
-		return this.restAct.get(Act);
+	int obtenerCuposAct(String act) {
+		return this.restAct.get(act);
 	}
 	
-	void reducirCuposAct(String Act, int cant) throws NoHayCuposException {
-		if(cant > obtenerCuposAct(Act))
-			throw new NoHayCuposException("No hay cupos suficientes en la compra paquete para la actividad:" + Act);
-		this.restAct.replace(Act, this.obtenerCuposAct(Act)-cant);
+	void reducirCuposAct(String act, int cant) throws NoHayCuposException {
+		if(cant > obtenerCuposAct(act))
+			throw new NoHayCuposException("No hay cupos suficientes en la compra paquete para la actividad:" + act);
+		this.restAct.replace(act, this.obtenerCuposAct(act)-cant);
 	}
 	
     
@@ -84,16 +83,16 @@ public class CompraPaquete{
 		this.restAct = restAct;
 	}
 
-	public void setCantidad(int c) {
-    	costo = c;
+	public void setCantidad(int cant) {
+    	cantidad = cant;
     }
 
-    public void setFecha(Date f) {
-    	fecha = f;
+    public void setFecha(Date fechaC) {
+    	fecha = fechaC;
     }
 
-    public void setCosto(int c) {
-    	costo = c;
+    public void setCosto(int cost) {
+    	costo = cost;
     }
     
 }

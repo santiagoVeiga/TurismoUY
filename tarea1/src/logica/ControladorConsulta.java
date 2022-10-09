@@ -14,20 +14,20 @@ public class ControladorConsulta implements IControladorConsulta {
 	
 	public DataUsuario[] listarUsuarios() 
 	{
-		ManejadorUsuario mu = ManejadorUsuario.getinstance();
-		return  mu.getUsuarios();
+		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+		return  mUsu.getUsuarios();
 	}
 	
-    public DataUsuario ingresarDatos(String ci)
+    public DataUsuario ingresarDatos(String nick)
     {
-    	ManejadorUsuario mu = ManejadorUsuario.getinstance();
-    	Usuario u = mu.obtenerUsuarioNick(ci);
-    	return u.getDataUsuario();
+    	ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+    	Usuario usu = mUsu.obtenerUsuarioNick(nick);
+    	return usu.getDataUsuario();
     }
 
     public DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException{
-    	ManejadorDepartamentos md = ManejadorDepartamentos.getInstance();
-    	DataDepartamento[] res = md.obtenerDataDepartamentos();
+    	ManejadorDepartamentos mDep = ManejadorDepartamentos.getInstance();
+    	DataDepartamento[] res = mDep.obtenerDataDepartamentos();
     	if (res == null) {
     		throw new DepartamentoNoExisteException("No existen departamentos");
     	} else {
@@ -36,23 +36,23 @@ public class ControladorConsulta implements IControladorConsulta {
     }
     
     public String[] listarPaquetes() {
-		ManejadorPaquete mp = ManejadorPaquete.getInstance();
-		return mp.getPaquetesN();
+		ManejadorPaquete mPaq = ManejadorPaquete.getInstance();
+		return mPaq.getPaquetesN();
 	}
     
-	public DataPaquete obtenerDataPaquete(String p) {
-		ManejadorPaquete mp = ManejadorPaquete.getInstance();
-		return mp.getDataPaquete(p);
+	public DataPaquete obtenerDataPaquete(String paq) {
+		ManejadorPaquete mPaq = ManejadorPaquete.getInstance();
+		return mPaq.getDataPaquete(paq);
 	}
 	   
 	public Set<String> obtenerNombreCategorias() {    	
-		ManejadorCategoria mc = ManejadorCategoria.getInstance();
-		return mc.obtenerNombreCategorias();
+		ManejadorCategoria mCat = ManejadorCategoria.getInstance();
+		return mCat.obtenerNombreCategorias();
     }
 	
 	public DataActividad[] obtenerActividadCategoria(String categoria) {
-		ManejadorCategoria mc = ManejadorCategoria.getInstance();
-		Categoria cat = mc.getCategoria(categoria);
+		ManejadorCategoria mCat = ManejadorCategoria.getInstance();
+		Categoria cat = mCat.getCategoria(categoria);
 		Actividad[] arrAct = cat.getActividades();
 		DataActividad[] res = new DataActividad[arrAct.length];
 		for(int i = 0; i < arrAct.length;i++) {

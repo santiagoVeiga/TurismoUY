@@ -7,22 +7,22 @@ public class Turista extends Usuario{
     private Set<CompraGeneral> comprasG;
     private Map<String,CompraPaquete> comprasP;
 
-    public Turista(String nick,String nom, String ap,String mail, Date fechaN, String nac) {
-        super(nick,nom,ap,mail,fechaN);
+    public Turista(String nick,String nom, String apellido,String mail, Date fechaN, String nac) {
+        super(nick,nom,apellido,mail,fechaN);
     	this.nacionalidad = nac;
     	this.comprasG = new HashSet<CompraGeneral>();
     	this.comprasP = new HashMap<String,CompraPaquete>();
     }
     
-    public Turista(String nick,String nom, String ap,String mail, Date fechaN, String nac,String pass) {
-        super(nick,nom,ap,mail,fechaN,pass);
+    public Turista(String nick,String nom, String apellido,String mail, Date fechaN, String nac,String pass) {
+        super(nick,nom,apellido,mail,fechaN,pass);
     	this.nacionalidad = nac;
     	this.comprasG = new HashSet<CompraGeneral>();
     	this.comprasP = new HashMap<String,CompraPaquete>();
     }
     
-    public Turista(String nick,String nom, String ap,String mail, Date fechaN, String nac,String pass,byte[] im) {
-        super(nick,nom,ap,mail,fechaN,pass,im);
+    public Turista(String nick,String nom, String apellido,String mail, Date fechaN, String nac,String pass,byte[] imagen) {
+        super(nick,nom,apellido,mail,fechaN,pass,imagen);
     	this.nacionalidad = nac;
     	this.comprasG = new HashSet<CompraGeneral>();
     	this.comprasP = new HashMap<String,CompraPaquete>();
@@ -42,8 +42,8 @@ public class Turista extends Usuario{
 		this.comprasP = comprasP;
 	}
 
-	public void setNacionalidad(String n) {
-    	nacionalidad = n;
+	public void setNacionalidad(String nac) {
+    	nacionalidad = nac;
     }
     
     /* Agrega CompraGeneral al set de compras del Turista*/
@@ -51,11 +51,11 @@ public class Turista extends Usuario{
     	comprasG.add(compraG);
     }
 
-    public boolean yaTieneSalida(Salida s) {
+    public boolean yaTieneSalida(Salida ssal) {
     	Iterator<CompraGeneral> itr = comprasG.iterator();
     	boolean res = false;
     	while(itr.hasNext()) {
-    		res = res || itr.next().esSalida(s);
+    		res = res || itr.next().esSalida(sal);
     	}
     	return res;
     }
@@ -75,27 +75,27 @@ public class Turista extends Usuario{
     public DataTurista getDataUsuario()
     {
     	Iterator<CompraGeneral> itr = comprasG.iterator();
-    	Set<DataSalida> DS = new HashSet<DataSalida>();
+    	Set<DataSalida> dSal = new HashSet<DataSalida>();
     	while(itr.hasNext()) 
     	{
-    		CompraGeneral S = itr.next();
-    		DS.add(S.getSalida().getDataST());
+    		CompraGeneral compraGen = itr.next();
+    		dSal.add(compraGen.getSalida().getDataST());
     	}
-    	DataTurista DT = new DataTurista(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),nacionalidad,DS);
-    	return DT;
+    	DataTurista dTur = new DataTurista(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),nacionalidad,dSal);
+    	return dTur;
     }
 
 	@Override
 	public DataUsuario getDataUsuarioComp() {
 		Iterator<CompraGeneral> itr = comprasG.iterator();
-    	Set<DataSalida> DS = new HashSet<DataSalida>();
+    	Set<DataSalida> dSal = new HashSet<DataSalida>();
     	while(itr.hasNext()) 
     	{
-    		CompraGeneral S = itr.next();
-    		DS.add(S.getSalida().getDataST());
+    		CompraGeneral compraGen = itr.next();
+    		dSal.add(compraGen.getSalida().getDataST());
     	}
-    	DataTurista DT = new DataTurista(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),nacionalidad,DS,getPassword(),getImagen());
-    	return DT;
+    	DataTurista dTur = new DataTurista(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),nacionalidad,dSal,getPassword(),getImagen());
+    	return dTur;
 	}
 
 

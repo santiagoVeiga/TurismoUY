@@ -23,31 +23,31 @@ public class DataActividad {
 	private int costo;
 	private int duracion;
 	private String departamento;
-	private Set<DataSalida> DS;
+	private Set<DataSalida> salidas;
 	private Set<String> paquetes;
 	private Set<String> categorias;
 	private estadoAct estado;
 	
-	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds,Set<String> paquetes, estadoAct estado2) {
-		this.nombre = n;
-		this.descripcion = d;
-		this.fechaAlta = f;
-		this.ciudad = c;
+	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur,Set<DataSalida> dataSalidas,Set<String> paquetes, estadoAct estado2) {
+		this.nombre = nom;
+		this.descripcion = des;
+		this.fechaAlta = fecha;
+		this.ciudad = ciudad;
 		this.costo = cos;
 		this.duracion = dur;
-		DS = ds;
+		this.salidas = dataSalidas;
 		this.paquetes = paquetes;
 		estado = estado2;
 	}
 	
-	public DataActividad(String n, String d, Date f, String c, int cos, int dur,Set<DataSalida> ds,Set<String> paquetes, estadoAct estado2, Set<String> categorias, String dep) {
-		this.nombre = n;
-		this.descripcion = d;
-		this.fechaAlta = f;
-		this.ciudad = c;
+	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur,Set<DataSalida> dataSalidas,Set<String> paquetes, estadoAct estado2, Set<String> categorias, String dep) {
+		this.nombre = nom;
+		this.descripcion = des;
+		this.fechaAlta = fecha;
+		this.ciudad = ciudad;
 		this.costo = cos;
 		this.duracion = dur;
-		DS = ds;
+		this.salidas = dataSalidas;
 		this.paquetes = paquetes;
 		this.setCategorias(categorias);
 		estado = estado2;
@@ -61,7 +61,7 @@ public class DataActividad {
     }
     
     public Set<DataSalida> getSalidas() {
-		return DS;
+		return salidas;
 	}
     
 	
@@ -103,8 +103,8 @@ public class DataActividad {
 
 	public boolean HaySalidas() {
 		// TODO Auto-generated method stub
-		if(DS!=null)
-			return DS.size()>0;
+		if(salidas!=null)
+			return salidas.size()>0;
 		else
 			return false;
 	}
@@ -125,12 +125,12 @@ public class DataActividad {
 		this.estado = estado;
 	}
 	
-	public Set<DataSalida> getDS() {
-		return DS;
+	public Set<DataSalida> getSalidas() {
+		return salidas;
 	}
 
-	public void setDS(Set<DataSalida> dS) {
-		DS = dS;
+	public void setSalidas(Set<DataSalida> setSalidas) {
+		salidas = setSalidas;
 	}
 
 	public void setNombre(String nombre) {

@@ -18,15 +18,15 @@ public class Salida {
 	private int cantRestante;
 	private byte[] imagen;
 	
-	public Salida(String n,String l,Date h,Date f,Date fa,int c)
+	public Salida(String nom,String lugar,Date hora,Date fecha,Date fechaAlta,int cant)
 	{
-		setNombre(n);
-		setLugar(l);
-		setHora(h);
-		setFecha(f);
-		setFechaAlta(fa);
-		setCant(c);
-		setCantRestante(c);
+		setNombre(nom);
+		setLugar(lugar);
+		setHora(hora);
+		setFecha(fecha);
+		setFechaAlta(fechaAlta);
+		setCant(cant);
+		setCantRestante(cant);
 	};
 	
 	public Salida(String nombreSalida, String lugar2, Date hora2, Date fecha2, Date fechaAlta2, int maxCantTuristas,

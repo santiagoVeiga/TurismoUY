@@ -29,13 +29,13 @@ public class Departamento {
 		return nombre;
 	}
 	
-	public void setNombre(String n) {
-		this.nombre = n;
+	public void setNombre(String nom) {
+		this.nombre = nom;
 	}
 	
 	
-	public void setDescripcion(String d) {
-		this.descripcion = d;
+	public void setDescripcion(String des {
+		this.descripcion = des;
 	}
 
 	public String getDescripcion() {
@@ -43,8 +43,8 @@ public class Departamento {
 	}
 	
 	
-	public void setUrl(String d) {
-		this.descripcion = d;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public String getUrl() {
@@ -60,9 +60,9 @@ public class Departamento {
 		Set<DataActividad> res = new HashSet<DataActividad>();
 		if (!colAct.isEmpty()) {
 			Set<Entry<String, Actividad>> aux = colAct.entrySet();
-	    	Iterator<Entry<String, Actividad>> it = aux.iterator();
-	    	while(it.hasNext()){
-	    		res.add(it.next().getValue().getDataAT());
+	    	Iterator<Entry<String, Actividad>> iter = aux.iterator();
+	    	while(iter.hasNext()){
+	    		res.add(iter.next().getValue().getDataAT());
 	    	}
 		}
 		return res;
