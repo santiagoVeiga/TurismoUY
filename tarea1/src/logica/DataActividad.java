@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 public class DataActividad {
 	
 	public DataActividad() {
-		DS = new HashSet<DataSalida>();
+		salidas = new HashSet<DataSalida>();
 		paquetes = new HashSet<String>();
 		categorias = new HashSet<String>();
 	}
@@ -60,9 +60,6 @@ public class DataActividad {
     	return this.nombre;
     }
     
-    public Set<DataSalida> getSalidas() {
-		return salidas;
-	}
     
 	
 	public String getDescripcion() {

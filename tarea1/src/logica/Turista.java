@@ -55,7 +55,7 @@ public class Turista extends Usuario{
     	Iterator<CompraGeneral> itr = comprasG.iterator();
     	boolean res = false;
     	while(itr.hasNext()) {
-    		res = res || itr.next().esSalida(sal);
+    		res = res || itr.next().esSalida(ssal);
     	}
     	return res;
     }
