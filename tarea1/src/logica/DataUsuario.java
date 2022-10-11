@@ -24,9 +24,11 @@ public class DataUsuario {
         this.apellido = apellido;
         this.mail = mail;
         this.nacimiento = nacimiento;
+        this.password = null;
+        this.imagen = null;
     }
     
-    public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento, String pass, byte[] imagem) {
+    public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento, String pass, byte[] imagen) {
     	this.nick = nick;
     	this.nombre= nombre;
         this.apellido = apellido;

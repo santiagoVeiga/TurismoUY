@@ -94,7 +94,7 @@ public class Turista extends Usuario{
     		CompraGeneral compraGen = itr.next();
     		dSal.add(compraGen.getSalida().getDataST());
     	}
-    	DataTurista dTur = new DataTurista(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),nacionalidad,dSal,getPassword(),getImagen());
+    	DataTurista dTur = new DataTurista(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),nacionalidad,dSal,getPassword(),getImagen(),comprasP.keySet());
     	return dTur;
 	}
 

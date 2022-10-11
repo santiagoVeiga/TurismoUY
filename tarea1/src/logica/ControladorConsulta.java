@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import excepciones.DepartamentoNoExisteException;
+import excepciones.UsuarioNoExisteException;
 import manejadores.ManejadorCategoria;
 import manejadores.ManejadorDepartamentos;
 import manejadores.ManejadorPaquete;
@@ -59,5 +60,23 @@ public class ControladorConsulta implements IControladorConsulta {
 			res[i] = arrAct[i].getDataAT();
 		}
 		return res;
+	}
+	
+	public DataUsuario obtenerDataUsuarioNick(String nick) throws UsuarioNoExisteException {
+		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+		Usuario usu = mUsu.obtenerUsuarioNick(nick);
+		if(usu == null) {
+			throw new UsuarioNoExisteException("No existe el usuario con nickname: " + nick);
+		}
+		return usu.getDataUsuarioComp();
+	}
+	
+	public DataUsuario obtenerDataUsuarioMail(String mail) throws UsuarioNoExisteException {
+		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+		Usuario usu = mUsu.obtenerUsuarioMail(mail);
+		if(usu == null) {
+			throw new UsuarioNoExisteException("No existe el usuario con email: " + mail);
+		}
+		return usu.getDataUsuarioComp();
 	}
 }

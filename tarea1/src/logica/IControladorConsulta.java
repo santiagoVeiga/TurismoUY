@@ -3,6 +3,7 @@ package logica;
 import java.util.Set;
 
 import excepciones.DepartamentoNoExisteException;
+import excepciones.UsuarioNoExisteException;
 
 public interface IControladorConsulta {
 	public abstract DataUsuario[] listarUsuarios();
@@ -12,4 +13,6 @@ public interface IControladorConsulta {
 	public abstract DataPaquete obtenerDataPaquete(String paq);
 	public abstract Set<String> obtenerNombreCategorias();
 	public abstract DataActividad[] obtenerActividadCategoria(String categoria);
+	public abstract DataUsuario obtenerDataUsuarioNick(String nick) throws UsuarioNoExisteException;
+	public abstract DataUsuario obtenerDataUsuarioMail(String mail) throws UsuarioNoExisteException;
 }

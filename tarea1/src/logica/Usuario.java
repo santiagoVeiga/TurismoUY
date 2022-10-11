@@ -19,7 +19,7 @@ public abstract class Usuario {
         this.mail = mail;
         this.nacimiento = nacimiento;
         password = "1234";
-        imagen = new byte[0];
+        imagen = null;
     }
    
     public Usuario(String nickname, String nombre, String apellido, String mail, Date nacimiento, String pass, byte[] imagen) {
