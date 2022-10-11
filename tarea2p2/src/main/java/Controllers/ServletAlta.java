@@ -98,11 +98,17 @@ public class ServletAlta extends HttpServlet {
 						Date fechaNac = format.parse(date);
 						if(nacionalidad != null) {
 							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail ,fechaNac ,nacionalidad,password,imgBytes);
-						} else if (linkProv != null) {
+						} else if (linkProv != null && descripcion != null) {
 							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,linkProv,true,password,imgBytes); 
 						}
+						else if (descripcion!= null) {
+							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,"",false,password,imgBytes); 
+						}else {
+							// no deberia pasar
+							break;
+						}
 						HttpSession session = req.getSession();
-						DataUsuario du = conCons.ingresarDatos(nick);
+						DataUsuario du = conCons.obtenerDataUsuarioNick(nick);
 						session.setAttribute("usuario",du);
 						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
 						resp.sendRedirect("/tarea2p2/home");
@@ -110,6 +116,7 @@ public class ServletAlta extends HttpServlet {
 						req.setAttribute("Exception", e.getMessage());
 						req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req,resp);
 					}catch (ParseException e1) {
+					} catch (UsuarioNoExisteException e) {
 					}
 		        }
 				else {
@@ -117,11 +124,17 @@ public class ServletAlta extends HttpServlet {
 						Date fechaNac = format.parse(date);
 						if(nacionalidad != null) {
 							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail ,fechaNac ,nacionalidad,password);
-						} else if (linkProv != null) {
-							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,linkProv,true,password); //((DataProveedor) du).getHayLink());
+						} else if (linkProv != null && descripcion!= null) {
+							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,linkProv,true,password); 
+						}
+						else if (descripcion!= null) {
+							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,"",false,password); 
+						}else {
+							// no deberia pasar
+							break;
 						}
 						HttpSession session = req.getSession();
-						DataUsuario du = conCons.ingresarDatos(nick);
+						DataUsuario du = conCons.obtenerDataUsuarioNick(nick);
 						session.setAttribute("usuario",du);
 						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
 						resp.sendRedirect("/tarea2p2/home");
@@ -129,6 +142,7 @@ public class ServletAlta extends HttpServlet {
 						req.setAttribute("Exception", e.getMessage());
 						req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req,resp);
 					}catch (ParseException e1) {
+					} catch (UsuarioNoExisteException e) {
 					}
 				}
 				break;

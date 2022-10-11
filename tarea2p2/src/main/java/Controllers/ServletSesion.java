@@ -109,6 +109,35 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 	IControladorConsulta cc = f.getIControladorConsulta();
 	HttpSession ses = req.getSession();
 	switch(solicitud) {
+		case "/":
+			// hace que se ejecute el jsp sin cambiar la url
+			DataDepartamento[] auxx = null;
+			try {
+				auxx = cc.obtenerDataDepartamentos();
+			} catch (DepartamentoNoExisteException e) {
+				System.out.println("no hay deptos");
+			}
+			String nomDptox = req.getParameter("DTDConsultaActividad");
+			if(nomDptox != null) {
+				for(DataDepartamento it : auxx) {
+					if(it.getNombre().equals(nomDptox)) {
+						ses.setAttribute("DTDConsultaActividad", it);
+					}
+				}
+				resp.sendRedirect("/tarea2p2/ConsultaActividad");
+				break;
+			}
+			String nomCatx = req.getParameter("CatConsultaActividad");
+			if(nomCatx!=null) {
+				ses.setAttribute("CatConsultaActividad", nomCatx);
+				resp.sendRedirect("/tarea2p2/ConsultaActividad");
+				break;
+			}
+			ses.setAttribute("dptos", auxx);
+			Set<String> catsx = cc.obtenerNombreCategorias();
+			ses.setAttribute("categorias", catsx);
+			req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
+			break;
 		case "/home":
 			// hace que se ejecute el jsp sin cambiar la url
 			DataDepartamento[] aux = null;
