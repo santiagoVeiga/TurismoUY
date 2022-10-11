@@ -336,19 +336,16 @@ $().ready(function() {
       		errorElement : 'span'
 		}); 
 		
-		$( "button" ).click(function() {
-			$("#registro").validate();
-		    if($("#registro").valid() && this.id == "btn-tur-reg"){
-				window.location.href="/tarea2p2/UsuarioCreado";
-			}
-			else if($("#registro").valid() && this.id == "btn-prov-reg"){
-				window.location.href="/tarea2p2/UsuarioCreado";
-			}
 		
 		});
 		
-		});
-		
+function enviarRegistro(formu){
+	$("#registro").validate();
+    if($("#registro").valid()){
+		formu.submit();
+	}
+}		
+
 function consSalidaIndexV(){
 	alert("Elija un departamento o categoria (izquierda de la pantalla)");
 	return True;

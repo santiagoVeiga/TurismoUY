@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta  http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>turismo.uy</title>
 
 <!-- Google Font -->
@@ -34,7 +34,7 @@
 
         <div class="d-flex align-items-center">
 			
-          <form id="registro" style="width: 23rem;">
+          <form method="post" action="/tarea2p2/UsuarioCreado" enctype="multipart/form-data" id="registro" style="width: 23rem;">
 			<a href="/tarea2p2/home"><img alt="" src="img/logo.png"></a>
 			<br>
 		<fieldset>
@@ -60,13 +60,13 @@
             </div>
             
             <div class="form-outline mb-4">
-              <label class="form-label" for="form2Example28">ContraseÃ±a</label>
+              <label class="form-label" for="form2Example28">Contraseña</label>
               <input type="password" id="password" name="password" class="form-control form-control-lg" required/>
               
             </div>
 
             <div class="form-outline mb-4">
-              <label class="form-label" for="form2Example28">Confirmar ContraseÃ±a</label>
+              <label class="form-label" for="form2Example28">Confirmar Contraseña</label>
               <input type="password" id="confirm_password" name="confirm_password" class="form-control form-control-lg" required/>
               
             </div>
@@ -88,7 +88,7 @@
             
             <div class="form-outline mb-4">
             	<label class="form-label" for="form2Example28">Imagen (opcional)</label>
-			    <input type="file" class="form-control-file" id="exampleFormControlFile1" >
+			    <input type="file" accept="image/jpg, image/jpeg" class="form-control-file" id="imgUsuario" name="imgUsuario" >
               
             </div>
 			
@@ -106,7 +106,7 @@
 					              
 					            </div>
 					            <div class="pt-1 mb-4" >
-					              <a > <button class="btn btn-info btn-lg btn-block" id="btn-tur-reg" style="background : #4bb1ff;" type="button">Registrarme</button> </a>
+					              <a > <button class="btn btn-info btn-lg btn-block" id="btn-tur-reg" style="background : #4bb1ff;" type="button" onclick="enviarRegistro(this.form);">Registrarme</button> </a>
 					            </div>   
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -117,11 +117,11 @@
 					            </div>
 					            <div class="form-outline mb-4">
 					              <label class="form-label" for="form2Example28">Link (opcional)</label>
-					              <input type="url" id="form2Example28" class="form-control form-control-lg" />
+					              <input type="url" id="linkProv" name="linkProv" class="form-control form-control-lg" />
 					              
 					            </div>
 					            <div class="pt-1 mb-4" >
-					              <a > <button class="btn btn-info btn-lg btn-block" id="btn-prov-reg" style="background : #4bb1ff;" type="button">Registrarme</button> </a>
+					              <a > <button class="btn btn-info btn-lg btn-block" id="btn-prov-reg" style="background : #4bb1ff;" type="button" onclick="enviarRegistro(this.form);">Registrarme</button> </a>
 					            </div>   
                             </div>
                             
