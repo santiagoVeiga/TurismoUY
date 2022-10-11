@@ -2,6 +2,7 @@ package logica;
 
 import java.util.Set;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.UsuarioNoExisteException;
 
@@ -15,4 +16,5 @@ public interface IControladorConsulta {
 	public abstract DataActividad[] obtenerActividadCategoria(String categoria);
 	public abstract DataUsuario obtenerDataUsuarioNick(String nick) throws UsuarioNoExisteException;
 	public abstract DataUsuario obtenerDataUsuarioMail(String mail) throws UsuarioNoExisteException;
+	public abstract DataActividad obtenerDataActividad(String nomAct) throws ActividadNoExisteException;
 }

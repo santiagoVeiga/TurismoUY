@@ -4,8 +4,10 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.UsuarioNoExisteException;
+import manejadores.ManejadorActividad;
 import manejadores.ManejadorCategoria;
 import manejadores.ManejadorDepartamentos;
 import manejadores.ManejadorPaquete;
@@ -78,5 +80,14 @@ public class ControladorConsulta implements IControladorConsulta {
 			throw new UsuarioNoExisteException("No existe el usuario con email: " + mail);
 		}
 		return usu.getDataUsuarioComp();
+	}
+	
+	public DataActividad obtenerDataActividad(String nomAct) throws ActividadNoExisteException {
+		ManejadorActividad mAct = ManejadorActividad.getInstance();
+		Actividad act = mAct.getActividad(nomAct);
+		if(act == null) {
+			throw new ActividadNoExisteException("No existe la actividad con nombre: " + nomAct);
+		}
+		return act.getDataAT();
 	}
 }

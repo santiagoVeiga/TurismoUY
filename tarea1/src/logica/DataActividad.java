@@ -27,6 +27,7 @@ public class DataActividad {
 	private Set<String> paquetes;
 	private Set<String> categorias;
 	private estadoAct estado;
+	private byte[] imagen;
 	
 	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur,Set<DataSalida> dataSalidas,Set<String> paquetes, estadoAct estado2) {
 		this.nombre = nom;
@@ -38,9 +39,10 @@ public class DataActividad {
 		this.salidas = dataSalidas;
 		this.paquetes = paquetes;
 		estado = estado2;
+		imagen = null;
 	}
 	
-	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur,Set<DataSalida> dataSalidas,Set<String> paquetes, estadoAct estado2, Set<String> categorias, String dep) {
+	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur,Set<DataSalida> dataSalidas,Set<String> paquetes, estadoAct estado2, Set<String> categorias, String dep, byte[] imagen) {
 		this.nombre = nom;
 		this.descripcion = des;
 		this.fechaAlta = fecha;
@@ -52,6 +54,7 @@ public class DataActividad {
 		this.setCategorias(categorias);
 		estado = estado2;
 		this.setDepartamento(dep);
+		this.imagen = imagen;
 	}
 	
 //Getters y Setters
