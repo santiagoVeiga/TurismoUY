@@ -37,6 +37,13 @@
           <form method="post" action="/tarea2p2/UsuarioCreado" enctype="multipart/form-data" id="registro" style="width: 23rem;">
 			<a href="/tarea2p2/home"><img alt="" src="img/logo.png"></a>
 			<br>
+			<% String error = (String) request.getAttribute("Exception"); 
+               if(error != null){%>
+               <div class="alert alert-danger" role="alert" style="display: flex;justify-content: space-between;">
+				  <%= error %>
+				  <button id="closei" onclick="this.parentNode.remove(); return false;" >x</button>
+				</div>
+			<%} %>
 		<fieldset>
 			
             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Registro</h3>
