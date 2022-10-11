@@ -51,7 +51,7 @@ public class Turista extends Usuario{
     	comprasG.add(compraG);
     }
 
-    public boolean yaTieneSalida(Salida ssal) {
+    public boolean yaTieneSalida(Salida sal) {
     	Iterator<CompraGeneral> itr = comprasG.iterator();
     	boolean res = false;
     	while(itr.hasNext()) {
