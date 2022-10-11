@@ -1,14 +1,21 @@
 package Controllers;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
 
 import excepciones.ActividadRepetidaException;
 import excepciones.FechaAltaSalidaAnteriorActividad;
@@ -24,17 +31,19 @@ import logica.DataUsuario;
 import logica.DataProveedor;
 import logica.Fabrica;
 import logica.IControladorAlta;
+import logica.IControladorConsulta;
 
 /**
  * Servlet implementation class Home
  */
 
 @WebServlet (urlPatterns={"/ModificarUsuario","/SalidaCreada","/UsuarioCreado","/ActividadCreada","/AltaSalida","/AltaActividad","/AltaUsuario"})
-
+@MultipartConfig(maxFileSize = 16177215) 
 public class ServletAlta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Fabrica fab = Fabrica.getInstance();;
 	private IControladorAlta conAlta;
+	private IControladorConsulta conCons;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -59,20 +68,68 @@ public class ServletAlta extends HttpServlet {
 				req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);
 				break;
 			case "/UsuarioCreado":
-				DataUsuario du = (DataUsuario) req.getAttribute("DataUsuario");
-				conAlta = fab.getIControladorAlta();
-				try {
-					if(du instanceof DataTurista) {
-						conAlta.confirmarAltaTurista(du.getNick(), du.getNombre() , du.getApellido(), du.getMail() ,du.getNacimiento() ,((DataTurista) du).getNacionalidad());
-					} else {
-						conAlta.confirmarAltaProveedor(du.getNick(), du.getNombre() , du.getApellido(), du.getMail() ,du.getNacimiento() ,((DataProveedor) du).getDescripcion(),((DataProveedor) du).getLink(),true); //((DataProveedor) du).getHayLink());
+				String nick = (String) req.getParameter("username");
+				String nombre = (String) req.getParameter("firstname");
+				String apellido = (String) req.getParameter("lastname");
+				String mail = (String) req.getParameter("email");
+				String password = (String) req.getParameter("password");
+				String nacionalidad = (String) req.getParameter("nacionalidad");
+				String descripcion = (String) req.getParameter("descripcion");
+				String linkProv = (String) req.getParameter("linkProv");
+				String date = (String) req.getParameter("input_date");
+				SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+				InputStream inputStream = null; // input stream of the upload file
+		        // obtains the upload file part in this multipart request
+		        Part filePart = req.getPart("imgUsuario");
+		        conAlta = fab.getIControladorAlta();
+		        conCons = fab.getIControladorConsulta();
+		        if (filePart != null) {
+		             
+		            // obtains input stream of the upload file
+		            inputStream = filePart.getInputStream();
+		            ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
+		            int reads = inputStream.read();
+		            while(reads != -1){ 
+		            	baos.write(reads); 
+		            	reads = inputStream.read(); 
+		            } 
+		            byte[] imgBytes = baos.toByteArray();
+		            try {
+						Date fechaNac = format.parse(date);
+						if(nacionalidad != null) {
+							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail ,fechaNac ,nacionalidad,password,imgBytes);
+						} else if (linkProv != null) {
+							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,linkProv,true,password,imgBytes); 
+						}
+						HttpSession session = req.getSession();
+						DataUsuario du = conCons.ingresarDatos(nick);
+						session.setAttribute("usuario",du);
+						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
+						resp.sendRedirect("/tarea2p2/home");
+					} catch (UsuarioRepetidoException e) {
+						req.setAttribute("Exception", e.getMessage());
+						req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req,resp);
+					}catch (ParseException e1) {
 					}
-					HttpSession session = req.getSession();
-					session.setAttribute("usuario",du);
-					resp.sendRedirect("/WEB-INF/iniciar.jsp");
-				} catch (UsuarioRepetidoException e) {
-					req.setAttribute("Exception", e.getMessage());
-					req.getRequestDispatcher("/WEB-INF/alta_usuario.jsp").forward(req,resp);
+		        }
+				else {
+					try {
+						Date fechaNac = format.parse(date);
+						if(nacionalidad != null) {
+							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail ,fechaNac ,nacionalidad,password);
+						} else if (linkProv != null) {
+							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,linkProv,true,password); //((DataProveedor) du).getHayLink());
+						}
+						HttpSession session = req.getSession();
+						DataUsuario du = conCons.ingresarDatos(nick);
+						session.setAttribute("usuario",du);
+						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
+						resp.sendRedirect("/tarea2p2/home");
+					} catch (UsuarioRepetidoException e) {
+						req.setAttribute("Exception", e.getMessage());
+						req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req,resp);
+					}catch (ParseException e1) {
+					}
 				}
 				break;
 			case "/ActividadCreada":
