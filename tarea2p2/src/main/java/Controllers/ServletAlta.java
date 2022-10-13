@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -62,6 +64,43 @@ public class ServletAlta extends HttpServlet {
 				break;
 			case "/AltaActividad":
 				// manda una redirección a otra URL (cambia la URL)
+			    //Cambiar de lugar el codigo
+			    /*String nombreAct = (String) req.getParameter("actividadNombre");
+                String departamentoAct = (String) req.getParameter("actividadDepartamento"); //Corregir agarrar el seleccionado del combo 
+                String descripcionAct = (String) req.getParameter("actividadDescripcion");
+                String costoAct = (String) req.getParameter("actividadCosto");
+                String duracionAct = (String) req.getParameter("actividadDuracion");
+                String ciudadAct = (String) req.getParameter("actividadCiudad");
+                String categoriasAct = (String) req.getParameter("catActual"); //Corregir agarrar las seleccionadas
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDate localDate = LocalDate.now();
+                String auxFecha = formatter.format(localDate);
+                Date fechaAct = (Date) formatter.parse(auxFecha);              
+                
+                //FALTA TRAER IMAGENES
+                
+                HttpSession sessionAct = req.getSession();
+                DataProveedor dtProveedor = (DataProveedor) sessionAct.getAttribute("usuario");
+                String proveedorAct = dtProveedor.getNick();
+                
+                conAlta = fab.getIControladorAlta();
+                try {
+                    conAlta.registrarActividad(departamentoAct,nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct),ciudadAct,fechaAct,proveedorAct, null);
+                } catch (NumberFormatException e2) {
+                    // TODO Auto-generated catch block
+                    e2.printStackTrace();
+                } catch (ActividadRepetidaException e2) {
+                    req.setAttribute("Exception", e2.getMessage());
+                    req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req,resp);
+                } catch (UsuarioNoExisteException e2) {
+                    // TODO Auto-generated catch block
+                    e2.printStackTrace();
+                } catch (ProveedorNoNacidoException e2) {
+                    // TODO Auto-generated catch block
+                    e2.printStackTrace();
+                }*/
+                
 				resp.sendRedirect("/WEB-INF/altaActividad/alta_actividad.jsp");
 				break;
 			case "/AltaSalida":
@@ -146,7 +185,7 @@ public class ServletAlta extends HttpServlet {
 					}
 				}
 				break;
-			case "/ActividadCreada":
+			case "/ ":
 				DataActividad da = (DataActividad) req.getAttribute("DataActividad");
 				HttpSession session1 = req.getSession();
 				DataUsuario aux = (DataUsuario) session1.getAttribute("usuario");

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,logica.DataCategoria,java.util.Set,logica.DataPaquete,logica.DataActividad" %>
+<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,logica.DataPaquete,logica.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -127,7 +127,7 @@
                                     <!-- Nombre -->
                                     <div class="col-md-6 mb-3">
                                         <label for="productName">Nombre</label>
-                                        <input type="text" class="form-control" id="actividadNombre" required=""placeholder="" value="" >
+                                        <input type="text" class="form-control" id="actividadNombre" required placeholder="" value="" >
                                         <!-- <div class="invalid-feedback">
                                         Ingresa un nombre
                                         </div> -->
