@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,Controllers.EstadoSesion,logica.DataPaquete,logica.DataActividad" %>
+<%@page import="logica.DataUsuario,logica.DataDepartamento,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,Controllers.EstadoSesion,logica.DataPaquete,logica.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -29,45 +29,8 @@
 <body>
     <!-- Page Preloder -->
 	<!-- Header Section Begin -->
-	<%-- <jsp:include page="/WEB-INF/template/header.jsp"/> --%>
-    <header class="header">
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        <a href="./index_proveedor.html"><img src="../img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <input type="text" placeholder="Buscar en turismo.uy">
-                                <button type="submit" class="site-btn">BUSCAR</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 ">
-                	<div class="row float-right">
-                        <div class="header__top__right__Usu">
-                            <span><a href="./ConsultaUsuarioP.html"><img src="https://c.wallhere.com/photos/55/39/safe_house_cia_agent_tobin_frost_denzel_washington-584127.jpg!d"> &nbsp; Washington Rocha</a></span>
-                        </div>
-                    </div>
-                    <div class="row float-right">
-                    	<div class="header__top__right__csesion ">
-                           	<a href="./logout.html"> Cerrar Sesion</a>
-                        </div>
-                    </div>
-                        
-                </div>
-            </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
+	<jsp:include page="/WEB-INF/template/header.jsp"/>
+    
     <!-- Header Section End -->
 
     <%DataUsuario usr = null;
@@ -152,7 +115,12 @@
                                         <label for="actividadCategoria">Departamento</label>
                                         <select class="d-block w-100" id="actividadDepartamento" required>
                                             <option value="" disabled selected>seleccione departamento</option>
-                                            <option class="depSelecc">Rocha</option>
+                                            <%DataDepartamento[] departamentos = (DataDepartamento[]) session.getAttribute("dptos");
+									         if(departamentos!=null)
+									         for (DataDepartamento it : departamentos){
+									         %>
+									         	<option class="depSelecc"><%= it.getNombre() %></option>
+									         <%} %>
                                         </select>
                                         <!-- <div class="invalid-feedback">
                                             Por favor ingresa una categoría válida.
@@ -203,7 +171,12 @@
                                         <label for="actividadCategoria">Categorías</label>
                                         <select class="d-block w-100" id="actividadCategoria">
                                             <option value="" disabled selected>Agregar o quitar categoría</option>
-                                            <option class="catSelecc">Gastronomía</option>
+											<%Set<String> categorias = (Set<String>) session.getAttribute("categorias");
+											         if(categorias!=null)
+											         for (String it : categorias){
+											         %>
+											             <option><%= it %></option>
+											<%} %>
                                         </select>
                                         <!-- <div class="invalid-feedback">
                                             Por favor ingresa una categoría válida.

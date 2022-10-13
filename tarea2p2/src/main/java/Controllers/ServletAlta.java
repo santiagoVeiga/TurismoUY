@@ -103,7 +103,7 @@ public class ServletAlta extends HttpServlet {
                     e2.printStackTrace();
                 } catch (ActividadRepetidaException e2) {
                     req.setAttribute("Exception", e2.getMessage());
-                    req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req,resp);
+                    req.getRequestDispatcher("/WEB-INF/altaActividad/alta_actividad.jsp").forward(req,resp);
                 } catch (UsuarioNoExisteException e2) {
                     // TODO Auto-generated catch block
                     e2.printStackTrace();
@@ -111,6 +111,8 @@ public class ServletAlta extends HttpServlet {
                     // TODO Auto-generated catch block
                     e2.printStackTrace();
                 }
+                resp.sendRedirect("/tarea2p2/home");
+
                 break;
 			case "/UsuarioCreado":
 				String nick = (String) req.getParameter("username");
