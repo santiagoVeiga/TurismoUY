@@ -7,7 +7,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -64,19 +67,25 @@ public class ServletAlta extends HttpServlet {
 				break;
 			case "/AltaActividad":
 				// manda una redirecciÃ³n a otra URL (cambia la URL)
-			    //Cambiar de lugar el codigo
-			    /*String nombreAct = (String) req.getParameter("actividadNombre");
+			    
+                req.getRequestDispatcher("/WEB-INF/altaActividad/alta_actividad.jsp").forward(req,resp);
+				break;
+			case "/AltaSalida":
+				req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);
+				break;
+			case "/ActividadCreada":
+                String nombreAct = (String) req.getParameter("actividadNombre");
                 String departamentoAct = (String) req.getParameter("actividadDepartamento"); //Corregir agarrar el seleccionado del combo 
                 String descripcionAct = (String) req.getParameter("actividadDescripcion");
                 String costoAct = (String) req.getParameter("actividadCosto");
                 String duracionAct = (String) req.getParameter("actividadDuracion");
                 String ciudadAct = (String) req.getParameter("actividadCiudad");
-                String categoriasAct = (String) req.getParameter("catActual"); //Corregir agarrar las seleccionadas
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                //obtengo categorias añadidas
+                //String[] auxCategorias = (String[]) req.getParameterValues("catActual"); //Corregir agarrar las seleccionadas
+                //Set<String> categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
+                //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 LocalDate localDate = LocalDate.now();
-                String auxFecha = formatter.format(localDate);
-                Date fechaAct = (Date) formatter.parse(auxFecha);              
+                Date fechaAct = new Date(localDate.getDayOfMonth(),localDate.getMonthValue(),localDate.getYear());              
                 
                 //FALTA TRAER IMAGENES
                 
@@ -87,6 +96,8 @@ public class ServletAlta extends HttpServlet {
                 conAlta = fab.getIControladorAlta();
                 try {
                     conAlta.registrarActividad(departamentoAct,nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct),ciudadAct,fechaAct,proveedorAct, null);
+                    resp.sendRedirect("/tarea2p2/home");
+
                 } catch (NumberFormatException e2) {
                     // TODO Auto-generated catch block
                     e2.printStackTrace();
@@ -99,13 +110,8 @@ public class ServletAlta extends HttpServlet {
                 } catch (ProveedorNoNacidoException e2) {
                     // TODO Auto-generated catch block
                     e2.printStackTrace();
-                }*/
-                
-				resp.sendRedirect("/WEB-INF/altaActividad/alta_actividad.jsp");
-				break;
-			case "/AltaSalida":
-				req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);
-				break;
+                }
+                break;
 			case "/UsuarioCreado":
 				String nick = (String) req.getParameter("username");
 				String nombre = (String) req.getParameter("firstname");

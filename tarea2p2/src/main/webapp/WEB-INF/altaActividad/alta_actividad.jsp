@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,logica.DataPaquete,logica.DataActividad" %>
+<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,Controllers.EstadoSesion,logica.DataPaquete,logica.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -16,19 +16,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="../css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
 <body>
     <!-- Page Preloder -->
-<!-- Header Section Begin -->
+	<!-- Header Section Begin -->
+	<%-- <jsp:include page="/WEB-INF/template/header.jsp"/> --%>
     <header class="header">
         
         <div class="container">
@@ -69,6 +70,11 @@
     </header>
     <!-- Header Section End -->
 
+    <%DataUsuario usr = null;
+    if (session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO) {
+    	usr = (DataUsuario) session.getAttribute("usuario");
+    }
+      %>
     <!-- Hero Section Begin -->
     <section class="hero">
         <div class="container">
@@ -76,6 +82,27 @@
                 <div class="col-lg-3">
                     <div class="row">
                     	<div class="hero__perfil">
+                    	<% if (usr == null) {%>
+                    		<ul>
+                                <li><a href="./listar_usuariosV.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
+                                <li><a href="./ListaPaquetesV.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
+                                <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
+                            </ul>
+                    	<% } else if (usr instanceof DataTurista){ %>
+                    		<div class="hero__perfil__all" style="cursor: pointer;" onclick="window.location='./ConsultaUsuarioT.html';">
+                    			<span>Mi Perfil</span>
+                    			<div class="ax float-right">
+                    				<i class="fa fa-caret-square-o-right" aria-hidden="true"></i>
+                    			</div>
+                    		</div>
+                    		<ul>
+                                <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Inscripcion a Salida Turistica</a></li>
+                                <li><a href="./ListaPaquetesT.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Comprar Paquete</a></li>
+                                <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
+                                <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
+                                <li><a href="./listar_usuariosT.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
+                            </ul>
+                    	<% } else if (usr instanceof DataProveedor){%>
                     		<div class="hero__perfil__all" style="cursor: pointer;" onclick="window.location='./ConsultaUsuarioP.html';">
                     			<span>Mi Perfil</span>
                     			<div class="ax float-right">
@@ -83,31 +110,19 @@
                     			</div>
                     		</div>
                     		<ul>
-                                <li><a href="./alta_actividad.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Actividad Turistica</a></li>
+                                <li><a href="./AltaActividad"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Actividad Turistica</a></li>
                                 <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Salida Turistica</a></li>
                                 <li><a href="./ListaPaquetesP.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
                                <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
                                <li><a href="./listar_usuariosP.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
                             </ul>
+                    	<% } %>
+                    		
                     	</div>
-                        <div class="hero__deps">
-                            <div class="hero__deps__all">
-                                <i class="fa fa-bars"  ></i>
-                                <span>Departamentos</span>
-                            </div>
-                            <ul>
-                                <li><a href="./ListaActividadP.html">Rocha</a></li>
-                            </ul>
-                        </div>
-                        <div class="hero__categories">
-                            <div class="hero__categories__all">
-                                <i class="fa fa-bars"></i>
-                                <span>Categorias</span>
-                            </div>
-                            <ul>
-                                <li><a href="./ListaActividadP.html">Gastronomia</a></li>
-                            </ul>
-                        </div>
+                        
+                        <jsp:include page="/WEB-INF/template/dptosCats.jsp"/>
+                        
+                        
                     </div>
                 </div>
                 <!-- Alta Actividad -->
@@ -120,7 +135,7 @@
                         <div class="row justify-content-md-center">
                           <div class="col-md-8 order-md-1">
                             <h4 class="mb-3">Información de la Actividad</h4>
-                            <form class="needs-validation" id="sell-info">
+                            <form class="needs-validation" action="/tarea2p2/ActividadCreada" id="sell-info">
 
                                 <!-- Nombre y Departamento -->                                
                                 <div class="row">
@@ -225,18 +240,18 @@
     <!-- Contenido End -->
 
     <!-- Js Plugins -->
-    <script src="../js/altaActividad.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="..js/bootstrap.min.js"></script>
-    <script src="..js/popper.min.js"></script>
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.nice-select.min.js"></script>
-    <script src="../js/jquery-ui.min.js"></script>
-    <script src="../js/jquery.slicknav.js"></script>
-    <script src="../js/jquery.validate.js"></script>
-    <script src="../js/mixitup.min.js"></script>
-    <script src="../js/owl.carousel.min.js"></script>
+    <script src="js/altaActividad.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
     
 </body>
 
