@@ -28,7 +28,7 @@ public abstract class Usuario {
         this.nickname = nickname;
         this.mail = mail;
         this.nacimiento = nacimiento;
-        password = pass;
+        this.password = pass;
         this.imagen = imagen;
     }
     public Usuario(String nickname, String nombre, String apellido, String mail, Date nacimiento, String pass) {

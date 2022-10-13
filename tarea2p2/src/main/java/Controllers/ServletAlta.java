@@ -62,7 +62,7 @@ public class ServletAlta extends HttpServlet {
 				break;
 			case "/AltaActividad":
 				// manda una redirección a otra URL (cambia la URL)
-				resp.sendRedirect("/WEB-INF/alta_actividad.jsp");
+				resp.sendRedirect("/WEB-INF/altaActividad/alta_actividad.jsp");
 				break;
 			case "/AltaSalida":
 				req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);

@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,logica.DataCategoria,java.util.Set,logica.DataPaquete,logica.DataActividad" %>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -180,6 +182,7 @@
                                     </div>
                                 </div>
                                 <!-- Categorias-->
+				                
                                 <div class="row">
                                     <div class="col-md-7 mb-3">
                                         <label for="actividadCategoria">Categorías</label>
