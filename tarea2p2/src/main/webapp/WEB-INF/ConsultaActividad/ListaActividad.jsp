@@ -16,14 +16,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="../css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
 <body>
@@ -33,51 +33,7 @@
     </div>
 
     <!-- Header Section Begin -->
-    <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        <a href="./index.html"><img src="../img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <input type="text" placeholder="Buscar en turismo.uy">
-                                <button type="submit" class="site-btn">BUSCAR</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="header__top__right">
-                        <div class="header__top__right__auth">
-                        	<a href="./alta_usuario.html"> Alta Usuario</a>
-                            <a href="./login.html"><i class="fa fa-user"></i> Iniciar Sesion</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    <!-- Header Section End -->
+	<jsp:include page="/WEB-INF/template/header.jsp"/>
     <!-- Hero Section Begin -->
     <section class="hero">
         <div class="container">
@@ -91,24 +47,8 @@
                                 <li><a href="#" onclick="return seleccionarAct();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
                             </ul>
                     	</div>
-                        <div class="hero__deps">
-                            <div class="hero__deps__all">
-                                <i class="fa fa-bars"  ></i>
-                                <span>Departamentos</span>
-                            </div>
-                            <ul>
-                                <li><a href="./ListaActividadV.html">Rocha</a></li>
-                            </ul>
-                        </div>
-                        <div class="hero__categories">
-                            <div class="hero__categories__all">
-                                <i class="fa fa-bars"></i>
-                                <span>Categorias</span>
-                            </div>
-                            <ul>
-                                <li><a href="./ListaActividadV.html">Gastronomia</a></li>
-                            </ul>
-                        </div>
+                        <jsp:include page="/WEB-INF/template/dptosCats.jsp"/>
+
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-7">
@@ -124,7 +64,7 @@
                                 	%>
                                 		<a class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="../img/degusta.jpg" alt="">
+                                            <img src="img/degusta.jpg" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h5> <%= acts[i].getNombre() %> </h5>
@@ -146,14 +86,14 @@
     <!-- Hero Section End -->
 
     <!-- Js Plugins -->
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.nice-select.min.js"></script>
-    <script src="../js/jquery-ui.min.js"></script>
-    <script src="../js/jquery.slicknav.js"></script>
-    <script src="../js/mixitup.min.js"></script>
-    <script src="../js/owl.carousel.min.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 
 
 
