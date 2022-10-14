@@ -55,23 +55,26 @@ public class ServletConsulta extends HttpServlet {
 			case "/ConsultaActividad":
 				HttpSession session = req.getSession();
 				String actividad = (String) req.getParameter("actividad"); 
-				DataActividad[] actividades;
+				DataActividad[] actividades = null;
 				if(session.getAttribute("DTDConsultaActividad")!= null) {
 					actividades = ((DataDepartamento) session.getAttribute("DTDConsultaActividad")).getColAct().toArray(new DataActividad[0]);
 				} else {
 					String categoria = (String) session.getAttribute("CatConsultaActividad");
-					actividades = conCons.obtenerActividadCategoria(categoria);
+					if(categoria != null)
+					    actividades = conCons.obtenerActividadCategoria(categoria);
 				}
 				if(actividad == null) {
 					req.setAttribute("ArregloActividades", actividades);
 					req.getRequestDispatcher("/WEB-INF/ConsultaActividad/ListaActividad.jsp").forward(req,resp);
 				} else {
 					int i = 0;
-					while ((actividades[i].getNombre()!=actividad) && (i<actividades.length)) {
+					while ((i<actividades.length &&(actividades[i].getNombre()!=actividad))) {
 						i++;
 					}
-					req.setAttribute("ActividadElegida", actividades[i]);
-					req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);
+					if(i<actividades.length) {
+					    req.setAttribute("ActividadElegida", actividades[i]);
+	                    req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);
+					}
 				}
 				break;
 			case "/ConsultaSalida":

@@ -69,7 +69,7 @@
                                         <div class="latest-product__item__text">
                                             <h5> <%= acts[i].getNombre() %> </h5>
                                             <h6> <%= acts[i].getDescripcion() %> </h6>
-                                            <a href="?actividad=<%= acts[i].getNombre() %>">
+                                            <a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>">
                                             	<span class="blog__btn" >LEER MÁS </span>
                                             </a>
                                         </div>
