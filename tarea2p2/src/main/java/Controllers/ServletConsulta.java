@@ -67,14 +67,16 @@ public class ServletConsulta extends HttpServlet {
 					req.setAttribute("ArregloActividades", actividades);
 					req.getRequestDispatcher("/WEB-INF/ConsultaActividad/ListaActividad.jsp").forward(req,resp);
 				} else {
+				    int index = 0;
 					int i = 0;
-					while ((i<actividades.length &&(actividades[i].getNombre()!=actividad))) {
-						i++;
+					for(i=0;i<actividades.length;i++) {
+					    if(actividades[i].getNombre()!=actividad) {
+					        index=i;
+					    }
 					}
-					if(i<actividades.length) {
-					    req.setAttribute("ActividadElegida", actividades[i]);
-	                    req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);
-					}
+					
+				    req.setAttribute("ActividadElegida", actividades[index]);
+                    req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);
 				}
 				break;
 			case "/ConsultaSalida":
