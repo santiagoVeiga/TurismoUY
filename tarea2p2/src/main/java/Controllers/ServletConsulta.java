@@ -69,12 +69,15 @@ public class ServletConsulta extends HttpServlet {
 				} else {
 				    int index = 0;
 					int i = 0;
+					// me daba error con While
 					for(i=0;i<actividades.length;i++) {
-					    if(actividades[i].getNombre()!=actividad) {
+					    if(actividades[i].getNombre()==actividad) {
 					        index=i;
 					    }
 					}
-					
+					System.out.printf(actividad);
+	                System.out.printf(actividades[index].getNombre());
+
 				    req.setAttribute("ActividadElegida", actividades[index]);
                     req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);
 				}
