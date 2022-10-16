@@ -71,7 +71,7 @@ public class ServletAlta extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/altaActividad/alta_actividad.jsp").forward(req,resp);
 				break;
 			case "/AltaSalida":
-				req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);
+				req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
 				break;
 			case "/ActividadCreada":
                 String nombreAct = (String) req.getParameter("actividadNombre");

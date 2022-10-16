@@ -99,12 +99,11 @@
                     <div class="card border-dark mb-3" style="background-color: rgba(80, 80, 80, 0.229);">
                     
                     	<% DataActividad actividadSeleccionada = (DataActividad) request.getAttribute("ActividadElegida");%>
-                        <div class="card-header"><%=actividadSeleccionada.getNombre()%></p></div>
+                        <div class="card-header"><p><%=actividadSeleccionada.getNombre()%></p></div>
                         <div class="card-body text-dark">
                             <div style="display: flex; justify-content: space-around; padding-bottom: 20px;">
                                 <p style="color: black; "><%=actividadSeleccionada.getDescripcion()%></p>
-                                <img src="img/degusta.jpg"
-                                    style="height: 100px; border-radius: 5px; " alt="">
+                                <img src="img/degusta.jpg" style="height: 100px; border-radius: 5px; " alt="">
                             </div>
                             <table class="table">
 							  <thead>
@@ -131,6 +130,12 @@
 							      <th scope="row">Categoria/as</th>
 							      <td><%= actividadSeleccionada.getCategorias()%></td>
 							    </tr>
+							    <%if(usr instanceof DataProveedor){%>
+                            	<tr>
+							      <th scope="row">Alta Salida</th>
+							      <td><a href="/tarea2p2/AltaSalida?actividadElegida=actividadSeleccionada">Ir</a></td>
+							    </tr>
+                            <%}%>
 							  </tbody>
 							</table>
                             
