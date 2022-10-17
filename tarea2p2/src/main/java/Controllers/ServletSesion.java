@@ -141,35 +141,6 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
         selecCat(req,resp,nomCat);
     } else {
     	switch(solicitud) {
-    		case "/":
-    			// hace que se ejecute el jsp sin cambiar la url
-    			DataDepartamento[] auxx = null;
-    			try {
-    				auxx = cc.obtenerDataDepartamentos();
-    			} catch (DepartamentoNoExisteException e) {
-    				System.out.println("no hay deptos");
-    			}
-    			String nomDptox = req.getParameter("DTDConsultaActividad");
-    			if(nomDptox != null) {
-    				for(DataDepartamento it : auxx) {
-    					if(it.getNombre().equals(nomDptox)) {
-    						ses.setAttribute("DTDConsultaActividad", it);
-    					}
-    				}
-    				resp.sendRedirect("/tarea2p2/ConsultaActividad");
-    				break;
-    			}
-    			String nomCatx = req.getParameter("CatConsultaActividad");
-    			if(nomCatx!=null) {
-    				ses.setAttribute("CatConsultaActividad", nomCatx);
-    				resp.sendRedirect("/tarea2p2/ConsultaActividad");
-    				break;
-    			}
-    			ses.setAttribute("dptos", auxx);
-    			Set<String> catsx = cc.obtenerNombreCategorias();
-    			ses.setAttribute("categorias", catsx);
-    			req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
-    			break;
     		case "/home":
     			// hace que se ejecute el jsp sin cambiar la url
     			DataDepartamento[] aux = null;
@@ -188,6 +159,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     			break;
     		case "/cerrarSesion":
     			ses.setAttribute("usuario", null);
+    			ses.setAttribute("imagenUsuario", null);
     			ses.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
     			req.getRequestDispatcher("/WEB-INF/home/cerrarSesion.jsp").forward(req, resp);
     			break;
@@ -201,11 +173,14 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     						//Sesion iniciada correctamente
     						ses.setAttribute("usuario", it);
     						// Setear imagen
-    						InputStream is = new ByteArrayInputStream(it.getImagen());
+    						String imageAsBase64 = null;
+    						if(it.getImagen()!=null) {
+    						    InputStream is = new ByteArrayInputStream(it.getImagen());
     				        BufferedImage bi = ImageIO.read(is);
     				        ByteArrayOutputStream output = new ByteArrayOutputStream();
     						ImageIO.write(bi, "jpg", output);
-    						String imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+    						imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+    						}
     				        ses.setAttribute("imagenUsuario", imageAsBase64);
     				        //
     				        ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
@@ -224,12 +199,15 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     						//Sesion iniciada correctamente
     						ses.setAttribute("usuario", it);
     						// Setear imagen
-    						InputStream is = new ByteArrayInputStream(it.getImagen());
-    				        BufferedImage bi = ImageIO.read(is);
-    				        ByteArrayOutputStream output = new ByteArrayOutputStream();
-    						ImageIO.write(bi, "jpg", output);
-    						String imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
-    				        ses.setAttribute("imagenUsuario", imageAsBase64);
+    						String imageAsBase64 = null;
+                            if(it.getImagen()!=null) {
+                                InputStream is = new ByteArrayInputStream(it.getImagen());
+                            BufferedImage bi = ImageIO.read(is);
+                            ByteArrayOutputStream output = new ByteArrayOutputStream();
+                            ImageIO.write(bi, "jpg", output);
+                            imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+                            }
+                            ses.setAttribute("imagenUsuario", imageAsBase64);
     				        //
     						ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
     						resp.sendRedirect("/tarea2p2/home");

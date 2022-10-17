@@ -166,7 +166,7 @@ public class ServletAlta extends HttpServlet {
     		        Part filePart = req.getPart("imgUsuario");
     		        conAlta = fab.getIControladorAlta();
     		        conCons = fab.getIControladorConsulta();
-    		        if (filePart != null) {
+    		        if (filePart.getSize() > 0) {
     		             
     		            // obtains input stream of the upload file
     		            inputStream = filePart.getInputStream();
@@ -248,6 +248,7 @@ public class ServletAlta extends HttpServlet {
     						HttpSession session = req.getSession();
     						DataUsuario du = conCons.obtenerDataUsuarioNick(nick);
     						session.setAttribute("usuario",du);
+    						session.setAttribute("imagenUsuario", null); // revisar esto
     						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
     						resp.sendRedirect("/tarea2p2/home");
     					} catch (UsuarioRepetidoException e) {
