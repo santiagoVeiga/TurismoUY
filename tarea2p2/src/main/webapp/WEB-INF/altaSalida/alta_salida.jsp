@@ -97,11 +97,13 @@
                           <% String actDepto = (String) request.getParameter("actDepto");%>
                           <% String actCiudad = (String) request.getParameter("actCiudad");%>
                           <h2>Alta Salida Turística</h2>
-                          <p class="lead">Ingresa los datos de la Salida asociada a la Actividad: <%=actNombre %></p>
+                          <p class="lead">Ingresa los datos de la Salida asociada a la Actividad: <span id="actividadSal"><%=actNombre %></span></p>
                         </div>
                         <div class="row justify-content-md-center">
                           <div class="col-md-8 order-md-1">
                             <h4 class="mb-3">Información de la Salida</h4>
+                            <!-- FORM -->
+                            
                             <form class="needs-validation" action="/tarea2p2/SalidaCreada" id="sell-info">
 
                                 <!-- Nombre y Departamento -->                                
@@ -109,7 +111,7 @@
                                     <!-- Nombre -->
                                     <div class="col-md-6 mb-3">
                                         <label for="productName">Nombre</label>
-                                        <input type="text" class="form-control" id="salidaNombre" required=""placeholder="" value="" >
+                                        <input type="text" class="form-control" id="salidaNombre" name="salidaNombre" required=""placeholder="" value="" >
                                         <!-- <div class="invalid-feedback">
                                         Ingresa un nombre
                                         </div> -->
@@ -117,7 +119,7 @@
                                     <!-- Departamento -->
                                     <div class="col-md-6 mb-3">
                                         <label for="salidaDepartamento">Departamento</label>
-                                        <input class="form-control" id="salidaDepartamento" value="<%=actDepto %>" readonly>  
+                                        <input class="form-control" id="salidaDepartamento" name="salidaDepartamento" value="<%=actDepto %>" readonly>  
                                         
                                     </div>
                                 </div>
@@ -126,7 +128,7 @@
                               	<div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="salidaCiudad">Ciudad</label>
-                                        <input class="form-control" id="salidaCiudad" value="<%=actCiudad %>" readonly >
+                                        <input class="form-control" id="salidaCiudad" name="salidaCiudad" value="<%=actCiudad %>" readonly >
                                     </div>
                                 </div>
                               	
@@ -134,7 +136,7 @@
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="salidaLugar">Lugar</label>
-                                        <input class="form-control" id="salidaLugar" required="">
+                                        <input class="form-control" id="salidaLugar" name="salidaLugar" required="">
                                     </div>
                                 </div>
                                 
@@ -142,7 +144,7 @@
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
 	                                    <label for="salidaCantidadMax">Cantidad maxima de turistas</label>
-	                                    <input type="number" class="form-control" id="salidaCantidadMax" placeholder="" required="" value="" min="1">
+	                                    <input type="number" class="form-control" id="salidaCantidadMax" name="salidaCantidadMax" placeholder="" required="" value="" min="1">
 	                                    <div class="invalid-feedback">
 	                                        La cantidad es requerida.
 	                                    </div>
@@ -155,7 +157,7 @@
 	                                    <div class="col-md-12 order-md-1">
 	                                        <label for="zip">Imágenes</label>
 	                                        <div class=" " id="file-upload">
-	                                            <input type="file" class="form-control" id="customFile" />
+	                                            <input type="file" class="form-control" id="salidaFotos" name="salidaFotos" />
 	                                        </div>
 	                                    </div>
 	                                <hr class="mb-4">
@@ -166,12 +168,12 @@
                                 <div class="row">
                                 	<div class="col-md-6 mb-3">
 	                                    <label for="salidaFecha">Fecha</label>
-	                                    <input class="form-control" type="date" id="salidaFecha" name="trip-start" >
+	                                    <input class="form-control" type="date" id="salidaFecha" name="salidaFecha" name="trip-start" >
 	                                </div>
 	                                
 	                                <div class="col-md-6 mb-3">
 	                                    <label for="salidaHora">Hora</label>
-                                    	<input class="form-control" type="time" id="salidaHora" name="hora" min="1:00" max="24:00" step="3600" />
+                                    	<input class="form-control" type="time" id="salidaHora" name="salidaHora" min="1:00" max="24:00" step="3600" />
                                     </div>
                                     
                                 </div>

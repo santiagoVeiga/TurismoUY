@@ -100,16 +100,13 @@ public class ServletAlta extends HttpServlet {
 
                 } catch (NumberFormatException e2) {
                     // TODO Auto-generated catch block
-                    e2.printStackTrace();
                 } catch (ActividadRepetidaException e2) {
                     req.setAttribute("Exception", e2.getMessage());
                     req.getRequestDispatcher("/WEB-INF/altaActividad/alta_actividad.jsp").forward(req,resp);
                 } catch (UsuarioNoExisteException e2) {
                     // TODO Auto-generated catch block
-                    e2.printStackTrace();
                 } catch (ProveedorNoNacidoException e2) {
                     // TODO Auto-generated catch block
-                    e2.printStackTrace();
                 }
                 resp.sendRedirect("/tarea2p2/home");
 
@@ -209,16 +206,29 @@ public class ServletAlta extends HttpServlet {
 				}
 				break;
 			case "/SalidaCreada":
-				DataSalida ds = (DataSalida) req.getAttribute("DataSalida");
-				String actividad = (String) req.getAttribute("Actividad");
+				//DataSalida ds = (DataSalida) req.getAttribute("DataSalida");
+			    //No funciona aun
+                String salidaNombre = (String) req.getParameter("salidaNombre");
+                String salidaLugar = (String) req.getParameter("salidaLugar");
+                String salidaCantMax = (String) req.getParameter("salidaCantidadMax");
+				String actividad = (String) req.getParameter("actividadSal");
+				LocalDate localDateS = LocalDate.now();
+                Date fechaActS = new Date(localDateS.getDayOfMonth(),localDateS.getMonthValue(),localDateS.getYear());
+                String fechaSal = (String) req.getParameter("input_date");
+                SimpleDateFormat formatS = new SimpleDateFormat("dd-MM-yyyy");
+                // HORA FALTA
+                //FALTA Traer imagenes
 				conAlta = fab.getIControladorAlta();
 				try {
-					conAlta.confirmarAltaSalida(actividad, ds.getNombre() ,ds.getFecha(), ds.gethora(), ds.getLugar(), ds.getCant() ,ds.getFechaAlta());
-					resp.sendRedirect("/WEB-INF/iniciar.jsp");
+				    Date fechaSalida = formatS.parse(fechaSal);
+					conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, null, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActS);
+					resp.sendRedirect("/tarea2p2/home");
 				} catch (SalidaYaExisteExeption | FechaAltaSalidaInvalida | FechaAltaSalidaAnteriorActividad e) {
 					req.setAttribute("Exception", e.getMessage());
-					req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);
-				}	
+					req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
+				} catch (ParseException e) {
+                    // TODO Auto-generated catch block
+                }	
 				break;
 			case "/ModificarUsuario":
 				DataUsuario du1 = (DataUsuario) req.getAttribute("DataUsuario");

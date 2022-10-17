@@ -98,6 +98,9 @@
                         <div class="row justify-content-md-center">
                           <div class="col-md-8 order-md-1">
                             <h4 class="mb-3">Información de la Actividad</h4>
+                            
+                            <!-- FORM -->
+                            
                             <form class="needs-validation" action="/tarea2p2/ActividadCreada" id="sell-info">
 
                                 <!-- Nombre y Departamento -->                                
@@ -105,7 +108,7 @@
                                     <!-- Nombre -->
                                     <div class="col-md-6 mb-3">
                                         <label for="productName">Nombre</label>
-                                        <input type="text" class="form-control" id="actividadNombre" required placeholder="" value="" >
+                                        <input type="text" class="form-control" id="actividadNombre"  name="actividadNombre" required placeholder="" value="" >
                                         <!-- <div class="invalid-feedback">
                                         Ingresa un nombre
                                         </div> -->
@@ -113,7 +116,7 @@
                                     <!-- Departamento -->
                                     <div class="col-md-6 mb-3">
                                         <label for="actividadCategoria">Departamento</label>
-                                        <select class="d-block w-100" id="actividadDepartamento" required>
+                                        <select name="actividadDepartamento" class="d-block w-100" id="actividadDepartamento" required>
                                             <option value="" disabled selected>seleccione departamento</option>
                                             <%DataDepartamento[] departamentos = (DataDepartamento[]) session.getAttribute("dptos");
 									         if(departamentos!=null)
@@ -131,7 +134,7 @@
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="productDescription">Descripción</label>
-                                        <textarea class="form-control" id="actividadDescripcion" rows="3" required=""></textarea>
+                                        <textarea class="form-control" id="actividadDescripcion" name="actividadDescripcion" rows="3" required=""></textarea>
                                     </div>
                                 </div>
                                 <!-- Costo y Duracion -->
@@ -139,7 +142,7 @@
                                     <!-- Costo -->
                                     <div class="col-md-3 mb-3">
                                         <label for="actividadCosto">Costo</label>
-                                        <input type="number" class="form-control" id="actividadCosto" placeholder="" required="" value="0" min="0">
+                                        <input type="number" class="form-control" id="actividadCosto" name="actividadCosto" placeholder="" required="" value="0" min="0">
                                         <div class="invalid-feedback">
                                             El costo debe ser mayor que 0.
                                         </div>
@@ -151,7 +154,7 @@
                                     <!-- Duracion -->
                                     <div class="col-md-3 mb-3">
                                     <label for="actividadDuracion">Duración</label>
-                                    <input type="number" class="form-control" id="actividadDuracion" placeholder="ingrese la duracion en horas" required="" value="" min="1">
+                                    <input type="number" class="form-control" id="actividadDuracion" name="actividadDuracion" placeholder="ingrese la duracion en horas" required="" value="" min="1">
                                     <div class="invalid-feedback">
                                         La cantidad es requerida.
                                     </div>
@@ -161,7 +164,7 @@
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="actividadCiudad">Ciudad</label>
-                                        <textarea class="form-control" id="actividadCiudad" rows="1" required=""></textarea>
+                                        <textarea class="form-control" id="actividadCiudad" name="actividadCiudad" rows="1" required=""></textarea>
                                     </div>
                                 </div>
                                 <!-- Categorias-->
