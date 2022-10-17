@@ -17,8 +17,18 @@ public class DataSalida {
 	private Date fechaAlta;
 	private int cant;
 	private byte[] imagen;
+	
+	public DataSalida(String nom,String lug,Date hor,Date fech,Date fechAlta,int can) {
+		nombre = nom;
+		lugar = lug;
+		imagen = null;
+		hora = hor;
+		fecha = fech;
+		fechaAlta = fechAlta;
+		cant = can;
+	}
 
-	public DataSalida(byte[] img,String nom,String lug,Date hor,Date fech,Date fechAlta,int can) {
+	public DataSalida(String nom,String lug,Date hor,Date fech,Date fechAlta,int can,byte[] img) {
 		nombre = nom;
 		lugar = lug;
 		imagen = img;
