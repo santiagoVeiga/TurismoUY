@@ -75,8 +75,7 @@ public class ServletConsulta extends HttpServlet {
 					        index=i;
 					    }
 					}
-					System.out.printf(actividad);
-	                System.out.printf(actividades[index].getNombre());
+					
 
 				    req.setAttribute("ActividadElegida", actividades[index]);
                     req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);

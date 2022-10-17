@@ -133,7 +133,7 @@
 							    <%if(usr instanceof DataProveedor){%>
                             	<tr>
 							      <th scope="row">Alta Salida</th>
-							      <td><a href="/tarea2p2/AltaSalida?actividadElegida=actividadSeleccionada">Ir</a></td>
+							      <td><a href="/tarea2p2/AltaSalida?actNombre=<%=actividadSeleccionada.getNombre()%>&actDepto=<%=actividadSeleccionada.getDepartamento()%>&actCiudad=<%=actividadSeleccionada.getCiudad()%>">Ir</a></td>
 							    </tr>
                             <%}%>
 							  </tbody>

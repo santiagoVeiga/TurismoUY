@@ -93,10 +93,11 @@
                 <div class="col-lg-9" style="border-radius: 25px; padding: 20px; padding-top:30px">
                     <div class="container">
                         <div class="text-center p-4">
-                          <% DataActividad actividadSeleccionada = (DataActividad) request.getAttribute("actividadElegida");%>
-                          
+                          <% String actNombre = (String) request.getParameter("actNombre");%>
+                          <% String actDepto = (String) request.getParameter("actDepto");%>
+                          <% String actCiudad = (String) request.getParameter("actCiudad");%>
                           <h2>Alta Salida Turística</h2>
-                          <p class="lead">Ingresa los datos de la Salida</p>
+                          <p class="lead">Ingresa los datos de la Salida asociada a la Actividad: <%=actNombre %></p>
                         </div>
                         <div class="row justify-content-md-center">
                           <div class="col-md-8 order-md-1">
@@ -116,7 +117,7 @@
                                     <!-- Departamento -->
                                     <div class="col-md-6 mb-3">
                                         <label for="salidaDepartamento">Departamento</label>
-                                        <input class="form-control" id="salidaDepartamento" value="" readonly>  
+                                        <input class="form-control" id="salidaDepartamento" value="<%=actDepto %>" readonly>  
                                         
                                     </div>
                                 </div>
@@ -125,7 +126,7 @@
                               	<div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="salidaCiudad">Ciudad</label>
-                                        <input class="form-control" id="salidaCiudad" value="CIUDAD" readonly >
+                                        <input class="form-control" id="salidaCiudad" value="<%=actCiudad %>" readonly >
                                     </div>
                                 </div>
                               	
