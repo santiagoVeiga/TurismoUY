@@ -9,6 +9,7 @@ import java.util.Set;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.SalidaYaExisteExeption;
+import excepciones.SalidasNoExisteException;
 import logica.Actividad;
 import logica.DataActividad;
 import logica.Usuario;
@@ -65,5 +66,18 @@ public class ManejadorActividad {
     		iter.next().getValue().perteneceSalida(nombreSalida);
     	}
 	}
-
+	
+	public String obtenerNomActvidiadDeSalida(String salida) throws SalidasNoExisteException {
+		String res =  null;
+		for(Actividad it : colAct.values()) {
+			if (it.perteneceSalida(salida)) {
+				res = it.getNombre();
+			}
+		}
+		if (res == null) {
+			throw new SalidasNoExisteException("No existe una salida con nombre" + salida);
+		}
+		return res;
+	}
+	
 }

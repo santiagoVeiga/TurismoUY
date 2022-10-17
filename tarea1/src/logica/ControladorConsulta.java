@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.DepartamentoNoExisteException;
+import excepciones.SalidasNoExisteException;
 import excepciones.UsuarioNoExisteException;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorCategoria;
@@ -89,5 +90,16 @@ public class ControladorConsulta implements IControladorConsulta {
 			throw new ActividadNoExisteException("No existe la actividad con nombre: " + nomAct);
 		}
 		return act.getDataAT();
+	}
+	
+	public DataSalida obtenerDataSalida(String nomSal) throws SalidasNoExisteException{
+		ManejadorActividad mAct = ManejadorActividad.getInstance();
+		String nomAct = mAct.obtenerNomActvidiadDeSalida(nomSal);
+		try {
+			Actividad act = mAct.getActividad(nomAct);
+			return act.getSalida(nomSal).getDataST();
+		} catch (ActividadNoExisteException e) {
+			throw new SalidasNoExisteException("No existe una actividad asociada a la salida con nombre" + nomSal);
+		}
 	}
 }
