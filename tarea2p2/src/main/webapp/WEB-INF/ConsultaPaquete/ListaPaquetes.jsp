@@ -40,13 +40,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="row">
-                    	<div class="hero__perfil">
-                    		<ul>
-                                <li><a href="./listar_usuariosV.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
-                                <li><a href="./ListaPaquetesV.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
-                                <li><a href="#" onclick="return seleccionarAct();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
-                            </ul>
-                    	</div>
+                    	<jsp:include page="/WEB-INF/template/miPerfil.jsp"/>
                         <jsp:include page="/WEB-INF/template/dptosCats.jsp"/>
 
                     </div>

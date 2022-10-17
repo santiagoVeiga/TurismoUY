@@ -33,83 +33,15 @@
         <div class="loader"></div>
     </div>
 
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        <a href="./index.html"><img src="../img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <input type="text" placeholder="Buscar en turismo.uy">
-                                <button type="submit" class="site-btn">BUSCAR</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="header__top__right">
-                        <div class="header__top__right__auth">
-                        	<a href="./alta_usuario.html"> Alta Usuario</a>
-                            <a href="./login.html"><i class="fa fa-user"></i> Iniciar Sesion</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    <!-- Header Section End -->
+    <jsp:include page="/WEB-INF/template/header.jsp"/>
     <!-- Hero Section Begin -->
     <section class="hero">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
                     <div class="row">
-                    	<div class="hero__perfil">
-                    		<ul>
-                                <li><a href="./listar_usuariosV.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
-                                <li><a href="./ListaPaquetesV.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
-                                <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
-                            </ul>
-                    	</div>
-                        <div class="hero__deps">
-                            <div class="hero__deps__all">
-                                <i class="fa fa-bars"  ></i>
-                                <span>Departamentos</span>
-                            </div>
-                            <ul>
-                                <li><a href="./ListaActividadV.html">Rocha</a></li>
-                            </ul>
-                        </div>
-                        <div class="hero__categories">
-                            <div class="hero__categories__all">
-                                <i class="fa fa-bars"></i>
-                                <span>Categorias</span>
-                            </div>
-                            <ul>
-                                <li><a href="./ListaActividadV.html">Gastronomia</a></li>
-                            </ul>
-                        </div>
+                    	<jsp:include page="/WEB-INF/template/miPerfil.jsp"/>
+                        <jsp:include page="/WEB-INF/template/dptosCats.jsp"/>
                     </div>
                 </div>
                 <!-- Salida -->
