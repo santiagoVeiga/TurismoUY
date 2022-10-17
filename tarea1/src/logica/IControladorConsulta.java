@@ -4,6 +4,7 @@ import java.util.Set;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.DepartamentoNoExisteException;
+import excepciones.SalidasNoExisteException;
 import excepciones.UsuarioNoExisteException;
 
 public interface IControladorConsulta {
@@ -17,4 +18,5 @@ public interface IControladorConsulta {
 	public abstract DataUsuario obtenerDataUsuarioNick(String nick) throws UsuarioNoExisteException;
 	public abstract DataUsuario obtenerDataUsuarioMail(String mail) throws UsuarioNoExisteException;
 	public abstract DataActividad obtenerDataActividad(String nomAct) throws ActividadNoExisteException;
+	public abstract DataSalida obtenerDataSalida(String nomSal) throws SalidasNoExisteException;
 }

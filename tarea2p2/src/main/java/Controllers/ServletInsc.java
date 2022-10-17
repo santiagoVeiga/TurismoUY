@@ -23,6 +23,7 @@ import excepciones.PaqueteRepetidoException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
 import logica.DataActividad;
+import logica.DataDepartamento;
 import logica.DataPaquete;
 import logica.DataSalida;
 import logica.DataUsuario;
@@ -47,54 +48,84 @@ public class ServletInsc extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    public void selecDep(HttpServletRequest req, HttpServletResponse resp, String nomDpto) {
+        HttpSession session = req.getSession();
+        DataDepartamento[] aux = (DataDepartamento[]) session.getAttribute("dptos");
+        for(DataDepartamento it : aux) {
+            if(it.getNombre().equals(nomDpto)) {
+                session.setAttribute("DTDConsultaActividad", it);
+            }
+        }
+        try {
+            resp.sendRedirect("/tarea2p2/ConsultaActividad");
+        } catch (IOException e) {
+        }
+    }
+    
+    public void selecCat(HttpServletRequest req, HttpServletResponse resp, String nomCat) {
+        HttpSession session = req.getSession();
+        session.setAttribute("CatConsultaActividad", nomCat);
+        try {
+            resp.sendRedirect("/tarea2p2/ConsultaActividad");
+        } catch (IOException e) {
+        }
+    }
+    
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
-		switch(req.getServletPath()){
-			case "/Inscripcion":
-				req.getRequestDispatcher("/WEB-INF/InscripcionSalida.jsp").forward(req,resp);
-				break;
-			case "/Inscripto":
-				conInsc = fab.getIControladorInsc();
-				DataActividad da = (DataActividad) req.getAttribute("DataActividad");
-				DataSalida ds = (DataSalida) req.getAttribute("DataSalida");
-				HttpSession session = req.getSession();
-				DataUsuario du = (DataUsuario) session.getAttribute("usuario");
-				int cant = (int) req.getAttribute("cantidad");
-				DataPaquete dp = (DataPaquete) req.getAttribute("DataPaquete");
-				LocalDateTime ld = LocalDateTime.now();
-				Date fecha = java.util.Date.from(ld.atZone(ZoneId.systemDefault()).toInstant());
-				try {
-					if(dp == null) {
-						conInsc.inscribir(du.getNick(), ds.getNombre(), cant, fecha, da.getNombre());
-					} else {
-						conInsc.inscribir(du.getNick(), ds.getNombre(), cant, fecha, da.getNombre(), dp.getNombre());
-					}
-				} catch (TuristaConSalida | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException
-						| InscFechaDespSalida | TuristaNoHaNacido | PaqueteRepetidoException
-						| NoHayCuposException e) {
-					req.setAttribute("Exception", e.getMessage());
-					req.getRequestDispatcher("/WEB-INF/InscripcionSalida.jsp").forward(req,resp);
-				}
-				resp.sendRedirect("/WEB-INF/iniciar.jsp");
-				break;
-			case "/CompraPaquete":
-				conInsc = fab.getIControladorInsc();
-				HttpSession session1 = req.getSession();
-				DataUsuario du1 = (DataUsuario) session1.getAttribute("usuario");
-				int cant1 = Integer.parseInt(req.getParameter("cantTur"));
-				String nomPaq = (String) req.getParameter("nomPaq");
-				LocalDateTime ld1 = LocalDateTime.now();
-				Date fecha1 = java.util.Date.from(ld1.atZone(ZoneId.systemDefault()).toInstant());
-				try {
-					conInsc.comprarPaquete(du1.getNick(), fecha1, cant1, nomPaq);
-				} catch (PaqueteNoExisteException | PaqueteRepetidoException e) {
-					req.setAttribute("Exception", e.getMessage());
-					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete.jsp").forward(req,resp);
-				}
-				resp.sendRedirect("/WEB-INF/iniciar.jsp");
-				break;
-		}
+	    String nomDpto = req.getParameter("DTDConsultaActividad");
+        String nomCat = req.getParameter("CatConsultaActividad");
+        if(nomDpto != null) {
+            selecDep(req,resp,nomDpto);
+        } else if (nomCat != null) {
+            selecCat(req,resp,nomCat);
+        } else {
+    		switch(req.getServletPath()){
+    			case "/Inscripcion":
+    				req.getRequestDispatcher("/WEB-INF/InscripcionSalida.jsp").forward(req,resp);
+    				break;
+    			case "/Inscripto":
+    				conInsc = fab.getIControladorInsc();
+    				DataActividad da = (DataActividad) req.getAttribute("DataActividad");
+    				DataSalida ds = (DataSalida) req.getAttribute("DataSalida");
+    				HttpSession session = req.getSession();
+    				DataUsuario du = (DataUsuario) session.getAttribute("usuario");
+    				int cant = (int) req.getAttribute("cantidad");
+    				DataPaquete dp = (DataPaquete) req.getAttribute("DataPaquete");
+    				LocalDateTime ld = LocalDateTime.now();
+    				Date fecha = java.util.Date.from(ld.atZone(ZoneId.systemDefault()).toInstant());
+    				try {
+    					if(dp == null) {
+    						conInsc.inscribir(du.getNick(), ds.getNombre(), cant, fecha, da.getNombre());
+    					} else {
+    						conInsc.inscribir(du.getNick(), ds.getNombre(), cant, fecha, da.getNombre(), dp.getNombre());
+    					}
+    				} catch (TuristaConSalida | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException
+    						| InscFechaDespSalida | TuristaNoHaNacido | PaqueteRepetidoException
+    						| NoHayCuposException e) {
+    					req.setAttribute("Exception", e.getMessage());
+    					req.getRequestDispatcher("/WEB-INF/InscripcionSalida.jsp").forward(req,resp);
+    				}
+    				resp.sendRedirect("/WEB-INF/iniciar.jsp");
+    				break;
+    			case "/CompraPaquete":
+    				conInsc = fab.getIControladorInsc();
+    				HttpSession session1 = req.getSession();
+    				DataUsuario du1 = (DataUsuario) session1.getAttribute("usuario");
+    				int cant1 = Integer.parseInt(req.getParameter("cantTur"));
+    				String nomPaq = (String) req.getParameter("nomPaq");
+    				LocalDateTime ld1 = LocalDateTime.now();
+    				Date fecha1 = java.util.Date.from(ld1.atZone(ZoneId.systemDefault()).toInstant());
+    				try {
+    					conInsc.comprarPaquete(du1.getNick(), fecha1, cant1, nomPaq);
+    				} catch (PaqueteNoExisteException | PaqueteRepetidoException e) {
+    					req.setAttribute("Exception", e.getMessage());
+    					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete.jsp").forward(req,resp);
+    				}
+    				resp.sendRedirect("/WEB-INF/iniciar.jsp");
+    				break;
+    		}
+        }
 	}
 	
 	/**

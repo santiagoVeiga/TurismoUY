@@ -169,10 +169,7 @@ public class Actividad {
 		colSal.put(nombreSalida,aux);
 	}
 	
-	public boolean perteneceSalida(String salN) throws SalidaYaExisteExeption {
-		if(colSal.get(salN) != null) {
-			throw new SalidaYaExisteExeption("Ya existe una salida con el nombre: " + salN);
-		}
+	public boolean perteneceSalida(String salN){
 		return colSal.get(salN) != null;
 	}
 	

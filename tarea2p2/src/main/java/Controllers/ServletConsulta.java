@@ -95,6 +95,7 @@ public class ServletConsulta extends HttpServlet {
     				}
     				if(actividad == null) {
     					req.setAttribute("ArregloActividades", actividades);
+    					session.setAttribute("ArregloActividades", actividades);
     					req.getRequestDispatcher("/WEB-INF/ConsultaActividad/ListaActividad.jsp").forward(req,resp);
     				} else {
     				    int index = 0;
@@ -105,13 +106,13 @@ public class ServletConsulta extends HttpServlet {
     					        index=i;
     					    }
     					}
-    					
-    
     				    req.setAttribute("ActividadElegida", actividades[index]);
                         req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);
     				}
     				break;
     			case "/ConsultaSalida":
+    			    String salida = req.getParameter("salida");
+    			    //conCons.obtenerDataSalida(salida);
     				req.getRequestDispatcher("/WEB-INF/ConsultaActividad.jsp").forward(req,resp); //Ver si entregar el set de salidas o no, por ahora se devuelve el DataSalida que viene desde la lista.
     				break;
     			case "/ConsultaPaquete":
