@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import excepciones.SalidasNoExisteException;
 import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataPaquete;
+import logica.DataSalida;
 import logica.DataUsuario;
 import logica.Fabrica;
 import logica.IControladorConsulta;
@@ -112,8 +114,14 @@ public class ServletConsulta extends HttpServlet {
     				break;
     			case "/ConsultaSalida":
     			    String salida = req.getParameter("salida");
-    			    //conCons.obtenerDataSalida(salida);
-    				req.getRequestDispatcher("/WEB-INF/ConsultaActividad.jsp").forward(req,resp); //Ver si entregar el set de salidas o no, por ahora se devuelve el DataSalida que viene desde la lista.
+    			    try {
+                        DataSalida dataSal = conCons.obtenerDataSalida(salida);
+                        req.setAttribute("SalidaElegida", dataSal);
+                        req.getRequestDispatcher("/WEB-INF/ConsultaSalida/ConsultaSalida.jsp").forward(req,resp); //Ver si entregar el set de salidas o no, por ahora se devuelve el DataSalida que viene desde la lista.
+                    } catch (SalidasNoExisteException e) {
+                        req.setAttribute("Exception", e.getMessage());
+                        req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req,resp);
+                    }
     				break;
     			case "/ConsultaPaquete":
     				String paquete = (String) req.getParameter("paquete");
