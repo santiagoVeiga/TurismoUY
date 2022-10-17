@@ -51,7 +51,7 @@ public class Salida {
 	
 	public DataSalida getDataST()
 	{
-		return new DataSalida(nombre,lugar,hora,fecha,fechaAlta,cant);
+		return new DataSalida(nombre,lugar,hora,fecha,fechaAlta,cant,imagen);
 	}
 
 	public String getNombre() {

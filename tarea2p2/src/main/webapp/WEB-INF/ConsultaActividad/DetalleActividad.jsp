@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@page import="logica.DataUsuario,logica.DataDepartamento,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,Controllers.EstadoSesion,logica.DataPaquete,logica.DataActividad" %>
+<%@page import="java.util.Base64,logica.DataUsuario,logica.DataDepartamento,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,Controllers.EstadoSesion,logica.DataPaquete,logica.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -98,12 +98,13 @@
                     <!-- Seccion de Consulta de actividades -->
                     <div class="card border-dark mb-3" style="background-color: rgba(80, 80, 80, 0.229);">
                     
-                    	<% DataActividad actividadSeleccionada = (DataActividad) request.getAttribute("ActividadElegida");%>
+                    	<% DataActividad actividadSeleccionada = (DataActividad) request.getAttribute("ActividadElegida");
+                    		String imagen = Base64.getEncoder().encodeToString(actividadSeleccionada.getImagen());%>
                         <div class="card-header"><p><%=actividadSeleccionada.getNombre()%></p></div>
                         <div class="card-body text-dark">
                             <div style="display: flex; justify-content: space-around; padding-bottom: 20px;">
                                 <p style="color: black; "><%=actividadSeleccionada.getDescripcion()%></p>
-                                <img src="img/degusta.jpg" style="height: 100px; border-radius: 5px; " alt="">
+                                <img src="data:image/jpg;base64,<%= imagen %>" style="height: 100px; border-radius: 5px; " alt="">
                             </div>
                             <table class="table">
 							  <thead>
