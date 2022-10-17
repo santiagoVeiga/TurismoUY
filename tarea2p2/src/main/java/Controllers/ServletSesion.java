@@ -101,6 +101,30 @@ public static EstadoSesion getEstado(HttpServletRequest request)
 	return (EstadoSesion) request.getSession().getAttribute("estado_sesion");
 }
 
+public void selecDep(HttpServletRequest req, HttpServletResponse resp, String nomDpto) {
+    HttpSession session = req.getSession();
+    DataDepartamento[] aux = (DataDepartamento[]) session.getAttribute("dptos");
+    for(DataDepartamento it : aux) {
+        if(it.getNombre().equals(nomDpto)) {
+            session.setAttribute("DTDConsultaActividad", it);
+        }
+    }
+    try {
+        resp.sendRedirect("/tarea2p2/ConsultaActividad");
+    } catch (IOException e) {
+    }
+}
+
+public void selecCat(HttpServletRequest req, HttpServletResponse resp, String nomCat) {
+    HttpSession session = req.getSession();
+    session.setAttribute("CatConsultaActividad", nomCat);
+    try {
+        resp.sendRedirect("/tarea2p2/ConsultaActividad");
+    } catch (IOException e) {
+    }
+}
+
+
 private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException, DepartamentoYaExisteExeption, UsuarioNoExisteException {
 	initSession(req);
@@ -109,133 +133,122 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 	IControladorAlta ca = f.getIControladorAlta();
 	IControladorConsulta cc = f.getIControladorConsulta();
 	HttpSession ses = req.getSession();
-	switch(solicitud) {
-		case "/":
-			// hace que se ejecute el jsp sin cambiar la url
-			DataDepartamento[] auxx = null;
-			try {
-				auxx = cc.obtenerDataDepartamentos();
-			} catch (DepartamentoNoExisteException e) {
-				System.out.println("no hay deptos");
-			}
-			String nomDptox = req.getParameter("DTDConsultaActividad");
-			if(nomDptox != null) {
-				for(DataDepartamento it : auxx) {
-					if(it.getNombre().equals(nomDptox)) {
-						ses.setAttribute("DTDConsultaActividad", it);
-					}
-				}
-				resp.sendRedirect("/tarea2p2/ConsultaActividad");
-				break;
-			}
-			String nomCatx = req.getParameter("CatConsultaActividad");
-			if(nomCatx!=null) {
-				ses.setAttribute("CatConsultaActividad", nomCatx);
-				resp.sendRedirect("/tarea2p2/ConsultaActividad");
-				break;
-			}
-			ses.setAttribute("dptos", auxx);
-			Set<String> catsx = cc.obtenerNombreCategorias();
-			ses.setAttribute("categorias", catsx);
-			req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
-			break;
-		case "/home":
-			// hace que se ejecute el jsp sin cambiar la url
-			DataDepartamento[] aux = null;
-			try {
-				aux = cc.obtenerDataDepartamentos();
-			} catch (DepartamentoNoExisteException e) {
-				System.out.println("no hay deptos");
-			}
-			String nomDpto = req.getParameter("DTDConsultaActividad");
-			if(nomDpto != null) {
-				for(DataDepartamento it : aux) {
-					if(it.getNombre().equals(nomDpto)) {
-						ses.setAttribute("DTDConsultaActividad", it);
-					}
-				}
-				resp.sendRedirect("/tarea2p2/ConsultaActividad");
-				break;
-			}
-			String nomCat = req.getParameter("CatConsultaActividad");
-			if(nomCat!=null) {
-				ses.setAttribute("CatConsultaActividad", nomCat);
-				resp.sendRedirect("/tarea2p2/ConsultaActividad");
-				break;
-			}
-			ses.setAttribute("dptos", aux);
-			Set<String> cats = cc.obtenerNombreCategorias();
-			ses.setAttribute("categorias", cats);
-			req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
-			break;
-		case "/iniciarSesion":
-			req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
-			break;
-		case "/cerrarSesion":
-			ses.setAttribute("usuario", null);
-			ses.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
-			req.getRequestDispatcher("/WEB-INF/home/cerrarSesion.jsp").forward(req, resp);
-			break;
-		case "/sesionIniciada":
-			DataUsuario[] ususSistema = ca.getUsuariosComp();
-			String nickOrEmail = (String) req.getParameter("emailnick_inicioSesion");
-			for (DataUsuario it : ususSistema) {
-				if(it.getMail().equals(nickOrEmail)) {
-					String password = (String) req.getParameter("pass_iniSesion");
-					if (it.getPassword().equals(password)) { 
-						//Sesion iniciada correctamente
-						ses.setAttribute("usuario", it);
-						// Setear imagen
-						InputStream is = new ByteArrayInputStream(it.getImagen());
-				        BufferedImage bi = ImageIO.read(is);
-				        ByteArrayOutputStream output = new ByteArrayOutputStream();
-						ImageIO.write(bi, "jpg", output);
-						String imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
-				        ses.setAttribute("imagenUsuario", imageAsBase64);
-				        //
-				        ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
-						req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
-						return;
-					}
-					else {
-						req.setAttribute("error_contrasena","error");
-						req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
-						return;
-					}
-				}
-				else if(it.getNick().equals(nickOrEmail)) {
-					String password = (String) req.getParameter("pass_iniSesion");
-					if (it.getPassword().equals(password)) { 
-						//Sesion iniciada correctamente
-						ses.setAttribute("usuario", it);
-						// Setear imagen
-						InputStream is = new ByteArrayInputStream(it.getImagen());
-				        BufferedImage bi = ImageIO.read(is);
-				        ByteArrayOutputStream output = new ByteArrayOutputStream();
-						ImageIO.write(bi, "jpg", output);
-						String imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
-				        ses.setAttribute("imagenUsuario", imageAsBase64);
-				        //
-						ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
-						resp.sendRedirect("/tarea2p2/home");
-						return;
-					}
-					else {
-						req.setAttribute("error_contrasena","error");
-						req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
-						return;
-					}
-				}
-			}
-			req.setAttribute("error_emailnick","error");
-			req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
-			break;
-		case "/sesionCerrada":
-			break;
-	}
-	
-	
-	
+    String nomDpto = req.getParameter("DTDConsultaActividad");
+    String nomCat = req.getParameter("CatConsultaActividad");
+    if(nomDpto != null) {
+        selecDep(req,resp,nomDpto);
+    } else if (nomCat != null) {
+        selecCat(req,resp,nomCat);
+    } else {
+    	switch(solicitud) {
+    		case "/":
+    			// hace que se ejecute el jsp sin cambiar la url
+    			DataDepartamento[] auxx = null;
+    			try {
+    				auxx = cc.obtenerDataDepartamentos();
+    			} catch (DepartamentoNoExisteException e) {
+    				System.out.println("no hay deptos");
+    			}
+    			String nomDptox = req.getParameter("DTDConsultaActividad");
+    			if(nomDptox != null) {
+    				for(DataDepartamento it : auxx) {
+    					if(it.getNombre().equals(nomDptox)) {
+    						ses.setAttribute("DTDConsultaActividad", it);
+    					}
+    				}
+    				resp.sendRedirect("/tarea2p2/ConsultaActividad");
+    				break;
+    			}
+    			String nomCatx = req.getParameter("CatConsultaActividad");
+    			if(nomCatx!=null) {
+    				ses.setAttribute("CatConsultaActividad", nomCatx);
+    				resp.sendRedirect("/tarea2p2/ConsultaActividad");
+    				break;
+    			}
+    			ses.setAttribute("dptos", auxx);
+    			Set<String> catsx = cc.obtenerNombreCategorias();
+    			ses.setAttribute("categorias", catsx);
+    			req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
+    			break;
+    		case "/home":
+    			// hace que se ejecute el jsp sin cambiar la url
+    			DataDepartamento[] aux = null;
+    			try {
+    				aux = cc.obtenerDataDepartamentos();
+    			} catch (DepartamentoNoExisteException e) {
+    				System.out.println("no hay deptos");
+    			}
+    			ses.setAttribute("dptos", aux);
+    			Set<String> cats = cc.obtenerNombreCategorias();
+    			ses.setAttribute("categorias", cats);
+    			req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
+    			break;
+    		case "/iniciarSesion":
+    			req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
+    			break;
+    		case "/cerrarSesion":
+    			ses.setAttribute("usuario", null);
+    			ses.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
+    			req.getRequestDispatcher("/WEB-INF/home/cerrarSesion.jsp").forward(req, resp);
+    			break;
+    		case "/sesionIniciada":
+    			DataUsuario[] ususSistema = ca.getUsuariosComp();
+    			String nickOrEmail = (String) req.getParameter("emailnick_inicioSesion");
+    			for (DataUsuario it : ususSistema) {
+    				if(it.getMail().equals(nickOrEmail)) {
+    					String password = (String) req.getParameter("pass_iniSesion");
+    					if (it.getPassword().equals(password)) { 
+    						//Sesion iniciada correctamente
+    						ses.setAttribute("usuario", it);
+    						// Setear imagen
+    						InputStream is = new ByteArrayInputStream(it.getImagen());
+    				        BufferedImage bi = ImageIO.read(is);
+    				        ByteArrayOutputStream output = new ByteArrayOutputStream();
+    						ImageIO.write(bi, "jpg", output);
+    						String imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+    				        ses.setAttribute("imagenUsuario", imageAsBase64);
+    				        //
+    				        ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
+    						req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
+    						return;
+    					}
+    					else {
+    						req.setAttribute("error_contrasena","error");
+    						req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
+    						return;
+    					}
+    				}
+    				else if(it.getNick().equals(nickOrEmail)) {
+    					String password = (String) req.getParameter("pass_iniSesion");
+    					if (it.getPassword().equals(password)) { 
+    						//Sesion iniciada correctamente
+    						ses.setAttribute("usuario", it);
+    						// Setear imagen
+    						InputStream is = new ByteArrayInputStream(it.getImagen());
+    				        BufferedImage bi = ImageIO.read(is);
+    				        ByteArrayOutputStream output = new ByteArrayOutputStream();
+    						ImageIO.write(bi, "jpg", output);
+    						String imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+    				        ses.setAttribute("imagenUsuario", imageAsBase64);
+    				        //
+    						ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
+    						resp.sendRedirect("/tarea2p2/home");
+    						return;
+    					}
+    					else {
+    						req.setAttribute("error_contrasena","error");
+    						req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
+    						return;
+    					}
+    				}
+    			}
+    			req.setAttribute("error_emailnick","error");
+    			req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
+    			break;
+    		case "/sesionCerrada":
+    			break;
+    	}
+    }
 }
 
 /**
