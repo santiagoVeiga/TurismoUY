@@ -500,8 +500,7 @@ public class ControladorAlta implements IControladorAlta {
         
         mAct.addActividad(act);
         // if agregado por si Departamento no esta cargado da errror VER SI QUITAR
-        if(insDep != null)
-        	insDep.agregarActividad(act);
+        insDep.agregarActividad(act);
         
 	}
 

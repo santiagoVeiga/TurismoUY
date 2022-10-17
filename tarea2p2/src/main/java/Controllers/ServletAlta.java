@@ -1,17 +1,26 @@
 package Controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -71,7 +80,7 @@ public class ServletAlta extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/altaActividad/alta_actividad.jsp").forward(req,resp);
 				break;
 			case "/AltaSalida":
-				req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);
+				req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
 				break;
 			case "/ActividadCreada":
                 String nombreAct = (String) req.getParameter("actividadNombre");
@@ -80,7 +89,7 @@ public class ServletAlta extends HttpServlet {
                 String costoAct = (String) req.getParameter("actividadCosto");
                 String duracionAct = (String) req.getParameter("actividadDuracion");
                 String ciudadAct = (String) req.getParameter("actividadCiudad");
-                //obtengo categorias añadidas
+                //obtengo categorias aï¿½adidas
                 //String[] auxCategorias = (String[]) req.getParameterValues("catActual"); //Corregir agarrar las seleccionadas
                 //Set<String> categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
                 //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -100,16 +109,13 @@ public class ServletAlta extends HttpServlet {
 
                 } catch (NumberFormatException e2) {
                     // TODO Auto-generated catch block
-                    e2.printStackTrace();
                 } catch (ActividadRepetidaException e2) {
                     req.setAttribute("Exception", e2.getMessage());
                     req.getRequestDispatcher("/WEB-INF/altaActividad/alta_actividad.jsp").forward(req,resp);
                 } catch (UsuarioNoExisteException e2) {
                     // TODO Auto-generated catch block
-                    e2.printStackTrace();
                 } catch (ProveedorNoNacidoException e2) {
                     // TODO Auto-generated catch block
-                    e2.printStackTrace();
                 }
                 resp.sendRedirect("/tarea2p2/home");
 
@@ -134,13 +140,35 @@ public class ServletAlta extends HttpServlet {
 		             
 		            // obtains input stream of the upload file
 		            inputStream = filePart.getInputStream();
-		            ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
-		            int reads = inputStream.read();
-		            while(reads != -1){ 
-		            	baos.write(reads); 
-		            	reads = inputStream.read(); 
-		            } 
-		            byte[] imgBytes = baos.toByteArray();
+		            FileOutputStream output = null;
+		            byte[] imgBytes = null;
+		            try {
+		                // A partir del objeto File creamos el fichero fÃ­sicamente
+		                File nuevaImg = new File("/home/vagrant/Descargas/imgServer/" + filePart.getSubmittedFileName());
+		                if (nuevaImg.createNewFile())
+		                  System.out.println("El fichero se ha creado correctamente");
+		                else
+		                  System.out.println("No ha podido ser creado el fichero");
+		                output = new FileOutputStream(nuevaImg);
+		                int leido = 0;
+		                leido = inputStream.read();
+		                while (leido != -1) {
+		                    output.write(leido);
+		                    leido = inputStream.read();
+		                }
+		                imgBytes = Files.readAllBytes(Paths.get(nuevaImg.getAbsolutePath()));
+		              } catch (IOException ioe) {
+		                ioe.printStackTrace();
+		              } finally {
+		                try {
+		                    output.flush();
+		                    output.close();
+		                    inputStream.close();
+		                } catch (IOException ex) {
+		                    
+		                }
+		            }
+		          
 		            try {
 						Date fechaNac = format.parse(date);
 						if(nacionalidad != null) {
@@ -157,6 +185,13 @@ public class ServletAlta extends HttpServlet {
 						HttpSession session = req.getSession();
 						DataUsuario du = conCons.obtenerDataUsuarioNick(nick);
 						session.setAttribute("usuario",du);
+						//Setear imagen
+						InputStream is = new ByteArrayInputStream(imgBytes);
+                        BufferedImage bi = ImageIO.read(is);
+                        ByteArrayOutputStream outputA = new ByteArrayOutputStream();
+                        ImageIO.write(bi, "jpg", outputA);
+                        String imageAsBase64 = Base64.getEncoder().encodeToString(outputA.toByteArray());
+						session.setAttribute("imagenUsuario", imageAsBase64);
 						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
 						resp.sendRedirect("/tarea2p2/home");
 					} catch (UsuarioRepetidoException e) {
@@ -209,16 +244,29 @@ public class ServletAlta extends HttpServlet {
 				}
 				break;
 			case "/SalidaCreada":
-				DataSalida ds = (DataSalida) req.getAttribute("DataSalida");
-				String actividad = (String) req.getAttribute("Actividad");
+				//DataSalida ds = (DataSalida) req.getAttribute("DataSalida");
+			    //No funciona aun
+                String salidaNombre = (String) req.getParameter("salidaNombre");
+                String salidaLugar = (String) req.getParameter("salidaLugar");
+                String salidaCantMax = (String) req.getParameter("salidaCantidadMax");
+				String actividad = (String) req.getParameter("actividadSal");
+				LocalDate localDateS = LocalDate.now();
+                Date fechaActS = new Date(localDateS.getDayOfMonth(),localDateS.getMonthValue(),localDateS.getYear());
+                String fechaSal = (String) req.getParameter("input_date");
+                SimpleDateFormat formatS = new SimpleDateFormat("dd-MM-yyyy");
+                // HORA FALTA
+                //FALTA Traer imagenes
 				conAlta = fab.getIControladorAlta();
 				try {
-					conAlta.confirmarAltaSalida(actividad, ds.getNombre() ,ds.getFecha(), ds.gethora(), ds.getLugar(), ds.getCant() ,ds.getFechaAlta());
-					resp.sendRedirect("/WEB-INF/iniciar.jsp");
+				    Date fechaSalida = formatS.parse(fechaSal);
+					conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, null, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActS);
+					resp.sendRedirect("/tarea2p2/home");
 				} catch (SalidaYaExisteExeption | FechaAltaSalidaInvalida | FechaAltaSalidaAnteriorActividad e) {
 					req.setAttribute("Exception", e.getMessage());
-					req.getRequestDispatcher("/WEB-INF/alta_salida.jsp").forward(req,resp);
-				}	
+					req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
+				} catch (ParseException e) {
+                    // TODO Auto-generated catch block
+                }	
 				break;
 			case "/ModificarUsuario":
 				DataUsuario du1 = (DataUsuario) req.getAttribute("DataUsuario");

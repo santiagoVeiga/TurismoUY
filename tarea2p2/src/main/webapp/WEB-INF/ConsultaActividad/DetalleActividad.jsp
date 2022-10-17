@@ -99,25 +99,47 @@
                     <div class="card border-dark mb-3" style="background-color: rgba(80, 80, 80, 0.229);">
                     
                     	<% DataActividad actividadSeleccionada = (DataActividad) request.getAttribute("ActividadElegida");%>
-                    
-                        <div class="card-header"><%actividadSeleccionada.getNombre();%></div>
+                        <div class="card-header"><p><%=actividadSeleccionada.getNombre()%></p></div>
                         <div class="card-body text-dark">
                             <div style="display: flex; justify-content: space-around; padding-bottom: 20px;">
-                                <p style="color: black; "><%actividadSeleccionada.getDescripcion();%></p>
-                                <img src="img/degusta.jpg"
-                                    style="height: 100px; border-radius: 5px; " alt="">
+                                <p style="color: black; "><%=actividadSeleccionada.getDescripcion()%></p>
+                                <img src="img/degusta.jpg" style="height: 100px; border-radius: 5px; " alt="">
                             </div>
-                            <div style="display: block; text-align: center;">
-                                <a style="padding:25px">Ciudad: <% actividadSeleccionada.getCiudad();%></a>
-                                <a style="padding:25px">Duracion: <% actividadSeleccionada.getDuracion();%></a>
-                                <a style="padding:25px">Fecha de Alta: <% actividadSeleccionada.getFechaAlta();%></a>
-                                <a style="padding:25px">Costo: <% actividadSeleccionada.getCosto();%></a>
-
-                            </div>
-                            <div style="display: block; text-align: center;">
-                                <a style="padding:25px; margin-top: 15px;">Categoria/as : Gastronomia</a>
-                       
-                            </div>
+                            <table class="table">
+							  <thead>
+						
+							  </thead>
+							  <tbody>
+							    <tr>
+							      <th scope="row">Ciudad</th>
+							      <td><%=actividadSeleccionada.getCiudad()%></td>
+							    </tr>
+							    <tr>
+							      <th scope="row">Duracion</th>
+							      <td><%= actividadSeleccionada.getDuracion()%></td>
+							    </tr>
+							    <tr>
+							      <th scope="row">Fecha de Alta</th>
+							      <td><%= actividadSeleccionada.getFechaAlta()%></td>
+							    </tr>
+							    <tr>
+							      <th scope="row">Costo</th>
+							      <td><%= actividadSeleccionada.getCosto()%></td>
+							    </tr>
+							    <tr>
+							      <th scope="row">Categoria/as</th>
+							      <td><%= actividadSeleccionada.getCategorias()%></td>
+							    </tr>
+							    <%if(usr instanceof DataProveedor){%>
+                            	<tr>
+							      <th scope="row">Alta Salida</th>
+							      <td><a href="/tarea2p2/AltaSalida?actNombre=<%=actividadSeleccionada.getNombre()%>&actDepto=<%=actividadSeleccionada.getDepartamento()%>&actCiudad=<%=actividadSeleccionada.getCiudad()%>">Agregar una Salida</a></td>
+							    </tr>
+                            <%}%>
+							  </tbody>
+							</table>
+                            
+                            
                             <div style="display: flex; justify-content:center; align-items: center;">
                                 <a style="margin-right:22%; margin-top: 15px; ">Salidas</a>
                        			<a style="margin-left:25%; margin-top: 15px; ">Paquetes</a>

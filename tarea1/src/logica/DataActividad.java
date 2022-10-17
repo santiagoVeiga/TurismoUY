@@ -39,7 +39,7 @@ public class DataActividad {
 		this.salidas = dataSalidas;
 		this.paquetes = paquetes;
 		estado = estado2;
-		imagen = null;
+		this.setImagen(null);
 	}
 	
 	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur,Set<DataSalida> dataSalidas,Set<String> paquetes, estadoAct estado2, Set<String> categorias, String dep, byte[] imagen) {
@@ -54,7 +54,7 @@ public class DataActividad {
 		this.setCategorias(categorias);
 		estado = estado2;
 		this.setDepartamento(dep);
-		this.imagen = imagen;
+		this.setImagen(imagen);
 	}
 	
 //Getters y Setters
@@ -89,6 +89,14 @@ public class DataActividad {
 
 	public String getDepartamento() {
 		return departamento;
+	}
+
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
 	}
 
 	public void setDepartamento(String departamento) {

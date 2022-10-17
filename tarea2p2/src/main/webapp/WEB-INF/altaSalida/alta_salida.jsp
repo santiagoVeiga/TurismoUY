@@ -27,7 +27,8 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
+    
+<!-- Page Preloder -->
 	<!-- Header Section Begin -->
 	<jsp:include page="/WEB-INF/template/header.jsp"/>
     
@@ -88,120 +89,98 @@
                         
                     </div>
                 </div>
-                <!-- Alta Actividad -->
+                <!-- Alta Salida -->
                 <div class="col-lg-9" style="border-radius: 25px; padding: 20px; padding-top:30px">
                     <div class="container">
                         <div class="text-center p-4">
-                          <h2>Alta Actividad Turística</h2>
-                          <p class="lead">Ingresa los datos de la Actividad</p>
+                          <% String actNombre = (String) request.getParameter("actNombre");%>
+                          <% String actDepto = (String) request.getParameter("actDepto");%>
+                          <% String actCiudad = (String) request.getParameter("actCiudad");%>
+                          <h2>Alta Salida Turística</h2>
+                          <p class="lead">Ingresa los datos de la Salida asociada a la Actividad: <span id="actividadSal"><%=actNombre %></span></p>
                         </div>
                         <div class="row justify-content-md-center">
                           <div class="col-md-8 order-md-1">
-                            <h4 class="mb-3">Información de la Actividad</h4>
-                            
+                            <h4 class="mb-3">Información de la Salida</h4>
                             <!-- FORM -->
                             
-                            <form class="needs-validation" action="/tarea2p2/ActividadCreada" id="sell-info">
+                            <form class="needs-validation" action="/tarea2p2/SalidaCreada" id="sell-info">
 
                                 <!-- Nombre y Departamento -->                                
                                 <div class="row">
                                     <!-- Nombre -->
                                     <div class="col-md-6 mb-3">
                                         <label for="productName">Nombre</label>
-                                        <input type="text" class="form-control" id="actividadNombre"  name="actividadNombre" required placeholder="" value="" >
+                                        <input type="text" class="form-control" id="salidaNombre" name="salidaNombre" required=""placeholder="" value="" >
                                         <!-- <div class="invalid-feedback">
                                         Ingresa un nombre
                                         </div> -->
                                     </div>
                                     <!-- Departamento -->
                                     <div class="col-md-6 mb-3">
-                                        <label for="actividadCategoria">Departamento</label>
-                                        <select name="actividadDepartamento" class="d-block w-100" id="actividadDepartamento" required>
-                                            <option value="" disabled selected>seleccione departamento</option>
-                                            <%DataDepartamento[] departamentos = (DataDepartamento[]) session.getAttribute("dptos");
-									         if(departamentos!=null)
-									         for (DataDepartamento it : departamentos){
-									         %>
-									         	<option class="depSelecc"><%= it.getNombre() %></option>
-									         <%} %>
-                                        </select>
-                                        <!-- <div class="invalid-feedback">
-                                            Por favor ingresa una categoría válida.
-                                        </div> -->
+                                        <label for="salidaDepartamento">Departamento</label>
+                                        <input class="form-control" id="salidaDepartamento" name="salidaDepartamento" value="<%=actDepto %>" readonly>  
+                                        
                                     </div>
                                 </div>
-                              
+                              	
+                              	<!-- Ciudad -->
+                              	<div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="salidaCiudad">Ciudad</label>
+                                        <input class="form-control" id="salidaCiudad" name="salidaCiudad" value="<%=actCiudad %>" readonly >
+                                    </div>
+                                </div>
+                              	
+                              	<!-- Lugar -->
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
-                                        <label for="productDescription">Descripción</label>
-                                        <textarea class="form-control" id="actividadDescripcion" name="actividadDescripcion" rows="3" required=""></textarea>
+                                        <label for="salidaLugar">Lugar</label>
+                                        <input class="form-control" id="salidaLugar" name="salidaLugar" required="">
                                     </div>
                                 </div>
-                                <!-- Costo y Duracion -->
-                                <div class="row">
-                                    <!-- Costo -->
-                                    <div class="col-md-3 mb-3">
-                                        <label for="actividadCosto">Costo</label>
-                                        <input type="number" class="form-control" id="actividadCosto" name="actividadCosto" placeholder="" required="" value="0" min="0">
-                                        <div class="invalid-feedback">
-                                            El costo debe ser mayor que 0.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="">Moneda</label>
-                                        <p>Pesos Uruguayos (UYU)</p>
-                                    </div>
-                                    <!-- Duracion -->
-                                    <div class="col-md-3 mb-3">
-                                    <label for="actividadDuracion">Duración</label>
-                                    <input type="number" class="form-control" id="actividadDuracion" name="actividadDuracion" placeholder="ingrese la duracion en horas" required="" value="" min="1">
-                                    <div class="invalid-feedback">
-                                        La cantidad es requerida.
-                                    </div>
-                                    </div>
-                                </div>
-                                <!-- Ciudad -->
+                                
+                                <!-- Cant Max -->
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
-                                        <label for="actividadCiudad">Ciudad</label>
-                                        <textarea class="form-control" id="actividadCiudad" name="actividadCiudad" rows="1" required=""></textarea>
+	                                    <label for="salidaCantidadMax">Cantidad maxima de turistas</label>
+	                                    <input type="number" class="form-control" id="salidaCantidadMax" name="salidaCantidadMax" placeholder="" required="" value="" min="1">
+	                                    <div class="invalid-feedback">
+	                                        La cantidad es requerida.
+	                                    </div>
                                     </div>
                                 </div>
-                                <!-- Categorias-->
-				                
+                                
+                                <!-- Imagenes -->
                                 <div class="row">
-                                    <div class="col-md-7 mb-3">
-                                        <label for="actividadCategoria">Categorías</label>
-                                        <select class="d-block w-100" id="actividadCategoria">
-                                            <option value="" disabled selected>Agregar o quitar categoría</option>
-											<%Set<String> categorias = (Set<String>) session.getAttribute("categorias");
-											         if(categorias!=null)
-											         for (String it : categorias){
-											         %>
-											             <option><%= it %></option>
-											<%} %>
-                                        </select>
-                                        <!-- <div class="invalid-feedback">
-                                            Por favor ingresa una categoría válida.
-                                        </div> -->
-                                        <div class="col" id="categoriasBox">
-                                            <div class="row">
-                                                <p class="catActual"></p>
-                                            </div>
-                                        </div>
-                                    </div>
+	                                <hr class="mb-4">
+	                                    <div class="col-md-12 order-md-1">
+	                                        <label for="zip">Imágenes</label>
+	                                        <div class=" " id="file-upload">
+	                                            <input type="file" class="form-control" id="salidaFotos" name="salidaFotos" />
+	                                        </div>
+	                                    </div>
+	                                <hr class="mb-4">
+	                                <br>
                                 </div>
+                                
+                                <!-- Fecha y Hora -->
+                                <div class="row">
+                                	<div class="col-md-6 mb-3">
+	                                    <label for="salidaFecha">Fecha</label>
+	                                    <input class="form-control" type="date" id="salidaFecha" name="salidaFecha" name="trip-start" >
+	                                </div>
+	                                
+	                                <div class="col-md-6 mb-3">
+	                                    <label for="salidaHora">Hora</label>
+                                    	<input class="form-control" type="time" id="salidaHora" name="salidaHora" min="1:00" max="24:00" step="3600" />
+                                    </div>
+                                    
+                                </div>
+                                        
+                                
                                 <!-- Imagenes opcionales-->
-                                <hr class="mb-4">
-                                <div class="row">
-                                    <div class="col-md-8 order-md-1">
-                                        <label for="zip">Imágenes</label>
-                                        <div class=" " id="file-upload">
-                                            <input type="file" class="form-control" id="customFile" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="mb-4">
+                                
                                 <!-- Botones -->
                                 <button type="button" class="btn btn-secondary btn-lg">Cancelar</button>
                                 <button type="submit" class="btn btn-lg btn-primary">Confirmar</button>
@@ -213,8 +192,8 @@
             </div>
         </div>
     </section>
-    <!-- Contenido End -->
-
+    <!-- Hero Section End -->
+    <!-- Js Plugins -->
     <!-- Js Plugins -->
     <script src="js/altaActividad.js"></script>
     <script src="js/main.js"></script>
@@ -228,7 +207,6 @@
     <script src="js/jquery.validate.js"></script>
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
-    
 </body>
 
 </html>

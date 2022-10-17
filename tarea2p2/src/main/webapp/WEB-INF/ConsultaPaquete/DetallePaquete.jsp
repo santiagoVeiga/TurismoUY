@@ -81,7 +81,7 @@
     <!-- Header Section End -->
     <!-- Hero Section Begin -->
     <section class="hero">
-        <div class="container">
+        <div class="container"></div>
             <div class="row">
                 <div class="col-lg-3">
                     <div class="row">
@@ -192,8 +192,9 @@
 	                    				<span> Realizar Compra Paquete: </span><br />
 	                    				<form action="CompraPaquete" method="POST">
 			                    			<div class="ingreso_datos">
+			                    				<input type="hidden" id="nomPaq" name="nomPaq" value=<%=dataPaquete.getNombre() %>>>
 				                    			<label for="cant">Cantidad de Turistas</label>
-											    <input type="number" id="cant" name="cantTurs" min="1" value="1" placeholder="Ingrese un numero" required>
+											    <input type="number" id="cantTurs" name="cantTurs" min="1" value="1" placeholder="Ingrese un numero" required>
 											</div>
 											<div class="row justify-content-end" >
 											   <input type="submit" value="Realizar Compra" onclick="submit()">

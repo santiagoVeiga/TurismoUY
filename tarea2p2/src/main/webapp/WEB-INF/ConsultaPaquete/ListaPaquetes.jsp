@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataActividad,logica.DataSalida,java.util.Set,logica.DataDepartamento" %>
+<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataActividad,logica.DataSalida,java.util.Set,logica.DataDepartamento,logica.DataPaquete" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -10,7 +10,7 @@
     <meta name="keywords" content="turismo, uruguay">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Listado Actividades</title>
+    <title>Listado Paquetes</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -54,23 +54,22 @@
                 <div class="col-lg-9 col-md-7">
                     <div class="sidebar__item">
                         <div class="latest-product__text">
-                            <h4>Lista De Actividades</h4>
+                            <h4>Lista De Paquetes</h4>
                             <div class="latest-product__slider owl-carousel">
                                 <div class="latest-prdouct__slider__item">
                                 	<% 
-                                	DataActividad[] acts;
-                                	acts = (DataActividad[]) request.getAttribute("ArregloActividades");
-                                	for(int i = 0; i < acts.length; i++){
+                                	DataPaquete[] paqs;
+                                	paqs = (DataPaquete[]) request.getAttribute("ArregloPaquetes");
+                                	for(int i = 0; i < paqs.length; i++){
                                 	%>
-                                		<!-- <a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>" class="latest-product__item">  -->
                                 	<div class="latest-product__item">
                                         <div class="latest-product__item__pic">
                                             <img src="img/degusta.jpg" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
-                                            <h5> <%= acts[i].getNombre() %> </h5>
-                                            <h6> <%= acts[i].getDescripcion() %> </h6>
-                                            <a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>">
+                                            <h5> <%= paqs[i].getNombre() %> </h5>
+                                            <h6> <%= paqs[i].getDescripcion() %> </h6>
+                                            <a href="/tarea2p2/ConsultaPaquete?paquete=<%= paqs[i].getNombre() %>">
                                             	<span class="blog__btn" >LEER MÁS </span>
                                             </a>
                                         </div>
