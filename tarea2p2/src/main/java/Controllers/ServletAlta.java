@@ -1,17 +1,26 @@
 package Controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -80,7 +89,7 @@ public class ServletAlta extends HttpServlet {
                 String costoAct = (String) req.getParameter("actividadCosto");
                 String duracionAct = (String) req.getParameter("actividadDuracion");
                 String ciudadAct = (String) req.getParameter("actividadCiudad");
-                //obtengo categorias añadidas
+                //obtengo categorias aï¿½adidas
                 //String[] auxCategorias = (String[]) req.getParameterValues("catActual"); //Corregir agarrar las seleccionadas
                 //Set<String> categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
                 //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -131,13 +140,35 @@ public class ServletAlta extends HttpServlet {
 		             
 		            // obtains input stream of the upload file
 		            inputStream = filePart.getInputStream();
-		            ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
-		            int reads = inputStream.read();
-		            while(reads != -1){ 
-		            	baos.write(reads); 
-		            	reads = inputStream.read(); 
-		            } 
-		            byte[] imgBytes = baos.toByteArray();
+		            FileOutputStream output = null;
+		            byte[] imgBytes = null;
+		            try {
+		                // A partir del objeto File creamos el fichero fÃ­sicamente
+		                File nuevaImg = new File("/home/vagrant/Descargas/imgServer/" + filePart.getSubmittedFileName());
+		                if (nuevaImg.createNewFile())
+		                  System.out.println("El fichero se ha creado correctamente");
+		                else
+		                  System.out.println("No ha podido ser creado el fichero");
+		                output = new FileOutputStream(nuevaImg);
+		                int leido = 0;
+		                leido = inputStream.read();
+		                while (leido != -1) {
+		                    output.write(leido);
+		                    leido = inputStream.read();
+		                }
+		                imgBytes = Files.readAllBytes(Paths.get(nuevaImg.getAbsolutePath()));
+		              } catch (IOException ioe) {
+		                ioe.printStackTrace();
+		              } finally {
+		                try {
+		                    output.flush();
+		                    output.close();
+		                    inputStream.close();
+		                } catch (IOException ex) {
+		                    
+		                }
+		            }
+		          
 		            try {
 						Date fechaNac = format.parse(date);
 						if(nacionalidad != null) {
@@ -154,6 +185,13 @@ public class ServletAlta extends HttpServlet {
 						HttpSession session = req.getSession();
 						DataUsuario du = conCons.obtenerDataUsuarioNick(nick);
 						session.setAttribute("usuario",du);
+						//Setear imagen
+						InputStream is = new ByteArrayInputStream(imgBytes);
+                        BufferedImage bi = ImageIO.read(is);
+                        ByteArrayOutputStream outputA = new ByteArrayOutputStream();
+                        ImageIO.write(bi, "jpg", outputA);
+                        String imageAsBase64 = Base64.getEncoder().encodeToString(outputA.toByteArray());
+						session.setAttribute("imagenUsuario", imageAsBase64);
 						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
 						resp.sendRedirect("/tarea2p2/home");
 					} catch (UsuarioRepetidoException e) {
