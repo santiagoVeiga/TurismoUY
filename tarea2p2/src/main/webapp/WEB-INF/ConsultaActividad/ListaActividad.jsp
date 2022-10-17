@@ -62,7 +62,7 @@
                                 	acts = (DataActividad[]) request.getAttribute("ArregloActividades");
                                 	for(int i = 0; i < acts.length; i++){
                                 	%>
-                                		<a class="latest-product__item">
+                                		<a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>" class="latest-product__item">
                                         <div class="latest-product__item__pic">
                                             <img src="img/degusta.jpg" alt="">
                                         </div>
