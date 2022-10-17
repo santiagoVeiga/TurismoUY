@@ -54,9 +54,18 @@ public class ServletConsulta extends HttpServlet {
 				break;
 			case "/ConsultaActividad":
 				HttpSession session = req.getSession();
-				String actividad = (String) req.getParameter("actividad"); 
+				String actividad = (String) req.getParameter("actividad");
 				DataActividad[] actividades = null;
-				if(session.getAttribute("DTDConsultaActividad")!= null) {
+                String nomDpto = req.getParameter("DTDConsultaActividad");
+                DataDepartamento[] aux = (DataDepartamento[]) session.getAttribute("dptos");
+                if(nomDpto != null) {
+                    for(DataDepartamento it : aux) {
+                        if(it.getNombre().equals(nomDpto)) {
+                            actividades = (it).getColAct().toArray(new DataActividad[0]);
+                        }
+                    }
+                }
+                else if(session.getAttribute("DTDConsultaActividad")!= null) {
 					actividades = ((DataDepartamento) session.getAttribute("DTDConsultaActividad")).getColAct().toArray(new DataActividad[0]);
 				} else {
 					String categoria = (String) session.getAttribute("CatConsultaActividad");

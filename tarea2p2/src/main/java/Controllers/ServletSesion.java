@@ -23,6 +23,7 @@ import com.opencsv.CSVReader;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
+import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataUsuario;
 import logica.Fabrica;

@@ -62,7 +62,7 @@
                                 	acts = (DataActividad[]) request.getAttribute("ArregloActividades");
                                 	for(int i = 0; i < acts.length; i++){
                                 	%>
-                                		<a class="latest-product__item">
+                                	<div class="latest-product__item">
                                         <div class="latest-product__item__pic">
                                             <img src="img/degusta.jpg" alt="">
                                         </div>
@@ -73,7 +73,7 @@
                                             	<span class="blog__btn" >LEER MÁS </span>
                                             </a>
                                         </div>
-                                    </a>
+                                    </div>
                                 	<% } %>
                                 </div>
                             </div>
