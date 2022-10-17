@@ -83,11 +83,11 @@ public class ServletInsc extends HttpServlet {
 				HttpSession session1 = req.getSession();
 				DataUsuario du1 = (DataUsuario) session1.getAttribute("usuario");
 				int cant1 = Integer.parseInt(req.getParameter("cantTur"));
-				DataPaquete dp1 = (DataPaquete) req.getAttribute("DataPaquete");
+				String nomPaq = (String) req.getParameter("nomPaq");
 				LocalDateTime ld1 = LocalDateTime.now();
 				Date fecha1 = java.util.Date.from(ld1.atZone(ZoneId.systemDefault()).toInstant());
 				try {
-					conInsc.comprarPaquete(du1.getNick(), fecha1, cant1, dp1.getNombre());
+					conInsc.comprarPaquete(du1.getNick(), fecha1, cant1, nomPaq);
 				} catch (PaqueteNoExisteException | PaqueteRepetidoException e) {
 					req.setAttribute("Exception", e.getMessage());
 					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete.jsp").forward(req,resp);

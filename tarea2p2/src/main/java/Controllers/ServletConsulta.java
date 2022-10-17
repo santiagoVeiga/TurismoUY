@@ -103,11 +103,11 @@ public class ServletConsulta extends HttpServlet {
 						dps[i] = conCons.obtenerDataPaquete(nombresPaq[i]);
 					}
 					req.setAttribute("ArregloPaquetes", dps);
-					req.getRequestDispatcher("/WEB-INF/ListaPaquetes.jsp").forward(req,resp);
+					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/ListaPaquetes.jsp").forward(req,resp);
 				} else {
 					DataPaquete dp = conCons.obtenerDataPaquete(paquete);
 					req.setAttribute("PaqueteElegido", dp);
-					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete.jsp").forward(req,resp);
+					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req,resp);
 				}
 				break;
 			case "/DetallePaquete":
