@@ -58,6 +58,8 @@ public static void initSession(HttpServletRequest request) {
 	Fabrica f = Fabrica.getInstance();
 	IControladorAlta ca = f.getIControladorAlta();
 	try {
+	    ca.cargarCategorias();
+        // Categs listas
 		ServletContext servletContext = request.getServletContext();
 		InputStream input = servletContext.getResourceAsStream("/WEB-INF/data/Departamentos.csv");
 	    CSVReader reader = new CSVReader(new InputStreamReader(input));

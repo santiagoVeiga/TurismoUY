@@ -59,6 +59,8 @@ public interface IControladorAlta {
 
 	public abstract void cargarDptos() throws IOException, DepartamentoYaExisteExeption;
 	public void cargarDptos(CSVReader reader) throws IOException, DepartamentoYaExisteExeption;
+	
+	public abstract void cargarCategorias();
 
 	public abstract void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException ;
 	public abstract void cargarUsuarios(CSVReader reader, byte[] imgBytes) throws IOException, UsuarioRepetidoException, ParseException ;
