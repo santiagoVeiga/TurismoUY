@@ -88,6 +88,7 @@ public class ServletInsc extends HttpServlet {
     			    String sal = req.getParameter("salida");
     			    DataUsuario usu = (DataUsuario) session.getAttribute("usuario");
     			    String[] paquetes = conInsc.obtenerPaquetesComprados(usu.getNick());
+                    req.setAttribute("salida", sal);
     			    req.setAttribute("PaquetesComprados", paquetes);
     				req.getRequestDispatcher("/WEB-INF/InscripcionSalida.jsp").forward(req,resp);
     				break;
