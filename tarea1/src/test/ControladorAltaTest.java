@@ -132,7 +132,7 @@ class ControladorAltaTest {
 		} catch (ParseException e) {
 			fail(e.getMessage());
 		} catch (TuristaConSalida e) {
-			fail(e.getMessage());
+			
 		} catch (ExcedeTuristas e) {
 			fail(e.getMessage());
 		} catch (InscFechaInconsistente e) {

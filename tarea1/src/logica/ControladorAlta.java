@@ -617,4 +617,15 @@ public class ControladorAlta implements IControladorAlta {
         } else
             throw new UsuarioNoExisteException("No existen usuarios registrados");
 	}
+
+
+	@Override
+	public void cargarCategorias() {
+		ManejadorCategoria mCat = ManejadorCategoria.getInstance();
+		mCat.addCategoria(new Categoria("Aventura y Deporte"));
+		mCat.addCategoria(new Categoria("Campo y Naturaleza"));
+		mCat.addCategoria(new Categoria("Cultura y Patrimonio"));
+		mCat.addCategoria(new Categoria("Gastronomia"));
+		mCat.addCategoria(new Categoria("Turismo Playas"));
+	}
 }
