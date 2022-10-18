@@ -19,6 +19,7 @@ import excepciones.NoHayCuposException;
 import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.SalidaYaExisteExeption;
+import excepciones.SalidasNoExisteException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
 import excepciones.estadoActividadIncorrecto;
@@ -241,5 +242,10 @@ public class ControladorInsc implements IControladorInsc {
 		}
 		CompraPaquete compraPaq = new CompraPaquete(fecha, cant, paq);
 		tur.agregarCompraPaquete(paqString,compraPaq);
+	}
+	
+	public String obtenerNomActPorSalida(String salida) throws SalidasNoExisteException{
+		ManejadorActividad mAct = ManejadorActividad.getInstance();
+		return mAct.obtenerNomActvidiadDeSalida(salida);
 	}
 }
