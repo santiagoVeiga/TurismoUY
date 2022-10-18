@@ -78,11 +78,11 @@ public class ServletConsulta extends HttpServlet {
     				if(usuario == null) {
     					DataUsuario[] usuarios = conCons.listarUsuarios();
     					req.setAttribute("ArregloUsuarios", usuarios);
-    					req.getRequestDispatcher("/WEB-INF/ListaUsuario.jsp").forward(req,resp);
+    					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ListaUsuario.jsp").forward(req,resp);
     				} else {
     					DataUsuario du = conCons.ingresarDatos(usuario);
     					req.setAttribute("UsuarioElegido", du);
-    					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario.jsp").forward(req,resp);
+    					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ConsultaUsuario.jsp").forward(req,resp);
     				}				
     				break;
     			case "/ConsultaActividad":
