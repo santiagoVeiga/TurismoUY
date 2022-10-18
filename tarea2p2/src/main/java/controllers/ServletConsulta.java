@@ -86,10 +86,12 @@ public class ServletConsulta extends HttpServlet {
     				}				
     				break;
     			case "/ConsultaActividad":
+    			    conCons = fab.getIControladorConsulta();
     				String actividad = (String) req.getParameter("actividad");
     				DataActividad[] actividades = null;
                     if(session.getAttribute("DTDConsultaActividad")!= null) {
     					actividades = ((DataDepartamento) session.getAttribute("DTDConsultaActividad")).getColAct().toArray(new DataActividad[0]);
+    					session.setAttribute("DTDConsultaActividad", null);
     				} else {
     					String categoria = (String) session.getAttribute("CatConsultaActividad");
     					if(categoria != null)
@@ -113,6 +115,7 @@ public class ServletConsulta extends HttpServlet {
     				}
     				break;
     			case "/ConsultaSalida":
+    			    conCons = fab.getIControladorConsulta();
     			    String salida = req.getParameter("salida");
     			    try {
                         DataSalida dataSal = conCons.obtenerDataSalida(salida);
@@ -124,6 +127,7 @@ public class ServletConsulta extends HttpServlet {
                     }
     				break;
     			case "/ConsultaPaquete":
+    			    conCons = fab.getIControladorConsulta();
     				String paquete = (String) req.getParameter("paquete");
     				if(paquete == null) {
     					conCons = fab.getIControladorConsulta();
@@ -139,8 +143,6 @@ public class ServletConsulta extends HttpServlet {
     					req.setAttribute("PaqueteElegido", dp);
     					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req,resp);
     				}
-    				break;
-    			case "/DetallePaquete":
     				break;
     		}
         }

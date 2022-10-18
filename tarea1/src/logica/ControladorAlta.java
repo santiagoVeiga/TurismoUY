@@ -218,7 +218,9 @@ public class ControladorAlta implements IControladorAlta {
         if(usu instanceof Proveedor) {
         	((Proveedor) usu).agregarActividad(act);
         }
-        
+        for(Categoria catAux : categorias.values()) {
+        	catAux.agregarAct(act);
+        }
         mAct.addActividad(act);
         // if agregado por si Departamento no esta cargado da errror VER SI QUITAR
         if(insDep != null)
@@ -494,6 +496,9 @@ public class ControladorAlta implements IControladorAlta {
         	categorias.put(categ.getCategoria(), categ);
         }
         act = new Actividad(nom, desc,fecha,ciudad, costo, dur, insDep, categorias,imagen);
+        for(Categoria catAux : categorias.values()) {
+        	catAux.agregarAct(act);
+        }
         if(usu instanceof Proveedor) {
         	((Proveedor) usu).agregarActividad(act);
         }
