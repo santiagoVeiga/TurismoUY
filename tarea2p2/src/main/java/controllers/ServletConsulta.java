@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.SalidasNoExisteException;
 import logica.DataActividad;
 import logica.DataDepartamento;
@@ -87,7 +88,11 @@ public class ServletConsulta extends HttpServlet {
     				break;
     			case "/ConsultaActividad":
     			    conCons = fab.getIControladorConsulta();
-    				String actividad = (String) req.getParameter("actividad");
+    			    String actividad = (String) session.getAttribute("actividad_inicio");
+                    session.setAttribute("actividad_inicio",null);
+                    if(actividad == null) {
+                        actividad = (String) req.getParameter("actividad");
+                    }
     				DataActividad[] actividades = null;
     				if(actividad == null) {
     				    if(session.getAttribute("DTDConsultaActividad")!= null) {
@@ -104,16 +109,13 @@ public class ServletConsulta extends HttpServlet {
     					session.setAttribute("ArregloActividades", actividades);
     					req.getRequestDispatcher("/WEB-INF/ConsultaActividad/ListaActividad.jsp").forward(req,resp);
     				} else {
-    				    actividades = (DataActividad[]) session.getAttribute("ArregloActividades");
-    				    int index = 0;
-    					int i = 0;
-    					// me daba error con While
-    					for(i=0;i<actividades.length;i++) {
-    					    if(actividades[i].getNombre()==actividad) {
-    					        index=i;
-    					    }
-    					}
-    				    req.setAttribute("ActividadElegida", actividades[index]);
+                        conCons = fab.getIControladorConsulta();
+                        DataActividad act = null;
+                        try {
+                           act = conCons.obtenerDataActividad(actividad);
+                        } catch (ActividadNoExisteException e) {
+                        }
+    				    req.setAttribute("ActividadElegida", act);
                         req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);
     				}
     				break;
