@@ -15,5 +15,10 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/model.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/opencsv-3.8.jar"/>
+	<classpathentry kind="lib" path="/home/vagrant/Escritorio/apache-tomcat-9.0.55/lib/servlet-api.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="https://javaee.github.io/javaee-spec/javadocs/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
