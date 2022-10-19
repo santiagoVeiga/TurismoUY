@@ -706,13 +706,9 @@ public class ControladorAlta implements IControladorAlta {
 	@Override
 	public void cargarCategorias() {
 		ManejadorCategoria mCat = ManejadorCategoria.getInstance();
-		if(mCat.pertenece("Aventura y Deporte"))
-			System.out.println("Holaaaaaa");
 		mCat.addCategoria(new Categoria("Aventura y Deporte"));
 		mCat.addCategoria(new Categoria("Campo y Naturaleza"));
 		mCat.addCategoria(new Categoria("Cultura y Patrimonio"));
-		if(mCat.pertenece("Gastronomia"))
-			System.out.println("Holaaaaaa");
 		mCat.addCategoria(new Categoria("Gastronomia"));
 		mCat.addCategoria(new Categoria("Turismo Playas"));
 	}
