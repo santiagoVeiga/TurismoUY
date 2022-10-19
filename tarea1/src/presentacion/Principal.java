@@ -1,10 +1,13 @@
 package presentacion;
 
 import java.awt.EventQueue;
-import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.text.ParseException;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
@@ -23,23 +26,6 @@ import logica.Fabrica;
 import logica.IControladorAlta;
 import logica.IControladorConsulta;
 import logica.IControladorInsc;
-import javax.swing.JMenu;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JInternalFrame;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.ParseException;
-
-import javax.swing.JComboBox;
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JToolBar;
-import javax.swing.DefaultComboBoxModel;
 
 
 public class Principal {

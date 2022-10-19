@@ -1,5 +1,6 @@
 package logica;
-import java.util.*;
+import java.util.Date;
+import java.util.Set;
 
 public class DataProveedor extends DataUsuario {
 

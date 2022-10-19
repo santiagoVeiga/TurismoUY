@@ -5,7 +5,6 @@ import java.util.Map;
 
 import logica.DataDepartamento;
 import logica.Departamento;
-import logica.Usuario;
 
 public class ManejadorDepartamentos {
 	

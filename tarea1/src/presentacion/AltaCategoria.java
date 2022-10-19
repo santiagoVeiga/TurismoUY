@@ -1,32 +1,18 @@
 package presentacion;
 
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JInternalFrame;
-import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
-import excepciones.ActividadRepetidaException;
 import excepciones.CategoriaYaExiste;
-import excepciones.ProveedorNoNacidoException;
-import excepciones.UsuarioNoExisteException;
 import logica.ControladorAlta;
 import logica.IControladorAlta;
-
-import java.awt.FlowLayout;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-
-import java.awt.event.ActionListener;
-import java.util.Date;
-import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class AltaCategoria extends JInternalFrame {

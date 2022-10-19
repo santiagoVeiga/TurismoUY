@@ -53,15 +53,22 @@
                                 <div class="latest-prdouct__slider__item">
                                 	<% 
                                 	DataActividad[] acts;
+                                	String imagen = null;
                                 	acts = (DataActividad[]) request.getAttribute("ArregloActividades");
                                 	for(int i = 0; i < acts.length; i++){
-                                		String imagen = Base64.getEncoder().encodeToString(acts[i].getImagen());
+                                		if(acts[i].getImagen()!=null) {
+                                			imagen = Base64.getEncoder().encodeToString(acts[i].getImagen());
+                                		}
                                 	%>
                                 		<!-- <a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>" class="latest-product__item">  -->
                                 	<div class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="data:image/jpg;base64,<%= imagen %>" alt="">
-                                        </div>
+                                		<%
+                                		if(acts[i].getImagen()!=null) {
+                                		%>
+                                		<div class="latest-product__item__pic">
+                                        <img src="data:image/jpg;base64,<%= imagen %>" alt="">
+                                   		</div>
+                                		<% } %>
                                         <div class="latest-product__item__text">
                                             <h5> <%= acts[i].getNombre() %> </h5>
                                             <h6> <%= acts[i].getDescripcion() %> </h6>

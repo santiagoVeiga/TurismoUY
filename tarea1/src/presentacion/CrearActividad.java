@@ -1,6 +1,35 @@
 package presentacion;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+
+//import com.toedter.calendar.JCalendar;
+
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.text.JTextComponent;
+
+import com.toedter.calendar.JDateChooser;
 
 import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
@@ -10,49 +39,7 @@ import excepciones.UsuarioNoExisteException;
 import logica.DataDepartamento;
 import logica.DataProveedor;
 import logica.DataUsuario;
-import logica.Departamento;
 import logica.IControladorAlta;
-
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.text.JTextComponent;
-
-import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JDateChooser;
-
-//import com.toedter.calendar.JCalendar;
-
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JFrame;
-import java.awt.event.ActionListener;
-import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.awt.event.ActionEvent;
-import javax.swing.JRadioButton;
-import javax.swing.JToggleButton;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.JPanel;
-import java.awt.GridLayout;
-import javax.swing.SpringLayout;
-import javax.swing.Box;
-import javax.swing.JSplitPane;
-import javax.swing.JComboBox;
-import javax.swing.ListSelectionModel;
 
 
 @SuppressWarnings("serial")

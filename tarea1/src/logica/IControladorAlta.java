@@ -9,22 +9,16 @@ import java.util.Set;
 
 import com.opencsv.CSVReader;
 
-import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
 import excepciones.CategoriaYaExiste;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
-import excepciones.ExcedeTuristas;
 import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
-import excepciones.InscFechaDespSalida;
-import excepciones.InscFechaInconsistente;
 import excepciones.NoExisteCategoriaException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
-import excepciones.TuristaConSalida;
-import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 

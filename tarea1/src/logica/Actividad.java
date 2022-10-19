@@ -8,12 +8,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import excepciones.SalidaYaExisteExeption;
-
 public class Actividad {
 
-	private Map<String,Salida> colSal;
-	private Map<String,Paquete> colpaq;
+private Map<String, Salida> colSal;
+	private Map<String, Paquete> colpaq;
 	private String nombre;
 	private String descripcion;
 	private Date fechaAlta;

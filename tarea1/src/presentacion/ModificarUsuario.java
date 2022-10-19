@@ -1,35 +1,29 @@
 package presentacion;
 
-import javax.swing.JInternalFrame;
-
-import logica.DataProveedor;
-import logica.DataTurista;
-import logica.DataUsuario;
-import logica.IControladorAlta;
-import logica.IControladorConsulta;
-
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
-import excepciones.UsuarioNoExisteException;
 import com.toedter.calendar.JDateChooser;
+
+import excepciones.UsuarioNoExisteException;
+import logica.DataProveedor;
+import logica.DataTurista;
+import logica.DataUsuario;
+import logica.IControladorAlta;
 
 @SuppressWarnings("serial")
 public class ModificarUsuario extends JInternalFrame {

@@ -1,6 +1,22 @@
 package presentacion;
 
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.Set;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.DepartamentoNoExisteException;
@@ -10,26 +26,6 @@ import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataSalida;
 import logica.IControladorConsulta;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-
-import java.awt.event.ActionListener;
-import java.util.Iterator;
-import java.util.Set;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import java.awt.Color;
-import java.awt.Font;
 
 /**
  * JInternalFrame que permite consultar la información de un usuario del sistema.

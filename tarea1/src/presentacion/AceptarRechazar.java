@@ -1,24 +1,21 @@
 package presentacion;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Set;
 
-import javax.swing.JFrame;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
-import logica.IControladorInsc;
-import logica.estadoAct;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.estadoActividadIncorrecto;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
+import logica.IControladorInsc;
+import logica.estadoAct;
 
 @SuppressWarnings("serial")
 public class AceptarRechazar extends JInternalFrame {

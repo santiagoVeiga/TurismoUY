@@ -8,11 +8,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import excepciones.PaqueteNoExisteException;
-import logica.Actividad;
-import logica.DataActividad;
 import logica.DataPaquete;
 import logica.Paquete;
-import logica.Usuario;
  
 public class ManejadorPaquete {
 

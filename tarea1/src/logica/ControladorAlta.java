@@ -1,5 +1,12 @@
 package logica;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,15 +15,6 @@ import java.util.Set;
 
 import javax.imageio.ImageIO;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import com.opencsv.CSVReader;
 
 import excepciones.ActividadNoExisteException;
@@ -24,17 +22,12 @@ import excepciones.ActividadRepetidaException;
 import excepciones.CategoriaYaExiste;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
-import excepciones.ExcedeTuristas;
 import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
-import excepciones.InscFechaDespSalida;
-import excepciones.InscFechaInconsistente;
 import excepciones.NoExisteCategoriaException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
-import excepciones.TuristaConSalida;
-import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import excepciones.estadoActividadIncorrecto;

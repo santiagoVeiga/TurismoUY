@@ -1,29 +1,25 @@
 package presentacion;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-
-import excepciones.UsuarioRepetidoException;
-import logica.IControladorAlta;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import com.toedter.calendar.JCalendar;
 
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JFrame;
-import java.awt.event.ActionListener;
-import java.util.Date;
-import java.awt.event.ActionEvent;
-import javax.swing.JRadioButton;
-import javax.swing.JToggleButton;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import excepciones.UsuarioRepetidoException;
+import logica.IControladorAlta;
 
 /**
  * JInternalFrame que permite registrar un nuevo usuario al sistema.

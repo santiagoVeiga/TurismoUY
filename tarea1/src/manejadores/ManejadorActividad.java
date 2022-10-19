@@ -12,7 +12,6 @@ import excepciones.SalidaYaExisteExeption;
 import excepciones.SalidasNoExisteException;
 import logica.Actividad;
 import logica.DataActividad;
-import logica.Usuario;
  
 public class ManejadorActividad {
 

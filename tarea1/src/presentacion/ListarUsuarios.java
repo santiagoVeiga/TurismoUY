@@ -1,45 +1,20 @@
  package presentacion;
-import logica.*;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JComboBox;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
-
-import java.awt.CardLayout;
-import java.awt.GridLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
-
-import excepciones.UsuarioNoExisteException;
-
-import javax.swing.JLabel;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
-import excepciones.UsuarioNoExisteException;
+import logica.DataProveedor;
+import logica.DataTurista;
 import logica.DataUsuario;
-
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
+import logica.IControladorConsulta;
 
 /**
  * JInternalFrame que permite listar todos los usuarios del sistema.

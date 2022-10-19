@@ -1,6 +1,5 @@
 package logica;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -18,7 +17,6 @@ import excepciones.InscFechaInconsistente;
 import excepciones.NoHayCuposException;
 import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
-import excepciones.SalidaYaExisteExeption;
 import excepciones.SalidasNoExisteException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;

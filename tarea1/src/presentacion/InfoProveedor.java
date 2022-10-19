@@ -1,33 +1,25 @@
 package presentacion;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import excepciones.UsuarioNoExisteException;
-import logica.DataActividad;
-import logica.DataProveedor;
-import logica.DataSalida;
-import logica.DataUsuario;
-import logica.IControladorConsulta;
-
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import logica.DataActividad;
+import logica.DataProveedor;
+import logica.IControladorConsulta;
 
 public class InfoProveedor extends JFrame {
 

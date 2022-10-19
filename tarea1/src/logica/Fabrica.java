@@ -1,7 +1,5 @@
 package logica;
 
-import excepciones.DepartamentoYaExisteExeption;
-
 /**
  * Fábrica para la construcción de un controlador de usuarios (uno distinto para cada invocación).
  * Se implementa en base al patrón Singleton.

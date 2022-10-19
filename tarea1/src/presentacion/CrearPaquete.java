@@ -1,44 +1,26 @@
 package presentacion;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-
-import excepciones.ActividadRepetidaException;
-import excepciones.DepartamentoNoExisteException;
-import excepciones.NumeroNegativoException;
-import excepciones.PaqueteRepetidoException;
-import excepciones.UsuarioNoExisteException;
-import logica.DataDepartamento;
-import logica.DataProveedor;
-import logica.DataUsuario;
-import logica.Departamento;
-import logica.IControladorAlta;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import com.toedter.calendar.JCalendar;
 
-
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JFrame;
-import java.awt.event.ActionListener;
-import java.util.Date;
-import java.awt.event.ActionEvent;
-import javax.swing.JRadioButton;
-import javax.swing.JToggleButton;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JPanel;
-import java.awt.GridLayout;
-import javax.swing.SpringLayout;
-import javax.swing.Box;
-import javax.swing.JSplitPane;
-import javax.swing.JComboBox;
+import excepciones.NumeroNegativoException;
+import excepciones.PaqueteRepetidoException;
+import logica.IControladorAlta;
 
 
 @SuppressWarnings("serial")

@@ -1,45 +1,32 @@
 package presentacion;
 
-import java.awt.EventQueue;
+import java.awt.Button;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Set;
 
-import javax.swing.JInternalFrame;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
 import com.toedter.calendar.JDateChooser;
 
 import excepciones.ActividadNoExisteException;
-import excepciones.ActividadRepetidaException;
-import excepciones.DatosNoValidosException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
 import excepciones.SalidaYaExisteExeption;
-import excepciones.UsuarioNoExisteException;
 import logica.DataActividad;
 import logica.DataDepartamento;
-import logica.DataUsuario;
 import logica.IControladorAlta;
-import logica.IControladorConsulta;
-//import logica.SalidaYaExisteExeption;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.Button;
-import java.awt.event.ActionListener;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Set;
-import java.awt.event.ActionEvent;
 
 public class AltaSalida extends JInternalFrame {
 	
