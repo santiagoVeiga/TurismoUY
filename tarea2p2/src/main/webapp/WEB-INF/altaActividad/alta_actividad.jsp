@@ -130,8 +130,8 @@
                                 </div>
                                 <!-- Categorias-->
 				                
-                                <div class="row">
-                                    <div class="col-md-7 mb-3">
+                                <div class="col">
+                                    <div class="row mb-3">
                                         <label for="actividadCategoria">Categorías</label>
                                         <select class="d-block w-100" id="actividadCategoria" name="actividadCategoria" multiple>
                                             <option value="" disabled selected>Agregar o quitar categoría</option>
@@ -145,12 +145,11 @@
                                         <!-- <div class="invalid-feedback">
                                             Por favor ingresa una categoría válida.
                                         </div> -->
-                                        <div class="col" id="categoriasBox">
+                                    </div>
+                                    <div class="col" id="categoriasBox">
                                             <div class="row">
                                                 <p class="catActual"></p>
                                             </div>
-                                        </div>
-
                                     </div>
                                 </div>
                                 <!-- Imagenes opcionales-->

@@ -8,9 +8,9 @@ for(let c of categorias) {
         if (chequearRepetidas(categoriaNueva)){
             htmlContentToAppend = ""
             htmlContentToAppend += `
-                    <div class="row">
-                    <p class="catActual">`+(categoriaNueva)+`</p>
-                </div>`
+                    <div id="`+(categoriaNueva)+`Id" class="row">
+                    	<p class="catActual">`+(categoriaNueva)+`</p>
+                	</div>`
             document.getElementById("categoriasBox").innerHTML += htmlContentToAppend;
         }else{
             const element = document.getElementById(categoriaNueva+"Id");

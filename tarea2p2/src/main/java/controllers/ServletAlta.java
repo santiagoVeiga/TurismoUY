@@ -121,7 +121,7 @@ public class ServletAlta extends HttpServlet {
                     String ciudadAct = (String) req.getParameter("actividadCiudad");
                     //obtengo categorias a�adidas
                     String[] auxCategorias =  req.getParameterValues("actividadCategoria"); //Corregir agarrar las seleccionadas
-                    System.out.println("LARGOOO"+auxCategorias.length);
+                    System.out.println("--LARGO--"+auxCategorias.length);
                     if (auxCategorias != null) {
                         for(String item: auxCategorias){
                             //String keyValue[]= item.split(":");
@@ -130,13 +130,10 @@ public class ServletAlta extends HttpServlet {
                         }
                     }
                     Set<String> categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
-                    // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                    //LocalDate localDate = LocalDate.now();
-                    //@SuppressWarnings("deprecation") Date fechaAct = new Date(localDate.getDayOfMonth(),localDate.getMonthValue(),localDate.getYear());              
                     Date date1 = new Date();
                     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
                     String str = formatter.format(date1);
-                    System.out.print("Current date: "+str);
+                    
                     //FALTA TRAER IMAGENES
                     
                     HttpSession sessionAct = req.getSession();
@@ -146,24 +143,14 @@ public class ServletAlta extends HttpServlet {
                     try {
                         conAlta.registrarActividad(departamentoAct,nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct),ciudadAct,date1,proveedorAct, categoriasAct);
                         resp.sendRedirect("/tarea2p2/home");
-                        System.out.printf("Creada");
     
                     } catch (NumberFormatException e2) {
-                        System.out.printf("2");
-
                     } catch (ActividadRepetidaException e2) {
-                        System.out.printf("Repetida");
                         req.setAttribute("Exception", e2.getMessage());
                         req.getRequestDispatcher("/AltaActividad").forward(req,resp);
                     } catch (UsuarioNoExisteException e2) {
-                        System.out.printf("4");
-
                     } catch (ProveedorNoNacidoException e2) {
-                        System.out.printf("5");
-
                     }
-                    
-    
                     break;
     			case "/UsuarioCreado":
     				String nick = (String) req.getParameter("username");
