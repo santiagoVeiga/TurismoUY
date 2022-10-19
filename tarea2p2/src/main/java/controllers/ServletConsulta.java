@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.SalidasNoExisteException;
 import logica.DataActividad;
 import logica.DataDepartamento;
@@ -87,33 +88,46 @@ public class ServletConsulta extends HttpServlet {
     				break;
     			case "/ConsultaActividad":
     			    conCons = fab.getIControladorConsulta();
-    				String actividad = (String) req.getParameter("actividad");
-    				DataActividad[] actividades = null;
-                    if(session.getAttribute("DTDConsultaActividad")!= null) {
-    					actividades = ((DataDepartamento) session.getAttribute("DTDConsultaActividad")).getColAct().toArray(new DataActividad[0]);
-    					//session.setAttribute("DTDConsultaActividad", null);
-    				} else {
-    					String categoria = (String) session.getAttribute("CatConsultaActividad");
-    					if(categoria != null)
-    					    actividades = conCons.obtenerActividadCategoria(categoria);
+    			    String actividad = (String) session.getAttribute("actividad_inicio");
+    			    session.setAttribute("actividad_inicio",null);
+    			    if(actividad == null) {
+    				    actividad = (String) req.getParameter("actividad");
+        				DataActividad[] actividades = null;
+                        if(session.getAttribute("DTDConsultaActividad")!= null) {
+        					actividades = ((DataDepartamento) session.getAttribute("DTDConsultaActividad")).getColAct().toArray(new DataActividad[0]);
+        					//session.setAttribute("DTDConsultaActividad", null);
+        				} else {
+        					String categoria = (String) session.getAttribute("CatConsultaActividad");
+        					if(categoria != null)
+        					    actividades = conCons.obtenerActividadCategoria(categoria);
+        				}
+        				if(actividad == null) {
+        					req.setAttribute("ArregloActividades", actividades);
+        					session.setAttribute("ArregloActividades", actividades);
+        					req.getRequestDispatcher("/WEB-INF/ConsultaActividad/ListaActividad.jsp").forward(req,resp);
+        				} else {
+        				    int index = 0;
+        					int i = 0;
+        					// me daba error con While
+        					for(i=0;i<actividades.length;i++) {
+        					    if(actividades[i].getNombre()==actividad) {
+        					        index=i;
+        					    }
+        					}
+        					session.setAttribute("DTDConsultaActividad", null);
+        				    req.setAttribute("ActividadElegida", actividades[index]);
+                            req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);
+        				}
     				}
-    				if(actividad == null) {
-    					req.setAttribute("ArregloActividades", actividades);
-    					session.setAttribute("ArregloActividades", actividades);
-    					req.getRequestDispatcher("/WEB-INF/ConsultaActividad/ListaActividad.jsp").forward(req,resp);
-    				} else {
-    				    int index = 0;
-    					int i = 0;
-    					// me daba error con While
-    					for(i=0;i<actividades.length;i++) {
-    					    if(actividades[i].getNombre()==actividad) {
-    					        index=i;
-    					    }
-    					}
-    					session.setAttribute("DTDConsultaActividad", null);
-    				    req.setAttribute("ActividadElegida", actividades[index]);
-                        req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);
-    				}
+    			    else {
+    			        Fabrica fab = Fabrica.getInstance();
+    			        IControladorConsulta icons = fab.getIControladorConsulta();
+    			        try {
+                            req.setAttribute("ActividadElegida", icons.obtenerDataActividad(actividad));
+                        } catch (ActividadNoExisteException e) {
+                        }
+    			        req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);
+    			    }
     				break;
     			case "/ConsultaSalida":
     			    conCons = fab.getIControladorConsulta();

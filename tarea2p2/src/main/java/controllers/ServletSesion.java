@@ -157,17 +157,23 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     } else {
     	switch(solicitud) {
     		case "/home":
-    			// hace que se ejecute el jsp sin cambiar la url
-    			DataDepartamento[] aux = null;
-    			try {
-    				aux = cc.obtenerDataDepartamentos();
-    			} catch (DepartamentoNoExisteException e) {
-    				System.out.println("no hay deptos");
-    			}
-    			ses.setAttribute("dptos", aux);
-    			Set<String> cats = cc.obtenerNombreCategorias();
-    			ses.setAttribute("categorias", cats);
-    			req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
+    		    String act = (String) req.getParameter("actividad");
+    		    if(act != null) {
+    		        ses.setAttribute("actividad_inicio", act);
+    		        resp.sendRedirect("/tarea2p2/ConsultaActividad");
+    		    }
+    		    else {
+    		        DataDepartamento[] aux = null;
+        			try {
+        				aux = cc.obtenerDataDepartamentos();
+        			} catch (DepartamentoNoExisteException e) {
+        				System.out.println("no hay deptos");
+        			}
+        			ses.setAttribute("dptos", aux);
+        			Set<String> cats = cc.obtenerNombreCategorias();
+        			ses.setAttribute("categorias", cats);
+        			req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
+    		    }
     			break;
     		case "/iniciarSesion":
     			req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
