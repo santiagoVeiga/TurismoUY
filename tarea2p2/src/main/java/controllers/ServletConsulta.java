@@ -91,7 +91,7 @@ public class ServletConsulta extends HttpServlet {
     				DataActividad[] actividades = null;
                     if(session.getAttribute("DTDConsultaActividad")!= null) {
     					actividades = ((DataDepartamento) session.getAttribute("DTDConsultaActividad")).getColAct().toArray(new DataActividad[0]);
-    					//session.setAttribute("DTDConsultaActividad", null);
+    					session.setAttribute("DTDConsultaActividad", null);
     				} else {
     					String categoria = (String) session.getAttribute("CatConsultaActividad");
     					if(categoria != null)
