@@ -89,19 +89,22 @@ public class ServletConsulta extends HttpServlet {
     			    conCons = fab.getIControladorConsulta();
     				String actividad = (String) req.getParameter("actividad");
     				DataActividad[] actividades = null;
-                    if(session.getAttribute("DTDConsultaActividad")!= null) {
-    					actividades = ((DataDepartamento) session.getAttribute("DTDConsultaActividad")).getColAct().toArray(new DataActividad[0]);
-    					session.setAttribute("DTDConsultaActividad", null);
-    				} else {
-    					String categoria = (String) session.getAttribute("CatConsultaActividad");
-    					if(categoria != null)
-    					    actividades = conCons.obtenerActividadCategoria(categoria);
-    				}
     				if(actividad == null) {
+    				    if(session.getAttribute("DTDConsultaActividad")!= null) {
+                            actividades = ((DataDepartamento) session.getAttribute("DTDConsultaActividad")).getColAct().toArray(new DataActividad[0]);
+                            session.setAttribute("DTDConsultaActividad", null);
+                        } else {
+                            String categoria = (String) session.getAttribute("CatConsultaActividad");
+                            if(categoria != null) {
+                                actividades = conCons.obtenerActividadCategoria(categoria);
+                                session.setAttribute("CatConsultaActividad", null);
+                            }
+                        }
     					req.setAttribute("ArregloActividades", actividades);
     					session.setAttribute("ArregloActividades", actividades);
     					req.getRequestDispatcher("/WEB-INF/ConsultaActividad/ListaActividad.jsp").forward(req,resp);
     				} else {
+    				    actividades = (DataActividad[]) session.getAttribute("ArregloActividades");
     				    int index = 0;
     					int i = 0;
     					// me daba error con While
@@ -110,7 +113,6 @@ public class ServletConsulta extends HttpServlet {
     					        index=i;
     					    }
     					}
-    					session.setAttribute("DTDConsultaActividad", null);
     				    req.setAttribute("ActividadElegida", actividades[index]);
                         req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);
     				}

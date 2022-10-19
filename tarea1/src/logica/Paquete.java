@@ -50,7 +50,7 @@ public class Paquete {
 		    dtAct[cont] = entry.getValue().getDataAT();
 		    cont++;
 		}
-		return new DataPaquete(nombre, descripcion, descuento, fechaAlta, validez, dtAct);
+		return new DataPaquete(nombre, descripcion, descuento, fechaAlta, validez, dtAct,imagen);
 	}
 	
 	public String getNombre() {

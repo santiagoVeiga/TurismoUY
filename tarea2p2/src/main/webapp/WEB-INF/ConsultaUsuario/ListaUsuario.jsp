@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataActividad,logica.DataSalida,java.util.Set,logica.DataDepartamento,logica.DataPaquete" %>
+<%@page import="java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataActividad,logica.DataSalida,java.util.Set,logica.DataDepartamento,logica.DataPaquete" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -55,10 +55,11 @@
                                 	DataUsuario[] usus;
                                 	usus = (DataUsuario[]) request.getAttribute("ArregloUsuarios");
                                 	for(int i = 0; i < usus.length; i++){
+                                		String imagen = Base64.getEncoder().encodeToString(usus[i].getImagen());
                                 	%>
                                 	<div class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="img/degusta.jpg" alt="">
+                                            <img src="data:image/jpg;base64,<%= imagen %>" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h5> <%= usus[i].getNombre() + " " + usus[i].getApellido() %> </h5>

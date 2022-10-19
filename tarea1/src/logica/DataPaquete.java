@@ -9,6 +9,7 @@ public class DataPaquete {
 	private String descripcion;
 	private Date fechaAlta;
 	private int validez;
+	private byte[] imagen;
 	private DataActividad[] dtAct;
 
 	public DataPaquete(String nom,String desc,int descuento,Date fecha, int val, DataActividad[] dtAct){
@@ -18,6 +19,17 @@ public class DataPaquete {
 		this.setFechaAlta(fecha);
 		this.setValidez(val);
 		this.setDtAct(dtAct);
+		this.setImagen(null);
+	}
+	
+	public DataPaquete(String nom,String desc,int descuento,Date fecha, int val, DataActividad[] dtAct, byte[] imagen){
+		this.setNombre(nom);
+		this.setDescuento(descuento);
+		this.setDescripcion(desc);
+		this.setFechaAlta(fecha);
+		this.setValidez(val);
+		this.setDtAct(dtAct);
+		this.setImagen(imagen);
 	}
 
 	public String getNombre() {
@@ -66,5 +78,13 @@ public class DataPaquete {
 
 	public void setDtAct(DataActividad[] dtAct) {
 		this.dtAct = dtAct;
+	}
+
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
 	}
 }

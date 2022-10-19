@@ -51,24 +51,23 @@ public ServletSesion() {
  * inicializa la sesión si no estaba creada 
  * @param request 
  */
-public static void initSession(HttpServletRequest request) {
+public void initSession(HttpServletRequest request) {
 	HttpSession session = request.getSession();
 	if (session.getAttribute("estado_sesion") == null) {
 		session.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
-		
 	}
-	Fabrica f = Fabrica.getInstance();
-	IControladorAlta ca = f.getIControladorAlta();
-	try {
-	    ca.cargarCategorias();
+    Fabrica f = Fabrica.getInstance();
+    IControladorAlta ca = f.getIControladorAlta();
+    try {
+        ca.cargarCategorias();
         // Categs listas
-		ServletContext servletContext = request.getServletContext();
-		InputStream input = servletContext.getResourceAsStream("/WEB-INF/data/Departamentos.csv");
-	    CSVReader reader = new CSVReader(new InputStreamReader(input));
-		ca.cargarDptos(reader);
-		// dptos listos
-		input = servletContext.getResourceAsStream("/WEB-INF/data/Usuarios.csv");
-	    reader = new CSVReader(new InputStreamReader(input));
+        ServletContext servletContext = request.getServletContext();
+        InputStream input = servletContext.getResourceAsStream("/WEB-INF/data/Departamentos.csv");
+        CSVReader reader = new CSVReader(new InputStreamReader(input));
+        ca.cargarDptos(reader);
+        // dptos listos
+        input = servletContext.getResourceAsStream("/WEB-INF/data/Usuarios.csv");
+        reader = new CSVReader(new InputStreamReader(input));
         Map<String,byte[]> imagenes = new HashMap<String,byte[]>();
         for(int i=1; i<=13; i++ ) {
             BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Users/u"+Integer.toString(i)+".jpg"));
@@ -80,9 +79,9 @@ public static void initSession(HttpServletRequest request) {
         ca.cargarUsuarios(reader,imagenes);
         // usus listos
         input = servletContext.getResourceAsStream("/WEB-INF/data/Actividades.csv");
-	    reader = new CSVReader(new InputStreamReader(input));
-	    imagenes.clear();
-	    for(int i=1; i<=10; i++ ) {
+        reader = new CSVReader(new InputStreamReader(input));
+        imagenes.clear();
+        for(int i=1; i<=10; i++ ) {
             BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Actvs/a"+Integer.toString(i)+".jpg"));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, "jpg", baos);
@@ -95,15 +94,15 @@ public static void initSession(HttpServletRequest request) {
         BufferedImage img = null; // Estan mal estas cosas
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         input = servletContext.getResourceAsStream("/WEB-INF/data/Salidas.csv");
-	    reader = new CSVReader(new InputStreamReader(input));
-	    img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/s1.jpg"));
+        reader = new CSVReader(new InputStreamReader(input));
+        img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/s1.jpg"));
         baos = new ByteArrayOutputStream();
         ImageIO.write(img, "jpg", baos);
         imgBytes = baos.toByteArray();
         ca.cargarSalidas(reader,imgBytes);
-	} catch (Exception e) {
-		
-	}
+    } catch (Exception e) {
+        
+    }
 }
 
 /**

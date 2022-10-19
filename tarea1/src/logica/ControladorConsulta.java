@@ -19,7 +19,7 @@ public class ControladorConsulta implements IControladorConsulta {
 	public DataUsuario[] listarUsuarios() 
 	{
 		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
-		return  mUsu.getUsuarios();
+		return  mUsu.getUsuariosComp();
 	}
 	
     public DataUsuario ingresarDatos(String nick)

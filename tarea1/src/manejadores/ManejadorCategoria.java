@@ -34,7 +34,8 @@ public class ManejadorCategoria {
 
     //Operaciones
     public void addCategoria(Categoria cat) {
-        colCat.put(cat.getCategoria(), cat);
+    	if(!this.pertenece(cat.getCategoria()))
+    		colCat.put(cat.getCategoria(), cat);
     }
     public Categoria getCategoria(String cat) {
         return colCat.get(cat);
