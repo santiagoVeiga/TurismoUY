@@ -23,6 +23,7 @@ public class DataActividad {
 	private String departamento;
 	private Set<DataSalida> salidas;
 	private Set<String> paquetes;
+	//private Set<DataPaquete> dataPaquetes;
 	private Set<String> categorias;
 	private estadoAct estado;
 	private byte[] imagen;
