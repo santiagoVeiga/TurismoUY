@@ -69,27 +69,31 @@ public static void initSession(HttpServletRequest request) {
 		// dptos listos
 		input = servletContext.getResourceAsStream("/WEB-INF/data/Usuarios.csv");
 	    reader = new CSVReader(new InputStreamReader(input));
-	    byte[] imgBytes = null;
-	    BufferedImage img = null;
         Map<String,byte[]> imagenes = new HashMap<String,byte[]>();
         for(int i=1; i<=13; i++ ) {
-            img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Users/u"+Integer.toString(i)+".jpg"));;
+            BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Users/u"+Integer.toString(i)+".jpg"));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, "jpg", baos);
-            imgBytes = baos.toByteArray();
+            byte[] imgBytes = baos.toByteArray();
             imagenes.put(Integer.toString(i), imgBytes);
         }
         ca.cargarUsuarios(reader,imagenes);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         // usus listos
         input = servletContext.getResourceAsStream("/WEB-INF/data/Actividades.csv");
 	    reader = new CSVReader(new InputStreamReader(input));
-	    img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/a1.jpg"));
-        baos = new ByteArrayOutputStream();
-        ImageIO.write(img, "jpg", baos);
-        imgBytes = baos.toByteArray();
-        ca.cargarActs(reader,imgBytes);
+	    imagenes.clear();
+	    for(int i=1; i<=10; i++ ) {
+            BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Actvs/a"+Integer.toString(i)+".jpg"));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(img, "jpg", baos);
+            byte[] imgBytes = baos.toByteArray();
+            imagenes.put(Integer.toString(i), imgBytes);
+        }
+        ca.cargarActs(reader,imagenes);
         // acts listas
+        byte[] imgBytes = null;
+        BufferedImage img = null; // Estan mal estas cosas
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         input = servletContext.getResourceAsStream("/WEB-INF/data/Salidas.csv");
 	    reader = new CSVReader(new InputStreamReader(input));
 	    img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/s1.jpg"));
