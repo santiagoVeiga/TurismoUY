@@ -113,35 +113,90 @@ public class ServletAlta extends HttpServlet {
     				req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
     				break;
     			case "/ActividadCreada":
-                    String nombreAct = (String) req.getParameter("actividadNombre");
+    			    String nombreAct = (String) req.getParameter("actividadNombre");
                     String departamentoAct = (String) req.getParameter("actividadDepartamento"); //Corregir agarrar el seleccionado del combo 
                     String descripcionAct = (String) req.getParameter("actividadDescripcion");
                     String costoAct = (String) req.getParameter("actividadCosto");
                     String duracionAct = (String) req.getParameter("actividadDuracion");
                     String ciudadAct = (String) req.getParameter("actividadCiudad");
-                    //obtengo categorias a�adidas
+                    //obtengo categorias 
                     String[] auxCategorias =  req.getParameterValues("actividadCategoria"); //Corregir agarrar las seleccionadas
-                    Set<String> categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
+                    Set<String> categoriasAct = null;
+                    if(auxCategorias != null) {
+                        categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
+                    }
+                    // Fecha del Sistema
                     Date date1 = new Date();
                     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
                     String str = formatter.format(date1);
                     
-                    //FALTA TRAER IMAGENES
-                    
+                    //Usuario logeado
                     HttpSession sessionAct = req.getSession();
                     DataProveedor dtProveedor = (DataProveedor) sessionAct.getAttribute("usuario");
                     String proveedorAct = dtProveedor.getNick();
                     conAlta = fab.getIControladorAlta();
-                    try {
-                        conAlta.registrarActividad(departamentoAct,nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct),ciudadAct,date1,proveedorAct, categoriasAct);
-                        resp.sendRedirect("/tarea2p2/home");
-    
-                    } catch (NumberFormatException e2) {
-                    } catch (ActividadRepetidaException e2) {
-                        req.setAttribute("Exception", e2.getMessage());
-                        req.getRequestDispatcher("/AltaActividad").forward(req,resp);
-                    } catch (UsuarioNoExisteException e2) {
-                    } catch (ProveedorNoNacidoException e2) {
+                    
+                    //Chequeo imagen cargada
+                    InputStream inputStreamAct = null;
+                    Part filePartAct = req.getPart("imagenActividad");
+                    conCons = fab.getIControladorConsulta();
+                    //Si se subió imagen
+                    if (filePartAct.getSize() > 0) {
+                        inputStreamAct = filePartAct.getInputStream();
+                        FileOutputStream outputAct = null;
+                        byte[] imgBytesAct = null;
+                        try {
+                            File nuevaImgAct = new File("/home/vagrant/Descargas" + filePartAct.getSubmittedFileName());
+                            if (nuevaImgAct.createNewFile())
+                              System.out.println("El fichero se ha creado correctamente");
+                            else
+                              System.out.println("No ha podido ser creado el fichero");
+                            outputAct = new FileOutputStream(nuevaImgAct);
+                            int leidos = 0;
+                            leidos = inputStreamAct.read();
+                            while (leidos != -1) {
+                                outputAct.write(leidos);
+                                leidos = inputStreamAct.read();
+                            }
+                            imgBytesAct = Files.readAllBytes(Paths.get(nuevaImgAct.getAbsolutePath()));
+                          } catch (IOException ioeAct) {
+                            ioeAct.printStackTrace();
+                          } finally {
+                            try {
+                                outputAct.flush();
+                                outputAct.close();
+                                inputStreamAct.close();
+                            } catch (IOException ex) {
+                                
+                            }
+                        }
+                      
+                        try {
+                            conAlta.registrarActividad(departamentoAct,nombreAct, descripcionAct, Integer.parseInt(duracionAct),
+                                    Integer.parseInt(costoAct),ciudadAct,date1,proveedorAct, categoriasAct,imgBytesAct);
+                            resp.sendRedirect("/tarea2p2/home");
+        
+                        } catch (NumberFormatException e2) {
+                        } catch (ActividadRepetidaException e2) {
+                            req.setAttribute("Exception", e2.getMessage());
+                            req.getRequestDispatcher("/AltaActividad").forward(req,resp);
+                        } catch (UsuarioNoExisteException e2) {
+                        } catch (ProveedorNoNacidoException e2) {
+                        }
+                    }
+                    // No se subió imagen
+                    else {
+                        try {
+                            conAlta.registrarActividad(departamentoAct,nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct),ciudadAct,date1,proveedorAct, categoriasAct);
+                            resp.sendRedirect("/tarea2p2/home");
+        
+                        } catch (NumberFormatException e2) {
+                        } catch (ActividadRepetidaException e2) {
+                            req.setAttribute("Exception", e2.getMessage());
+                            req.getRequestDispatcher("/AltaActividad").forward(req,resp);
+                        } catch (UsuarioNoExisteException e2) {
+                        } catch (ProveedorNoNacidoException e2) {
+                        }
                     }
                     break;
     			case "/UsuarioCreado":
