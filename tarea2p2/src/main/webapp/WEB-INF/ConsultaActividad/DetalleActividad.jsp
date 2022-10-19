@@ -116,6 +116,7 @@
                                 <% if (actividadSeleccionada.HaySalidas()){%>
                                  
                                 <% DataSalida[] arrSalidas = Salidas.toArray(new DataSalida[Salidas.size()]);%>
+                                <%String img = Base64.getEncoder().encodeToString(arrSalidas[0].getImagen()); %>
                                 
                                 
                                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
@@ -126,7 +127,7 @@
                                             <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrSalidas[0].getNombre()%>">  
                                                 <div class="card" style="width: 18rem;">
                                                     <img class="card-img-top"
-                                                        src="https://city.woow.com.uy/media/catalog/product/cache/dcf64a24127a43d9ce9fe76e3e5f8061/n/u/nueva2_3_1.jpg"
+                                                        src="data:image/jpg;base64,<%= img %>"
                                                         alt="Card image cap">
                                                     <div class="card-body">
                                                         <p class="card-text" style="text-align: center;"><%=arrSalidas[0].getNombre()%></p>
@@ -137,11 +138,12 @@
                                         
                                         
                                         <% for(int i=1; i<arrSalidas.length; i++) { %>
+                                        <%String img2 = Base64.getEncoder().encodeToString(arrSalidas[0].getImagen()); %>
                                         <div class="carousel-item">
                                             <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrSalidas[i].getNombre()%>">  
                                                 <div class="card" style="width: 18rem;">
                                                     <img class="card-img-top"
-                                                        src="https://s3.amazonaws.com/turismorocha/operadores/1/med/bahia-resto-053888900-1458674720.JPG"
+                                                        src="data:image/jpg;base64,<%= img2 %>"
                                                         alt="Card image cap">
                                                     <div class="card-body">
                                                         <p class="card-text" style="text-align: center;"><%=arrSalidas[i].getNombre()%></p>
@@ -152,36 +154,26 @@
                                     
                                     
                                     
-                                    <%}}%>
-                                    
-                                    </div>
-                                    
-                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                                        data-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                                        data-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </div>
+                                    <%}}else {%>
+                                  
+                                
                                 <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
                                     style="margin-left: 70px;">
                                     <div class="carousel-inner">
+                                        
                                         <div class="carousel-item active">
                                             <a href="ConsultaPaqueteV.html">
                                                 <div class="card" style="width: 18rem;">
                                                     <img class="card-img-top"
-                                                        src="https://sites.google.com/site/areasprotegidasenuruguay/_/rsrc/1411660757953/algunas-de-las-areas-ingresadas-por-el-snap/laguna-de-rocha/Mapa_Rocha_BLOG.jpg?height=280&width=400"
+                                                        src="https://www.imperial.cl/ccstore/v1/images/?source=/file/v5922176355830232693/products/146335.jpg&height=300&width=300"
                                                         alt="Card image cap">
                                                     <div class="card-body">
-                                                        <p class="card-text" style="text-align: center;">Disfrutar Rocha</p>
+                                                        <p class="card-text" style="text-align: center;">no hay salidas</p>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
+                                       
                                     </div>
                                     <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
                                         data-slide="prev">
@@ -194,6 +186,111 @@
                                         <span class="sr-only">Next</span>
                                     </a>
                                 </div>
+                                
+                                <%} %>
+                                    
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                                        data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                                        data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                                
+                                
+                                <% if (actividadSeleccionada.HayPaquetes()){%>
+                                <% String[] arrPaquetes = Paquetes.toArray(new String[Paquetes.size()]);%>
+                                <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
+                                    style="margin-left: 70px;">
+                                    <div class="carousel-inner">
+                                        
+                                        <div class="carousel-item active">
+                                            <a href="ConsultaPaqueteV.html">
+                                                <div class="card" style="width: 18rem;">
+                                                    <img class="card-img-top"
+                                                        src="https://sites.google.com/site/areasprotegidasenuruguay/_/rsrc/1411660757953/algunas-de-las-areas-ingresadas-por-el-snap/laguna-de-rocha/Mapa_Rocha_BLOG.jpg?height=280&width=400"
+                                                        alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <p class="card-text" style="text-align: center;"><%=arrPaquetes[0]%></p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        
+                                        <% for(int i=1; i<arrPaquetes.length; i++) { %>
+                                        <div class="carousel-item">
+                                            <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrPaquetes[i]%>">  
+                                                <div class="card" style="width: 18rem;">
+                                                    <img class="card-img-top"
+                                                        src="https://s3.amazonaws.com/turismorocha/operadores/1/med/bahia-resto-053888900-1458674720.JPG"
+                                                        alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <p class="card-text" style="text-align: center;"><%=arrPaquetes[i]%></p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <%} %>
+                                        
+                                        
+                                        
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
+                                        data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls2" role="button"
+                                        data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                                
+                                <%}else{ %>
+                                
+                                <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
+                                    style="margin-left: 70px;">
+                                    <div class="carousel-inner">
+                                        
+                                        <div class="carousel-item active">
+                                            <a href="ConsultaPaqueteV.html">
+                                                <div class="card" style="width: 18rem;">
+                                                    <img class="card-img-top"
+                                                        src="https://www.imperial.cl/ccstore/v1/images/?source=/file/v5922176355830232693/products/146335.jpg&height=300&width=300"
+                                                        alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <p class="card-text" style="text-align: center;">no hay paquetes</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                       
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
+                                        data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls2" role="button"
+                                        data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                                
+                                <%} %>
+                                
                             </div>
                         </div>
                     </div>
