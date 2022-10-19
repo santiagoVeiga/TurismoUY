@@ -65,9 +65,10 @@
                         <div class="row justify-content-md-center">
                           <div class="col-md-8 order-md-1">
                             <h4 class="mb-3">Información de la Salida</h4>
+                            
                             <!-- FORM -->
                             
-                            <form class="needs-validation" action="/tarea2p2/SalidaCreada" id="sell-info">
+                            <form method="post"class="needs-validation" enctype="multipart/form-data"  action="/tarea2p2/SalidaCreada?actividadSal=<%= (String) request.getParameter("actividadSal") %>" id="sell-info">
 
                                 <!-- Nombre y Departamento -->                                
                                 <div class="row">
@@ -131,7 +132,7 @@
                                 <div class="row">
                                 	<div class="col-md-6 mb-3">
 	                                    <label for="salidaFecha">Fecha</label>
-	                                    <input class="form-control" type="date" id="salidaFecha" name="salidaFecha" name="trip-start" >
+	                                    <input class="form-control" type="date" id="salidaFecha" name="salidaFecha" >
 	                                </div>
 	                                
 	                                <div class="col-md-6 mb-3">

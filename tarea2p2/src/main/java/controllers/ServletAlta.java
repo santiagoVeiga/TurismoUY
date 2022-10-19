@@ -121,14 +121,6 @@ public class ServletAlta extends HttpServlet {
                     String ciudadAct = (String) req.getParameter("actividadCiudad");
                     //obtengo categorias a�adidas
                     String[] auxCategorias =  req.getParameterValues("actividadCategoria"); //Corregir agarrar las seleccionadas
-                    System.out.println("--LARGO--"+auxCategorias.length);
-                    if (auxCategorias != null) {
-                        for(String item: auxCategorias){
-                            //String keyValue[]= item.split(":");
-                            //System.out.println("Key: " + item);
-                            System.out.println("Value: " + item);
-                        }
-                    }
                     Set<String> categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
                     Date date1 = new Date();
                     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -283,21 +275,35 @@ public class ServletAlta extends HttpServlet {
                     String salidaLugar = (String) req.getParameter("salidaLugar");
                     String salidaCantMax = (String) req.getParameter("salidaCantidadMax");
     				String actividad = (String) req.getParameter("actividadSal");
-    				LocalDate localDateS = LocalDate.now();
-                    Date fechaActS = new Date(localDateS.getDayOfMonth(),localDateS.getMonthValue(),localDateS.getYear());
-                    String fechaSal = (String) req.getParameter("input_date");
-                    SimpleDateFormat formatS = new SimpleDateFormat("dd-MM-yyyy");
+    				
+    				Date fechaActualS = new Date();
+                    SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MM-yyyy");
+                    String str2 = formatter2.format(fechaActualS);
+                    //System.out.printf("FECHA ACTUAL "+ str2+"\n");
+                    String fechaSal = (String) req.getParameter("salidaFecha");
+                    //System.out.printf("FECHA SALIDA "+ fechaSal+"\n");
+                    
                     // HORA FALTA
+                    // No se esta contrrolando las salidas duplicadas
                     //FALTA Traer imagenes
+                    
     				conAlta = fab.getIControladorAlta();
     				try {
-    				    Date fechaSalida = formatS.parse(fechaSal);
-    					conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, null, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActS);
+    				    Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);  
+                        //System.out.printf("DIA DE LA SALIDA "+ fechaSalida.getDate()+"\n");
+                        //System.out.printf("Mes DE LA SALIDA "+ fechaSalida.getMonth()+"\n");
+                        //System.out.printf("Anio DE LA SALIDA "+ fechaSalida.getYear()+"\n");
+    					conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, null, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActualS);
     					resp.sendRedirect("/tarea2p2/home");
-    				} catch (SalidaYaExisteExeption | FechaAltaSalidaInvalida | FechaAltaSalidaAnteriorActividad e) {
-    					req.setAttribute("Exception", e.getMessage());
+    				} catch (SalidaYaExisteExeption e3) {
+    					req.setAttribute("Exception", e3.getMessage());
     					req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
-    				} catch (ParseException e) {
+    				}catch( FechaAltaSalidaAnteriorActividad e3) {
+    				    System.out.printf("FechaAltaSalidaAnteriorActividad");
+    				}catch( FechaAltaSalidaInvalida  e3) {
+    				    System.out.printf("FechaAltaSalidaInvalida");
+    				}catch (ParseException e3) {
+                        System.out.printf("Parse");
                         // TODO Auto-generated catch block
                     }	
     				break;
