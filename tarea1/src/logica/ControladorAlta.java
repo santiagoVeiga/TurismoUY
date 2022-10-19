@@ -133,26 +133,26 @@ public class ControladorAlta implements IControladorAlta {
 	      usu = new CSVReader(new FileReader("./src/data/Usuarios.csv"));
 	      
 	      String[] nextLineusu;
-	      BufferedImage img = ImageIO.read(new File("./src/data/u1.jpg"));
-	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	      ImageIO.write(img, "jpg", baos);
-	      byte[] imgBytes = baos.toByteArray();
+	      
 	      //reads one line at a time  
 	      int cont = 0;
 	      while ((nextLineusu = usu.readNext()) != null) {
 	    	  if(cont>0) {
-	    		  
+	    		  BufferedImage img = ImageIO.read(new File("./src/data/Users/u"+String.valueOf(cont)+".jpg"));
+	    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    	      ImageIO.write(img, "jpg", baos);
+	    	      byte[] imgBytes = baos.toByteArray();
 	    		  if(nextLineusu[1].equals(" T")) {
 	    			  
 	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    			  Date fecha = formato.parse(nextLineusu[6].strip());
-	    			  confirmarAltaTurista(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[7].strip(),"1234",imgBytes);
+	    			  confirmarAltaTurista(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[7].strip(),nextLineusu[10].strip(),imgBytes);
 	    		  }
 	    		  else if (nextLineusu[1].equals(" P")) {
 	    			
 	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    			  Date fecha = formato.parse(nextLineusu[6]);
-	    			  confirmarAltaProveedor(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[8].strip(),nextLineusu[9].strip(),true,"1234",imgBytes);
+	    			  confirmarAltaProveedor(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[8].strip(),nextLineusu[9].strip(),true,nextLineusu[10].strip(),imgBytes);
 	    		  }
 	    	  }
 	    		  
@@ -528,27 +528,27 @@ public class ControladorAlta implements IControladorAlta {
 
 
 	@Override
-	public void cargarUsuarios(CSVReader reader, byte[] imgBytes)
+	public void cargarUsuarios(CSVReader reader,Map<String,byte[]> imgs)
 			throws IOException, UsuarioRepetidoException, ParseException {
 		CSVReader usu = reader;
 	      String[] nextLineusu;
-	      
+	      //Obtener ruta de ejecucion
 	      //reads one line at a time  
 	      int cont = 0;
 	      while ((nextLineusu = usu.readNext()) != null) {
 	    	  if(cont>0) {
-	    		  
+	    	      byte[] imgBytes = imgs.get(Integer.toString(cont));
 	    		  if(nextLineusu[1].equals(" T")) {
 	    			  
 	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    			  Date fecha = formato.parse(nextLineusu[6].strip());
-	    			  confirmarAltaTurista(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[7].strip(),"1234",imgBytes);
+	    			  confirmarAltaTurista(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[7].strip(),nextLineusu[10].strip(),imgBytes);
 	    		  }
 	    		  else if (nextLineusu[1].equals(" P")) {
 	    			
 	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    			  Date fecha = formato.parse(nextLineusu[6]);
-	    			  confirmarAltaProveedor(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[8].strip(),nextLineusu[9].strip(),true,"1234",imgBytes);
+	    			  confirmarAltaProveedor(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[8].strip(),nextLineusu[9].strip(),true,nextLineusu[10].strip(),imgBytes);
 	    		  }
 	    	  }
 	    		  

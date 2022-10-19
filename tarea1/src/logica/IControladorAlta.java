@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Map;
 import java.util.Set;
 
 import com.opencsv.CSVReader;
@@ -63,7 +64,7 @@ public interface IControladorAlta {
 	public abstract void cargarCategorias();
 
 	public abstract void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException ;
-	public abstract void cargarUsuarios(CSVReader reader, byte[] imgBytes) throws IOException, UsuarioRepetidoException, ParseException ;
+	public abstract void cargarUsuarios(CSVReader reader,Map<String,byte[]> imgs) throws IOException, UsuarioRepetidoException, ParseException ;
     
 	public abstract void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta) throws SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad ;
 	public abstract void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta, byte[] imagen) throws SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad ;

@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -67,11 +69,18 @@ public static void initSession(HttpServletRequest request) {
 		// dptos listos
 		input = servletContext.getResourceAsStream("/WEB-INF/data/Usuarios.csv");
 	    reader = new CSVReader(new InputStreamReader(input));
-	    BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/u1.jpg"));
+	    byte[] imgBytes = null;
+	    BufferedImage img = null;
+        Map<String,byte[]> imagenes = new HashMap<String,byte[]>();
+        for(int i=1; i<=13; i++ ) {
+            img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Users/u"+Integer.toString(i)+".jpg"));;
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(img, "jpg", baos);
+            imgBytes = baos.toByteArray();
+            imagenes.put(Integer.toString(i), imgBytes);
+        }
+        ca.cargarUsuarios(reader,imagenes);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(img, "jpg", baos);
-        byte[] imgBytes = baos.toByteArray();
-        ca.cargarUsuarios(reader,imgBytes);
         // usus listos
         input = servletContext.getResourceAsStream("/WEB-INF/data/Actividades.csv");
 	    reader = new CSVReader(new InputStreamReader(input));
