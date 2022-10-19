@@ -88,7 +88,7 @@
 							      <th scope="row">Costo</th>
 							      <td><%= actividadSeleccionada.getCosto()%></td>
 							    </tr>
-							    <tr>
+							    <tr> 
 							      <th scope="row">Categoria/as</th>
 							      <td><%= actividadSeleccionada.getCategorias()%></td>
 							    </tr>
@@ -102,40 +102,60 @@
 							</table>
                             
                             
+                            <% Set<DataSalida> Salidas = actividadSeleccionada.getSalidas(); %>
+                            <% Set<String> Paquetes = actividadSeleccionada.getPaquetes(); %>
+                            
                             <div style="display: flex; justify-content:center; align-items: center;">
                                 <a style="margin-right:22%; margin-top: 15px; ">Salidas</a>
                        			<a style="margin-left:25%; margin-top: 15px; ">Paquetes</a>
                             </div>
                             <div
                                 style="padding-top:20px ; margin-right: 50px; margin-left: 50px; display: flex; justify-content: space-between;">
+                                
+                                
+                                <% if (actividadSeleccionada.HaySalidas()){%>
+                                 
+                                <% DataSalida[] arrSalidas = Salidas.toArray(new DataSalida[Salidas.size()]);%>
+                                
+                                
                                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
                                     style="margin-right: 70px;">
                                     <div class="carousel-inner">
+                                        
                                         <div class="carousel-item active">
-                                            <a href="ConsultaSalidaV.html">
+                                            <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrSalidas[0].getNombre()%>">  
                                                 <div class="card" style="width: 18rem;">
                                                     <img class="card-img-top"
                                                         src="https://city.woow.com.uy/media/catalog/product/cache/dcf64a24127a43d9ce9fe76e3e5f8061/n/u/nueva2_3_1.jpg"
                                                         alt="Card image cap">
                                                     <div class="card-body">
-                                                        <p class="card-text" style="text-align: center;">Degusta Agosto</p>
+                                                        <p class="card-text" style="text-align: center;"><%=arrSalidas[0].getNombre()%></p>
                                                     </div>
                                                 </div>
-                                            </a>     <<!-- prueba commit -->
+                                            </a>     
                                         </div>
+                                        
+                                        
+                                        <% for(int i=1; i<arrSalidas.length; i++) { %>
                                         <div class="carousel-item">
-                                            <a href="ConsultaSalidaV.html">
+                                            <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrSalidas[i].getNombre()%>">  
                                                 <div class="card" style="width: 18rem;">
                                                     <img class="card-img-top"
                                                         src="https://s3.amazonaws.com/turismorocha/operadores/1/med/bahia-resto-053888900-1458674720.JPG"
                                                         alt="Card image cap">
                                                     <div class="card-body">
-                                                        <p class="card-text" style="text-align: center;">Degusta Setiembre</p>
+                                                        <p class="card-text" style="text-align: center;"><%=arrSalidas[i].getNombre()%></p>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
+                                    
+                                    
+                                    
+                                    <%}}%>
+                                    
                                     </div>
+                                    
                                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
                                         data-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
