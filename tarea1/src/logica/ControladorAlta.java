@@ -116,6 +116,24 @@ public class ControladorAlta implements IControladorAlta {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[7].strip());
 	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),fecha,nextLine[9].strip(), categos.get(Integer.toString(cont)),imgBytes);
+	    		  if (cont<=6) {
+	    			  Fabrica fabr = Fabrica.getInstance();
+	    			  IControladorInsc conIns = fabr.getIControladorInsc();
+	    			  try {
+						conIns.aceptarRechazarAct(nextLine[1].strip(), estadoAct.confirmada);
+					} catch (estadoActividadIncorrecto e) {
+					} catch (ActividadNoExisteException e) {
+					}
+	    		  }
+	    		  else if (cont == 8 || cont == 10) {
+	    			  Fabrica fabr = Fabrica.getInstance();
+	    			  IControladorInsc conIns = fabr.getIControladorInsc();
+	    			  try {
+						conIns.aceptarRechazarAct(nextLine[1].strip(), estadoAct.rechazada);
+					} catch (estadoActividadIncorrecto e) {
+					} catch (ActividadNoExisteException e) {
+					}
+	    		  }
 	    	  }
 	    	  cont++;
 	      }
