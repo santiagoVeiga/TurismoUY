@@ -28,6 +28,7 @@ import logica.DataPaquete;
 import logica.DataSalida;
 import logica.DataUsuario;
 import logica.Fabrica;
+import logica.IControladorConsulta;
 import logica.IControladorInsc;
 
 /**
@@ -73,6 +74,7 @@ public class ServletInsc extends HttpServlet {
     
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+	    HttpSession session = req.getSession();
 	    String nomDpto = req.getParameter("DTDConsultaActividad");
         String nomCat = req.getParameter("CatConsultaActividad");
         if(nomDpto != null) {
@@ -82,23 +84,28 @@ public class ServletInsc extends HttpServlet {
         } else {
     		switch(req.getServletPath()){
     			case "/Inscripcion":
+    			    conInsc = fab.getIControladorInsc();
+    			    String sal = req.getParameter("salida");
+    			    DataUsuario usu = (DataUsuario) session.getAttribute("usuario");
+    			    String[] paquetes = conInsc.obtenerPaquetesComprados(usu.getNick());
+                    req.setAttribute("salida", sal);
+    			    req.setAttribute("PaquetesComprados", paquetes);
     				req.getRequestDispatcher("/WEB-INF/InscripcionSalida.jsp").forward(req,resp);
     				break;
     			case "/Inscripto":
     				conInsc = fab.getIControladorInsc();
-    				DataActividad da = (DataActividad) req.getAttribute("DataActividad");
-    				DataSalida ds = (DataSalida) req.getAttribute("DataSalida");
-    				HttpSession session = req.getSession();
-    				DataUsuario du = (DataUsuario) session.getAttribute("usuario");
-    				int cant = (int) req.getAttribute("cantidad");
-    				DataPaquete dp = (DataPaquete) req.getAttribute("DataPaquete");
-    				LocalDateTime ld = LocalDateTime.now();
-    				Date fecha = java.util.Date.from(ld.atZone(ZoneId.systemDefault()).toInstant());
+    				String salInsc = req.getParameter("salida");
+    				DataUsuario dataUsu = (DataUsuario) session.getAttribute("usuario");
+    				int cant = Integer.parseInt(req.getParameter("cantidad"));
+    				String paqInsc = req.getParameter("paquete");
+    				String act = null; // String act = conInsc.obtenerNomActPorSalida(salInsc);
+    				LocalDateTime horaLocal = LocalDateTime.now();
+    				Date fecha = java.util.Date.from(horaLocal.atZone(ZoneId.systemDefault()).toInstant());
     				try {
-    					if(dp == null) {
-    						conInsc.inscribir(du.getNick(), ds.getNombre(), cant, fecha, da.getNombre());
+    					if(paqInsc == null) {
+    						conInsc.inscribir(dataUsu.getNick(), salInsc, cant, fecha, act);
     					} else {
-    						conInsc.inscribir(du.getNick(), ds.getNombre(), cant, fecha, da.getNombre(), dp.getNombre());
+    						conInsc.inscribir(dataUsu.getNick(), salInsc, cant, fecha, act, paqInsc);
     					}
     				} catch (TuristaConSalida | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException
     						| InscFechaDespSalida | TuristaNoHaNacido | PaqueteRepetidoException

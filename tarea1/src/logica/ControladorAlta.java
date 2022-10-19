@@ -210,15 +210,20 @@ public class ControladorAlta implements IControladorAlta {
         Departamento insDep = mDep.getDepartamento(dep);
         
         Map<String,Categoria> categorias = new HashMap<String,Categoria>();
-        for(String stringCat : cat){
-        	Categoria categ = mCat.getCategoria(stringCat);
-        	categorias.put(categ.getCategoria(), categ);
+        if(cat!=null) {
+        	for(String stringCat : cat){
+            	Categoria categ = mCat.getCategoria(stringCat);
+            	categorias.put(categ.getCategoria(), categ);
+            }
         }
+        
         act = new Actividad(nom, desc,fecha,ciudad, costo, dur, insDep, categorias);
         if(usu instanceof Proveedor) {
         	((Proveedor) usu).agregarActividad(act);
         }
-        
+        for(Categoria catAux : categorias.values()) {
+        	catAux.agregarAct(act);
+        }
         mAct.addActividad(act);
         // if agregado por si Departamento no esta cargado da errror VER SI QUITAR
         if(insDep != null)
@@ -494,6 +499,9 @@ public class ControladorAlta implements IControladorAlta {
         	categorias.put(categ.getCategoria(), categ);
         }
         act = new Actividad(nom, desc,fecha,ciudad, costo, dur, insDep, categorias,imagen);
+        for(Categoria catAux : categorias.values()) {
+        	catAux.agregarAct(act);
+        }
         if(usu instanceof Proveedor) {
         	((Proveedor) usu).agregarActividad(act);
         }

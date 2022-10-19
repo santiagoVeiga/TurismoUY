@@ -122,32 +122,40 @@ public class ServletAlta extends HttpServlet {
                     //obtengo categorias a�adidas
                     //String[] auxCategorias = (String[]) req.getParameterValues("catActual"); //Corregir agarrar las seleccionadas
                     //Set<String> categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
-                    //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                    LocalDate localDate = LocalDate.now();
-                    Date fechaAct = new Date(localDate.getDayOfMonth(),localDate.getMonthValue(),localDate.getYear());              
-                    
+                    // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    //LocalDate localDate = LocalDate.now();
+                    //@SuppressWarnings("deprecation") Date fechaAct = new Date(localDate.getDayOfMonth(),localDate.getMonthValue(),localDate.getYear());              
+                    Date date1 = new Date();
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                    String str = formatter.format(date1);
+                    System.out.print("Current date: "+str);
                     //FALTA TRAER IMAGENES
                     
                     HttpSession sessionAct = req.getSession();
                     DataProveedor dtProveedor = (DataProveedor) sessionAct.getAttribute("usuario");
                     String proveedorAct = dtProveedor.getNick();
-                    
                     conAlta = fab.getIControladorAlta();
                     try {
-                        conAlta.registrarActividad(departamentoAct,nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct),ciudadAct,fechaAct,proveedorAct, null);
+                        conAlta.registrarActividad(departamentoAct,nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct),ciudadAct,date1,proveedorAct, null);
                         resp.sendRedirect("/tarea2p2/home");
+                        System.out.printf("1");
     
                     } catch (NumberFormatException e2) {
-                        // TODO Auto-generated catch block
+                        System.out.printf("2");
+
                     } catch (ActividadRepetidaException e2) {
+                        System.out.printf("3");
+
                         req.setAttribute("Exception", e2.getMessage());
                         req.getRequestDispatcher("/WEB-INF/altaActividad/alta_actividad.jsp").forward(req,resp);
                     } catch (UsuarioNoExisteException e2) {
-                        // TODO Auto-generated catch block
+                        System.out.printf("4");
+
                     } catch (ProveedorNoNacidoException e2) {
-                        // TODO Auto-generated catch block
+                        System.out.printf("5");
+
                     }
-                    resp.sendRedirect("/tarea2p2/home");
+                    
     
                     break;
     			case "/UsuarioCreado":

@@ -78,18 +78,20 @@ public class ServletConsulta extends HttpServlet {
     				if(usuario == null) {
     					DataUsuario[] usuarios = conCons.listarUsuarios();
     					req.setAttribute("ArregloUsuarios", usuarios);
-    					req.getRequestDispatcher("/WEB-INF/ListaUsuario.jsp").forward(req,resp);
+    					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ListaUsuario.jsp").forward(req,resp);
     				} else {
     					DataUsuario du = conCons.ingresarDatos(usuario);
     					req.setAttribute("UsuarioElegido", du);
-    					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario.jsp").forward(req,resp);
+    					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ConsultaUsuario.jsp").forward(req,resp);
     				}				
     				break;
     			case "/ConsultaActividad":
+    			    conCons = fab.getIControladorConsulta();
     				String actividad = (String) req.getParameter("actividad");
     				DataActividad[] actividades = null;
                     if(session.getAttribute("DTDConsultaActividad")!= null) {
     					actividades = ((DataDepartamento) session.getAttribute("DTDConsultaActividad")).getColAct().toArray(new DataActividad[0]);
+    					session.setAttribute("DTDConsultaActividad", null);
     				} else {
     					String categoria = (String) session.getAttribute("CatConsultaActividad");
     					if(categoria != null)
@@ -113,6 +115,7 @@ public class ServletConsulta extends HttpServlet {
     				}
     				break;
     			case "/ConsultaSalida":
+    			    conCons = fab.getIControladorConsulta();
     			    String salida = req.getParameter("salida");
     			    try {
                         DataSalida dataSal = conCons.obtenerDataSalida(salida);
@@ -124,6 +127,7 @@ public class ServletConsulta extends HttpServlet {
                     }
     				break;
     			case "/ConsultaPaquete":
+    			    conCons = fab.getIControladorConsulta();
     				String paquete = (String) req.getParameter("paquete");
     				if(paquete == null) {
     					conCons = fab.getIControladorConsulta();
@@ -139,8 +143,6 @@ public class ServletConsulta extends HttpServlet {
     					req.setAttribute("PaqueteElegido", dp);
     					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req,resp);
     				}
-    				break;
-    			case "/DetallePaquete":
     				break;
     		}
         }
