@@ -139,7 +139,6 @@ public class ServletAlta extends HttpServlet {
                     //Chequeo imagen cargada
                     InputStream inputStreamAct = null;
                     Part filePartAct = req.getPart("imagenActividad");
-                    conCons = fab.getIControladorConsulta();
                     //Si se subió imagen
                     if (filePartAct.getSize() > 0) {
                         inputStreamAct = filePartAct.getInputStream();
@@ -330,8 +329,6 @@ public class ServletAlta extends HttpServlet {
     				}
     				break;
     			case "/SalidaCreada":
-    				//DataSalida ds = (DataSalida) req.getAttribute("DataSalida");
-    			    //No funciona aun
                     String salidaNombre = (String) req.getParameter("salidaNombre");
                     String salidaLugar = (String) req.getParameter("salidaLugar");
                     String salidaCantMax = (String) req.getParameter("salidaCantidadMax");
@@ -345,28 +342,89 @@ public class ServletAlta extends HttpServlet {
                     //System.out.printf("FECHA SALIDA "+ fechaSal+"\n");
                     
                     // HORA FALTA
+                    
                     // No se esta contrrolando las salidas duplicadas
+                    
                     //FALTA Traer imagenes
                     
     				conAlta = fab.getIControladorAlta();
-    				try {
-    				    Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);  
-                        //System.out.printf("DIA DE LA SALIDA "+ fechaSalida.getDate()+"\n");
-                        //System.out.printf("Mes DE LA SALIDA "+ fechaSalida.getMonth()+"\n");
-                        //System.out.printf("Anio DE LA SALIDA "+ fechaSalida.getYear()+"\n");
-    					conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, null, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActualS);
-    					resp.sendRedirect("/tarea2p2/home");
-    				} catch (SalidaYaExisteExeption e3) {
-    					req.setAttribute("Exception", e3.getMessage());
-    					req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
-    				}catch( FechaAltaSalidaAnteriorActividad e3) {
-    				    System.out.printf("FechaAltaSalidaAnteriorActividad");
-    				}catch( FechaAltaSalidaInvalida  e3) {
-    				    System.out.printf("FechaAltaSalidaInvalida");
-    				}catch (ParseException e3) {
-                        System.out.printf("Parse");
-                        // TODO Auto-generated catch block
-                    }	
+    				
+    				//Chequeo imagen cargada
+                    InputStream inputStreamSal = null;
+                    Part filePartSal = req.getPart("salidaFotos");
+
+                    //Si se subió imagen
+                    if (filePartSal.getSize() > 0) {
+                        inputStreamSal = filePartSal.getInputStream();
+                        FileOutputStream outputSal = null;
+                        byte[] imgBytesSal = null;
+                        try {
+                            File nuevaImgSal = new File("/home/vagrant/Descargas" + filePartSal.getSubmittedFileName());
+                            if (nuevaImgSal.createNewFile())
+                              System.out.println("El fichero se ha creado correctamente");
+                            else
+                              System.out.println("No ha podido ser creado el fichero");
+                            outputSal = new FileOutputStream(nuevaImgSal);
+                            int leidoSal = 0;
+                            leidoSal = inputStreamSal.read();
+                            while (leidoSal != -1) {
+                                outputSal.write(leidoSal);
+                                leidoSal = inputStreamSal.read();
+                            }
+                            imgBytesSal = Files.readAllBytes(Paths.get(nuevaImgSal.getAbsolutePath()));
+                          } catch (IOException ioeAct) {
+                            ioeAct.printStackTrace();
+                          } finally {
+                            try {
+                                outputSal.flush();
+                                outputSal.close();
+                                inputStreamSal.close();
+                            } catch (IOException ex) {
+                                
+                            }
+                        }
+                      
+                        try {
+                            Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);  
+                            //System.out.printf("DIA DE LA SALIDA "+ fechaSalida.getDate()+"\n");
+                            //System.out.printf("Mes DE LA SALIDA "+ fechaSalida.getMonth()+"\n");
+                            //System.out.printf("Anio DE LA SALIDA "+ fechaSalida.getYear()+"\n");
+                            conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, null, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActualS,imgBytesSal);
+                            resp.sendRedirect("/tarea2p2/home");
+                        } catch (SalidaYaExisteExeption e3) {
+                            req.setAttribute("Exception", e3.getMessage());
+                            req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
+                        }catch( FechaAltaSalidaAnteriorActividad e3) {
+                            System.out.printf("FechaAltaSalidaAnteriorActividad");
+                        }catch( FechaAltaSalidaInvalida  e3) {
+                            System.out.printf("FechaAltaSalidaInvalida");
+                        }catch (ParseException e3) {
+                            System.out.printf("Parse");
+                            // TODO Auto-generated catch block
+                        }
+                    }
+                    // No se subió imagen
+                    else {
+                        try {
+                            Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);  
+                            //System.out.printf("DIA DE LA SALIDA "+ fechaSalida.getDate()+"\n");
+                            //System.out.printf("Mes DE LA SALIDA "+ fechaSalida.getMonth()+"\n");
+                            //System.out.printf("Anio DE LA SALIDA "+ fechaSalida.getYear()+"\n");
+                            conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, null, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActualS);
+                            resp.sendRedirect("/tarea2p2/home");
+                        } catch (SalidaYaExisteExeption e3) {
+                            req.setAttribute("Exception", e3.getMessage());
+                            req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
+                        }catch( FechaAltaSalidaAnteriorActividad e3) {
+                            System.out.printf("FechaAltaSalidaAnteriorActividad");
+                        }catch( FechaAltaSalidaInvalida  e3) {
+                            System.out.printf("FechaAltaSalidaInvalida");
+                        }catch (ParseException e3) {
+                            System.out.printf("Parse");
+                            // TODO Auto-generated catch block
+                        }   
+                    }
+    				
     				break;
     			case "/ModificarUsuario":
     				DataUsuario du1 = (DataUsuario) req.getAttribute("DataUsuario");
