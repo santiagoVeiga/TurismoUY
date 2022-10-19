@@ -152,7 +152,7 @@
                                 
                                 
                                 <% if (actividadSeleccionada.HaySalidas()){%>
-                                
+                                 
                                 <% DataSalida[] arrSalidas = Salidas.toArray(new DataSalida[Salidas.size()]);%>
                                 
                                 
