@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@page import="java.util.Base64,logica.DataUsuario,logica.DataDepartamento,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,controllers.EstadoSesion,logica.DataPaquete,logica.DataActividad" %>
+<%@page import="java.util.Base64,logica.DataUsuario,logica.DataDepartamento,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,controllers.EstadoSesion,logica.DataPaquete,logica.DataActividad, manejadores.ManejadorPaquete" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -173,30 +173,28 @@
                                     <%}}else {%>
                                   
                                 
-                                <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
+                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
                                     style="margin-left: 70px;">
                                     <div class="carousel-inner">
                                         
                                         <div class="carousel-item active">
-                                            <a href="ConsultaPaqueteV.html">
                                                 <div class="card" style="width: 18rem;">
                                                     <img class="card-img-top"
-                                                        src="https://www.imperial.cl/ccstore/v1/images/?source=/file/v5922176355830232693/products/146335.jpg&height=300&width=300"
+                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
                                                         alt="Card image cap">
                                                     <div class="card-body">
                                                         <p class="card-text" style="text-align: center;">no hay salidas</p>
                                                     </div>
                                                 </div>
-                                            </a>
                                         </div>
                                        
                                     </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
+                                      <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
                                         data-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Previous</span>
                                     </a>
-                                    <a class="carousel-control-next" href="#carouselExampleControls2" role="button"
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button"
                                         data-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Next</span>
@@ -209,7 +207,8 @@
                                 
                                 
                                 <% if (actividadSeleccionada.HayPaquetes()){%>
-                                <% String[] arrPaquetes = Paquetes.toArray(new String[Paquetes.size()]);%>
+                                
+                                <% DataPaquete[] arrayPaquetes = (DataPaquete[]) request.getAttribute("ArrayPaquetes");%>
                                 <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
                                     style="margin-left: 70px;">
                                     <div class="carousel-inner">
@@ -218,24 +217,24 @@
                                             <a href="ConsultaPaqueteV.html">
                                                 <div class="card" style="width: 18rem;">
                                                     <img class="card-img-top"
-                                                        src="https://sites.google.com/site/areasprotegidasenuruguay/_/rsrc/1411660757953/algunas-de-las-areas-ingresadas-por-el-snap/laguna-de-rocha/Mapa_Rocha_BLOG.jpg?height=280&width=400"
+                                                        src="data:image/jpg;base64,<%= arrayPaquetes[0].getImagen() %>"
                                                         alt="Card image cap">
                                                     <div class="card-body">
-                                                        <p class="card-text" style="text-align: center;"><%=arrPaquetes[0]%></p>
+                                                        <p class="card-text" style="text-align: center;"><%=arrayPaquetes[0].getNombre()%></p>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
                                         
-                                        <% for(int i=1; i<arrPaquetes.length; i++) { %>
+                                        <% for(int i=1; i<arrayPaquetes.length; i++) { %>
                                         <div class="carousel-item">
-                                            <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrPaquetes[i]%>">  
+                                            <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrayPaquetes[i]%>">  
                                                 <div class="card" style="width: 18rem;">
                                                     <img class="card-img-top"
-                                                        src="https://s3.amazonaws.com/turismorocha/operadores/1/med/bahia-resto-053888900-1458674720.JPG"
+                                                        src="data:image/jpg;base64,<%= arrayPaquetes[i].getImagen() %>"
                                                         alt="Card image cap">
                                                     <div class="card-body">
-                                                        <p class="card-text" style="text-align: center;"><%=arrPaquetes[i]%></p>
+                                                        <p class="card-text" style="text-align: center;"><%=arrayPaquetes[i].getNombre()%></p>
                                                     </div>
                                                 </div>
                                             </a>
@@ -264,16 +263,16 @@
                                     <div class="carousel-inner">
                                         
                                         <div class="carousel-item active">
-                                            <a href="ConsultaPaqueteV.html">
+                                         
                                                 <div class="card" style="width: 18rem;">
                                                     <img class="card-img-top"
-                                                        src="https://www.imperial.cl/ccstore/v1/images/?source=/file/v5922176355830232693/products/146335.jpg&height=300&width=300"
+                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
                                                         alt="Card image cap">
                                                     <div class="card-body">
                                                         <p class="card-text" style="text-align: center;">no hay paquetes</p>
                                                     </div>
                                                 </div>
-                                            </a>
+                                           
                                         </div>
                                        
                                     </div>

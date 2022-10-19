@@ -111,11 +111,27 @@ public class ServletConsulta extends HttpServlet {
     				} else {
                         conCons = fab.getIControladorConsulta();
                         DataActividad act = null;
+                        DataPaquete[] arrDataPaquetes = null ;  
+
                         try {
                            act = conCons.obtenerDataActividad(actividad);
+                         
+                           //genero un array de dataPaquetes para cada actividad que quiero consultar
+                           DataPaquete DataPaqueteAux ; 
+                            arrDataPaquetes = new DataPaquete[act.getPaquetes().size()];
+                           String[] arrPaquetes = act.getPaquetes().toArray(new String[act.getPaquetes().size()]);
+                           for (int i =0 ; i<arrPaquetes.length; i++) {
+                               DataPaqueteAux = conCons.obtenerDataPaquete(arrPaquetes[i]);
+                               arrDataPaquetes[i] = DataPaqueteAux ; 
+                           }
+                           
+                           
+                           
+                           
                         } catch (ActividadNoExisteException e) {
                         }
     				    req.setAttribute("ActividadElegida", act);
+                        req.setAttribute("ArrayPaquetes", arrDataPaquetes);
                         req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);
     				}
     				break;

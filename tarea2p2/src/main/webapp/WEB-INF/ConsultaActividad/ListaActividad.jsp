@@ -65,9 +65,11 @@
                                 		<%
                                 		if(acts[i].getImagen()!=null) {
                                 		%>
-                                		<div class="latest-product__item__pic">
-                                        <img src="data:image/jpg;base64,<%= imagen %>" alt="">
-                                   		</div>
+                                		<a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>">
+	                                		<div class="latest-product__item__pic">
+	                                        	<img src="data:image/jpg;base64,<%= imagen %>" alt="">
+	                                   		</div>
+                                   		</a>
                                 		<% } %>
                                         <div class="latest-product__item__text">
                                             <h5> <%= acts[i].getNombre() %> </h5>
