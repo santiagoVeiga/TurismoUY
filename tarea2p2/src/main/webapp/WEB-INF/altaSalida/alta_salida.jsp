@@ -137,7 +137,8 @@
 	                                
 	                                <div class="col-md-6 mb-3">
 	                                    <label for="salidaHora">Hora</label>
-                                    	<input class="form-control" type="time" id="salidaHora" name="salidaHora" min="1:00" max="24:00" step="3600" />
+                                    	<!-- <input class="form-control" type="time" id="salidaHora" name="salidaHora" min="1:00" max="24:00" step="3600" />  -->
+                                    	<input type="number" id="tentacles" name="salidaHora" min="0" max="23">
                                     </div>
                                     
                                 </div>

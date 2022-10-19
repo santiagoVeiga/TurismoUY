@@ -341,12 +341,11 @@ public class ServletAlta extends HttpServlet {
                     String fechaSal = (String) req.getParameter("salidaFecha");
                     //System.out.printf("FECHA SALIDA "+ fechaSal+"\n");
                     
-                    // HORA FALTA
+                    String horaSal = (String) req.getParameter("salidaHora");
+                    Date horaSalida = new Date(0, 0, 0, Integer.parseInt(horaSal), 0, 0);
                     
                     // No se esta contrrolando las salidas duplicadas
-                    
-                    //FALTA Traer imagenes
-                    
+                                        
     				conAlta = fab.getIControladorAlta();
     				
     				//Chequeo imagen cargada
@@ -389,7 +388,7 @@ public class ServletAlta extends HttpServlet {
                             //System.out.printf("DIA DE LA SALIDA "+ fechaSalida.getDate()+"\n");
                             //System.out.printf("Mes DE LA SALIDA "+ fechaSalida.getMonth()+"\n");
                             //System.out.printf("Anio DE LA SALIDA "+ fechaSalida.getYear()+"\n");
-                            conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, null, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActualS,imgBytesSal);
+                            conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, horaSalida, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActualS,imgBytesSal);
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
@@ -410,7 +409,7 @@ public class ServletAlta extends HttpServlet {
                             //System.out.printf("DIA DE LA SALIDA "+ fechaSalida.getDate()+"\n");
                             //System.out.printf("Mes DE LA SALIDA "+ fechaSalida.getMonth()+"\n");
                             //System.out.printf("Anio DE LA SALIDA "+ fechaSalida.getYear()+"\n");
-                            conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, null, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActualS);
+                            conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, horaSalida, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActualS);
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
