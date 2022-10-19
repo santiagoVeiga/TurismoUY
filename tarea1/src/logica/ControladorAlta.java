@@ -84,21 +84,40 @@ public class ControladorAlta implements IControladorAlta {
 	      reader = new CSVReader(new FileReader("./src/data/Actividades.csv"));
 	      String[] nextLine;
 	      int cont = 0;
-	      BufferedImage img = ImageIO.read(new File("./src/data/a1.jpg"));
-	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	      ImageIO.write(img, "jpg", baos);
-	      byte[] imgBytes = baos.toByteArray();
+	      
+	      Map<String, Set<String>> categos = new HashMap<String,Set<String>>();
+	      Set<String> act1 = new HashSet<String>();
+	      act1.add("Gastronomia");
+	      categos.put(Integer.toString(1), act1); 
+	      categos.put(Integer.toString(4), act1); 
+	      act1.add("Cultura y Patrimonio");
+	      categos.put(Integer.toString(2), act1); 	
+	      Set<String> act3 = new HashSet<String>();
+	      act3.add("Cultura y Patrimonio");
+	      categos.put(Integer.toString(3), act3);
+	      categos.put(Integer.toString(7), act3);
+	      categos.put(Integer.toString(8), act3);
+	      categos.put(Integer.toString(10), act3);
+	      Set<String> act5 = new HashSet<String>();
+	      act5.add("Campo y Naturaleza");
+	      categos.put(Integer.toString(6), act5);
+	      act5.add("Gastronomia");
+	      categos.put(Integer.toString(5), act5);
+	      Set<String> act9 = new HashSet<String>();
+	      act9.add("Aventura y Deporte");
+	      act9.add("Turismo Playas");
 	      //reads one line at a time     // QUEDA MODIFICAR ESTA OPERACION
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont!=0) {
+	    		  BufferedImage img = ImageIO.read(new File("./src/data/Actvs/a"+String.valueOf(cont)+".jpg"));
+	    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    	      ImageIO.write(img, "jpg", baos);
+	    	      byte[] imgBytes = baos.toByteArray();
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[7].strip());
-	    		  Set<String> coso = new HashSet<String>(); 
-	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),fecha,nextLine[9].strip(), coso,imgBytes);
+	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),fecha,nextLine[9].strip(), categos.get(Integer.toString(cont)),imgBytes);
 	    	  }
-	    	  else {
-	    		  cont++;
-	    	  }
+	    	  cont++;
 	      }
 	}
 	
