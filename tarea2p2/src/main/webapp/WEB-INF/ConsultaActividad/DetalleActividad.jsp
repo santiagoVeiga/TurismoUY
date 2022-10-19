@@ -126,7 +126,7 @@
 							      <th scope="row">Costo</th>
 							      <td><%= actividadSeleccionada.getCosto()%></td>
 							    </tr>
-							    <tr>
+							    <tr> 
 							      <th scope="row">Categoria/as</th>
 							      <td><%= actividadSeleccionada.getCategorias()%></td>
 							    </tr>
