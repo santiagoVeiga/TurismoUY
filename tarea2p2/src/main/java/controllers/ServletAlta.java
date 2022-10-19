@@ -120,8 +120,16 @@ public class ServletAlta extends HttpServlet {
                     String duracionAct = (String) req.getParameter("actividadDuracion");
                     String ciudadAct = (String) req.getParameter("actividadCiudad");
                     //obtengo categorias a�adidas
-                    //String[] auxCategorias = (String[]) req.getParameterValues("catActual"); //Corregir agarrar las seleccionadas
-                    //Set<String> categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
+                    String[] auxCategorias =  req.getParameterValues("actividadCategoria"); //Corregir agarrar las seleccionadas
+                    System.out.println("LARGOOO"+auxCategorias.length);
+                    if (auxCategorias != null) {
+                        for(String item: auxCategorias){
+                            //String keyValue[]= item.split(":");
+                            //System.out.println("Key: " + item);
+                            System.out.println("Value: " + item);
+                        }
+                    }
+                    Set<String> categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
                     // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                     //LocalDate localDate = LocalDate.now();
                     //@SuppressWarnings("deprecation") Date fechaAct = new Date(localDate.getDayOfMonth(),localDate.getMonthValue(),localDate.getYear());              
@@ -136,18 +144,17 @@ public class ServletAlta extends HttpServlet {
                     String proveedorAct = dtProveedor.getNick();
                     conAlta = fab.getIControladorAlta();
                     try {
-                        conAlta.registrarActividad(departamentoAct,nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct),ciudadAct,date1,proveedorAct, null);
+                        conAlta.registrarActividad(departamentoAct,nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct),ciudadAct,date1,proveedorAct, categoriasAct);
                         resp.sendRedirect("/tarea2p2/home");
-                        System.out.printf("1");
+                        System.out.printf("Creada");
     
                     } catch (NumberFormatException e2) {
                         System.out.printf("2");
 
                     } catch (ActividadRepetidaException e2) {
-                        System.out.printf("3");
-
+                        System.out.printf("Repetida");
                         req.setAttribute("Exception", e2.getMessage());
-                        req.getRequestDispatcher("/WEB-INF/altaActividad/alta_actividad.jsp").forward(req,resp);
+                        req.getRequestDispatcher("/AltaActividad").forward(req,resp);
                     } catch (UsuarioNoExisteException e2) {
                         System.out.printf("4");
 

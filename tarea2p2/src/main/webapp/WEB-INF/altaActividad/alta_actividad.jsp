@@ -88,9 +88,7 @@
 									         	<option class="depSelecc"><%= it.getNombre() %></option>
 									         <%} %>
                                         </select>
-                                        <!-- <div class="invalid-feedback">
-                                            Por favor ingresa una categoría válida.
-                                        </div> -->
+                                        
                                     </div>
                                 </div>
                               
@@ -135,13 +133,13 @@
                                 <div class="row">
                                     <div class="col-md-7 mb-3">
                                         <label for="actividadCategoria">Categorías</label>
-                                        <select class="d-block w-100" id="actividadCategoria">
+                                        <select class="d-block w-100" id="actividadCategoria" name="actividadCategoria" multiple>
                                             <option value="" disabled selected>Agregar o quitar categoría</option>
 											<%Set<String> categorias = (Set<String>) session.getAttribute("categorias");
 											         if(categorias!=null)
 											         for (String it : categorias){
 											         %>
-											             <option><%= it %></option>
+											             <option value="<%= it %>" class="catSelecc"><%= it %></option>
 											<%} %>
                                         </select>
                                         <!-- <div class="invalid-feedback">
@@ -152,6 +150,7 @@
                                                 <p class="catActual"></p>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                                 <!-- Imagenes opcionales-->
