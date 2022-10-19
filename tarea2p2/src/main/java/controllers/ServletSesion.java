@@ -90,6 +90,18 @@ public void initSession(HttpServletRequest request) {
         }
         ca.cargarActs(reader,imagenes);
         // acts listas
+        input = servletContext.getResourceAsStream("/WEB-INF/data/Paquetes.csv");
+        reader = new CSVReader(new InputStreamReader(input));
+        imagenes.clear();
+        for(int i=1; i<=3; i++ ) {
+            BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Paqs/p"+Integer.toString(i)+".jpg"));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(img, "jpg", baos);
+            byte[] imgBytes = baos.toByteArray();
+            imagenes.put(Integer.toString(i), imgBytes);
+        }
+        ca.cargarPaquetes(reader,imagenes);
+        //Paqs listos
         byte[] imgBytes = null;
         BufferedImage img = null; // Estan mal estas cosas
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
