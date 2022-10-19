@@ -106,6 +106,7 @@ public class ControladorAlta implements IControladorAlta {
 	      Set<String> act9 = new HashSet<String>();
 	      act9.add("Aventura y Deporte");
 	      act9.add("Turismo Playas");
+	      categos.put(Integer.toString(9), act9);
 	      //reads one line at a time    
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont!=0) {
@@ -632,7 +633,7 @@ public class ControladorAlta implements IControladorAlta {
 	      Set<String> act9 = new HashSet<String>();
 	      act9.add("Aventura y Deporte");
 	      act9.add("Turismo Playas");
-
+	      categos.put(Integer.toString(9), act9);
 	      
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
@@ -640,6 +641,7 @@ public class ControladorAlta implements IControladorAlta {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[7].strip());
 	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),fecha,nextLine[9].strip(), categos.get(Integer.toString(cont)),imgBytes.get(Integer.toString(cont)));
+	    		  
 	    		  if (cont<=6) {
 	    			  Fabrica fabr = Fabrica.getInstance();
 	    			  IControladorInsc conIns = fabr.getIControladorInsc();
