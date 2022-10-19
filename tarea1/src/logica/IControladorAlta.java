@@ -78,6 +78,7 @@ public interface IControladorAlta {
 	public abstract void actualizarDatosProveedor(String nick,String mail,String nombre,String apellido,Date fechaN,String descripcion,String link,boolean hayLink);
 
 	public abstract void cargarPaquetes() throws FileNotFoundException, NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException;
+	public abstract void cargarPaquetes(CSVReader reader, Map<String,byte[]> imagenes) throws FileNotFoundException, NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException;
 
 	public abstract void cargarDatos() throws  Exception;
 	

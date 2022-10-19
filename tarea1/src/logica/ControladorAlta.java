@@ -99,7 +99,8 @@ public class ControladorAlta implements IControladorAlta {
 	      Set<String> act9 = new HashSet<String>();
 	      act9.add("Aventura y Deporte");
 	      act9.add("Turismo Playas");
-	      //reads one line at a time     // QUEDA MODIFICAR ESTA OPERACION
+	      categos.put(Integer.toString(9), act9);
+	      //reads one line at a time    
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont!=0) {
 	    		  BufferedImage img = ImageIO.read(new File("./src/data/Actvs/a"+String.valueOf(cont)+".jpg"));
@@ -393,21 +394,20 @@ public class ControladorAlta implements IControladorAlta {
 	      //parsing a CSV file into CSVReader class constructor  
 	      reader = new CSVReader(new FileReader("./src/data/Paquetes.csv"));
 	      String[] nextLine;
-	      BufferedImage img = ImageIO.read(new File("./src/data/p1.jpg"));
-	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	      ImageIO.write(img, "jpg", baos);
-	      byte[] imgBytes = baos.toByteArray();
+	      
 	      int cont = 0;
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont!=0) {
+	    		  BufferedImage img = ImageIO.read(new File("./src/data/Paqs/p"+String.valueOf(cont)+".jpg"));
+	    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    	      ImageIO.write(img, "jpg", baos);
+	    	      byte[] imgBytes = baos.toByteArray();
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fechaA = formato.parse(nextLine[4].strip());
 	    		  altaPaquete(nextLine[1].strip(),nextLine[5].strip(),Integer.parseInt(nextLine[3].strip()),Integer.parseInt(nextLine[2].strip()),fechaA,imgBytes);
 	    	  }
-	    	  else {
 	    		  cont++;
-	    	  }
 	      }
 	}
 
@@ -626,7 +626,7 @@ public class ControladorAlta implements IControladorAlta {
 	      Set<String> act9 = new HashSet<String>();
 	      act9.add("Aventura y Deporte");
 	      act9.add("Turismo Playas");
-
+	      categos.put(Integer.toString(9), act9);
 	      
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
@@ -634,6 +634,7 @@ public class ControladorAlta implements IControladorAlta {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[7].strip());
 	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),fecha,nextLine[9].strip(), categos.get(Integer.toString(cont)),imgBytes.get(Integer.toString(cont)));
+	    		  
 	    		  if (cont<=6) {
 	    			  Fabrica fabr = Fabrica.getInstance();
 	    			  IControladorInsc conIns = fabr.getIControladorInsc();
@@ -704,5 +705,23 @@ public class ControladorAlta implements IControladorAlta {
 		mCat.addCategoria(new Categoria("Cultura y Patrimonio"));
 		mCat.addCategoria(new Categoria("Gastronomia"));
 		mCat.addCategoria(new Categoria("Turismo Playas"));
+	}
+
+
+	@Override
+	public void cargarPaquetes(CSVReader reader, Map<String, byte[]> imagenes) throws FileNotFoundException,
+			NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException {
+		  String[] nextLine;
+	      int cont = 0;
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    		  Date fechaA = formato.parse(nextLine[4].strip());
+	    		  altaPaquete(nextLine[1].strip(),nextLine[5].strip(),Integer.parseInt(nextLine[3].strip()),Integer.parseInt(nextLine[2].strip()),fechaA,imagenes.get(Integer.toString(cont)));
+	    	  }
+	    	  cont++;
+	      }
+		
 	}
 }
