@@ -37,6 +37,7 @@ import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
+import excepciones.estadoActividadIncorrecto;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorCategoria;
 import manejadores.ManejadorDepartamentos;
@@ -87,7 +88,7 @@ public class ControladorAlta implements IControladorAlta {
 	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	      ImageIO.write(img, "jpg", baos);
 	      byte[] imgBytes = baos.toByteArray();
-	      //reads one line at a time  
+	      //reads one line at a time     // QUEDA MODIFICAR ESTA OPERACION
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
@@ -567,24 +568,62 @@ public class ControladorAlta implements IControladorAlta {
 
 
 	@Override
-	public void cargarActs(CSVReader reader, byte[] imgBytes)
+	public void cargarActs(CSVReader reader, Map<String,byte[]> imgBytes)
 			throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException,
 			ParseException, UsuarioNoExisteException, ProveedorNoNacidoException {
 		
 	      String[] nextLine;
 	      int cont = 0;
 	     
+	      Map<String, Set<String>> categos = new HashMap<String,Set<String>>();
+	      Set<String> act1 = new HashSet<String>();
+	      act1.add("Gastronomia");
+	      categos.put(Integer.toString(1), act1); 
+	      categos.put(Integer.toString(4), act1); 
+	      act1.add("Cultura y Patrimonio");
+	      categos.put(Integer.toString(2), act1); 	
+	      Set<String> act3 = new HashSet<String>();
+	      act3.add("Cultura y Patrimonio");
+	      categos.put(Integer.toString(3), act3);
+	      categos.put(Integer.toString(7), act3);
+	      categos.put(Integer.toString(8), act3);
+	      categos.put(Integer.toString(10), act3);
+	      Set<String> act5 = new HashSet<String>();
+	      act5.add("Campo y Naturaleza");
+	      categos.put(Integer.toString(6), act5);
+	      act5.add("Gastronomia");
+	      categos.put(Integer.toString(5), act5);
+	      Set<String> act9 = new HashSet<String>();
+	      act9.add("Aventura y Deporte");
+	      act9.add("Turismo Playas");
+
+	      
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[7].strip());
-	    		  Set<String> coso = new HashSet<String>(); 
-	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),fecha,nextLine[9].strip(), coso,imgBytes);
+	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),fecha,nextLine[9].strip(), categos.get(Integer.toString(cont)),imgBytes.get(Integer.toString(cont)));
+	    		  if (cont<=6) {
+	    			  Fabrica fabr = Fabrica.getInstance();
+	    			  IControladorInsc conIns = fabr.getIControladorInsc();
+	    			  try {
+						conIns.aceptarRechazarAct(nextLine[1].strip(), estadoAct.confirmada);
+					} catch (estadoActividadIncorrecto e) {
+					} catch (ActividadNoExisteException e) {
+					}
+	    		  }
+	    		  else if (cont == 8 || cont == 10) {
+	    			  Fabrica fabr = Fabrica.getInstance();
+	    			  IControladorInsc conIns = fabr.getIControladorInsc();
+	    			  try {
+						conIns.aceptarRechazarAct(nextLine[1].strip(), estadoAct.rechazada);
+					} catch (estadoActividadIncorrecto e) {
+					} catch (ActividadNoExisteException e) {
+					}
+	    		  }
 	    	  }
-	    	  else {
-	    		  cont++;
-	    	  }
+	    	  cont++;
 	      }
 	}
 
