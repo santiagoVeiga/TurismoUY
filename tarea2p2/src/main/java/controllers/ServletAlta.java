@@ -195,12 +195,15 @@ public class ServletAlta extends HttpServlet {
     		          
     		            try {
     						Date fechaNac = format.parse(date);
-    						if(nacionalidad != null) {
+    						if(!nacionalidad.equals("")) {
+    						    System.out.println(nacionalidad);
     							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail ,fechaNac ,nacionalidad,password,imgBytes);
     						} else if (linkProv != null && descripcion != null) {
+    						    System.out.println("P");
     							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,linkProv,true,password,imgBytes); 
     						}
     						else if (descripcion!= null) {
+    						    System.out.println("pr");
     							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,"",false,password,imgBytes); 
     						}else {
     							// no deberia pasar
@@ -228,13 +231,16 @@ public class ServletAlta extends HttpServlet {
     				else {
     					try {
     						Date fechaNac = format.parse(date);
-    						if(nacionalidad != null) {
+    						if(!nacionalidad.equals("")) {
+    						    System.out.println(nacionalidad);
     							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail ,fechaNac ,nacionalidad,password);
     						} else if (linkProv != null && descripcion!= null) {
+    						    System.out.println("Prov");
     							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,linkProv,true,password); 
     						}
     						else if (descripcion!= null) {
     							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,"",false,password); 
+    							System.out.println("Provee");
     						}else {
     							// no deberia pasar
     							break;

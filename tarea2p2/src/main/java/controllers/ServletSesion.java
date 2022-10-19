@@ -196,10 +196,10 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     						String imageAsBase64 = null;
     						if(it.getImagen()!=null) {
     						    InputStream is = new ByteArrayInputStream(it.getImagen());
-    				        BufferedImage bi = ImageIO.read(is);
-    				        ByteArrayOutputStream output = new ByteArrayOutputStream();
-    						ImageIO.write(bi, "jpg", output);
-    						imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+        				        BufferedImage bi = ImageIO.read(is);
+        				        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        						ImageIO.write(bi, "jpg", output);
+        						imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
     						}
     				        ses.setAttribute("imagenUsuario", imageAsBase64);
     				        //
@@ -222,10 +222,10 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     						String imageAsBase64 = null;
                             if(it.getImagen()!=null) {
                                 InputStream is = new ByteArrayInputStream(it.getImagen());
-                            BufferedImage bi = ImageIO.read(is);
-                            ByteArrayOutputStream output = new ByteArrayOutputStream();
-                            ImageIO.write(bi, "jpg", output);
-                            imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+                                BufferedImage bi = ImageIO.read(is);
+                                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                                ImageIO.write(bi, "jpg", output);
+                                imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
                             }
                             ses.setAttribute("imagenUsuario", imageAsBase64);
     				        //

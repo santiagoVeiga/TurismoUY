@@ -38,7 +38,7 @@ public abstract class Usuario {
         this.mail = mail;
         this.nacimiento = nacimiento;
         password = pass;
-        imagen = new byte[0];
+        imagen = null;
     }
     
     /* Getters */
