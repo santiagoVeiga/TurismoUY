@@ -1,5 +1,10 @@
 package logica;
 
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,7 +21,7 @@ public class Paquete {
 	private byte[] imagen;
 	private boolean comprado;
 
-	public Paquete(String nom,String desc,int descuento,Date fecha, int val)
+	public Paquete(String nom,String desc,int descuento,Date fecha, int val) throws IOException
 	{
 		this.nombre = nom;
 		this.descuento = descuento;
@@ -25,6 +30,9 @@ public class Paquete {
 		this.validez = val;
 		this.colAct = new HashMap<String,Actividad>();
 		comprado = false;
+		//File nuevaImgAct = new File("/home/vagrant/Descargas/imagen_blanca.jpg");
+		//byte[] imgBytesAct = Files.readAllBytes(Paths.get(nuevaImgAct.getAbsolutePath()));
+		this.imagen = null ; 
 	}
 	
 	public Paquete(String nombre2, String descripcion2, int descuento2, Date fechaAlta2, int validez2,

@@ -218,7 +218,11 @@
                                 
                                 <% if (actividadSeleccionada.HayPaquetes()){%>
                                 
+                                
+                                
                                 <% DataPaquete[] arrayPaquetes = (DataPaquete[]) request.getAttribute("ArrayPaquetes");%>
+                                
+                                
                                 <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
                                     style="margin-left: 70px;">
                                     <div class="carousel-inner">
@@ -226,9 +230,16 @@
                                         <div class="carousel-item active">
                                             <a href="ConsultaPaqueteV.html">
                                                 <div class="card" style="width: 18rem;">
-                                                    <img class="card-img-top"
+                                                    
+                                                    <%if(arrayPaquetes[0].getImagen()!=null){ %>
+                                                    	<img class="card-img-top"
                                                         src="data:image/jpg;base64,<%= arrayPaquetes[0].getImagen() %>"
                                                         alt="Card image cap">
+                                                     <%}else{ %>
+                                                     	<img class="card-img-top"
+                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
+                                                        alt="Card image cap">
+                                                     <%} %>
                                                     <div class="card-body">
                                                         <p class="card-text" style="text-align: center;"><%=arrayPaquetes[0].getNombre()%></p>
                                                     </div>
@@ -240,9 +251,15 @@
                                         <div class="carousel-item">
                                             <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrayPaquetes[i]%>">  
                                                 <div class="card" style="width: 18rem;">
-                                                    <img class="card-img-top"
+                                                    <%if(arrayPaquetes[i].getImagen()!=null){ %>
+                                                    	<img class="card-img-top"
                                                         src="data:image/jpg;base64,<%= arrayPaquetes[i].getImagen() %>"
                                                         alt="Card image cap">
+                                                     <%}else{ %>
+                                                     	<img class="card-img-top"
+                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
+                                                        alt="Card image cap">
+                                                     <%} %>
                                                     <div class="card-body">
                                                         <p class="card-text" style="text-align: center;"><%=arrayPaquetes[i].getNombre()%></p>
                                                     </div>
