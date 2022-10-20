@@ -26,6 +26,7 @@ import excepciones.DepartamentoYaExisteExeption;
 import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
 import excepciones.NoExisteCategoriaException;
+import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
@@ -527,6 +528,7 @@ public class ControladorAlta implements IControladorAlta {
 		cargarSalidas();
 		Fabrica fabr = Fabrica.getInstance();
 		IControladorInsc conIns = fabr.getIControladorInsc();
+		cargarCompPaq();
 		conIns.cargarInsc();
 		cargarPaquetes();
 		conIns.cargarActsPaqs();
@@ -776,6 +778,47 @@ public class ControladorAlta implements IControladorAlta {
 	    	  }
 	    	  cont++;
 	      }
+		
+	}
+
+
+	@Override
+	public void cargarCompPaq() throws IOException, ParseException, NumberFormatException, PaqueteNoExisteException, PaqueteRepetidoException {
+		CSVReader reader = null;
+	      //parsing a CSV file into CSVReader class constructor  
+	      reader = new CSVReader(new FileReader("./src/data/Compras-Paquetes.csv"));
+		String[] nextLine;
+	      int cont = 0;
+	      Fabrica fabr = Fabrica.getInstance();
+		  IControladorInsc conIns = fabr.getIControladorInsc();
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    		  Date fechaA = formato.parse(nextLine[4].strip());
+	    		  conIns.comprarPaquete(nextLine[1].strip(), fechaA, Integer.parseInt(nextLine[3].strip()), nextLine[2].strip());
+	    	  }
+	    	  cont++;
+	      }
+	}
+
+
+	@Override
+	public void cargarCompPaq(CSVReader reader) throws IOException, ParseException, PaqueteNoExisteException, PaqueteRepetidoException {
+		String[] nextLine;
+	      int cont = 0;
+	      Fabrica fabr = Fabrica.getInstance();
+		  IControladorInsc conIns = fabr.getIControladorInsc();
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    		  Date fechaA = formato.parse(nextLine[4].strip());
+	    		  conIns.comprarPaquete(nextLine[1].strip(), fechaA, Integer.parseInt(nextLine[3].strip()), nextLine[2].strip());
+	    	  }
+	    	  cont++;
+	      }
+		
 		
 	}
 }
