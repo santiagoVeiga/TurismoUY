@@ -18,14 +18,14 @@
 
 	
     <!-- Css Styles -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="../css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
     
 </head>
 
@@ -81,15 +81,19 @@
                				<a href="./index_turista.html"><img alt="" src="../img/logo.png"></a>
                           </div>
                         </div>
+                        <% 
+                        String salida = (String) request.getAttribute("SalidaElegida");
+                        %>
                         <div class="text-center p-4">
-                          <h2>Inscripción a Salida Turística</h2>
+                          <h2> <%="Inscripción a Salida Turística:" + salida %> </h2>
                           <p class="lead">Ingrese los datos de la Inscripción</p>
                         </div>
                         <div class="row justify-content-md-center">
                           <div class="col-md-8 order-md-1">
-                            <form class="needs-validation" id="sell-info">
-
-                                <!-- Nombre y Departamento -->                                
+                            <form class="needs-validation" id="sell-info" action="Inscripcion" method="POST">
+								
+                                <!-- Nombre--> 
+                                <input type="hidden" id="nomSal" name="nomSal" value="<%=salida%>">         
                                 <div class="row">
                                     <!-- Cantidad de turistas -->
                                     <div class="col-md-6 mb-3">
@@ -111,20 +115,28 @@
                                 <div class="form-outline mb-4">
 					            </div>
 					            <div class="pt-1 mb-4" >
-					              <a href="./index_turista.html"> <button class="btn btn-info btn-lg btn-block" id="btn-tur-reg" style="background : #4bb1ff;" type="button">Inscribirse</button> </a>
+					              <input type="submit" value="Inscribirse" onclick="submit()">
 					            </div>   
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 <div class="col-md-6 mb-4">
                                     <label for="paqDisp">Paquetes Disponibles</label>
                                     <select id="paqDisp" required>
-                                        <option selected>Disfrutar Rocha</option>
-                                        <option> Un día en Colonia</option>
+                                    	<%
+                                    	String [] paquetes = (String[]) request.getAttribute("PaquetesComprados");
+                                    	for(int i = 0;i < paquetes.length; i++){
+                                    		if(i==0){  %>
+                                    			<option selected> <%= paquetes[i] %> </option>                                    			
+                                    		<% }else { %>
+                                    			<option> <%= paquetes[i] %> </option>
+                                    	<%	}
+                                    	}
+                                    	%>
                                     </select>
                                     <span></span><br />
                                 </div>
 					            <div class="pt-1 mb-4" >
-					              <a href="./index_turista.html"> <button class="btn btn-info btn-lg btn-block" id="btn-prov-reg" style="background : #4bb1ff;" type="button">Inscribirse</button> </a>
+					              <input type="submit" value="Inscribirse" onclick="submit()">
 					            </div>   
                             </div>
                             

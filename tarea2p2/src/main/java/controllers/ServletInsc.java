@@ -88,13 +88,13 @@ public class ServletInsc extends HttpServlet {
     			    String sal = req.getParameter("salida");
     			    DataUsuario usu = (DataUsuario) session.getAttribute("usuario");
     			    String[] paquetes = conInsc.obtenerPaquetesComprados(usu.getNick());
-                    req.setAttribute("salida", sal);
+                    req.setAttribute("SalidaElegida", sal);
     			    req.setAttribute("PaquetesComprados", paquetes);
     				req.getRequestDispatcher("/WEB-INF/InscripcionSalida.jsp").forward(req,resp);
     				break;
     			case "/Inscripto":
     				conInsc = fab.getIControladorInsc();
-    				String salInsc = req.getParameter("salida");
+    				String salInsc = req.getParameter("nomSal");
     				DataUsuario dataUsu = (DataUsuario) session.getAttribute("usuario");
     				int cant = Integer.parseInt(req.getParameter("cantidad"));
     				String paqInsc = req.getParameter("paquete");
