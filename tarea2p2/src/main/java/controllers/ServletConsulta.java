@@ -117,12 +117,10 @@ public class ServletConsulta extends HttpServlet {
                            act = conCons.obtenerDataActividad(actividad);
                          
                            //genero un array de dataPaquetes para cada actividad que quiero consultar
-                           DataPaquete DataPaqueteAux ; 
-                            arrDataPaquetes = new DataPaquete[act.getPaquetes().size()];
+                           arrDataPaquetes = new DataPaquete[act.getPaquetes().size()];
                            String[] arrPaquetes = act.getPaquetes().toArray(new String[act.getPaquetes().size()]);
-                           for (int i =0 ; i<arrPaquetes.length; i++) {
-                               DataPaqueteAux = conCons.obtenerDataPaquete(arrPaquetes[i]);
-                               arrDataPaquetes[i] = DataPaqueteAux ; 
+                           for (int i=0 ; i<arrPaquetes.length; i++) {
+                               arrDataPaquetes[i] = conCons.obtenerDataPaquete(arrPaquetes[i]);
                            }
                            
                            
