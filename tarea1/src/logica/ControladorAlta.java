@@ -208,7 +208,7 @@ public class ControladorAlta implements IControladorAlta {
         manUsu.addUsuario(usu);
     }
     
-    public void confirmarAltaProveedor(String nick, String nom , String apellido, String mail ,Date nacimiento ,String descripcion, String link, boolean hayLink) throws UsuarioRepetidoException {
+    public void confirmarAltaProveedor(String nick, String nom , String apellido, String mail , Date nacimiento ,String descripcion, String link, boolean hayLink) throws UsuarioRepetidoException {
     	ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
         Usuario usu = manUsu.obtenerUsuarioNick(nick);
         if (usu != null)
@@ -414,11 +414,22 @@ public class ControladorAlta implements IControladorAlta {
 
 
 	private void altaPaquete(String nombre, String descripcion, int descuento, int validez, Date fechaAlta, byte[] imgBytes) throws PaqueteRepetidoException {
-		// TODO Auto-generated method stub
 		ManejadorPaquete mPaq = ManejadorPaquete.getInstance();
         Paquete paq = mPaq.getPaquete(nombre);
         if (paq != null)
             throw new PaqueteRepetidoException("Ya existe un paquete registrado con el nombre:  " + nombre);
+	      if (imgBytes == null) {
+	    	  try {
+	    	      BufferedImage img;
+	    	      img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
+	    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    	      ImageIO.write(img, "jpg", baos);
+	    	      imgBytes = baos.toByteArray();
+	  		} catch (IOException e) {
+	  			// TODO Auto-generated catch block
+	  			e.printStackTrace();
+	  		}  
+	      }
         paq = new Paquete(nombre, descripcion, descuento, fechaAlta, validez, imgBytes);
         mPaq.addPaquete(paq);
 	}
@@ -450,6 +461,17 @@ public class ControladorAlta implements IControladorAlta {
         usu = mUsu.obtenerUsuarioMail(mail);
         if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
+	    if (imagen == null) {
+	  	  try {
+	  	      BufferedImage img;
+	    	  img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
+    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    	      ImageIO.write(img, "jpg", baos);
+    	      imagen = baos.toByteArray();
+  		  } catch (IOException e) {
+  			  e.printStackTrace();
+  		  }
+	    }
         usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad,pass,imagen);
         mUsu.addUsuario(usu);
 	}
@@ -481,6 +503,17 @@ public class ControladorAlta implements IControladorAlta {
         usu = mUsu.obtenerUsuarioMail(mail);
         if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
+        if (imagen == null) {
+  	  	  try {
+  	  	      BufferedImage img;
+  	    	  img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
+      	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      	      ImageIO.write(img, "jpg", baos);
+      	      imagen = baos.toByteArray();
+    		  } catch (IOException e) {
+    			  e.printStackTrace();
+    		  }
+  	    }
         usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink,pass,imagen);
         mUsu.addUsuario(usu);
 	}
@@ -530,6 +563,17 @@ public class ControladorAlta implements IControladorAlta {
         	Categoria categ = mCat.getCategoria(stringCat);
         	categorias.put(categ.getCategoria(), categ);
         }
+        if (imagen == null) {
+  	  	  try {
+  	  	      BufferedImage img;
+  	    	  img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
+      	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      	      ImageIO.write(img, "jpg", baos);
+      	      imagen = baos.toByteArray();
+    		  } catch (IOException e) {
+    			  e.printStackTrace();
+    		  }
+  	    }
         act = new Actividad(nom, desc,fecha,ciudad, costo, dur, insDep, categorias,imagen);
         for(Categoria catAux : categorias.values()) {
         	catAux.agregarAct(act);
@@ -560,6 +604,17 @@ public class ControladorAlta implements IControladorAlta {
 			if(fechaAlta.before(act.getFechaAlta())) {
 				throw new FechaAltaSalidaAnteriorActividad();
 			}
+			if (imagen == null) {
+			  	  try {
+			  	      BufferedImage img;
+			    	  img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
+		    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		    	      ImageIO.write(img, "jpg", baos);
+		    	      imagen = baos.toByteArray();
+		  		  } catch (IOException e) {
+		  			  e.printStackTrace();
+		  		  }
+			    }
 	        act.altaSalida(nombreSalida, fecha, hora, lugar, maxCantTuristas,fechaAlta,imagen);
 		} catch (ActividadNoExisteException e) {
 			
