@@ -76,7 +76,7 @@ public class ServletConsulta extends HttpServlet {
         } else {
     		switch(req.getServletPath()){
     			case "/ConsultaUsuario":
-    				String usuario = (String) req.getParameter("usuario");
+    				String usuario = (String) req.getParameter("nick");
     				conCons = fab.getIControladorConsulta();
     				if(usuario == null) {
     					DataUsuario[] usuarios = conCons.listarUsuarios();
