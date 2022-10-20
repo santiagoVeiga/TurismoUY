@@ -67,7 +67,7 @@
 		                    		<div class="datos_salida">
 		                    			<span> <%= dataSalida.getNombre() %> </span><br />
 		                    			<span> <%= dataSalida.getFecha() %> </span><br />
-		                    			<span> <%= dataSalida.gethora() %> </span><br />
+		                    			<span> <%= dataSalida.gethora().getHours() %> </span><br />
 		                    			<span> <%= dataSalida.getCant() %> </span><br />
 		                    			<span> <%= dataSalida.getLugar() %> </span><br />
 		                    			<span> <%= dataSalida.getFechaAlta() %> </span><br />

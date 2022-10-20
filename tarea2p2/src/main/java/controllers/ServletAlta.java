@@ -114,13 +114,13 @@ public class ServletAlta extends HttpServlet {
     				break;
     			case "/ActividadCreada":
     			    String nombreAct = (String) req.getParameter("actividadNombre");
-                    String departamentoAct = (String) req.getParameter("actividadDepartamento"); //Corregir agarrar el seleccionado del combo 
+                    String departamentoAct = (String) req.getParameter("actividadDepartamento");
                     String descripcionAct = (String) req.getParameter("actividadDescripcion");
                     String costoAct = (String) req.getParameter("actividadCosto");
                     String duracionAct = (String) req.getParameter("actividadDuracion");
                     String ciudadAct = (String) req.getParameter("actividadCiudad");
                     //obtengo categorias 
-                    String[] auxCategorias =  req.getParameterValues("actividadCategoria"); //Corregir agarrar las seleccionadas
+                    String[] auxCategorias =  req.getParameterValues("actividadCategoria");
                     Set<String> categoriasAct = null;
                     if(auxCategorias != null) {
                         categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
@@ -337,9 +337,7 @@ public class ServletAlta extends HttpServlet {
     				Date fechaActualS = new Date();
                     SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MM-yyyy");
                     String str2 = formatter2.format(fechaActualS);
-                    //System.out.printf("FECHA ACTUAL "+ str2+"\n");
                     String fechaSal = (String) req.getParameter("salidaFecha");
-                    //System.out.printf("FECHA SALIDA "+ fechaSal+"\n");
                     
                     String horaSal = (String) req.getParameter("salidaHora");
                     Date horaSalida = new Date(0, 0, 0, Integer.parseInt(horaSal), 0, 0);
@@ -384,10 +382,7 @@ public class ServletAlta extends HttpServlet {
                         }
                       
                         try {
-                            Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);  
-                            //System.out.printf("DIA DE LA SALIDA "+ fechaSalida.getDate()+"\n");
-                            //System.out.printf("Mes DE LA SALIDA "+ fechaSalida.getMonth()+"\n");
-                            //System.out.printf("Anio DE LA SALIDA "+ fechaSalida.getYear()+"\n");
+                            Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);
                             conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, horaSalida, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActualS,imgBytesSal);
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
@@ -405,10 +400,7 @@ public class ServletAlta extends HttpServlet {
                     // No se subió imagen
                     else {
                         try {
-                            Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);  
-                            //System.out.printf("DIA DE LA SALIDA "+ fechaSalida.getDate()+"\n");
-                            //System.out.printf("Mes DE LA SALIDA "+ fechaSalida.getMonth()+"\n");
-                            //System.out.printf("Anio DE LA SALIDA "+ fechaSalida.getYear()+"\n");
+                            Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);
                             conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, horaSalida, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActualS);
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
