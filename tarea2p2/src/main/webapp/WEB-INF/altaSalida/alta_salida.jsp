@@ -56,7 +56,7 @@
                 <div class="col-lg-9" style="border-radius: 25px; padding: 20px; padding-top:30px">
                     <div class="container">
                         <div class="text-center p-4">
-                          <% String actNombre = (String) request.getParameter("actNombre");%>
+                          <% String actNombre = (String) request.getParameter("actividadSal");%>
                           <% String actDepto = (String) request.getParameter("actDepto");%>
                           <% String actCiudad = (String) request.getParameter("actCiudad");%>
                           <h2>Alta Salida Turística</h2>
@@ -68,7 +68,7 @@
                             
                             <!-- FORM -->
                             
-                            <form method="post"class="needs-validation" enctype="multipart/form-data"  action="/tarea2p2/SalidaCreada?actividadSal=<%= (String) request.getParameter("actividadSal") %>" id="sell-info">
+                            <form method="post"class="needs-validation" enctype="multipart/form-data"  action="/tarea2p2/SalidaCreada?actividadSal=<%=actNombre%>" id="sell-info">
 
                                 <!-- Nombre y Departamento -->                                
                                 <div class="row">

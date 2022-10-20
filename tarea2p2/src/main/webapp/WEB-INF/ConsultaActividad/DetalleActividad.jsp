@@ -116,7 +116,13 @@
                                 <% if (actividadSeleccionada.HaySalidas()){%>
                                  
                                 <% DataSalida[] arrSalidas = Salidas.toArray(new DataSalida[Salidas.size()]);%>
-                                <%String img = Base64.getEncoder().encodeToString(arrSalidas[0].getImagen()); %>
+                                
+                                <%
+                                String img = "";
+                                if(arrSalidas[0].getImagen() != null){
+                                	img = Base64.getEncoder().encodeToString(arrSalidas[0].getImagen()); 
+                                }
+                                %>
                                 
                                 
                                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
@@ -137,8 +143,12 @@
                                         </div>
                                         
                                         
-                                        <% for(int i=1; i<arrSalidas.length; i++) { %>
-                                        <%String img2 = Base64.getEncoder().encodeToString(arrSalidas[0].getImagen()); %>
+                                        <% for(int i=1; i<arrSalidas.length; i++) { 
+                                        	String img2 = "";
+                                            if(arrSalidas[0].getImagen() != null){
+                                            	img2 = Base64.getEncoder().encodeToString(arrSalidas[0].getImagen()); 
+                                            }
+                                          	 %>
                                         <div class="carousel-item">
                                             <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrSalidas[i].getNombre()%>">  
                                                 <div class="card" style="width: 18rem;">
