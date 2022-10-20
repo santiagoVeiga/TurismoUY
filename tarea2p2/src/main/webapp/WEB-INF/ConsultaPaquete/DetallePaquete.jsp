@@ -53,6 +53,7 @@
                 dataPaquete = (DataPaquete) request.getAttribute("PaqueteElegido"); 
                 String imagenPaq = Base64.getEncoder().encodeToString(dataPaquete.getImagen());
                 DataActividad[] acts =dataPaquete.getDtAct();	
+                
                 %>
                 <div class="col-lg-9 col-md-7">
 	                <div class="tabs">
@@ -68,7 +69,7 @@
 	                            	%>
 	                              <div class="carousel-item">
 	                                <div class="card" >
-	                                    <a href="consulta_actividad_Visitante.html"> 
+	                                    <a href="?ActividadElegida=<%= acts[i].getNombre() %>"> 
 	                                    	<img src="data:image/jpg;base64,<%= imagen %>" alt=""> 
 	                                    </a>
 	                                    <div class="card-body">
@@ -85,6 +86,7 @@
 	                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
 	                              <span class="sr-only">Next</span>
 	                            </a>
+	                            
 	                          </div>
 	                        </div>
 					      </div>
