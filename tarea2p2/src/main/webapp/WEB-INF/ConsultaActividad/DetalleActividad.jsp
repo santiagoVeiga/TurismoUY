@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@page import="java.util.Base64,logica.DataUsuario,logica.DataDepartamento,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,controllers.EstadoSesion,logica.DataPaquete,logica.DataActividad" %>
+<%@page import="java.util.Base64,logica.DataUsuario,logica.DataDepartamento,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,controllers.EstadoSesion,logica.DataPaquete,logica.DataActividad, manejadores.ManejadorPaquete" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -130,7 +130,7 @@
                                     <div class="carousel-inner">
                                         
                                         <div class="carousel-item active">
-                                            <a href="/tarea2p2/ConsultaSalida?salida=<%=arrSalidas[0].getNombre()%>">  
+                                            <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrSalidas[0].getNombre()%>">  
                                                 <div class="card" style="width: 18rem;">
                                                     <img class="card-img-top"
                                                         src="data:image/jpg;base64,<%= img %>"
@@ -150,7 +150,7 @@
                                             }
                                           	 %>
                                         <div class="carousel-item">
-                                            <a href="/tarea2p2/ConsultaSalida?salida=<%=arrSalidas[i].getNombre()%>">  
+                                            <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrSalidas[i].getNombre()%>">  
                                                 <div class="card" style="width: 18rem;">
                                                     <img class="card-img-top"
                                                         src="data:image/jpg;base64,<%= img2 %>"
@@ -161,12 +161,8 @@
                                                 </div>
                                             </a>
                                         </div>
-                                    
+                                    	<%}%>
                                        </div>
-                                    
-                                    
-                                    
-                                    
                                     
                                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
                                         data-slide="prev">
@@ -180,7 +176,7 @@
                                     </a>
                                 </div>
                                     
-                                    <%}}else {%>
+                                    <%}else {%>
                                   
                                 
                                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
