@@ -112,14 +112,8 @@
 				  	<% 
 				      if(tipo=="turista"){
 				    	    Set<DataSalida> salidas;  
-				    	  
-							
-							Object[] o = ((DataTurista) DU).getPaquetes().toArray();
-					        DataPaquete[] arrDP = new DataPaquete[o.length];
-					        for (int i = 0; i < o.length; i++) {
-					        	arrDP[i] = (DataPaquete) o[i];
-					        }
-				    	  
+				    	    DataPaquete[] DP = request.getAttribute("ArregloPaquetes");
+							 
 				      %>
 					  	<div id="tab3" class="tab">
 					      <a href="#tab3">Paquetes</a>
@@ -140,12 +134,12 @@
 					                                    	<img class="card-img-top" src="img.jpg"  alt="Card image cap"> 
 					                                    </a>
 					                                    <div class="card-body">
-					                                      <p class="card-text" ><%= arrDP[0].getNombre() %></p>
+					                                      <p class="card-text" ><%= DP[0].getNombre() %></p>
 					                                    </div>
 					                                  </div>
 					                                </div>
 					                              <%
-							                          	for(int i = 1; i < arrDP.length; i++){
+							                          	for(int i = 1; i < DP.length; i++){
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
@@ -153,7 +147,7 @@
 							                                    	<img class="card-img-top" src=img.jpg"  alt="Card image cap"> 
 							                                    </a>
 							                                    <div class="card-body">
-							                                        <p class="card-text"><%= arrDP[i].getNombre() %></p>                                    </div>
+							                                        <p class="card-text"><%= DP[i].getNombre() %></p>                                    </div>
 							                                    </div>
 							                                 </div>
 							                            </div>
