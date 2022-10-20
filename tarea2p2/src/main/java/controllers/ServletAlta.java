@@ -387,13 +387,16 @@ public class ServletAlta extends HttpServlet {
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
+                            req.getRequestDispatcher("/home").forward(req,resp);
                         }catch( FechaAltaSalidaAnteriorActividad e3) {
-                            System.out.printf("FechaAltaSalidaAnteriorActividad");
+                            req.setAttribute("Exception", e3.getMessage());
+                            req.getRequestDispatcher("/home").forward(req,resp);
                         }catch( FechaAltaSalidaInvalida  e3) {
-                            System.out.printf("FechaAltaSalidaInvalida");
+                            req.setAttribute("Exception", e3.getMessage());
+                            req.getRequestDispatcher("/home").forward(req,resp);
                         }catch (ParseException e3) {
-                            System.out.printf("Parse");
+                            req.setAttribute("Exception", e3.getMessage());
+                            req.getRequestDispatcher("/home").forward(req,resp);
                             // TODO Auto-generated catch block
                         }
                     }
@@ -405,13 +408,16 @@ public class ServletAlta extends HttpServlet {
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
+                            req.getRequestDispatcher("/SalidaCreada").forward(req,resp);
                         }catch( FechaAltaSalidaAnteriorActividad e3) {
-                            System.out.printf("FechaAltaSalidaAnteriorActividad");
+                            req.setAttribute("Exception", e3.getMessage());
+                            req.getRequestDispatcher("/SalidaCreada").forward(req,resp);
                         }catch( FechaAltaSalidaInvalida  e3) {
-                            System.out.printf("FechaAltaSalidaInvalida");
+                            req.setAttribute("Exception", e3.getMessage());
+                            req.getRequestDispatcher("/SalidaCreada").forward(req,resp);
                         }catch (ParseException e3) {
-                            System.out.printf("Parse");
+                            req.setAttribute("Exception", e3.getMessage());
+                            req.getRequestDispatcher("/SalidaCreada").forward(req,resp);
                             // TODO Auto-generated catch block
                         }   
                     }

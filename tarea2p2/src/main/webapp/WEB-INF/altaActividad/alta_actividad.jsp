@@ -65,7 +65,13 @@
                             <!-- FORM -->
                             
                             <form method="post"class="needs-validation" enctype="multipart/form-data" action="/tarea2p2/ActividadCreada" id="sell-info">
-
+								<% String error = (String) request.getAttribute("Exception"); 
+					               if(error != null){%>
+					               <div class="alert alert-danger" role="alert" style="display: flex;justify-content: space-between;">
+									  <%= error %>
+									  <button id="closei" onclick="this.parentNode.remove(); return false;" >x</button>
+									</div>
+								<%} %>
                                 <!-- Nombre y Departamento -->                                
                                 <div class="row">
                                     <!-- Nombre -->
