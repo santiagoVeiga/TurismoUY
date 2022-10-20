@@ -31,6 +31,7 @@ import logica.DataUsuario;
 import logica.Fabrica;
 import logica.IControladorAlta;
 import logica.IControladorConsulta;
+import logica.IControladorInsc;
 
 /**
  * Servlet implementation
@@ -102,16 +103,29 @@ public void initSession(HttpServletRequest request) {
         }
         ca.cargarPaquetes(reader,imagenes);
         //Paqs listos
-        byte[] imgBytes = null;
-        BufferedImage img = null; // Estan mal estas cosas
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         input = servletContext.getResourceAsStream("/WEB-INF/data/Salidas.csv");
         reader = new CSVReader(new InputStreamReader(input));
-        img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/s1.jpg"));
-        baos = new ByteArrayOutputStream();
-        ImageIO.write(img, "jpg", baos);
-        imgBytes = baos.toByteArray();
-        ca.cargarSalidas(reader,imgBytes);
+        imagenes.clear();
+        for(int i=1; i<=18; i++ ) {
+            BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Salidas/p"+Integer.toString(i)+".jpg"));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(img, "jpg", baos);
+            byte[] imgBytes = baos.toByteArray();
+            if(imgBytes.length == 0) {
+                img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/default_imagen.jpg"));
+                baos = new ByteArrayOutputStream();
+                ImageIO.write(img, "jpg", baos);
+                imgBytes = baos.toByteArray();
+            }
+            imagenes.put(Integer.toString(i), imgBytes);
+        }
+        ca.cargarSalidas(reader,imagenes);
+        System.out.println("salidas cargadas"); // debug
+        IControladorInsc cins = f.getIControladorInsc();
+        input = servletContext.getResourceAsStream("/WEB-INF/data/ActividadesPaquetes.csv");
+        reader = new CSVReader(new InputStreamReader(input));
+        cins.cargarActsPaqs(reader);
+        System.out.println("actPaq cargadas"); // debug
     } catch (Exception e) {
         
     }

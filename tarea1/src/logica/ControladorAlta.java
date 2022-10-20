@@ -661,7 +661,7 @@ public class ControladorAlta implements IControladorAlta {
 
 
 	@Override
-	public void cargarSalidas(CSVReader reader, byte[] imgBytes) throws NumberFormatException, IOException,
+	public void cargarSalidas(CSVReader reader, Map<String, byte[]> imgBytes) throws NumberFormatException, IOException,
 			ParseException, SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad {
 
 	      String[] nextLine;
@@ -675,11 +675,9 @@ public class ControladorAlta implements IControladorAlta {
 	    		  Date fechaA = formato.parse(nextLine[7].strip());
 	    		  int hora = Integer.parseInt(nextLine[4].strip());
 	    		  Date horaS = new Date(0,0,0,hora,0);
-	    		  confirmarAltaSalida(nextLine[1].strip(),nextLine[2].strip(),fecha,horaS,nextLine[6].strip(),Integer.parseInt(nextLine[5]),fechaA,imgBytes);
+	    		  confirmarAltaSalida(nextLine[1].strip(),nextLine[2].strip(),fecha,horaS,nextLine[6].strip(),Integer.parseInt(nextLine[5]),fechaA,imgBytes.get(Integer.toString(cont)));
 	    	  }
-	    	  else {
-	    		  cont++;
-	    	  }
+	    	  cont++;
 	      }
 		
 	}
