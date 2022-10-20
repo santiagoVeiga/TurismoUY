@@ -16,6 +16,7 @@ import excepciones.DepartamentoYaExisteExeption;
 import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
 import excepciones.NoExisteCategoriaException;
+import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
@@ -86,7 +87,8 @@ public interface IControladorAlta {
 
 	public abstract void registrarCategoria(String text) throws CategoriaYaExiste;
 
-
+	public abstract void cargarCompPaq() throws IOException, ParseException, NumberFormatException, PaqueteNoExisteException, PaqueteRepetidoException;
+	public abstract void cargarCompPaq(CSVReader reader) throws IOException, ParseException, PaqueteNoExisteException, PaqueteRepetidoException;
 
 
 }
