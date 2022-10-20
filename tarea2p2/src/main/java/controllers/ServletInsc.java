@@ -88,13 +88,13 @@ public class ServletInsc extends HttpServlet {
     			    String sal = req.getParameter("salida");
     			    DataUsuario usu = (DataUsuario) session.getAttribute("usuario");
     			    String[] paquetes = conInsc.obtenerPaquetesComprados(usu.getNick());
-                    req.setAttribute("salida", sal);
+                    req.setAttribute("SalidaElegida", sal);
     			    req.setAttribute("PaquetesComprados", paquetes);
     				req.getRequestDispatcher("/WEB-INF/InscripcionSalida.jsp").forward(req,resp);
     				break;
     			case "/Inscripto":
     				conInsc = fab.getIControladorInsc();
-    				String salInsc = req.getParameter("salida");
+    				String salInsc = req.getParameter("nomSal");
     				DataUsuario dataUsu = (DataUsuario) session.getAttribute("usuario");
     				int cant = Integer.parseInt(req.getParameter("cantidad"));
     				String paqInsc = req.getParameter("paquete");
@@ -119,17 +119,20 @@ public class ServletInsc extends HttpServlet {
     				conInsc = fab.getIControladorInsc();
     				HttpSession session1 = req.getSession();
     				DataUsuario du1 = (DataUsuario) session1.getAttribute("usuario");
-    				int cant1 = Integer.parseInt(req.getParameter("cantTur"));
-    				String nomPaq = (String) req.getParameter("nomPaq");
+    				int cant1 = Integer.parseInt(req.getParameter("cantTurs"));
+    				String nomPaquete = (String) req.getParameter("nomPaq");
     				LocalDateTime ld1 = LocalDateTime.now();
     				Date fecha1 = java.util.Date.from(ld1.atZone(ZoneId.systemDefault()).toInstant());
     				try {
-    					conInsc.comprarPaquete(du1.getNick(), fecha1, cant1, nomPaq);
+    					conInsc.comprarPaquete(du1.getNick(), fecha1, cant1, nomPaquete);
+    					resp.sendRedirect("/tarea2p2/home");
     				} catch (PaqueteNoExisteException | PaqueteRepetidoException e) {
     					req.setAttribute("Exception", e.getMessage());
-    					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete.jsp").forward(req,resp);
+                        IControladorConsulta conCons = fab.getIControladorConsulta();
+                        DataPaquete dataPaq = conCons.obtenerDataPaquete(nomPaquete);
+                        req.setAttribute("PaqueteElegido", dataPaq);
+    					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req,resp);
     				}
-    				resp.sendRedirect("/WEB-INF/iniciar.jsp");
     				break;
     		}
         }

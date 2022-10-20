@@ -8,43 +8,27 @@ import java.util.Set;
 import excepciones.NoHayCuposException;
 
 
-public class CompraPaquete{
+public class DataCompraPaquete{
 	
-	private Paquete paq;
+	private DataPaquete paq;
 	private int cantidad;
 	private int costo; 
 	private Date fecha;
 	private Date vencimiento;
 	private Map<String,Integer> restAct;
 	
-	public CompraPaquete(Date fecha, int cant, Paquete paquete) {
-		this.cantidad = cant;
-		this.fecha = fecha;
-		this.paq = paquete;
-		Calendar calendario = Calendar.getInstance();
-		calendario.setTime(fecha);
-		calendario.add(Calendar.DAY_OF_MONTH, -paquete.getValidez());
-		this.vencimiento = calendario.getTime();
-		Set<String> acts = paquete.getColAct().keySet();
-		this.restAct = new HashMap<String,Integer>();
-		for(String aux: acts) {
-			this.restAct.put(aux, cant);
-		}
-		if(!this.paq.isComprado()) {
-			this.paq.setComprado(true);
-		}
+	public DataCompraPaquete(Date fecha, int cant, int costo, Date vencimiento, DataPaquete paquete, Map<String,Integer> restAct) {
+		this.setCantidad(cant);
+		this.setCosto(costo);
+		this.setFecha(fecha);
+		this.setVencimiento(vencimiento);
+		this.setPaq(paquete);
+		this.setRestAct(restAct);
 	}
 	
 	int obtenerCuposAct(String act) {
 		return this.restAct.get(act);
 	}
-	
-	void reducirCuposAct(String act, int cant) throws NoHayCuposException {
-		if(cant > obtenerCuposAct(act))
-			throw new NoHayCuposException("No hay cupos suficientes en la compra paquete para la actividad:" + act);
-		this.restAct.replace(act, this.obtenerCuposAct(act)-cant);
-	}
-	
     
 	public int getCantidad() {
         return cantidad;
@@ -59,7 +43,7 @@ public class CompraPaquete{
     }
 	
 
-    public Paquete getPaq() {
+    public DataPaquete getPaq() {
 		return paq;
 	}
     
@@ -75,7 +59,7 @@ public class CompraPaquete{
 		return restAct;
 	}
 
-	public void setPaq(Paquete paq) {
+	public void setPaq(DataPaquete paq) {
 		this.paq = paq;
 	}
 
@@ -97,10 +81,6 @@ public class CompraPaquete{
 
     public void setCosto(int cost) {
     	costo = cost;
-    }
-    
-    public DataCompraPaquete getDataCompraPaquete() {
-    	return new DataCompraPaquete(this.getFecha(), this.getCantidad(), this.getCosto(), this.getVencimiento(), this.getPaq().getDataP(), this.getRestAct());
     }
     
 }

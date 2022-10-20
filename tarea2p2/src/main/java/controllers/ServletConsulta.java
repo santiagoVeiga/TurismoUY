@@ -12,10 +12,12 @@ import javax.servlet.http.HttpSession;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.SalidasNoExisteException;
+import excepciones.UsuarioNoExisteException;
 import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataPaquete;
 import logica.DataSalida;
+import logica.DataTurista;
 import logica.DataUsuario;
 import logica.Fabrica;
 import logica.IControladorConsulta;
@@ -81,9 +83,26 @@ public class ServletConsulta extends HttpServlet {
     					req.setAttribute("ArregloUsuarios", usuarios);
     					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ListaUsuario.jsp").forward(req,resp);
     				} else {
-    					DataUsuario du = conCons.ingresarDatos(usuario);
-    					req.setAttribute("UsuarioElegido", du);
-    					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ConsultaUsuario.jsp").forward(req,resp);
+    					DataUsuario du;
+                        try {
+                            du = conCons.obtenerDataUsuarioNick(usuario);
+                            req.setAttribute("UsuarioElegido", du);
+                            if(du instanceof DataTurista) {
+                                DataPaquete[] arrDataPaquetes = null;
+                                DataPaquete DataPaqueteAux ; 
+                                arrDataPaquetes = new DataPaquete[((DataTurista) du).getPaquetes().size()];
+                               String[] arrPaquetes = ((DataTurista) du).getPaquetes().toArray(new String[0]);
+                               for (int i =0 ; i<arrPaquetes.length; i++) {
+                                   DataPaqueteAux = conCons.obtenerDataPaquete(arrPaquetes[i]);
+                                   arrDataPaquetes[i] = DataPaqueteAux ; 
+                               }
+                               req.setAttribute("ArregloPaquetes", arrDataPaquetes);
+                            }
+                            req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ConsultaUsuario.jsp").forward(req,resp);
+                        } catch (UsuarioNoExisteException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
     				}				
     				break;
     			case "/ConsultaActividad":

@@ -16,6 +16,7 @@ import excepciones.DepartamentoYaExisteExeption;
 import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
 import excepciones.NoExisteCategoriaException;
+import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
@@ -69,7 +70,7 @@ public interface IControladorAlta {
 	public abstract void confirmarAltaDepartamento(String nombre, String descripcion, String URL) throws DepartamentoYaExisteExeption ; 
 	
 	public abstract void cargarSalidas() throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad;
-	public abstract void cargarSalidas(CSVReader reader, byte[] imgBytes) throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad;
+	public abstract void cargarSalidas(CSVReader reader, Map<String, byte[]> imgBytes) throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad;
 
 	public abstract void altaPaquete(String nombre, String descripcion, int descuento, int validez, Date fechaAlta) throws PaqueteRepetidoException;
 	
@@ -86,7 +87,8 @@ public interface IControladorAlta {
 
 	public abstract void registrarCategoria(String text) throws CategoriaYaExiste;
 
-
+	public abstract void cargarCompPaq() throws IOException, ParseException, NumberFormatException, PaqueteNoExisteException, PaqueteRepetidoException;
+	public abstract void cargarCompPaq(CSVReader reader) throws IOException, ParseException, PaqueteNoExisteException, PaqueteRepetidoException;
 
 
 }

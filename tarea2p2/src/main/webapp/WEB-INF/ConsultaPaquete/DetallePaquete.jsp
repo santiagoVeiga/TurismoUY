@@ -53,6 +53,7 @@
                 dataPaquete = (DataPaquete) request.getAttribute("PaqueteElegido"); 
                 String imagenPaq = Base64.getEncoder().encodeToString(dataPaquete.getImagen());
                 DataActividad[] acts =dataPaquete.getDtAct();	
+                
                 %>
                 <div class="col-lg-9 col-md-7">
 	                <div class="tabs">
@@ -65,10 +66,17 @@
 	                            	<%
 	                            	for(int i = 0; i < acts.length; i++){
 	                            		String imagen = Base64.getEncoder().encodeToString(acts[i].getImagen());
+	                            		if(i == 0){
+	                            	%>	
+	                            	<div class="carousel-item active">
+	                            	<%
+	                            		} else {
 	                            	%>
-	                              <div class="carousel-item">
+	                               <div class="carousel-item">
+	                               <%} 
+	                               %>
 	                                <div class="card" >
-	                                    <a href="consulta_actividad_Visitante.html"> 
+	                                    <a href="?ActividadElegida=<%= acts[i].getNombre() %>"> 
 	                                    	<img src="data:image/jpg;base64,<%= imagen %>" alt=""> 
 	                                    </a>
 	                                    <div class="card-body">
@@ -85,6 +93,7 @@
 	                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
 	                              <span class="sr-only">Next</span>
 	                            </a>
+	                            
 	                          </div>
 	                        </div>
 					      </div>
@@ -131,7 +140,7 @@
 		                    				<span> Realizar Compra Paquete: </span><br />
 		                    				<form action="CompraPaquete" method="POST">
 				                    			<div class="ingreso_datos">
-				                    				<input type="hidden" id="nomPaq" name="nomPaq" value=<%=dataPaquete.getNombre() %>>>
+				                    				<input type="hidden" id="nomPaq" name="nomPaq" value="<%=dataPaquete.getNombre()%>">
 					                    			<label for="cant">Cantidad de Turistas</label>
 												    <input type="number" id="cantTurs" name="cantTurs" min="1" value="1" placeholder="Ingrese un numero" required>
 												</div>

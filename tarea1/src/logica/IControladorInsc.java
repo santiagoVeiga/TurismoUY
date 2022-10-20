@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Set;
 
+import com.opencsv.CSVReader;
+
 import excepciones.ActividadNoExisteException;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaDespSalida;
@@ -28,6 +30,7 @@ public interface IControladorInsc {
 	public abstract DataUsuario[] listarUsuarios();
 	public abstract void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido;
 	public abstract void cargarActsPaqs() throws Exception;
+	public abstract void cargarActsPaqs(CSVReader reader) throws Exception;
 	public abstract Set<String> listarActividadesAgregadas();
 	public abstract void aceptarRechazarAct(String nomAct,estadoAct estado) throws estadoActividadIncorrecto, ActividadNoExisteException;
 	public abstract String[] listarPaquetesNoComprados();

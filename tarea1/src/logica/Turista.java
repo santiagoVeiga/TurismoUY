@@ -94,12 +94,17 @@ public class Turista extends Usuario{
 	public DataUsuario getDataUsuarioComp() {
 		Iterator<CompraGeneral> itr = comprasG.iterator();
     	Set<DataSalida> dSal = new HashSet<DataSalida>();
+    	Set<DataCompraGeneral> dComGen = new HashSet<DataCompraGeneral>();
+    	Set<DataCompraPaquete> dComPaq = new HashSet<DataCompraPaquete>();
     	while(itr.hasNext()) 
     	{
     		CompraGeneral compraGen = itr.next();
+    		dComGen.add(compraGen.getDataCompraGeneral());
     		dSal.add(compraGen.getSalida().getDataST());
     	}
-    	DataTurista dTur = new DataTurista(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),nacionalidad,dSal,getPassword(),getImagen(),comprasP.keySet());
+    	for(CompraPaquete compPaq: comprasP.values())
+    		dComPaq.add(compPaq.getDataCompraPaquete());
+    	DataTurista dTur = new DataTurista(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),nacionalidad,dSal,getPassword(),getImagen(),comprasP.keySet(),dComGen, dComPaq);
     	return dTur;
 	}
 
