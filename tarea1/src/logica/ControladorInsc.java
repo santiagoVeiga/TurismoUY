@@ -246,4 +246,20 @@ public class ControladorInsc implements IControladorInsc {
 		ManejadorActividad mAct = ManejadorActividad.getInstance();
 		return mAct.obtenerNomActvidiadDeSalida(salida);
 	}
+
+	@Override
+	public void cargarActsPaqs(CSVReader reader) throws Exception {
+		String[] nextLine;
+	      int cont = 0;
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  confirmar(nextLine[1].strip(),nextLine[2].strip());
+	    	  }
+	    	  else {
+	    		  cont++;
+	    	  }
+	      }
+		
+	}
 }

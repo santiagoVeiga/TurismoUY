@@ -31,6 +31,7 @@ import logica.DataUsuario;
 import logica.Fabrica;
 import logica.IControladorAlta;
 import logica.IControladorConsulta;
+import logica.IControladorInsc;
 
 /**
  * Servlet implementation
@@ -102,16 +103,31 @@ public void initSession(HttpServletRequest request) {
         }
         ca.cargarPaquetes(reader,imagenes);
         //Paqs listos
-        byte[] imgBytes = null;
-        BufferedImage img = null; // Estan mal estas cosas
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         input = servletContext.getResourceAsStream("/WEB-INF/data/Salidas.csv");
         reader = new CSVReader(new InputStreamReader(input));
-        img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/s1.jpg"));
-        baos = new ByteArrayOutputStream();
-        ImageIO.write(img, "jpg", baos);
-        imgBytes = baos.toByteArray();
-        ca.cargarSalidas(reader,imgBytes);
+        imagenes.clear();
+        for(int i=1; i<=18; i++ ) {
+            InputStream instm = servletContext.getResourceAsStream("/WEB-INF/data/Salidas/p"+Integer.toString(i)+".jpg");
+            byte[] imgBytes = null;
+            if(instm != null) {
+                BufferedImage img = ImageIO.read(instm);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(img, "jpg", baos);
+                imgBytes = baos.toByteArray();
+            }
+            else {
+                BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/default_imagen.jpg"));
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(img, "jpg", baos);
+                imgBytes = baos.toByteArray();
+            }
+            imagenes.put(Integer.toString(i), imgBytes);
+        }
+        ca.cargarSalidas(reader,imagenes);
+        IControladorInsc cins = f.getIControladorInsc();
+        input = servletContext.getResourceAsStream("/WEB-INF/data/ActividadesPaquetes.csv");
+        reader = new CSVReader(new InputStreamReader(input));
+        cins.cargarActsPaqs(reader);
     } catch (Exception e) {
         
     }
