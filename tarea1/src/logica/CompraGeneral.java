@@ -64,6 +64,10 @@ public class CompraGeneral{
 	public void setPorPaquete(boolean porPaquete) {
 		this.porPaquete = porPaquete;
 	}
+	
+	public boolean getPorPaquete() {
+		return this.porPaquete;
+	}
 
 	public void setCantidad(int cost) {
     	costo = cost;
@@ -85,4 +89,8 @@ public class CompraGeneral{
 		return salida.equals(salida);
 	}
     
+	public DataCompraGeneral getDataCompraGeneral() {
+		return new DataCompraGeneral(this.getFecha(), this.getCantidad(), this.getCosto(), this.getPorPaquete(), this.getSalida().getDataST());
+	}
+	
 }
