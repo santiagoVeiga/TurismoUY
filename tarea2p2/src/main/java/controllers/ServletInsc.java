@@ -90,7 +90,7 @@ public class ServletInsc extends HttpServlet {
     			    String[] paquetes = conInsc.obtenerPaquetesComprados(usu.getNick());
                     req.setAttribute("SalidaElegida", sal);
     			    req.setAttribute("PaquetesComprados", paquetes);
-    				req.getRequestDispatcher("/WEB-INF/InscripcionSalida.jsp").forward(req,resp);
+    				req.getRequestDispatcher("/WEB-INF/ConsultaSalida/InscripcionSalida.jsp").forward(req,resp);
     				break;
     			case "/Inscripto":
     				conInsc = fab.getIControladorInsc();
