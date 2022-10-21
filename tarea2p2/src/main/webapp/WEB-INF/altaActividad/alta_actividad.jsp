@@ -85,7 +85,7 @@
                                     <!-- Departamento -->
                                     <div class="col-md-6 mb-3">
                                         <label for="actividadCategoria">Departamento</label>
-                                        <select name="actividadDepartamento" class="d-block w-100" id="actividadDepartamento" required>
+                                        <select name="actividadDepartamento" id="actividadDepartamento" required>
                                             <option value="" disabled selected>seleccione departamento</option>
                                             <%DataDepartamento[] departamentos = (DataDepartamento[]) session.getAttribute("dptos");
 									         if(departamentos!=null)

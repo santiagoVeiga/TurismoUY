@@ -21,7 +21,7 @@ public class Paquete {
 	private byte[] imagen;
 	private boolean comprado;
 
-	public Paquete(String nom,String desc,int descuento,Date fecha, int val) throws IOException
+	public Paquete(String nom,String desc,int descuento,Date fecha, int val)
 	{
 		this.nombre = nom;
 		this.descuento = descuento;
@@ -30,8 +30,6 @@ public class Paquete {
 		this.validez = val;
 		this.colAct = new HashMap<String,Actividad>();
 		comprado = false;
-		//File nuevaImgAct = new File("/home/vagrant/Descargas/imagen_blanca.jpg");
-		//byte[] imgBytesAct = Files.readAllBytes(Paths.get(nuevaImgAct.getAbsolutePath()));
 		this.imagen = null ; 
 	}
 	

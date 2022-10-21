@@ -66,11 +66,11 @@
 		                    	<div class="col-lg-15">
 		                    		<div class="datos_salida">
 		                    			<span> <%= dataSalida.getNombre() %> </span><br />
-		                    			<span> <%= dataSalida.getFecha() %> </span><br />
+		                    			<span> <%= dataSalida.getFecha().getDate() + "/" + (dataSalida.getFecha().getMonth()+1) + "/" + (dataSalida.getFecha().getYear()+1900) %> </span><br />
 		                    			<span> <%= dataSalida.gethora().getHours() %> </span><br />
 		                    			<span> <%= dataSalida.getCant() %> </span><br />
 		                    			<span> <%= dataSalida.getLugar() %> </span><br />
-		                    			<span> <%= dataSalida.getFechaAlta() %> </span><br />
+		                    			<span> <%= dataSalida.getFechaAlta().getDate() + "/" + (dataSalida.getFechaAlta().getMonth()+1) + "/" + (dataSalida.getFechaAlta().getYear()+1900) %> </span><br />
 		                    		</div>
 		                    	</div>
 		                    </div>

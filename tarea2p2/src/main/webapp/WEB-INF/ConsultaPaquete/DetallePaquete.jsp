@@ -76,7 +76,7 @@
 	                               <%} 
 	                               %>
 	                                <div class="card" >
-	                                    <a href="?ActividadElegida=<%= acts[i].getNombre() %>"> 
+	                                    <a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>"> 
 	                                    	<img src="data:image/jpg;base64,<%= imagen %>" alt=""> 
 	                                    </a>
 	                                    <div class="card-body">
@@ -120,7 +120,7 @@
 				                    			<span> <%= dataPaquete.getNombre() %> </span><br />
 				                    			<span> <%= dataPaquete.getValidez() + " dias" %> </span><br />
 				                    			<span> <%= dataPaquete.getDescuento() + "%" %> </span><br />
-				                    			<span> <%= dataPaquete.getFechaAlta().getDate() + "/" + (dataPaquete.getFechaAlta().getMonth()+1) + "/" + (dataPaquete.getFechaAlta().getYear()+1) %> </span><br />
+				                    			<span> <%= dataPaquete.getFechaAlta().getDate() + "/" + (dataPaquete.getFechaAlta().getMonth()+1) + "/" + (dataPaquete.getFechaAlta().getYear()+1900) %> </span><br />
 				                    			<span> <%= dataPaquete.getDescripcion() %> </span><br />
 				                    		</div>
 				                    	</div>

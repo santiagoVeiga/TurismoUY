@@ -130,7 +130,7 @@
                                     <div class="carousel-inner">
                                         
                                         <div class="carousel-item active">
-                                            <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrSalidas[0].getNombre()%>">  
+                                            <a href="/tarea2p2/ConsultaSalida?salida=<%=arrSalidas[0].getNombre()%>">  
                                                 <div class="card" style="width: 18rem;">
                                                     <img class="card-img-top"
                                                         src="data:image/jpg;base64,<%= img %>"
@@ -150,7 +150,7 @@
                                             }
                                           	 %>
                                         <div class="carousel-item">
-                                            <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrSalidas[i].getNombre()%>">  
+                                            <a href="/tarea2p2/ConsultaSalida?salida=<%=arrSalidas[i].getNombre()%>">  
                                                 <div class="card" style="width: 18rem;">
                                                     <img class="card-img-top"
                                                         src="data:image/jpg;base64,<%= img2 %>"
