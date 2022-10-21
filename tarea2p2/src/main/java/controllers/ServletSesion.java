@@ -132,6 +132,7 @@ public void initSession(HttpServletRequest request) {
         input = servletContext.getResourceAsStream("/WEB-INF/data/ComprasPaquetes.csv");
         reader = new CSVReader(new InputStreamReader(input));
         ca.cargarCompPaq(reader);
+        
     } catch (Exception e) {
         
     }
