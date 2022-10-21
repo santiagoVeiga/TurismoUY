@@ -34,7 +34,11 @@
     </div>
 				<%! DataSalida dataSalida; %>
                 <% dataSalida = (DataSalida) request.getAttribute("SalidaElegida"); 
-                String imagen = Base64.getEncoder().encodeToString(dataSalida.getImagen());%>
+                String imagen = null;
+                if (dataSalida.getImagen() != null ){
+                	imagen = Base64.getEncoder().encodeToString(dataSalida.getImagen());
+                }
+                %>
     <jsp:include page="/WEB-INF/template/header.jsp"/>
     <!-- Hero Section Begin -->
     <section class="hero">

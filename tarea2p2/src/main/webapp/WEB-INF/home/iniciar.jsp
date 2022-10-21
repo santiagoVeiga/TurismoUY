@@ -73,7 +73,6 @@
                 	}
                 }
                 boolean addRow = true;
-                if (usr == null || usr instanceof DataTurista) {
                 	if(actIndex!=null)
 	                for (DataActividad iter : actIndex){
 	                	if(iter.getEstado() == estadoAct.confirmada){
@@ -106,41 +105,7 @@
                     
                 <%} else {addRow = true; // esta para arreglar %>
                 </div> 
-                  <%   }}}} else{
-                  
-                  if(actIndex!=null)
-	                for (DataActividad iter : actIndex){
-	                	SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-	                	String date = format.format(iter.getFechaAlta());
-	                	String imagen = Base64.getEncoder().encodeToString(iter.getImagen());
-                		if (addRow){
-                		%>
-                    <div class="row">
-                    <%} %>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="data:image/jpg;base64,<%= imagen %>" alt="">
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa fa-calendar-o"></i> <%= date%></li>
-                                    </ul>
-                                    <h5><a href="?actividad=<%= iter.getNombre() %>" ><%= iter.getNombre() %></a></h5>
-                                    <p><%=iter.getDescripcion() %></p>
-                                    <a href="?actividad=<%= iter.getNombre() %>" class="blog__btn">LEER MÁS <span class="arrow_right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    <%if (addRow){
-                		addRow = false;
-                		%>    
-                    
-                <%} else {addRow = true; // esta para arreglar %>
-                </div> 
-                  
-                  <%}}} %>
+                  <%   }}} %>
                 </div>
             </div>
         </div>
