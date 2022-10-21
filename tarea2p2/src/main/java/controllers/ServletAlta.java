@@ -381,16 +381,16 @@ public class ServletAlta extends HttpServlet {
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/home").forward(req,resp);
+                            req.getRequestDispatcher("/AltaSalida").forward(req,resp);
                         }catch( FechaAltaSalidaAnteriorActividad e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/home").forward(req,resp);
+                            req.getRequestDispatcher("/AltaSalida").forward(req,resp);
                         }catch( FechaAltaSalidaInvalida  e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/home").forward(req,resp);
+                            req.getRequestDispatcher("/AltaSalida").forward(req,resp);
                         }catch (ParseException e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/home").forward(req,resp);
+                            req.getRequestDispatcher("/AltaSalida").forward(req,resp);
                             // TODO Auto-generated catch block
                         }
                     }
