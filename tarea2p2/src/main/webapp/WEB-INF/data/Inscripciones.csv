@@ -1,11 +1,23 @@
-Ref, RefSal, RefTur, CantTur, Costo, FechaInscrip,NomAct
-I1, Degusta Agosto, lachiqui,3,2400, 15–8--2022, Degusta
-I2, Degusta Agosto, elelvis,5,4000, 16–8--2022, Degusta
-I3,Tour Colonia del Sacramento 18-09, lachiqui,3,1200, 18–8--2022, Tour por Colonia del Sacramento
-I4,Tour Colonia del Sacramento 18-09, isabelita,1,400, 19–8--2022, Tour por Colonia del Sacramento
-I5, Almuerzo 2, mastropiero,2,1600, 19–8--2022, Almuerzo en el Real de San Carlos
-I6, Teatro con Sabores 1, chino,1,500, 19–8--2022, Teatro con Sabores
-I7, Teatro con Sabores 2, chino,10,5000, 20–8--2022, Teatro con Sabores
-I8, Teatro con Sabores 2, bobesponja,2,1000, 20–8--2022, Teatro con Sabores
-I9, Teatro con Sabores 2, anibal,1,500, 21–8--2022, Teatro con Sabores
-I10, Degusta Setiembre, tony,11,8800, 21–8--2022, Degusta
+Ref, RefSal, RefTur, CantTur, Costo, FechaInscrip,NomAct,mm,mm
+I1, Degusta Agosto, lachiqui,3,2400, 15–8--2022, Degusta,b,mm
+I2, Degusta Agosto, elelvis,5,4000, 16–8--2022, Degusta,b,mm
+I3,Tour Colonia del Sacramento 18-09, lachiqui,3,1200, 18–8--2022, Tour por Colonia del Sacramento,b,mm
+I4,Tour Colonia del Sacramento 18-09, isabelita,1,400, 19–8--2022, Tour por Colonia del Sacramento,b,mm
+I5, Almuerzo 2, mastropiero,2,1600, 19–8--2022, Almuerzo en el Real de San Carlos,b,mm
+I6, Teatro con Sabores 1, chino,1,500, 19–8--2022, Teatro con Sabores,b,mm
+I7, Teatro con Sabores 2, chino,10,5000, 20–8--2022, Teatro con Sabores,b,mm
+I8, Teatro con Sabores 2, bobesponja,2,1000, 20–8--2022, Teatro con Sabores,b,mm
+I9, Teatro con Sabores 2, anibal,1,500, 21–8--2022, Teatro con Sabores,b,mm
+I10, Degusta Setiembre, tony,11,8800, 21–8--2022, Degusta,b,mm
+I11, Degusta Noviembre, lachiqui,2,1280, 3–10--2022, Degusta, Paquete, Disfrutar Rocha
+I12, Teatro con Sabores 3, lachiqui,2,800, 3–10--2022, Teatro con Sabores, Paquete, Disfrutar Rocha
+I13, Degusta Setiembre, elelvis,5,3200, 2–9--2022, Degusta, Paquete, Disfrutar Rocha
+I14, Teatro con Sabores 1, elelvis,5,2000, 2–9--2022, Teatro con Sabores, Paquete, Disfrutar Rocha
+I15, Tour Colonia del Sacramento 11-09, lachiqui,5,1700, 3–9--2022, Tour por Colonia del Sacramento, Paquete, Un día en Colonia
+I16, Almuerzo 1, lachiqui,5,3400, 3–9--2022, Almuerzo en el Real de San Carlos, Paquete, Un día en Colonia
+I17,Tour Colonia del Sacramento 18-09, waston,1,340, 5–9--2022, Tour por Colonia del Sacramento, Paquete, Un día en Colonia
+I18, Almuerzo 2, waston,1,680, 5–9--2022, Almuerzo en el Real de San Carlos, Paquete, Un día en Colonia
+I19,Tour Colonia del Sacramento 30-10, elelvis,2,680, 2–10--2022, Tour por Colonia del Sacramento, Paquete, Un día en Colonia
+I20, Almuerzo en el Real 1, elelvis,2,1360, 11–10--2022, Almuerzo en el Real de San Carlos, Paquete, Un día en Colonia
+I21,Tour Colonia del Sacramento 30-10, mastropiero,4,1360, 5–10--2022, Tour por Colonia del Sacramento, Paquete, Un día en Colonia
+I22, Almuerzo en el Real 1, mastropiero,4,2720, 11–10--2022, Almuerzo en el Real de San Carlos, Paquete, Un día en Colonia
