@@ -227,9 +227,11 @@
                                             <a href="ConsultaPaqueteV.html">
                                                 <div class="card" style="width: 18rem;">
                                                     
-                                                    <%if(arrayPaquetes[0].getImagen()!=null){ %>
+                                                    <%if(arrayPaquetes[0].getImagen()!=null){ 
+                                					String img = "";
+                                					img = Base64.getEncoder().encodeToString(arrayPaquetes[0].getImagen()); %>
                                                     	<img class="card-img-top"
-                                                        src="data:image/jpg;base64,<%= arrayPaquetes[0].getImagen() %>"
+                                                        src="data:image/jpg;base64,<%= img %>"
                                                         alt="Card image cap">
                                                      <%}else{ %>
                                                      	<img class="card-img-top"
@@ -247,9 +249,11 @@
 	                                        <div class="carousel-item">
 	                                            <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrayPaquetes[i]%>">  
 	                                                <div class="card" style="width: 18rem;">
-	                                                    <%if(arrayPaquetes[i].getImagen()!=null){ %>
+	                                                    <%if(arrayPaquetes[i].getImagen()!=null){
+	                                                   		String img = "";
+                                							img = Base64.getEncoder().encodeToString(arrayPaquetes[i].getImagen());%>
 	                                                    	<img class="card-img-top"
-	                                                        src="data:image/jpg;base64,<%= arrayPaquetes[i].getImagen() %>"
+	                                                        src="data:image/jpg;base64,<%= img %>"
 	                                                        alt="Card image cap">
 	                                                     <%}else{ %>
 	                                                     	<img class="card-img-top"
