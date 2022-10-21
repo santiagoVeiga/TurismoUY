@@ -59,6 +59,27 @@ public class ControladorInsc implements IControladorInsc {
 	      }
 	}
 	
+	public void cargarInsc(CSVReader reader) throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException {
+		
+	      String[] nextLine;
+	      int cont = 0;
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if(cont!=0) {
+	    		  if(cont<=10) { // general
+		    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+		    		  Date fecha = formato.parse(nextLine[5].strip());
+		    		  inscribir(nextLine[2].strip(),nextLine[1].strip(),Integer.parseInt(nextLine[3]),fecha,nextLine[6].strip());
+		    	  }
+		    	  else if(cont<=22) { // paquete
+		    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+		    		  Date fecha = formato.parse(nextLine[5].strip());
+		    		  inscribir(nextLine[2].strip(),nextLine[1].strip(),Integer.parseInt(nextLine[3]),fecha,nextLine[6].strip(),nextLine[8].strip());
+		    	  }
+	    	  }
+	    	  cont++;
+	      }
+	}
 	
 	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido {
 		ManejadorActividad mAct = ManejadorActividad.getInstance();

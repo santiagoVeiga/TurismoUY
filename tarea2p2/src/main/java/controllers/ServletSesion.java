@@ -132,9 +132,11 @@ public void initSession(HttpServletRequest request) {
         input = servletContext.getResourceAsStream("/WEB-INF/data/ComprasPaquetes.csv");
         reader = new CSVReader(new InputStreamReader(input));
         ca.cargarCompPaq(reader);
-        
+        input = servletContext.getResourceAsStream("/WEB-INF/data/Inscripciones.csv");
+        reader = new CSVReader(new InputStreamReader(input));
+        cins.cargarInsc(reader);
     } catch (Exception e) {
-        
+        System.out.println(e.toString());
     }
 }
 

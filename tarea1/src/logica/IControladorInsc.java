@@ -38,4 +38,5 @@ public interface IControladorInsc {
 	public abstract void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct, String nombrePaq) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException;
 	public abstract String[] obtenerPaquetesComprados(String nickTurista);
 	public abstract String obtenerNomActPorSalida(String salida) throws SalidasNoExisteException;
+	public abstract void cargarInsc(CSVReader reader) throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException;
 }

@@ -86,7 +86,7 @@ public class CompraGeneral{
     }
 
 	public boolean esSalida(Salida salida) {
-		return salida.equals(salida);
+		return salida.equals(this.salida);
 	}
     
 	public DataCompraGeneral getDataCompraGeneral() {
