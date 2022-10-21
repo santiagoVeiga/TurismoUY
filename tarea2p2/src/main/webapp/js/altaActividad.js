@@ -4,33 +4,27 @@ let categorias = document.getElementsByClassName('catSelecc')
 
 for(let c of categorias) {
     c.addEventListener("click", function(e){
+		document.getElementById("categoriasBox").innerHTML = ""
         let categoriaNueva = e.target.value
-        if (chequearRepetidas(categoriaNueva)){
-            htmlContentToAppend = ""
-            htmlContentToAppend += `
-                    <div id="`+(categoriaNueva)+`Id" class="row">
-                    	<p class="catActual">`+(categoriaNueva)+`</p>
-                	</div>`
-            document.getElementById("categoriasBox").innerHTML += htmlContentToAppend;
-        }else{
-            const element = document.getElementById(categoriaNueva+"Id");
-            element.remove();
-        }
+        chequearRepetidas()
     });
 }
 
-function chequearRepetidas(categoriaNueva){
-    let categoriasActualesAux = document.getElementsByClassName("catActual")
-    let categoriasActuales = []
-    
-    
-    for (let i = 0; i < categoriasActualesAux.length; i++) {
-        categoriasActuales[i] = categoriasActualesAux[i].textContent;
-    }
-    console.log(categoriasActuales)
 
-    if (categoriasActuales.includes(categoriaNueva)){
-        return false
-    }else return true
+
+function chequearRepetidas(){
+	let categoriasActualesAux = document.querySelectorAll('#actividadCategoria option:checked');
+	let categoriasActuales = Array.from(categoriasActualesAux).map(el => el.value);
+	console.log(categoriasActuales);
+	
+	for(let i=0; i<categoriasActuales.length;i++){
+		let htmlContentToAppend = ""
+            htmlContentToAppend += `
+                    <div id="`+(categoriasActuales[i])+`Id" class="row">
+                    	<p class="catActual">`+(categoriasActuales[i])+`</p>
+                	</div>`
+            document.getElementById("categoriasBox").innerHTML += htmlContentToAppend;
+	}
+    
 
 }

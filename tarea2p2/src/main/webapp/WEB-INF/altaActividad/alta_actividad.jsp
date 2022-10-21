@@ -127,6 +127,7 @@
                                     </div>
                                     </div>
                                 </div>
+                                
                                 <!-- Ciudad -->
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
@@ -134,8 +135,8 @@
                                         <textarea class="form-control" id="actividadCiudad" name="actividadCiudad" rows="1" required=""></textarea>
                                     </div>
                                 </div>
+                                
                                 <!-- Categorias-->
-				                
                                 <div class="col">
                                     <div class="row mb-3">
                                         <label for="actividadCategoria">Categorías</label>
@@ -158,6 +159,7 @@
                                             </div>
                                     </div>
                                 </div>
+                                
                                 <!-- Imagenes opcionales-->
                                 <hr class="mb-4">
                                 <div class="row">
