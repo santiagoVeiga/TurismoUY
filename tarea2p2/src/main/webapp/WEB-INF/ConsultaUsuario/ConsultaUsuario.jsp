@@ -1,25 +1,8 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,logica.DataPaquete,logica.DataActividad" %>
+<%@page import="java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,logica.DataPaquete,logica.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
-<%
-  	DataUsuario DU;
-  	String tipo;
-  	DU = (DataUsuario) request.getAttribute("UsuarioElegido"); 
-  	if(DU instanceof DataTurista)
-		  tipo="Turista";
-	  else
-		  tipo="Proveedor";
-  
-	
-	/* Revisar encabezado con login
-	cabecera = '<div class="header__top__right"> <div class="header__top__right__auth"> <a href="./alta_usuario.html"> Alta Usuario</a>	<a href="./login.html"><i class="fa fa-user"></i> Iniciar Sesion</a> </div> </div>'
-	*/
-      
-	
-	
-	%>
 	<!-- Google Font -->
 <head>
     <meta charset="UTF-8">
@@ -32,17 +15,17 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="../css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/style.css" type="text/css">
-    <link rel="stylesheet" href="../css/style_consulta_paqute.css" type="text/css">
-    <link rel="stylesheet" href="../css/style_pestanias.css" type="text/css">
+     <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/style_consulta_paqute.css" type="text/css">
+    <link rel="stylesheet" href="css/style_pestanias.css" type="text/css">
     
 </head>
 
@@ -51,49 +34,38 @@
     <div id="preloder">
         <div class="loader"></div>
     </div>
-
+	<jsp:include page="/WEB-INF/template/header.jsp"/>
+	<%
+  	DataUsuario DU;
+  	String tipo;
+  	DU = (DataUsuario) request.getAttribute("UsuarioElegido"); 
+  	if(DU instanceof DataTurista)
+		  tipo="Turista";
+	  else
+		  tipo="Proveedor";
+	
+	
+	%>
     <!-- Hero Section Begin -->
     <section class="hero">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
                     <div class="row">
-                    	<div class="hero__perfil">
-                    		<ul>
-                                <li><a href="./listar_usuariosV.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
-                                <li><a href="./ListaPaquetesV.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
-                                <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
-                            </ul>
-                    	</div>
-                        <div class="hero__deps">
-                            <div class="hero__deps__all">
-                                <i class="fa fa-bars"  ></i>
-                                <span>Departamentos</span>
-                            </div>
-                            <ul>
-                                <li><a href="./ListaActividadV.html">Rocha</a></li>
-                            </ul>
-                        </div>
-                        <div class="hero__categories">
-                            <div class="hero__categories__all">
-                                <i class="fa fa-bars"></i>
-                                <span>Categorias</span>
-                            </div>
-                            <ul>
-                                <li><a href="./ListaActividadV.html">Gastronomia</a></li>
-                            </ul>
-                        </div>
+                    	<jsp:include page="/WEB-INF/template/miPerfil.jsp"/>
+                        
+                        <jsp:include page="/WEB-INF/template/dptosCats.jsp"/>
                     </div>
                 </div>
    				<div class="col-lg-9">
                       <div class="row">
                       
                       
-                      	
+                      	<%String imagen = Base64.getEncoder().encodeToString(DU.getImagen()); %>
                       	<div class="blog__details__author">
                           <div class="blog__details__author__pic">
-                              <img src=<%=DU.getImagen() %> alt="">                                        </div>
-                          	
+                              <img src="data:image/jpg;base64,<%= imagen %>" alt="">                                   
+                          	</div>
                           	<div class="blog__details__author__text">
                               	<h6><%=DU.getNombre()%></h6>
                               	<span><%=tipo%></span>
@@ -110,10 +82,10 @@
 				  <div class="tab-container">
 				  
 				  	<% 
-				      if(tipo=="turista"){
+				      if(DU instanceof DataTurista){
 				    	    Set<DataSalida> salidas;  
-				    	    DataPaquete[] DP = request.getAttribute("ArregloPaquetes");
-							 
+				    	    DataPaquete[] DP = (DataPaquete[]) request.getAttribute("ArregloPaquetes");
+				    	    String imagenp = Base64.getEncoder().encodeToString(DP[0].getImagen());
 				      %>
 					  	<div id="tab3" class="tab">
 					      <a href="#tab3">Paquetes</a>
@@ -130,8 +102,8 @@
 					                            <div class="carousel-inner">
 					                              <div class="carousel-item active">
 					                                <div class="card" >
-					                                    <a href="consulta_actividad_Turista.html"> 
-					                                    	<img class="card-img-top" src="img.jpg"  alt="Card image cap"> 
+					                                    <a href=""> 
+					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenp %>"  alt="Card image cap"> 
 					                                    </a>
 					                                    <div class="card-body">
 					                                      <p class="card-text" ><%= DP[0].getNombre() %></p>
@@ -140,14 +112,15 @@
 					                                </div>
 					                              <%
 							                          	for(int i = 1; i < DP.length; i++){
+							                          		String imagenp1 = Base64.getEncoder().encodeToString(DP[i].getImagen());
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
 							                                	<a href="consulta_actividad_Turista.html"> 
-							                                    	<img class="card-img-top" src=img.jpg"  alt="Card image cap"> 
+							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenp1 %>"  alt="Card image cap"> 
 							                                    </a>
 							                                    <div class="card-body">
-							                                        <p class="card-text"><%= DP[i].getNombre() %></p>                                    </div>
+							                                        <p class="card-text"><%= DP[i].getNombre() %></p>                                  
 							                                    </div>
 							                                 </div>
 							                            </div>
@@ -166,15 +139,17 @@
 	                                    </div>
 					      </div>
 					    </div>
+					    </div>
 					    <div id="tab2" class="tab">
 					      
 						<%
-						
-						Object[] u = ((DataTurista) DU).getDataSalidas().toArray();
+						salidas = ((DataTurista) DU).getDataSalidas();
+						Object[] u = salidas.toArray();
 				        DataSalida[] arrDS = new DataSalida[u.length];
 				        for (int i = 0; i < u.length; i++) {
 				        	arrDS[i] = (DataSalida) u[i];
 				        }
+				        String imagen1 = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						%>
 					      
 					      <a href="#tab2">Salidas</a>
@@ -192,7 +167,7 @@
 					                              <div class="carousel-item active">
 					                                <div class="card" >
 					                                    <a href="consulta_actividad_Turista.html"> 
-					                                    	<img class="card-img-top" src=<%= arrDS[0].getImagen() %>  alt="Card image cap"> 
+					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagen1 %> " alt="Card image cap"> 
 					                                    </a>
 					                                    <div class="card-body">
 					                                      <p class="card-text" ><%= arrDS[0].getNombre() %></p>
@@ -201,11 +176,12 @@
 					                                </div>
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
+							                          		String imagen2 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
 							                                	<a href="consulta_actividad_Turista.html"> 
-							                                    	<img class="card-img-top" src=<%= arrDS[i].getImagen() %>  alt="Card image cap"> 
+							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagen2 %>"  alt="Card image cap"> 
 							                                    </a>
 							                                    <div class="card-body">
 							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>                                    </div>
@@ -294,10 +270,10 @@
 				    <div id="tab1" class="tab">
 				      <a href="#tab1">Informacion Basica</a>
 				      <div class="tab-content">
-					        <li><span>Nombre:</span> <%=DU.getNombre() %>></li>
-		                    <li><span>Apellido:</span>  <%=DU.getApellido() %>></li>
-		                    <li><span>EMail:</span>  <%=DU.getMail() %>></li>
-		                    <li><span>FechaNac:</span>  <%=DU.getNacimiento().getDate() + "/" + DU.getNacimiento().getMonth()+ "/" + DU.getNacimiento().getYear() %>></li>
+					        <li><span>Nombre:</span> <%=DU.getNombre() %></li>
+		                    <li><span>Apellido:</span>  <%=DU.getApellido() %></li>
+		                    <li><span>EMail:</span>  <%=DU.getMail() %></li>
+		                    <li><span>FechaNac:</span>  <%=DU.getNacimiento().getDate() + "/" + (DU.getNacimiento().getMonth()+1)+ "/" + (DU.getNacimiento().getYear()+1900) %></li>
 				      </div> 
 				    </div> 
 				  </div>
@@ -323,14 +299,14 @@
     <!-- Hero Section End -->
 
     <!-- Js Plugins -->
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.nice-select.min.js"></script>
-    <script src="../js/jquery-ui.min.js"></script>
-    <script src="../js/jquery.slicknav.js"></script>
-    <script src="../js/mixitup.min.js"></script>
-    <script src="../js/owl.carousel.min.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 
 
 

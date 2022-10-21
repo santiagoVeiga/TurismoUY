@@ -73,7 +73,7 @@
                 <%} else { %>
                 	<div class="row float-right">
                         <div class="header__top__right__Usu" style="cursor: pointer;" onclick="window.location='/tarea2p2/ConsultaUsuario';">
-                            <span><a href="/tarea2p2/ConsultaUsuario"><img src="data:image/jpg;base64,${imagenUsuario}"> &nbsp; <%= usr.getNombre() %> <%= usr.getApellido() %></a></span>
+                            <span><a href="/tarea2p2/ConsultaUsuario?nick=<%=usr.getNick()%>"><img src="data:image/jpg;base64,${imagenUsuario}"> &nbsp; <%= usr.getNombre() %> <%= usr.getApellido() %></a></span>
                         </div>
                     </div>
                     <div class="row float-right">
