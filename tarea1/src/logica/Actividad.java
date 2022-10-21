@@ -194,7 +194,7 @@ private Map<String, Salida> colSal;
 	public void altaSalida(String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas,
 			Date fechaAlta2, byte[] imagen2) {
 		Salida aux; 
-		aux = new Salida(nombreSalida, lugar, hora, fecha, fechaAlta, maxCantTuristas,imagen);
+		aux = new Salida(nombreSalida, lugar, hora, fecha, fechaAlta2, maxCantTuristas,imagen2);
 		colSal.put(nombreSalida,aux);
 	}
 	

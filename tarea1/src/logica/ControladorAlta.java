@@ -728,8 +728,9 @@ public class ControladorAlta implements IControladorAlta {
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if(cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+	    		  SimpleDateFormat formato1 = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[3].strip());
-	    		  Date fechaA = formato.parse(nextLine[7].strip());
+	    		  Date fechaA = formato1.parse(nextLine[7].strip());
 	    		  int hora = Integer.parseInt(nextLine[4].strip());
 	    		  Date horaS = new Date(0,0,0,hora,0);
 	    		  confirmarAltaSalida(nextLine[1].strip(),nextLine[2].strip(),fecha,horaS,nextLine[6].strip(),Integer.parseInt(nextLine[5]),fechaA,imgBytes.get(Integer.toString(cont)));

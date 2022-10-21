@@ -107,7 +107,7 @@ public void initSession(HttpServletRequest request) {
         reader = new CSVReader(new InputStreamReader(input));
         imagenes.clear();
         for(int i=1; i<=18; i++ ) {
-            InputStream instm = servletContext.getResourceAsStream("/WEB-INF/data/Salidas/p"+Integer.toString(i)+".jpg");
+            InputStream instm = servletContext.getResourceAsStream("/WEB-INF/data/Salidas/s"+Integer.toString(i)+".jpg");
             byte[] imgBytes = null;
             if(instm != null) {
                 BufferedImage img = ImageIO.read(instm);
@@ -122,6 +122,7 @@ public void initSession(HttpServletRequest request) {
                 imgBytes = baos.toByteArray();
             }
             imagenes.put(Integer.toString(i), imgBytes);
+            imgBytes = null;
         }
         ca.cargarSalidas(reader,imagenes);
         IControladorInsc cins = f.getIControladorInsc();

@@ -145,8 +145,8 @@
                                         
                                         <% for(int i=1; i<arrSalidas.length; i++) { 
                                         	String img2 = "";
-                                            if(arrSalidas[0].getImagen() != null){
-                                            	img2 = Base64.getEncoder().encodeToString(arrSalidas[0].getImagen()); 
+                                            if(arrSalidas[i].getImagen() != null){
+                                            	img2 = Base64.getEncoder().encodeToString(arrSalidas[i].getImagen()); 
                                             }
                                           	 %>
                                         <div class="carousel-item">
