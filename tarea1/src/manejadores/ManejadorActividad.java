@@ -62,7 +62,9 @@ public class ManejadorActividad {
 		Set<Entry<String, Actividad>> aux = colAct.entrySet();
     	Iterator<Entry<String, Actividad>> iter = aux.iterator();
     	while(iter.hasNext()){
-    		iter.next().getValue().perteneceSalida(nombreSalida);
+    		if(iter.next().getValue().perteneceSalida(nombreSalida)) {
+    			throw new SalidaYaExisteExeption("Ya existe una salida registrada con el nombre: " + nombreSalida);
+    		}
     	}
 	}
 	
