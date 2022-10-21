@@ -12,19 +12,18 @@ public class Departamento {
 	private String nombre;
 	private String descripcion;
 	private String url;
-	private Map<String,Actividad> colAct;
+	private Map<String, Actividad> colAct;
 
 	public Departamento(String nombre, String descripcion, String URL){
 		this.nombre = nombre ; 
 		this.descripcion = descripcion ; 
 		this.url = URL ; 
-		this.colAct = new HashMap<String,Actividad>();
+		this.colAct = new HashMap<String, Actividad>();
 	}
 
 
 	
-	public String getNombre() 
-	{
+	public String getNombre() {
 		return nombre;
 	}
 	
@@ -60,7 +59,7 @@ public class Departamento {
 		if (!colAct.isEmpty()) {
 			Set<Entry<String, Actividad>> aux = colAct.entrySet();
 	    	Iterator<Entry<String, Actividad>> iter = aux.iterator();
-	    	while(iter.hasNext()){
+	    	while (iter.hasNext()){
 	    		res.add(iter.next().getValue().getDataAT());
 	    	}
 		}
@@ -68,11 +67,11 @@ public class Departamento {
 	}
 	
 	public DataDepartamento obtenerDataDepartamento() {
-		DataDepartamento res = new DataDepartamento(this.nombre, this.descripcion,this.url,this.getActividades());
+		DataDepartamento res = new DataDepartamento(this.nombre, this.descripcion, this.url, this.getActividades());
 		return res;
 	}
 	
 	public void agregarActividad(Actividad act) {
-		colAct.put(act.getNombre(),act);
+		colAct.put(act.getNombre(), act);
 	}
 }

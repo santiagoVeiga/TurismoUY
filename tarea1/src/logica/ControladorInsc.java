@@ -48,10 +48,10 @@ public class ControladorInsc implements IControladorInsc {
 	      int cont = 0;
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont!=0) {
+	    	  if (cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[5].strip());
-	    		  inscribir(nextLine[2].strip(),nextLine[1].strip(),Integer.parseInt(nextLine[3]),fecha,nextLine[6].strip());
+	    		  inscribir(nextLine[2].strip(), nextLine[1].strip() , Integer.parseInt(nextLine[3]), fecha, nextLine[6].strip());
 	    	  }
 	    	  else {
 	    		  cont++;
@@ -72,20 +72,20 @@ public class ControladorInsc implements IControladorInsc {
 		if (((Turista) tur).yaTieneSalida(sal)) { // Sabemos por precondicion que se puede hacer el downcast
 			throw new TuristaConSalida("El turista ya pertenece a la salida");
 		}
-		if(sal.excedeTuristas(cantTuristas)) {
+		if (sal.excedeTuristas(cantTuristas)) {
 			throw new ExcedeTuristas("La salida no cuenta con capacidad para la cantidad de turistas solicitados");
 		}
-		if(fecha.before(sal.getFechaAlta())) {
+		if (fecha.before(sal.getFechaAlta())) {
 			throw new InscFechaInconsistente("La fecha de inscripcion debe ser igual o posterior a la fecha de alta de salida");
 		}
-		if(fecha.after(sal.getFecha())) {
+		if (fecha.after(sal.getFecha())) {
 			throw new InscFechaDespSalida();
 		}
-		if(((Turista) tur).getNacimiento().after(sal.getFecha())) {
+		if (((Turista) tur).getNacimiento().after(sal.getFecha())) {
 			throw new TuristaNoHaNacido();
 		}
 		// Se realiza la inscripcion
-		CompraGeneral compraGen = new CompraGeneral(fecha,cantTuristas,costo);
+		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, costo);
 		compraGen.setSalida(sal);
 		sal.setCantRestante(sal.getCantRestante()-cantTuristas);
 		((Turista) tur).agregarCompraGeneral(compraGen);
@@ -102,26 +102,26 @@ public class ControladorInsc implements IControladorInsc {
 		if (((Turista) tur).yaTieneSalida(sal)) { // Sabemos por precondicion que se puede hacer el downcast
 			throw new TuristaConSalida("El turista ya pertenece a la salida");
 		}
-		if(sal.excedeTuristas(cantTuristas)) {
+		if (sal.excedeTuristas(cantTuristas)) {
 			throw new ExcedeTuristas("La salida no cuenta con capacidad para la cantidad de turistas solicitados");
 		}
-		if(fecha.before(sal.getFechaAlta())) {
+		if (fecha.before(sal.getFechaAlta())) {
 			throw new InscFechaInconsistente("La fecha de inscripcion debe ser igual o posterior a la fecha de alta de salida");
 		}
-		if(fecha.after(sal.getFecha())) {
+		if (fecha.after(sal.getFecha())) {
 			throw new InscFechaDespSalida();
 		}
-		if(((Turista) tur).getNacimiento().after(sal.getFecha())) {
+		if (((Turista) tur).getNacimiento().after(sal.getFecha())) {
 			throw new TuristaNoHaNacido();
 		}
-		if(!((Turista) tur).paqueteComprado(nombrePaq)) {
+		if (!((Turista) tur).paqueteComprado(nombrePaq)) {
 			throw new PaqueteRepetidoException("El paquete: " + nombrePaq + " no ha sido comprado por el turista: " + nick);
 		}
 		compraPaq.reducirCuposAct(nombreAct, cantTuristas);
 		int costo = act.getCosto();
 		costo = costo*cantTuristas*(1 - (compraPaq.getDescuento()/100));
 		// Se realiza la inscripcion
-		CompraGeneral compraGen = new CompraGeneral(fecha,cantTuristas,costo,true);
+		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, costo, true);
 		compraGen.setSalida(sal);
 		sal.setCantRestante(sal.getCantRestante()-cantTuristas);
 		((Turista) tur).agregarCompraGeneral(compraGen);
@@ -131,8 +131,8 @@ public class ControladorInsc implements IControladorInsc {
 	public Set<DataDepartamento> listarDepartamentos() {
 		ManejadorDepartamentos manDep = ManejadorDepartamentos.getInstance();
 		Set<DataDepartamento> res = new HashSet<DataDepartamento>();
-		if(manDep.obtenerDataDepartamentos()!=null)
-		for(DataDepartamento iter:manDep.obtenerDataDepartamentos()) {
+		if (manDep.obtenerDataDepartamentos()!=null)
+		for (DataDepartamento iter:manDep.obtenerDataDepartamentos()) {
 			res.add(iter);
 		}
 		return res;
@@ -150,8 +150,8 @@ public class ControladorInsc implements IControladorInsc {
 		Departamento dep = mDep.getDepartamento(depN);
 		Actividad[] auxi = dep.getActividadesDep();
 		Set<DataActividad> res = new HashSet<DataActividad>();
-		for(int i = 0; i<auxi.length; i++) {
-			if(!auxi[i].pertenecePaquete(paquete)) {
+		for (int i = 0; i<auxi.length; i++) {
+			if (!auxi[i].pertenecePaquete(paquete)) {
 				res.add(auxi[i].getDataAT());
 			}
 		}
@@ -166,8 +166,8 @@ public class ControladorInsc implements IControladorInsc {
 	      int cont = 0;
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont!=0) {
-	    		  confirmar(nextLine[1].strip(),nextLine[2].strip());
+	    	  if (cont!=0) {
+	    		  confirmar(nextLine[1].strip(), nextLine[2].strip());
 	    	  }
 	    	  else {
 	    		  cont++;
@@ -226,7 +226,7 @@ public class ControladorInsc implements IControladorInsc {
 	
 	public String[] obtenerPaquetesComprados(String nickTurista) {
 		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
-		Turista tur = ((Turista) mUsu.obtenerUsuarioNick(nickTurista));
+		Turista tur = (Turista) mUsu.obtenerUsuarioNick(nickTurista);
 		return tur.getComprasP().keySet().toArray(new String[0]);
 	}
 	
@@ -234,12 +234,12 @@ public class ControladorInsc implements IControladorInsc {
 		ManejadorPaquete mPaq = ManejadorPaquete.getInstance();
 		Paquete paq = mPaq.getPaqueteIns(paqString);
 		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
-		Turista tur = ((Turista) mUsu.obtenerUsuarioNick(nick));
-		if(tur.paqueteComprado(paqString)) {
+		Turista tur = (Turista) mUsu.obtenerUsuarioNick(nick);
+		if (tur.paqueteComprado(paqString)) {
 			throw new PaqueteRepetidoException("El paquete: " + paqString + " ya ha sido comprado por el turista: " + nick);
 		}
 		CompraPaquete compraPaq = new CompraPaquete(fecha, cant, paq);
-		tur.agregarCompraPaquete(paqString,compraPaq);
+		tur.agregarCompraPaquete(paqString, compraPaq);
 	}
 	
 	public String obtenerNomActPorSalida(String salida) throws SalidasNoExisteException{
@@ -253,8 +253,8 @@ public class ControladorInsc implements IControladorInsc {
 	      int cont = 0;
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont!=0) {
-	    		  confirmar(nextLine[1].strip(),nextLine[2].strip());
+	    	  if (cont!=0) {
+	    		  confirmar(nextLine[1].strip(), nextLine[2].strip());
 	    	  }
 	    	  else {
 	    		  cont++;

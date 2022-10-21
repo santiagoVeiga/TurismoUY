@@ -15,7 +15,7 @@ public class CompraPaquete{
 	private int costo; 
 	private Date fecha;
 	private Date vencimiento;
-	private Map<String,Integer> restAct;
+	private Map<String, Integer> restAct;
 	
 	public CompraPaquete(Date fecha, int cant, Paquete paquete) {
 		this.cantidad = cant;
@@ -26,11 +26,11 @@ public class CompraPaquete{
 		calendario.add(Calendar.DAY_OF_MONTH, -paquete.getValidez());
 		this.vencimiento = calendario.getTime();
 		Set<String> acts = paquete.getColAct().keySet();
-		this.restAct = new HashMap<String,Integer>();
-		for(String aux: acts) {
+		this.restAct = new HashMap<String, Integer>();
+		for (String aux: acts) {
 			this.restAct.put(aux, cant);
 		}
-		if(!this.paq.isComprado()) {
+		if (!this.paq.isComprado()) {
 			this.paq.setComprado(true);
 		}
 	}
@@ -40,7 +40,7 @@ public class CompraPaquete{
 	}
 	
 	void reducirCuposAct(String act, int cant) throws NoHayCuposException {
-		if(cant > obtenerCuposAct(act))
+		if (cant > obtenerCuposAct(act))
 			throw new NoHayCuposException("No hay cupos suficientes en la compra paquete para la actividad:" + act);
 		this.restAct.replace(act, this.obtenerCuposAct(act)-cant);
 	}

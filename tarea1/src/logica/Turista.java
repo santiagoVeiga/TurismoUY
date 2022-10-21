@@ -10,27 +10,27 @@ public class Turista extends Usuario{
 
     private String nacionalidad;
     private Set<CompraGeneral> comprasG;
-    private Map<String,CompraPaquete> comprasP;
+    private Map<String, CompraPaquete> comprasP;
 
-    public Turista(String nick,String nom, String apellido,String mail, Date fechaN, String nac) {
-        super(nick,nom,apellido,mail,fechaN);
+    public Turista(String nick, String nom, String apellido, String mail, Date fechaN, String nac) {
+        super(nick, nom, apellido, mail, fechaN);
     	this.nacionalidad = nac;
     	this.comprasG = new HashSet<CompraGeneral>();
-    	this.comprasP = new HashMap<String,CompraPaquete>();
+    	this.comprasP = new HashMap<String, CompraPaquete>();
     }
     
-    public Turista(String nick,String nom, String apellido,String mail, Date fechaN, String nac,String pass) {
-        super(nick,nom,apellido,mail,fechaN,pass);
+    public Turista(String nick, String nom, String apellido, String mail, Date fechaN, String nac, String pass) {
+        super(nick, nom, apellido, mail, fechaN, pass);
     	this.nacionalidad = nac;
     	this.comprasG = new HashSet<CompraGeneral>();
-    	this.comprasP = new HashMap<String,CompraPaquete>();
+    	this.comprasP = new HashMap<String, CompraPaquete>();
     }
     
-    public Turista(String nick,String nom, String apellido,String mail, Date fechaN, String nac,String pass,byte[] imagen) {
-        super(nick,nom,apellido,mail,fechaN,pass,imagen);
+    public Turista(String nick, String nom, String apellido, String mail, Date fechaN, String nac, String pass, byte[] imagen) {
+        super(nick, nom, apellido, mail, fechaN, pass, imagen);
     	this.nacionalidad = nac;
     	this.comprasG = new HashSet<CompraGeneral>();
-    	this.comprasP = new HashMap<String,CompraPaquete>();
+    	this.comprasP = new HashMap<String, CompraPaquete>();
     }
     
     
@@ -39,11 +39,11 @@ public class Turista extends Usuario{
     }
     
 
-    public Map<String,CompraPaquete> getComprasP() {
+    public Map<String, CompraPaquete> getComprasP() {
 		return comprasP;
 	}
 
-	public void setComprasP(Map<String,CompraPaquete> comprasP) {
+	public void setComprasP(Map<String, CompraPaquete> comprasP) {
 		this.comprasP = comprasP;
 	}
 
@@ -59,14 +59,14 @@ public class Turista extends Usuario{
     public boolean yaTieneSalida(Salida sal) {
     	Iterator<CompraGeneral> itr = comprasG.iterator();
     	boolean res = false;
-    	while(itr.hasNext()) {
+    	while (itr.hasNext()) {
     		res = res || itr.next().esSalida(sal);
     	}
     	return res;
     }
     
     public void agregarCompraPaquete(String nomPaq, CompraPaquete compraP) {
-    	comprasP.put(nomPaq,compraP);
+    	comprasP.put(nomPaq, compraP);
     }
 
     public boolean paqueteComprado(String paq) {
@@ -77,16 +77,14 @@ public class Turista extends Usuario{
     	return comprasP.get(paq);
     }
     
-    public DataTurista getDataUsuario()
-    {
+    public DataTurista getDataUsuario(){
     	Iterator<CompraGeneral> itr = comprasG.iterator();
     	Set<DataSalida> dSal = new HashSet<DataSalida>();
-    	while(itr.hasNext()) 
-    	{
+    	while (itr.hasNext()) {
     		CompraGeneral compraGen = itr.next();
     		dSal.add(compraGen.getSalida().getDataST());
     	}
-    	DataTurista dTur = new DataTurista(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),nacionalidad,dSal);
+    	DataTurista dTur = new DataTurista(getNickname(), getNombre(), getApellido(), getMail(), getNacimiento(), nacionalidad, dSal);
     	return dTur;
     }
 
@@ -96,15 +94,14 @@ public class Turista extends Usuario{
     	Set<DataSalida> dSal = new HashSet<DataSalida>();
     	Set<DataCompraGeneral> dComGen = new HashSet<DataCompraGeneral>();
     	Set<DataCompraPaquete> dComPaq = new HashSet<DataCompraPaquete>();
-    	while(itr.hasNext()) 
-    	{
+    	while (itr.hasNext()) {
     		CompraGeneral compraGen = itr.next();
     		dComGen.add(compraGen.getDataCompraGeneral());
     		dSal.add(compraGen.getSalida().getDataST());
     	}
-    	for(CompraPaquete compPaq: comprasP.values())
+    	for (CompraPaquete compPaq: comprasP.values())
     		dComPaq.add(compPaq.getDataCompraPaquete());
-    	DataTurista dTur = new DataTurista(getNickname(),getNombre(),getApellido(),getMail(),getNacimiento(),nacionalidad,dSal,getPassword(),getImagen(),comprasP.keySet(),dComGen, dComPaq);
+    	DataTurista dTur = new DataTurista(getNickname(), getNombre(), getApellido(), getMail(), getNacimiento(), nacionalidad, dSal, getPassword(), getImagen(), comprasP.keySet(), dComGen, dComPaq);
     	return dTur;
 	}
 

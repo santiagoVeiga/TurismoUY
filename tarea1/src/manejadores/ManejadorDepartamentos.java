@@ -10,7 +10,7 @@ public class ManejadorDepartamentos {
 	
 	private static ManejadorDepartamentos instancia = null;
 	
-	private Map<String,Departamento> colDep;
+	private Map<String, Departamento> colDep;
 	
 	private ManejadorDepartamentos() {
 		colDep = new HashMap<String, Departamento>();
@@ -23,8 +23,7 @@ public class ManejadorDepartamentos {
         return instancia;
     }
 	
-	public Departamento getDepartamento(String clave)
-	{
+	public Departamento getDepartamento(String clave){
 		return colDep.get(clave);
 	}
 	

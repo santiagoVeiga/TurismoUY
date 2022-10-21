@@ -27,7 +27,7 @@ public class DataActividad {
 	private estadoAct estado;
 	private byte[] imagen;
 	
-	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur,Set<DataSalida> dataSalidas,Set<String> paquetes, estadoAct estado2) {
+	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2) {
 		this.nombre = nom;
 		this.descripcion = des;
 		this.fechaAlta = fecha;
@@ -40,7 +40,7 @@ public class DataActividad {
 		this.setImagen(null);
 	}
 	
-	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur,Set<DataSalida> dataSalidas,Set<String> paquetes, estadoAct estado2, Set<String> categorias, String dep, byte[] imagen) {
+	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2, Set<String> categorias, String dep, byte[] imagen) {
 		this.nombre = nom;
 		this.descripcion = des;
 		this.fechaAlta = fecha;
@@ -101,13 +101,13 @@ public class DataActividad {
 		this.departamento = departamento;
 	}
 
-	public boolean HayPaquetes() {
+	public boolean hayPaquetes() {
 		return paquetes.size() > 0;
 	}
 
-	public boolean HaySalidas() {
+	public boolean haySalidas() {
 		// TODO Auto-generated method stub
-		if(salidas!=null)
+		if (salidas!=null)
 			return salidas.size()>0;
 		else
 			return false;

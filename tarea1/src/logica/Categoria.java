@@ -7,11 +7,11 @@ import excepciones.ActividadRepetidaException;
 
 public class Categoria {
 	private String categoria ; 
-	private Map<String,Actividad> colAct;
+	private Map<String, Actividad> colAct;
 	
 	public Categoria(String cat) {
 		this.categoria = cat ; 
-		colAct = new HashMap<String,Actividad>();
+		colAct = new HashMap<String, Actividad>();
 	}
 	
 	public String getCategoria(){
@@ -23,7 +23,7 @@ public class Categoria {
 	}
 	
 	public void agregarAct(Actividad act) throws ActividadRepetidaException {
-		if(colAct.get(act.getNombre()) != null) {
+		if (colAct.get(act.getNombre()) != null) {
 			throw new ActividadRepetidaException("Ya existe una actividad con nombre: " + act.getNombre() + "para la categoria: " + categoria);
 		} else {
 			colAct.put(act.getNombre(), act);

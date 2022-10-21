@@ -32,7 +32,7 @@ public interface IControladorInsc {
 	public abstract void cargarActsPaqs() throws Exception;
 	public abstract void cargarActsPaqs(CSVReader reader) throws Exception;
 	public abstract Set<String> listarActividadesAgregadas();
-	public abstract void aceptarRechazarAct(String nomAct,estadoAct estado) throws estadoActividadIncorrecto, ActividadNoExisteException;
+	public abstract void aceptarRechazarAct(String nomAct, estadoAct estado) throws estadoActividadIncorrecto, ActividadNoExisteException;
 	public abstract String[] listarPaquetesNoComprados();
 	public abstract void comprarPaquete(String nick, Date fecha, int cant, String paqString) throws PaqueteNoExisteException, PaqueteRepetidoException;
 	public abstract void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct, String nombrePaq) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException;

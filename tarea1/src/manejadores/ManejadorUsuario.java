@@ -38,11 +38,11 @@ public class ManejadorUsuario {
     }
 
     public Usuario obtenerUsuarioNick(String nick) {
-        return ((Usuario) usuariosNick.get(nick));
+        return (Usuario) usuariosNick.get(nick);
     }
     
     public Usuario obtenerUsuarioMail(String mail) {
-        return ((Usuario) usuariosMail.get(mail));
+        return (Usuario) usuariosMail.get(mail);
     }
 
     public DataUsuario[] getUsuarios() {

@@ -13,14 +13,12 @@ import manejadores.ManejadorUsuario;
 
 public class ControladorConsulta implements IControladorConsulta {
 	
-	public DataUsuario[] listarUsuarios() 
-	{
+	public DataUsuario[] listarUsuarios() {
 		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
 		return  mUsu.getUsuariosComp();
 	}
 	
-    public DataUsuario ingresarDatos(String nick)
-    {
+    public DataUsuario ingresarDatos(String nick){
     	ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
     	Usuario usu = mUsu.obtenerUsuarioNick(nick);
     	return usu.getDataUsuario();
@@ -56,7 +54,7 @@ public class ControladorConsulta implements IControladorConsulta {
 		Categoria cat = mCat.getCategoria(categoria);
 		Actividad[] arrAct = cat.getActividades();
 		DataActividad[] res = new DataActividad[arrAct.length];
-		for(int i = 0; i < arrAct.length;i++) {
+		for (int i = 0; i < arrAct.length; i++) {
 			res[i] = arrAct[i].getDataAT();
 		}
 		return res;
@@ -65,7 +63,7 @@ public class ControladorConsulta implements IControladorConsulta {
 	public DataUsuario obtenerDataUsuarioNick(String nick) throws UsuarioNoExisteException {
 		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
 		Usuario usu = mUsu.obtenerUsuarioNick(nick);
-		if(usu == null) {
+		if (usu == null) {
 			throw new UsuarioNoExisteException("No existe el usuario con nickname: " + nick);
 		}
 		return usu.getDataUsuarioComp();
@@ -74,7 +72,7 @@ public class ControladorConsulta implements IControladorConsulta {
 	public DataUsuario obtenerDataUsuarioMail(String mail) throws UsuarioNoExisteException {
 		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
 		Usuario usu = mUsu.obtenerUsuarioMail(mail);
-		if(usu == null) {
+		if (usu == null) {
 			throw new UsuarioNoExisteException("No existe el usuario con email: " + mail);
 		}
 		return usu.getDataUsuarioComp();
@@ -83,7 +81,7 @@ public class ControladorConsulta implements IControladorConsulta {
 	public DataActividad obtenerDataActividad(String nomAct) throws ActividadNoExisteException {
 		ManejadorActividad mAct = ManejadorActividad.getInstance();
 		Actividad act = mAct.getActividad(nomAct);
-		if(act == null) {
+		if (act == null) {
 			throw new ActividadNoExisteException("No existe la actividad con nombre: " + nomAct);
 		}
 		return act.getDataAT();

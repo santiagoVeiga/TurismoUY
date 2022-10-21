@@ -58,13 +58,13 @@ public class ControladorAlta implements IControladorAlta {
 	      byte[] imgBytes = baos.toByteArray();
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont!=0) {
+	    	  if (cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[3].strip());
 	    		  Date fechaA = formato.parse(nextLine[7].strip());
 	    		  int hora = Integer.parseInt(nextLine[4].strip());
-	    		  Date horaS = new Date(0,0,0,hora,0);
-	    		  confirmarAltaSalida(nextLine[1].strip(),nextLine[2].strip(),fecha,horaS,nextLine[6].strip(),Integer.parseInt(nextLine[5]),fechaA,imgBytes);
+	    		  Date horaS = new Date(0, 0, 0, hora, 0);
+	    		  confirmarAltaSalida(nextLine[1].strip(), nextLine[2].strip(), fecha, horaS, nextLine[6].strip(), Integer.parseInt(nextLine[5]), fechaA, imgBytes);
 	    	  }
 	    	  else {
 	    		  cont++;
@@ -79,8 +79,7 @@ public class ControladorAlta implements IControladorAlta {
 	      reader = new CSVReader(new FileReader("./src/data/Actividades.csv"));
 	      String[] nextLine;
 	      int cont = 0;
-	      
-	      Map<String, Set<String>> categos = new HashMap<String,Set<String>>();
+	      Map<String, Set<String>> categos = new HashMap<String, Set<String>>();
 	      Set<String> act1 = new HashSet<String>();
 	      act1.add("Gastronomia");
 	      categos.put(Integer.toString(1), act1); 
@@ -104,22 +103,24 @@ public class ControladorAlta implements IControladorAlta {
 	      categos.put(Integer.toString(9), act9);
 	      //reads one line at a time    
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont!=0) {
+	    	  if (cont!=0) {
 	    		  BufferedImage img = ImageIO.read(new File("./src/data/Actvs/a"+String.valueOf(cont)+".jpg"));
 	    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	    	      ImageIO.write(img, "jpg", baos);
 	    	      byte[] imgBytes = baos.toByteArray();
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[7].strip());
-	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),fecha,nextLine[9].strip(), categos.get(Integer.toString(cont)),imgBytes);
+	    		  registrarActividad(nextLine[6].strip(), nextLine[1].strip(), nextLine[2].strip(), Integer.parseInt(nextLine[3]), Integer.parseInt(nextLine[4]), nextLine[5].strip(), fecha, nextLine[9].strip(), categos.get(Integer.toString(cont)), imgBytes);
 	    		  if (cont<=6) {
 	    			  Fabrica fabr = Fabrica.getInstance();
 	    			  IControladorInsc conIns = fabr.getIControladorInsc();
-	    			  try {
+					  try {
 						conIns.aceptarRechazarAct(nextLine[1].strip(), estadoAct.confirmada);
-					} catch (estadoActividadIncorrecto e) {
-					} catch (ActividadNoExisteException e) {
+					} catch (estadoActividadIncorrecto | ActividadNoExisteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+
 	    		  }
 	    		  else if (cont == 8 || cont == 10) {
 	    			  Fabrica fabr = Fabrica.getInstance();
@@ -127,7 +128,9 @@ public class ControladorAlta implements IControladorAlta {
 	    			  try {
 						conIns.aceptarRechazarAct(nextLine[1].strip(), estadoAct.rechazada);
 					} catch (estadoActividadIncorrecto e) {
+						e.printStackTrace();
 					} catch (ActividadNoExisteException e) {
+						e.printStackTrace();
 					}
 	    		  }
 	    	  }
@@ -143,8 +146,8 @@ public class ControladorAlta implements IControladorAlta {
 	      //reads one line at a time  
 	      int cont = 0;
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont>0)
-	    		  confirmarAltaDepartamento(nextLine[1].strip(),nextLine[2].strip(),nextLine[3].strip());
+	    	  if (cont>0)
+	    		  confirmarAltaDepartamento(nextLine[1].strip(), nextLine[2].strip(), nextLine[3].strip());
 	    	  cont++;
 	      }
 	 }
@@ -155,8 +158,8 @@ public class ControladorAlta implements IControladorAlta {
 	      //reads one line at a time  
 	      int cont = 0;
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont>0)
-	    		  confirmarAltaDepartamento(nextLine[1].strip(),nextLine[2].strip(),nextLine[3].strip());
+	    	  if (cont>0)
+	    		  confirmarAltaDepartamento(nextLine[1].strip(), nextLine[2].strip(), nextLine[3].strip());
 	    	  cont++;
 	      }
 	 }
@@ -171,22 +174,21 @@ public class ControladorAlta implements IControladorAlta {
 	      //reads one line at a time  
 	      int cont = 0;
 	      while ((nextLineusu = usu.readNext()) != null) {
-	    	  if(cont>0) {
+	    	  if (cont>0) {
 	    		  BufferedImage img = ImageIO.read(new File("./src/data/Users/u"+String.valueOf(cont)+".jpg"));
 	    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	    	      ImageIO.write(img, "jpg", baos);
 	    	      byte[] imgBytes = baos.toByteArray();
-	    		  if(nextLineusu[1].equals(" T")) {
+	    		  if (nextLineusu[1].equals(" T")) {
 	    			  
 	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    			  Date fecha = formato.parse(nextLineusu[6].strip());
-	    			  confirmarAltaTurista(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[7].strip(),nextLineusu[10].strip(),imgBytes);
+	    			  confirmarAltaTurista(nextLineusu[2].strip(), nextLineusu[3].strip(), nextLineusu[4].strip(), nextLineusu[5].strip(), fecha, nextLineusu[7].strip(), nextLineusu[10].strip(), imgBytes);
 	    		  }
 	    		  else if (nextLineusu[1].equals(" P")) {
-	    			
 	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    			  Date fecha = formato.parse(nextLineusu[6]);
-	    			  confirmarAltaProveedor(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[8].strip(),nextLineusu[9].strip(),true,nextLineusu[10].strip(),imgBytes);
+	    			  confirmarAltaProveedor(nextLineusu[2].strip(), nextLineusu[3].strip(), nextLineusu[4].strip(), nextLineusu[5].strip(), fecha, nextLineusu[8].strip(), nextLineusu[9].strip(), true, nextLineusu[10].strip(), imgBytes);
 	    		  }
 	    	  }
 	    		  
@@ -197,7 +199,7 @@ public class ControladorAlta implements IControladorAlta {
     public ControladorAlta(){
     }
 
-    public void confirmarAltaTurista(String nick, String nom , String apellido, String mail ,Date nacimiento ,String nacionalidad) throws UsuarioRepetidoException {
+    public void confirmarAltaTurista(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad) throws UsuarioRepetidoException {
     	ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
         Usuario usu = manUsu.obtenerUsuarioNick(nick);
         if (usu != null)
@@ -209,7 +211,7 @@ public class ControladorAlta implements IControladorAlta {
         manUsu.addUsuario(usu);
     }
     
-    public void confirmarAltaProveedor(String nick, String nom , String apellido, String mail , Date nacimiento ,String descripcion, String link, boolean hayLink) throws UsuarioRepetidoException {
+    public void confirmarAltaProveedor(String nick, String nom , String apellido, String mail , Date nacimiento , String descripcion, String link, boolean hayLink) throws UsuarioRepetidoException {
     	ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
         Usuario usu = manUsu.obtenerUsuarioNick(nick);
         if (usu != null)
@@ -221,7 +223,7 @@ public class ControladorAlta implements IControladorAlta {
         manUsu.addUsuario(usu);
     }
     
-    public void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date fecha,String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException {
+    public void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException {
     	ManejadorActividad mAct = ManejadorActividad.getInstance();
     	ManejadorDepartamentos mDep = ManejadorDepartamentos.getInstance();
         ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
@@ -243,24 +245,24 @@ public class ControladorAlta implements IControladorAlta {
         }
         Departamento insDep = mDep.getDepartamento(dep);
         
-        Map<String,Categoria> categorias = new HashMap<String,Categoria>();
-        if(cat!=null) {
-        	for(String stringCat : cat){
+        Map<String, Categoria> categorias = new HashMap<String, Categoria>();
+        if (cat!=null) {
+        	for (String stringCat : cat){
             	Categoria categ = mCat.getCategoria(stringCat);
             	categorias.put(categ.getCategoria(), categ);
             }
         }
         
-        act = new Actividad(nom, desc,fecha,ciudad, costo, dur, insDep, categorias);
-        if(usu instanceof Proveedor) {
+        act = new Actividad(nom, desc, fecha, ciudad, costo, dur, insDep, categorias);
+        if (usu instanceof Proveedor) {
         	((Proveedor) usu).agregarActividad(act);
         }
-        for(Categoria catAux : categorias.values()) {
+        for (Categoria catAux : categorias.values()) {
         	catAux.agregarAct(act);
         }
         mAct.addActividad(act);
         // if agregado por si Departamento no esta cargado da errror VER SI QUITAR
-        if(insDep != null)
+        if (insDep != null)
         	insDep.agregarActividad(act);
     }
     
@@ -268,7 +270,7 @@ public class ControladorAlta implements IControladorAlta {
     public void registrarCategoria(String Categoria) throws CategoriaYaExiste{
     	//si existe una categoria con nombre categoria tiro exepcion 
     	ManejadorCategoria mCat = ManejadorCategoria.getInstance();
-    	if(mCat.pertenece(Categoria)) {
+    	if (mCat.pertenece(Categoria)) {
     		throw new CategoriaYaExiste("Ya existe una categoria registrada con nombre:" + Categoria);
     	} else {
     		Categoria cat = new Categoria(Categoria) ; 
@@ -339,15 +341,15 @@ public class ControladorAlta implements IControladorAlta {
 		try {
 			act = mAct.getActividad(nombreActividad);
 			mAct.verificarSalida(nombreSalida);
-			if(fecha.before(fechaAlta)) {
+			if (fecha.before(fechaAlta)) {
 				throw new FechaAltaSalidaInvalida();
 			}
-			if(fechaAlta.before(act.getFechaAlta())) {
+			if (fechaAlta.before(act.getFechaAlta())) {
 				throw new FechaAltaSalidaAnteriorActividad();
 			}
-	        act.altaSalida(nombreSalida, fecha, hora, lugar, maxCantTuristas,fechaAlta);
+	        act.altaSalida(nombreSalida, fecha, hora, lugar, maxCantTuristas, fechaAlta);
 		} catch (ActividadNoExisteException e) {
-			
+			e.printStackTrace();
 		}
     }
     
@@ -360,11 +362,11 @@ public class ControladorAlta implements IControladorAlta {
         mPaq.addPaquete(paq);
     }
 
-    public void actualizarDatosTurista(String nick,String mail,String nombre,String apellido,Date fechaN,String nacionalidad) {
+    public void actualizarDatosTurista(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad) {
     	ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
     	Usuario usu = mUsu.obtenerUsuarioNick(nick);
-    	if(usu!=null) {
-    		if(usu instanceof Turista) {
+    	if (usu!=null) {
+    		if (usu instanceof Turista) {
     			usu.setNombre(nombre);
     			usu.setApellido(apellido);
     			usu.setNacimiento(fechaN);
@@ -373,11 +375,11 @@ public class ControladorAlta implements IControladorAlta {
     	}
     }
     
-    public void actualizarDatosProveedor(String nick,String mail,String nombre,String apellido,Date fechaN,String descripcion,String link,boolean hayLink) {
+    public void actualizarDatosProveedor(String nick, String mail, String nombre, String apellido, Date fechaN, String descripcion, String link, boolean hayLink) {
     	ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
     	Usuario usu = mUsu.obtenerUsuarioNick(nick);
-    	if(usu!=null) {
-    		if(usu instanceof Proveedor) {
+    	if (usu!=null) {
+    		if (usu instanceof Proveedor) {
         		usu.setNombre(nombre);
         		usu.setApellido(apellido);
         		usu.setNacimiento(fechaN);
@@ -400,14 +402,14 @@ public class ControladorAlta implements IControladorAlta {
 	      int cont = 0;
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont!=0) {
+	    	  if (cont!=0) {
 	    		  BufferedImage img = ImageIO.read(new File("./src/data/Paqs/p"+String.valueOf(cont)+".jpg"));
 	    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	    	      ImageIO.write(img, "jpg", baos);
 	    	      byte[] imgBytes = baos.toByteArray();
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fechaA = formato.parse(nextLine[4].strip());
-	    		  altaPaquete(nextLine[1].strip(),nextLine[5].strip(),Integer.parseInt(nextLine[3].strip()),Integer.parseInt(nextLine[2].strip()),fechaA,imgBytes);
+	    		  altaPaquete(nextLine[1].strip(), nextLine[5].strip(), Integer.parseInt(nextLine[3].strip()), Integer.parseInt(nextLine[2].strip()), fechaA, imgBytes);
 	    	  }
 	    		  cont++;
 	      }
@@ -446,7 +448,7 @@ public class ControladorAlta implements IControladorAlta {
         usu = mUsu.obtenerUsuarioMail(mail);
         if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-        usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad,pass);
+        usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad, pass);
         mUsu.addUsuario(usu);
 		
 	}
@@ -473,7 +475,7 @@ public class ControladorAlta implements IControladorAlta {
   			  e.printStackTrace();
   		  }
 	    }
-        usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad,pass,imagen);
+        usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad, pass, imagen);
         mUsu.addUsuario(usu);
 	}
 
@@ -488,7 +490,7 @@ public class ControladorAlta implements IControladorAlta {
         usu = mUsu.obtenerUsuarioMail(mail);
         if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink,pass);
+        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink, pass);
         mUsu.addUsuario(usu);
 	}
 
@@ -515,7 +517,7 @@ public class ControladorAlta implements IControladorAlta {
     			  e.printStackTrace();
     		  }
   	    }
-        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink,pass,imagen);
+        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink, pass, imagen);
         mUsu.addUsuario(usu);
 	}
 
@@ -560,8 +562,8 @@ public class ControladorAlta implements IControladorAlta {
         }
         Departamento insDep = mDep.getDepartamento(dep);
         
-        Map<String,Categoria> categorias = new HashMap<String,Categoria>();
-        for(String stringCat : cat){
+        Map<String, Categoria> categorias = new HashMap<String, Categoria>();
+        for (String stringCat : cat){
         	Categoria categ = mCat.getCategoria(stringCat);
         	categorias.put(categ.getCategoria(), categ);
         }
@@ -576,11 +578,11 @@ public class ControladorAlta implements IControladorAlta {
     			  e.printStackTrace();
     		  }
   	    }
-        act = new Actividad(nom, desc,fecha,ciudad, costo, dur, insDep, categorias,imagen);
-        for(Categoria catAux : categorias.values()) {
+        act = new Actividad(nom, desc, fecha, ciudad, costo, dur, insDep, categorias, imagen);
+        for (Categoria catAux : categorias.values()) {
         	catAux.agregarAct(act);
         }
-        if(usu instanceof Proveedor) {
+        if (usu instanceof Proveedor) {
         	((Proveedor) usu).agregarActividad(act);
         }
         
@@ -600,10 +602,10 @@ public class ControladorAlta implements IControladorAlta {
 		try {
 			act = mAct.getActividad(nombreActividad);
 			mAct.verificarSalida(nombreSalida);
-			if(fecha.before(fechaAlta)) {
+			if (fecha.before(fechaAlta)) {
 				throw new FechaAltaSalidaInvalida();
 			}
-			if(fechaAlta.before(act.getFechaAlta())) {
+			if (fechaAlta.before(act.getFechaAlta())) {
 				throw new FechaAltaSalidaAnteriorActividad();
 			}
 			if (imagen == null) {
@@ -617,15 +619,15 @@ public class ControladorAlta implements IControladorAlta {
 		  			  e.printStackTrace();
 		  		  }
 			    }
-	        act.altaSalida(nombreSalida, fecha, hora, lugar, maxCantTuristas,fechaAlta,imagen);
+	        act.altaSalida(nombreSalida, fecha, hora, lugar, maxCantTuristas, fechaAlta, imagen);
 		} catch (ActividadNoExisteException e) {
-			
+			e.printStackTrace();
 		}
 	}
 
 
 	@Override
-	public void cargarUsuarios(CSVReader reader,Map<String,byte[]> imgs)
+	public void cargarUsuarios(CSVReader reader, Map<String, byte[]> imgs)
 			throws IOException, UsuarioRepetidoException, ParseException {
 		CSVReader usu = reader;
 	      String[] nextLineusu;
@@ -633,19 +635,19 @@ public class ControladorAlta implements IControladorAlta {
 	      //reads one line at a time  
 	      int cont = 0;
 	      while ((nextLineusu = usu.readNext()) != null) {
-	    	  if(cont>0) {
+	    	  if (cont>0) {
 	    	      byte[] imgBytes = imgs.get(Integer.toString(cont));
-	    		  if(nextLineusu[1].equals(" T")) {
+	    		  if (nextLineusu[1].equals(" T")) {
 	    			  
 	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    			  Date fecha = formato.parse(nextLineusu[6].strip());
-	    			  confirmarAltaTurista(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[7].strip(),nextLineusu[10].strip(),imgBytes);
+	    			  confirmarAltaTurista(nextLineusu[2].strip(), nextLineusu[3].strip(), nextLineusu[4].strip(), nextLineusu[5].strip(), fecha, nextLineusu[7].strip(), nextLineusu[10].strip(), imgBytes);
 	    		  }
 	    		  else if (nextLineusu[1].equals(" P")) {
 	    			
 	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    			  Date fecha = formato.parse(nextLineusu[6]);
-	    			  confirmarAltaProveedor(nextLineusu[2].strip(),nextLineusu[3].strip(),nextLineusu[4].strip(),nextLineusu[5].strip(),fecha,nextLineusu[8].strip(),nextLineusu[9].strip(),true,nextLineusu[10].strip(),imgBytes);
+	    			  confirmarAltaProveedor(nextLineusu[2].strip(), nextLineusu[3].strip(), nextLineusu[4].strip(), nextLineusu[5].strip(), fecha, nextLineusu[8].strip(), nextLineusu[9].strip(), true, nextLineusu[10].strip(), imgBytes);
 	    		  }
 	    	  }
 	    		  
@@ -656,14 +658,14 @@ public class ControladorAlta implements IControladorAlta {
 
 
 	@Override
-	public void cargarActs(CSVReader reader, Map<String,byte[]> imgBytes)
+	public void cargarActs(CSVReader reader, Map<String, byte[]> imgBytes)
 			throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException,
 			ParseException, UsuarioNoExisteException, ProveedorNoNacidoException {
 		
 	      String[] nextLine;
 	      int cont = 0;
 	     
-	      Map<String, Set<String>> categos = new HashMap<String,Set<String>>();
+	      Map<String, Set<String>> categos = new HashMap<String, Set<String>>();
 	      Set<String> act1 = new HashSet<String>();
 	      act1.add("Gastronomia");
 	      categos.put(Integer.toString(1), act1); 
@@ -688,10 +690,10 @@ public class ControladorAlta implements IControladorAlta {
 	      
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont!=0) {
+	    	  if (cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[7].strip());
-	    		  registrarActividad(nextLine[6].strip(),nextLine[1].strip(),nextLine[2].strip(),Integer.parseInt(nextLine[3]),Integer.parseInt(nextLine[4]),nextLine[5].strip(),fecha,nextLine[9].strip(), categos.get(Integer.toString(cont)),imgBytes.get(Integer.toString(cont)));
+	    		  registrarActividad(nextLine[6].strip(), nextLine[1].strip(), nextLine[2].strip(), Integer.parseInt(nextLine[3]), Integer.parseInt(nextLine[4]), nextLine[5].strip(), fecha, nextLine[9].strip(), categos.get(Integer.toString(cont)), imgBytes.get(Integer.toString(cont)));
 	    		  
 	    		  if (cont<=6) {
 	    			  Fabrica fabr = Fabrica.getInstance();
@@ -699,7 +701,9 @@ public class ControladorAlta implements IControladorAlta {
 	    			  try {
 						conIns.aceptarRechazarAct(nextLine[1].strip(), estadoAct.confirmada);
 					} catch (estadoActividadIncorrecto e) {
+						e.printStackTrace();
 					} catch (ActividadNoExisteException e) {
+						e.printStackTrace();
 					}
 	    		  }
 	    		  else if (cont == 8 || cont == 10) {
@@ -708,7 +712,9 @@ public class ControladorAlta implements IControladorAlta {
 	    			  try {
 						conIns.aceptarRechazarAct(nextLine[1].strip(), estadoAct.rechazada);
 					} catch (estadoActividadIncorrecto e) {
+						e.printStackTrace();
 					} catch (ActividadNoExisteException e) {
+						e.printStackTrace();
 					}
 	    		  }
 	    	  }
@@ -726,14 +732,14 @@ public class ControladorAlta implements IControladorAlta {
 	      
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont!=0) {
+	    	  if (cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  SimpleDateFormat formato1 = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[3].strip());
 	    		  Date fechaA = formato1.parse(nextLine[7].strip());
 	    		  int hora = Integer.parseInt(nextLine[4].strip());
-	    		  Date horaS = new Date(0,0,0,hora,0);
-	    		  confirmarAltaSalida(nextLine[1].strip(),nextLine[2].strip(),fecha,horaS,nextLine[6].strip(),Integer.parseInt(nextLine[5]),fechaA,imgBytes.get(Integer.toString(cont)));
+	    		  Date horaS = new Date(0 , 0, 0, hora, 0);
+	    		  confirmarAltaSalida(nextLine[1].strip(), nextLine[2].strip(), fecha, horaS, nextLine[6].strip(), Integer.parseInt(nextLine[5]), fechaA, imgBytes.get(Integer.toString(cont)));
 	    	  }
 	    	  cont++;
 	      }
@@ -772,10 +778,10 @@ public class ControladorAlta implements IControladorAlta {
 	      int cont = 0;
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont!=0) {
+	    	  if (cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fechaA = formato.parse(nextLine[4].strip());
-	    		  altaPaquete(nextLine[1].strip(),nextLine[5].strip(),Integer.parseInt(nextLine[3].strip()),Integer.parseInt(nextLine[2].strip()),fechaA,imagenes.get(Integer.toString(cont)));
+	    		  altaPaquete(nextLine[1].strip(), nextLine[5].strip(), Integer.parseInt(nextLine[3].strip()), Integer.parseInt(nextLine[2].strip()), fechaA, imagenes.get(Integer.toString(cont)));
 	    	  }
 	    	  cont++;
 	      }
@@ -794,7 +800,7 @@ public class ControladorAlta implements IControladorAlta {
 		  IControladorInsc conIns = fabr.getIControladorInsc();
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont!=0) {
+	    	  if (cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fechaA = formato.parse(nextLine[4].strip());
 	    		  conIns.comprarPaquete(nextLine[1].strip(), fechaA, Integer.parseInt(nextLine[3].strip()), nextLine[2].strip());
@@ -812,7 +818,7 @@ public class ControladorAlta implements IControladorAlta {
 		  IControladorInsc conIns = fabr.getIControladorInsc();
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont!=0) {
+	    	  if (cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fechaA = formato.parse(nextLine[4].strip());
 	    		  conIns.comprarPaquete(nextLine[1].strip(), fechaA, Integer.parseInt(nextLine[3].strip()), nextLine[2].strip());
