@@ -19,12 +19,12 @@ private Map<String, Salida> colSal;
 	private int costo;
 	private int duracion;
 	private Departamento departamento;
-	private Map<String,Categoria> categorias ;	
+	private Map<String, Categoria> categorias ;	
 	private estadoAct estado;
 	private byte[] imagen;
 
-	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String,Categoria> categorias) {
-		colSal = new HashMap<String,Salida>();
+	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String, Categoria> categorias) {
+		colSal = new HashMap<String, Salida>();
 		setNombre(nom);
 		setDescripcion(desc);
 		fechaAlta = fecha;
@@ -32,13 +32,13 @@ private Map<String, Salida> colSal;
 		setCosto(costo);
 		setDuracion(dur);
 		setDepartamento(dep);
-		this.colpaq = new HashMap<String,Paquete>();
+		this.colpaq = new HashMap<String, Paquete>();
 		setCategorias(categorias); 
 		estado = estadoAct.agregada;
 	}
 	
-	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String,Categoria> categorias, byte[] imagen) {
-		colSal = new HashMap<String,Salida>();
+	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String, Categoria> categorias, byte[] imagen) {
+		colSal = new HashMap<String, Salida>();
 		setNombre(nom);
 		setDescripcion(desc);
 		fechaAlta = fecha;
@@ -46,7 +46,7 @@ private Map<String, Salida> colSal;
 		setCosto(costo);
 		setDuracion(dur);
 		setDepartamento(dep);
-		this.colpaq = new HashMap<String,Paquete>();
+		this.colpaq = new HashMap<String, Paquete>();
 		setCategorias(categorias); 
 		estado = estadoAct.agregada;
 		this.imagen = imagen;
@@ -82,11 +82,11 @@ private Map<String, Salida> colSal;
 		return this.departamento;
 	}
 	
-	public Map<String,Salida> getColSal() {
+	public Map<String, Salida> getColSal() {
 		return colSal;
 	}
 	
-	public Map<String,Categoria> getCategorias(){
+	public Map<String, Categoria> getCategorias(){
 		return this.categorias ; 
 	}
 	
@@ -129,7 +129,7 @@ private Map<String, Salida> colSal;
 	//Operaciones
 	
 	public DataActividad getDataAT() {
-		return new DataActividad(this.nombre,this.descripcion,this.fechaAlta,this.ciudad,this.costo,this.duracion,this.getSalidas(),this.getPaquetes(),this.estado, this.getNombreCategorias(),this.getDepartamento().getNombre(),this.getImagen());
+		return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.getNombreCategorias(), this.getDepartamento().getNombre(), this.getImagen());
 	}
 	
 	public Set<String> getPaquetes(){	
@@ -145,13 +145,13 @@ private Map<String, Salida> colSal;
 		Set<DataSalida> res = new HashSet<DataSalida>();
 		Set<Entry<String, Salida>> aux = colSal.entrySet();
     	Iterator<Entry<String, Salida>> iter = aux.iterator();
-    	while(iter.hasNext()){
+    	while (iter.hasNext()){
     			res.add(iter.next().getValue().getDataST());
     			}
 		return res;
 	}
 	
-	public void setCategorias(Map<String,Categoria> cat) {
+	public void setCategorias(Map<String, Categoria> cat) {
 		categorias = cat ; 
 	}
 
@@ -164,7 +164,7 @@ private Map<String, Salida> colSal;
 		// TODO Auto-generated method stub
 		Salida aux; 
 		aux = new Salida(nombreSalida, lugar, hora, fecha, fechaAlta, maxCantTuristas);
-		colSal.put(nombreSalida,aux);
+		colSal.put(nombreSalida, aux);
 	}
 	
 	public boolean perteneceSalida(String salN){
@@ -194,8 +194,8 @@ private Map<String, Salida> colSal;
 	public void altaSalida(String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas,
 			Date fechaAlta2, byte[] imagen2) {
 		Salida aux; 
-		aux = new Salida(nombreSalida, lugar, hora, fecha, fechaAlta2, maxCantTuristas,imagen2);
-		colSal.put(nombreSalida,aux);
+		aux = new Salida(nombreSalida, lugar, hora, fecha, fechaAlta2, maxCantTuristas, imagen2);
+		colSal.put(nombreSalida, aux);
 	}
 	
 }

@@ -36,18 +36,18 @@ public interface IControladorAlta {
      * @param ci Cédula del usuario.
      * @throws UsuarioRepetidoException Si la cédula del usuario se encuentra registrada en el sistema.
      */
-    public abstract void confirmarAltaTurista(String nick, String nom , String apellido, String mail ,Date nacimiento ,String nacionalidad) throws UsuarioRepetidoException;
-    public abstract void confirmarAltaTurista(String nick, String nom , String apellido, String mail ,Date nacimiento ,String nacionalidad,String pass) throws UsuarioRepetidoException;
-    public abstract void confirmarAltaTurista(String nick, String nom , String apellido, String mail ,Date nacimiento ,String nacionalidad,String pass, byte[] imagen) throws UsuarioRepetidoException;
+    public abstract void confirmarAltaTurista(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad) throws UsuarioRepetidoException;
+    public abstract void confirmarAltaTurista(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String pass) throws UsuarioRepetidoException;
+    public abstract void confirmarAltaTurista(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String pass, byte[] imagen) throws UsuarioRepetidoException;
 
-    public abstract void confirmarAltaProveedor(String nick, String nom , String apellido, String mail ,Date nacimiento ,String descripcion, String link, boolean hayLink) throws UsuarioRepetidoException;
-    public abstract void confirmarAltaProveedor(String nick, String nom , String apellido, String mail ,Date nacimiento ,String descripcion, String link, boolean hayLink, String pass) throws UsuarioRepetidoException;
-    public abstract void confirmarAltaProveedor(String nick, String nom , String apellido, String mail ,Date nacimiento ,String descripcion, String link, boolean hayLink, String pass, byte[] imagen) throws UsuarioRepetidoException;
+    public abstract void confirmarAltaProveedor(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String link, boolean hayLink) throws UsuarioRepetidoException;
+    public abstract void confirmarAltaProveedor(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String link, boolean hayLink, String pass) throws UsuarioRepetidoException;
+    public abstract void confirmarAltaProveedor(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String link, boolean hayLink, String pass, byte[] imagen) throws UsuarioRepetidoException;
     
     public abstract DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException;
     
-    public abstract void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date fecha,String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException;
-    public abstract void registrarActividad(String dep, String nom , String desc,int dur, int costo, String ciudad ,Date fecha,String proveedor, Set<String> cat, byte[] imagen) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException;
+    public abstract void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException;
+    public abstract void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, Set<String> cat, byte[] imagen) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException;
     
     public abstract DataUsuario verInfoUsuario(String nick) throws UsuarioNoExisteException;
     public abstract DataUsuario[] getUsuarios() throws UsuarioNoExisteException;
@@ -59,13 +59,13 @@ public interface IControladorAlta {
 	public abstract void cargarCategorias();
 
 	public abstract void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException ;
-	public abstract void cargarUsuarios(CSVReader reader,Map<String,byte[]> imgs) throws IOException, UsuarioRepetidoException, ParseException ;
+	public abstract void cargarUsuarios(CSVReader reader, Map<String, byte[]> imgs) throws IOException, UsuarioRepetidoException, ParseException ;
     
 	public abstract void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta) throws SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad ;
 	public abstract void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta, byte[] imagen) throws SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad ;
 	
 	public abstract void cargarActs() throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException, ParseException, UsuarioNoExisteException, ProveedorNoNacidoException;
-	public abstract void cargarActs(CSVReader reader, Map<String,byte[]> imgBytes) throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException, ParseException, UsuarioNoExisteException, ProveedorNoNacidoException;
+	public abstract void cargarActs(CSVReader reader, Map<String, byte[]> imgBytes) throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException, ParseException, UsuarioNoExisteException, ProveedorNoNacidoException;
 	
 	public abstract void confirmarAltaDepartamento(String nombre, String descripcion, String URL) throws DepartamentoYaExisteExeption ; 
 	
@@ -74,12 +74,12 @@ public interface IControladorAlta {
 
 	public abstract void altaPaquete(String nombre, String descripcion, int descuento, int validez, Date fechaAlta) throws PaqueteRepetidoException;
 	
-    public abstract void actualizarDatosTurista(String nick,String mail,String nombre,String apellido,Date fechaN,String nacionalidad);
+    public abstract void actualizarDatosTurista(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad);
 
-	public abstract void actualizarDatosProveedor(String nick,String mail,String nombre,String apellido,Date fechaN,String descripcion,String link,boolean hayLink);
+	public abstract void actualizarDatosProveedor(String nick, String mail, String nombre, String apellido, Date fechaN, String descripcion, String link, boolean hayLink);
 
 	public abstract void cargarPaquetes() throws FileNotFoundException, NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException;
-	public abstract void cargarPaquetes(CSVReader reader, Map<String,byte[]> imagenes) throws FileNotFoundException, NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException;
+	public abstract void cargarPaquetes(CSVReader reader, Map<String, byte[]> imagenes) throws FileNotFoundException, NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException;
 
 	public abstract void cargarDatos() throws  Exception;
 	

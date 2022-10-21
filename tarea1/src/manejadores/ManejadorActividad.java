@@ -19,12 +19,12 @@ public class ManejadorActividad {
 
 	private static ManejadorActividad instancia = null;
 
-	private Map<String,Actividad> colAct;
+	private Map<String, Actividad> colAct;
 	
 	// Constructor
     
 	private ManejadorActividad() {
-    	colAct = new HashMap<String,Actividad>();
+    	colAct = new HashMap<String, Actividad>();
     }
 
     public static ManejadorActividad getInstance() {
@@ -44,13 +44,13 @@ public class ManejadorActividad {
     	Set<DataActividad> resultado = new HashSet<DataActividad>();
     	Set<Entry<String, Actividad>> aux = colAct.entrySet();
     	Iterator<Entry<String, Actividad>> iter = aux.iterator();
-    	while(iter.hasNext()){
+    	while (iter.hasNext()){
     		resultado.add(iter.next().getValue().getDataAT());
     	}
     	return resultado;
     }
 
-    public Map<String,Actividad> getColAct() {
+    public Map<String, Actividad> getColAct() {
     	return colAct ;
     }
 
@@ -61,8 +61,8 @@ public class ManejadorActividad {
 	public void verificarSalida(String nombreSalida) throws SalidaYaExisteExeption {
 		Set<Entry<String, Actividad>> aux = colAct.entrySet();
     	Iterator<Entry<String, Actividad>> iter = aux.iterator();
-    	while(iter.hasNext()){
-    		if(iter.next().getValue().perteneceSalida(nombreSalida)) {
+    	while (iter.hasNext()){
+    		if (iter.next().getValue().perteneceSalida(nombreSalida)) {
     			throw new SalidaYaExisteExeption("Ya existe una salida registrada con el nombre: " + nombreSalida);
     		}
     	}
@@ -70,7 +70,7 @@ public class ManejadorActividad {
 	
 	public String obtenerNomActvidiadDeSalida(String salida) throws SalidasNoExisteException {
 		String res =  null;
-		for(Actividad it : colAct.values()) {
+		for (Actividad it : colAct.values()) {
 			if (it.perteneceSalida(salida)) {
 				res = it.getNombre();
 			}

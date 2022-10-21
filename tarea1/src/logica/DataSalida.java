@@ -18,7 +18,7 @@ public class DataSalida {
 	private int cant;
 	private byte[] imagen;
 	
-	public DataSalida(String nom,String lug,Date hor,Date fech,Date fechAlta,int can) {
+	public DataSalida(String nom, String lug, Date hor, Date fech, Date fechAlta, int can) {
 		nombre = nom;
 		lugar = lug;
 		imagen = null;
@@ -28,7 +28,7 @@ public class DataSalida {
 		cant = can;
 	}
 
-	public DataSalida(String nom,String lug,Date hor,Date fech,Date fechAlta,int can,byte[] img) {
+	public DataSalida(String nom, String lug, Date hor, Date fech, Date fechAlta, int can, byte[] img) {
 		nombre = nom;
 		lugar = lug;
 		imagen = img;
@@ -38,40 +38,34 @@ public class DataSalida {
 		cant = can;
 	}
 	
-	public byte[] getImagen()
-	{
+	public byte[] getImagen(){
 		return imagen;
 	}
 	
-	public String getNombre()
-	{
+	public String getNombre(){
 		return nombre;
 	}
 	
-	public String getLugar()
-	{
+	public String getLugar(){
 		return lugar;
 	}
 	
-	public Date gethora()
-	{
+	public Date gethora(){
 		return hora;
 	}
 	
-	public Date getFecha()
-	{
+	public Date getFecha(){
 		return fecha;
 	}
 	
-	public Date getFechaAlta()
-	{
+	public Date getFechaAlta(){
 		return fechaAlta;
 	}
 	
-	public int getCant()
-	{
+	public int getCant(){
 		return cant;
 	}
+	
 	public Date getHora() {
 		return hora;
 	}

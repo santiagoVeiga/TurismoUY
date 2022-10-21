@@ -24,8 +24,7 @@ public class DataDepartamento {
 
 
 	
-	public String getNombre() 
-	{
+	public String getNombre() {
 		return nombre;
 	}
 

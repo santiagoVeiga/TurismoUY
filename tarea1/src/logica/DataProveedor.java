@@ -8,15 +8,15 @@ public class DataProveedor extends DataUsuario {
     private String link;
     private Set<DataActividad> actividades;
 
-    public DataProveedor(String nickname,String nombre, String apellido,String mail, Date nacimiento, String descripcion, String link,Set<DataActividad> Actividades) {
-        super(nickname,nombre,apellido,mail,nacimiento);
+    public DataProveedor(String nickname, String nombre, String apellido, String mail, Date nacimiento, String descripcion, String link, Set<DataActividad> Actividades) {
+        super(nickname, nombre, apellido, mail, nacimiento);
     	this.descripcion = descripcion;
     	this.link = link;
     	this.actividades = Actividades;
     }
     
-    public DataProveedor(String nick,String nombre, String apellido,String mail, Date nacimiento, String descripcion, String link,Set<DataActividad> Actividades,String pass, byte[] imagen) {
-        super(nick,nombre,apellido,mail,nacimiento,pass,imagen);
+    public DataProveedor(String nick, String nombre, String apellido, String mail, Date nacimiento, String descripcion, String link, Set<DataActividad> Actividades, String pass, byte[] imagen) {
+        super(nick, nombre, apellido, mail, nacimiento, pass, imagen);
     	this.descripcion = descripcion;
     	this.link = link;
     	this.actividades = Actividades;
@@ -30,8 +30,7 @@ public class DataProveedor extends DataUsuario {
         return link;
     }
     
-    public Set<DataActividad> getActividades()
-    {
+    public Set<DataActividad> getActividades(){
     	return actividades;
     }
     

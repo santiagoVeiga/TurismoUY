@@ -14,8 +14,7 @@ public class Salida {
 	private int cantRestante;
 	private byte[] imagen;
 	
-	public Salida(String nom,String lugar,Date hora,Date fecha,Date fechaAlta,int cant)
-	{
+	public Salida(String nom, String lugar, Date hora, Date fecha, Date fechaAlta, int cant){
 		setNombre(nom);
 		setLugar(lugar);
 		setHora(hora);
@@ -38,16 +37,14 @@ public class Salida {
 		this.imagen = imagen;
 	}
 
-	public boolean estaVigente()
-	{
+	public boolean estaVigente(){
 		LocalDate localDate = LocalDate.now();
 		Date ahora = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		return ahora.before(fecha) && cantRestante<cant;
 	}
 	
-	public DataSalida getDataST()
-	{
-		return new DataSalida(nombre,lugar,hora,fecha,fechaAlta,cant,imagen);
+	public DataSalida getDataST(){
+		return new DataSalida(nombre, lugar, hora, fecha, fechaAlta, cant, imagen);
 	}
 
 	public String getNombre() {

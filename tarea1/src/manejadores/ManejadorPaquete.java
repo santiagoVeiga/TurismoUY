@@ -17,12 +17,12 @@ public class ManejadorPaquete {
 
 	private static ManejadorPaquete instancia = null;
 
-	private Map<String,Paquete> colPaq;
+	private Map<String, Paquete> colPaq;
 	
 	// Constructor
     
 	private ManejadorPaquete() {
-    	colPaq = new HashMap<String,Paquete>();
+    	colPaq = new HashMap<String, Paquete>();
     }
 
     public static ManejadorPaquete getInstance() {
@@ -43,14 +43,14 @@ public class ManejadorPaquete {
     	Set<Entry<String, Paquete>> aux = colPaq.entrySet();
     	Iterator<Entry<String, Paquete>> iter = aux.iterator();
     	int cont = 0;
-    	while(iter.hasNext()){
+    	while (iter.hasNext()){
     		resultado[cont] = iter.next().getValue().getNombre();
     		cont++;
     	}
     	return resultado;
     }
 
-    public Map<String,Paquete> getcolPaq() {
+    public Map<String, Paquete> getcolPaq() {
     	return colPaq ;
     }
 
@@ -61,7 +61,7 @@ public class ManejadorPaquete {
     
     public Paquete getPaqueteIns(String nom) throws PaqueteNoExisteException {
     	Paquete paq = colPaq.get(nom);
-    	if(paq == null) {
+    	if (paq == null) {
     		throw new PaqueteNoExisteException("No existe un paquete con el nombre: " + nom);
     	}
     	return paq;
@@ -77,9 +77,9 @@ public class ManejadorPaquete {
 		Set<Entry<String, Paquete>> aux = colPaq.entrySet();
     	Iterator<Entry<String, Paquete>> iter = aux.iterator();
     	int cont = 0;
-    	while(iter.hasNext()){
+    	while (iter.hasNext()){
     		Paquete elem = iter.next().getValue();
-    		if(!elem.isComprado()) {
+    		if (!elem.isComprado()) {
     			inter.add(elem.getNombre());
     		cont++;
     		}

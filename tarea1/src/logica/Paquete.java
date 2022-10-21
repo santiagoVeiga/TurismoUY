@@ -1,10 +1,6 @@
 package logica;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,18 +13,17 @@ public class Paquete {
 	private String descripcion;
 	private Date fechaAlta;
 	private int validez;
-	private Map<String,Actividad> colAct;
+	private Map<String, Actividad> colAct;
 	private byte[] imagen;
 	private boolean comprado;
 
-	public Paquete(String nom,String desc,int descuento,Date fecha, int val)
-	{
+	public Paquete(String nom, String desc, int descuento, Date fecha, int val){
 		this.nombre = nom;
 		this.descuento = descuento;
 		this.descripcion = desc;
 		this.fechaAlta = fecha;
 		this.validez = val;
-		this.colAct = new HashMap<String,Actividad>();
+		this.colAct = new HashMap<String, Actividad>();
 		comprado = false;
 		this.imagen = null ; 
 	}
@@ -41,7 +36,7 @@ public class Paquete {
 		this.descripcion = descripcion2;
 		this.fechaAlta = fechaAlta2;
 		this.validez = validez2;
-		this.colAct = new HashMap<String,Actividad>();
+		this.colAct = new HashMap<String, Actividad>();
 		comprado = false;
 		imagen = imgBytes;
 	}
@@ -54,7 +49,7 @@ public class Paquete {
 		    dtAct[cont] = entry.getValue().getDataAT();
 		    cont++;
 		}
-		return new DataPaquete(nombre, descripcion, descuento, fechaAlta, validez, dtAct,imagen);
+		return new DataPaquete(nombre, descripcion, descuento, fechaAlta, validez, dtAct, imagen);
 	}
 	
 	public String getNombre() {
@@ -98,7 +93,7 @@ public class Paquete {
 	}
 	
 	public void agregarActividad(Actividad act) {
-		if(act!=null) {
+		if (act!=null) {
 			colAct.put(act.getNombre(), act);
 		}
 	}

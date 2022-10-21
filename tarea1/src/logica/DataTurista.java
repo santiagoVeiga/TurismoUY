@@ -10,14 +10,14 @@ public class DataTurista extends DataUsuario {
     private Set<DataCompraGeneral> inscripcionesSal;
     private Set<DataCompraPaquete> comprasPaq;
 
-    public DataTurista(String nick,String nom, String apellido,String mail, Date nacimiento, String nacionalidad,Set<DataSalida> Salidas) {
-        super(nick,nom,apellido,mail,nacimiento);
+    public DataTurista(String nick, String nom, String apellido, String mail, Date nacimiento, String nacionalidad, Set<DataSalida> Salidas) {
+        super(nick, nom, apellido, mail, nacimiento);
     	this.nacionalidad = nacionalidad;
     	this.salidas = Salidas;
     }
     
-    public DataTurista(String nick,String nom, String apellido,String mail, Date nacimiento, String nacionalidad,Set<DataSalida> Salidass,String pass, byte[] imagen, Set<String> paq,Set<DataCompraGeneral> inscripcionesSal,Set<DataCompraPaquete> comprasPaq) {
-        super(nick,nom,apellido,mail,nacimiento,pass,imagen);
+    public DataTurista(String nick, String nom, String apellido, String mail, Date nacimiento, String nacionalidad, Set<DataSalida> Salidass, String pass, byte[] imagen, Set<String> paq, Set<DataCompraGeneral> inscripcionesSal, Set<DataCompraPaquete> comprasPaq) {
+        super(nick, nom, apellido, mail, nacimiento, pass, imagen);
     	this.nacionalidad = nacionalidad;
     	this.salidas = Salidass;
     	this.paquetes = paq;
@@ -25,8 +25,7 @@ public class DataTurista extends DataUsuario {
     	this.setComprasPaq(comprasPaq);
     }
     
-    public Set<DataSalida> getDataSalidas()
-    {
+    public Set<DataSalida> getDataSalidas(){
     	return salidas;
     }
 

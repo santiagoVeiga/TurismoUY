@@ -686,7 +686,7 @@ class ControladorAltaTest {
 		Set<DataActividad> aux = IctrInsc.selecDepartamento("Rocha");
 		boolean res = false;
 		for(DataActividad it : aux) {
-			res = res || (it.HaySalidas()&&it.HayPaquetes()&&it.getCiudad().equals("Rocha"));
+			res = res || (it.haySalidas()&&it.hayPaquetes()&&it.getCiudad().equals("Rocha"));
 		}
 		assertEquals(res,true);
 	}

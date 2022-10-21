@@ -12,7 +12,7 @@ public class DataPaquete {
 	private byte[] imagen;
 	private DataActividad[] dtAct;
 
-	public DataPaquete(String nom,String desc,int descuento,Date fecha, int val, DataActividad[] dtAct){
+	public DataPaquete(String nom, String desc, int descuento, Date fecha, int val, DataActividad[] dtAct){
 		this.setNombre(nom);
 		this.setDescuento(descuento);
 		this.setDescripcion(desc);
@@ -22,7 +22,7 @@ public class DataPaquete {
 		this.setImagen(null);
 	}
 	
-	public DataPaquete(String nom,String desc,int descuento,Date fecha, int val, DataActividad[] dtAct, byte[] imagen){
+	public DataPaquete(String nom, String desc, int descuento, Date fecha, int val, DataActividad[] dtAct, byte[] imagen){
 		this.setNombre(nom);
 		this.setDescuento(descuento);
 		this.setDescripcion(desc);

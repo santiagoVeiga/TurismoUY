@@ -1,11 +1,6 @@
 package logica;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-
-import excepciones.NoHayCuposException;
 
 
 public class DataCompraPaquete{
@@ -15,9 +10,9 @@ public class DataCompraPaquete{
 	private int costo; 
 	private Date fecha;
 	private Date vencimiento;
-	private Map<String,Integer> restAct;
+	private Map<String, Integer> restAct;
 	
-	public DataCompraPaquete(Date fecha, int cant, int costo, Date vencimiento, DataPaquete paquete, Map<String,Integer> restAct) {
+	public DataCompraPaquete(Date fecha, int cant, int costo, Date vencimiento, DataPaquete paquete, Map<String, Integer> restAct) {
 		this.setCantidad(cant);
 		this.setCosto(costo);
 		this.setFecha(fecha);

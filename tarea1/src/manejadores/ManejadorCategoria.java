@@ -13,12 +13,12 @@ public class ManejadorCategoria {
 	
 	private static ManejadorCategoria instancia = null;
 
-	private Map<String,Categoria> colCat;
+	private Map<String, Categoria> colCat;
 	
 	// Constructor
     
 	private ManejadorCategoria() {
-    	colCat = new HashMap<String,Categoria>();
+    	colCat = new HashMap<String, Categoria>();
     }
 
     public static ManejadorCategoria getInstance() {
@@ -31,7 +31,7 @@ public class ManejadorCategoria {
 
     //Operaciones
     public void addCategoria(Categoria cat) {
-    	if(!this.pertenece(cat.getCategoria()))
+    	if (!this.pertenece(cat.getCategoria()))
     		colCat.put(cat.getCategoria(), cat);
     }
     public Categoria getCategoria(String cat) {
@@ -43,7 +43,7 @@ public class ManejadorCategoria {
     	Set<String> resultado = new HashSet<String>();
     	Set<Entry<String, Categoria>> aux = colCat.entrySet();
     	Iterator<Entry<String, Categoria>> iter = aux.iterator();
-    	while(iter.hasNext()){
+    	while (iter.hasNext()){
     		resultado.add(iter.next().getValue().getCategoria());
     	}
     	return resultado;
@@ -51,7 +51,7 @@ public class ManejadorCategoria {
     }
     
     public boolean pertenece(String cat) {
-    	return (colCat.get(cat)!=null); 
+    	return colCat.get(cat)!=null; 
     }
 
 
