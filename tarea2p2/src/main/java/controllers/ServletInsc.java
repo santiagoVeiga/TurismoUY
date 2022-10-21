@@ -123,12 +123,21 @@ public class ServletInsc extends HttpServlet {
     				String nomPaquete = (String) req.getParameter("nomPaq");
     				LocalDateTime ld1 = LocalDateTime.now();
     				Date fecha1 = java.util.Date.from(ld1.atZone(ZoneId.systemDefault()).toInstant());
+    				IControladorConsulta conCons = fab.getIControladorConsulta();
     				try {
     					conInsc.comprarPaquete(du1.getNick(), fecha1, cant1, nomPaquete);
-    					resp.sendRedirect("/tarea2p2/home");
+    					DataPaquete dataPaq = conCons.obtenerDataPaquete(nomPaquete);
+    					double costo = 0;
+    					for(DataActividad iter : dataPaq.getDtAct()) {
+    					    costo += iter.getCosto();
+    					}
+    					double num = dataPaq.getDescuento();
+    					costo = costo*cant1;
+    					costo = costo - (num/100)*costo*cant1;
+    					req.setAttribute("CompraPaq", "La compra fue realizada con exito! Costo: $" + Double.toString(costo));
+    					req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req,resp); //lo cambie
     				} catch (PaqueteNoExisteException | PaqueteRepetidoException e) {
     					req.setAttribute("Exception", e.getMessage());
-                        IControladorConsulta conCons = fab.getIControladorConsulta();
                         DataPaquete dataPaq = conCons.obtenerDataPaquete(nomPaquete);
                         req.setAttribute("PaqueteElegido", dataPaq);
     					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req,resp);

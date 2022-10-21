@@ -50,6 +50,21 @@
                 </div>
                 <!-- Actividades -->
                 <div class="col-lg-9">
+                <% String een = (String) request.getAttribute("Exception");
+               if(een != null){%>
+               <div class="alert alert-danger" role="alert" style="display: flex;justify-content: space-between;">
+				  <%= een %>
+				  <button id="closei" onclick="this.parentNode.remove(); return false;" >x</button>
+				</div>
+			<%} %>
+			
+			<% String compraP = (String) request.getAttribute("CompraPaq");
+               if(compraP != null){%>
+               <div class="alert alert-success" role="alert" style="display: flex;justify-content: space-between;">
+				  <%= compraP %>
+				  <button id="closei" onclick="this.parentNode.remove(); return false;" >x</button>
+				</div>
+			<%} %>
                 <% DataDepartamento[] dptos = (DataDepartamento[]) session.getAttribute("dptos");
                 Set<DataActividad> actIndex = dptos[4].getColAct(); 
                 for(DataDepartamento iter : dptos){

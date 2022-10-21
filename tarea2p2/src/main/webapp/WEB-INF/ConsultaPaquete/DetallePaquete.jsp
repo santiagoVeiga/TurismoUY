@@ -56,6 +56,13 @@
                 
                 %>
                 <div class="col-lg-9 col-md-7">
+                <% String een = (String) request.getAttribute("Exception");
+               if(een != null){%>
+               <div class="alert alert-danger" role="alert" style="display: flex;justify-content: space-between;">
+				  <%= een %>
+				  <button id="closei" onclick="this.parentNode.remove(); return false;" >x</button>
+				</div>
+			<%} %>
 	                <div class="tabs">
 					  <div class="tab-container">
 					    <div id="tab2" class="tab">
