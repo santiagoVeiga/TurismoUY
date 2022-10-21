@@ -222,7 +222,7 @@ public class ServletAlta extends HttpServlet {
     		            byte[] imgBytes = null;
     		            try {
     		                // A partir del objeto File creamos el fichero físicamente
-    		                File nuevaImg = new File("/home/vagrant/Descargas/imgServer/" + filePart.getSubmittedFileName());
+    		                File nuevaImg = new File(req.getSession ().getServletContext ().getRealPath("/") + nick + filePart.getSubmittedFileName());
     		                if (nuevaImg.createNewFile())
     		                  System.out.println("El fichero se ha creado correctamente");
     		                else
@@ -250,14 +250,11 @@ public class ServletAlta extends HttpServlet {
     		            try {
     						Date fechaNac = format.parse(date);
     						if(!nacionalidad.equals("")) {
-    						    System.out.println(nacionalidad);
     							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail ,fechaNac ,nacionalidad,password,imgBytes);
     						} else if (linkProv != null && descripcion != null) {
-    						    System.out.println("P");
     							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,linkProv,true,password,imgBytes); 
     						}
     						else if (descripcion!= null) {
-    						    System.out.println("pr");
     							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,"",false,password,imgBytes); 
     						}else {
     							// no deberia pasar
@@ -286,15 +283,12 @@ public class ServletAlta extends HttpServlet {
     					try {
     						Date fechaNac = format.parse(date);
     						if(!nacionalidad.equals("")) {
-    						    System.out.println(nacionalidad);
     							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail ,fechaNac ,nacionalidad,password);
     						} else if (linkProv != null && descripcion!= null) {
-    						    System.out.println("Prov");
     							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,linkProv,true,password); 
     						}
     						else if (descripcion!= null) {
     							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,"",false,password); 
-    							System.out.println("Provee");
     						}else {
     							// no deberia pasar
     							break;
