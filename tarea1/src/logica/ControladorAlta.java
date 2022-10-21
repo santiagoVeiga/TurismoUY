@@ -342,11 +342,12 @@ public class ControladorAlta implements IControladorAlta {
 			act = mAct.getActividad(nombreActividad);
 			mAct.verificarSalida(nombreSalida);
 			if (fecha.before(fechaAlta)) {
-				throw new FechaAltaSalidaInvalida();
+				throw new FechaAltaSalidaInvalida("La fecha de salida debe ser posterior a la fecha actual");
 			}
 			if (fechaAlta.before(act.getFechaAlta())) {
-				throw new FechaAltaSalidaAnteriorActividad();
-			}
+				throw new FechaAltaSalidaAnteriorActividad("La fecha de salida debe ser posterior a la de alta de Actividad");
+			} 
+
 	        act.altaSalida(nombreSalida, fecha, hora, lugar, maxCantTuristas, fechaAlta);
 		} catch (ActividadNoExisteException e) {
 			e.printStackTrace();
@@ -603,11 +604,12 @@ public class ControladorAlta implements IControladorAlta {
 			act = mAct.getActividad(nombreActividad);
 			mAct.verificarSalida(nombreSalida);
 			if (fecha.before(fechaAlta)) {
-				throw new FechaAltaSalidaInvalida();
+				throw new FechaAltaSalidaInvalida("La fecha de salida debe ser posterior a la fecha actual");
 			}
 			if (fechaAlta.before(act.getFechaAlta())) {
-				throw new FechaAltaSalidaAnteriorActividad();
-			}
+				throw new FechaAltaSalidaAnteriorActividad("La fecha de salida debe ser posterior a la de alta de Actividad");
+			} 
+
 			if (imagen == null) {
 			  	  try {
 			  	      BufferedImage img;

@@ -113,7 +113,7 @@
                                 style="padding-top:20px ; margin-right: 50px; margin-left: 50px; display: flex; justify-content: space-between;">
                                 
                                 
-                                <% if (actividadSeleccionada.HaySalidas()){%>
+                                <% if (actividadSeleccionada.haySalidas()){%>
                                  
                                 <% DataSalida[] arrSalidas = Salidas.toArray(new DataSalida[Salidas.size()]);%>
                                 
@@ -212,7 +212,7 @@
                                  
                                 
                                 
-                                <% if (actividadSeleccionada.HayPaquetes()){%>
+                                <% if (actividadSeleccionada.hayPaquetes()){%>
                                 
                                 
                                 
