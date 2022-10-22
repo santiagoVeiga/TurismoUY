@@ -88,6 +88,11 @@
 		                    <li><span>Apellido:</span>  <%=DU.getApellido() %></li>
 		                    <li><span>EMail:</span>  <%=DU.getMail() %></li>
 		                    <li><span>FechaNac:</span>  <%=DU.getNacimiento().getDate() + "/" + (DU.getNacimiento().getMonth()+1)+ "/" + (DU.getNacimiento().getYear()+1900) %></li>
+		                    <% DataUsuario usr = (DataUsuario) session.getAttribute("usuario");
+		                    if (DU.getNick().equals(usr.getNick())){
+		                    	%>
+		                    <button type="button" class="btn btn-light"><a href="/tarea2p2/ModificarUsuario?DataUsuario=<%= DU.getNick() %>">Modificar datos personales</a></button>
+		                   <% }%> 
 				      </div> 
 				    </div> 
 				  
@@ -219,12 +224,13 @@
 				      <%}}
 				      else
 				      {
-				    	  Object[] p= ((DataProveedor) DU).getActividades().toArray();
-					        DataActividad[] arrDS = new DataActividad[p.length];
-					        for (int i = 0; i < p.length; i++) {
-					        	arrDS[i] = (DataActividad) p[i];
+				    	  Object[] ppp= ((DataProveedor) DU).getActividades().toArray();
+					        DataActividad[] arrDS = new DataActividad[ppp.length];
+					        for (int i = 0; i < ppp.length; i++) {
+					        	arrDS[i] = (DataActividad) ppp[i];
 					        }
-					        String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
+					        if (ppp.length != 0) {
+					        	String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
                       	%>
 	                      	<div id="tab2" class="tab">
 					      	<a href="#tab2">Actividades</a>
@@ -279,7 +285,7 @@
 	                                    </div>
 					      </div>
 					    </div> 
-                      <%}
+                      <%}}
 				      %>
 				    </div> 
 				    
