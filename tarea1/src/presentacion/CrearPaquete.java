@@ -173,7 +173,7 @@ public class CrearPaquete extends JInternalFrame {
 
         if (checkFormulario()) {
             try {
-                controlAlta.altaPaquete(nombrePaq, descripcionPaq,Integer.parseInt(descuentoPaq),Integer.parseInt(validezPaq),fechaPaq);
+                controlAlta.altaPaquete(nombrePaq, descripcionPaq, Integer.parseInt(descuentoPaq), Integer.parseInt(validezPaq), fechaPaq);
                 JOptionPane.showMessageDialog(this, "El paquete ha sido registrado exitosamente.", "Registrar Paquete",
                         JOptionPane.INFORMATION_MESSAGE);
 

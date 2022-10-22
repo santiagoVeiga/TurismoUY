@@ -59,7 +59,7 @@ public class CrearUsuario extends JInternalFrame {
     private JLabel lblContrasea;
     private JLabel lblConfirmarContrasea;
     private JTextField textField;
-    private JTextField textField_1;
+    private JTextField textField1;
 
     /**
      * Create the frame.
@@ -213,15 +213,15 @@ public class CrearUsuario extends JInternalFrame {
                                                 gbc_lblConfirmarContrasea.gridy = 4;
                                                 getContentPane().add(lblConfirmarContrasea, gbc_lblConfirmarContrasea);
                                                 
-                                                textField_1 = new JTextField();
+                                                textField1 = new JTextField();
                                                 GridBagConstraints gbc_textField_1 = new GridBagConstraints();
                                                 gbc_textField_1.gridwidth = 3;
                                                 gbc_textField_1.insets = new Insets(0, 0, 5, 5);
                                                 gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
                                                 gbc_textField_1.gridx = 6;
                                                 gbc_textField_1.gridy = 4;
-                                                getContentPane().add(textField_1, gbc_textField_1);
-                                                textField_1.setColumns(10);
+                                                getContentPane().add(textField1, gbc_textField_1);
+                                                textField1.setColumns(10);
                                                 
                                                 // Una etiqueta (JLabel) indicandp que en el siguiente campo debe ingresarse 
                                                 // el Nacimiento del usuario. El texto está alineado horizontalmente a la derecha para
@@ -397,13 +397,13 @@ public class CrearUsuario extends JInternalFrame {
         Date nacimientoU = calendario.getDate();
         if (checkFormulario()) {
             try {
-            	if(rdbtnTurista.isSelected()) {
+            	if (rdbtnTurista.isSelected()) {
             		String nacionalidadU = this.textFieldNacionalidad.getText();
-            		controlAlta.confirmarAltaTurista(nickU,nombreU, apellidoU, mailU,nacimientoU,nacionalidadU,textField.getText());
+            		controlAlta.confirmarAltaTurista(nickU, nombreU, apellidoU, mailU, nacimientoU, nacionalidadU, textField.getText());
             	} else {
             		String descripcionU = this.textFieldDescripcion.getText();
             		String linkU = this.textFieldLink.getText();
-            		controlAlta.confirmarAltaProveedor(nickU,nombreU, apellidoU, mailU,nacimientoU,descripcionU,linkU,linkU.isEmpty(),textField.getText());
+            		controlAlta.confirmarAltaProveedor(nickU, nombreU, apellidoU, mailU, nacimientoU, descripcionU, linkU, linkU.isEmpty(), textField.getText());
             	}
                 // Muestro éxito de la operación
                 JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
@@ -445,7 +445,7 @@ public class CrearUsuario extends JInternalFrame {
             return false;
         }
         
-        if(!textField.getText().equals(textField_1.getText())) {
+        if (!textField.getText().equals(textField1.getText())) {
         	JOptionPane.showMessageDialog(this, "Confirmacion de contraseña incorrecta", "Registrar Usuario",
                     JOptionPane.ERROR_MESSAGE);
             return false;

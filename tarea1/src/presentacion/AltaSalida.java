@@ -30,19 +30,19 @@ import logica.IControladorAlta;
 
 public class AltaSalida extends JInternalFrame {
 	
-	private JTextField NombreSalidaCAMPO;
-	private JTextField LugarSalidaCAMPO;
-	private JTextField MaximaCantTuristasCAMPO;
-	private JDateChooser FechaSalidaCAMPO;
-	private JDateChooser FechaAltaDatePickerCAMPO;
+	private JTextField nombreSalidaCAMPO;
+	private JTextField lugarSalidaCAMPO;
+	private JTextField maximaCantTuristasCAMPO;
+	private JDateChooser fechaSalidaCAMPO;
+	private JDateChooser fechaAltaDatePickerCAMPO;
 	private JComboBox horaCAMPO;
 	private JComboBox minutosCAMPO;
 	private Button aceptarCAMPO;
 	private Button cancelarCAMPO;
-	private JComboBox SeleccionarDptoCAMPO;
-	private JComboBox SeleccionarActividadCAMPO;
+	private JComboBox seleccionarDptoCAMPO;
+	private JComboBox seleccionarActividadCAMPO;
 	private IControladorAlta controlAlta;
-    private DataDepartamento[] DD;
+    private DataDepartamento[] dataDepartamentos;
     private Set<DataActividad> auxi;
 
 
@@ -78,8 +78,8 @@ public class AltaSalida extends JInternalFrame {
 		//--------------------departamentos--------------------
 	
 		//DataDepartamento[] ArrDpto = null;
-		SeleccionarDptoCAMPO = new JComboBox<String>(); //creo el combobox de strings
-		SeleccionarDptoCAMPO.setBounds(218, 31, 162, 21);
+		seleccionarDptoCAMPO = new JComboBox<String>(); //creo el combobox de strings
+		seleccionarDptoCAMPO.setBounds(218, 31, 162, 21);
 		//try {
 			//ArrDpto = icu.obtenerDataDepartamentos();
 			//for (int i = 0; i < ArrDpto.length; i++){ //AGREGO LOS NOMBRES DE DEPARTAMENTOS AL CAMPO
@@ -87,8 +87,8 @@ public class AltaSalida extends JInternalFrame {
 			//}
 		//} catch (DepartamentoNoExisteException e2) {
 		//} 
-		getContentPane().add(SeleccionarDptoCAMPO);//agrego el combobox al panel
-		SeleccionarDptoCAMPO.addActionListener(new ActionListener() { //action listener para cuando se selecciona el dpto
+		getContentPane().add(seleccionarDptoCAMPO); //agrego el combobox al panel
+		seleccionarDptoCAMPO.addActionListener(new ActionListener() { //action listener para cuando se selecciona el dpto
 	    	public void actionPerformed(ActionEvent e) {
             	cargarActividades();
 //	    		String nombreDpto = (String)SeleccionarDptoCAMPO.getSelectedItem(); 
@@ -117,10 +117,10 @@ public class AltaSalida extends JInternalFrame {
 
 		
 		//----------------------salida-------------------------
-		NombreSalidaCAMPO = new JTextField();
-		NombreSalidaCAMPO.setBounds(218, 115, 162, 19);
-		getContentPane().add(NombreSalidaCAMPO);
-		NombreSalidaCAMPO.setColumns(10);
+		nombreSalidaCAMPO = new JTextField();
+		nombreSalidaCAMPO.setBounds(218, 115, 162, 19);
+		getContentPane().add(nombreSalidaCAMPO);
+		nombreSalidaCAMPO.setColumns(10);
 		//------------------------------------------------------
 
 		
@@ -132,10 +132,10 @@ public class AltaSalida extends JInternalFrame {
 		getContentPane().add(lblNewLabel_1_1);
 		
 	
-		FechaSalidaCAMPO = new JDateChooser();
-		FechaSalidaCAMPO.setBounds(135, 173, 73, 19);
-		getContentPane().add(FechaSalidaCAMPO);
-		((JTextComponent) FechaSalidaCAMPO.getDateEditor()).setEditable(false);
+		fechaSalidaCAMPO = new JDateChooser();
+		fechaSalidaCAMPO.setBounds(135, 173, 73, 19);
+		getContentPane().add(fechaSalidaCAMPO);
+		((JTextComponent) fechaSalidaCAMPO.getDateEditor()).setEditable(false);
 
 		JLabel lblNewLabel_1 = new JLabel("hora");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -147,20 +147,20 @@ public class AltaSalida extends JInternalFrame {
 		lblNewLabel_1_1_1.setBounds(46, 227, 162, 13);
 		getContentPane().add(lblNewLabel_1_1_1);
 		
-		LugarSalidaCAMPO = new JTextField();
-		LugarSalidaCAMPO.setColumns(10);
-		LugarSalidaCAMPO.setBounds(218, 225, 96, 19);
-		getContentPane().add(LugarSalidaCAMPO);
+		lugarSalidaCAMPO = new JTextField();
+		lugarSalidaCAMPO.setColumns(10);
+		lugarSalidaCAMPO.setBounds(218, 225, 96, 19);
+		getContentPane().add(lugarSalidaCAMPO);
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Maxima Cantidad Turistas");
 		lblNewLabel_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel_1_1_1_1.setBounds(46, 265, 162, 13);
 		getContentPane().add(lblNewLabel_1_1_1_1);
 		
-		MaximaCantTuristasCAMPO = new JTextField();
-		MaximaCantTuristasCAMPO.setColumns(10);
-		MaximaCantTuristasCAMPO.setBounds(218, 263, 96, 19);
-		getContentPane().add(MaximaCantTuristasCAMPO);
+		maximaCantTuristasCAMPO = new JTextField();
+		maximaCantTuristasCAMPO.setColumns(10);
+		maximaCantTuristasCAMPO.setBounds(218, 263, 96, 19);
+		getContentPane().add(maximaCantTuristasCAMPO);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Fecha Salida");
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -172,10 +172,10 @@ public class AltaSalida extends JInternalFrame {
 		lblNewLabel_1_2_1.setBounds(46, 297, 89, 13);
 		getContentPane().add(lblNewLabel_1_2_1);
 		
-		FechaAltaDatePickerCAMPO = new JDateChooser();
-		FechaAltaDatePickerCAMPO.setBounds(145, 297, 73, 19);
-		getContentPane().add(FechaAltaDatePickerCAMPO);
-		((JTextComponent) FechaAltaDatePickerCAMPO.getDateEditor()).setEditable(false);
+		fechaAltaDatePickerCAMPO = new JDateChooser();
+		fechaAltaDatePickerCAMPO.setBounds(145, 297, 73, 19);
+		getContentPane().add(fechaAltaDatePickerCAMPO);
+		((JTextComponent) fechaAltaDatePickerCAMPO.getDateEditor()).setEditable(false);
 
 		horaCAMPO = new JComboBox();
 		horaCAMPO.setBounds(289, 173, 45, 19);
@@ -277,9 +277,9 @@ public class AltaSalida extends JInternalFrame {
 		lblNewLabel_1_3.setBounds(337, 179, 14, 13);
 		getContentPane().add(lblNewLabel_1_3);
 		
-		SeleccionarActividadCAMPO = new JComboBox<String>();
-		SeleccionarActividadCAMPO.setBounds(218, 67, 162, 21);
-		getContentPane().add(SeleccionarActividadCAMPO);
+		seleccionarActividadCAMPO = new JComboBox<String>();
+		seleccionarActividadCAMPO.setBounds(218, 67, 162, 21);
+		getContentPane().add(seleccionarActividadCAMPO);
 		
 		aceptarCAMPO = new Button("Aceptar");
 		aceptarCAMPO.addActionListener(new ActionListener() {
@@ -309,14 +309,15 @@ public class AltaSalida extends JInternalFrame {
 	public void cargarDepartamentos(){
     	DefaultComboBoxModel<String> model;
     	try {
-    		DD = controlAlta.obtenerDataDepartamentos();
-    		String[] DepartamentosNombres = new String[DD.length];
-    		for (int i = 0; i < DD.length;i++) {
-    			DepartamentosNombres[i] = DD[i].getNombre();
+    		dataDepartamentos = controlAlta.obtenerDataDepartamentos();
+    		String[] DepartamentosNombres = new String[dataDepartamentos.length];
+    		for (int i = 0; i < dataDepartamentos.length; i++) {
+    			DepartamentosNombres[i] = dataDepartamentos[i].getNombre();
     		}
 	    	model = new DefaultComboBoxModel<String>(DepartamentosNombres);
-	    	SeleccionarDptoCAMPO.setModel(model);
+	    	seleccionarDptoCAMPO.setModel(model);
 	    } catch (DepartamentoNoExisteException e) {
+	    	JOptionPane.showMessageDialog(this, e.getMessage(), e.getMessage(), JOptionPane.ERROR_MESSAGE);
     	}
     }
 	
@@ -324,31 +325,31 @@ public class AltaSalida extends JInternalFrame {
 	public void cargarActividades(){
 		DefaultComboBoxModel<String> model;
 		try {
-			String aux = (String) SeleccionarDptoCAMPO.getSelectedItem();
+			String aux = (String) seleccionarDptoCAMPO.getSelectedItem();
 			int i = 0;
-			while (i<DD.length && DD[i].getNombre() != aux) {
+			while (i<dataDepartamentos.length && dataDepartamentos[i].getNombre() != aux) {
 				i++;
 			}
-			if (DD[i].getColAct().size() == 0) {
+			if (dataDepartamentos[i].getColAct().size() == 0) {
 				throw new ActividadNoExisteException("No hay actividades asociadas a dicho Departamento");
 			}
-			auxi = DD[i].getColAct();
+			auxi = dataDepartamentos[i].getColAct();
 			Iterator<DataActividad> it = auxi.iterator();
 			int j = 0;
 			String[] ActividadesNombres = new String[auxi.size()];
-			while(it.hasNext()) {
+			while (it.hasNext()) {
 				ActividadesNombres[j] = it.next().getNombre();
 				j++;
 			}
 	    	model = new DefaultComboBoxModel<String>(ActividadesNombres);
-	    	SeleccionarActividadCAMPO.setModel(model);
+	    	seleccionarActividadCAMPO.setModel(model);
 	    } catch (ActividadNoExisteException e) {
-	    	JOptionPane.showMessageDialog(this, e.getMessage(), "No hay actividades", JOptionPane.ERROR_MESSAGE);
+	    	JOptionPane.showMessageDialog(this, e.getMessage(), e.getMessage(), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
 	public void limpiarFormulario() {
-		SeleccionarActividadCAMPO.setModel(new DefaultComboBoxModel<String>(new String[0]));
+		seleccionarActividadCAMPO.setModel(new DefaultComboBoxModel<String>(new String[0]));
 	}
 	
 	//--------------------------------------------------------------------------------------------------
@@ -357,13 +358,13 @@ public class AltaSalida extends JInternalFrame {
 
 public void chequeoAlta() {
 	
-	String NombreActividad = (String)SeleccionarActividadCAMPO.getSelectedItem();
-	String NombreSalida = NombreSalidaCAMPO.getText();
-	Date Fecha = FechaSalidaCAMPO.getDate();
-	Date Hora = new Date(0,0,0,(Integer)horaCAMPO.getSelectedItem(), (Integer)minutosCAMPO.getSelectedItem());
-	String Lugar = LugarSalidaCAMPO.getText();
-	String maxCantTuristas = MaximaCantTuristasCAMPO.getText();
-	Date fechaAlta = FechaAltaDatePickerCAMPO.getDate();
+	String NombreActividad = (String) seleccionarActividadCAMPO.getSelectedItem();
+	String NombreSalida = nombreSalidaCAMPO.getText();
+	Date Fecha = fechaSalidaCAMPO.getDate();
+	Date Hora = new Date(0, 0, 0, (Integer) horaCAMPO.getSelectedItem(), (Integer) minutosCAMPO.getSelectedItem());
+	String Lugar = lugarSalidaCAMPO.getText();
+	String maxCantTuristas = maximaCantTuristasCAMPO.getText();
+	Date fechaAlta = fechaAltaDatePickerCAMPO.getDate();
 	if (checkFormulario()) {
 		try {
 			controlAlta.confirmarAltaSalida(NombreActividad, NombreSalida, Fecha, Hora, Lugar, Integer.parseInt(maxCantTuristas), fechaAlta);
@@ -388,16 +389,16 @@ public void chequeoAlta() {
 	
 	
 	private boolean checkFormulario() {
-		String NombreActividad = (String)SeleccionarActividadCAMPO.getSelectedItem();
-		String NombreSalida = NombreSalidaCAMPO.getText();
-		Date Fecha = FechaSalidaCAMPO.getDate();
-		Date Hora = new Date(0,0,0,(Integer)horaCAMPO.getSelectedItem(), (Integer)minutosCAMPO.getSelectedItem());
-		String Lugar = LugarSalidaCAMPO.getText();
-		String maxCantTuristas = MaximaCantTuristasCAMPO.getText();
-		Date fechaAlta = FechaAltaDatePickerCAMPO.getDate();
+		String NombreActividad = (String) seleccionarActividadCAMPO.getSelectedItem();
+		String NombreSalida = nombreSalidaCAMPO.getText();
+		Date Fecha = fechaSalidaCAMPO.getDate();
+		Date Hora = new Date(0, 0, 0, (Integer) horaCAMPO.getSelectedItem(), (Integer) minutosCAMPO.getSelectedItem());
+		String Lugar = lugarSalidaCAMPO.getText();
+		String maxCantTuristas = maximaCantTuristasCAMPO.getText();
+		Date fechaAlta = fechaAltaDatePickerCAMPO.getDate();
 		
 		
-	    if (NombreActividad == null || NombreSalida == null || Lugar.isEmpty() || (Hora==null) || (Fecha==null) || (fechaAlta==null)) {
+	    if (NombreActividad == null || NombreSalida == null || Lugar.isEmpty() || Hora==null || Fecha==null || fechaAlta==null) {
 	        JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Registrar Salida",
 	                JOptionPane.ERROR_MESSAGE);
 	        return false;

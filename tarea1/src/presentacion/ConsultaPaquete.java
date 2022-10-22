@@ -38,7 +38,7 @@ public class ConsultaPaquete extends JInternalFrame {
     private JComboBox<String> jcbPaquete;
     private JComboBox<String> jcbActividades;
     private String[] paquetes;
-    private JLabel Actividades;
+    private JLabel actividadesL;
     private JLabel paqNombre;
     private JTextArea paqNombreR;
     private JLabel paqDesc;
@@ -54,7 +54,7 @@ public class ConsultaPaquete extends JInternalFrame {
     private DataActividad actElegida;
     private ConsultarActividad conActividad;
     private String paq;
-    private JLabel Paquete;
+    private JLabel paqueteL;
     /**
      * Create the frame.
      */
@@ -75,14 +75,14 @@ public class ConsultaPaquete extends JInternalFrame {
         // la posición absoluta de todos los componentes
         getContentPane().setLayout(null);
 
-        Paquete = new JLabel("Paquete:");
-        Paquete.setSize(125, 32);
-        Paquete.setLocation(40, 12);
+        paqueteL = new JLabel("Paquete:");
+        paqueteL.setSize(125, 32);
+        paqueteL.setLocation(40, 12);
 		GridBagConstraints gbc_Paquete = new GridBagConstraints();
 		gbc_Paquete.anchor = GridBagConstraints.EAST;
 		gbc_Paquete.insets = new Insets(2, 2, 5, 5);
-		getContentPane().add(Paquete, gbc_Paquete);
-        Paquete.setVisible(false);
+		getContentPane().add(paqueteL, gbc_Paquete);
+        paqueteL.setVisible(false);
 		
         jcbPaquete = new JComboBox<String>();
         jcbPaquete.setBounds(253, 16, 276, 24);
@@ -95,14 +95,14 @@ public class ConsultaPaquete extends JInternalFrame {
         jcbPaquete.setVisible(false);
         
         
-    	Actividades = new JLabel("Actividades del Paquete: ");
-        Actividades.setSize(195, 32);
-        Actividades.setLocation(40, 228);
+    	actividadesL = new JLabel("Actividades del Paquete: ");
+        actividadesL.setSize(195, 32);
+        actividadesL.setLocation(40, 228);
     	GridBagConstraints gbc_Actividades = new GridBagConstraints();
     	gbc_Actividades.anchor = GridBagConstraints.EAST;
     	gbc_Actividades.insets = new Insets(2, 2, 5, 5);
-    	getContentPane().add(Actividades, gbc_Actividades);
-    	Actividades.setVisible(false);
+    	getContentPane().add(actividadesL, gbc_Actividades);
+    	actividadesL.setVisible(false);
     	
         jcbActividades = new JComboBox<String>();
         jcbActividades.setBounds(253, 232, 276, 24);
@@ -256,12 +256,12 @@ public void cargarPaquetes(){
 	DefaultComboBoxModel<String> model;
 	try {
 		paquetes = controlCons.listarPaquetes();
-		if(paquetes.length ==0) {
+		if (paquetes.length ==0) {
 			throw new PaqueteNoExisteException("No hay paquetes en el sistema");
 		}
     	model = new DefaultComboBoxModel<String>(paquetes);
         jcbPaquete.setModel(model);
-        Paquete.setVisible(true);
+        paqueteL.setVisible(true);
         jcbPaquete.setVisible(true);
     } catch (PaqueteNoExisteException e) {
     	JOptionPane.showMessageDialog(this, e.getMessage(), "No hay Paquetes", JOptionPane.ERROR_MESSAGE);
@@ -300,11 +300,11 @@ public void cargarActividades(){
 		if (auxi.length == 0) {
 			throw new ActividadNoExisteException("No hay actividades asociadas a dicho Paquete");
 		}
-    	Actividades.setVisible(true);
+    	actividadesL.setVisible(true);
 		jcbActividades.setVisible(true);
 		int j = 0;
 		String[] ActividadesNombres = new String[auxi.length];
-		while(j<auxi.length) {
+		while (j < auxi.length) {
 			ActividadesNombres[j] = auxi[j].getNombre();
 			j++;
 		}
@@ -321,7 +321,7 @@ public void cargarActividades(){
     // no aparezca al mostrarlas nuevamente.
     private void limpiarFormulario() {
         jcbPaquete.removeAllItems();
-        Paquete.setVisible(false);
+        paqueteL.setVisible(false);
         jcbPaquete.setVisible(false);
         btnBuscar.setVisible(false);
         btnInfoActividad.setVisible(false);
@@ -339,7 +339,7 @@ public void cargarActividades(){
     	paqDescuentoR.setVisible(false);
     	paqFecha.setVisible(false);
     	paqFechaR.setVisible(false);
-    	Actividades.setVisible(false);
+    	actividadesL.setVisible(false);
         jcbActividades.removeAllItems();
     	jcbActividades.setVisible(false);
     }

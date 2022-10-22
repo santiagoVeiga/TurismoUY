@@ -65,11 +65,11 @@ public class AceptarRechazar extends JInternalFrame {
         JButton btnConfirmar = new JButton("Confirmar");
         btnConfirmar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(rdbtnConfirmar.isSelected()) {
-        			enviarDatos(comboBox.getSelectedItem(),estadoAct.confirmada);
+        		if (rdbtnConfirmar.isSelected()) {
+        			enviarDatos(comboBox.getSelectedItem(), estadoAct.confirmada);
         		}
         		else {
-        			enviarDatos(comboBox.getSelectedItem(),estadoAct.rechazada);
+        			enviarDatos(comboBox.getSelectedItem(), estadoAct.rechazada);
         		}
         		setVisible(false);
         	}
@@ -94,9 +94,11 @@ public class AceptarRechazar extends JInternalFrame {
 			JOptionPane.showMessageDialog(this, "Operacion exitosa", "Aceptar / Rechazar Actividad",
                     JOptionPane.INFORMATION_MESSAGE);
 		} catch (estadoActividadIncorrecto e) {
-			
+			JOptionPane.showMessageDialog(this, "Ha ocurrido un error", "Estado de la actividad incorrecto",
+                    JOptionPane.INFORMATION_MESSAGE);
 		} catch (ActividadNoExisteException e) {
-			
+			JOptionPane.showMessageDialog(this, "Ha ocurrido un error", e.getMessage(),
+                    JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 

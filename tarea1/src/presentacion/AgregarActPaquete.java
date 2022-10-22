@@ -19,7 +19,6 @@ import excepciones.ActividadNoExisteException;
 import excepciones.PaqueteNoExisteException;
 import logica.DataActividad;
 import logica.DataDepartamento;
-import logica.DataSalida;
 import logica.IControladorInsc;
 
 /**
@@ -38,13 +37,11 @@ public class AgregarActPaquete extends JInternalFrame {
     private JComboBox<String> jcbDepartamentos;
     private JComboBox<String> jcbActividades;
     private JComboBox<String> jcbPaquetes;
-    private Set<DataDepartamento> DD;
+    private Set<DataDepartamento> dataDepartamentos;
     private String[] paquetes;
-    private JLabel Actividades;
-    private JLabel Paquetes;
+    private JLabel actividadesL;
+    private JLabel paquetesL;
     private Set<DataActividad> auxi;
-    private DataActividad actElegida;
-    private Set<DataSalida> auxiSal;
     private boolean paqB = false;
     private boolean depB = false;
     /**
@@ -67,20 +64,20 @@ public class AgregarActPaquete extends JInternalFrame {
         // la posición absoluta de todos los componentes
         getContentPane().setLayout(null);
 
-    	Paquetes = new JLabel("Paquetes: ");
-        Paquetes.setSize(125, 32);
-        Paquetes.setLocation(40, 12);
+    	paquetesL = new JLabel("Paquetes: ");
+        paquetesL.setSize(125, 32);
+        paquetesL.setLocation(40, 12);
     	GridBagConstraints gbc_Paquetes = new GridBagConstraints();
     	gbc_Paquetes.anchor = GridBagConstraints.EAST;
     	gbc_Paquetes.insets = new Insets(2, 2, 5, 5);
-    	getContentPane().add(Paquetes, gbc_Paquetes);
+    	getContentPane().add(paquetesL, gbc_Paquetes);
     	
         jcbPaquetes = new JComboBox<String>();
         jcbPaquetes.setBounds(253, 16, 276, 24);
         getContentPane().add(jcbPaquetes);
         jcbPaquetes.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
-        		if(depB) {
+        		if (depB) {
         			btnBuscar.setVisible(true);
         			depB = false;
         		} else {
@@ -102,7 +99,7 @@ public class AgregarActPaquete extends JInternalFrame {
         
         jcbDepartamentos.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
-        		if(paqB) {
+        		if (paqB) {
         			btnBuscar.setVisible(true);
         			paqB = false;
         		} else {
@@ -113,14 +110,14 @@ public class AgregarActPaquete extends JInternalFrame {
         getContentPane().add(jcbDepartamentos);
         
         
-    	Actividades = new JLabel("Actividades: ");
-        Actividades.setSize(125, 32);
-        Actividades.setLocation(40, 94);
+    	actividadesL = new JLabel("Actividades: ");
+        actividadesL.setSize(125, 32);
+        actividadesL.setLocation(40, 94);
     	GridBagConstraints gbc_Actividades = new GridBagConstraints();
     	gbc_Actividades.anchor = GridBagConstraints.EAST;
     	gbc_Actividades.insets = new Insets(2, 2, 5, 5);
-    	getContentPane().add(Actividades, gbc_Actividades);
-    	Actividades.setVisible(false);
+    	getContentPane().add(actividadesL, gbc_Actividades);
+    	actividadesL.setVisible(false);
     	
         jcbActividades = new JComboBox<String>();
         jcbActividades.setBounds(253, 98, 276, 24);
@@ -174,10 +171,10 @@ public class AgregarActPaquete extends JInternalFrame {
 
 public void cargarDepartamentos(){
     		DefaultComboBoxModel<String> model;
-    		DD = controlInsc.listarDepartamentos();
-    		String[] DepartamentosNombres = new String[DD.size()];
+    		dataDepartamentos = controlInsc.listarDepartamentos();
+    		String[] DepartamentosNombres = new String[dataDepartamentos.size()];
     		int i = 0;
-    		for (DataDepartamento iter:DD) {
+    		for (DataDepartamento iter:dataDepartamentos) {
     			DepartamentosNombres[i] = iter.getNombre();
     			i++;
     		}
@@ -197,13 +194,13 @@ public void cargarActividades(){
 		Iterator<DataActividad> it = auxi.iterator();
 		int j = 0;
 		String[] ActividadesNombres = new String[auxi.size()];
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			ActividadesNombres[j] = it.next().getNombre();
 			j++;
 		}
     	model = new DefaultComboBoxModel<String>(ActividadesNombres);
         jcbActividades.setModel(model);
-    	Actividades.setVisible(true);
+    	actividadesL.setVisible(true);
 		jcbActividades.setVisible(true);
 		jcbDepartamentos.setEditable(false);
 		jcbPaquetes.setEditable(false);
@@ -216,7 +213,7 @@ public void cargarPaquetes(){
 	DefaultComboBoxModel<String> model;
 	try {
 		paquetes = controlInsc.listarPaquetesNoComprados();
-		if(paquetes.length ==0) {
+		if (paquetes.length ==0) {
 			throw new PaqueteNoExisteException("No hay paquetes en el sistema");
 		}
     	model = new DefaultComboBoxModel<String>(paquetes);
@@ -228,7 +225,7 @@ public void cargarPaquetes(){
 
 	private void agregarAct() {
     	controlInsc.confirmar((String) jcbPaquetes.getSelectedItem(), (String) jcbActividades.getSelectedItem());
-    	JOptionPane.showMessageDialog(this, "La actividad se ha agregado con exito", "Agregar Actividad",JOptionPane.INFORMATION_MESSAGE);
+    	JOptionPane.showMessageDialog(this, "La actividad se ha agregado con exito", "Agregar Actividad", JOptionPane.INFORMATION_MESSAGE);
 	}
 
     // Permite borrar el contenido de un formulario antes de cerrarlo.
@@ -244,7 +241,7 @@ public void cargarPaquetes(){
     	jcbActividades.setVisible(false);
 		jcbDepartamentos.setEditable(true);
 		jcbPaquetes.setEditable(true);
-		Actividades.setVisible(false);
+		actividadesL.setVisible(false);
     }
 
 }

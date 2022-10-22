@@ -47,9 +47,9 @@ public class ConsultarActividad extends JInternalFrame {
     private JComboBox<String> jcbSalidas;
     private JComboBox<String> jcbPaquetes;
     private JComboBox<String> jcbCategorias;
-    private DataDepartamento[] DD;
-    private JLabel Departamento;
-    private JLabel Actividades;
+    private DataDepartamento[] dataDepartamentos;
+    private JLabel departamentoL;
+    private JLabel actividadesL;
     private JLabel actNombre;
     private JTextArea actNombreR;
     private JLabel actDesc;
@@ -62,9 +62,9 @@ public class ConsultarActividad extends JInternalFrame {
     private JLabel actDuracionR;
     private JLabel actFecha;
     private JLabel actFechaR;
-    private JLabel Salidas;
-    private JLabel Paquetes;
-    private JLabel Categorias;
+    private JLabel salidasL;
+    private JLabel paquetesL;
+    private JLabel categoriasL;
     private Set<DataActividad> auxi;
     private DataActividad actElegida;
     private Set<DataSalida> auxiSal;
@@ -93,14 +93,14 @@ public class ConsultarActividad extends JInternalFrame {
         // la posición absoluta de todos los componentes
         getContentPane().setLayout(null);
 
-        Departamento = new JLabel("Departamento: ");
-        Departamento.setSize(125, 32);
-        Departamento.setLocation(40, 12);
+        departamentoL = new JLabel("Departamento: ");
+        departamentoL.setSize(125, 32);
+        departamentoL.setLocation(40, 12);
 		GridBagConstraints gbc_Departamento = new GridBagConstraints();
 		gbc_Departamento.anchor = GridBagConstraints.EAST;
 		gbc_Departamento.insets = new Insets(2, 2, 5, 5);
-		getContentPane().add(Departamento, gbc_Departamento);
-		Departamento.setVisible(false);
+		getContentPane().add(departamentoL, gbc_Departamento);
+		departamentoL.setVisible(false);
         
         jcbDepartamentos = new JComboBox<String>();
         jcbDepartamentos.setBounds(253, 16, 320, 24);
@@ -113,14 +113,14 @@ public class ConsultarActividad extends JInternalFrame {
         jcbDepartamentos.setVisible(false);
         
         
-    	Actividades = new JLabel("Actividades: ");
-        Actividades.setSize(125, 32);
-        Actividades.setLocation(40, 50);
+    	actividadesL = new JLabel("Actividades: ");
+        actividadesL.setSize(125, 32);
+        actividadesL.setLocation(40, 50);
     	GridBagConstraints gbc_Actividades = new GridBagConstraints();
     	gbc_Actividades.anchor = GridBagConstraints.EAST;
     	gbc_Actividades.insets = new Insets(2, 2, 5, 5);
-    	getContentPane().add(Actividades, gbc_Actividades);
-    	Actividades.setVisible(false);
+    	getContentPane().add(actividadesL, gbc_Actividades);
+    	actividadesL.setVisible(false);
     	
         jcbActividades = new JComboBox<String>();
         jcbActividades.setBounds(253, 54, 320, 24);
@@ -132,28 +132,28 @@ public class ConsultarActividad extends JInternalFrame {
         });
         jcbActividades.setVisible(false);
         
-        Categorias = new JLabel("Categorias: ");
-        Categorias.setSize(125, 32);
-        Categorias.setLocation(40, 282);
+        categoriasL = new JLabel("Categorias: ");
+        categoriasL.setSize(125, 32);
+        categoriasL.setLocation(40, 282);
     	GridBagConstraints gbc_Categorias = new GridBagConstraints();
     	gbc_Categorias.anchor = GridBagConstraints.EAST;
     	gbc_Categorias.insets = new Insets(2, 2, 5, 5);
-    	getContentPane().add(Categorias, gbc_Categorias);
-    	Categorias.setVisible(false);
+    	getContentPane().add(categoriasL, gbc_Categorias);
+    	categoriasL.setVisible(false);
     	
         jcbCategorias = new JComboBox<String>();
         jcbCategorias.setBounds(253, 286, 320, 24);
         getContentPane().add(jcbCategorias);
         jcbCategorias.setVisible(false);
         
-    	Salidas = new JLabel("Salidas: ");
-        Salidas.setSize(125, 32);
-        Salidas.setLocation(40, 316);
+    	salidasL = new JLabel("Salidas: ");
+        salidasL.setSize(125, 32);
+        salidasL.setLocation(40, 316);
     	GridBagConstraints gbc_Salidas = new GridBagConstraints();
     	gbc_Salidas.anchor = GridBagConstraints.EAST;
     	gbc_Salidas.insets = new Insets(2, 2, 5, 5);
-    	getContentPane().add(Salidas, gbc_Salidas);
-    	Salidas.setVisible(false);
+    	getContentPane().add(salidasL, gbc_Salidas);
+    	salidasL.setVisible(false);
     	
         jcbSalidas = new JComboBox<String>();
         jcbSalidas.setBounds(253, 320, 320, 24);
@@ -165,14 +165,14 @@ public class ConsultarActividad extends JInternalFrame {
         });
         jcbSalidas.setVisible(false);
         
-    	Paquetes = new JLabel("Paquetes: ");
-        Paquetes.setSize(125, 32);
-        Paquetes.setLocation(40, 353);
+    	paquetesL = new JLabel("Paquetes: ");
+        paquetesL.setSize(125, 32);
+        paquetesL.setLocation(40, 353);
     	GridBagConstraints gbc_Paquetes = new GridBagConstraints();
     	gbc_Paquetes.anchor = GridBagConstraints.EAST;
     	gbc_Paquetes.insets = new Insets(2, 2, 5, 5);
-    	getContentPane().add(Paquetes, gbc_Paquetes);
-    	Paquetes.setVisible(false);
+    	getContentPane().add(paquetesL, gbc_Paquetes);
+    	paquetesL.setVisible(false);
         
         jcbPaquetes = new JComboBox<String>();
         jcbPaquetes.setBounds(253, 357, 320, 24);
@@ -216,7 +216,7 @@ public class ConsultarActividad extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
             	Iterator<DataActividad> it = auxi.iterator();
             	actElegida = it.next();
-            	while(it.hasNext() && (actElegida.getNombre() != (String) jcbActividades.getSelectedItem())) {
+            	while (it.hasNext() && actElegida.getNombre() != (String) jcbActividades.getSelectedItem()) {
             		actElegida = it.next();
             	}
             	mostrarActividad();
@@ -368,16 +368,17 @@ public class ConsultarActividad extends JInternalFrame {
 public void cargarDepartamentos(){
     	DefaultComboBoxModel<String> model;
     	try {
-    		DD = controlCons.obtenerDataDepartamentos();
-    		String[] DepartamentosNombres = new String[DD.length];
-    		for (int i = 0; i < DD.length;i++) {
-    			DepartamentosNombres[i] = DD[i].getNombre();
+    		dataDepartamentos = controlCons.obtenerDataDepartamentos();
+    		String[] DepartamentosNombres = new String[dataDepartamentos.length];
+    		for (int i = 0; i < dataDepartamentos.length; i++) {
+    			DepartamentosNombres[i] = dataDepartamentos[i].getNombre();
     		}
 	    	model = new DefaultComboBoxModel<String>(DepartamentosNombres);
 	        jcbDepartamentos.setModel(model);
 	        jcbDepartamentos.setVisible(true);
-	        Departamento.setVisible(true);
+	        departamentoL.setVisible(true);
 	    } catch (DepartamentoNoExisteException e) {
+	    	JOptionPane.showMessageDialog(this, e.getMessage(), e.getMessage(), JOptionPane.ERROR_MESSAGE);
     	}
     }
 
@@ -385,16 +386,16 @@ public void cargarActividades(){
 	DefaultComboBoxModel<String> model;
 	try {
 		int i = jcbDepartamentos.getSelectedIndex();
-		if (DD[i].getColAct().size() == 0) {
+		if (dataDepartamentos[i].getColAct().size() == 0) {
 			throw new ActividadNoExisteException("No hay actividades asociadas a dicho Departamento");
 		}
-    	Actividades.setVisible(true);
+    	actividadesL.setVisible(true);
 		jcbActividades.setVisible(true);
-		auxi = DD[i].getColAct();
+		auxi = dataDepartamentos[i].getColAct();
 		Iterator<DataActividad> it = auxi.iterator();
 		int j = 0;
 		String[] ActividadesNombres = new String[auxi.size()];
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			ActividadesNombres[j] = it.next().getNombre();
 			j++;
 		}
@@ -412,12 +413,12 @@ public void cargarSalidas(){
 		if (auxiSal.size() == 0) {
 			throw new SalidasNoExisteException("No hay salidas asociadas a dicha Actividad");
 		}
-    	Salidas.setVisible(true);
+    	salidasL.setVisible(true);
 		jcbSalidas.setVisible(true);
 		Iterator<DataSalida> iter = auxiSal.iterator();
 		int j = 0;
 		String[] SalidasNombres = new String[auxiSal.size()];
-		while(iter.hasNext()) {
+		while (iter.hasNext()) {
 			SalidasNombres[j] = iter.next().getNombre();
 			j++;
 		}
@@ -435,7 +436,7 @@ public void cargarPaquetes() {
 			throw new PaqueteNoExisteException("No hay paquetes asociadas a dicha Actividad");
 		}
 		nombresPaq = actElegida.getPaquetes().toArray(new String[0]);
-    	Paquetes.setVisible(true);
+    	paquetesL.setVisible(true);
 		jcbPaquetes.setVisible(true);
     	model = new DefaultComboBoxModel<String>(nombresPaq);
         jcbPaquetes.setModel(model);
@@ -447,7 +448,7 @@ public void cargarPaquetes() {
 public void cargarCategorias() {
 	DefaultComboBoxModel<String> model;
 	nombresCat = actElegida.getCategorias().toArray(new String[0]);
-	Categorias.setVisible(true);
+	categoriasL.setVisible(true);
 	jcbCategorias.setVisible(true);
 	model = new DefaultComboBoxModel<String>(nombresCat);
     jcbCategorias.setModel(model);
@@ -498,9 +499,9 @@ public void mostrarActividad() {
     	jcbActividades.setVisible(false);
     	jcbSalidas.setVisible(false);
         limpiarFormularioActividad();
-        Actividades.setVisible(false);
+        actividadesL.setVisible(false);
         jcbDepartamentos.setVisible(false);
-        Departamento.setVisible(false);
+        departamentoL.setVisible(false);
     }
 
     private void limpiarFormularioActividad() {
@@ -516,11 +517,11 @@ public void mostrarActividad() {
     	actDuracionR.setVisible(false);
     	actFecha.setVisible(false);
     	actFechaR.setVisible(false);
-    	Salidas.setVisible(false);
+    	salidasL.setVisible(false);
     	jcbSalidas.setVisible(false);
-    	Paquetes.setVisible(false);
+    	paquetesL.setVisible(false);
     	jcbPaquetes.setVisible(false);
-    	Categorias.setVisible(false);
+    	categoriasL.setVisible(false);
     	jcbCategorias.setVisible(false);
     }
 

@@ -55,12 +55,12 @@ public class CrearActividad extends JInternalFrame {
     private JComboBox<String> departamentoComboBox;
     //private JList<String> myList ; 
     private JComboBox<String> proveedoresComboBox;
-    private DataDepartamento[] DD;
-    private DataUsuario[] DU;
-    private DataProveedor[] DataProveedorArray;
+    private DataDepartamento[] dataDepartamentos;
+    private DataUsuario[] dataUsuarios;
+    private DataProveedor[] dataProveedorArray;
     //private DataUsuario[] DP;
     private JComboBox<String> categoriasComboBox;
-    private JList<String> CategoriasList;
+    private JList<String> categoriasList;
     private DefaultListModel<String> modelo;
     
 
@@ -177,7 +177,7 @@ public class CrearActividad extends JInternalFrame {
 		getContentPane().add(categoriasComboBox, gbc_categoriasComboBox);
 		categoriasComboBox.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
-        		if(modelo.indexOf((String) categoriasComboBox.getSelectedItem()) == -1)
+        		if (modelo.indexOf((String) categoriasComboBox.getSelectedItem()) == -1)
         		modelo.addElement((String) categoriasComboBox.getSelectedItem());
         	}
         });
@@ -189,20 +189,20 @@ public class CrearActividad extends JInternalFrame {
 		gbc_categoriasText.gridy = 6;
 		getContentPane().add(categoriasText, gbc_categoriasText);
 		
-		CategoriasList = new JList<String>();
+		categoriasList = new JList<String>();
 		GridBagConstraints gbc_CategoriasList = new GridBagConstraints();
 		gbc_CategoriasList.insets = new Insets(0, 0, 5, 5);
 		gbc_CategoriasList.fill = GridBagConstraints.BOTH;
 		gbc_CategoriasList.gridx = 2;
 		gbc_CategoriasList.gridy = 6;
-		getContentPane().add(CategoriasList, gbc_CategoriasList);
-		CategoriasList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		getContentPane().add(categoriasList, gbc_CategoriasList);
+		categoriasList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		modelo = new DefaultListModel<>();
-		CategoriasList.setModel(modelo);
-		CategoriasList.addListSelectionListener(new ListSelectionListener() {
+		categoriasList.setModel(modelo);
+		categoriasList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				if(!CategoriasList.isSelectionEmpty())
-					modelo.remove(CategoriasList.getSelectedIndex());
+				if (!categoriasList.isSelectionEmpty())
+					modelo.remove(categoriasList.getSelectedIndex());
 			}
 		});
 		
@@ -300,24 +300,24 @@ public class CrearActividad extends JInternalFrame {
         String duracionAct = this.duracionTextField.getText();
         Date fechaAct = calendario.getDate();
         String ciudadAct = this.ciudadTextField.getText();
-        String departamentoAct = (String)departamentoComboBox.getSelectedItem();
-        String proveedorAct = DataProveedorArray[proveedoresComboBox.getSelectedIndex()].getNick();
+        String departamentoAct = (String) departamentoComboBox.getSelectedItem();
+        String proveedorAct = dataProveedorArray[proveedoresComboBox.getSelectedIndex()].getNick();
         Set<String> setCat = new HashSet<String>(); 
         Object[] elementos = modelo.toArray();
-        for(int i = 0 ; i < elementos.length; i++) { 
+        for (int i = 0 ; i < elementos.length; i++) { 
         	setCat.add((String) elementos[i]);
         }
         
         if (checkFormulario()) {
             try {
-                controlAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct,Integer.parseInt(duracionAct),Integer.parseInt(costoAct),ciudadAct ,fechaAct,proveedorAct,setCat);
+                controlAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, fechaAct, proveedorAct, setCat);
                 JOptionPane.showMessageDialog(this, "La actividad ha sido registrada exitosamente.", "Registrar Actividad",
                         JOptionPane.INFORMATION_MESSAGE);
 
             } catch (ActividadRepetidaException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Actividad", JOptionPane.ERROR_MESSAGE);
             } catch (NumberFormatException e) {
-				
+            	JOptionPane.showMessageDialog(this, "Formato numerico no aceptado", "Registrar Actividad", JOptionPane.ERROR_MESSAGE);
 			} catch (UsuarioNoExisteException e) {
 				JOptionPane.showMessageDialog(this, "El usuario no existe en el Sistema", "Registrar Actividad", JOptionPane.ERROR_MESSAGE);
 			} catch (ProveedorNoNacidoException e) {
@@ -335,11 +335,11 @@ public class CrearActividad extends JInternalFrame {
         String duracionAct = this.duracionTextField.getText();
         Date nacimientoU = calendario.getDate();
         String ciudadAct = this.ciudadTextField.getText();
-        String departamentoAct = (String)departamentoComboBox.getSelectedItem();
-        String proveedorAct = (String)proveedoresComboBox.getSelectedItem();
+        String departamentoAct = (String) departamentoComboBox.getSelectedItem();
+        String proveedorAct = (String) proveedoresComboBox.getSelectedItem();
 
-        if (nombreAct.isEmpty() || descripcionAct.isEmpty() || costoAct.isEmpty() || duracionAct.isEmpty() || ciudadAct.isEmpty() || (departamentoAct == null) || (proveedorAct == null) || (nacimientoU == null) || (modelo.isEmpty())) {
-            if((nacimientoU == null)) {
+        if (nombreAct.isEmpty() || descripcionAct.isEmpty() || costoAct.isEmpty() || duracionAct.isEmpty() || ciudadAct.isEmpty() || departamentoAct == null || proveedorAct == null || nacimientoU == null || modelo.isEmpty()) {
+            if (nacimientoU == null) {
             	JOptionPane.showMessageDialog(this, "Fecha erronea o vac�a", "Registrar Actividad",
                         JOptionPane.ERROR_MESSAGE);
             }else {
@@ -369,10 +369,10 @@ public class CrearActividad extends JInternalFrame {
     public void cargarDepartamentos(){
     	DefaultComboBoxModel<String> model;
     	try {
-    		DD = controlAlta.obtenerDataDepartamentos();
-    		String[] DepartamentosNombres = new String[DD.length];
-    		for (int i = 0; i < DD.length;i++) {
-    			DepartamentosNombres[i] = DD[i].getNombre();
+    		dataDepartamentos = controlAlta.obtenerDataDepartamentos();
+    		String[] DepartamentosNombres = new String[dataDepartamentos.length];
+    		for (int i = 0; i < dataDepartamentos.length; i++) {
+    			DepartamentosNombres[i] = dataDepartamentos[i].getNombre();
     		}
 	    	model = new DefaultComboBoxModel<String>(DepartamentosNombres);
 	    	departamentoComboBox.setModel(model);
@@ -388,21 +388,21 @@ public class CrearActividad extends JInternalFrame {
     public void cargarProveedores(){
     	DefaultComboBoxModel<String> model;
     	try {
-    		DU = controlAlta.getUsuarios();
+    		dataUsuarios = controlAlta.getUsuarios();
     		//Cantidad de proveedores
     		int cant = 0;
-    		for (int i = 0; i < DU.length;i++) {
-    			if (DU[i] instanceof DataProveedor) {
+    		for (int i = 0; i < dataUsuarios.length; i++) {
+    			if (dataUsuarios[i] instanceof DataProveedor) {
         			cant++;
     			}
     		}
     		String[] DP = new String[cant];
-    		DataProveedorArray = new DataProveedor[cant];
+    		dataProveedorArray = new DataProveedor[cant];
     		int ctr = 0;
-    		for (int i = 0; i < DU.length;i++) {
-    			if (DU[i] instanceof DataProveedor) {
-    				DataProveedorArray[ctr] = (DataProveedor) DU[i];
-        			DP[ctr] = DU[i].getNombre();
+    		for (int i = 0; i < dataUsuarios.length; i++) {
+    			if (dataUsuarios[i] instanceof DataProveedor) {
+    				dataProveedorArray[ctr] = (DataProveedor) dataUsuarios[i];
+        			DP[ctr] = dataUsuarios[i].getNombre();
         			ctr++;
     			}
     		}

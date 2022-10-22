@@ -20,7 +20,6 @@ import excepciones.DepartamentoNoExisteException;
 import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataSalida;
-import logica.IControladorAlta;
 import logica.IControladorConsulta;
 
 public class ConsultaSalidaTuristica extends JInternalFrame {
@@ -28,19 +27,18 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 	private IControladorConsulta controlCons ; 
 	private Button aceptarCAMPO;
 	private Button cancelarCAMPO;
-	private JComboBox SeleccionarDepartamentoCAMPO;
-	private JComboBox SeleccionarActividadCAMPO;
-	private IControladorAlta controlAlta;
-    private DataDepartamento[] DD;
+	private JComboBox seleccionarDepartamentoCAMPO;
+	private JComboBox seleccionarActividadCAMPO;
+    private DataDepartamento[] dataDepartamentos;
     private Set<DataActividad> auxi;
-    private JComboBox SeleccionarSalidaCAMPO;
-    private Set<DataSalida> Salidas;
+    private JComboBox seleccionarSalidaCAMPO;
+    private Set<DataSalida> salidas;
     private JTextField horaSalida;
     private JTextField fechaSalida;
     private JTextField lugarSalida;
     private JTextField cantidadMaxima;
     private JTextField fechaAlta;
-    private JLabel Departamento;
+    private JLabel departamentoL;
     private JLabel horaLabel;
     private JLabel lugarSalidaLabel;
 	private JLabel cantidadMaximaLabel;
@@ -60,26 +58,26 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		
-		Departamento = new JLabel("Seleccionar Departamento");
-		Departamento.setFont(new Font("Tahoma", Font.BOLD, 12));
-		Departamento.setBounds(46, 34, 162, 18);
-		getContentPane().add(Departamento);
-		Departamento.setVisible(false);
+		departamentoL = new JLabel("Seleccionar Departamento");
+		departamentoL.setFont(new Font("Tahoma", Font.BOLD, 12));
+		departamentoL.setBounds(46, 34, 162, 18);
+		getContentPane().add(departamentoL);
+		departamentoL.setVisible(false);
 		
 		
 		/*	**** Departamentos *****	*/ 
 	
-		SeleccionarDepartamentoCAMPO = new JComboBox<String>(); 
-		SeleccionarDepartamentoCAMPO.setBounds(218, 31, 219, 21);
-		getContentPane().add(SeleccionarDepartamentoCAMPO);
-		SeleccionarDepartamentoCAMPO.setVisible(false);
+		seleccionarDepartamentoCAMPO = new JComboBox<String>(); 
+		seleccionarDepartamentoCAMPO.setBounds(218, 31, 219, 21);
+		getContentPane().add(seleccionarDepartamentoCAMPO);
+		seleccionarDepartamentoCAMPO.setVisible(false);
 
-		SeleccionarDepartamentoCAMPO.addActionListener(new ActionListener() {
+		seleccionarDepartamentoCAMPO.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
             	cargarActividades();				
         	    ocultarTextAndLabel();
         		salidasLabel.setVisible(false);
-        		SeleccionarSalidaCAMPO.setVisible(false);
+        		seleccionarSalidaCAMPO.setVisible(false);
 	    	}	    	
 	    });
 
@@ -91,16 +89,16 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		getContentPane().add(actividadesLabel);
 		actividadesLabel.setVisible(false);
 		
-		SeleccionarActividadCAMPO = new JComboBox<String>();
-		SeleccionarActividadCAMPO.setBounds(218, 63, 219, 21);
-		SeleccionarActividadCAMPO.addActionListener(new ActionListener() { 
+		seleccionarActividadCAMPO = new JComboBox<String>();
+		seleccionarActividadCAMPO.setBounds(218, 63, 219, 21);
+		seleccionarActividadCAMPO.addActionListener(new ActionListener() { 
 	    	public void actionPerformed(ActionEvent e) {
             	cargarSalidas();
         	    ocultarTextAndLabel();
 	    	}
 	    });
-		getContentPane().add(SeleccionarActividadCAMPO);
-		SeleccionarActividadCAMPO.setVisible(false);
+		getContentPane().add(seleccionarActividadCAMPO);
+		seleccionarActividadCAMPO.setVisible(false);
 
 		
 		/*	**** Salidas *****	*/ 
@@ -112,15 +110,15 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		salidasLabel.setVisible(false);
 
 		
-		SeleccionarSalidaCAMPO = new JComboBox();
-		SeleccionarSalidaCAMPO.setBounds(218, 91, 219, 22);
-		SeleccionarSalidaCAMPO.addActionListener(new ActionListener() { //action listener para cuando se selecciona el dpto
+		seleccionarSalidaCAMPO = new JComboBox();
+		seleccionarSalidaCAMPO.setBounds(218, 91, 219, 22);
+		seleccionarSalidaCAMPO.addActionListener(new ActionListener() { //action listener para cuando se selecciona el dpto
 	    	public void actionPerformed(ActionEvent e) {
 	    		cargarDatosSalidaPorListado();				
 	    	}
 	    });
-		getContentPane().add(SeleccionarSalidaCAMPO);
-		SeleccionarSalidaCAMPO.setVisible(false);
+		getContentPane().add(seleccionarSalidaCAMPO);
+		seleccionarSalidaCAMPO.setVisible(false);
 
 		horaLabel = new JLabel("Hora: ");
 		horaLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -221,16 +219,17 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 	public void cargarDepartamentos(){
     	DefaultComboBoxModel<String> model;
     	try {
-    		DD = controlCons.obtenerDataDepartamentos();
-    		String[] DepartamentosNombres = new String[DD.length];
-    		for (int i = 0; i < DD.length;i++) {
-    			DepartamentosNombres[i] = DD[i].getNombre();
+    		dataDepartamentos = controlCons.obtenerDataDepartamentos();
+    		String[] DepartamentosNombres = new String[dataDepartamentos.length];
+    		for (int i = 0; i < dataDepartamentos.length; i++) {
+    			DepartamentosNombres[i] = dataDepartamentos[i].getNombre();
     		}
 	    	model = new DefaultComboBoxModel<String>(DepartamentosNombres);
-	    	SeleccionarDepartamentoCAMPO.setModel(model);
-	    	Departamento.setVisible(true);
-	    	SeleccionarDepartamentoCAMPO.setVisible(true);
+	    	seleccionarDepartamentoCAMPO.setModel(model);
+	    	departamentoL.setVisible(true);
+	    	seleccionarDepartamentoCAMPO.setVisible(true);
 	    } catch (DepartamentoNoExisteException e) {
+	    	JOptionPane.showMessageDialog(this, e.getMessage(), e.getMessage(), JOptionPane.ERROR_MESSAGE);
     	}
     }
 	
@@ -238,26 +237,26 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 	public void cargarActividades(){
 		DefaultComboBoxModel<String> model;
 		actividadesLabel.setVisible(true);
-		SeleccionarActividadCAMPO.setVisible(true);
+		seleccionarActividadCAMPO.setVisible(true);
 		try {
-			String aux = (String) SeleccionarDepartamentoCAMPO.getSelectedItem();
+			String aux = (String) seleccionarDepartamentoCAMPO.getSelectedItem();
 			int i = 0;
-			while (i<DD.length && DD[i].getNombre() != aux) {
+			while (i<dataDepartamentos.length && dataDepartamentos[i].getNombre() != aux) {
 				i++;
 			}
-			if (DD[i].getColAct().size() == 0) {
+			if (dataDepartamentos[i].getColAct().size() == 0) {
 				throw new ActividadNoExisteException("No hay actividades asociadas a dicho Departamento");
 			}
-			auxi = DD[i].getColAct();
+			auxi = dataDepartamentos[i].getColAct();
 			Iterator<DataActividad> it = auxi.iterator();
 			int j = 0;
 			String[] ActividadesNombres = new String[auxi.size()];
-			while(it.hasNext()) {
+			while (it.hasNext()) {
 				ActividadesNombres[j] = it.next().getNombre();
 				j++;
 			}
 	    	model = new DefaultComboBoxModel<String>(ActividadesNombres);
-	    	SeleccionarActividadCAMPO.setModel(model);
+	    	seleccionarActividadCAMPO.setModel(model);
 	    } catch (ActividadNoExisteException e) {
 	    	JOptionPane.showMessageDialog(this, e.getMessage(), "No hay actividades", JOptionPane.ERROR_MESSAGE);
 		}
@@ -267,41 +266,41 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 	public void cargarSalidas(){
 		DefaultComboBoxModel<String> model;
 		salidasLabel.setVisible(true);
-		SeleccionarSalidaCAMPO.setVisible(true);
-		String actSeleccionada = (String) SeleccionarActividadCAMPO.getSelectedItem();
+		seleccionarSalidaCAMPO.setVisible(true);
+		String actSeleccionada = (String) seleccionarActividadCAMPO.getSelectedItem();
         Object[] arr = auxi.toArray();
         int j=0;
 		//Iterator<DataActividad> it = auxi.iterator();
 		boolean encontrada = false;
-		while(j<arr.length && !encontrada) {
-			if(((DataActividad) arr[j]).getNombre() == actSeleccionada) {
+		while (j<arr.length && !encontrada) {
+			if (((DataActividad) arr[j]).getNombre() == actSeleccionada) {
 				encontrada = true;
 				//Salidas = new HashSet<DataSalida> ();
-				Salidas = ((DataActividad) arr[j]).getSalidas();
+				salidas = ((DataActividad) arr[j]).getSalidas();
 			}else
 				j++;
 		}
 		
-		Iterator<DataSalida> iter = Salidas.iterator();
+		Iterator<DataSalida> iter = salidas.iterator();
 		int i = 0;
-		String[] SalidasNombres = new String[Salidas.size()];
-		while(iter.hasNext()) {
+		String[] SalidasNombres = new String[salidas.size()];
+		while (iter.hasNext()) {
 			SalidasNombres[i] = iter.next().getNombre();
 			i++;
 		}
 		
 		model = new DefaultComboBoxModel<String>(SalidasNombres);
-		SeleccionarSalidaCAMPO.setModel(model);
+		seleccionarSalidaCAMPO.setModel(model);
 	}
 	
 	public void cargarDatosSalidaPorListado() {
-		String salSeleccionada = (String) SeleccionarSalidaCAMPO.getSelectedItem();
-		Object[] arraySalidas = Salidas.toArray();
+		String salSeleccionada = (String) seleccionarSalidaCAMPO.getSelectedItem();
+		Object[] arraySalidas = salidas.toArray();
 		int i=0;
 		//Iterator<DataActividad> it = auxi.iterator();
 		boolean encontrada = false;
-		while(i<arraySalidas.length && !encontrada) {
-			if(((DataSalida) arraySalidas[i]).getNombre() == salSeleccionada) {
+		while (i<arraySalidas.length && !encontrada) {
+			if (((DataSalida) arraySalidas[i]).getNombre() == salSeleccionada) {
 				encontrada = true;
 				salidaSeleccionada = (DataSalida) arraySalidas[i];
 			}else
@@ -360,14 +359,14 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 	    cantidadMaxima.setText("");
 	    fechaAlta.setText("");
 	    
-	    SeleccionarActividadCAMPO.setVisible(false);
-	    SeleccionarSalidaCAMPO.setVisible(false);
+	    seleccionarActividadCAMPO.setVisible(false);
+	    seleccionarSalidaCAMPO.setVisible(false);
 	    
 	    actividadesLabel.setVisible(false);
 	    salidasLabel.setVisible(false);
 	    
-	    Departamento.setVisible(false);
-    	SeleccionarDepartamentoCAMPO.setVisible(false);
+	    departamentoL.setVisible(false);
+    	seleccionarDepartamentoCAMPO.setVisible(false);
 	    
 	    ocultarTextAndLabel();
 		
