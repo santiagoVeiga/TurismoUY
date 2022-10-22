@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
 	<!-- Google Font -->
+<!-- Google Font -->
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="turismo.uy">
@@ -80,6 +81,15 @@
 				
 					
 				  <div class="tab-container">
+				  <div id="tab1" class="tab">
+				      <a href="#tab1">Informacion Basica</a>
+				      <div class="tab-content">
+					        <li><span>Nombre:</span> <%=DU.getNombre() %></li>
+		                    <li><span>Apellido:</span>  <%=DU.getApellido() %></li>
+		                    <li><span>EMail:</span>  <%=DU.getMail() %></li>
+		                    <li><span>FechaNac:</span>  <%=DU.getNacimiento().getDate() + "/" + (DU.getNacimiento().getMonth()+1)+ "/" + (DU.getNacimiento().getYear()+1900) %></li>
+				      </div> 
+				    </div> 
 				  
 				  	<% 
 				      if(DU instanceof DataTurista){
@@ -267,15 +277,7 @@
                       <%}
 				      %>
 				    </div> 
-				    <div id="tab1" class="tab">
-				      <a href="#tab1">Informacion Basica</a>
-				      <div class="tab-content">
-					        <li><span>Nombre:</span> <%=DU.getNombre() %></li>
-		                    <li><span>Apellido:</span>  <%=DU.getApellido() %></li>
-		                    <li><span>EMail:</span>  <%=DU.getMail() %></li>
-		                    <li><span>FechaNac:</span>  <%=DU.getNacimiento().getDate() + "/" + (DU.getNacimiento().getMonth()+1)+ "/" + (DU.getNacimiento().getYear()+1900) %></li>
-				      </div> 
-				    </div> 
+				    
 				  </div>
 				</div>
             		</div>
