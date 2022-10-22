@@ -41,7 +41,7 @@ public class AltaCategoria extends JInternalFrame {
 		botoncancelar = new JButton("cancelar");
 		botoncancelar.setVerticalAlignment(SwingConstants.BOTTOM);
 		botoncancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent eve) {
 				
 	            setVisible(false);
 	            limpiarFormulario();

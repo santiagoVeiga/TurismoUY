@@ -23,8 +23,8 @@ public class AceptarRechazar extends JInternalFrame {
 	private IControladorInsc ici;
 	private JComboBox comboBox;
 
-	public AceptarRechazar(IControladorInsc i) {
-		ici = i;
+	public AceptarRechazar(IControladorInsc conIns) {
+		ici = conIns;
 		
 		setResizable(true);
         setClosable(true);
@@ -45,7 +45,7 @@ public class AceptarRechazar extends JInternalFrame {
         rdbtnConfirmar.setSelected(true);
         rdbtnRechazar.setSelected(false);
         rdbtnConfirmar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		rdbtnConfirmar.setSelected(true);
                 rdbtnRechazar.setSelected(false);
         	}
@@ -54,7 +54,7 @@ public class AceptarRechazar extends JInternalFrame {
         getContentPane().add(rdbtnConfirmar);
         
         rdbtnRechazar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		rdbtnConfirmar.setSelected(false);
                 rdbtnRechazar.setSelected(true);
         	}
@@ -64,7 +64,7 @@ public class AceptarRechazar extends JInternalFrame {
         
         JButton btnConfirmar = new JButton("Confirmar");
         btnConfirmar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		if (rdbtnConfirmar.isSelected()) {
         			enviarDatos(comboBox.getSelectedItem(), estadoAct.confirmada);
         		}
@@ -79,7 +79,7 @@ public class AceptarRechazar extends JInternalFrame {
         
         JButton btnCancelar = new JButton("Cancelar");
         btnCancelar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		setVisible(false);
         	}
         });

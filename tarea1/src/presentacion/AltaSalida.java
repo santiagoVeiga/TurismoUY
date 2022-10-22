@@ -89,7 +89,7 @@ public class AltaSalida extends JInternalFrame {
 		//} 
 		getContentPane().add(seleccionarDptoCAMPO); //agrego el combobox al panel
 		seleccionarDptoCAMPO.addActionListener(new ActionListener() { //action listener para cuando se selecciona el dpto
-	    	public void actionPerformed(ActionEvent e) {
+	    	public void actionPerformed(ActionEvent eve) {
             	cargarActividades();
 //	    		String nombreDpto = (String)SeleccionarDptoCAMPO.getSelectedItem(); 
 //	    		DataDepartamento dtd = null ; 
@@ -283,7 +283,7 @@ public class AltaSalida extends JInternalFrame {
 		
 		aceptarCAMPO = new Button("Aceptar");
 		aceptarCAMPO.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent eve) {
 				chequeoAlta();
 				limpiarFormulario();
 			}
@@ -294,7 +294,7 @@ public class AltaSalida extends JInternalFrame {
 		
 		cancelarCAMPO = new Button("Cancelar");
 		cancelarCAMPO.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent p) {
+			public void actionPerformed(ActionEvent eve) {
 			   limpiarFormulario();
 			   setVisible(false);
 			}
@@ -326,20 +326,20 @@ public class AltaSalida extends JInternalFrame {
 		DefaultComboBoxModel<String> model;
 		try {
 			String aux = (String) seleccionarDptoCAMPO.getSelectedItem();
-			int i = 0;
-			while (i<dataDepartamentos.length && dataDepartamentos[i].getNombre() != aux) {
-				i++;
+			int iCont = 0;
+			while (iCont<dataDepartamentos.length && dataDepartamentos[iCont].getNombre() != aux) {
+				iCont++;
 			}
-			if (dataDepartamentos[i].getColAct().size() == 0) {
+			if (dataDepartamentos[iCont].getColAct().size() == 0) {
 				throw new ActividadNoExisteException("No hay actividades asociadas a dicho Departamento");
 			}
-			auxi = dataDepartamentos[i].getColAct();
-			Iterator<DataActividad> it = auxi.iterator();
-			int j = 0;
+			auxi = dataDepartamentos[iCont].getColAct();
+			Iterator<DataActividad> iter = auxi.iterator();
+			int jCont = 0;
 			String[] ActividadesNombres = new String[auxi.size()];
-			while (it.hasNext()) {
-				ActividadesNombres[j] = it.next().getNombre();
-				j++;
+			while (iter.hasNext()) {
+				ActividadesNombres[jCont] = iter.next().getNombre();
+				jCont++;
 			}
 	    	model = new DefaultComboBoxModel<String>(ActividadesNombres);
 	    	seleccionarActividadCAMPO.setModel(model);

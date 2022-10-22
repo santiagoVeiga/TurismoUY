@@ -76,7 +76,7 @@ public class AgregarActPaquete extends JInternalFrame {
         jcbPaquetes.setBounds(253, 16, 276, 24);
         getContentPane().add(jcbPaquetes);
         jcbPaquetes.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		if (depB) {
         			btnBuscar.setVisible(true);
         			depB = false;
@@ -98,7 +98,7 @@ public class AgregarActPaquete extends JInternalFrame {
         jcbDepartamentos.setBounds(253, 54, 276, 24);
         
         jcbDepartamentos.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		if (paqB) {
         			btnBuscar.setVisible(true);
         			paqB = false;
@@ -123,7 +123,7 @@ public class AgregarActPaquete extends JInternalFrame {
         jcbActividades.setBounds(253, 98, 276, 24);
         
         jcbActividades.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		btnSeleccionar.setVisible(true);
         	}
         });
@@ -137,7 +137,7 @@ public class AgregarActPaquete extends JInternalFrame {
         // Dado que antes de cerrar se limpia el formulario, se invoca un método reutilizable para ello. 
         btnCerrar = new JButton("Cerrar");
         btnCerrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	limpiarFormulario();
                 setVisible(false);
             }
@@ -147,7 +147,7 @@ public class AgregarActPaquete extends JInternalFrame {
         
         btnBuscar = new JButton("Buscar");
         btnBuscar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	cargarActividades();
             }
         });
@@ -157,7 +157,7 @@ public class AgregarActPaquete extends JInternalFrame {
         
         btnSeleccionar = new JButton("Agregar");
         btnSeleccionar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	agregarAct();
             	limpiarFormulario();
             	setVisible(false);
@@ -173,10 +173,10 @@ public void cargarDepartamentos(){
     		DefaultComboBoxModel<String> model;
     		dataDepartamentos = controlInsc.listarDepartamentos();
     		String[] DepartamentosNombres = new String[dataDepartamentos.size()];
-    		int i = 0;
+    		int cont = 0;
     		for (DataDepartamento iter:dataDepartamentos) {
-    			DepartamentosNombres[i] = iter.getNombre();
-    			i++;
+    			DepartamentosNombres[cont] = iter.getNombre();
+    			cont++;
     		}
 	    	model = new DefaultComboBoxModel<String>(DepartamentosNombres);
 	        jcbDepartamentos.setModel(model);
@@ -191,12 +191,12 @@ public void cargarActividades(){
 		if (auxi.size() == 0) {
 			throw new ActividadNoExisteException("No hay actividades de dicho Departamento disponibles para agregar");
 		}
-		Iterator<DataActividad> it = auxi.iterator();
-		int j = 0;
+		Iterator<DataActividad> iter = auxi.iterator();
+		int cont = 0;
 		String[] ActividadesNombres = new String[auxi.size()];
-		while (it.hasNext()) {
-			ActividadesNombres[j] = it.next().getNombre();
-			j++;
+		while (iter.hasNext()) {
+			ActividadesNombres[cont] = iter.next().getNombre();
+			cont++;
 		}
     	model = new DefaultComboBoxModel<String>(ActividadesNombres);
         jcbActividades.setModel(model);

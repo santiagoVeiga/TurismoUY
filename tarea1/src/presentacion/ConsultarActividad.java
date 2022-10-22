@@ -68,7 +68,6 @@ public class ConsultarActividad extends JInternalFrame {
     private Set<DataActividad> auxi;
     private DataActividad actElegida;
     private Set<DataSalida> auxiSal;
-    private DataSalida salElegida;
     private String[] nombresPaq;
     private String[] nombresCat;
     private ConsultaPaquete conPaquete;
@@ -106,7 +105,7 @@ public class ConsultarActividad extends JInternalFrame {
         jcbDepartamentos.setBounds(253, 16, 320, 24);
         getContentPane().add(jcbDepartamentos);
         jcbDepartamentos.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		btnBuscar.setVisible(true);
         	}
         });
@@ -126,7 +125,7 @@ public class ConsultarActividad extends JInternalFrame {
         jcbActividades.setBounds(253, 54, 320, 24);
         getContentPane().add(jcbActividades);
         jcbActividades.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		btnSeleccionar.setVisible(true);
         	}
         });
@@ -159,7 +158,7 @@ public class ConsultarActividad extends JInternalFrame {
         jcbSalidas.setBounds(253, 320, 320, 24);
         getContentPane().add(jcbSalidas);
         jcbSalidas.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		btnInfoSalida.setVisible(true);
         	}
         });
@@ -178,7 +177,7 @@ public class ConsultarActividad extends JInternalFrame {
         jcbPaquetes.setBounds(253, 357, 320, 24);
         getContentPane().add(jcbPaquetes);
         jcbPaquetes.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		btnInfoPaquete.setVisible(true);
         	}
         });
@@ -192,7 +191,7 @@ public class ConsultarActividad extends JInternalFrame {
         // Dado que antes de cerrar se limpia el formulario, se invoca un método reutilizable para ello. 
         btnCerrar = new JButton("Cerrar");
         btnCerrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	limpiarFormulario();
                 setVisible(false);
             }
@@ -202,7 +201,7 @@ public class ConsultarActividad extends JInternalFrame {
         
         btnBuscar = new JButton("Buscar");
         btnBuscar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	limpiarFormularioActividad();
             	cargarActividades();
             }
@@ -213,11 +212,11 @@ public class ConsultarActividad extends JInternalFrame {
         
         btnSeleccionar = new JButton("Seleccionar");
         btnSeleccionar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	Iterator<DataActividad> it = auxi.iterator();
-            	actElegida = it.next();
-            	while (it.hasNext() && actElegida.getNombre() != (String) jcbActividades.getSelectedItem()) {
-            		actElegida = it.next();
+            public void actionPerformed(ActionEvent eve) {
+            	Iterator<DataActividad> iter = auxi.iterator();
+            	actElegida = iter.next();
+            	while (iter.hasNext() && actElegida.getNombre() != (String) jcbActividades.getSelectedItem()) {
+            		actElegida = iter.next();
             	}
             	mostrarActividad();
             }
@@ -228,7 +227,7 @@ public class ConsultarActividad extends JInternalFrame {
         
         btnInfoSalida = new JButton("Info Salida");
         btnInfoSalida.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	DataSalida[] dtSalidas = auxiSal.toArray(new DataSalida[0]);
             	salida.cargarDatosSalidaPorDataSalida(dtSalidas[jcbSalidas.getSelectedIndex()]);
             	salida.setVisible(true);
@@ -240,7 +239,7 @@ public class ConsultarActividad extends JInternalFrame {
         
         btnInfoPaquete = new JButton("Info Paquete");
         btnInfoPaquete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	conPaquete.seleccionarPaquete((String) jcbPaquetes.getSelectedItem());
             	conPaquete.setVisible(true);
             }
@@ -385,19 +384,19 @@ public void cargarDepartamentos(){
 public void cargarActividades(){
 	DefaultComboBoxModel<String> model;
 	try {
-		int i = jcbDepartamentos.getSelectedIndex();
-		if (dataDepartamentos[i].getColAct().size() == 0) {
+		int iCont = jcbDepartamentos.getSelectedIndex();
+		if (dataDepartamentos[iCont].getColAct().size() == 0) {
 			throw new ActividadNoExisteException("No hay actividades asociadas a dicho Departamento");
 		}
     	actividadesL.setVisible(true);
 		jcbActividades.setVisible(true);
-		auxi = dataDepartamentos[i].getColAct();
-		Iterator<DataActividad> it = auxi.iterator();
-		int j = 0;
+		auxi = dataDepartamentos[iCont].getColAct();
+		Iterator<DataActividad> iter = auxi.iterator();
+		int jCont = 0;
 		String[] ActividadesNombres = new String[auxi.size()];
-		while (it.hasNext()) {
-			ActividadesNombres[j] = it.next().getNombre();
-			j++;
+		while (iter.hasNext()) {
+			ActividadesNombres[jCont] = iter.next().getNombre();
+			jCont++;
 		}
     	model = new DefaultComboBoxModel<String>(ActividadesNombres);
         jcbActividades.setModel(model);
@@ -416,11 +415,11 @@ public void cargarSalidas(){
     	salidasL.setVisible(true);
 		jcbSalidas.setVisible(true);
 		Iterator<DataSalida> iter = auxiSal.iterator();
-		int j = 0;
+		int jCont = 0;
 		String[] SalidasNombres = new String[auxiSal.size()];
 		while (iter.hasNext()) {
-			SalidasNombres[j] = iter.next().getNombre();
-			j++;
+			SalidasNombres[jCont] = iter.next().getNombre();
+			jCont++;
 		}
     	model = new DefaultComboBoxModel<String>(SalidasNombres);
         jcbSalidas.setModel(model);

@@ -73,7 +73,7 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		seleccionarDepartamentoCAMPO.setVisible(false);
 
 		seleccionarDepartamentoCAMPO.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
+	    	public void actionPerformed(ActionEvent eve) {
             	cargarActividades();				
         	    ocultarTextAndLabel();
         		salidasLabel.setVisible(false);
@@ -92,7 +92,7 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		seleccionarActividadCAMPO = new JComboBox<String>();
 		seleccionarActividadCAMPO.setBounds(218, 63, 219, 21);
 		seleccionarActividadCAMPO.addActionListener(new ActionListener() { 
-	    	public void actionPerformed(ActionEvent e) {
+	    	public void actionPerformed(ActionEvent eve) {
             	cargarSalidas();
         	    ocultarTextAndLabel();
 	    	}
@@ -113,7 +113,7 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		seleccionarSalidaCAMPO = new JComboBox();
 		seleccionarSalidaCAMPO.setBounds(218, 91, 219, 22);
 		seleccionarSalidaCAMPO.addActionListener(new ActionListener() { //action listener para cuando se selecciona el dpto
-	    	public void actionPerformed(ActionEvent e) {
+	    	public void actionPerformed(ActionEvent eve) {
 	    		cargarDatosSalidaPorListado();				
 	    	}
 	    });
@@ -157,7 +157,7 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		
 		aceptarCAMPO = new Button("Cerrar");
 		aceptarCAMPO.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent eve) {
 				limpiarFormulario();
 				setVisible(false);
 			}
@@ -168,7 +168,7 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		
 		cancelarCAMPO = new Button("Cancelar");
 		cancelarCAMPO.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent p) {
+			public void actionPerformed(ActionEvent eve) {
 			   limpiarFormulario();
 			   setVisible(false);
 			}
@@ -240,20 +240,20 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		seleccionarActividadCAMPO.setVisible(true);
 		try {
 			String aux = (String) seleccionarDepartamentoCAMPO.getSelectedItem();
-			int i = 0;
-			while (i<dataDepartamentos.length && dataDepartamentos[i].getNombre() != aux) {
-				i++;
+			int iCont = 0;
+			while (iCont<dataDepartamentos.length && dataDepartamentos[iCont].getNombre() != aux) {
+				iCont++;
 			}
-			if (dataDepartamentos[i].getColAct().size() == 0) {
+			if (dataDepartamentos[iCont].getColAct().size() == 0) {
 				throw new ActividadNoExisteException("No hay actividades asociadas a dicho Departamento");
 			}
-			auxi = dataDepartamentos[i].getColAct();
-			Iterator<DataActividad> it = auxi.iterator();
-			int j = 0;
+			auxi = dataDepartamentos[iCont].getColAct();
+			Iterator<DataActividad> iter = auxi.iterator();
+			int jCont = 0;
 			String[] ActividadesNombres = new String[auxi.size()];
-			while (it.hasNext()) {
-				ActividadesNombres[j] = it.next().getNombre();
-				j++;
+			while (iter.hasNext()) {
+				ActividadesNombres[jCont] = iter.next().getNombre();
+				jCont++;
 			}
 	    	model = new DefaultComboBoxModel<String>(ActividadesNombres);
 	    	seleccionarActividadCAMPO.setModel(model);
@@ -269,24 +269,24 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 		seleccionarSalidaCAMPO.setVisible(true);
 		String actSeleccionada = (String) seleccionarActividadCAMPO.getSelectedItem();
         Object[] arr = auxi.toArray();
-        int j=0;
+        int jCont=0;
 		//Iterator<DataActividad> it = auxi.iterator();
 		boolean encontrada = false;
-		while (j<arr.length && !encontrada) {
-			if (((DataActividad) arr[j]).getNombre() == actSeleccionada) {
+		while (jCont<arr.length && !encontrada) {
+			if (((DataActividad) arr[jCont]).getNombre() == actSeleccionada) {
 				encontrada = true;
 				//Salidas = new HashSet<DataSalida> ();
-				salidas = ((DataActividad) arr[j]).getSalidas();
+				salidas = ((DataActividad) arr[jCont]).getSalidas();
 			}else
-				j++;
+				jCont++;
 		}
 		
 		Iterator<DataSalida> iter = salidas.iterator();
-		int i = 0;
+		int iCont = 0;
 		String[] SalidasNombres = new String[salidas.size()];
 		while (iter.hasNext()) {
-			SalidasNombres[i] = iter.next().getNombre();
-			i++;
+			SalidasNombres[iCont] = iter.next().getNombre();
+			iCont++;
 		}
 		
 		model = new DefaultComboBoxModel<String>(SalidasNombres);
@@ -296,15 +296,15 @@ public class ConsultaSalidaTuristica extends JInternalFrame {
 	public void cargarDatosSalidaPorListado() {
 		String salSeleccionada = (String) seleccionarSalidaCAMPO.getSelectedItem();
 		Object[] arraySalidas = salidas.toArray();
-		int i=0;
+		int iCont=0;
 		//Iterator<DataActividad> it = auxi.iterator();
 		boolean encontrada = false;
-		while (i<arraySalidas.length && !encontrada) {
-			if (((DataSalida) arraySalidas[i]).getNombre() == salSeleccionada) {
+		while (iCont<arraySalidas.length && !encontrada) {
+			if (((DataSalida) arraySalidas[iCont]).getNombre() == salSeleccionada) {
 				encontrada = true;
-				salidaSeleccionada = (DataSalida) arraySalidas[i];
+				salidaSeleccionada = (DataSalida) arraySalidas[iCont];
 			}else
-				i++;
+				iCont++;
 		}
 		cargarDatosSalida();
 	}

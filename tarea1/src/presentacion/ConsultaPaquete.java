@@ -88,7 +88,7 @@ public class ConsultaPaquete extends JInternalFrame {
         jcbPaquete.setBounds(253, 16, 276, 24);
         getContentPane().add(jcbPaquete);
         jcbPaquete.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		btnBuscar.setVisible(true);
         	}
         });
@@ -108,7 +108,7 @@ public class ConsultaPaquete extends JInternalFrame {
         jcbActividades.setBounds(253, 232, 276, 24);
         getContentPane().add(jcbActividades);
         jcbActividades.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		btnInfoActividad.setVisible(true);
         	}
         });
@@ -122,7 +122,7 @@ public class ConsultaPaquete extends JInternalFrame {
         // Dado que antes de cerrar se limpia el formulario, se invoca un método reutilizable para ello. 
         btnCerrar = new JButton("Cerrar");
         btnCerrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	limpiarFormulario();
             	btnInfoActividad.setVisible(false);
                 setVisible(false);
@@ -133,7 +133,7 @@ public class ConsultaPaquete extends JInternalFrame {
         
         btnBuscar = new JButton("Buscar");
         btnBuscar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	limpiarFormularioPaquete();
             	paq = (String) jcbPaquete.getSelectedItem();
             	mostrarPaquete();
@@ -146,7 +146,7 @@ public class ConsultaPaquete extends JInternalFrame {
         
         btnInfoActividad = new JButton("Info Actividad");
         btnInfoActividad.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	actElegida = auxi[jcbActividades.getSelectedIndex()];
             	conActividad.seleccionarActvidad(actElegida);
             	conActividad.setVisible(true);
@@ -302,11 +302,11 @@ public void cargarActividades(){
 		}
     	actividadesL.setVisible(true);
 		jcbActividades.setVisible(true);
-		int j = 0;
+		int jCont = 0;
 		String[] ActividadesNombres = new String[auxi.length];
-		while (j < auxi.length) {
-			ActividadesNombres[j] = auxi[j].getNombre();
-			j++;
+		while (jCont < auxi.length) {
+			ActividadesNombres[jCont] = auxi[jCont].getNombre();
+			jCont++;
 		}
     	model = new DefaultComboBoxModel<String>(ActividadesNombres);
         jcbActividades.setModel(model);
