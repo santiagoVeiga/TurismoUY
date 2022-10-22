@@ -25,10 +25,12 @@ import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
 import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
+import excepciones.NoHayCuposException;
 import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
+import excepciones.SalidasNoExisteException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
@@ -127,6 +129,11 @@ class ControladorAltaTest {
 			fail(e.getMessage());
 		}
 		try {
+			IctrInsc.cargarActsPaqs();
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+		try {
 			IctrAlta.cargarCompPaq();
 		} catch (NumberFormatException e1) {
 			// TODO Auto-generated catch block
@@ -164,12 +171,14 @@ class ControladorAltaTest {
 			fail(e.getMessage());
 		} catch (TuristaNoHaNacido e) {
 			fail(e.getMessage());
+		} catch (PaqueteRepetidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoHayCuposException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		try {
-			IctrInsc.cargarActsPaqs();
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+		
 	}
 	
 	
@@ -292,9 +301,25 @@ class ControladorAltaTest {
 	}
 	
 	@Test
+	void testexceppciionesvarias(){
+		assertThrows(UsuarioNoExisteException.class, ()->{IctrCons.obtenerDataUsuarioNick("a");});
+		assertThrows(UsuarioNoExisteException.class, ()->{IctrCons.obtenerDataUsuarioMail("a");});
+		assertThrows(ActividadNoExisteException.class, ()->{IctrCons.obtenerDataActividad("a");});
+		assertThrows(SalidasNoExisteException.class, ()->{IctrCons.obtenerDataSalida("a");});
+	}
+	
+	@Test
 	void testCategExiste() {
 		try {
 			IctrAlta.registrarCategoria("CategoriaP");
+			Set<String> categs =  IctrCons.obtenerNombreCategorias();
+			boolean res = false;
+			for  (String iter : categs) {
+				res = res || (iter.equals("CategoriaP"));
+			}
+			assertEquals(res,true);
+			DataActividad[] array = IctrCons.obtenerActividadCategoria("CategoriaP");
+			assertEquals(array.length,0);
 		} catch (CategoriaYaExiste e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
