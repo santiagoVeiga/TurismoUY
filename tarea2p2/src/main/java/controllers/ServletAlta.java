@@ -442,10 +442,10 @@ public class ServletAlta extends HttpServlet {
                         Date fechaNuevaNac = formatFecha.parse(fechaNueva);
                         if(usuario instanceof DataTurista) {
                             System.out.printf("22222 "+usuario.getNick() +" "+ nuevoNombre +" "+ apellidoNuevo );
-                            conAlta.actualizarDatosTurista(usuario.getNick(), nuevoNombre, apellidoNuevo, usuario.getMail() ,fechaNuevaNac,((DataTurista) usuario).getNacionalidad());
+                            conAlta.actualizarDatosTurista(usuario.getNick(),usuario.getMail() , nuevoNombre, apellidoNuevo, fechaNuevaNac,((DataTurista) usuario).getNacionalidad());
                         } else if(usuario instanceof DataProveedor){
-                            System.out.printf("22222 "+usuario.getNick() +" "+ nuevoNombre +" "+ apellidoNuevo );
-                            conAlta.actualizarDatosProveedor(usuario.getNick(), nuevoNombre, apellidoNuevo, usuario.getMail() ,fechaNuevaNac,((DataProveedor) usuario).getDescripcion(),((DataProveedor) usuario).getLink(), true);//((DataProveedor) du1).getHayLink());
+                            System.out.printf("3333 "+usuario.getNick() +" "+ nuevoNombre +" "+ apellidoNuevo );
+                            conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(),  nuevoNombre, apellidoNuevo,fechaNuevaNac,((DataProveedor) usuario).getDescripcion(),((DataProveedor) usuario).getLink(), true);//((DataProveedor) du1).getHayLink());
                         }
                         System.out.printf("---entreee-");
                         req.setAttribute("DataUsuario", usuario);
