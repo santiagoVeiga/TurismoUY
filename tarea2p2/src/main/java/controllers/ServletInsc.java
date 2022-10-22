@@ -109,12 +109,21 @@ public class ServletInsc extends HttpServlet {
     				LocalDateTime horaLocal = LocalDateTime.now();
     				Date fecha = java.util.Date.from(horaLocal.atZone(ZoneId.systemDefault()).toInstant());
     				try {
+    				    IControladorConsulta conCons = fab.getIControladorConsulta();
+    				    double costo = 0;
     					if(paqInsc == null) {
     						conInsc.inscribir(dataUsu.getNick(), salInsc, cant, fecha, act);
+    						DataActividad acti = conCons.obtenerDataActividad(act);
+    						costo = cant*acti.getCosto();
     					} else {
     						conInsc.inscribir(dataUsu.getNick(), salInsc, cant, fecha, act, paqInsc);
+    						DataActividad acti = conCons.obtenerDataActividad(act);
+    						DataPaquete paq = conCons.obtenerDataPaquete(paqInsc);
+                            costo = cant*acti.getCosto();
+                            costo = costo - cant*acti.getCosto()*paq.getDescuento();
     					}
-    	                resp.sendRedirect("/tarea2p2/home");
+    					req.setAttribute("Inscrip", "La inscripcion fue realizada con exito! Costo: $" + Double.toString(costo));
+                        req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req,resp);
     				} catch (TuristaConSalida | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException
     						| InscFechaDespSalida | TuristaNoHaNacido | PaqueteRepetidoException
     						| NoHayCuposException e) {
