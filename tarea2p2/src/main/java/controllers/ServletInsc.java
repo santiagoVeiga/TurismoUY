@@ -118,10 +118,8 @@ public class ServletInsc extends HttpServlet {
     				} catch (TuristaConSalida | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException
     						| InscFechaDespSalida | TuristaNoHaNacido | PaqueteRepetidoException
     						| NoHayCuposException e) {
-    				    System.out.println("ServletInscripcion " + e.getMessage());
-    					//req.setAttribute("Exception", e.getMessage());
-    					//req.getRequestDispatcher("/WEB-INF/ConsultaSalida/InscripcionSalida.jsp").forward(req,resp);
-    					resp.sendRedirect("/tarea2p2/home");
+    					req.setAttribute("Exception", e.getMessage());
+    					req.getRequestDispatcher("/home").forward(req,resp);
     				}
     				break;
     			case "/CompraPaquete":

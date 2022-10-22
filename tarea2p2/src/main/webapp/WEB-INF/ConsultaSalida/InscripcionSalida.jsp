@@ -37,36 +37,6 @@
 
     <!-- Header Section Begin -->
     <header class="header">
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="hero__search">
-                        
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="row float-right">
-                        <div class="header__top__right__Usu" style="cursor: pointer;" onclick="window.location='./ConsultaUsuarioT.html';">
-                            <span><a href="./ConsultaUsuarioT.html"><img src="https://pbs.twimg.com/media/EOHAP9zWoAsnkiM?format=jpg&name=small"> &nbsp; Rosa Maria Martinez</a></span>
-                        </div>
-                    </div>
-                    <div class="row float-right">
-                    	<div class="header__top__right__csesion ">
-                           	<a href="./logout.html"> Cerrar Sesion</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
     </header>
     <!-- Header Section End -->
 
@@ -74,12 +44,13 @@
 
 <section class="hero">
 	<div class="row content-justify-center">
+
 		<div class="col-lg-12" style:"border-radius: 25px; padding: 20px; padding-top:30px">
                     <div class="container">
                     	<div class="row justify-content-md-center">
-                          <div class="col-lg-6">
-               				<a href="./index_turista.html"><img alt="" src="../img/logo.png"></a>
-                          </div>
+                          		<div class="col-lg-3">
+									<a href="/tarea2p2/home"><img alt="" src="img/logo.png"></a>
+								</div> 
                         </div>
                         <% 
                         String salida = (String) request.getAttribute("SalidaElegida");
