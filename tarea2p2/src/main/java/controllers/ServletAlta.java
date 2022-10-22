@@ -129,7 +129,7 @@ public class ServletAlta extends HttpServlet {
                     Date date1 = new Date();
                     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
                     String str = formatter.format(date1);
-                    
+                     
                     //Usuario logeado
                     HttpSession sessionAct = req.getSession();
                     DataProveedor dtProveedor = (DataProveedor) sessionAct.getAttribute("usuario");
