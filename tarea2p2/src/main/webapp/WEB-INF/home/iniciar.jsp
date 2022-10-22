@@ -65,6 +65,14 @@
 				  <button id="closei" onclick="this.parentNode.remove(); return false;" >x</button>
 				</div>
 			<%} %>
+			
+			<% String insc = (String) request.getAttribute("Inscrip");
+               if(insc != null){%>
+               <div class="alert alert-success" role="alert" style="display: flex;justify-content: space-between;">
+				  <%= insc %>
+				  <button id="closei" onclick="this.parentNode.remove(); return false;" >x</button>
+				</div>
+			<%} %>
                 <% DataDepartamento[] dptos = (DataDepartamento[]) session.getAttribute("dptos");
                 Set<DataActividad> actIndex = dptos[4].getColAct(); 
                 for(DataDepartamento iter : dptos){
@@ -92,9 +100,9 @@
                                     <ul>
                                         <li><i class="fa fa-calendar-o"></i> <%= date%></li>
                                     </ul>
-                                    <h5><a href="?actividad=<%= iter.getNombre() %>" ><%= iter.getNombre() %></a></h5>
+                                    <h5><a href="/tarea2p2/home?actividad=<%= iter.getNombre() %>" ><%= iter.getNombre() %></a></h5>
                                     <p><%=iter.getDescripcion() %></p>
-                                    <a href="?actividad=<%= iter.getNombre() %>" class="blog__btn">LEER MÁS <span class="arrow_right"></span></a>
+                                    <a href="/tarea2p2/home?actividad=<%= iter.getNombre() %>" class="blog__btn">LEER MÁS <span class="arrow_right"></span></a>
                                 </div>
                             </div>
                         </div>

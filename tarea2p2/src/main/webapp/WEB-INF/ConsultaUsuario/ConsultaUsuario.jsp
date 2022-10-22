@@ -95,7 +95,8 @@
 				      if(DU instanceof DataTurista){
 				    	    Set<DataSalida> salidas;  
 				    	    DataPaquete[] DP = (DataPaquete[]) request.getAttribute("ArregloPaquetes");
-				    	    String imagenp = Base64.getEncoder().encodeToString(DP[0].getImagen());
+				    	    if (DP.length != 0){
+				    	    	String imagenp = Base64.getEncoder().encodeToString(DP[0].getImagen());
 				      %>
 					  	<div id="tab3" class="tab">
 					      <a href="#tab3">Paquetes</a>
@@ -150,18 +151,20 @@
 					      </div>
 					    </div>
 					    </div>
-					    <div id="tab2" class="tab">
+					    
 					      
 						<%
+				    	    }
 						salidas = ((DataTurista) DU).getDataSalidas();
-						Object[] u = salidas.toArray();
-				        DataSalida[] arrDS = new DataSalida[u.length];
-				        for (int i = 0; i < u.length; i++) {
-				        	arrDS[i] = (DataSalida) u[i];
+						Object[] uuu = salidas.toArray();
+				        DataSalida[] arrDS = new DataSalida[uuu.length];
+				        for (int i = 0; i < uuu.length; i++) {
+				        	arrDS[i] = (DataSalida) uuu[i];
 				        }
+				        if (uuu.length != 0){
 				        String imagen1 = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						%>
-					      
+					    <div id="tab2" class="tab">
 					      <a href="#tab2">Salidas</a>
 					      <div class="tab-content">
 					      	<div class="product__discount">
@@ -213,7 +216,7 @@
 	                                    
 	                                    </div>
 					      </div>
-				      <%}
+				      <%}}
 				      else
 				      {
 				    	  Object[] p= ((DataProveedor) DU).getActividades().toArray();
@@ -221,6 +224,7 @@
 					        for (int i = 0; i < p.length; i++) {
 					        	arrDS[i] = (DataActividad) p[i];
 					        }
+					        String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
                       	%>
 	                      	<div id="tab2" class="tab">
 					      	<a href="#tab2">Actividades</a>
@@ -238,7 +242,7 @@
 					                              <div class="carousel-item active">
 					                                <div class="card" >
 					                                    <a href="consulta_actividad_Turista.html"> 
-					                                    	<img class="card-img-top" src=<%= arrDS[0].getImagen() %>  alt="Card image cap"> 
+					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv %>" alt="Card image cap"> 
 					                                    </a>
 					                                    <div class="card-body">
 					                                      <p class="card-text" ><%= arrDS[0].getNombre() %></p>
@@ -247,11 +251,12 @@
 					                                </div>
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
+							                          		String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
 							                                	<a href="consulta_actividad_Turista.html"> 
-							                                    	<img class="card-img-top" src=<%= arrDS[i].getImagen() %>  alt="Card image cap"> 
+							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv1 %>"  alt="Card image cap"> 
 							                                    </a>
 							                                    <div class="card-body">
 							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>                                    </div>
