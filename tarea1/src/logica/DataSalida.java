@@ -5,7 +5,7 @@ import java.util.Date;
 public class DataSalida {
 	
 	public DataSalida() {
-		
+		imagen = null;
 	}
 	
 	private String nombre;

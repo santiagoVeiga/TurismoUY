@@ -47,6 +47,7 @@ import logica.Fabrica;
 import logica.IControladorAlta;
 import logica.IControladorConsulta;
 import logica.IControladorInsc;
+import logica.estadoAct;
 import manejadores.ManejadorActividad;
 
 class ControladorAltaTest {
@@ -237,6 +238,52 @@ class ControladorAltaTest {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@Test
+	void testDataActividad() {
+		DataActividad aux = new DataActividad();
+		aux.setCiudad("");
+		aux.setCosto(0);
+		aux.setDepartamento("");
+		aux.setDescripcion("");
+		aux.setDuracion(0);
+		aux.setEstado(estadoAct.confirmada);
+		aux.setFechaAlta(new Date());
+		aux.setImagen(null);
+		aux.setNombre("");
+		aux.setCategorias(null);
+		aux.setPaquetes(null);
+		aux.setSalidas(null);
+		assertEquals(aux.getNombre(),"");
+		assertEquals(aux.getCiudad(),"");
+		assertEquals(aux.getDepartamento(),"");
+		assertEquals(aux.getDescripcion(),"");
+		assertEquals(aux.getCosto(),0);
+		assertEquals(aux.getDuracion(),0);
+		assertEquals(aux.getEstado(),estadoAct.confirmada);
+		assertEquals(aux.getImagen(),null);
+		assertEquals(aux.getCategorias(),null);
+		assertEquals(aux.getPaquetes(),null);
+		assertEquals(aux.getSalidas(),null);
+	}
+	
+	@Test
+	void testDataSalida() {
+		DataSalida aux = new DataSalida();
+		aux.setCant(0);
+		aux.setFecha(new Date());
+		aux.setHora(new Date());
+		aux.setLugar("");
+		aux.setFechaAlta(new Date());
+		aux.setNombre("");
+		assertEquals(aux.getNombre(),"");
+		assertEquals(aux.getLugar(),"");
+		assertEquals(aux.getFecha(),new Date());
+		assertEquals(aux.getFechaAlta(),new Date());
+		assertEquals(aux.getHora(),new Date());
+		assertEquals(aux.gethora(),new Date());
+		assertEquals(aux.getImagen(),null);
 	}
 	
 	@Test
