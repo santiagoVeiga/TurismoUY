@@ -20,6 +20,7 @@ import excepciones.InscFechaInconsistente;
 import excepciones.NoHayCuposException;
 import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
+import excepciones.SalidasNoExisteException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
 import logica.DataActividad;
@@ -98,7 +99,13 @@ public class ServletInsc extends HttpServlet {
     				DataUsuario dataUsu = (DataUsuario) session.getAttribute("usuario");
     				int cant = Integer.parseInt(req.getParameter("cantidad"));
     				String paqInsc = req.getParameter("paquete");
-    				String act = null; // String act = conInsc.obtenerNomActPorSalida(salInsc);
+    				String act = null;
+                    try {
+                        act = conInsc.obtenerNomActPorSalida(salInsc);
+                    } catch (SalidasNoExisteException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
     				LocalDateTime horaLocal = LocalDateTime.now();
     				Date fecha = java.util.Date.from(horaLocal.atZone(ZoneId.systemDefault()).toInstant());
     				try {

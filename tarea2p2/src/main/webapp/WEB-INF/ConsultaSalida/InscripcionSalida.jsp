@@ -90,38 +90,43 @@
                         </div>
                         <div class="row justify-content-md-center">
                           <div class="col-md-8 order-md-1">
-                            <form class="needs-validation" id="sell-info" action="Inscripcion" method="POST">
-								
-                                <!-- Nombre--> 
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                       <nav>
+				                           <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+				                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">General</a>
+				                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Por Paquete</a>
+				                           </div>
+                       					</nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                              <form class="needs-validation" id="sell-info" action="Inscripcion" method="POST">
+                              	<span></span><br />
                                 <input type="hidden" id="nomSal" name="nomSal" value="<%=salida%>">         
                                 <div class="row">
                                     <!-- Cantidad de turistas -->
                                     <div class="col-md-6 mb-3">
                                         <label for="cantTur">Cantidad de Turistas</label>
-                                        <input type="number" class="form-control" id="cantTur" required placeholder="Ingrese un Valor" min="1" >
+                                        <input type="number" class="form-control" id="cantTur" name="cantTur" required placeholder="Ingrese un Valor" min="1" >
                                     </div>
                                 </div>
-                              
-                                <div class="row">
-                                    <div class="col-md-12 mb-3">
-                                        			<nav>
-                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">General</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Por Paquete</a>
-                            </div>
-                        </nav>
-                        <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                <div class="form-outline mb-4">
-					            </div>
-					            <div class="pt-1 mb-4" >
 					              <input type="submit" value="Inscribirse" onclick="submit()">
-					            </div>   
+					          </form>   
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                <div class="col-md-6 mb-4">
+                            	<form class="needs-validation" id="sell-info" action="Inscripcion" method="POST">
+                            		<span></span><br />
+	                                <div class="col-md-6 mb-4">
+	                                	<input type="hidden" id="nomSal" name="nomSal" value="<%=salida%>">         
+	                                <div class="row">
+	                                    <!-- Cantidad de turistas -->
+	                                    <div class="col-md-6 mb-3">
+	                                        <label for="cantTur">Cantidad de Turistas</label>
+	                                        <input type="number" class="form-control" id="cantTur" name="cantTur" required placeholder="Ingrese un Valor" min="1" >
+	                                    </div>
+	                                </div>
                                     <label for="paqDisp">Paquetes Disponibles</label>
-                                    <select id="paqDisp" required>
+                                    <select id="paqDisp" name="paqDisp" required>
                                     	<%
                                     	String [] paquetes = (String[]) request.getAttribute("PaquetesComprados");
                                     	for(int i = 0;i < paquetes.length; i++){
@@ -133,17 +138,16 @@
                                     	}
                                     	%>
                                     </select>
-                                    <span></span><br />
                                 </div>
-					            <div class="pt-1 mb-4" >
-					              <input type="submit" value="Inscribirse" onclick="submit()">
-					            </div>   
+                                <div class="col-md-6 mb-3">
+					            	<input type="submit" value="Inscribirse" onclick="submit()">
+					            </div>
+					            </form>   
                             </div>
                             
                         </div>      
                                     </div>
                                 </div>
-                            </form>
                           </div>
                         </div>
                     </div>
