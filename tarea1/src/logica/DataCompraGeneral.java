@@ -22,7 +22,7 @@ public class DataCompraGeneral{
 		this.setFecha(fecha);
 		this.setCosto(costo);
 		this.setSalida(dataSal);
-		this.setPorPaquete(false);
+		this.setPorPaquete(paq);
 	}
 
 		/* Getters */

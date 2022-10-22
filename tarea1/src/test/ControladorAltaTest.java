@@ -25,6 +25,7 @@ import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
 import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
+import excepciones.NoExisteCategoriaException;
 import excepciones.NoHayCuposException;
 import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
@@ -37,6 +38,8 @@ import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.Actividad;
 import logica.DataActividad;
+import logica.DataCompraGeneral;
+import logica.DataCompraPaquete;
 import logica.DataDepartamento;
 import logica.DataPaquete;
 import logica.DataProveedor;
@@ -64,121 +67,13 @@ class ControladorAltaTest {
 		IctrCons = fabrica.getIControladorConsulta();
 		IctrInsc = fabrica.getIControladorInsc();
 		ManejadorActividades = ManejadorActividad.getInstance();
-		IctrAlta.cargarCategorias();
 		try {
-			IctrAlta.cargarUsuarios();
-		} catch (IOException e) {
-			fail(e.getMessage()); 
-		}catch  (UsuarioRepetidoException e) {
-			fail(e.getMessage());
-		} catch (ParseException e) {
-			fail(e.getMessage());
-		}
-		try {
-			IctrAlta.cargarDptos();
-		} catch (IOException e) {
-			fail(e.getMessage());
-		} catch (DepartamentoYaExisteExeption e) {
-			fail(e.getMessage());
-		} 
-		try {
-			IctrAlta.cargarActs();
-		} catch (NumberFormatException e) {
-			fail(e.getMessage());
-		} catch (IOException e) {
-			fail(e.getMessage());
-		} catch (DepartamentoYaExisteExeption e) {
-			fail(e.getMessage());
-		} catch (ActividadRepetidaException e) {
-			fail(e.getMessage());
-		} catch (ParseException e) {
-			fail(e.getMessage());
-			// TODO Auto-generated catch block
-		} catch (UsuarioNoExisteException e) {
-			// TODO Auto-generated catch block
-		} catch (ProveedorNoNacidoException e) {
-			// TODO Auto-generated catch block
-		}
-		try {
-			IctrAlta.cargarSalidas();
-		} catch (NumberFormatException e) {
-			fail(e.getMessage());
-		} catch (IOException e) {
-			fail(e.getMessage());
-		} catch (ParseException e) {
-			fail(e.getMessage());
-		} catch (SalidaYaExisteExeption e) {
-			fail(e.getMessage());
-		} catch (FechaAltaSalidaInvalida e) {
-			fail(e.getMessage());
-		} catch (FechaAltaSalidaAnteriorActividad e) {
-			fail(e.getMessage());
-		}
-		try {
-			IctrAlta.cargarPaquetes();
-		} catch (NumberFormatException e) {
-			fail(e.getMessage());
-		} catch (FileNotFoundException e) {
-			fail(e.getMessage());
-		} catch (IOException e) {
-			fail(e.getMessage());
-		} catch (ParseException e) {
-			fail(e.getMessage());
-		} catch (SalidaYaExisteExeption e) {
-			fail(e.getMessage());
-		} catch (PaqueteRepetidoException e) {
-			fail(e.getMessage());
-		}
-		try {
-			IctrInsc.cargarActsPaqs();
+			IctrAlta.cargarDatos();
 		} catch (Exception e) {
-			fail(e.getMessage());
-		}
-		try {
-			IctrAlta.cargarCompPaq();
-		} catch (NumberFormatException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (PaqueteNoExisteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (PaqueteRepetidoException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			IctrInsc.cargarInsc();
-		} catch (NumberFormatException e) {
-			fail(e.getMessage());
-		} catch (IOException e) {
-			fail(e.getMessage());
-		} catch (ParseException e) {
-			fail(e.getMessage());
-		} catch (TuristaConSalida e) {
-			
-		} catch (ExcedeTuristas e) {
-			fail(e.getMessage());
-		} catch (InscFechaInconsistente e) {
-			fail(e.getMessage());
-		} catch (ActividadNoExisteException e) {
-			fail(e.getMessage());
-		} catch (InscFechaDespSalida e) {
-			fail(e.getMessage());
-		} catch (TuristaNoHaNacido e) {
-			fail(e.getMessage());
-		} catch (PaqueteRepetidoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoHayCuposException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 	}
 	
@@ -266,6 +161,28 @@ class ControladorAltaTest {
 		assertEquals(aux.getCategorias(),null);
 		assertEquals(aux.getPaquetes(),null);
 		assertEquals(aux.getSalidas(),null);
+	}
+	
+	@Test
+	void testNomCat() {
+		try {
+			Set<String> aux = IctrAlta.obtenerNombreCategorias();
+			boolean res = aux.size() != 0;
+			assertEquals(res,true);
+			IctrAlta.confirmarAltaTurista("", "", "", "", new Date(), "", "");
+			DataUsuario auxi = IctrCons.obtenerDataUsuarioMail("");
+			res = auxi.equals("");
+			assertEquals(res,true);
+		} catch (NoExisteCategoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioRepetidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
@@ -369,6 +286,48 @@ class ControladorAltaTest {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	void testDTCompGen() {
+		DataSalida sal = new DataSalida();
+		DataCompraGeneral aux = new DataCompraGeneral(new Date(),0,0,sal);
+		assertEquals(aux.getCantidad(),0);
+		assertEquals(aux.getCosto(),0);
+		assertEquals(aux.getFecha(),new Date());
+		assertEquals(aux.getSalida(),sal);
+		assertEquals(aux.isPorPaquete(),false);
+	}
+	
+	@Test
+	void testDTPaq() {
+		DataPaquete aux = new DataPaquete(null, null, 0, null, 0, null);
+		assertEquals(aux.getDescripcion(),null);
+		assertEquals(aux.getNombre(),null);
+		assertEquals(aux.getDescuento(),0);
+		assertEquals(aux.getImagen(),null);
+		assertEquals(aux.getDtAct(),null);
+		assertEquals(aux.getValidez(),0);
+		assertEquals(aux.getFechaAlta(),null);
+	}
+	
+	@Test
+	void testDTUsu() {
+		DataUsuario aux = new DataUsuario(null, null, null, null, null);
+		aux.setApellido(null);
+		aux.setImagen(null);
+		aux.setMail(null);
+		aux.setNacimiento(null);
+		aux.setNick(null);
+		aux.setNombre(null);
+		aux.setPassword(null);
+		assertEquals(aux.getApellido(),null);
+		assertEquals(aux.getNombre(),null);
+		assertEquals(aux.getPassword(),null);
+		assertEquals(aux.getImagen(),null);
+		assertEquals(aux.getNick(),null);
+		assertEquals(aux.getMail(),null);
+		assertEquals(aux.getNacimiento(),null);
 	}
 	
 	@Test
@@ -535,6 +494,17 @@ class ControladorAltaTest {
 		assertEquals(dUsuario.getNacimiento().getDate(),auxFecha.getDate());
 		assertEquals(dUsuario.getNacimiento().getMonth(),auxFecha.getMonth());
 		assertEquals(dUsuario.getNacimiento().getYear(),auxFecha.getYear());
+	}
+	
+	@Test
+	void testDTComPaq() {
+		DataCompraPaquete aux = new DataCompraPaquete(null, 0, 0, null, null, null);
+		assertEquals(aux.getFecha(),null);
+		assertEquals(aux.getPaq(),null);
+		assertEquals(aux.getRestAct(),null);
+		assertEquals(aux.getVencimiento(),null);
+		assertEquals(aux.getCantidad(),0);
+		assertEquals(aux.getCosto(),0);
 	}
 
 	@Test
