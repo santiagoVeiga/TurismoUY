@@ -384,13 +384,7 @@ public class Principal {
         mntmCargarusuarios.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
-					ICA.cargarUsuarios();
-					ICA.cargarDptos();
-					ICA.cargarActs();
-					ICA.cargarSalidas();
-					ICI.cargarInsc();
-					ICA.cargarPaquetes();
-					ICI.cargarActsPaqs();
+					ICA.cargarDatos();
 					mntmCargarusuarios.setVisible(false);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block

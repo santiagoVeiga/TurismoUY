@@ -52,13 +52,24 @@ public class ControladorAlta implements IControladorAlta {
 	      reader = new CSVReader(new FileReader("./src/data/Salidas.csv"));
 	      String[] nextLine;
 	      int cont = 0;
-	      BufferedImage img = ImageIO.read(new File("./src/data/s1.jpg"));
-	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	      ImageIO.write(img, "jpg", baos);
-	      byte[] imgBytes = baos.toByteArray();
+	      
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
 	    	  if (cont!=0) {
+	    		  byte[] imgBytes = null;
+	    		  File imagen = new File("./src/data/Salidas/s"+Integer.toString(cont)+".jpg");
+	    		  if(imagen.exists()) {
+	    			  BufferedImage img = ImageIO.read(imagen);
+		    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		    	      ImageIO.write(img, "jpg", baos);
+		    	      imgBytes = baos.toByteArray();
+	    		  }
+	    		  else {
+	    			  BufferedImage img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
+		    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		    	      ImageIO.write(img, "jpg", baos);
+		    	      imgBytes = baos.toByteArray();
+	    		  }
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[3].strip());
 	    		  Date fechaA = formato.parse(nextLine[7].strip());
@@ -525,16 +536,17 @@ public class ControladorAlta implements IControladorAlta {
 
 	@Override
 	public void cargarDatos() throws Exception {
+		cargarCategorias();
 		cargarUsuarios();
 		cargarDptos();
 		cargarActs();
+		cargarPaquetes();
 		cargarSalidas();
 		Fabrica fabr = Fabrica.getInstance();
 		IControladorInsc conIns = fabr.getIControladorInsc();
+		conIns.cargarActsPaqs();
 		cargarCompPaq();
 		conIns.cargarInsc();
-		cargarPaquetes();
-		conIns.cargarActsPaqs();
 	}
 
 
@@ -795,7 +807,7 @@ public class ControladorAlta implements IControladorAlta {
 	public void cargarCompPaq() throws IOException, ParseException, NumberFormatException, PaqueteNoExisteException, PaqueteRepetidoException {
 		CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
-	      reader = new CSVReader(new FileReader("./src/data/Compras-Paquetes.csv"));
+	      reader = new CSVReader(new FileReader("./src/data/ComprasPaquetes.csv"));
 		String[] nextLine;
 	      int cont = 0;
 	      Fabrica fabr = Fabrica.getInstance();
