@@ -37,6 +37,7 @@ import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.Actividad;
+import logica.CompraPaquete;
 import logica.DataActividad;
 import logica.DataCompraGeneral;
 import logica.DataCompraPaquete;
@@ -52,6 +53,7 @@ import logica.IControladorConsulta;
 import logica.IControladorInsc;
 import logica.estadoAct;
 import manejadores.ManejadorActividad;
+import manejadores.ManejadorPaquete;
 
 class ControladorAltaTest {
 	
@@ -164,6 +166,32 @@ class ControladorAltaTest {
 	}
 	
 	@Test
+	void testUsusComp() {
+		try {
+			DataUsuario[] aux = IctrAlta.getUsuariosComp();
+			boolean res = aux.length != 0;
+			assertEquals(res,true);
+		} catch (UsuarioNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test
+	void testDTDepto() {
+		DataDepartamento aux = new DataDepartamento();
+		aux.setColAct(null);
+		aux.setDescripcion(null);
+		aux.setNombre(null);
+		aux.setUrl(null);
+		assertEquals(aux.getColAct(),null);
+		assertEquals(aux.getDescripcion(),null);
+		assertEquals(aux.getNombre(),null);
+		assertEquals(aux.getUrl(),null);
+	}
+	
+	@Test
 	void testNomCat() {
 		try {
 			Set<String> aux = IctrAlta.obtenerNombreCategorias();
@@ -187,19 +215,21 @@ class ControladorAltaTest {
 	
 	@Test
 	void testDataSalida() {
+		Date fecha = new Date();
 		DataSalida aux = new DataSalida();
+		aux = new DataSalida("","",fecha,fecha,fecha,0);
 		aux.setCant(0);
-		aux.setFecha(new Date());
-		aux.setHora(new Date());
+		aux.setFecha(fecha);
+		aux.setHora(fecha);
 		aux.setLugar("");
-		aux.setFechaAlta(new Date());
+		aux.setFechaAlta(fecha);
 		aux.setNombre("");
 		assertEquals(aux.getNombre(),"");
 		assertEquals(aux.getLugar(),"");
-		assertEquals(aux.getFecha(),new Date());
-		assertEquals(aux.getFechaAlta(),new Date());
-		assertEquals(aux.getHora(),new Date());
-		assertEquals(aux.gethora(),new Date());
+		assertEquals(aux.getFecha(),fecha);
+		assertEquals(aux.getFechaAlta(),fecha);
+		assertEquals(aux.getHora(),fecha);
+		assertEquals(aux.gethora(),fecha);
 		assertEquals(aux.getImagen(),null);
 	}
 	
