@@ -54,9 +54,14 @@
                         </div>
                         <% 
                         String salida = (String) request.getAttribute("SalidaElegida");
+                        String [] paquetes = (String[]) request.getAttribute("PaquetesComprados");
+                        boolean bandera = false;
+                        if (paquetes.length > 0){
+                        	bandera = true;
+                        }
                         %>
                         <div class="text-center p-4">
-                          <h2> <%="Inscripción a Salida Turística:" + salida %> </h2>
+                          <h2> <%="Inscripción a Salida Turística: " + salida %> </h2>
                           <p class="lead">Ingrese los datos de la Inscripción</p>
                         </div>
                         <div class="row justify-content-md-center">
@@ -66,7 +71,9 @@
                                        <nav>
 				                           <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
 				                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">General</a>
-				                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Por Paquete</a>
+				                                <%if (bandera){ %>
+				                                	<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Por Paquete</a>
+				                           		<%} %>
 				                           </div>
                        					</nav>
                         <div class="tab-content" id="nav-tabContent">
@@ -84,6 +91,9 @@
 					              <input type="submit" value="Inscribirse" onclick="submit()">
 					          </form>   
                             </div>
+                            <%
+                            if (bandera){
+                            %>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                             	<form class="needs-validation" id="sell-info" action="Inscripto" method="POST">
                             		<span></span><br />
@@ -99,7 +109,7 @@
                                     <label for="paqDisp">Paquetes Disponibles</label>
                                     <select id="paqDisp" name="paqDisp" required>
                                     	<%
-                                    	String [] paquetes = (String[]) request.getAttribute("PaquetesComprados");
+                                    	
                                     	for(int i = 0;i < paquetes.length; i++){
                                     		if(i==0){  %>
                                     			<option selected> <%= paquetes[i] %> </option>                                    			
@@ -115,6 +125,7 @@
 					            </div>
 					            </form>   
                             </div>
+                            <% }%>
                             
                         </div>      
                                     </div>

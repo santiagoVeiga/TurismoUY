@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import excepciones.ActividadNoExisteException;
 import excepciones.NoHayCuposException;
 
 
@@ -39,7 +40,10 @@ public class CompraPaquete{
 		return this.restAct.get(act);
 	}
 	
-	void reducirCuposAct(String act, int cant) throws NoHayCuposException {
+	void reducirCuposAct(String act, int cant) throws NoHayCuposException, ActividadNoExisteException {
+		if (restAct.get(act) == null) {
+			throw new ActividadNoExisteException("El paquete " + getPaq().getNombre() + " no contiene a la actividad " + act);
+		}
 		if (cant > obtenerCuposAct(act))
 			throw new NoHayCuposException("No hay cupos suficientes en la compra paquete para la actividad:" + act);
 		this.restAct.replace(act, this.obtenerCuposAct(act)-cant);
