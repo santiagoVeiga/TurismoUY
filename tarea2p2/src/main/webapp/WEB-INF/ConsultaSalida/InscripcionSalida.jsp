@@ -100,7 +100,7 @@
                        					</nav>
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                              <form class="needs-validation" id="sell-info" action="Inscripcion" method="POST">
+                              <form class="needs-validation" id="sell-info" action="Inscripto" method="POST">
                               	<span></span><br />
                                 <input type="hidden" id="nomSal" name="nomSal" value="<%=salida%>">         
                                 <div class="row">
@@ -114,7 +114,7 @@
 					          </form>   
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            	<form class="needs-validation" id="sell-info" action="Inscripcion" method="POST">
+                            	<form class="needs-validation" id="sell-info" action="Inscripto" method="POST">
                             		<span></span><br />
 	                                <div class="col-md-6 mb-4">
 	                                	<input type="hidden" id="nomSal" name="nomSal" value="<%=salida%>">         
@@ -153,6 +153,15 @@
                     </div>
                 </div>
 	</div>	
+	<% 
+	String exc = (String) request.getAttribute("Exception");
+	if(exc != null){
+		System.out.println(exc);
+	%>
+		<div onload="return excepciones(<%= exc %>)"></div>
+	<%
+	}
+	%>
 </section>
 
     <!-- Js Plugins -->
