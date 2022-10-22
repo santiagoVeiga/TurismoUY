@@ -448,7 +448,15 @@ public class ServletAlta extends HttpServlet {
                             conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(),  nuevoNombre, apellidoNuevo,fechaNuevaNac,((DataProveedor) usuario).getDescripcion(),((DataProveedor) usuario).getLink(), true);//((DataProveedor) du1).getHayLink());
                         }
                         System.out.printf("---entreee-");
-                        req.setAttribute("DataUsuario", usuario);
+                        try {
+                            usuario = conCons.obtenerDataUsuarioNick((String) req.getAttribute("nickUsuario"));
+                            session.setAttribute("usuario",usuario);
+                        } catch (UsuarioNoExisteException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        
+                        //req.setAttribute("DataUsuario", usuario);
                         req.getRequestDispatcher("/ConsultaUsuario").forward(req,resp);
                     }catch (ParseException e){
                         System.out.printf("---PARSE-");

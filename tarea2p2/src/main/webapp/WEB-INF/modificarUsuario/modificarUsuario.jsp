@@ -99,15 +99,15 @@
 												  <div class="tab-container">
 														      <div class="tab-content">
 															        <div class="form-outline mb-4">
-														              	<label class="form-label" for="nombreNuevo">Modificar Nombre - Rosa Marıa</label>
+														              	<label class="form-label" for="nombreNuevo">Modificar Nombre</label>
 														              	<input type="text"  class="form-control form-control-lg" id="nombreNuevo" name="nombreNuevo" value="<%=usuario.getNombre()%>"/>
 														            </div>
 												                    <div class="form-outline mb-4">
-												                    	<label class="form-label" for="apellidoNuevo">Modificar Apellido - Martınez</label>
+												                    	<label class="form-label" for="apellidoNuevo">Modificar Apellido</label>
 														              	<input type="text" class="form-control form-control-lg" id="apellidoNuevo" name="apellidoNuevo" value="<%=usuario.getApellido()%>"/>
 														            </div>
 											                        <div class="form-outline mb-4">
-											                        	<label class="form-label" for="fechaNueva">Modificar Fecha de Nacimiento - 23/2/1927</label>
+											                        	<label class="form-label" for="fechaNueva">Modificar Fecha de Nacimiento</label>
 														              	<input type="date" class="form-control form-control-lg" id="fechaNueva" name="fechaNueva" value="<%=usuario.getNacimiento()%>"/>
 														              
 														            </div>
