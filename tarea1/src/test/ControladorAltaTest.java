@@ -214,6 +214,30 @@ class ControladorAltaTest {
 		}
 	}
 	
+	@Test
+	void testconsincs() {
+		DataUsuario[] aux = IctrInsc.listarUsuarios();
+		boolean res = aux.length != 0;
+		assertEquals(true,res);
+		Set<String> elset = IctrInsc. listarActividadesAgregadas();
+		res = elset.size() != 0;
+		assertEquals(true,res);
+		String[] ppaqs =  IctrInsc.listarPaquetesNoComprados();
+		res = ppaqs.length != 0;
+		assertEquals(true,res);
+		String[] paqs =  IctrInsc.obtenerPaquetesComprados("lachiqui") ;
+		res = paqs.length != 0;
+		assertEquals(true,res);
+		try {
+			String qwer  = IctrInsc.obtenerNomActPorSalida("Degusta Agosto");
+			res = qwer.equals("Degusta");
+			assertEquals(true,res);
+		} catch (SalidasNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	@Test
 	void testListarUsuarios() {
