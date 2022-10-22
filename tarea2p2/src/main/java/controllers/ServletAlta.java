@@ -22,6 +22,7 @@ import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,7 +53,7 @@ import logica.IControladorConsulta;
  * Servlet implementation class Home
  */
 
-@WebServlet (urlPatterns={"/ModificarUsuario","/SalidaCreada","/UsuarioCreado","/ActividadCreada","/AltaSalida","/AltaActividad","/AltaUsuario"})
+@WebServlet (urlPatterns={"/ModificarUsuario","/SalidaCreada","/UsuarioCreado","/ActividadCreada","/AltaSalida","/AltaActividad","/AltaUsuario","/UsuarioModificado"})
 @MultipartConfig(maxFileSize = 16177215) 
 public class ServletAlta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -110,9 +111,12 @@ public class ServletAlta extends HttpServlet {
                     req.getRequestDispatcher("/WEB-INF/altaActividad/alta_actividad.jsp").forward(req,resp);
     				break;
     			case "/AltaSalida":
-    				req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
-    				break;
-    			case "/ActividadCreada":
+                    req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
+                    break;
+    			case "/ModificarUsuario":
+                    req.getRequestDispatcher("/WEB-INF/modificarUsuario/modificarUsuario.jsp").forward(req,resp);
+                    break;
+                case "/ActividadCreada":
     			    String nombreAct = (String) req.getParameter("actividadNombre");
                     String departamentoAct = (String) req.getParameter("actividadDepartamento");
                     String descripcionAct = (String) req.getParameter("actividadDescripcion");
@@ -417,16 +421,41 @@ public class ServletAlta extends HttpServlet {
                     }
     				
     				break;
-    			case "/ModificarUsuario":
-    				DataUsuario du1 = (DataUsuario) req.getAttribute("DataUsuario");
+    			case "/UsuarioModificado":
+                    String nuevoNombre = (String) req.getParameter("nombreNuevo");
+                    String apellidoNuevo = (String) req.getParameter("apellidoNuevo");
+                    
+                    String fechaNueva = (String) req.getParameter("fechaNueva");
+                    System.out.printf(fechaNueva);
+                    SimpleDateFormat formatFecha = new SimpleDateFormat("dd-MM-yyyy");
+                    
+                    //String nuevoNombre = (String) req.getAttribute("nombreNuevo");
+                    conCons = fab.getIControladorConsulta();
     				conAlta = fab.getIControladorAlta();
-    				if(du1 instanceof DataTurista) {
-    					conAlta.actualizarDatosTurista(du1.getNick(), du1.getNombre() , du1.getApellido(), du1.getMail() ,du1.getNacimiento() ,((DataTurista) du1).getNacionalidad());
-    				} else {
-    					conAlta.actualizarDatosProveedor(du1.getNick(), du1.getNombre() , du1.getApellido(), du1.getMail() ,du1.getNacimiento() ,((DataProveedor) du1).getDescripcion(),((DataProveedor) du1).getLink(), true);//((DataProveedor) du1).getHayLink());
-    				}
-    				req.setAttribute("DataUsuario", du1);
-    				req.getRequestDispatcher("/WEB-INF/ConsultaUsuario.jsp").forward(req,resp);
+                    HttpSession session = req.getSession();
+                    DataUsuario usuario = (DataUsuario) session .getAttribute("usuario");
+                    System.out.printf(usuario.getNick());
+                    System.out.printf(usuario.getNick() +" "+ nuevoNombre +" "+ apellidoNuevo );
+
+                    try {
+                        //usuario = conCons.obtenerDataUsuarioNick((String) req.getAttribute("nickUsuario"));
+                        Date fechaNuevaNac = formatFecha.parse(fechaNueva);
+                        if(usuario instanceof DataTurista) {
+                            System.out.printf("22222 "+usuario.getNick() +" "+ nuevoNombre +" "+ apellidoNuevo );
+                            conAlta.actualizarDatosTurista(usuario.getNick(), nuevoNombre, apellidoNuevo, usuario.getMail() ,fechaNuevaNac,((DataTurista) usuario).getNacionalidad());
+                        } else if(usuario instanceof DataProveedor){
+                            System.out.printf("22222 "+usuario.getNick() +" "+ nuevoNombre +" "+ apellidoNuevo );
+                            conAlta.actualizarDatosProveedor(usuario.getNick(), nuevoNombre, apellidoNuevo, usuario.getMail() ,fechaNuevaNac,((DataProveedor) usuario).getDescripcion(),((DataProveedor) usuario).getLink(), true);//((DataProveedor) du1).getHayLink());
+                        }
+                        System.out.printf("---entreee-");
+                        req.setAttribute("DataUsuario", usuario);
+                        req.getRequestDispatcher("/ConsultaUsuario").forward(req,resp);
+                    }catch (ParseException e){
+                        System.out.printf("---PARSE-");
+
+                        // TODO Auto-generated catch block
+                    }
+    				
     				break;
     		}
         }
