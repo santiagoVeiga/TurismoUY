@@ -69,6 +69,9 @@ class ControladorAltaTest {
 		IctrCons = fabrica.getIControladorConsulta();
 		IctrInsc = fabrica.getIControladorInsc();
 		ManejadorActividades = ManejadorActividad.getInstance();
+		assertThrows(DepartamentoNoExisteException.class, ()->{IctrCons.obtenerDataDepartamentos();});
+		assertThrows(NoExisteCategoriaException.class, ()->{IctrAlta.obtenerNombreCategorias();});
+		assertThrows(PaqueteNoExisteException.class, ()->{IctrInsc.comprarPaquete(null, null, 0, "");});
 		try {
 			IctrAlta.cargarDatos();
 		} catch (Exception e) {
@@ -821,6 +824,7 @@ class ControladorAltaTest {
 			res = res || (it.haySalidas()&&it.hayPaquetes()&&it.getCiudad().equals("Rocha"));
 		}
 		assertEquals(res,true);
+		
 	}
 	
 
