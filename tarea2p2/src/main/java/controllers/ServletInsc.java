@@ -97,8 +97,8 @@ public class ServletInsc extends HttpServlet {
     				conInsc = fab.getIControladorInsc();
     				String salInsc = req.getParameter("nomSal");
     				DataUsuario dataUsu = (DataUsuario) session.getAttribute("usuario");
-    				int cant = Integer.parseInt(req.getParameter("cantidad"));
-    				String paqInsc = req.getParameter("paquete");
+    				int cant = Integer.parseInt(req.getParameter("cantTur"));
+    				String paqInsc = req.getParameter("paqDisp");
     				String act = null;
                     try {
                         act = conInsc.obtenerNomActPorSalida(salInsc);
@@ -114,13 +114,15 @@ public class ServletInsc extends HttpServlet {
     					} else {
     						conInsc.inscribir(dataUsu.getNick(), salInsc, cant, fecha, act, paqInsc);
     					}
+    	                resp.sendRedirect("/tarea2p2/home");
     				} catch (TuristaConSalida | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException
     						| InscFechaDespSalida | TuristaNoHaNacido | PaqueteRepetidoException
     						| NoHayCuposException e) {
-    					req.setAttribute("Exception", e.getMessage());
-    					req.getRequestDispatcher("/WEB-INF/InscripcionSalida.jsp").forward(req,resp);
+    				    System.out.println("ServletInscripcion " + e.getMessage());
+    					//req.setAttribute("Exception", e.getMessage());
+    					//req.getRequestDispatcher("/WEB-INF/ConsultaSalida/InscripcionSalida.jsp").forward(req,resp);
+    					resp.sendRedirect("/tarea2p2/home");
     				}
-    				resp.sendRedirect("/WEB-INF/iniciar.jsp");
     				break;
     			case "/CompraPaquete":
     				conInsc = fab.getIControladorInsc();

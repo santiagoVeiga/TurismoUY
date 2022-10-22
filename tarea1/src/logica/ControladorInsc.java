@@ -100,10 +100,10 @@ public class ControladorInsc implements IControladorInsc {
 			throw new InscFechaInconsistente("La fecha de inscripcion debe ser igual o posterior a la fecha de alta de salida");
 		}
 		if (fecha.after(sal.getFecha())) {
-			throw new InscFechaDespSalida();
+			throw new InscFechaDespSalida("La fecha de inscripcion es posterior a la fecha de salida");
 		}
 		if (((Turista) tur).getNacimiento().after(sal.getFecha())) {
-			throw new TuristaNoHaNacido();
+			throw new TuristaNoHaNacido("El turista aun no ha nacido");
 		}
 		// Se realiza la inscripcion
 		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, costo);
@@ -130,10 +130,10 @@ public class ControladorInsc implements IControladorInsc {
 			throw new InscFechaInconsistente("La fecha de inscripcion debe ser igual o posterior a la fecha de alta de salida");
 		}
 		if (fecha.after(sal.getFecha())) {
-			throw new InscFechaDespSalida();
+			throw new InscFechaDespSalida("La fecha de inscripcion es posterior a la fecha de salida");
 		}
 		if (((Turista) tur).getNacimiento().after(sal.getFecha())) {
-			throw new TuristaNoHaNacido();
+			throw new TuristaNoHaNacido("El turista aun no ha nacido");
 		}
 		if (!((Turista) tur).paqueteComprado(nombrePaq)) {
 			throw new PaqueteRepetidoException("El paquete: " + nombrePaq + " no ha sido comprado por el turista: " + nick);

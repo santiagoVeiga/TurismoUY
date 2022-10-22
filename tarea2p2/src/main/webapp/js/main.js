@@ -384,3 +384,7 @@ function compraPaq(){
 	return True;
 }
 
+function excepciones(exc){
+	alert(exc);
+	return true;
+}
