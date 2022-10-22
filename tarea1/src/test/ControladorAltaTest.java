@@ -199,7 +199,7 @@ class ControladorAltaTest {
 			assertEquals(res,true);
 			IctrAlta.confirmarAltaTurista("", "", "", "", new Date(), "", "");
 			DataUsuario auxi = IctrCons.obtenerDataUsuarioMail("");
-			res = auxi.equals("");
+			res = auxi.getMail().equals("");
 			assertEquals(res,true);
 		} catch (NoExisteCategoriaException e) {
 			// TODO Auto-generated catch block
