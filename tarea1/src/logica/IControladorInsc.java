@@ -29,7 +29,7 @@ public interface IControladorInsc {
 	public abstract void confirmar(String paq, String act);
 	public abstract DataUsuario[] listarUsuarios();
 	public abstract void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException;
-	public abstract void cargarActsPaqs() throws Exception;
+	public abstract void cargarActsPaqs() throws IOException;
 	public abstract void cargarActsPaqs(CSVReader reader) throws Exception;
 	public abstract Set<String> listarActividadesAgregadas();
 	public abstract void aceptarRechazarAct(String nomAct, estadoAct estado) throws estadoActividadIncorrecto, ActividadNoExisteException;

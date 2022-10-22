@@ -32,7 +32,7 @@ public class ModificarUsuario extends JInternalFrame {
 	private JComboBox<String> comboUsuarios;
     //private JLabel lblUsuarios;
     //private JButton btnCerrar;
-    private DataUsuario[] DU;
+    private DataUsuario[] dataUsuarios;
     private JTextField nombreField;
     private JTextField apellidoField;
     private JTextField nacionalidadField;
@@ -227,7 +227,7 @@ public class ModificarUsuario extends JInternalFrame {
 		gbc_aplicarBtn.gridy = 10;
 		aplicarBtn.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		if(chequearFormulario()) {
+	    		if (chequearFormulario()) {
 		    		actualizarDatosUsuario();
 	    		}
 	    	}	    	
@@ -240,11 +240,11 @@ public class ModificarUsuario extends JInternalFrame {
 		//reseteamos los campos a vacio
 		limpiarFormulario();
 		
-		String nickSeleccionado = (String)comboUsuarios.getSelectedItem();
+		String nickSeleccionado = (String) comboUsuarios.getSelectedItem();
 		boolean encontrado = false;
 		int i = 0;
-		while(i<DU.length && !encontrado) {
-			if(DU[i].getNick() == nickSeleccionado) {
+		while (i<dataUsuarios.length && !encontrado) {
+			if (dataUsuarios[i].getNick() == nickSeleccionado) {
 				encontrado=true;
 			}
 			i++;
@@ -269,28 +269,28 @@ public class ModificarUsuario extends JInternalFrame {
 		
 		aplicarBtn.setVisible(true);
 		
-		usuarioSeleccionado = DU[i];
-		nombreField.setText(DU[i].getNombre());
-		apellidoField.setText(DU[i].getApellido());
-		fechaField.setDate(DU[i].getNacimiento());
-		apellidoField.setText(DU[i].getApellido());
-		if(DU[i] instanceof DataTurista) {
-			nacionalidadField.setText(((DataTurista) DU[i]).getNacionalidad());
+		usuarioSeleccionado = dataUsuarios[i];
+		nombreField.setText(dataUsuarios[i].getNombre());
+		apellidoField.setText(dataUsuarios[i].getApellido());
+		fechaField.setDate(dataUsuarios[i].getNacimiento());
+		apellidoField.setText(dataUsuarios[i].getApellido());
+		if (dataUsuarios[i] instanceof DataTurista) {
+			nacionalidadField.setText(((DataTurista) dataUsuarios[i]).getNacionalidad());
 			setTurista();
 		}
-		if(DU[i] instanceof DataProveedor) {
-			linkField.setText(((DataProveedor) DU[i]).getLink());
-			descripcionField.setText(((DataProveedor) DU[i]).getDescripcion());
+		if (dataUsuarios[i] instanceof DataProveedor) {
+			linkField.setText(((DataProveedor) dataUsuarios[i]).getLink());
+			descripcionField.setText(((DataProveedor) dataUsuarios[i]).getDescripcion());
 			setProveedor();
 		}
 	}
 
 	public void actualizarDatosUsuario(){
-		if(usuarioSeleccionado instanceof DataTurista) {
-			controlUsr.actualizarDatosTurista(usuarioSeleccionado.getNick(),usuarioSeleccionado.getMail(), nombreField.getText(),apellidoField.getText(),fechaField.getDate(),nacionalidadField.getText());
+		if (usuarioSeleccionado instanceof DataTurista) {
+			controlUsr.actualizarDatosTurista(usuarioSeleccionado.getNick(), usuarioSeleccionado.getMail(), nombreField.getText(), apellidoField.getText(), fechaField.getDate(), nacionalidadField.getText());
 			
-		}else if(usuarioSeleccionado instanceof DataProveedor)
-			controlUsr.actualizarDatosProveedor(usuarioSeleccionado.getNick(),usuarioSeleccionado.getMail(),nombreField.getText() ,apellidoField.getText(),fechaField.getDate() ,descripcionField.getText(),linkField.getText(),!(linkField.getText().isEmpty()));
+		}else if (usuarioSeleccionado instanceof DataProveedor)
+			controlUsr.actualizarDatosProveedor(usuarioSeleccionado.getNick(), usuarioSeleccionado.getMail(), nombreField.getText(), apellidoField.getText(), fechaField.getDate(), descripcionField.getText(), linkField.getText(), !(linkField.getText().isEmpty()));
 		
 		JOptionPane.showMessageDialog(this, "Datos actualizados!", "Modificar Usuario",
         JOptionPane.INFORMATION_MESSAGE);
@@ -302,23 +302,23 @@ public class ModificarUsuario extends JInternalFrame {
         String nombreU = nombreField.getText();
         String apellidoU = apellidoField.getText();
         Date fechaN = fechaField.getDate();
-        if(usuarioSeleccionado instanceof DataTurista) {
+        if (usuarioSeleccionado instanceof DataTurista) {
         	String nacionalidadU = nacionalidadField.getText();
-        	if ((nombreU.isEmpty() || apellidoU.isEmpty() || nacionalidadU.isEmpty()) || (fechaN==null)) {
-        		if((fechaN == null)) {
-	            	JOptionPane.showMessageDialog(this, "Fecha erronea o vac�a", "Modificar Usuario",
+        	if (nombreU.isEmpty() || apellidoU.isEmpty() || nacionalidadU.isEmpty() || fechaN==null) {
+        		if (fechaN == null) {
+	            	JOptionPane.showMessageDialog(this, "Fecha erronea o vacía", "Modificar Usuario",
 	                        JOptionPane.ERROR_MESSAGE);
-	            }else {
+	            } else {
 	            	JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Modificar Usuario",
 	                        JOptionPane.ERROR_MESSAGE);
 	            }
                 return false;
             }			
-		}else if(usuarioSeleccionado instanceof DataProveedor) {
+		} else if (usuarioSeleccionado instanceof DataProveedor) {
 			String descripcionU = descripcionField.getText();
 			//String linkU = linkField.getText();
-			if (nombreU.isEmpty() || apellidoU.isEmpty() || descripcionU.isEmpty() || (fechaN==null)) {
-				if((fechaN == null)) {
+			if (nombreU.isEmpty() || apellidoU.isEmpty() || descripcionU.isEmpty() || fechaN==null) {
+				if (fechaN == null) {
 	            	JOptionPane.showMessageDialog(this, "Fecha erronea o vac�a", "Modificar Usuario",
 	                        JOptionPane.ERROR_MESSAGE);
 	            }else {
@@ -374,11 +374,11 @@ public class ModificarUsuario extends JInternalFrame {
         setVisible(false);
         try {
         	DefaultComboBoxModel<String> model;
-        	DU = controlUsr.getUsuarios();
-        	String[] nomUsuarios = new String[DU.length]; 
+        	dataUsuarios = controlUsr.getUsuarios();
+        	String[] nomUsuarios = new String[dataUsuarios.length]; 
         	int i=0;
-        	while(i<DU.length) {
-        		nomUsuarios[i]=((DU[i].getNick()));
+        	while (i<dataUsuarios.length) {
+        		nomUsuarios[i]=dataUsuarios[i].getNick();
         		i++;
         	}
         	//DU2 = DU;

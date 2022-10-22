@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,10 +23,24 @@ import javax.servlet.http.HttpSession;
 
 import com.opencsv.CSVReader;
 
+import excepciones.ActividadNoExisteException;
+import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
+import excepciones.ExcedeTuristas;
+import excepciones.FechaAltaSalidaAnteriorActividad;
+import excepciones.FechaAltaSalidaInvalida;
+import excepciones.InscFechaDespSalida;
+import excepciones.InscFechaInconsistente;
+import excepciones.NoHayCuposException;
+import excepciones.PaqueteNoExisteException;
+import excepciones.PaqueteRepetidoException;
+import excepciones.ProveedorNoNacidoException;
+import excepciones.SalidaYaExisteExeption;
+import excepciones.TuristaConSalida;
+import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
-import logica.DataActividad;
+import excepciones.UsuarioRepetidoException;
 import logica.DataDepartamento;
 import logica.DataUsuario;
 import logica.Fabrica;
@@ -36,7 +51,7 @@ import logica.IControladorInsc;
 /**
  * Servlet implementation
  */
-@WebServlet (urlPatterns={"/iniciarSesion","/cerrarSesion","/sesionCerrada","/sesionIniciada","/home"})
+@WebServlet (urlPatterns={"/iniciarSesion", "/cerrarSesion", "/sesionCerrada", "/sesionIniciada", "/home"})
 public class ServletSesion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -69,47 +84,47 @@ public void initSession(HttpServletRequest request) {
         // dptos listos
         input = servletContext.getResourceAsStream("/WEB-INF/data/Usuarios.csv");
         reader = new CSVReader(new InputStreamReader(input));
-        Map<String,byte[]> imagenes = new HashMap<String,byte[]>();
-        for(int i=1; i<=13; i++ ) {
+        Map<String, byte[]> imagenes = new HashMap<String, byte[]>();
+        for (int i=1; i<=13; i++ ) {
             BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Users/u"+Integer.toString(i)+".jpg"));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, "jpg", baos);
             byte[] imgBytes = baos.toByteArray();
             imagenes.put(Integer.toString(i), imgBytes);
         }
-        ca.cargarUsuarios(reader,imagenes);
+        ca.cargarUsuarios(reader, imagenes);
         // usus listos
         input = servletContext.getResourceAsStream("/WEB-INF/data/Actividades.csv");
         reader = new CSVReader(new InputStreamReader(input));
         imagenes.clear();
-        for(int i=1; i<=10; i++ ) {
+        for (int i=1; i<=10; i++ ) {
             BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Actvs/a"+Integer.toString(i)+".jpg"));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, "jpg", baos);
             byte[] imgBytes = baos.toByteArray();
             imagenes.put(Integer.toString(i), imgBytes);
         }
-        ca.cargarActs(reader,imagenes);
+        ca.cargarActs(reader, imagenes);
         // acts listas
         input = servletContext.getResourceAsStream("/WEB-INF/data/Paquetes.csv");
         reader = new CSVReader(new InputStreamReader(input));
         imagenes.clear();
-        for(int i=1; i<=3; i++ ) {
+        for (int i=1; i<=3; i++ ) {
             BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Paqs/p"+Integer.toString(i)+".jpg"));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, "jpg", baos);
             byte[] imgBytes = baos.toByteArray();
             imagenes.put(Integer.toString(i), imgBytes);
         }
-        ca.cargarPaquetes(reader,imagenes);
+        ca.cargarPaquetes(reader, imagenes);
         //Paqs listos
         input = servletContext.getResourceAsStream("/WEB-INF/data/Salidas.csv");
         reader = new CSVReader(new InputStreamReader(input));
         imagenes.clear();
-        for(int i=1; i<=18; i++ ) {
+        for (int i=1; i<=18; i++ ) {
             InputStream instm = servletContext.getResourceAsStream("/WEB-INF/data/Salidas/s"+Integer.toString(i)+".jpg");
             byte[] imgBytes = null;
-            if(instm != null) {
+            if (instm != null) {
                 BufferedImage img = ImageIO.read(instm);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ImageIO.write(img, "jpg", baos);
@@ -124,7 +139,7 @@ public void initSession(HttpServletRequest request) {
             imagenes.put(Integer.toString(i), imgBytes);
             imgBytes = null;
         }
-        ca.cargarSalidas(reader,imagenes);
+        ca.cargarSalidas(reader, imagenes);
         IControladorInsc cins = f.getIControladorInsc();
         input = servletContext.getResourceAsStream("/WEB-INF/data/ActividadesPaquetes.csv");
         reader = new CSVReader(new InputStreamReader(input));
@@ -135,8 +150,15 @@ public void initSession(HttpServletRequest request) {
         input = servletContext.getResourceAsStream("/WEB-INF/data/Inscripciones.csv");
         reader = new CSVReader(new InputStreamReader(input));
         cins.cargarInsc(reader);
-    } catch (Exception e) {
-        System.out.println(e.toString());
+    } catch (NumberFormatException | IOException | UsuarioRepetidoException | ParseException
+            | DepartamentoYaExisteExeption | ActividadRepetidaException | UsuarioNoExisteException
+            | ProveedorNoNacidoException | SalidaYaExisteExeption | PaqueteRepetidoException
+            | FechaAltaSalidaInvalida | FechaAltaSalidaAnteriorActividad | TuristaConSalida
+            | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException | InscFechaDespSalida
+            | TuristaNoHaNacido | NoHayCuposException | PaqueteNoExisteException e1) {
+        // TODO Auto-generated catch block
+        e1.printStackTrace();
+        System.out.println(e1.toString());
     }
 }
 
@@ -145,22 +167,22 @@ public void initSession(HttpServletRequest request) {
  * @param request
  * @return 
  */
-public static EstadoSesion getEstado(HttpServletRequest request)
-{
+public static EstadoSesion getEstado(HttpServletRequest request){
 	return (EstadoSesion) request.getSession().getAttribute("estado_sesion");
 }
 
 public void selecDep(HttpServletRequest req, HttpServletResponse resp, String nomDpto) {
     HttpSession session = req.getSession();
     DataDepartamento[] aux = (DataDepartamento[]) session.getAttribute("dptos");
-    for(DataDepartamento it : aux) {
-        if(it.getNombre().equals(nomDpto)) {
+    for (DataDepartamento it : aux) {
+        if (it.getNombre().equals(nomDpto)) {
             session.setAttribute("DTDConsultaActividad", it);
         }
     }
     try {
         resp.sendRedirect("/tarea2p2/ConsultaActividad");
     } catch (IOException e) {
+        e.printStackTrace();
     }
 }
 
@@ -170,6 +192,7 @@ public void selecCat(HttpServletRequest req, HttpServletResponse resp, String no
     try {
         resp.sendRedirect("/tarea2p2/ConsultaActividad");
     } catch (IOException e) {
+        e.printStackTrace();
     }
 }
 
@@ -184,15 +207,15 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 	HttpSession ses = req.getSession();
     String nomDpto = req.getParameter("DTDConsultaActividad");
     String nomCat = req.getParameter("CatConsultaActividad");
-    if(nomDpto != null) {
-        selecDep(req,resp,nomDpto);
+    if (nomDpto != null) {
+        selecDep(req, resp, nomDpto);
     } else if (nomCat != null) {
-        selecCat(req,resp,nomCat);
+        selecCat(req, resp, nomCat);
     } else {
-    	switch(solicitud) {
+    	switch (solicitud) {
     		case "/home":
     		    String act = (String) req.getParameter("actividad");
-    		    if(act != null) {
+    		    if (act != null) {
     		        ses.setAttribute("actividad_inicio", act);
     		        resp.sendRedirect("/tarea2p2/ConsultaActividad");
     		    }
@@ -222,14 +245,14 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     			DataUsuario[] ususSistema = ca.getUsuariosComp();
     			String nickOrEmail = (String) req.getParameter("emailnick_inicioSesion");
     			for (DataUsuario it : ususSistema) {
-    				if(it.getMail().equals(nickOrEmail)) {
+    				if (it.getMail().equals(nickOrEmail)) {
     					String password = (String) req.getParameter("pass_iniSesion");
     					if (it.getPassword().equals(password)) { 
     						//Sesion iniciada correctamente
     						ses.setAttribute("usuario", it);
     						// Setear imagen
     						String imageAsBase64 = null;
-    						if(it.getImagen()!=null) {
+    						if (it.getImagen()!=null) {
     						    InputStream is = new ByteArrayInputStream(it.getImagen());
         				        BufferedImage bi = ImageIO.read(is);
         				        ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -243,19 +266,19 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     						return;
     					}
     					else {
-    						req.setAttribute("error_contrasena","error");
+    						req.setAttribute("error_contrasena", "error");
     						req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
     						return;
     					}
     				}
-    				else if(it.getNick().equals(nickOrEmail)) {
+    				else if (it.getNick().equals(nickOrEmail)) {
     					String password = (String) req.getParameter("pass_iniSesion");
     					if (it.getPassword().equals(password)) { 
     						//Sesion iniciada correctamente
     						ses.setAttribute("usuario", it);
     						// Setear imagen
     						String imageAsBase64 = null;
-                            if(it.getImagen()!=null) {
+                            if (it.getImagen()!=null) {
                                 InputStream is = new ByteArrayInputStream(it.getImagen());
                                 BufferedImage bi = ImageIO.read(is);
                                 ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -269,13 +292,13 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     						return;
     					}
     					else {
-    						req.setAttribute("error_contrasena","error");
+    						req.setAttribute("error_contrasena", "error");
     						req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
     						return;
     					}
     				}
     			}
-    			req.setAttribute("error_emailnick","error");
+    			req.setAttribute("error_emailnick", "error");
     			req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
     			break;
     		case "/sesionCerrada":
@@ -293,7 +316,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	} catch (DepartamentoYaExisteExeption e) {
 		System.out.println("no hay dptos get");
 	} catch (UsuarioNoExisteException e) {
-		
+        e.printStackTrace();
 	} 
 }
 
@@ -306,7 +329,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	} catch (DepartamentoYaExisteExeption e) {
 		System.out.println("no hay depntos post");
 		} catch (UsuarioNoExisteException e) {
-			
+            e.printStackTrace();
 		}
 	}
 

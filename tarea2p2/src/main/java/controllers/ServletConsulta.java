@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +24,7 @@ import logica.IControladorConsulta;
 /**
  * Servlet implementation class Home
  */
-@WebServlet (urlPatterns={"/ConsultaUsuario","/ConsultaActividad","/ConsultaSalida","/ConsultaPaquete"})
+@WebServlet (urlPatterns={"/ConsultaUsuario", "/ConsultaActividad", "/ConsultaSalida", "/ConsultaPaquete"})
 
 public class ServletConsulta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -43,14 +42,15 @@ public class ServletConsulta extends HttpServlet {
     public void selecDep(HttpServletRequest req, HttpServletResponse resp, String nomDpto) {
         HttpSession session = req.getSession();
         DataDepartamento[] aux = (DataDepartamento[]) session.getAttribute("dptos");
-        for(DataDepartamento it : aux) {
-            if(it.getNombre().equals(nomDpto)) {
+        for (DataDepartamento it : aux) {
+            if (it.getNombre().equals(nomDpto)) {
                 session.setAttribute("DTDConsultaActividad", it);
             }
         }
         try {
             resp.sendRedirect("/tarea2p2/ConsultaActividad");
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
@@ -60,6 +60,7 @@ public class ServletConsulta extends HttpServlet {
         try {
             resp.sendRedirect("/tarea2p2/ConsultaActividad");
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
@@ -69,25 +70,25 @@ public class ServletConsulta extends HttpServlet {
         //Ver si se presiona sobre un dpto
         String nomDpto = req.getParameter("DTDConsultaActividad");
         String nomCat = req.getParameter("CatConsultaActividad");
-        if(nomDpto != null) {
-            selecDep(req,resp,nomDpto);
+        if (nomDpto != null) {
+            selecDep(req, resp, nomDpto);
         } else if (nomCat != null) {
-            selecCat(req,resp,nomCat);
+            selecCat(req, resp, nomCat);
         } else {
-    		switch(req.getServletPath()){
+    		switch (req.getServletPath()){
     			case "/ConsultaUsuario":
     				String usuario = (String) req.getParameter("nick");
     				conCons = fab.getIControladorConsulta();
-    				if(usuario == null) {
+    				if (usuario == null) {
     					DataUsuario[] usuarios = conCons.listarUsuarios();
     					req.setAttribute("ArregloUsuarios", usuarios);
-    					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ListaUsuario.jsp").forward(req,resp);
+    					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ListaUsuario.jsp").forward(req, resp);
     				} else {
     					DataUsuario du;
                         try {
                             du = conCons.obtenerDataUsuarioNick(usuario);
                             req.setAttribute("UsuarioElegido", du);
-                            if(du instanceof DataTurista) {
+                            if (du instanceof DataTurista) {
                                 DataPaquete[] arrDataPaquetes = null;
                                 DataPaquete DataPaqueteAux ; 
                                 arrDataPaquetes = new DataPaquete[((DataTurista) du).getPaquetes().size()];
@@ -98,7 +99,7 @@ public class ServletConsulta extends HttpServlet {
                                }
                                req.setAttribute("ArregloPaquetes", arrDataPaquetes);
                             }
-                            req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ConsultaUsuario.jsp").forward(req,resp);
+                            req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ConsultaUsuario.jsp").forward(req, resp);
                         } catch (UsuarioNoExisteException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
@@ -108,25 +109,25 @@ public class ServletConsulta extends HttpServlet {
     			case "/ConsultaActividad":
     			    conCons = fab.getIControladorConsulta();
     			    String actividad = (String) session.getAttribute("actividad_inicio");
-                    session.setAttribute("actividad_inicio",null);
-                    if(actividad == null) {
+                    session.setAttribute("actividad_inicio", null);
+                    if (actividad == null) {
                         actividad = (String) req.getParameter("actividad");
                     }
     				DataActividad[] actividades = null;
-    				if(actividad == null) {
-    				    if(session.getAttribute("DTDConsultaActividad")!= null) {
+    				if (actividad == null) {
+    				    if (session.getAttribute("DTDConsultaActividad")!= null) {
                             actividades = ((DataDepartamento) session.getAttribute("DTDConsultaActividad")).getColAct().toArray(new DataActividad[0]);
                             session.setAttribute("DTDConsultaActividad", null);
                         } else {
                             String categoria = (String) session.getAttribute("CatConsultaActividad");
-                            if(categoria != null) {
+                            if (categoria != null) {
                                 actividades = conCons.obtenerActividadCategoria(categoria);
                                 session.setAttribute("CatConsultaActividad", null);
                             }
                         }
     					req.setAttribute("ArregloActividades", actividades);
     					session.setAttribute("ArregloActividades", actividades);
-    					req.getRequestDispatcher("/WEB-INF/ConsultaActividad/ListaActividad.jsp").forward(req,resp);
+    					req.getRequestDispatcher("/WEB-INF/ConsultaActividad/ListaActividad.jsp").forward(req, resp);
     				} else {
                         conCons = fab.getIControladorConsulta();
                         DataActividad act = null;
@@ -146,10 +147,11 @@ public class ServletConsulta extends HttpServlet {
                            
                            
                         } catch (ActividadNoExisteException e) {
+                            e.printStackTrace();
                         }
     				    req.setAttribute("ActividadElegida", act);
                         req.setAttribute("ArrayPaquetes", arrDataPaquetes);
-                        req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req,resp);
+                        req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req, resp);
     				}
     				break;
     			case "/ConsultaSalida":
@@ -158,28 +160,28 @@ public class ServletConsulta extends HttpServlet {
     			    try {
                         DataSalida dataSal = conCons.obtenerDataSalida(salida);
                         req.setAttribute("SalidaElegida", dataSal);
-                        req.getRequestDispatcher("/WEB-INF/ConsultaSalida/ConsultaSalida.jsp").forward(req,resp); //Ver si entregar el set de salidas o no, por ahora se devuelve el DataSalida que viene desde la lista.
+                        req.getRequestDispatcher("/WEB-INF/ConsultaSalida/ConsultaSalida.jsp").forward(req, resp); //Ver si entregar el set de salidas o no, por ahora se devuelve el DataSalida que viene desde la lista.
                     } catch (SalidasNoExisteException e) {
                         req.setAttribute("Exception", e.getMessage());
-                        req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req,resp);
+                        req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
                     }
     				break;
     			case "/ConsultaPaquete":
     			    conCons = fab.getIControladorConsulta();
     				String paquete = (String) req.getParameter("paquete");
-    				if(paquete == null) {
+    				if (paquete == null) {
     					conCons = fab.getIControladorConsulta();
     					String[] nombresPaq = conCons.listarPaquetes();
     					DataPaquete[] dps = new DataPaquete[nombresPaq.length];
-    					for(int i=0;i<nombresPaq.length;i++) {
+    					for (int i=0; i<nombresPaq.length; i++) {
     						dps[i] = conCons.obtenerDataPaquete(nombresPaq[i]);
     					}
     					req.setAttribute("ArregloPaquetes", dps);
-    					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/ListaPaquetes.jsp").forward(req,resp);
+    					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/ListaPaquetes.jsp").forward(req, resp);
     				} else {
     					DataPaquete dp = conCons.obtenerDataPaquete(paquete);
     					req.setAttribute("PaqueteElegido", dp);
-    					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req,resp);
+    					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req, resp);
     				}
     				break;
     		}

@@ -1,10 +1,9 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.Date;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +25,6 @@ import excepciones.TuristaNoHaNacido;
 import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataPaquete;
-import logica.DataSalida;
 import logica.DataUsuario;
 import logica.Fabrica;
 import logica.IControladorConsulta;
@@ -35,7 +33,7 @@ import logica.IControladorInsc;
 /**
  * Servlet implementation class Home
  */
-@WebServlet (urlPatterns={"/Inscripcion","/Inscripto","/CompraPaquete"})
+@WebServlet (urlPatterns={"/Inscripcion", "/Inscripto", "/CompraPaquete"})
 
 public class ServletInsc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -53,14 +51,15 @@ public class ServletInsc extends HttpServlet {
     public void selecDep(HttpServletRequest req, HttpServletResponse resp, String nomDpto) {
         HttpSession session = req.getSession();
         DataDepartamento[] aux = (DataDepartamento[]) session.getAttribute("dptos");
-        for(DataDepartamento it : aux) {
-            if(it.getNombre().equals(nomDpto)) {
+        for (DataDepartamento it : aux) {
+            if (it.getNombre().equals(nomDpto)) {
                 session.setAttribute("DTDConsultaActividad", it);
             }
         }
         try {
             resp.sendRedirect("/tarea2p2/ConsultaActividad");
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
@@ -70,6 +69,7 @@ public class ServletInsc extends HttpServlet {
         try {
             resp.sendRedirect("/tarea2p2/ConsultaActividad");
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
@@ -78,12 +78,12 @@ public class ServletInsc extends HttpServlet {
 	    HttpSession session = req.getSession();
 	    String nomDpto = req.getParameter("DTDConsultaActividad");
         String nomCat = req.getParameter("CatConsultaActividad");
-        if(nomDpto != null) {
-            selecDep(req,resp,nomDpto);
+        if (nomDpto != null) {
+            selecDep(req, resp, nomDpto);
         } else if (nomCat != null) {
-            selecCat(req,resp,nomCat);
+            selecCat(req, resp, nomCat);
         } else {
-    		switch(req.getServletPath()){
+    		switch (req.getServletPath()){
     			case "/Inscripcion":
     			    conInsc = fab.getIControladorInsc();
     			    String sal = req.getParameter("salida");
@@ -91,7 +91,7 @@ public class ServletInsc extends HttpServlet {
     			    String[] paquetes = conInsc.obtenerPaquetesComprados(usu.getNick());
                     req.setAttribute("SalidaElegida", sal);
     			    req.setAttribute("PaquetesComprados", paquetes);
-    				req.getRequestDispatcher("/WEB-INF/ConsultaSalida/InscripcionSalida.jsp").forward(req,resp);
+    				req.getRequestDispatcher("/WEB-INF/ConsultaSalida/InscripcionSalida.jsp").forward(req, resp);
     				break;
     			case "/Inscripto":
     				conInsc = fab.getIControladorInsc();
@@ -111,7 +111,7 @@ public class ServletInsc extends HttpServlet {
     				try {
     				    IControladorConsulta conCons = fab.getIControladorConsulta();
     				    double costo = 0;
-    					if(paqInsc == null) {
+    					if (paqInsc == null) {
     						conInsc.inscribir(dataUsu.getNick(), salInsc, cant, fecha, act);
     						DataActividad acti = conCons.obtenerDataActividad(act);
     						costo = cant*acti.getCosto();
@@ -123,12 +123,12 @@ public class ServletInsc extends HttpServlet {
                             costo = costo - cant*acti.getCosto()*paq.getDescuento();
     					}
     					req.setAttribute("Inscrip", "La inscripcion fue realizada con exito! Costo: $" + Double.toString(costo));
-                        req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req,resp);
+                        req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
     				} catch (TuristaConSalida | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException
     						| InscFechaDespSalida | TuristaNoHaNacido | PaqueteRepetidoException
     						| NoHayCuposException e) {
     					req.setAttribute("Exception", e.getMessage());
-    					req.getRequestDispatcher("/home").forward(req,resp);
+    					req.getRequestDispatcher("/home").forward(req, resp);
     				}
     				break;
     			case "/CompraPaquete":
@@ -144,19 +144,19 @@ public class ServletInsc extends HttpServlet {
     					conInsc.comprarPaquete(du1.getNick(), fecha1, cant1, nomPaquete);
     					DataPaquete dataPaq = conCons.obtenerDataPaquete(nomPaquete);
     					double costo = 0;
-    					for(DataActividad iter : dataPaq.getDtAct()) {
+    					for (DataActividad iter : dataPaq.getDtAct()) {
     					    costo += iter.getCosto();
     					}
     					double num = dataPaq.getDescuento();
     					costo = costo*cant1;
     					costo = costo - (num/100)*costo*cant1;
     					req.setAttribute("CompraPaq", "La compra fue realizada con exito! Costo: $" + Double.toString(costo));
-    					req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req,resp); //lo cambie
+    					req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp); //lo cambie
     				} catch (PaqueteNoExisteException | PaqueteRepetidoException e) {
     					req.setAttribute("Exception", e.getMessage());
                         DataPaquete dataPaq = conCons.obtenerDataPaquete(nomPaquete);
                         req.setAttribute("PaqueteElegido", dataPaq);
-    					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req,resp);
+    					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req, resp);
     				}
     				break;
     		}

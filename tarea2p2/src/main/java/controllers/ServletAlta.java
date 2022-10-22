@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +11,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
@@ -22,7 +19,6 @@ import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
 
 import excepciones.ActividadRepetidaException;
 import excepciones.FechaAltaSalidaAnteriorActividad;
@@ -41,10 +36,9 @@ import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.DataActividad;
 import logica.DataDepartamento;
-import logica.DataSalida;
+import logica.DataProveedor;
 import logica.DataTurista;
 import logica.DataUsuario;
-import logica.DataProveedor;
 import logica.Fabrica;
 import logica.IControladorAlta;
 import logica.IControladorConsulta;
@@ -53,7 +47,7 @@ import logica.IControladorConsulta;
  * Servlet implementation class Home
  */
 
-@WebServlet (urlPatterns={"/ModificarUsuario","/SalidaCreada","/UsuarioCreado","/ActividadCreada","/AltaSalida","/AltaActividad","/AltaUsuario","/UsuarioModificado"})
+@WebServlet (urlPatterns={"/ModificarUsuario", "/SalidaCreada", "/UsuarioCreado", "/ActividadCreada", "/AltaSalida", "/AltaActividad", "/AltaUsuario", "/UsuarioModificado"})
 @MultipartConfig(maxFileSize = 16177215) 
 public class ServletAlta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -72,15 +66,17 @@ public class ServletAlta extends HttpServlet {
     public void selecDep(HttpServletRequest req, HttpServletResponse resp, String nomDpto) {
         HttpSession session = req.getSession();
         DataDepartamento[] aux = (DataDepartamento[]) session.getAttribute("dptos");
-        for(DataDepartamento it : aux) {
-            if(it.getNombre().equals(nomDpto)) {
+        for (DataDepartamento it : aux) {
+            if (it.getNombre().equals(nomDpto)) {
                 session.setAttribute("DTDConsultaActividad", it);
             }
         }
-        try {
-            resp.sendRedirect("/tarea2p2/ConsultaActividad");
-        } catch (IOException e) {
-        }
+            try {
+                resp.sendRedirect("/tarea2p2/ConsultaActividad");
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
     }
     
     public void selecCat(HttpServletRequest req, HttpServletResponse resp, String nomCat) {
@@ -89,6 +85,7 @@ public class ServletAlta extends HttpServlet {
         try {
             resp.sendRedirect("/tarea2p2/ConsultaActividad");
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
@@ -96,25 +93,25 @@ public class ServletAlta extends HttpServlet {
 			throws ServletException, IOException {
 	    String nomDpto = req.getParameter("DTDConsultaActividad");
         String nomCat = req.getParameter("CatConsultaActividad");
-        if(nomDpto != null) {
-            selecDep(req,resp,nomDpto);
+        if (nomDpto != null) {
+            selecDep(req, resp, nomDpto);
         } else if (nomCat != null) {
-            selecCat(req,resp,nomCat);
+            selecCat(req, resp, nomCat);
         } else {
-    		switch(req.getServletPath()){
+    		switch (req.getServletPath()){
     			case "/AltaUsuario":
-    				req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req,resp);
+    				req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req, resp);
     				break;
     			case "/AltaActividad":
     				// manda una redirección a otra URL (cambia la URL)
     			    
-                    req.getRequestDispatcher("/WEB-INF/altaActividad/alta_actividad.jsp").forward(req,resp);
+                    req.getRequestDispatcher("/WEB-INF/altaActividad/alta_actividad.jsp").forward(req, resp);
     				break;
     			case "/AltaSalida":
-                    req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req,resp);
+                    req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req, resp);
                     break;
     			case "/ModificarUsuario":
-                    req.getRequestDispatcher("/WEB-INF/modificarUsuario/modificarUsuario.jsp").forward(req,resp);
+                    req.getRequestDispatcher("/WEB-INF/modificarUsuario/modificarUsuario.jsp").forward(req, resp);
                     break;
                 case "/ActividadCreada":
     			    String nombreAct = (String) req.getParameter("actividadNombre");
@@ -126,7 +123,7 @@ public class ServletAlta extends HttpServlet {
                     //obtengo categorias 
                     String[] auxCategorias =  req.getParameterValues("actividadCategoria");
                     Set<String> categoriasAct = null;
-                    if(auxCategorias != null) {
+                    if (auxCategorias != null) {
                         categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
                     }
                     // Fecha del Sistema
@@ -170,35 +167,46 @@ public class ServletAlta extends HttpServlet {
                                 outputAct.close();
                                 inputStreamAct.close();
                             } catch (IOException ex) {
-                                
+                                ex.printStackTrace();
                             }
                         }
                       
                         try {
-                            conAlta.registrarActividad(departamentoAct,nombreAct, descripcionAct, Integer.parseInt(duracionAct),
-                                    Integer.parseInt(costoAct),ciudadAct,date1,proveedorAct, categoriasAct,imgBytesAct);
+                            conAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct),
+                                    Integer.parseInt(costoAct), ciudadAct, date1, proveedorAct, categoriasAct, imgBytesAct);
                             resp.sendRedirect("/tarea2p2/home");
         
                         } catch (NumberFormatException e2) {
+                            req.setAttribute("Exception", "Formato numerico no aceptado");
+                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
                         } catch (ActividadRepetidaException e2) {
                             req.setAttribute("Exception", e2.getMessage());
-                            req.getRequestDispatcher("/AltaActividad").forward(req,resp);
+                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
                         } catch (UsuarioNoExisteException e2) {
+                            req.setAttribute("Exception", e2.getMessage());
+                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
                         } catch (ProveedorNoNacidoException e2) {
+                            req.setAttribute("Exception", e2.getMessage());
+                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
                         }
                     }
                     // No se subió imagen
                     else {
                         try {
-                            conAlta.registrarActividad(departamentoAct,nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct),ciudadAct,date1,proveedorAct, categoriasAct);
+                            conAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1, proveedorAct, categoriasAct);
                             resp.sendRedirect("/tarea2p2/home");
         
                         } catch (NumberFormatException e2) {
+                            e2.printStackTrace();
                         } catch (ActividadRepetidaException e2) {
                             req.setAttribute("Exception", e2.getMessage());
-                            req.getRequestDispatcher("/AltaActividad").forward(req,resp);
+                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
                         } catch (UsuarioNoExisteException e2) {
+                            req.setAttribute("Exception", e2.getMessage());
+                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
                         } catch (ProveedorNoNacidoException e2) {
+                            req.setAttribute("Exception", e2.getMessage());
+                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
                         }
                     }
                     break;
@@ -226,7 +234,7 @@ public class ServletAlta extends HttpServlet {
     		            byte[] imgBytes = null;
     		            try {
     		                // A partir del objeto File creamos el fichero físicamente
-    		                File nuevaImg = new File(req.getSession ().getServletContext ().getRealPath("/") + nick + filePart.getSubmittedFileName());
+    		                File nuevaImg = new File(req.getSession().getServletContext().getRealPath("/") + nick + filePart.getSubmittedFileName());
     		                if (nuevaImg.createNewFile())
     		                  System.out.println("El fichero se ha creado correctamente");
     		                else
@@ -247,26 +255,26 @@ public class ServletAlta extends HttpServlet {
     		                    output.close();
     		                    inputStream.close();
     		                } catch (IOException ex) {
-    		                    
+    		                    ex.printStackTrace();
     		                }
     		            }
     		          
     		            try {
     						Date fechaNac = format.parse(date);
-    						if(!nacionalidad.equals("")) {
-    							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail ,fechaNac ,nacionalidad,password,imgBytes);
+    						if (!nacionalidad.equals("")) {
+    							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail, fechaNac , nacionalidad, password, imgBytes);
     						} else if (linkProv != null && descripcion != null) {
-    							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,linkProv,true,password,imgBytes); 
+    							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail, fechaNac, descripcion, linkProv, true, password, imgBytes); 
     						}
     						else if (descripcion!= null) {
-    							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,"",false,password,imgBytes); 
+    							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail , fechaNac, descripcion, "", false, password, imgBytes); 
     						}else {
     							// no deberia pasar
     							break;
     						}
     						HttpSession session = req.getSession();
-    						DataUsuario du = conCons.obtenerDataUsuarioNick(nick);
-    						session.setAttribute("usuario",du);
+    						DataUsuario dataUsu = conCons.obtenerDataUsuarioNick(nick);
+    						session.setAttribute("usuario", dataUsu);
     						//Setear imagen
     						InputStream is = new ByteArrayInputStream(imgBytes);
                             BufferedImage bi = ImageIO.read(is);
@@ -278,36 +286,40 @@ public class ServletAlta extends HttpServlet {
     						resp.sendRedirect("/tarea2p2/home");
     					} catch (UsuarioRepetidoException e) {
     						req.setAttribute("Exception", e.getMessage());
-    						req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req,resp);
+    						req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req, resp);
     					}catch (ParseException e1) {
+    		                e1.printStackTrace();
     					} catch (UsuarioNoExisteException e) {
+    		                e.printStackTrace();
     					}
     		        }
     				else {
     					try {
     						Date fechaNac = format.parse(date);
-    						if(!nacionalidad.equals("")) {
-    							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail ,fechaNac ,nacionalidad,password);
+    						if (!nacionalidad.equals("")) {
+    							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail, fechaNac, nacionalidad, password);
     						} else if (linkProv != null && descripcion!= null) {
-    							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,linkProv,true,password); 
+    							conAlta.confirmarAltaProveedor(nick, nombre, apellido, mail, fechaNac, descripcion, linkProv, true, password); 
     						}
     						else if (descripcion!= null) {
-    							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail ,fechaNac ,descripcion,"",false,password); 
+    							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail, fechaNac, descripcion, "", false, password); 
     						}else {
     							// no deberia pasar
     							break;
     						}
     						HttpSession session = req.getSession();
     						DataUsuario du = conCons.obtenerDataUsuarioNick(nick);
-    						session.setAttribute("usuario",du);
+    						session.setAttribute("usuario", du);
     						session.setAttribute("imagenUsuario", null); // revisar esto
     						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
     						resp.sendRedirect("/tarea2p2/home");
     					} catch (UsuarioRepetidoException e) {
     						req.setAttribute("Exception", e.getMessage());
-    						req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req,resp);
+    						req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req, resp);
     					}catch (ParseException e1) {
+    		                e1.printStackTrace();
     					} catch (UsuarioNoExisteException e) {
+    		                e.printStackTrace();
     					}
     				}
     				break;
@@ -319,11 +331,11 @@ public class ServletAlta extends HttpServlet {
     				conAlta = fab.getIControladorAlta();
     				try {
     					//da.getDepartamento()
-    					conAlta.registrarActividad("Rocha", da.getNombre() , da.getDescripcion(), da.getDuracion() ,da.getCosto() ,da.getCiudad(),da.getFechaAlta(),proveedor, da.getCategorias());
+    					conAlta.registrarActividad("Rocha", da.getNombre() , da.getDescripcion(), da.getDuracion(), da.getCosto(), da.getCiudad(), da.getFechaAlta(), proveedor, da.getCategorias());
     					resp.sendRedirect("/WEB-INF/iniciar.jsp");
     				} catch (ActividadRepetidaException | UsuarioNoExisteException | ProveedorNoNacidoException e) {
     					req.setAttribute("Exception", e.getMessage());
-    					req.getRequestDispatcher("/WEB-INF/alta_actividad.jsp").forward(req,resp);
+    					req.getRequestDispatcher("/WEB-INF/alta_actividad.jsp").forward(req, resp);
     				}
     				break;
     			case "/SalidaCreada":
@@ -375,26 +387,26 @@ public class ServletAlta extends HttpServlet {
                                 outputSal.close();
                                 inputStreamSal.close();
                             } catch (IOException ex) {
-                                
+                                ex.printStackTrace();
                             }
                         }
                       
                         try {
                             Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);
-                            conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, horaSalida, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActualS,imgBytesSal);
+                            conAlta.confirmarAltaSalida(actividad, salidaNombre, fechaSalida, horaSalida, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualS, imgBytesSal);
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/AltaSalida").forward(req,resp);
+                            req.getRequestDispatcher("/AltaSalida").forward(req, resp);
                         }catch( FechaAltaSalidaAnteriorActividad e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/AltaSalida").forward(req,resp);
+                            req.getRequestDispatcher("/AltaSalida").forward(req, resp);
                         }catch( FechaAltaSalidaInvalida  e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/AltaSalida").forward(req,resp);
+                            req.getRequestDispatcher("/AltaSalida").forward(req, resp);
                         }catch (ParseException e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/AltaSalida").forward(req,resp);
+                            req.getRequestDispatcher("/AltaSalida").forward(req, resp);
                             // TODO Auto-generated catch block
                         }
                     }
@@ -402,20 +414,20 @@ public class ServletAlta extends HttpServlet {
                     else {
                         try {
                             Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);
-                            conAlta.confirmarAltaSalida(actividad, salidaNombre ,fechaSalida, horaSalida, salidaLugar,Integer.parseInt(salidaCantMax) ,fechaActualS);
+                            conAlta.confirmarAltaSalida(actividad, salidaNombre, fechaSalida, horaSalida, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualS);
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/AltaSalida").forward(req,resp);
+                            req.getRequestDispatcher("/AltaSalida").forward(req, resp);
                         }catch( FechaAltaSalidaAnteriorActividad e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/AltaSalida").forward(req,resp);
+                            req.getRequestDispatcher("/AltaSalida").forward(req, resp);
                         }catch( FechaAltaSalidaInvalida  e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/AltaSalida").forward(req,resp);
+                            req.getRequestDispatcher("/AltaSalida").forward(req, resp);
                         }catch (ParseException e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/AltaSalida").forward(req,resp);
+                            req.getRequestDispatcher("/AltaSalida").forward(req, resp);
                             // TODO Auto-generated catch block
                         }   
                     }
@@ -440,16 +452,16 @@ public class ServletAlta extends HttpServlet {
                     try {
                         //usuario = conCons.obtenerDataUsuarioNick((String) req.getAttribute("nickUsuario"));
                         Date fechaNuevaNac = formatFecha.parse(fechaNueva);
-                        if(usuario instanceof DataTurista) {
+                        if (usuario instanceof DataTurista) {
                             System.out.printf("22222 "+usuario.getNick() +" "+ nuevoNombre +" "+ apellidoNuevo );
-                            conAlta.actualizarDatosTurista(usuario.getNick(),usuario.getMail() , nuevoNombre, apellidoNuevo, fechaNuevaNac,((DataTurista) usuario).getNacionalidad());
-                        } else if(usuario instanceof DataProveedor){
+                            conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, ((DataTurista) usuario).getNacionalidad());
+                        } else if (usuario instanceof DataProveedor){
                             System.out.printf("3333 "+usuario.getNick() +" "+ nuevoNombre +" "+ apellidoNuevo );
-                            conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(),  nuevoNombre, apellidoNuevo,fechaNuevaNac,((DataProveedor) usuario).getDescripcion(),((DataProveedor) usuario).getLink(), true);//((DataProveedor) du1).getHayLink());
+                            conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, ((DataProveedor) usuario).getDescripcion(), ((DataProveedor) usuario).getLink(), true); //((DataProveedor) du1).getHayLink());
                         }
                         System.out.printf("---entreee-");
                         req.setAttribute("DataUsuario", usuario);
-                        req.getRequestDispatcher("/ConsultaUsuario").forward(req,resp);
+                        req.getRequestDispatcher("/ConsultaUsuario").forward(req, resp);
                     }catch (ParseException e){
                         System.out.printf("---PARSE-");
 

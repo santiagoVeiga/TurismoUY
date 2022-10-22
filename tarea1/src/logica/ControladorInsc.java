@@ -48,16 +48,16 @@ public class ControladorInsc implements IControladorInsc {
 	      int cont = 0;
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont!=0) {
-	    		  if(cont<=10) { // general
+	    	  if (cont!=0) {
+	    		  if (cont<=10) { // general
 		    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 		    		  Date fecha = formato.parse(nextLine[5].strip());
-		    		  inscribir(nextLine[2].strip(),nextLine[1].strip(),Integer.parseInt(nextLine[3]),fecha,nextLine[6].strip());
+		    		  inscribir(nextLine[2].strip(), nextLine[1].strip(), Integer.parseInt(nextLine[3]), fecha, nextLine[6].strip());
 		    	  }
-		    	  else if(cont<=22) { // paquete
+		    	  else if (cont<=22) { // paquete
 		    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 		    		  Date fecha = formato.parse(nextLine[5].strip());
-		    		  inscribir(nextLine[2].strip(),nextLine[1].strip(),Integer.parseInt(nextLine[3]),fecha,nextLine[6].strip(),nextLine[8].strip());
+		    		  inscribir(nextLine[2].strip(), nextLine[1].strip(), Integer.parseInt(nextLine[3]), fecha, nextLine[6].strip(), nextLine[8].strip());
 		    	  }
 	    	  }
 	    	  cont++;
@@ -70,16 +70,16 @@ public class ControladorInsc implements IControladorInsc {
 	      int cont = 0;
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if(cont!=0) {
-	    		  if(cont<=10) { // general
+	    	  if (cont!=0) {
+	    		  if (cont<=10) { // general
 		    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 		    		  Date fecha = formato.parse(nextLine[5].strip());
-		    		  inscribir(nextLine[2].strip(),nextLine[1].strip(),Integer.parseInt(nextLine[3]),fecha,nextLine[6].strip());
+		    		  inscribir(nextLine[2].strip(), nextLine[1].strip(), Integer.parseInt(nextLine[3]), fecha, nextLine[6].strip());
 		    	  }
-		    	  else if(cont<=22) { // paquete
+		    	  else if (cont<=22) { // paquete
 		    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 		    		  Date fecha = formato.parse(nextLine[5].strip());
-		    		  inscribir(nextLine[2].strip(),nextLine[1].strip(),Integer.parseInt(nextLine[3]),fecha,nextLine[6].strip(),nextLine[8].strip());
+		    		  inscribir(nextLine[2].strip(), nextLine[1].strip(), Integer.parseInt(nextLine[3]), fecha, nextLine[6].strip(), nextLine[8].strip());
 		    	  }
 	    	  }
 	    	  cont++;
@@ -145,7 +145,7 @@ public class ControladorInsc implements IControladorInsc {
 		}
 		compraPaq.reducirCuposAct(nombreAct, cantTuristas);
 		float costo = act.getCosto();
-		costo = costo*cantTuristas*(1 - ((float)(compraPaq.getDescuento())/100));
+		costo = costo*cantTuristas*(1 - ((float) (compraPaq.getDescuento())/100));
 		int cost = Math.round(costo);
 		// Se realiza la inscripcion
 		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, cost, true);
@@ -185,7 +185,7 @@ public class ControladorInsc implements IControladorInsc {
 		return res;
 	}
 	
-	public void cargarActsPaqs() throws Exception {
+	public void cargarActsPaqs() throws IOException {
 		CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
 	      reader = new CSVReader(new FileReader("./src/data/ActividadesPaquetes.csv"));

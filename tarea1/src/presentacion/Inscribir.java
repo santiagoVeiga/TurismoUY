@@ -38,19 +38,19 @@ public class Inscribir extends JInternalFrame {
 	private JCalendar calendario;
 	private Set<DataDepartamento> deps;
 	private JComboBox comboBox;
-	private JComboBox comboBox_1;
-	private JComboBox comboBox_2;
-	private JComboBox comboBox_3;
+	private JComboBox comboBox1;
+	private JComboBox comboBox2;
+	private JComboBox comboBox3;
 	private JTextField textField;
-	protected boolean selecciont = false;
-	protected boolean seleccions = false;
+	private boolean selecciont = false;
+	private boolean seleccions = false;
 	private Date fechaInsc;
-	JLabel lblSeleccionarActividad;
-	JLabel lblSeleccionarSalida;
-	JButton btnInscribir;
-	JLabel lblTurista;
-	JLabel lblCantidadDeTuristas;
-	JLabel lblFecha;
+	private JLabel lblSeleccionarActividad;
+	private JLabel lblSeleccionarSalida;
+	private JButton btnInscribir;
+	private JLabel lblTurista;
+	private JLabel lblCantidadDeTuristas;
+	private JLabel lblFecha;
 	
 	public Inscribir(IControladorInsc i) {
 		setMaximizable(true);
@@ -65,10 +65,10 @@ public class Inscribir extends JInternalFrame {
 	    getContentPane().add(lblSeleccionarDepartamento);
 	    
 	    
-	    comboBox_1 = new JComboBox();
-	    comboBox_1.setVisible(false);
-	    comboBox_1.setBounds(243, 41, 354, 24);
-	    getContentPane().add(comboBox_1);
+	    comboBox1 = new JComboBox();
+	    comboBox1.setVisible(false);
+	    comboBox1.setBounds(243, 41, 354, 24);
+	    getContentPane().add(comboBox1);
 	    
 	    
 	    lblSeleccionarActividad = new JLabel("Actividad");
@@ -83,16 +83,16 @@ public class Inscribir extends JInternalFrame {
 	    comboBox.setBounds(243, 5, 354, 24);
 	    comboBox.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		comboBox_1.setVisible(true);
+	    		comboBox1.setVisible(true);
 	    		lblSeleccionarActividad.setVisible(true);
 	    		obtAct((String) comboBox.getSelectedItem());
-	    		if(lblSeleccionarSalida.isVisible()) {
+	    		if (lblSeleccionarSalida.isVisible()) {
 	    			lblSeleccionarSalida.setVisible(false);
 	    		}
-	    		if(comboBox_2.isVisible()) {
-	    			comboBox_2.setVisible(false);
+	    		if (comboBox2.isVisible()) {
+	    			comboBox2.setVisible(false);
 	    		}
-	    		if(btnInscribir.isVisible()) {
+	    		if (btnInscribir.isVisible()) {
 	    			btnInscribir.setVisible(false);
 	    		}
 	    	}
@@ -107,18 +107,18 @@ public class Inscribir extends JInternalFrame {
 	    getContentPane().add(lblSeleccionarSalida);
 	    lblSeleccionarSalida.setVisible(false);
 	    
-	    comboBox_2 = new JComboBox();
-	    comboBox_2.setBounds(243, 77, 354, 24);
-	    getContentPane().add(comboBox_2);
+	    comboBox2 = new JComboBox();
+	    comboBox2.setBounds(243, 77, 354, 24);
+	    getContentPane().add(comboBox2);
 	    
 	    lblTurista = new JLabel("Turista");
 	    lblTurista.setBounds(173, 121, 50, 15);
 	    getContentPane().add(lblTurista);
 	    lblTurista.setVisible(false);
 	    
-	    comboBox_3 = new JComboBox();
-	    comboBox_3.setBounds(243, 116, 354, 24);
-	    getContentPane().add(comboBox_3);
+	    comboBox3 = new JComboBox();
+	    comboBox3.setBounds(243, 116, 354, 24);
+	    getContentPane().add(comboBox3);
 	    
 	    lblCantidadDeTuristas = new JLabel("Cantidad de Turistas");
 	    lblCantidadDeTuristas.setBounds(75, 163, 154, 15);
@@ -130,17 +130,17 @@ public class Inscribir extends JInternalFrame {
 	    getContentPane().add(lblFecha);
 	    lblFecha.setVisible(false);
 	    
-	    comboBox_3.setVisible(false);
+	    comboBox3.setVisible(false);
 	    
-	    comboBox_2.setVisible(false);
+	    comboBox2.setVisible(false);
 	    
-	    comboBox_1.addActionListener(new ActionListener() {
+	    comboBox1.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		obtSal((String) comboBox_1.getSelectedItem());
+	    		obtSal((String) comboBox1.getSelectedItem());
 	    		obtTur();
-	    		comboBox_2.setVisible(true);
+	    		comboBox2.setVisible(true);
 	    		lblSeleccionarSalida.setVisible(true);
-	    		comboBox_3.setVisible(true);
+	    		comboBox3.setVisible(true);
 	    		lblTurista.setVisible(true);
 	    	}
 	    });
@@ -182,12 +182,12 @@ public class Inscribir extends JInternalFrame {
         textField.setVisible(false);
         btnInscribir.setVisible(false);
         
-        comboBox_2.addActionListener(new ActionListener() {
+        comboBox2.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		if(!btnInscribir.isVisible()&&lblCantidadDeTuristas.isVisible()) {
+	    		if (!btnInscribir.isVisible()&&lblCantidadDeTuristas.isVisible()) {
 	    			btnInscribir.setVisible(true);
 	    		}
-	    		if(seleccions==true) {
+	    		if (seleccions==true) {
 	    			lblCantidadDeTuristas.setVisible(true);
 	    			lblFecha.setVisible(true);
 	    			calendario.setVisible(true);
@@ -199,9 +199,9 @@ public class Inscribir extends JInternalFrame {
 	    	}
 	    });
         
-        comboBox_3.addActionListener(new ActionListener() {
+        comboBox3.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		if(selecciont==true) {
+	    		if (selecciont==true) {
 	    			lblCantidadDeTuristas.setVisible(true);
 	    			lblFecha.setVisible(true);
 	    			calendario.setVisible(true);
@@ -222,9 +222,9 @@ public class Inscribir extends JInternalFrame {
 		this.lblSeleccionarActividad.setVisible(false);
 		this.lblSeleccionarSalida.setVisible(false);
 		this.lblTurista.setVisible(false);
-		this.comboBox_1.setVisible(false);
-		this.comboBox_2.setVisible(false);
-		this.comboBox_3.setVisible(false);
+		this.comboBox1.setVisible(false);
+		this.comboBox2.setVisible(false);
+		this.comboBox3.setVisible(false);
 		this.btnInscribir.setVisible(false);
 		this.calendario.setVisible(false);
 		this.textField.setVisible(false);
@@ -234,8 +234,8 @@ public class Inscribir extends JInternalFrame {
 		DataUsuario[] array = icon.listarUsuarios();
 		int i = 0;
 		Set<String> aux = new HashSet<String>();
- 		while(i<array.length) {
-			if(array[i] instanceof DataTurista) {
+ 		while (i<array.length) {
+			if (array[i] instanceof DataTurista) {
 				DataTurista dt = (DataTurista) array[i];
 				aux.add(dt.getNick());
 			}
@@ -243,11 +243,11 @@ public class Inscribir extends JInternalFrame {
 		}
 		String[] model = new String[aux.size()];
 		i=0;
-		for(String iter:aux) {
+		for (String iter:aux) {
 			model[i] = iter;
 			i++;
 		}
-		comboBox_3.setModel(new DefaultComboBoxModel(model));
+		comboBox3.setModel(new DefaultComboBoxModel(model));
 	}
 
 	public void actualizarDptos() {
@@ -255,7 +255,7 @@ public class Inscribir extends JInternalFrame {
 	    deps = icon.listarDepartamentos();
 	    String[] aux = new String[deps.size()];
 	    int cont = 0;
-	    for(DataDepartamento iter:deps) {
+	    for (DataDepartamento iter:deps) {
 	    	aux[cont] = iter.getNombre();
 	    	cont++;
 	    }
@@ -267,11 +267,11 @@ public class Inscribir extends JInternalFrame {
 		Set<DataActividad> auxi = icon.selecDepartamento(dpto);
 		String[] aux = new String[auxi.size()];
 	    int cont = 0;
-	    for(DataActividad iter:auxi) {
+	    for (DataActividad iter:auxi) {
 	    	aux[cont] = iter.getNombre();
 	    	cont++;
 	    }
-	    comboBox_1.setModel(new DefaultComboBoxModel(aux));
+	    comboBox1.setModel(new DefaultComboBoxModel(aux));
 	}
 	
 	public void obtSal(String act) {
@@ -280,11 +280,11 @@ public class Inscribir extends JInternalFrame {
 			auxi = icon.salidas(act);
 			String[] aux = new String[auxi.size()];
 		    int cont = 0;
-		    for(DataSalida iter:auxi) {
+		    for (DataSalida iter:auxi) {
 		    	aux[cont] = iter.getNombre();
 		    	cont++;
 		    }
-			comboBox_2.setModel(new DefaultComboBoxModel(aux));
+			comboBox2.setModel(new DefaultComboBoxModel(aux));
 		} catch (ActividadNoExisteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -294,11 +294,11 @@ public class Inscribir extends JInternalFrame {
 	public void inscri() {
 		try {
             Integer.parseInt(textField.getText());
-            if(Integer.parseInt(textField.getText()) <= 0) {
+            if (Integer.parseInt(textField.getText()) <= 0) {
             	throw new NumeroNegativoException();
             }
             fechaInsc = calendario.getDate();
-            icon.inscribir((String) comboBox_3.getSelectedItem(), (String) comboBox_2.getSelectedItem(),Integer.parseInt(textField.getText()) , fechaInsc,(String) comboBox_1.getSelectedItem());
+            icon.inscribir((String) comboBox3.getSelectedItem(), (String) comboBox2.getSelectedItem(), Integer.parseInt(textField.getText()) , fechaInsc, (String) comboBox1.getSelectedItem());
             JOptionPane.showMessageDialog(this, "Inscripcion existosa", "Inscribir",
                     JOptionPane.INFORMATION_MESSAGE);
             limpiar();

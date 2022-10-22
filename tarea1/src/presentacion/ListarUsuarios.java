@@ -70,14 +70,12 @@ public class ListarUsuarios extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
             	int i = comboBoxUsuarios.getSelectedIndex();
                 setVisible(false);
-                if(dataUsuario2[i] instanceof DataTurista)
-                {
-                	InfoTurista it = new InfoTurista((DataTurista) dataUsuario2[i],sal);
+                if (dataUsuario2[i] instanceof DataTurista) {
+                	InfoTurista it = new InfoTurista((DataTurista) dataUsuario2[i], sal);
                 	it.setVisible(true);
                 	it.cargar();
-                }else if(dataUsuario2[i] instanceof DataProveedor)
-                {
-                	InfoProveedor it = new InfoProveedor((DataProveedor) dataUsuario2[i],ICC,sal,act);
+                } else if (dataUsuario2[i] instanceof DataProveedor){
+                	InfoProveedor it = new InfoProveedor((DataProveedor) dataUsuario2[i], ICC, sal, act);
                 	it.setVisible(true);
                 	it.cargar();
                 }
@@ -101,12 +99,11 @@ public class ListarUsuarios extends JInternalFrame {
         	DataUsuario[] DU = controlUsr.listarUsuarios();
         	String[] nomUsuarios = new String[DU.length]; 
         	int i=0;
-        	while(i<DU.length) 
-        	{
+        	while (i<DU.length) {
         		if (DU[i] instanceof DataTurista){
-        			nomUsuarios[i]=((DU[i].getNick()) + " - Turista");
-        		}else if(DU[i] instanceof DataProveedor){
-        			nomUsuarios[i]=((DU[i].getNick()) + " - Proveedor");
+        			nomUsuarios[i]= DU[i].getNick() + " - Turista";
+        		}else if (DU[i] instanceof DataProveedor){
+        			nomUsuarios[i] = DU[i].getNick() + " - Proveedor";
         		}
         		i++;
         	}

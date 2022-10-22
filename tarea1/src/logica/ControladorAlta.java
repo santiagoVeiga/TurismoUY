@@ -23,13 +23,19 @@ import excepciones.ActividadRepetidaException;
 import excepciones.CategoriaYaExiste;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
+import excepciones.ExcedeTuristas;
 import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
+import excepciones.InscFechaDespSalida;
+import excepciones.InscFechaInconsistente;
 import excepciones.NoExisteCategoriaException;
+import excepciones.NoHayCuposException;
 import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
+import excepciones.TuristaConSalida;
+import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import excepciones.estadoActividadIncorrecto;
@@ -365,49 +371,49 @@ public class ControladorAlta implements IControladorAlta {
 
 
 	@Override
-	public void cargarDatos() throws Exception {
+	public void cargarDatos() throws FileNotFoundException, IOException, UsuarioRepetidoException, ParseException, NumberFormatException, DepartamentoYaExisteExeption, ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException, SalidaYaExisteExeption, PaqueteRepetidoException, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, NoHayCuposException, PaqueteNoExisteException {
 		cargarCategorias();
 		CSVReader reader = null;
 	    reader = new CSVReader(new FileReader("./src/data/Usuarios.csv"));
-	    Map<String,byte[]> imagenes = new HashMap<String,byte[]>();
-        for(int i=1; i<=13; i++ ) {
+	    Map<String, byte[]> imagenes = new HashMap<String, byte[]>();
+        for (int i=1; i<=13; i++ ) {
             BufferedImage img = ImageIO.read(new File("./src/data/Users/u"+String.valueOf(i)+".jpg"));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, "jpg", baos);
             byte[] imgBytes = baos.toByteArray();
             imagenes.put(Integer.toString(i), imgBytes);
         }
-		cargarUsuarios(reader,imagenes);
+		cargarUsuarios(reader, imagenes);
 		reader = new CSVReader(new FileReader("./src/data/Departamentos.csv"));
 		cargarDptos(reader);
 		reader = new CSVReader(new FileReader("./src/data/Actividades.csv"));
 	    imagenes.clear();
-        for(int i=1; i<=10; i++ ) {
+        for (int i=1; i<=10; i++ ) {
             BufferedImage img = ImageIO.read(new File("./src/data/Actvs/a"+String.valueOf(i)+".jpg"));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, "jpg", baos);
             byte[] imgBytes = baos.toByteArray();
             imagenes.put(Integer.toString(i), imgBytes);
         }
-		cargarActs(reader,imagenes);
+		cargarActs(reader, imagenes);
 		reader = new CSVReader(new FileReader("./src/data/Paquetes.csv"));
 	    imagenes.clear();
-        for(int i=1; i<=3; i++ ) {
+        for (int i=1; i<=3; i++ ) {
             BufferedImage img = ImageIO.read(new File("./src/data/Paqs/p"+String.valueOf(i)+".jpg"));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, "jpg", baos);
             byte[] imgBytes = baos.toByteArray();
             imagenes.put(Integer.toString(i), imgBytes);
         }
-		cargarPaquetes(reader,imagenes);
+		cargarPaquetes(reader, imagenes);
 		reader = new CSVReader(new FileReader("./src/data/Salidas.csv"));
 	    imagenes.clear();
-        for(int i=1; i<=3; i++ ) {
+        for (int i=1; i<=3; i++ ) {
             BufferedImage img = ImageIO.read(new File("./src/data/Salidas/s"+String.valueOf(i)+".jpg"));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, "jpg", baos);
             byte[] imgBytes = baos.toByteArray();
-            if(imgBytes.length == 0) {
+            if (imgBytes.length == 0) {
                 img = null;
                 baos = new ByteArrayOutputStream();
                 img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
@@ -416,7 +422,7 @@ public class ControladorAlta implements IControladorAlta {
             }
             imagenes.put(Integer.toString(i), imgBytes);
         }
-		cargarSalidas(reader,imagenes);
+		cargarSalidas(reader, imagenes);
 		Fabrica fabr = Fabrica.getInstance();
 		IControladorInsc conIns = fabr.getIControladorInsc();
 		conIns.cargarActsPaqs();

@@ -16,10 +16,17 @@ import excepciones.ActividadRepetidaException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.ExcedeTuristas;
+import excepciones.FechaAltaSalidaAnteriorActividad;
+import excepciones.FechaAltaSalidaInvalida;
+import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
+import excepciones.NoHayCuposException;
+import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
+import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.TuristaConSalida;
+import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.Fabrica;
@@ -31,9 +38,9 @@ import logica.IControladorInsc;
 public class Principal {
 
     private JFrame frmGestionDeUsuarios;
-    private IControladorConsulta ICC;
-    private IControladorAlta ICA;
-    private IControladorInsc ICI;
+    private IControladorConsulta conCons;
+    private IControladorAlta conAlta;
+    private IControladorInsc conInsc;
     private CrearUsuario creUsrInternalFrame;
     private ListarUsuarios lisUsrInternalFrame;
     private CrearActividad creActInternalFrame;
@@ -57,12 +64,14 @@ public class Principal {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    Principal window = new Principal();
-                    window.frmGestionDeUsuarios.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    Principal window;
+					try {
+						window = new Principal();
+	                    window.frmGestionDeUsuarios.setVisible(true);
+					} catch (DepartamentoYaExisteExeption | IOException | DepartamentoNoExisteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
             }
         });
     }
@@ -78,36 +87,36 @@ public class Principal {
 
      // Inicialización
         Fabrica fabrica = Fabrica.getInstance();
-        ICA = fabrica.getIControladorAlta();
-        ICC = fabrica.getIControladorConsulta();
-        ICI = fabrica.getIControladorInsc();
+        conAlta = fabrica.getIControladorAlta();
+        conCons = fabrica.getIControladorConsulta();
+        conInsc = fabrica.getIControladorInsc();
         // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
         // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
         // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
         
         // ******** USUARIO *******
-        creUsrInternalFrame = new CrearUsuario(ICA);
+        creUsrInternalFrame = new CrearUsuario(conAlta);
         creUsrInternalFrame.setVisible(false);
 
-        lisUsrInternalFrame = new ListarUsuarios(ICC);
+        lisUsrInternalFrame = new ListarUsuarios(conCons);
         lisUsrInternalFrame.setVisible(false);
         
         frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
         //****** MODIFICAR *********/
-        modUsrInternalFrame= new ModificarUsuario(ICA);
+        modUsrInternalFrame= new ModificarUsuario(conAlta);
         modUsrInternalFrame.setVisible(false);
 
 
         //****** ACTIVIDAD *********/
         
      
-        creActInternalFrame = new CrearActividad(ICA);
+        creActInternalFrame = new CrearActividad(conAlta);
         creActInternalFrame.setVisible(false);
 
-        conActInternalFrame = new ConsultarActividad(ICC);
+        conActInternalFrame = new ConsultarActividad(conCons);
         conActInternalFrame.setVisible(false);
         
-        acepRecInternalFrame = new AceptarRechazar(ICI);
+        acepRecInternalFrame = new AceptarRechazar(conInsc);
         acepRecInternalFrame.setVisible(false);
         
         //categoria
@@ -116,28 +125,28 @@ public class Principal {
         creCatInternalFrame.setVisible(false);
         
         //****** SALIDA *********/----------------------------------------------------
-        creSalInternalFrame = new AltaSalida(ICA);
+        creSalInternalFrame = new AltaSalida(conAlta);
         creSalInternalFrame.setVisible(false);
        
-        consultaSalidaInternalFrame = new ConsultaSalidaTuristica(ICC);
+        consultaSalidaInternalFrame = new ConsultaSalidaTuristica(conCons);
         consultaSalidaInternalFrame.setVisible(false);
         //----------------------------------------------------------------------------
 
         /* Inscripcion */
         
-        insInternalFrame = new Inscribir(ICI);
+        insInternalFrame = new Inscribir(conInsc);
         insInternalFrame.setVisible(false);
         insInternalFrame.setLocation(10, 30);
         
         //Paquetes
         
-        crePaqInternalFrame = new CrearPaquete(ICA);
+        crePaqInternalFrame = new CrearPaquete(conAlta);
         crePaqInternalFrame.setVisible(false);
         
-        agrPaqInternalFrame = new AgregarActPaquete(ICI);
+        agrPaqInternalFrame = new AgregarActPaquete(conInsc);
         agrPaqInternalFrame.setVisible(false);
         
-        conPaqInternalFrame = new ConsultaPaquete(ICC);
+        conPaqInternalFrame = new ConsultaPaquete(conCons);
         conPaqInternalFrame.setVisible(false);
         
     	conActInternalFrame.setConPaquete(conPaqInternalFrame);
@@ -383,49 +392,18 @@ public class Principal {
         JMenuItem mntmCargarusuarios = new JMenuItem("Cargar Datos");
         mntmCargarusuarios.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		try {
-					ICA.cargarDatos();
+					try {
+						conAlta.cargarDatos();
+					} catch (NumberFormatException | IOException | UsuarioRepetidoException | ParseException
+							| DepartamentoYaExisteExeption | ActividadRepetidaException | UsuarioNoExisteException
+							| ProveedorNoNacidoException | SalidaYaExisteExeption | PaqueteRepetidoException
+							| FechaAltaSalidaInvalida | FechaAltaSalidaAnteriorActividad | TuristaConSalida
+							| ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException | InscFechaDespSalida
+							| TuristaNoHaNacido | NoHayCuposException | PaqueteNoExisteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					mntmCargarusuarios.setVisible(false);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (UsuarioRepetidoException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (DepartamentoYaExisteExeption e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ActividadRepetidaException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SalidaYaExisteExeption e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (TuristaConSalida e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ExcedeTuristas e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InscFechaInconsistente e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ActividadNoExisteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (PaqueteRepetidoException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 				} 
         	
         });
