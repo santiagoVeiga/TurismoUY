@@ -45,123 +45,6 @@ import manejadores.ManejadorUsuario;
  *
  */
 public class ControladorAlta implements IControladorAlta {
-
-	public void cargarSalidas() throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad {
-		CSVReader reader = null;
-	      //parsing a CSV file into CSVReader class constructor  
-	      reader = new CSVReader(new FileReader("./src/data/Salidas.csv"));
-	      String[] nextLine;
-	      int cont = 0;
-	      
-	      //reads one line at a time  
-	      while ((nextLine = reader.readNext()) != null) {
-	    	  if (cont!=0) {
-	    		  byte[] imgBytes = null;
-	    		  File imagen = new File("./src/data/Salidas/s"+Integer.toString(cont)+".jpg");
-	    		  if(imagen.exists()) {
-	    			  BufferedImage img = ImageIO.read(imagen);
-		    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		    	      ImageIO.write(img, "jpg", baos);
-		    	      imgBytes = baos.toByteArray();
-	    		  }
-	    		  else {
-	    			  BufferedImage img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
-		    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		    	      ImageIO.write(img, "jpg", baos);
-		    	      imgBytes = baos.toByteArray();
-	    		  }
-	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
-	    		  Date fecha = formato.parse(nextLine[3].strip());
-	    		  Date fechaA = formato.parse(nextLine[7].strip());
-	    		  int hora = Integer.parseInt(nextLine[4].strip());
-	    		  Date horaS = new Date(0, 0, 0, hora, 0);
-	    		  confirmarAltaSalida(nextLine[1].strip(), nextLine[2].strip(), fecha, horaS, nextLine[6].strip(), Integer.parseInt(nextLine[5]), fechaA, imgBytes);
-	    	  }
-	    	  else {
-	    		  cont++;
-	    	  }
-	      }
-	}
-	
-	
-	public void cargarActs() throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException, ParseException, UsuarioNoExisteException, ProveedorNoNacidoException {
-		CSVReader reader = null;
-	      //parsing a CSV file into CSVReader class constructor  
-	      reader = new CSVReader(new FileReader("./src/data/Actividades.csv"));
-	      String[] nextLine;
-	      int cont = 0;
-	      Map<String, Set<String>> categos = new HashMap<String, Set<String>>();
-	      Set<String> act1 = new HashSet<String>();
-	      act1.add("Gastronomia");
-	      categos.put(Integer.toString(1), act1); 
-	      categos.put(Integer.toString(4), act1); 
-	      act1.add("Cultura y Patrimonio");
-	      categos.put(Integer.toString(2), act1); 	
-	      Set<String> act3 = new HashSet<String>();
-	      act3.add("Cultura y Patrimonio");
-	      categos.put(Integer.toString(3), act3);
-	      categos.put(Integer.toString(7), act3);
-	      categos.put(Integer.toString(8), act3);
-	      categos.put(Integer.toString(10), act3);
-	      Set<String> act5 = new HashSet<String>();
-	      act5.add("Campo y Naturaleza");
-	      categos.put(Integer.toString(6), act5);
-	      act5.add("Gastronomia");
-	      categos.put(Integer.toString(5), act5);
-	      Set<String> act9 = new HashSet<String>();
-	      act9.add("Aventura y Deporte");
-	      act9.add("Turismo Playas");
-	      categos.put(Integer.toString(9), act9);
-	      //reads one line at a time    
-	      while ((nextLine = reader.readNext()) != null) {
-	    	  if (cont!=0) {
-	    		  BufferedImage img = ImageIO.read(new File("./src/data/Actvs/a"+String.valueOf(cont)+".jpg"));
-	    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	    	      ImageIO.write(img, "jpg", baos);
-	    	      byte[] imgBytes = baos.toByteArray();
-	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
-	    		  Date fecha = formato.parse(nextLine[7].strip());
-	    		  registrarActividad(nextLine[6].strip(), nextLine[1].strip(), nextLine[2].strip(), Integer.parseInt(nextLine[3]), Integer.parseInt(nextLine[4]), nextLine[5].strip(), fecha, nextLine[9].strip(), categos.get(Integer.toString(cont)), imgBytes);
-	    		  if (cont<=6) {
-	    			  Fabrica fabr = Fabrica.getInstance();
-	    			  IControladorInsc conIns = fabr.getIControladorInsc();
-					  try {
-						conIns.aceptarRechazarAct(nextLine[1].strip(), estadoAct.confirmada);
-					} catch (estadoActividadIncorrecto | ActividadNoExisteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-	    		  }
-	    		  else if (cont == 8 || cont == 10) {
-	    			  Fabrica fabr = Fabrica.getInstance();
-	    			  IControladorInsc conIns = fabr.getIControladorInsc();
-	    			  try {
-						conIns.aceptarRechazarAct(nextLine[1].strip(), estadoAct.rechazada);
-					} catch (estadoActividadIncorrecto e) {
-						e.printStackTrace();
-					} catch (ActividadNoExisteException e) {
-						e.printStackTrace();
-					}
-	    		  }
-	    	  }
-	    	  cont++;
-	      }
-	}
-	
-	public void cargarDptos() throws IOException, DepartamentoYaExisteExeption {
-	    CSVReader reader = null;
-	      //parsing a CSV file into CSVReader class constructor  
-	      reader = new CSVReader(new FileReader("./src/data/Departamentos.csv"));
-	      String[] nextLine;
-	      //reads one line at a time  
-	      int cont = 0;
-	      while ((nextLine = reader.readNext()) != null) {
-	    	  if (cont>0)
-	    		  confirmarAltaDepartamento(nextLine[1].strip(), nextLine[2].strip(), nextLine[3].strip());
-	    	  cont++;
-	      }
-	 }
 	
 	public void cargarDptos(CSVReader reader) throws IOException, DepartamentoYaExisteExeption {
 
@@ -175,37 +58,7 @@ public class ControladorAlta implements IControladorAlta {
 	      }
 	 }
 	
-	public void cargarUsuarios() throws IOException, UsuarioRepetidoException, ParseException {
-	    CSVReader usu = null;
-	      //parsing a CSV file into CSVReader class constructor  
-	      usu = new CSVReader(new FileReader("./src/data/Usuarios.csv"));
-	      
-	      String[] nextLineusu;
-	      
-	      //reads one line at a time  
-	      int cont = 0;
-	      while ((nextLineusu = usu.readNext()) != null) {
-	    	  if (cont>0) {
-	    		  BufferedImage img = ImageIO.read(new File("./src/data/Users/u"+String.valueOf(cont)+".jpg"));
-	    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	    	      ImageIO.write(img, "jpg", baos);
-	    	      byte[] imgBytes = baos.toByteArray();
-	    		  if (nextLineusu[1].equals(" T")) {
-	    			  
-	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
-	    			  Date fecha = formato.parse(nextLineusu[6].strip());
-	    			  confirmarAltaTurista(nextLineusu[2].strip(), nextLineusu[3].strip(), nextLineusu[4].strip(), nextLineusu[5].strip(), fecha, nextLineusu[7].strip(), nextLineusu[10].strip(), imgBytes);
-	    		  }
-	    		  else if (nextLineusu[1].equals(" P")) {
-	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
-	    			  Date fecha = formato.parse(nextLineusu[6]);
-	    			  confirmarAltaProveedor(nextLineusu[2].strip(), nextLineusu[3].strip(), nextLineusu[4].strip(), nextLineusu[5].strip(), fecha, nextLineusu[8].strip(), nextLineusu[9].strip(), true, nextLineusu[10].strip(), imgBytes);
-	    		  }
-	    	  }
-	    		  
-	    	  cont++;
-	      }
-	 }
+	
 
     public ControladorAlta(){
     }
@@ -403,29 +256,6 @@ public class ControladorAlta implements IControladorAlta {
     }
 
 
-	@Override
-	public void cargarPaquetes() throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException {
-		// TODO Auto-generated method stub
-		CSVReader reader = null;
-	      //parsing a CSV file into CSVReader class constructor  
-	      reader = new CSVReader(new FileReader("./src/data/Paquetes.csv"));
-	      String[] nextLine;
-	      
-	      int cont = 0;
-	      //reads one line at a time  
-	      while ((nextLine = reader.readNext()) != null) {
-	    	  if (cont!=0) {
-	    		  BufferedImage img = ImageIO.read(new File("./src/data/Paqs/p"+String.valueOf(cont)+".jpg"));
-	    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	    	      ImageIO.write(img, "jpg", baos);
-	    	      byte[] imgBytes = baos.toByteArray();
-	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
-	    		  Date fechaA = formato.parse(nextLine[4].strip());
-	    		  altaPaquete(nextLine[1].strip(), nextLine[5].strip(), Integer.parseInt(nextLine[3].strip()), Integer.parseInt(nextLine[2].strip()), fechaA, imgBytes);
-	    	  }
-	    		  cont++;
-	      }
-	}
 
 
 	private void altaPaquete(String nombre, String descripcion, int descuento, int validez, Date fechaAlta, byte[] imgBytes) throws PaqueteRepetidoException {
@@ -537,11 +367,56 @@ public class ControladorAlta implements IControladorAlta {
 	@Override
 	public void cargarDatos() throws Exception {
 		cargarCategorias();
-		cargarUsuarios();
-		cargarDptos();
-		cargarActs();
-		cargarPaquetes();
-		cargarSalidas();
+		CSVReader reader = null;
+	    reader = new CSVReader(new FileReader("./src/data/Usuarios.csv"));
+	    Map<String,byte[]> imagenes = new HashMap<String,byte[]>();
+        for(int i=1; i<=13; i++ ) {
+            BufferedImage img = ImageIO.read(new File("./src/data/Users/u"+String.valueOf(i)+".jpg"));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(img, "jpg", baos);
+            byte[] imgBytes = baos.toByteArray();
+            imagenes.put(Integer.toString(i), imgBytes);
+        }
+		cargarUsuarios(reader,imagenes);
+		reader = new CSVReader(new FileReader("./src/data/Departamentos.csv"));
+		cargarDptos(reader);
+		reader = new CSVReader(new FileReader("./src/data/Actividades.csv"));
+	    imagenes.clear();
+        for(int i=1; i<=10; i++ ) {
+            BufferedImage img = ImageIO.read(new File("./src/data/Actvs/a"+String.valueOf(i)+".jpg"));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(img, "jpg", baos);
+            byte[] imgBytes = baos.toByteArray();
+            imagenes.put(Integer.toString(i), imgBytes);
+        }
+		cargarActs(reader,imagenes);
+		reader = new CSVReader(new FileReader("./src/data/Paquetes.csv"));
+	    imagenes.clear();
+        for(int i=1; i<=3; i++ ) {
+            BufferedImage img = ImageIO.read(new File("./src/data/Paqs/p"+String.valueOf(i)+".jpg"));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(img, "jpg", baos);
+            byte[] imgBytes = baos.toByteArray();
+            imagenes.put(Integer.toString(i), imgBytes);
+        }
+		cargarPaquetes(reader,imagenes);
+		reader = new CSVReader(new FileReader("./src/data/Salidas.csv"));
+	    imagenes.clear();
+        for(int i=1; i<=3; i++ ) {
+            BufferedImage img = ImageIO.read(new File("./src/data/Salidas/s"+String.valueOf(i)+".jpg"));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(img, "jpg", baos);
+            byte[] imgBytes = baos.toByteArray();
+            if(imgBytes.length == 0) {
+                img = null;
+                baos = new ByteArrayOutputStream();
+                img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
+                ImageIO.write(img, "jpg", baos);
+                imgBytes = baos.toByteArray();
+            }
+            imagenes.put(Integer.toString(i), imgBytes);
+        }
+		cargarSalidas(reader,imagenes);
 		Fabrica fabr = Fabrica.getInstance();
 		IControladorInsc conIns = fabr.getIControladorInsc();
 		conIns.cargarActsPaqs();
@@ -770,7 +645,7 @@ public class ControladorAlta implements IControladorAlta {
         if (usrs != null) {
             return usrs;
         } else
-            throw new UsuarioNoExisteException("No existen usuarios registrados");
+            throw new UsuarioNoExisteException("No existen usuarios registrados"); 
 	}
 
 

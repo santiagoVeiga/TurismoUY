@@ -40,7 +40,7 @@ public class ControladorInsc implements IControladorInsc {
 	}
 	
 	
-	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido {
+	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException {
 		  CSVReader reader = null;
 	      //parsing a CSV file into CSVReader class constructor  
 	      reader = new CSVReader(new FileReader("./src/data/Inscripciones.csv"));
@@ -48,14 +48,19 @@ public class ControladorInsc implements IControladorInsc {
 	      int cont = 0;
 	      //reads one line at a time  
 	      while ((nextLine = reader.readNext()) != null) {
-	    	  if (cont!=0) {
-	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
-	    		  Date fecha = formato.parse(nextLine[5].strip());
-	    		  inscribir(nextLine[2].strip(), nextLine[1].strip() , Integer.parseInt(nextLine[3]), fecha, nextLine[6].strip());
+	    	  if(cont!=0) {
+	    		  if(cont<=10) { // general
+		    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+		    		  Date fecha = formato.parse(nextLine[5].strip());
+		    		  inscribir(nextLine[2].strip(),nextLine[1].strip(),Integer.parseInt(nextLine[3]),fecha,nextLine[6].strip());
+		    	  }
+		    	  else if(cont<=22) { // paquete
+		    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+		    		  Date fecha = formato.parse(nextLine[5].strip());
+		    		  inscribir(nextLine[2].strip(),nextLine[1].strip(),Integer.parseInt(nextLine[3]),fecha,nextLine[6].strip(),nextLine[8].strip());
+		    	  }
 	    	  }
-	    	  else {
-	    		  cont++;
-	    	  }
+	    	  cont++;
 	      }
 	}
 	
@@ -139,10 +144,11 @@ public class ControladorInsc implements IControladorInsc {
 			throw new PaqueteRepetidoException("El paquete: " + nombrePaq + " no ha sido comprado por el turista: " + nick);
 		}
 		compraPaq.reducirCuposAct(nombreAct, cantTuristas);
-		int costo = act.getCosto();
-		costo = costo*cantTuristas*(1 - (compraPaq.getDescuento()/100));
+		float costo = act.getCosto();
+		costo = costo*cantTuristas*(1 - ((float)(compraPaq.getDescuento())/100));
+		int cost = Math.round(costo);
 		// Se realiza la inscripcion
-		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, costo, true);
+		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, cost, true);
 		compraGen.setSalida(sal);
 		sal.setCantRestante(sal.getCantRestante()-cantTuristas);
 		((Turista) tur).agregarCompraGeneral(compraGen);

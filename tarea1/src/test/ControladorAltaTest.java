@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
+import excepciones.CategoriaYaExiste;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.DepartamentoYaExisteExeption;
 import excepciones.ExcedeTuristas;
@@ -24,15 +25,22 @@ import excepciones.FechaAltaSalidaAnteriorActividad;
 import excepciones.FechaAltaSalidaInvalida;
 import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
+import excepciones.NoExisteCategoriaException;
+import excepciones.NoHayCuposException;
+import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
+import excepciones.SalidasNoExisteException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.Actividad;
+import logica.CompraPaquete;
 import logica.DataActividad;
+import logica.DataCompraGeneral;
+import logica.DataCompraPaquete;
 import logica.DataDepartamento;
 import logica.DataPaquete;
 import logica.DataProveedor;
@@ -43,7 +51,9 @@ import logica.Fabrica;
 import logica.IControladorAlta;
 import logica.IControladorConsulta;
 import logica.IControladorInsc;
+import logica.estadoAct;
 import manejadores.ManejadorActividad;
+import manejadores.ManejadorPaquete;
 
 class ControladorAltaTest {
 	
@@ -59,96 +69,17 @@ class ControladorAltaTest {
 		IctrCons = fabrica.getIControladorConsulta();
 		IctrInsc = fabrica.getIControladorInsc();
 		ManejadorActividades = ManejadorActividad.getInstance();
+		assertThrows(DepartamentoNoExisteException.class, ()->{IctrCons.obtenerDataDepartamentos();});
+		assertThrows(NoExisteCategoriaException.class, ()->{IctrAlta.obtenerNombreCategorias();});
+		assertThrows(PaqueteNoExisteException.class, ()->{IctrInsc.comprarPaquete(null, null, 0, "");});
 		try {
-			IctrAlta.cargarUsuarios();
-		} catch (IOException e) {
-			fail(e.getMessage()); 
-		}catch  (UsuarioRepetidoException e) {
-			fail(e.getMessage());
-		} catch (ParseException e) {
-			fail(e.getMessage());
-		}
-		try {
-			IctrAlta.cargarDptos();
-		} catch (IOException e) {
-			fail(e.getMessage());
-		} catch (DepartamentoYaExisteExeption e) {
-			fail(e.getMessage());
-		} 
-		try {
-			IctrAlta.cargarActs();
-		} catch (NumberFormatException e) {
-			fail(e.getMessage());
-		} catch (IOException e) {
-			fail(e.getMessage());
-		} catch (DepartamentoYaExisteExeption e) {
-			fail(e.getMessage());
-		} catch (ActividadRepetidaException e) {
-			fail(e.getMessage());
-		} catch (ParseException e) {
-			fail(e.getMessage());
-			// TODO Auto-generated catch block
-		} catch (UsuarioNoExisteException e) {
-			// TODO Auto-generated catch block
-		} catch (ProveedorNoNacidoException e) {
-			// TODO Auto-generated catch block
-		}
-		try {
-			IctrAlta.cargarSalidas();
-		} catch (NumberFormatException e) {
-			fail(e.getMessage());
-		} catch (IOException e) {
-			fail(e.getMessage());
-		} catch (ParseException e) {
-			fail(e.getMessage());
-		} catch (SalidaYaExisteExeption e) {
-			fail(e.getMessage());
-		} catch (FechaAltaSalidaInvalida e) {
-			fail(e.getMessage());
-		} catch (FechaAltaSalidaAnteriorActividad e) {
-			fail(e.getMessage());
-		}
-		try {
-			IctrAlta.cargarPaquetes();
-		} catch (NumberFormatException e) {
-			fail(e.getMessage());
-		} catch (FileNotFoundException e) {
-			fail(e.getMessage());
-		} catch (IOException e) {
-			fail(e.getMessage());
-		} catch (ParseException e) {
-			fail(e.getMessage());
-		} catch (SalidaYaExisteExeption e) {
-			fail(e.getMessage());
-		} catch (PaqueteRepetidoException e) {
-			fail(e.getMessage());
-		}
-		try {
-			IctrInsc.cargarInsc();
-		} catch (NumberFormatException e) {
-			fail(e.getMessage());
-		} catch (IOException e) {
-			fail(e.getMessage());
-		} catch (ParseException e) {
-			fail(e.getMessage());
-		} catch (TuristaConSalida e) {
-			
-		} catch (ExcedeTuristas e) {
-			fail(e.getMessage());
-		} catch (InscFechaInconsistente e) {
-			fail(e.getMessage());
-		} catch (ActividadNoExisteException e) {
-			fail(e.getMessage());
-		} catch (InscFechaDespSalida e) {
-			fail(e.getMessage());
-		} catch (TuristaNoHaNacido e) {
-			fail(e.getMessage());
-		}
-		try {
-			IctrInsc.cargarActsPaqs();
+			IctrAlta.cargarDatos();
 		} catch (Exception e) {
-			fail(e.getMessage());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		
 	}
 	
 	
@@ -184,6 +115,126 @@ class ControladorAltaTest {
 		}
 	}
 	
+	@Test
+	void testconsincs() {
+		DataUsuario[] aux = IctrInsc.listarUsuarios();
+		boolean res = aux.length != 0;
+		assertEquals(true,res);
+		Set<String> elset = IctrInsc. listarActividadesAgregadas();
+		res = elset.size() != 0;
+		assertEquals(true,res);
+		String[] ppaqs =  IctrInsc.listarPaquetesNoComprados();
+		res = ppaqs.length != 0;
+		assertEquals(true,res);
+		String[] paqs =  IctrInsc.obtenerPaquetesComprados("lachiqui") ;
+		res = paqs.length != 0;
+		assertEquals(true,res);
+		try {
+			String qwer  = IctrInsc.obtenerNomActPorSalida("Degusta Agosto");
+			res = qwer.equals("Degusta");
+			assertEquals(true,res);
+		} catch (SalidasNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test
+	void testDataActividad() {
+		DataActividad aux = new DataActividad();
+		aux.setCiudad("");
+		aux.setCosto(0);
+		aux.setDepartamento("");
+		aux.setDescripcion("");
+		aux.setDuracion(0);
+		aux.setEstado(estadoAct.confirmada);
+		aux.setFechaAlta(new Date());
+		aux.setImagen(null);
+		aux.setNombre("");
+		aux.setCategorias(null);
+		aux.setPaquetes(null);
+		aux.setSalidas(null);
+		assertEquals(aux.getNombre(),"");
+		assertEquals(aux.getCiudad(),"");
+		assertEquals(aux.getDepartamento(),"");
+		assertEquals(aux.getDescripcion(),"");
+		assertEquals(aux.getCosto(),0);
+		assertEquals(aux.getDuracion(),0);
+		assertEquals(aux.getEstado(),estadoAct.confirmada);
+		assertEquals(aux.getImagen(),null);
+		assertEquals(aux.getCategorias(),null);
+		assertEquals(aux.getPaquetes(),null);
+		assertEquals(aux.getSalidas(),null);
+	}
+	
+	@Test
+	void testUsusComp() {
+		try {
+			DataUsuario[] aux = IctrAlta.getUsuariosComp();
+			boolean res = aux.length != 0;
+			assertEquals(res,true);
+		} catch (UsuarioNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test
+	void testDTDepto() {
+		DataDepartamento aux = new DataDepartamento();
+		aux.setColAct(null);
+		aux.setDescripcion(null);
+		aux.setNombre(null);
+		aux.setUrl(null);
+		assertEquals(aux.getColAct(),null);
+		assertEquals(aux.getDescripcion(),null);
+		assertEquals(aux.getNombre(),null);
+		assertEquals(aux.getUrl(),null);
+	}
+	
+	@Test
+	void testNomCat() {
+		try {
+			Set<String> aux = IctrAlta.obtenerNombreCategorias();
+			boolean res = aux.size() != 0;
+			assertEquals(res,true);
+			IctrAlta.confirmarAltaTurista("", "", "", "", new Date(), "", "");
+			DataUsuario auxi = IctrCons.obtenerDataUsuarioMail("");
+			res = auxi.getMail().equals("");
+			assertEquals(res,true);
+		} catch (NoExisteCategoriaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioRepetidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	void testDataSalida() {
+		Date fecha = new Date();
+		DataSalida aux = new DataSalida();
+		aux = new DataSalida("","",fecha,fecha,fecha,0);
+		aux.setCant(0);
+		aux.setFecha(fecha);
+		aux.setHora(fecha);
+		aux.setLugar("");
+		aux.setFechaAlta(fecha);
+		aux.setNombre("");
+		assertEquals(aux.getNombre(),"");
+		assertEquals(aux.getLugar(),"");
+		assertEquals(aux.getFecha(),fecha);
+		assertEquals(aux.getFechaAlta(),fecha);
+		assertEquals(aux.getHora(),fecha);
+		assertEquals(aux.gethora(),fecha);
+		assertEquals(aux.getImagen(),null);
+	}
 	
 	@Test
 	void testListarUsuarios() {
@@ -269,11 +320,81 @@ class ControladorAltaTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	void testDTCompGen() {
+		DataSalida sal = new DataSalida();
+		DataCompraGeneral aux = new DataCompraGeneral(new Date(),0,0,sal);
+		assertEquals(aux.getCantidad(),0);
+		assertEquals(aux.getCosto(),0);
+		assertEquals(aux.getFecha(),new Date());
+		assertEquals(aux.getSalida(),sal);
+		assertEquals(aux.isPorPaquete(),false);
+	}
+	
+	@Test
+	void testDTPaq() {
+		DataPaquete aux = new DataPaquete(null, null, 0, null, 0, null);
+		assertEquals(aux.getDescripcion(),null);
+		assertEquals(aux.getNombre(),null);
+		assertEquals(aux.getDescuento(),0);
+		assertEquals(aux.getImagen(),null);
+		assertEquals(aux.getDtAct(),null);
+		assertEquals(aux.getValidez(),0);
+		assertEquals(aux.getFechaAlta(),null);
+	}
+	
+	@Test
+	void testDTUsu() {
+		DataUsuario aux = new DataUsuario(null, null, null, null, null);
+		aux.setApellido(null);
+		aux.setImagen(null);
+		aux.setMail(null);
+		aux.setNacimiento(null);
+		aux.setNick(null);
+		aux.setNombre(null);
+		aux.setPassword(null);
+		assertEquals(aux.getApellido(),null);
+		assertEquals(aux.getNombre(),null);
+		assertEquals(aux.getPassword(),null);
+		assertEquals(aux.getImagen(),null);
+		assertEquals(aux.getNick(),null);
+		assertEquals(aux.getMail(),null);
+		assertEquals(aux.getNacimiento(),null);
+	}
+	
+	@Test
+	void testexceppciionesvarias(){
+		assertThrows(UsuarioNoExisteException.class, ()->{IctrCons.obtenerDataUsuarioNick("a");});
+		assertThrows(UsuarioNoExisteException.class, ()->{IctrCons.obtenerDataUsuarioMail("a");});
+		assertThrows(ActividadNoExisteException.class, ()->{IctrCons.obtenerDataActividad("a");});
+		assertThrows(SalidasNoExisteException.class, ()->{IctrCons.obtenerDataSalida("a");});
+	}
+	
+	@Test
+	void testCategExiste() {
+		try {
+			IctrAlta.registrarCategoria("CategoriaP");
+			Set<String> categs =  IctrCons.obtenerNombreCategorias();
+			boolean res = false;
+			for  (String iter : categs) {
+				res = res || (iter.equals("CategoriaP"));
+			}
+			assertEquals(res,true);
+			DataActividad[] array = IctrCons.obtenerActividadCategoria("CategoriaP");
+			assertEquals(array.length,0);
+		} catch (CategoriaYaExiste e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertThrows(CategoriaYaExiste.class, ()->{IctrAlta.registrarCategoria("CategoriaP");});
+	}
 
 	@Test
 	void testRegistrarActividad() {
 		Date auxi = new Date(2000,6,20);
 		try {
+			IctrAlta.registrarCategoria("Categoria");
 			Set<String> auxCat = new HashSet<String>();
 			auxCat.add("Categoria");
 			IctrAlta.confirmarAltaDepartamento("parasaindu", "d", "www.parasaindu.com.uy");
@@ -300,6 +421,9 @@ class ControladorAltaTest {
 			fail(e.getMessage());
 		} catch (ProveedorNoNacidoException e) {
 			fail(e.getMessage());
+		} catch (CategoriaYaExiste e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -352,13 +476,13 @@ class ControladorAltaTest {
 			fail(e.getMessage());
 		}
 	}
-	
+	/*
 	@Test       
 	void inscribirExcYaTieneSalida() {
 		Date auxFecha = new Date(130,8,20);
 		assertThrows(TuristaConSalida.class, ()->{IctrInsc.inscribir("lachiqui", "Degusta Agosto", 1, auxFecha, "Degusta");});
 	}
-
+*/
 	@Test
 	void inscribirExcCantidadTuristas() {
 		Date auxFecha = new Date(130,8,20);
@@ -403,6 +527,17 @@ class ControladorAltaTest {
 		assertEquals(dUsuario.getNacimiento().getDate(),auxFecha.getDate());
 		assertEquals(dUsuario.getNacimiento().getMonth(),auxFecha.getMonth());
 		assertEquals(dUsuario.getNacimiento().getYear(),auxFecha.getYear());
+	}
+	
+	@Test
+	void testDTComPaq() {
+		DataCompraPaquete aux = new DataCompraPaquete(null, 0, 0, null, null, null);
+		assertEquals(aux.getFecha(),null);
+		assertEquals(aux.getPaq(),null);
+		assertEquals(aux.getRestAct(),null);
+		assertEquals(aux.getVencimiento(),null);
+		assertEquals(aux.getCantidad(),0);
+		assertEquals(aux.getCosto(),0);
 	}
 
 	@Test
@@ -689,6 +824,7 @@ class ControladorAltaTest {
 			res = res || (it.haySalidas()&&it.hayPaquetes()&&it.getCiudad().equals("Rocha"));
 		}
 		assertEquals(res,true);
+		
 	}
 	
 
