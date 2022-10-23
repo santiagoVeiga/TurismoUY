@@ -224,7 +224,7 @@
                                     <div class="carousel-inner">
                                         
                                         <div class="carousel-item active">
-                                            <a href="ConsultaPaqueteV.html">
+                                            <a href="/tarea2p2/ConsultaPaquete?paquete=<%=arrayPaquetes[0].getNombre()%>"> 
                                                 <div class="card" style="width: 18rem;">
                                                     
                                                     <%if(arrayPaquetes[0].getImagen()!=null){ 
@@ -247,7 +247,7 @@
                                         
                                         <% for(int i=1; i<arrayPaquetes.length; i++) { %>
 	                                        <div class="carousel-item">
-	                                            <a href="/tarea2p2/consultaSalida?nombreSalida=<%=arrayPaquetes[i]%>">  
+	                                            <a href="/tarea2p2/ConsultaPaquete?paquete=<%=arrayPaquetes[i].getNombre()%>">  
 	                                                <div class="card" style="width: 18rem;">
 	                                                    <%if(arrayPaquetes[i].getImagen()!=null){
 	                                                   		String img = "";
