@@ -90,12 +90,12 @@ public class ControladorInsc implements IControladorInsc {
 		ManejadorActividad mAct = ManejadorActividad.getInstance();
 		Actividad act = mAct.getActividad(nombreAct);
 		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
-		Usuario tur = mUsu.obtenerUsuarioNick(nick);
+		Turista tur = (Turista) mUsu.obtenerUsuarioNick(nick);
 		int costo = act.getCosto();
 		costo = costo*cantTuristas;
 		Salida sal = act.getSalida(nomSalida);
 		// Chequeo de condiciones
-		if (((Turista) tur).yaTieneSalida(sal)) { // Sabemos por precondicion que se puede hacer el downcast
+		if (tur.yaTieneSalida(sal)) { // Sabemos por precondicion que se puede hacer el downcast
 			throw new TuristaConSalida("El turista ya pertenece a la salida");
 		}
 		if (sal.excedeTuristas(cantTuristas)) {
@@ -121,11 +121,11 @@ public class ControladorInsc implements IControladorInsc {
 		ManejadorActividad mAct = ManejadorActividad.getInstance();
 		Actividad act = mAct.getActividad(nombreAct);
 		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
-		Usuario tur = mUsu.obtenerUsuarioNick(nick);
+		Turista tur = (Turista) mUsu.obtenerUsuarioNick(nick);
 		Salida sal = act.getSalida(nomSalida);
 		CompraPaquete compraPaq = ((Turista) tur).getCompraPaquete(nombrePaq);
 		// Chequeo de condiciones
-		if (((Turista) tur).yaTieneSalida(sal)) { // Sabemos por precondicion que se puede hacer el downcast
+		if (tur.yaTieneSalida(sal)) { // Sabemos por precondicion que se puede hacer el downcast
 			throw new TuristaConSalida("El turista ya pertenece a la salida");
 		}
 		if (sal.excedeTuristas(cantTuristas)) {

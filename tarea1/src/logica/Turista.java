@@ -59,7 +59,7 @@ public class Turista extends Usuario{
     public boolean yaTieneSalida(Salida sal) {
     	Iterator<CompraGeneral> itr = comprasG.iterator();
     	boolean res = false;
-    	while (itr.hasNext()) {
+    	while (itr.hasNext() && !res) {
     		res = res || itr.next().esSalida(sal);
     	}
     	return res;
