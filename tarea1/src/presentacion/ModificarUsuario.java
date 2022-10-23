@@ -85,7 +85,7 @@ public class ModificarUsuario extends JInternalFrame {
 		gbc_comboUsuarios.gridx = 5;
 		gbc_comboUsuarios.gridy = 1;
 		comboUsuarios.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
+	    	public void actionPerformed(ActionEvent eve) {
 	    		datosUsuarioSeleccionado();
 	    	}	    	
 	    });
@@ -139,7 +139,7 @@ public class ModificarUsuario extends JInternalFrame {
 		fechaField = new JDateChooser();
 		//fechaField.getDateEditor().setEnabled(false);
 		fechaField.getCalendarButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent eve) {
 			}
 		});
 		GridBagConstraints gbc_fechaField = new GridBagConstraints();
@@ -213,7 +213,7 @@ public class ModificarUsuario extends JInternalFrame {
 		gbc_cancelarBtn.gridx = 4;
 		gbc_cancelarBtn.gridy = 10;
 		cancelarBtn.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
+	    	public void actionPerformed(ActionEvent eve) {
 				   setVisible(false);
 	    	}	    	
 	    });
@@ -226,7 +226,7 @@ public class ModificarUsuario extends JInternalFrame {
 		gbc_aplicarBtn.gridx = 5;
 		gbc_aplicarBtn.gridy = 10;
 		aplicarBtn.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
+	    	public void actionPerformed(ActionEvent eve) {
 	    		if (chequearFormulario()) {
 		    		actualizarDatosUsuario();
 	    		}
@@ -242,14 +242,14 @@ public class ModificarUsuario extends JInternalFrame {
 		
 		String nickSeleccionado = (String) comboUsuarios.getSelectedItem();
 		boolean encontrado = false;
-		int i = 0;
-		while (i<dataUsuarios.length && !encontrado) {
-			if (dataUsuarios[i].getNick() == nickSeleccionado) {
+		int cont = 0;
+		while (cont<dataUsuarios.length && !encontrado) {
+			if (dataUsuarios[cont].getNick() == nickSeleccionado) {
 				encontrado=true;
 			}
-			i++;
+			cont++;
 		}
-		i--;
+		cont--;
 		
 		nombreField.setVisible(true);
 		apellidoField.setVisible(true);
@@ -269,18 +269,18 @@ public class ModificarUsuario extends JInternalFrame {
 		
 		aplicarBtn.setVisible(true);
 		
-		usuarioSeleccionado = dataUsuarios[i];
-		nombreField.setText(dataUsuarios[i].getNombre());
-		apellidoField.setText(dataUsuarios[i].getApellido());
-		fechaField.setDate(dataUsuarios[i].getNacimiento());
-		apellidoField.setText(dataUsuarios[i].getApellido());
-		if (dataUsuarios[i] instanceof DataTurista) {
-			nacionalidadField.setText(((DataTurista) dataUsuarios[i]).getNacionalidad());
+		usuarioSeleccionado = dataUsuarios[cont];
+		nombreField.setText(dataUsuarios[cont].getNombre());
+		apellidoField.setText(dataUsuarios[cont].getApellido());
+		fechaField.setDate(dataUsuarios[cont].getNacimiento());
+		apellidoField.setText(dataUsuarios[cont].getApellido());
+		if (dataUsuarios[cont] instanceof DataTurista) {
+			nacionalidadField.setText(((DataTurista) dataUsuarios[cont]).getNacionalidad());
 			setTurista();
 		}
-		if (dataUsuarios[i] instanceof DataProveedor) {
-			linkField.setText(((DataProveedor) dataUsuarios[i]).getLink());
-			descripcionField.setText(((DataProveedor) dataUsuarios[i]).getDescripcion());
+		if (dataUsuarios[cont] instanceof DataProveedor) {
+			linkField.setText(((DataProveedor) dataUsuarios[cont]).getLink());
+			descripcionField.setText(((DataProveedor) dataUsuarios[cont]).getDescripcion());
 			setProveedor();
 		}
 	}
@@ -376,10 +376,10 @@ public class ModificarUsuario extends JInternalFrame {
         	DefaultComboBoxModel<String> model;
         	dataUsuarios = controlUsr.getUsuarios();
         	String[] nomUsuarios = new String[dataUsuarios.length]; 
-        	int i=0;
-        	while (i<dataUsuarios.length) {
-        		nomUsuarios[i]=dataUsuarios[i].getNick();
-        		i++;
+        	int cont=0;
+        	while (cont<dataUsuarios.length) {
+        		nomUsuarios[cont]=dataUsuarios[cont].getNick();
+        		cont++;
         	}
         	//DU2 = DU;
             model = new DefaultComboBoxModel<String>(nomUsuarios);

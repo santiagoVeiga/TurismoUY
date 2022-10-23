@@ -176,7 +176,7 @@ public class CrearActividad extends JInternalFrame {
 		gbc_categoriasComboBox.gridy = 5;
 		getContentPane().add(categoriasComboBox, gbc_categoriasComboBox);
 		categoriasComboBox.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		if (modelo.indexOf((String) categoriasComboBox.getSelectedItem()) == -1)
         		modelo.addElement((String) categoriasComboBox.getSelectedItem());
         	}
@@ -200,7 +200,7 @@ public class CrearActividad extends JInternalFrame {
 		modelo = new DefaultListModel<>();
 		categoriasList.setModel(modelo);
 		categoriasList.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
+			public void valueChanged(ListSelectionEvent eve) {
 				if (!categoriasList.isSelectionEmpty())
 					modelo.remove(categoriasList.getSelectedIndex());
 			}
@@ -274,7 +274,7 @@ public class CrearActividad extends JInternalFrame {
 		
 		JButton cancelarBtn = new JButton("Cancelar");
 		cancelarBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
                 limpiarFormulario();
                 setVisible(false);
             }
@@ -396,17 +396,17 @@ public class CrearActividad extends JInternalFrame {
         			cant++;
     			}
     		}
-    		String[] DP = new String[cant];
+    		String[] dataProv = new String[cant];
     		dataProveedorArray = new DataProveedor[cant];
     		int ctr = 0;
     		for (int i = 0; i < dataUsuarios.length; i++) {
     			if (dataUsuarios[i] instanceof DataProveedor) {
     				dataProveedorArray[ctr] = (DataProveedor) dataUsuarios[i];
-        			DP[ctr] = dataUsuarios[i].getNombre();
+        			dataProv[ctr] = dataUsuarios[i].getNombre();
         			ctr++;
     			}
     		}
-	    	model = new DefaultComboBoxModel<String>(DP);
+	    	model = new DefaultComboBoxModel<String>(dataProv);
 	    	proveedoresComboBox.setModel(model);
 	    } catch (UsuarioNoExisteException e) {
 	    	JOptionPane.showMessageDialog(this, e.getMessage(), "No hay Proveedores", JOptionPane.ERROR_MESSAGE);

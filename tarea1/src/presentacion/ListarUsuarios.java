@@ -67,17 +67,17 @@ public class ListarUsuarios extends JInternalFrame {
         // Se ubica al sur del layout.
         btnCerrar = new JButton("Informacion del Usuario");
         btnCerrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	int i = comboBoxUsuarios.getSelectedIndex();
+            public void actionPerformed(ActionEvent eve) {
+            	int selec = comboBoxUsuarios.getSelectedIndex();
                 setVisible(false);
-                if (dataUsuario2[i] instanceof DataTurista) {
-                	InfoTurista it = new InfoTurista((DataTurista) dataUsuario2[i], sal);
-                	it.setVisible(true);
-                	it.cargar();
-                } else if (dataUsuario2[i] instanceof DataProveedor){
-                	InfoProveedor it = new InfoProveedor((DataProveedor) dataUsuario2[i], ICC, sal, act);
-                	it.setVisible(true);
-                	it.cargar();
+                if (dataUsuario2[selec] instanceof DataTurista) {
+                	InfoTurista infoTur = new InfoTurista((DataTurista) dataUsuario2[selec], sal);
+                	infoTur.setVisible(true);
+                	infoTur.cargar();
+                } else if (dataUsuario2[selec] instanceof DataProveedor){
+                	InfoProveedor infoProv = new InfoProveedor((DataProveedor) dataUsuario2[selec], ICC, sal, act);
+                	infoProv.setVisible(true);
+                	infoProv.cargar();
                 }
                 
             }
@@ -96,25 +96,25 @@ public class ListarUsuarios extends JInternalFrame {
         setVisible(false);
         try {
         	DefaultComboBoxModel<String> model;
-        	DataUsuario[] DU = controlUsr.listarUsuarios();
-        	String[] nomUsuarios = new String[DU.length]; 
-        	int i=0;
-        	while (i<DU.length) {
-        		if (DU[i] instanceof DataTurista){
-        			nomUsuarios[i]= DU[i].getNick() + " - Turista";
-        		}else if (DU[i] instanceof DataProveedor){
-        			nomUsuarios[i] = DU[i].getNick() + " - Proveedor";
+        	DataUsuario[] dataUsuarios = controlUsr.listarUsuarios();
+        	String[] nomUsuarios = new String[dataUsuarios.length]; 
+        	int cont=0;
+        	while (cont<dataUsuarios.length) {
+        		if (dataUsuarios[cont] instanceof DataTurista){
+        			nomUsuarios[cont]= dataUsuarios[cont].getNick() + " - Turista";
+        		}else if (dataUsuarios[cont] instanceof DataProveedor){
+        			nomUsuarios[cont] = dataUsuarios[cont].getNick() + " - Proveedor";
         		}
-        		i++;
+        		cont++;
         	}
-        	dataUsuario2 = DU;
+        	dataUsuario2 = dataUsuarios;
             model = new DefaultComboBoxModel<String>(nomUsuarios);
             comboBoxUsuarios.setModel(model);
             setVisible(true);
         } catch (NullPointerException e) {
             // No se imprime mensaje de error sino que simplemente no se muestra ningún elemento
-        	ErrorUsuario EU = new ErrorUsuario();
-        	EU.setVisible(true);
+        	ErrorUsuario errorUsu = new ErrorUsuario();
+        	errorUsu.setVisible(true);
         	setVisible(false);
         }
 

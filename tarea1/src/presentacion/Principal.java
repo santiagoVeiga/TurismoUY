@@ -210,7 +210,7 @@ public class Principal {
 
         JMenuItem menuItemRegistrar = new JMenuItem("Registrar Usuario");
         menuItemRegistrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
                 // Muestro el InternalFrame para registrar un usuario
                 creUsrInternalFrame.setVisible(true);
             }
@@ -219,7 +219,7 @@ public class Principal {
 
         JMenuItem mntmListaUsuarios = new JMenuItem("Consulta de Usuario");
         mntmListaUsuarios.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
                 lisUsrInternalFrame.cargarUsuarios();
             }
         });
@@ -234,7 +234,7 @@ public class Principal {
 
         JMenuItem menuItemModificar = new JMenuItem("Modificar Datos");
         menuItemModificar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
 					modUsrInternalFrame.limpiarFormulario();
 					try {
 						modUsrInternalFrame.cargarUsuarios();
@@ -257,7 +257,7 @@ public class Principal {
 
         JMenuItem menuItemRegistrarActividad = new JMenuItem("Registrar Actividad");
         menuItemRegistrarActividad.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
                 creActInternalFrame.cargarDepartamentos();
                 creActInternalFrame.cargarProveedores();
             	creActInternalFrame.setVisible(true);
@@ -268,7 +268,7 @@ public class Principal {
         
         JMenuItem menuItemConsultaActividad = new JMenuItem("Consulta Actividad");
         menuItemConsultaActividad.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	conActInternalFrame.cargarDepartamentos();
                 conActInternalFrame.setVisible(true);
             }
@@ -277,7 +277,7 @@ public class Principal {
         
         JMenuItem mntmAceptarRechazar = new JMenuItem("AceptarRechazar");
         mntmAceptarRechazar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		acepRecInternalFrame.actCategorias();
         		acepRecInternalFrame.setVisible(true);
         	}
@@ -296,7 +296,7 @@ public class Principal {
 
         JMenuItem menuItemRegistrarCategoria = new JMenuItem("Registrar Categoria");
         menuItemRegistrarCategoria.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	creCatInternalFrame.setVisible(true);
             }
         });
@@ -315,7 +315,7 @@ public class Principal {
 
         JMenuItem menuItemAltaSalida = new JMenuItem("Alta Salida");
         menuItemAltaSalida.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	creSalInternalFrame.cargarDepartamentos();
             	creSalInternalFrame.setVisible(true);
             }
@@ -324,7 +324,7 @@ public class Principal {
         
         JMenuItem menuItemConsultaSalida = new JMenuItem("Consulta Salida");
         menuItemConsultaSalida.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	consultaSalidaInternalFrame.cargarDepartamentos();
             	consultaSalidaInternalFrame.setVisible(true);
             }
@@ -341,7 +341,7 @@ public class Principal {
         
         JMenuItem mntmInscribirTuristaA = new JMenuItem("Inscribir turista a salida");
         mntmInscribirTuristaA.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		insInternalFrame.actualizarDptos();
         		insInternalFrame.setVisible(true);
         	}
@@ -357,7 +357,7 @@ public class Principal {
 
         JMenuItem menuItemRegistrarPaquete = new JMenuItem("Crear Paquete");
         menuItemRegistrarPaquete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	crePaqInternalFrame.setVisible(true);
             }
         });
@@ -365,7 +365,7 @@ public class Principal {
         
         JMenuItem menuItemAgregarPaquete = new JMenuItem("Agregar Actvidad a Paquete");
         menuItemAgregarPaquete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	agrPaqInternalFrame.cargarDepartamentos();
             	agrPaqInternalFrame.cargarPaquetes();
             	agrPaqInternalFrame.setVisible(true);
@@ -375,7 +375,7 @@ public class Principal {
         
         JMenuItem menuItemConsultaPaquete = new JMenuItem("Consultar un Paquete");
         menuItemConsultaPaquete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	conPaqInternalFrame.cargarPaquetes();
             	conPaqInternalFrame.setVisible(true);
             }
@@ -391,7 +391,7 @@ public class Principal {
         
         JMenuItem mntmCargarusuarios = new JMenuItem("Cargar Datos");
         mntmCargarusuarios.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
 					try {
 						conAlta.cargarDatos();
 					} catch (NumberFormatException | IOException | UsuarioRepetidoException | ParseException

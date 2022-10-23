@@ -84,15 +84,15 @@ public class ServletConsulta extends HttpServlet {
     					req.setAttribute("ArregloUsuarios", usuarios);
     					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ListaUsuario.jsp").forward(req, resp);
     				} else {
-    					DataUsuario du;
+    					DataUsuario dataUsu;
                         try {
-                            du = conCons.obtenerDataUsuarioNick(usuario);
-                            req.setAttribute("UsuarioElegido", du);
-                            if (du instanceof DataTurista) {
+                            dataUsu = conCons.obtenerDataUsuarioNick(usuario);
+                            req.setAttribute("UsuarioElegido", dataUsu);
+                            if (dataUsu instanceof DataTurista) {
                                 DataPaquete[] arrDataPaquetes = null;
                                 DataPaquete DataPaqueteAux ; 
-                                arrDataPaquetes = new DataPaquete[((DataTurista) du).getPaquetes().size()];
-                               String[] arrPaquetes = ((DataTurista) du).getPaquetes().toArray(new String[0]);
+                                arrDataPaquetes = new DataPaquete[((DataTurista) dataUsu).getPaquetes().size()];
+                               String[] arrPaquetes = ((DataTurista) dataUsu).getPaquetes().toArray(new String[0]);
                                for (int i =0 ; i<arrPaquetes.length; i++) {
                                    DataPaqueteAux = conCons.obtenerDataPaquete(arrPaquetes[i]);
                                    arrDataPaquetes[i] = DataPaqueteAux ; 
@@ -179,8 +179,8 @@ public class ServletConsulta extends HttpServlet {
     					req.setAttribute("ArregloPaquetes", dps);
     					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/ListaPaquetes.jsp").forward(req, resp);
     				} else {
-    					DataPaquete dp = conCons.obtenerDataPaquete(paquete);
-    					req.setAttribute("PaqueteElegido", dp);
+    					DataPaquete dataPaq = conCons.obtenerDataPaquete(paquete);
+    					req.setAttribute("PaqueteElegido", dataPaq);
     					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req, resp);
     				}
     				break;

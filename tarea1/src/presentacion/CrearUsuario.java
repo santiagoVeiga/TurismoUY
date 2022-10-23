@@ -40,7 +40,6 @@ public class CrearUsuario extends JInternalFrame {
     private JTextField textFieldApellido;
     private JTextField textFieldMail;
     private JCalendar calendario;
-    private JTextField textFieldNacimiento;
     private JTextField textFieldNacionalidad;
     private JTextField textFieldDescripcion;
     private JTextField textFieldLink;
@@ -340,7 +339,7 @@ public class CrearUsuario extends JInternalFrame {
                                                                 // Dado que antes de cerrar se limpia el formulario, se invoca un método reutilizable para ello. 
                                                                 btnCancelar = new JButton("Cancelar");
                                                                 btnCancelar.addActionListener(new ActionListener() {
-                                                                    public void actionPerformed(ActionEvent e) {
+                                                                    public void actionPerformed(ActionEvent eve) {
                                                                         limpiarFormulario();
                                                                         setVisible(false);
                                                                     }
@@ -354,7 +353,7 @@ public class CrearUsuario extends JInternalFrame {
                                                                 
                                                                 rdbtnTurista = new JRadioButton("Turista");
                                                                 rdbtnTurista.addActionListener(new ActionListener() {
-                                                                    public void actionPerformed(ActionEvent t) {
+                                                                    public void actionPerformed(ActionEvent eve) {
                                                                         setTurista();
                                                                     }
                                                                 });
@@ -369,7 +368,7 @@ public class CrearUsuario extends JInternalFrame {
                                                                 
                                                                 rdbtnProveedor = new JRadioButton("Proveedor");
                                                                 rdbtnProveedor.addActionListener(new ActionListener() {
-                                                                    public void actionPerformed(ActionEvent p) {
+                                                                    public void actionPerformed(ActionEvent eve) {
                                                                         setProveedor();
                                                                     }
                                                                 });

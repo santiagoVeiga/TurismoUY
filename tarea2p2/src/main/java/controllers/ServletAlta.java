@@ -276,10 +276,10 @@ public class ServletAlta extends HttpServlet {
     						DataUsuario dataUsu = conCons.obtenerDataUsuarioNick(nick);
     						session.setAttribute("usuario", dataUsu);
     						//Setear imagen
-    						InputStream is = new ByteArrayInputStream(imgBytes);
-                            BufferedImage bi = ImageIO.read(is);
+    						InputStream inSt = new ByteArrayInputStream(imgBytes);
+                            BufferedImage buffIm = ImageIO.read(inSt);
                             ByteArrayOutputStream outputA = new ByteArrayOutputStream();
-                            ImageIO.write(bi, "jpg", outputA);
+                            ImageIO.write(buffIm, "jpg", outputA);
                             String imageAsBase64 = Base64.getEncoder().encodeToString(outputA.toByteArray());
     						session.setAttribute("imagenUsuario", imageAsBase64);
     						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
@@ -308,8 +308,8 @@ public class ServletAlta extends HttpServlet {
     							break;
     						}
     						HttpSession session = req.getSession();
-    						DataUsuario du = conCons.obtenerDataUsuarioNick(nick);
-    						session.setAttribute("usuario", du);
+    						DataUsuario dataUsu = conCons.obtenerDataUsuarioNick(nick);
+    						session.setAttribute("usuario", dataUsu);
     						session.setAttribute("imagenUsuario", null); // revisar esto
     						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
     						resp.sendRedirect("/tarea2p2/home");
@@ -324,14 +324,14 @@ public class ServletAlta extends HttpServlet {
     				}
     				break;
     			case "/ ":
-    				DataActividad da = (DataActividad) req.getAttribute("DataActividad");
+    				DataActividad dataAct = (DataActividad) req.getAttribute("DataActividad");
     				HttpSession session1 = req.getSession();
     				DataUsuario aux = (DataUsuario) session1.getAttribute("usuario");
     				String proveedor = aux.getNick();
     				conAlta = fab.getIControladorAlta();
     				try {
     					//da.getDepartamento()
-    					conAlta.registrarActividad("Rocha", da.getNombre() , da.getDescripcion(), da.getDuracion(), da.getCosto(), da.getCiudad(), da.getFechaAlta(), proveedor, da.getCategorias());
+    					conAlta.registrarActividad("Rocha", dataAct.getNombre() , dataAct.getDescripcion(), dataAct.getDuracion(), dataAct.getCosto(), dataAct.getCiudad(), dataAct.getFechaAlta(), proveedor, dataAct.getCategorias());
     					resp.sendRedirect("/WEB-INF/iniciar.jsp");
     				} catch (ActividadRepetidaException | UsuarioNoExisteException | ProveedorNoNacidoException e) {
     					req.setAttribute("Exception", e.getMessage());
@@ -448,9 +448,9 @@ public class ServletAlta extends HttpServlet {
                         
                         if (usuario instanceof DataTurista) {
                             String nacionalidadNueva = (String) req.getParameter("nacionalidadNueva");
-                            if(!fechaNueva.equals(null) || !fechaNueva.equals("")) {
+                            if (!fechaNueva.equals(null) || !fechaNueva.equals("")) {
                                 conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva);
-                            }else {
+                            } else {
                                 Date fechaNuevaNac = formatFecha.parse(fechaNueva);
                                 conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, nacionalidadNueva);
                             }
@@ -458,10 +458,10 @@ public class ServletAlta extends HttpServlet {
                             String descripcionNueva = (String) req.getParameter("descripcionNueva");
                             String linkNuevo = (String) req.getParameter("linkNuevo");
                             boolean hayLink = false;
-                            if((!linkNuevo.equals(null) || !linkNuevo.equals(""))) {
+                            if (!linkNuevo.equals(null) || !linkNuevo.equals("")) {
                                 hayLink = true;
                             }
-                            if(!fechaNueva.equals(null) || !fechaNueva.equals("")) {
+                            if (!fechaNueva.equals(null) || !fechaNueva.equals("")) {
                                 conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink);
                             }else {
                                 Date fechaNuevaNac = formatFecha.parse(fechaNueva);

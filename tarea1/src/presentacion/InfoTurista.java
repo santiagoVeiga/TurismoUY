@@ -44,8 +44,8 @@ public class InfoTurista extends JFrame {
 	 */
 
 	@SuppressWarnings("deprecation")
-	public InfoTurista(DataTurista DT, ConsultaSalidaTuristica sal) {
-		dataTur = DT;
+	public InfoTurista(DataTurista dataT, ConsultaSalidaTuristica sal) {
+		dataTur = dataT;
 		salida = sal;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 300);
@@ -76,7 +76,7 @@ public class InfoTurista extends JFrame {
 		gbc_lblNewLabel_1.gridy = 1;
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField = new JTextField(DT.getNick());
+		textField = new JTextField(dataT.getNick());
 		textField.setEditable(false);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 4;
@@ -96,7 +96,7 @@ public class InfoTurista extends JFrame {
 		gbc_lblNewLabel_1_1.gridy = 2;
 		contentPane.add(lblNewLabel_1_1, gbc_lblNewLabel_1_1);
 		
-		textField1 = new JTextField(DT.getNombre());
+		textField1 = new JTextField(dataT.getNombre());
 		textField1.setEditable(false);
 		textField1.setColumns(10);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
@@ -115,7 +115,7 @@ public class InfoTurista extends JFrame {
 		gbc_lblNewLabel_1_2.gridy = 3;
 		contentPane.add(lblNewLabel_1_2, gbc_lblNewLabel_1_2);
 		
-		textField2 = new JTextField(DT.getApellido());
+		textField2 = new JTextField(dataT.getApellido());
 		textField2.setEditable(false);
 		textField2.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
@@ -134,7 +134,7 @@ public class InfoTurista extends JFrame {
 		gbc_lblNewLabel_1_3.gridy = 4;
 		contentPane.add(lblNewLabel_1_3, gbc_lblNewLabel_1_3);
 		
-		textField3 = new JTextField(DT.getMail());
+		textField3 = new JTextField(dataT.getMail());
 		textField3.setEditable(false);
 		textField3.setColumns(10);
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
@@ -153,7 +153,7 @@ public class InfoTurista extends JFrame {
 		gbc_lblNewLabel_1_3_1.gridy = 5;
 		contentPane.add(lblNewLabel_1_3_1, gbc_lblNewLabel_1_3_1);
 
-		textField4 = new JTextField(DT.getNacimiento().getDate() +"/" + (DT.getNacimiento().getMonth()+1)+ "/"+(DT.getNacimiento().getYear()+1900));
+		textField4 = new JTextField(dataT.getNacimiento().getDate() +"/" + (dataT.getNacimiento().getMonth()+1)+ "/"+(dataT.getNacimiento().getYear()+1900));
 		textField4.setColumns(10);
 		textField4.setEditable(false);
 		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
@@ -172,7 +172,7 @@ public class InfoTurista extends JFrame {
 		gbc_lblNewLabel_1_3_2.gridy = 6;
 		contentPane.add(lblNewLabel_1_3_2, gbc_lblNewLabel_1_3_2);
 		
-		textField5 = new JTextField(DT.getNacionalidad());
+		textField5 = new JTextField(dataT.getNacionalidad());
 		textField5.setColumns(10);
 		textField5.setEditable(false);
 		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
@@ -192,12 +192,12 @@ public class InfoTurista extends JFrame {
 		contentPane.add(lblNewLabel_1_3_2_1, gbc_lblNewLabel_1_3_2_1);
 		
 		label=lblNewLabel_1_3_2_1;
-		Object[] o = DT.getDataSalidas().toArray();
-        DataSalida[] usuarios2 = new DataSalida[o.length];
-        String[] usuarios = new String[o.length];
-        for (int i = 0; i < o.length; i++) {
-        	usuarios2[i] = (DataSalida) o[i];
-        	usuarios[i] = ((DataSalida) o[i]).getNombre();   
+		Object[] obj = dataT.getDataSalidas().toArray();
+        DataSalida[] usuarios2 = new DataSalida[obj.length];
+        String[] usuarios = new String[obj.length];
+        for (int i = 0; i < obj.length; i++) {
+        	usuarios2[i] = (DataSalida) obj[i];
+        	usuarios[i] = ((DataSalida) obj[i]).getNombre();   
         }
         
 		JComboBox<String> comboBox = new JComboBox<String>();
@@ -219,15 +219,15 @@ public class InfoTurista extends JFrame {
 		contentPane.add(btnNewButton, gbc_btnNewButton);
 		boton=btnNewButton;
 		btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	int i = comboBox.getSelectedIndex();
-            	salida.cargarDatosSalidaPorDataSalida(usuarios2[i]);
+            public void actionPerformed(ActionEvent eve) {
+            	int cont = comboBox.getSelectedIndex();
+            	salida.cargarDatosSalidaPorDataSalida(usuarios2[cont]);
             	salida.setVisible(true);
             	setVisible(false);
             }
         });
 		
-		if (o.length>0) {
+		if (obj.length>0) {
 			DefaultComboBoxModel<String> model;
 	        model = new DefaultComboBoxModel<String>(usuarios);
 	        comboBox.setModel(model);
@@ -245,7 +245,7 @@ public class InfoTurista extends JFrame {
 		contentPane.add(btnNewButton_1, gbc_btnNewButton_1);
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	setVisible(false);
             }
         });
@@ -254,15 +254,15 @@ public class InfoTurista extends JFrame {
 	public void cargar() {
 		// TODO Auto-generated method stub
 		
-		Object[] o = dataTur.getDataSalidas().toArray();
-        DataSalida[] usuarios2 = new DataSalida[o.length];
-        String[] usuarios = new String[o.length];
-        for (int i = 0; i < o.length; i++) {
-        	usuarios2[i] = (DataSalida) o[i];
-        	usuarios[i] = ((DataSalida) o[i]).getNombre();   
+		Object[] obj = dataTur.getDataSalidas().toArray();
+        DataSalida[] usuarios2 = new DataSalida[obj.length];
+        String[] usuarios = new String[obj.length];
+        for (int i = 0; i < obj.length; i++) {
+        	usuarios2[i] = (DataSalida) obj[i];
+        	usuarios[i] = ((DataSalida) obj[i]).getNombre();   
         }
 		
-		if (o.length>0) {
+		if (obj.length>0) {
 			DefaultComboBoxModel<String> model;
 	        model = new DefaultComboBoxModel<String>(usuarios);
 	        comboUsu.setModel(model);

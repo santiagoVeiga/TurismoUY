@@ -553,20 +553,20 @@ class ControladorAltaTest {
 				e.printStackTrace();
 			}
 			datosUsuario = IctrAlta.getUsuarios();
-			int i=0;
+			int cont=0;
 			boolean encontrado = false;			
-			while(i<datosUsuario.length && !encontrado) {
-				if(datosUsuario[i].getNick() == "jorgito") {
+			while(cont<datosUsuario.length && !encontrado) {
+				if(datosUsuario[cont].getNick() == "jorgito") {
 					encontrado=true;
 				}else
-					i++;
+					cont++;
 			}
-			assertEquals(datosUsuario[i].getNick(),"jorgito");
-			assertEquals(datosUsuario[i].getNombre(),"Jorge");
-			assertEquals(datosUsuario[i].getApellido(),"Perez");
-			assertEquals(datosUsuario[i].getMail(),"jorgito@mail.com");
-			assertEquals(datosUsuario[i].getNacimiento(),fechaN);
-			assertEquals(((DataTurista) datosUsuario[i]).getNacionalidad(),"chilena");
+			assertEquals(datosUsuario[cont].getNick(),"jorgito");
+			assertEquals(datosUsuario[cont].getNombre(),"Jorge");
+			assertEquals(datosUsuario[cont].getApellido(),"Perez");
+			assertEquals(datosUsuario[cont].getMail(),"jorgito@mail.com");
+			assertEquals(datosUsuario[cont].getNacimiento(),fechaN);
+			assertEquals(((DataTurista) datosUsuario[cont]).getNacionalidad(),"chilena");
 		} catch (UsuarioNoExisteException e) {
 			// TODO Auto-generated catch block
 			fail(e.getMessage());
@@ -653,12 +653,12 @@ class ControladorAltaTest {
 	void listarDepartamentos() {
 		try {
 			DataDepartamento[] aux = IctrAlta.obtenerDataDepartamentos();
-			int i = 0;
-			while(i<aux.length && !(aux[i].getNombre().equals("Colonia"))){
-				i++;
+			int cont = 0;
+			while(cont<aux.length && !(aux[cont].getNombre().equals("Colonia"))){
+				cont++;
 			}
-			assertEquals(aux[i].getNombre(),"Colonia");
-			assertEquals(aux[i].getUrl(),"https://colonia.gub.uy/turismo/");
+			assertEquals(aux[cont].getNombre(),"Colonia");
+			assertEquals(aux[cont].getUrl(),"https://colonia.gub.uy/turismo/");
 		} catch (DepartamentoNoExisteException e) {
 			fail(e.getMessage());
 		}
@@ -737,9 +737,9 @@ class ControladorAltaTest {
 	
 	@Test
 	void testCargarInscSelecDpto()  {
-		Set<DataActividad> se = IctrInsc.selecDepartamento("Rocha");
+		Set<DataActividad> dataActs = IctrInsc.selecDepartamento("Rocha");
 		boolean res = false;
-		for(DataActividad it : se) {
+		for(DataActividad it : dataActs) {
 			res = res || (it.getCiudad().equals("Rocha") && it.getCosto()==800 && it.getNombre().equals("Degusta"));
 		}
 		assertEquals(true,res);
@@ -783,8 +783,8 @@ class ControladorAltaTest {
 	@Test
 	void testGetusu()
 	{
-		DataUsuario dt = IctrCons.ingresarDatos("lachiqui");
-		assertEquals(dt.getNick(),"lachiqui");
+		DataUsuario dataUsu = IctrCons.ingresarDatos("lachiqui");
+		assertEquals(dataUsu.getNick(),"lachiqui");
 	}
 	
 	@Test
@@ -809,11 +809,11 @@ class ControladorAltaTest {
 	
 	@Test
 	void testDatapaq() {
-		DataPaquete dt = IctrCons.obtenerDataPaquete("Disfrutar Rocha");
-		assertEquals(dt.getNombre().equals("Disfrutar Rocha"),true);
-		assertEquals(dt.getDescripcion().equals("Actividades para hacer en familia y disfrutar arte y gastronomía"),true);
-		assertEquals(dt.getDescuento(),20);
-		assertEquals(dt.getValidez(),60);
+		DataPaquete dataPaq = IctrCons.obtenerDataPaquete("Disfrutar Rocha");
+		assertEquals(dataPaq.getNombre().equals("Disfrutar Rocha"),true);
+		assertEquals(dataPaq.getDescripcion().equals("Actividades para hacer en familia y disfrutar arte y gastronomía"),true);
+		assertEquals(dataPaq.getDescuento(),20);
+		assertEquals(dataPaq.getValidez(),60);
 	}
 	
 	@Test

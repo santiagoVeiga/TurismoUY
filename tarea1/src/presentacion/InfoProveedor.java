@@ -35,23 +35,20 @@ public class InfoProveedor extends JFrame {
 	private JComboBox<String> comboUsu;
 	private JButton boton;
 	private JLabel label;
-	private ConsultaSalidaTuristica salida;
 	private ConsultarActividad activ;
 
 	/**
 	 * Launch the application.
 	 */
 	
-	private IControladorConsulta conCons;
+
 	/**
 	 * Create the frame.
 	 * @param sal 
 	 * @param act 
 	 */
-	public InfoProveedor(DataProveedor DP, IControladorConsulta icc, ConsultaSalidaTuristica sal, ConsultarActividad act) {
-		conCons=icc;
-		dataProveedor =DP;
-		salida = sal;
+	public InfoProveedor(DataProveedor dataProv, IControladorConsulta icc, ConsultaSalidaTuristica sal, ConsultarActividad act) {
+		dataProveedor = dataProv;
 		activ = act;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 300);
@@ -82,7 +79,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1.gridy = 1;
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField = new JTextField(DP.getNick());
+		textField = new JTextField(dataProv.getNick());
 		textField.setEditable(false);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 5;
@@ -102,7 +99,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_1.gridy = 2;
 		contentPane.add(lblNewLabel_1_1, gbc_lblNewLabel_1_1);
 		
-		textField1 = new JTextField(DP.getNombre());
+		textField1 = new JTextField(dataProv.getNombre());
 		textField1.setEditable(false);
 		textField1.setColumns(10);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
@@ -121,7 +118,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_2.gridy = 3;
 		contentPane.add(lblNewLabel_1_2, gbc_lblNewLabel_1_2);
 		
-		textField2 = new JTextField(DP.getApellido());
+		textField2 = new JTextField(dataProv.getApellido());
 		textField2.setEditable(false);
 		textField2.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
@@ -140,7 +137,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_3.gridy = 4;
 		contentPane.add(lblNewLabel_1_3, gbc_lblNewLabel_1_3);
 		
-		textField3 = new JTextField(DP.getMail());
+		textField3 = new JTextField(dataProv.getMail());
 		textField3.setEditable(false);
 		textField3.setColumns(10);
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
@@ -159,7 +156,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_3_1.gridy = 5;
 		contentPane.add(lblNewLabel_1_3_1, gbc_lblNewLabel_1_3_1);
 		
-		textField4 = new JTextField(DP.getNacimiento().getDate() +"/"+ (DP.getNacimiento().getMonth()+1) + "/"+ (DP.getNacimiento().getYear()+1900));
+		textField4 = new JTextField(dataProv.getNacimiento().getDate() +"/"+ (dataProv.getNacimiento().getMonth()+1) + "/"+ (dataProv.getNacimiento().getYear()+1900));
 		textField4.setEditable(false);
 		textField4.setColumns(10);
 		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
@@ -178,7 +175,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_3_2.gridy = 6;
 		contentPane.add(lblNewLabel_1_3_2, gbc_lblNewLabel_1_3_2);
 		
-		textField5 = new JTextField(DP.getDescripcion());
+		textField5 = new JTextField(dataProv.getDescripcion());
 		textField5.setEditable(false);
 		textField5.setColumns(10);
 		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
@@ -197,7 +194,7 @@ public class InfoProveedor extends JFrame {
 		gbc_lblNewLabel_1_3_2_2.gridy = 7;
 		contentPane.add(lblNewLabel_1_3_2_2, gbc_lblNewLabel_1_3_2_2);
 		
-		textField6 = new JTextField(DP.getLink());
+		textField6 = new JTextField(dataProv.getLink());
 		textField6.setEditable(false);
 		textField6.setColumns(10);
 		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
@@ -217,12 +214,12 @@ public class InfoProveedor extends JFrame {
 		contentPane.add(lblNewLabel_1_3_2_1, gbc_lblNewLabel_1_3_2_1);
 		
 		label=lblNewLabel_1_3_2_1;
-		Object[] o = DP.getActividades().toArray();
-        DataActividad[] usuarios2 = new DataActividad[o.length];
-        String[] usuarios = new String[o.length];
-        for (int i = 0; i < o.length; i++) {
-        	usuarios2[i] = (DataActividad) o[i];
-        	usuarios[i] = ((DataActividad) o[i]).getNombre();
+		Object[] obj = dataProv.getActividades().toArray();
+        DataActividad[] usuarios2 = new DataActividad[obj.length];
+        String[] usuarios = new String[obj.length];
+        for (int i = 0; i < obj.length; i++) {
+        	usuarios2[i] = (DataActividad) obj[i];
+        	usuarios[i] = ((DataActividad) obj[i]).getNombre();
         }
 		
 		
@@ -242,7 +239,7 @@ public class InfoProveedor extends JFrame {
 		contentPane.add(btnNewButton, gbc_btnNewButton);
 		boton=btnNewButton;
 		comboUsu = comboBox;
-		if (o.length!=0) {
+		if (obj.length!=0) {
 			DefaultComboBoxModel<String> model;
 	        model = new DefaultComboBoxModel<String>(usuarios);
 	        comboBox.setModel(model);
@@ -253,9 +250,9 @@ public class InfoProveedor extends JFrame {
 		}
 		
 		btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	int i = comboBox.getSelectedIndex();
-            	activ.seleccionarActvidad(usuarios2[i]);
+            public void actionPerformed(ActionEvent eve) {
+            	int cont = comboBox.getSelectedIndex();
+            	activ.seleccionarActvidad(usuarios2[cont]);
             	activ.setVisible(true);
             	setVisible(false);
             }
@@ -270,7 +267,7 @@ public class InfoProveedor extends JFrame {
 		contentPane.add(btnNewButton_1, gbc_btnNewButton_1);
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
             	setVisible(false);
             }
         });
@@ -279,14 +276,14 @@ public class InfoProveedor extends JFrame {
 	public void cargar() {
 		// TODO Auto-generated method stub
 			
-			Object[] o = dataProveedor.getActividades().toArray();
-	        DataActividad[] usuarios2 = new DataActividad[o.length];
-	        String[] usuarios = new String[o.length];
-	        for (int i = 0; i < o.length; i++) {
-	        	usuarios2[i] = (DataActividad) o[i];
-	        	usuarios[i] = ((DataActividad) o[i]).getNombre();
+			Object[] obj = dataProveedor.getActividades().toArray();
+	        DataActividad[] usuarios2 = new DataActividad[obj.length];
+	        String[] usuarios = new String[obj.length];
+	        for (int i = 0; i < obj.length; i++) {
+	        	usuarios2[i] = (DataActividad) obj[i];
+	        	usuarios[i] = ((DataActividad) obj[i]).getNombre();
 	        }
-	        if (o.length!=0) {
+	        if (obj.length!=0) {
 				DefaultComboBoxModel<String> model;
 		        model = new DefaultComboBoxModel<String>(usuarios);
 		        comboUsu.removeAllItems();

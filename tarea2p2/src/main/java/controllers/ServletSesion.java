@@ -72,15 +72,15 @@ public void initSession(HttpServletRequest request) {
 	if (session.getAttribute("estado_sesion") == null) {
 		session.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
 	}
-    Fabrica f = Fabrica.getInstance();
-    IControladorAlta ca = f.getIControladorAlta();
+    Fabrica fab = Fabrica.getInstance();
+    IControladorAlta conAlta = fab.getIControladorAlta();
     try {
-        ca.cargarCategorias();
+        conAlta.cargarCategorias();
         // Categs listas
         ServletContext servletContext = request.getServletContext();
         InputStream input = servletContext.getResourceAsStream("/WEB-INF/data/Departamentos.csv");
         CSVReader reader = new CSVReader(new InputStreamReader(input));
-        ca.cargarDptos(reader);
+        conAlta.cargarDptos(reader);
         // dptos listos
         input = servletContext.getResourceAsStream("/WEB-INF/data/Usuarios.csv");
         reader = new CSVReader(new InputStreamReader(input));
@@ -92,7 +92,7 @@ public void initSession(HttpServletRequest request) {
             byte[] imgBytes = baos.toByteArray();
             imagenes.put(Integer.toString(i), imgBytes);
         }
-        ca.cargarUsuarios(reader, imagenes);
+        conAlta.cargarUsuarios(reader, imagenes);
         // usus listos
         input = servletContext.getResourceAsStream("/WEB-INF/data/Actividades.csv");
         reader = new CSVReader(new InputStreamReader(input));
@@ -104,7 +104,7 @@ public void initSession(HttpServletRequest request) {
             byte[] imgBytes = baos.toByteArray();
             imagenes.put(Integer.toString(i), imgBytes);
         }
-        ca.cargarActs(reader, imagenes);
+        conAlta.cargarActs(reader, imagenes);
         // acts listas
         input = servletContext.getResourceAsStream("/WEB-INF/data/Paquetes.csv");
         reader = new CSVReader(new InputStreamReader(input));
@@ -116,7 +116,7 @@ public void initSession(HttpServletRequest request) {
             byte[] imgBytes = baos.toByteArray();
             imagenes.put(Integer.toString(i), imgBytes);
         }
-        ca.cargarPaquetes(reader, imagenes);
+        conAlta.cargarPaquetes(reader, imagenes);
         //Paqs listos
         input = servletContext.getResourceAsStream("/WEB-INF/data/Salidas.csv");
         reader = new CSVReader(new InputStreamReader(input));
@@ -139,14 +139,14 @@ public void initSession(HttpServletRequest request) {
             imagenes.put(Integer.toString(i), imgBytes);
             imgBytes = null;
         }
-        ca.cargarSalidas(reader, imagenes);
-        IControladorInsc cins = f.getIControladorInsc();
+        conAlta.cargarSalidas(reader, imagenes);
+        IControladorInsc cins = fab.getIControladorInsc();
         input = servletContext.getResourceAsStream("/WEB-INF/data/ActividadesPaquetes.csv");
         reader = new CSVReader(new InputStreamReader(input));
         cins.cargarActsPaqs(reader);
         input = servletContext.getResourceAsStream("/WEB-INF/data/ComprasPaquetes.csv");
         reader = new CSVReader(new InputStreamReader(input));
-        ca.cargarCompPaq(reader);
+        conAlta.cargarCompPaq(reader);
         input = servletContext.getResourceAsStream("/WEB-INF/data/Inscripciones.csv");
         reader = new CSVReader(new InputStreamReader(input));
         cins.cargarInsc(reader);
@@ -201,9 +201,9 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException, DepartamentoYaExisteExeption, UsuarioNoExisteException {
 	initSession(req);
 	String solicitud = req.getServletPath();
-	Fabrica f = Fabrica.getInstance();
-	IControladorAlta ca = f.getIControladorAlta();
-	IControladorConsulta cc = f.getIControladorConsulta();
+	Fabrica fab = Fabrica.getInstance();
+	IControladorAlta conAlta = fab.getIControladorAlta();
+	IControladorConsulta conCons = fab.getIControladorConsulta();
 	HttpSession ses = req.getSession();
     String nomDpto = req.getParameter("DTDConsultaActividad");
     String nomCat = req.getParameter("CatConsultaActividad");
@@ -222,12 +222,12 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     		    else {
     		        DataDepartamento[] aux = null;
         			try {
-        				aux = cc.obtenerDataDepartamentos();
+        				aux = conCons.obtenerDataDepartamentos();
         			} catch (DepartamentoNoExisteException e) {
         				System.out.println("no hay deptos");
         			}
         			ses.setAttribute("dptos", aux);
-        			Set<String> cats = cc.obtenerNombreCategorias();
+        			Set<String> cats = conCons.obtenerNombreCategorias();
         			ses.setAttribute("categorias", cats);
         			req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
     		    }
@@ -242,7 +242,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     			req.getRequestDispatcher("/WEB-INF/home/cerrarSesion.jsp").forward(req, resp);
     			break;
     		case "/sesionIniciada":
-    			DataUsuario[] ususSistema = ca.getUsuariosComp();
+    			DataUsuario[] ususSistema = conAlta.getUsuariosComp();
     			String nickOrEmail = (String) req.getParameter("emailnick_inicioSesion");
     			for (DataUsuario it : ususSistema) {
     				if (it.getMail().equals(nickOrEmail)) {
@@ -253,10 +253,10 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     						// Setear imagen
     						String imageAsBase64 = null;
     						if (it.getImagen()!=null) {
-    						    InputStream is = new ByteArrayInputStream(it.getImagen());
-        				        BufferedImage bi = ImageIO.read(is);
+    						    InputStream inSt = new ByteArrayInputStream(it.getImagen());
+        				        BufferedImage buffIM = ImageIO.read(inSt);
         				        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        						ImageIO.write(bi, "jpg", output);
+        						ImageIO.write(buffIM, "jpg", output);
         						imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
     						}
     				        ses.setAttribute("imagenUsuario", imageAsBase64);
@@ -279,10 +279,10 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     						// Setear imagen
     						String imageAsBase64 = null;
                             if (it.getImagen()!=null) {
-                                InputStream is = new ByteArrayInputStream(it.getImagen());
-                                BufferedImage bi = ImageIO.read(is);
+                                InputStream inSt = new ByteArrayInputStream(it.getImagen());
+                                BufferedImage buffIm = ImageIO.read(inSt );
                                 ByteArrayOutputStream output = new ByteArrayOutputStream();
-                                ImageIO.write(bi, "jpg", output);
+                                ImageIO.write(buffIm, "jpg", output);
                                 imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
                             }
                             ses.setAttribute("imagenUsuario", imageAsBase64);

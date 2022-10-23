@@ -154,7 +154,7 @@ public class CrearPaquete extends JInternalFrame {
             }
         });
 		cancelarBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent eve) {
                 limpiarFormulario();
                 setVisible(false);
             }

@@ -52,9 +52,9 @@ public class Inscribir extends JInternalFrame {
 	private JLabel lblCantidadDeTuristas;
 	private JLabel lblFecha;
 	
-	public Inscribir(IControladorInsc i) {
+	public Inscribir(IControladorInsc conInsc) {
 		setMaximizable(true);
-		icon = i;
+		icon = conInsc;
 		this.setTitle("Inscribir");
 	    setResizable(true);
 	    setBounds(57, 25, 731, 400);
@@ -82,7 +82,7 @@ public class Inscribir extends JInternalFrame {
 	    comboBox = new JComboBox();
 	    comboBox.setBounds(243, 5, 354, 24);
 	    comboBox.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
+	    	public void actionPerformed(ActionEvent eve) {
 	    		comboBox1.setVisible(true);
 	    		lblSeleccionarActividad.setVisible(true);
 	    		obtAct((String) comboBox.getSelectedItem());
@@ -135,7 +135,7 @@ public class Inscribir extends JInternalFrame {
 	    comboBox2.setVisible(false);
 	    
 	    comboBox1.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
+	    	public void actionPerformed(ActionEvent eve) {
 	    		obtSal((String) comboBox1.getSelectedItem());
 	    		obtTur();
 	    		comboBox2.setVisible(true);
@@ -152,7 +152,7 @@ public class Inscribir extends JInternalFrame {
         
 
         btnInscribir.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		inscri();
         	}
         });
@@ -162,7 +162,7 @@ public class Inscribir extends JInternalFrame {
         textField = new JTextField();
         textField.addKeyListener(new KeyAdapter() {
         	@Override
-        	public void keyPressed(KeyEvent e) {
+        	public void keyPressed(KeyEvent eve) {
         		btnInscribir.setVisible(true);
         	}
         });
@@ -172,7 +172,7 @@ public class Inscribir extends JInternalFrame {
         
         JButton btnCerrar = new JButton("Cerrar");
         btnCerrar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		limpiar();
         		setVisible(false);
         	}
@@ -183,7 +183,7 @@ public class Inscribir extends JInternalFrame {
         btnInscribir.setVisible(false);
         
         comboBox2.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
+	    	public void actionPerformed(ActionEvent eve) {
 	    		if (!btnInscribir.isVisible()&&lblCantidadDeTuristas.isVisible()) {
 	    			btnInscribir.setVisible(true);
 	    		}
@@ -200,7 +200,7 @@ public class Inscribir extends JInternalFrame {
 	    });
         
         comboBox3.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
+	    	public void actionPerformed(ActionEvent eve) {
 	    		if (selecciont==true) {
 	    			lblCantidadDeTuristas.setVisible(true);
 	    			lblFecha.setVisible(true);
@@ -232,20 +232,20 @@ public class Inscribir extends JInternalFrame {
 
 	public void obtTur() {
 		DataUsuario[] array = icon.listarUsuarios();
-		int i = 0;
+		int cont = 0;
 		Set<String> aux = new HashSet<String>();
- 		while (i<array.length) {
-			if (array[i] instanceof DataTurista) {
-				DataTurista dt = (DataTurista) array[i];
-				aux.add(dt.getNick());
+ 		while (cont<array.length) {
+			if (array[cont] instanceof DataTurista) {
+				DataTurista dataTur = (DataTurista) array[cont];
+				aux.add(dataTur.getNick());
 			}
-			i++;
+			cont++;
 		}
 		String[] model = new String[aux.size()];
-		i=0;
+		cont=0;
 		for (String iter:aux) {
-			model[i] = iter;
-			i++;
+			model[cont] = iter;
+			cont++;
 		}
 		comboBox3.setModel(new DefaultComboBoxModel(model));
 	}
