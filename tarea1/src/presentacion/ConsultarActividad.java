@@ -248,7 +248,7 @@ public class ConsultarActividad extends JInternalFrame {
         getContentPane().add(btnInfoPaquete);
         btnInfoPaquete.setVisible(false);
         
-        actNombre = new JLabel("Nombre de la Actividad:");
+        actNombre = new JLabel("Nombre Actividad y Estado:");
         actNombre.setSize(173, 32);
         actNombre.setLocation(40, 88);
     	GridBagConstraints gbc_actNombre = new GridBagConstraints();
@@ -461,7 +461,7 @@ public void seleccionarActvidad(DataActividad act) {
 
 public void mostrarActividad() {
 	actNombre.setVisible(true);
-	actNombreR.setText(actElegida.getNombre());
+	actNombreR.setText(actElegida.getNombre() + " - " + actElegida.getEstado());
 	actNombreR.setVisible(true);
 	actDesc.setVisible(true);
 	actDescR.setText(actElegida.getDescripcion());

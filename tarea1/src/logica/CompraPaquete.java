@@ -1,5 +1,6 @@
 package logica;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,13 +25,17 @@ public class CompraPaquete{
 		setPaq(paquete);
 		Calendar calendario = Calendar.getInstance();
 		calendario.setTime(fecha);
-		calendario.add(Calendar.DAY_OF_MONTH, -paquete.getValidez());
+		calendario.add(Calendar.DAY_OF_MONTH, paquete.getValidez());
 		setVencimiento(calendario.getTime());
-		Set<String> acts = paquete.getColAct().keySet();
+		Collection<Actividad> acts = paquete.getColAct().values();
 		setRestAct(new HashMap<String, Integer>());
-		for (String aux: acts) {
-			this.restAct.put(aux, cant);
+		int costo = 0;
+		for (Actividad aux: acts) {
+			this.restAct.put(aux.getNombre(), cant);
+			costo += aux.getCosto();
 		}
+		costo = costo*(paquete.getDescuento()/100);
+		setCosto(costo);
 		if (!this.paq.isComprado()) {
 			getPaq().setComprado(true);
 		}
