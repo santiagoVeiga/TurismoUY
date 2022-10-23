@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,logica.DataPaquete,logica.DataActividad" %>
+<%@page import="java.util.Base64,logica.DataCompraPaquete,logica.DataCompraGeneral,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,logica.DataPaquete,logica.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -105,8 +105,18 @@
 				  
 				  	<% 
 				      if(DU instanceof DataTurista){
-				    	    Set<DataSalida> salidas;  
-				    	    DataPaquete[] DP = (DataPaquete[]) request.getAttribute("ArregloPaquetes");
+				    	    Set<DataCompraGeneral> salidas;
+				    	    Set<DataCompraPaquete> DCP = ((DataTurista)DU).getComprasPaq();
+				    	    
+				    	    Object[] uuuu = DCP.toArray();
+				    	    DataCompraPaquete[] arrDCP = new DataCompraPaquete[uuuu.length];
+				    	    DataPaquete[] DP = new DataPaquete[uuuu.length];
+				    	    for (int i = 0; i < uuuu.length; i++) {
+					        	arrDCP[i] = (DataCompraPaquete) uuuu[i];
+					        	DP[i] = ((DataCompraPaquete) uuuu[i]).getPaq();
+					        	
+					        }
+				    	    /*DataPaquete[] DP = (DataPaquete[]) request.getAttribute("ArregloPaquetes");*/
 				    	    if (DP.length != 0){
 				    	    	String imagenp = Base64.getEncoder().encodeToString(DP[0].getImagen());
 				      %>
@@ -143,7 +153,11 @@
 							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenp1 %>"  alt="Card image cap"> 
 							                                    </a>
 							                                    <div class="card-body">
-							                                        <p class="card-text"><%= DP[i].getNombre() %></p>                                  
+							                                        <p class="card-text"> <%= DP[i].getNombre() %></p>
+							                                        <p class="card-text">cantidad: <%= ((DataCompraPaquete)arrDCP[i]).getCantidad()%></p> 
+							                                        <p class="card-text">costo: <%= arrDCP[i].getCosto()%></p> 
+							                                        <p class="card-text">fecha: <%= arrDCP[i].getFecha()%></p> 
+							                                        <p class="card-text">vencimiento: <%= arrDCP[i].getVencimiento()%></p>                                  
 							                                    </div>
 							                                 </div>
 							                            </div>
@@ -167,11 +181,13 @@
 					      
 						<%
 				    	    }
-						salidas = ((DataTurista) DU).getDataSalidas();
+						salidas = ((DataTurista) DU).getInscripcionesSal();
 						Object[] uuu = salidas.toArray();
 				        DataSalida[] arrDS = new DataSalida[uuu.length];
+				        DataCompraGeneral[] arrDCG = new DataCompraGeneral[uuu.length]; 
 				        for (int i = 0; i < uuu.length; i++) {
-				        	arrDS[i] = (DataSalida) uuu[i];
+				        	arrDS[i] = ((DataCompraGeneral) uuu[i]).getSalida();
+				        	arrDCG[i] = (DataCompraGeneral) uuu[i];
 				        }
 				        if (uuu.length != 0){
 				        String imagen1 = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
@@ -209,7 +225,11 @@
 							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagen2 %>"  alt="Card image cap"> 
 							                                    </a>
 							                                    <div class="card-body">
-							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>                                    </div>
+							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>
+							                                        <p class="card-text">Costo: <%= arrDCG[i].getCosto() %></p>
+							                                        <p class="card-text">Fecha:<%= arrDCG[i].getFecha()	 %></p>
+							                                        <p class="card-text">Cantidad:<%= arrDCG[i].getCantidad() %></p>
+							                                        <p class="card-text">Es de un paquete:<%if(arrDCG[i].isPorPaquete()){%>Si<%}else{%>No<%}%></p>                                    </div>
 							                                    </div>
 							                                 </div>
 							                            </div>
