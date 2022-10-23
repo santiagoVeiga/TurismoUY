@@ -156,7 +156,7 @@
 							                                        <p class="card-text"> <%= DP[i].getNombre() %></p>
 							                                        <p class="card-text">cantidad: <%= ((DataCompraPaquete)arrDCP[i]).getCantidad()%></p> 
 							                                        <p class="card-text">costo: <%= arrDCP[i].getCosto()%></p> 
-							                                        <p class="card-text">fecha: <%= arrDCP[i].getFecha()%></p> 
+							                                        <p class="card-text">fecha: <%=arrDCP[i].getFecha().getDate() + "/" + (arrDCP[i].getFecha().getMonth()+1)+ "/" + (arrDCP[i].getFecha().getYear()+1900) %> </p> 
 							                                        <p class="card-text">vencimiento: <%= arrDCP[i].getVencimiento()%></p>                                  
 							                                    </div>
 							                                 </div>
@@ -227,7 +227,7 @@
 							                                    <div class="card-body">
 							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>
 							                                        <p class="card-text">Costo: <%= arrDCG[i].getCosto() %></p>
-							                                        <p class="card-text">Fecha:<%= arrDCG[i].getFecha()	 %></p>
+							                                        <p class="card-text">Fecha:<%=arrDCG[i].getFecha().getDate() + "/" + (arrDCG[i].getFecha().getMonth()+1)+ "/" + (arrDCG[i].getFecha().getYear()+1900) %></p>
 							                                        <p class="card-text">Cantidad:<%= arrDCG[i].getCantidad() %></p>
 							                                        <p class="card-text">Es de un paquete:<%if(arrDCG[i].isPorPaquete()){%>Si<%}else{%>No<%}%></p>                                    </div>
 							                                    </div>
