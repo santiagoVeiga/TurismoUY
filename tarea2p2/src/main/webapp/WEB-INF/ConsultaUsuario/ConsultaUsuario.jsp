@@ -96,7 +96,7 @@
 		                    	
 		                    <%}%>
 		                    <% DataUsuario usr = (DataUsuario) session.getAttribute("usuario");
-		                    if (DU.getNick().equals(usr.getNick())){
+		                    if (usr != null && DU.getNick().equals(usr.getNick())){
 		                    	%>
 		                    <button type="button" class="btn btn-light"><a href="/tarea2p2/ModificarUsuario?dataUsuario=<%= DU.getNick() %>">Modificar datos personales</a></button>
 		                   <% }%> 
