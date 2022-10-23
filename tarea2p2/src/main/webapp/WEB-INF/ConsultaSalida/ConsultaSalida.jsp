@@ -46,50 +46,10 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="row">
-                    	<%DataUsuario usr = null;
-   if (session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO) {
-   	usr = (DataUsuario) session.getAttribute("usuario");
-   }
-     %>
-<div class="hero__perfil">
-<% if (usr == null) {%>
-	<ul>
-           <li><a href="/tarea2p2/ConsultaUsuario"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
-           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
-           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
-       </ul>
-<% } else if (usr instanceof DataTurista){ %>
-	<div class="hero__perfil__all" style="cursor: pointer;" onclick="window.location='./ConsultaUsuarioT.html';">
-		<span>Mi Perfil</span>
-		<div class="ax float-right">
-			<i class="fa fa-caret-square-o-right" aria-hidden="true"></i>
-		</div>
-	</div>
-	<ul>
-           <li><a href="/tarea2p2/Inscripcion?salida=<%= dataSalida.getNombre()%>" ><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Inscripcion a Salida Turistica</a></li>
-           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Comprar Paquete</a></li>
-           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
-           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
-           <li><a href="./listar_usuariosT.html"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
-       </ul>
-<% } else if (usr instanceof DataProveedor){%>
-	<div class="hero__perfil__all" style="cursor: pointer;" onclick="window.location='./ConsultaUsuarioP.html';">
-		<span>Mi Perfil</span>
-		<div class="ax float-right">
-			<i class="fa fa-caret-square-o-right" aria-hidden="true"></i>
-		</div>
-	</div>
-	<ul>
-           <li><a href="/tarea2p2/AltaActividad"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Actividad Turistica</a></li>
-           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Salida Turistica</a></li>
-           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
-          <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
-          <li><a href="/tarea2p2/ConsultaUsuario"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
-       </ul>
-<% } %>
-	
-</div>
+                    	<jsp:include page="/WEB-INF/template/miPerfil.jsp"/>
                         <jsp:include page="/WEB-INF/template/dptosCats.jsp"/>
+                        
+                        
                     </div>
                 </div>
                 <!-- Salida -->
