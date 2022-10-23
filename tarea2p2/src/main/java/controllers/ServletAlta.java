@@ -465,7 +465,7 @@ public class ServletAlta extends HttpServlet {
                         
                         if (usuario instanceof DataTurista) {
                             String nacionalidadNueva = (String) req.getParameter("nacionalidadNueva");
-                            if (!fechaNueva.equals(null) || !fechaNueva.equals("")) {
+                            if (fechaNueva.equals(null) || fechaNueva.equals("")) {
                                 conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva);
                             } else {
                                 Date fechaNuevaNac = formatFecha.parse(fechaNueva);
@@ -478,7 +478,7 @@ public class ServletAlta extends HttpServlet {
                             if (!linkNuevo.equals(null) || !linkNuevo.equals("")) {
                                 hayLink = true;
                             }
-                            if (!fechaNueva.equals(null) || !fechaNueva.equals("")) {
+                            if (fechaNueva.equals(null) || fechaNueva.equals("")) {
                                 conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink);
                             }else {
                                 Date fechaNuevaNac = formatFecha.parse(fechaNueva);
@@ -486,6 +486,11 @@ public class ServletAlta extends HttpServlet {
                             }
                         }
                         req.setAttribute("DataUsuario", usuario);
+                        try {
+                            session.setAttribute("usuario", conCons.obtenerDataUsuarioNick(usuario.getNick()));
+                        } catch (UsuarioNoExisteException e) {
+                            // TODO Auto-generated catch block
+                        }
                         req.getRequestDispatcher("/ConsultaUsuario").forward(req, resp);
                     }catch (ParseException e){
                         // TODO Auto-generated catch block
