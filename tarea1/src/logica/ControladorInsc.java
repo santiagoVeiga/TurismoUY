@@ -275,7 +275,7 @@ public class ControladorInsc implements IControladorInsc {
 	}
 
 	@Override
-	public void cargarActsPaqs(CSVReader reader) throws Exception {
+	public void cargarActsPaqs(CSVReader reader) throws IOException {
 		String[] nextLine;
 	      int cont = 0;
 	      //reads one line at a time  

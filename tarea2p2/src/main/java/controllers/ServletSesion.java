@@ -143,12 +143,7 @@ public void initSession(HttpServletRequest request) {
         IControladorInsc cins = f.getIControladorInsc();
         input = servletContext.getResourceAsStream("/WEB-INF/data/ActividadesPaquetes.csv");
         reader = new CSVReader(new InputStreamReader(input));
-        try {
-            cins.cargarActsPaqs(reader);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        cins.cargarActsPaqs(reader);
         input = servletContext.getResourceAsStream("/WEB-INF/data/ComprasPaquetes.csv");
         reader = new CSVReader(new InputStreamReader(input));
         ca.cargarCompPaq(reader);
