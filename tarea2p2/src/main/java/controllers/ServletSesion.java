@@ -72,7 +72,7 @@ public void initSession(HttpServletRequest request) {
 	if (session.getAttribute("estado_sesion") == null) {
 		session.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
 	}
-    Fabrica fab = Fabrica.getInstance();
+	Fabrica fab = Fabrica.getInstance();
     IControladorAlta conAlta = fab.getIControladorAlta();
     try {
         conAlta.cargarCategorias();
@@ -160,6 +160,7 @@ public void initSession(HttpServletRequest request) {
         e1.printStackTrace();
         System.out.println(e1.toString());
     }
+    
 }
 
 /**

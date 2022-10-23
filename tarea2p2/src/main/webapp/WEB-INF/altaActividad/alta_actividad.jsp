@@ -77,7 +77,7 @@
                                     <!-- Nombre -->
                                     <div class="col-md-6 mb-3">
                                         <label for="productName">Nombre</label>
-                                        <input type="text" class="form-control" id="actividadNombre"  name="actividadNombre" required placeholder="" value="" >
+                                        <input type="text" class="form-control" id="actividadNombre"  name="actividadNombre" required placeholder="" >
                                         <!-- <div class="invalid-feedback">
                                         Ingresa un nombre
                                         </div> -->
@@ -101,7 +101,7 @@
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="productDescription">Descripción</label>
-                                        <textarea class="form-control" id="actividadDescripcion" name="actividadDescripcion" rows="3" required=""></textarea>
+                                        <textarea class="form-control" id="actividadDescripcion" name="actividadDescripcion" rows="3" required></textarea>
                                     </div>
                                 </div>
                                 <!-- Costo y Duracion -->
@@ -109,7 +109,7 @@
                                     <!-- Costo -->
                                     <div class="col-md-3 mb-3">
                                         <label for="actividadCosto">Costo</label>
-                                        <input type="number" class="form-control" id="actividadCosto" name="actividadCosto" placeholder="" required="" value="0" min="0">
+                                        <input type="number" class="form-control" id="actividadCosto" name="actividadCosto" placeholder="" required min="1">
                                         <div class="invalid-feedback">
                                             El costo debe ser mayor que 0.
                                         </div>
@@ -120,8 +120,8 @@
                                     </div>
                                     <!-- Duracion -->
                                     <div class="col-md-3 mb-3">
-                                    <label for="actividadDuracion">Duración</label>
-                                    <input type="number" class="form-control" id="actividadDuracion" name="actividadDuracion" placeholder="ingrese la duracion en horas" required="" value="" min="1">
+                                    <label for="actividadDuracion">Duración (horas)</label>
+                                    <input type="number" class="form-control" id="actividadDuracion" name="actividadDuracion" placeholder="ingrese la duracion en horas" required min="1">
                                     <div class="invalid-feedback">
                                         La cantidad es requerida.
                                     </div>
@@ -132,7 +132,7 @@
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="actividadCiudad">Ciudad</label>
-                                        <textarea class="form-control" id="actividadCiudad" name="actividadCiudad" rows="1" required=""></textarea>
+                                        <textarea class="form-control" id="actividadCiudad" name="actividadCiudad" rows="1" required></textarea>
                                     </div>
                                 </div>
                                 
@@ -140,7 +140,7 @@
                                 <div class="col">
                                     <div class="row mb-3">
                                         <label for="actividadCategoria">Categorías</label>
-                                        <select class="d-block w-100" id="actividadCategoria" name="actividadCategoria" multiple>
+                                        <select class="d-block w-100" id="actividadCategoria" name="actividadCategoria" multiple required>
                                             <option value="" disabled selected>Agregar o quitar categoría</option>
 											<%Set<String> categorias = (Set<String>) session.getAttribute("categorias");
 											         if(categorias!=null)
