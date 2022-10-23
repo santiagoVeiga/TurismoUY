@@ -85,7 +85,7 @@
 			            	<div class="row">
 			            		<div class="col-lg-9">
 			            		
-				            		<form method="post"class="needs-validation" enctype="multipart/form-data" action="/tarea2p2/UsuarioModificado?nickUsuario=<%=usuario.getNick()%>">
+				            		<form method="post"class="needs-validation" enctype="multipart/form-data" action="/tarea2p2/UsuarioModificado">
 											<% String error = (String) request.getAttribute("Exception"); 
 								               if(error != null){%>
 								               <div class="alert alert-danger" role="alert" style="display: flex;justify-content: space-between;">
@@ -99,24 +99,36 @@
 												  <div class="tab-container">
 														      <div class="tab-content">
 															        <div class="form-outline mb-4">
-														              	<label class="form-label" for="nombreNuevo">Modificar Nombre</label>
-														              	<input type="text"  class="form-control form-control-lg" id="nombreNuevo" name="nombreNuevo" value="<%=usuario.getNombre()%>"/>
+														              	<label class="form-label" for="nombreNuevo">Nombre</label>
+														              	<input type="text"  class="form-control form-control-lg" id="nombreNuevo" name="nombreNuevo" value="<%=usuario.getNombre()%>" required/>
 														            </div>
 												                    <div class="form-outline mb-4">
-												                    	<label class="form-label" for="apellidoNuevo">Modificar Apellido</label>
-														              	<input type="text" class="form-control form-control-lg" id="apellidoNuevo" name="apellidoNuevo" value="<%=usuario.getApellido()%>"/>
+												                    	<label class="form-label" for="apellidoNuevo">Apellido</label>
+														              	<input type="text" class="form-control form-control-lg" id="apellidoNuevo" name="apellidoNuevo" value="<%=usuario.getApellido()%>"  required/>
 														            </div>
 											                        <div class="form-outline mb-4">
-											                        	<label class="form-label" for="fechaNueva">Modificar Fecha de Nacimiento</label>
+											                        	<label class="form-label" for="fechaNueva">Fecha de Nacimiento</label>
 														              <div class="cont-fechaNac">
-														              	<input type="date" class="form-control form-control-lg" id="fechaNueva" name="fechaNueva"/>
+														              	<input type="date" class="form-control form-control-lg" id="fechaNueva" name="fechaNueva" value=""/>
 																	  </div>
 														            </div>
-														            <div>
-														            	<label class="form-label" for="fotoNueva">Modificar Foto De Perfil</label>
-														            	<br>
-														            	<input accept="image/*" type="file" id="fotoNueva" name="fotoNueva" value="<%=usuario.getImagen()%>">
-														            </div>
+														            <!-- Si es Turista -->
+														            <%if(usuario instanceof DataTurista){%>
+												                        <div class="form-outline mb-4">
+													                    	<label class="form-label" for="nacionalidadNueva">Nacionalidad</label>
+															              	<input type="text" class="form-control form-control-lg" id="nacionalidadNueva" name="nacionalidadNueva" value="<%=((DataTurista) usuario).getNacionalidad()%>"  required/>
+															            </div>
+											                        <%}else{%>
+											                        		<div class="form-outline mb-4">
+														                    	<label class="form-label" for="descripcionNueva">Descripcion</label>
+																              	<input type="text" class="form-control form-control-lg" id="descripcionNueva" name="descripcionNueva" value="<%=((DataProveedor) usuario).getDescripcion()%>"  required/>
+															            	</div>
+											                            	<div class="form-outline mb-4">
+														                    	<label class="form-label" for="linkNuevo">Link (opcional)</label>
+																              	<input type="text" class="form-control form-control-lg" id="linkNuevo" name="linkNuevo" value="<%=((DataProveedor) usuario).getLink()%>"/>
+															            	</div>
+											                        <%}%>
+														            
 														            <!-- Botones -->
 									                                <button type="submit" class="btn btn-info btn-lg btn-block">Confirmar</button>
 														      </div> 

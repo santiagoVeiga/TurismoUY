@@ -127,7 +127,7 @@
 	                                    <div class="col-md-12 order-md-1">
 	                                        <label for="zip">Imágenes</label>
 	                                        <div class=" " id="file-upload">
-	                                            <input type="file" class="form-control" id="salidaFotos" name="salidaFotos" />
+	                                            <input type="file" accept="image/jpg, image/jpeg"class="form-control" id="salidaFotos" name="salidaFotos" />
 	                                        </div>
 	                                    </div>
 	                                <hr class="mb-4">

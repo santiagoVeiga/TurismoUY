@@ -84,10 +84,17 @@
 				  <div id="tab1" class="tab">
 				      <a href="#tab1">Informacion Basica</a>
 				      <div class="tab-content">
-					        <li><span>Nombre:</span> <%=DU.getNombre() %></li>
-		                    <li><span>Apellido:</span>  <%=DU.getApellido() %></li>
-		                    <li><span>EMail:</span>  <%=DU.getMail() %></li>
-		                    <li><span>FechaNac:</span>  <%=DU.getNacimiento().getDate() + "/" + (DU.getNacimiento().getMonth()+1)+ "/" + (DU.getNacimiento().getYear()+1900) %></li>
+					        <li><span>Nombre: </span> <%=DU.getNombre() %></li>
+		                    <li><span>Apellido: </span>  <%=DU.getApellido() %></li>
+		                    <li><span>EMail: </span>  <%=DU.getMail() %></li>
+		                    <li><span>FechaNac: </span>  <%=DU.getNacimiento().getDate() + "/" + (DU.getNacimiento().getMonth()+1)+ "/" + (DU.getNacimiento().getYear()+1900) %></li>
+		                    <%if(tipo == "Turista"){%>
+		                    	<li><span>Nacionalidad: </span><%=((DataTurista)DU).getNacionalidad()%></li>
+		                    <%}else{%>
+		                    	<li><span>Descripcion: </span><%=((DataProveedor)DU).getDescripcion()%></li>
+		                    	<li><span>Link: </span><%=((DataProveedor)DU).getLink()%></li>
+		                    	
+		                    <%}%>
 		                    <% DataUsuario usr = (DataUsuario) session.getAttribute("usuario");
 		                    if (DU.getNick().equals(usr.getNick())){
 		                    	%>

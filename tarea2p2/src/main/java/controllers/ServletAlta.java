@@ -436,7 +436,6 @@ public class ServletAlta extends HttpServlet {
     			case "/UsuarioModificado":
                     String nuevoNombre = (String) req.getParameter("nombreNuevo");
                     String apellidoNuevo = (String) req.getParameter("apellidoNuevo");
-                    
                     String fechaNueva = (String) req.getParameter("fechaNueva");
                     SimpleDateFormat formatFecha = new SimpleDateFormat("yyyy-MM-dd");
                     
@@ -444,16 +443,30 @@ public class ServletAlta extends HttpServlet {
     				conAlta = fab.getIControladorAlta();
                     HttpSession session = req.getSession();
                     DataUsuario usuario = (DataUsuario) session .getAttribute("usuario");
-                    System.out.printf(usuario.getNick() +" "+ nuevoNombre +" "+ apellidoNuevo +"\n" );
                     
                     try {
-                        Date fechaNuevaNac = formatFecha.parse(fechaNueva);
+                        
                         if (usuario instanceof DataTurista) {
-                            //System.out.printf("Turista "+usuario.getNick() +" "+ nuevoNombre +" "+ apellidoNuevo +"\n" );
-                            conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, ((DataTurista) usuario).getNacionalidad());
+                            String nacionalidadNueva = (String) req.getParameter("nacionalidadNueva");
+                            if(!fechaNueva.equals(null) || !fechaNueva.equals("")) {
+                                conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva);
+                            }else {
+                                Date fechaNuevaNac = formatFecha.parse(fechaNueva);
+                                conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, nacionalidadNueva);
+                            }
                         } else if (usuario instanceof DataProveedor){
-                            //System.out.printf("Proveedor "+usuario.getNick() +" "+ nuevoNombre +" "+ apellidoNuevo +"\n");
-                            conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, ((DataProveedor) usuario).getDescripcion(), ((DataProveedor) usuario).getLink(), true); //((DataProveedor) du1).getHayLink());
+                            String descripcionNueva = (String) req.getParameter("descripcionNueva");
+                            String linkNuevo = (String) req.getParameter("linkNuevo");
+                            boolean hayLink = false;
+                            if((!linkNuevo.equals(null) || !linkNuevo.equals(""))) {
+                                hayLink = true;
+                            }
+                            if(!fechaNueva.equals(null) || !fechaNueva.equals("")) {
+                                conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink);
+                            }else {
+                                Date fechaNuevaNac = formatFecha.parse(fechaNueva);
+                                conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, descripcionNueva, linkNuevo, hayLink);
+                            }
                         }
                         req.setAttribute("DataUsuario", usuario);
                         req.getRequestDispatcher("/ConsultaUsuario").forward(req, resp);
