@@ -118,7 +118,7 @@
 				                    			<span> Validez: </span><br />
 				                    			<span> Descuento: </span><br />
 				                    			<span> Fecha de Alta: </span><br />
-				                    			<span> Descripcion: </span><br />
+				                    			<span> Descripción: </span><br />
 				                    			<span> </span><br />
 				                    		</div>
 				                    	</div>

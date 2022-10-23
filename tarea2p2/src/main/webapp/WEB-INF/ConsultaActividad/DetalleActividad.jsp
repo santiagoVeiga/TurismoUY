@@ -81,8 +81,8 @@
 							      <td><%= actividadSeleccionada.getDuracion()%></td>
 							    </tr>
 							    <tr>
-							      <th scope="row">Fecha de Alta</th>
-							      <td><%= actividadSeleccionada.getFechaAlta()%></td>
+							      <th scope="row">Fecha de Alta</th> 
+							      <td><%= actividadSeleccionada.getFechaAlta().getDate() + "/" + (actividadSeleccionada.getFechaAlta().getMonth()+1) + "/" + (actividadSeleccionada.getFechaAlta().getYear()+1900) %></td>
 							    </tr>
 							    <tr>
 							      <th scope="row">Costo</th>
