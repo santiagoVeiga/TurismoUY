@@ -131,11 +131,11 @@
 	                                            <h2>Paquetes</h2>
 	                                        </div>
 	                                        <div class="row">
-	                                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+	                                            <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel">
 					                            <div class="carousel-inner">
 					                              <div class="carousel-item active">
 					                                <div class="card" >
-					                                    <a href=""> 
+					                                    <a> 
 					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenp %>"  alt="Card image cap"> 
 					                                    </a>
 					                                    <div class="card-body">
@@ -149,7 +149,7 @@
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
-							                                	<a href="consulta_actividad_Turista.html"> 
+							                                	<a> 
 							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenp1 %>"  alt="Card image cap"> 
 							                                    </a>
 							                                    <div class="card-body">
@@ -163,14 +163,19 @@
 							                            </div>
 							                              <%} %>  
 					                              
-					                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-					                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					                              <span class="sr-only">Previous</span>
-					                            </a>
-					                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-					                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-					                              <span class="sr-only">Next</span>
-					                            </a>
+					                            <%
+							                          	if(DP.length!=1){
+							                          	%>
+							                          	<a class="carousel-control-prev" href="#carouselExampleControls2" role="button" data-slide="prev">
+							                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							                              <span class="sr-only">Previous</span>
+							                            </a>
+							                            <a class="carousel-control-next" href="#carouselExampleControls2" role="button" data-slide="next">
+							                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+							                              <span class="sr-only">Next</span>
+							                            </a>
+							                              <%} 
+							                      %>  
 					                          </div>
 	                                        </div>
 	                                    </div>
@@ -207,7 +212,7 @@
 					                            <div class="carousel-inner">
 					                              <div class="carousel-item active">
 					                                <div class="card" >
-					                                    <a href="consulta_actividad_Turista.html"> 
+					                                    <a> 
 					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagen1 %> " alt="Card image cap"> 
 					                                    </a>
 					                                    <div class="card-body">
@@ -221,7 +226,7 @@
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
-							                                	<a href="consulta_actividad_Turista.html"> 
+							                                	<a> 
 							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagen2 %>"  alt="Card image cap"> 
 							                                    </a>
 							                                    <div class="card-body">
@@ -232,19 +237,26 @@
 							                                        <p class="card-text">Es de un paquete:<%if(arrDCG[i].isPorPaquete()){%>Si<%}else{%>No<%}%></p>                                    </div>
 							                                    </div>
 							                                 </div>
-							                            </div>
+							                            
 							                              <%} %>  
-					                              
-					                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-					                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					                              <span class="sr-only">Previous</span>
-					                            </a>
-					                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-					                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-					                              <span class="sr-only">Next</span>
-					                            </a>
-					                          </div>
+					                              <%
+							                          	if(arrDS.length!=1){
+							                          	%>
+							                          	<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+							                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							                              <span class="sr-only">Previous</span>
+							                            </a>
+							                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+							                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+							                              <span class="sr-only">Next</span>
+							                            </a>
+							                              <%} 
+							                      %>  					                            
+					                            </div>
 	                                        </div>
+	                                    
+	                                    	
+					                          </div>
 	                                    
 	                                    </div>
 					      </div>
@@ -274,7 +286,7 @@
 					                            <div class="carousel-inner">
 					                              <div class="carousel-item active">
 					                                <div class="card" >
-					                                    <a href="consulta_actividad_Turista.html"> 
+					                                    <a> 
 					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv %>" alt="Card image cap"> 
 					                                    </a>
 					                                    <div class="card-body">
@@ -288,7 +300,7 @@
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
-							                                	<a href="consulta_actividad_Turista.html"> 
+							                                	<a > 
 							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv1 %>"  alt="Card image cap"> 
 							                                    </a>
 							                                    <div class="card-body">
@@ -298,14 +310,19 @@
 							                            </div>
 							                              <%} %>  
 					                              
-					                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-					                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					                              <span class="sr-only">Previous</span>
-					                            </a>
-					                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-					                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-					                              <span class="sr-only">Next</span>
-					                            </a>
+					                           <%
+							                          	if(arrDS.length!=1){
+							                          	%>
+							                          	<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+							                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							                              <span class="sr-only">Previous</span>
+							                            </a>
+							                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+							                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+							                              <span class="sr-only">Next</span>
+							                            </a>
+							                              <%} 
+							                      %>  
 					                          </div>
 	                                        </div>
 	                                    
