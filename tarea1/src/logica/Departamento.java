@@ -15,9 +15,9 @@ public class Departamento {
 	private Map<String, Actividad> colAct;
 
 	public Departamento(String nombre, String descripcion, String URL){
-		this.nombre = nombre ; 
-		this.descripcion = descripcion ; 
-		this.url = URL ; 
+		setNombre(nombre); 
+		setDescripcion(descripcion); 
+		setUrl(URL); 
 		this.colAct = new HashMap<String, Actividad>();
 	}
 

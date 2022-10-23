@@ -19,25 +19,25 @@ public class CompraPaquete{
 	private Map<String, Integer> restAct;
 	
 	public CompraPaquete(Date fecha, int cant, Paquete paquete) {
-		this.cantidad = cant;
-		this.fecha = fecha;
-		this.paq = paquete;
+		setCantidad(cant);
+		setFecha(fecha);
+		setPaq(paquete);
 		Calendar calendario = Calendar.getInstance();
 		calendario.setTime(fecha);
 		calendario.add(Calendar.DAY_OF_MONTH, -paquete.getValidez());
-		this.vencimiento = calendario.getTime();
+		setVencimiento(calendario.getTime());
 		Set<String> acts = paquete.getColAct().keySet();
-		this.restAct = new HashMap<String, Integer>();
+		setRestAct(new HashMap<String, Integer>());
 		for (String aux: acts) {
 			this.restAct.put(aux, cant);
 		}
 		if (!this.paq.isComprado()) {
-			this.paq.setComprado(true);
+			getPaq().setComprado(true);
 		}
 	}
 	
 	int obtenerCuposAct(String act) {
-		return this.restAct.get(act);
+		return getRestAct().get(act);
 	}
 	
 	void reducirCuposAct(String act, int cant) throws NoHayCuposException, ActividadNoExisteException {

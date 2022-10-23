@@ -328,10 +328,11 @@ class ControladorAltaTest {
 	@Test
 	void testDTCompGen() {
 		DataSalida sal = new DataSalida();
-		DataCompraGeneral aux = new DataCompraGeneral(new Date(), 0, 0, sal);
+		Date auxi = new Date(2023, 6, 20);
+		DataCompraGeneral aux = new DataCompraGeneral(auxi, 0, 0, sal);
 		assertEquals(aux.getCantidad(), 0);
 		assertEquals(aux.getCosto(), 0);
-		assertEquals(aux.getFecha(), new Date());
+		assertEquals(aux.getFecha().compareTo(auxi), 0);
 		assertEquals(aux.getSalida(), sal);
 		assertEquals(aux.isPorPaquete(), false);
 	}
@@ -700,13 +701,13 @@ class ControladorAltaTest {
 	void testExepcionRegistrarTuristaRepetidoMail() {
 		Date auxi = new Date(2000, 6, 20);
 		try {
-			IctrAlta.confirmarAltaTurista("elsantive", "elsantive", "sfhuafhbna", "santimail", auxi, "uruguaya");
+			IctrAlta.confirmarAltaTurista("nickTest", "nombreTest", "apTest", "mailTest", auxi, "uruguaya");
 		} catch (UsuarioRepetidoException e) {
 			fail(e.getMessage());
 		};
 		//esta es la prueba
 		assertThrows(UsuarioRepetidoException.class, ()-> {
-			IctrAlta.confirmarAltaTurista("elsantiv", "elsantive", "sfhuafhbna", "santimail", auxi, "uruguaya"); });	
+			IctrAlta.confirmarAltaTurista("nickTest", "nombreTest", "apTest", "mailTest", auxi, "uruguaya"); });	
 	}
 	
 	@Test
@@ -852,6 +853,5 @@ class ControladorAltaTest {
 		assertEquals(res, true);
 		
 	}
-	
 
 }
