@@ -108,8 +108,9 @@
 														            </div>
 											                        <div class="form-outline mb-4">
 											                        	<label class="form-label" for="fechaNueva">Modificar Fecha de Nacimiento</label>
-														              	<input type="date" class="form-control form-control-lg" id="fechaNueva" name="fechaNueva" value="<%=usuario.getNacimiento()%>"/>
-														              
+														              <div class="cont-fechaNac">
+														              	<input type="date" class="form-control form-control-lg" id="fechaNueva" name="fechaNueva"/>
+																	  </div>
 														            </div>
 														            <div>
 														            	<label class="form-label" for="fotoNueva">Modificar Foto De Perfil</label>
