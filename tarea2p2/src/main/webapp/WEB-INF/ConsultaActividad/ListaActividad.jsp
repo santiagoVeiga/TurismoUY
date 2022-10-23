@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataActividad,logica.DataSalida,java.util.Set,logica.DataDepartamento" %>
+<%@page import="logica.estadoAct,java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataActividad,logica.DataSalida,java.util.Set,logica.DataDepartamento" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -55,10 +55,11 @@
                                 	DataActividad[] acts;
                                 	String imagen = null;
                                 	acts = (DataActividad[]) request.getAttribute("ArregloActividades");
-                                	for(int i = 0; i < acts.length; i++){
-                                		if(acts[i].getImagen()!=null) {
-                                			imagen = Base64.getEncoder().encodeToString(acts[i].getImagen());
-                                		}
+                                	for (int i = 0; i < acts.length; i++){
+                                		if (acts[i].getEstado() == estadoAct.confirmada){
+	                                		if (acts[i].getImagen() != null) {
+	                                			imagen = Base64.getEncoder().encodeToString(acts[i].getImagen());
+	                                		}
                                 	%>
                                 		<!-- <a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>" class="latest-product__item">  -->
                                 	<div class="latest-product__item">
@@ -79,7 +80,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                	<% } %>
+                                	<% }
+                                	}%>
                                 </div>
                             </div>
                         </div>
