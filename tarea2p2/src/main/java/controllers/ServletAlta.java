@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -193,7 +194,12 @@ public class ServletAlta extends HttpServlet {
                     // No se subió imagen
                     else {
                         try {
-                            conAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1, proveedorAct, categoriasAct);
+                        	ServletContext servletContextDef = req.getServletContext();
+                            BufferedImage imgDef = ImageIO.read(servletContextDef.getResourceAsStream("/WEB-INF/data/default_imagen.jpg"));
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            ImageIO.write(imgDef, "jpg", baos);
+                            byte[] imgDefBytes = baos.toByteArray();
+                            conAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1, proveedorAct, categoriasAct,imgDefBytes);
                             resp.sendRedirect("/tarea2p2/home");
         
                         } catch (NumberFormatException e2) {
@@ -296,14 +302,19 @@ public class ServletAlta extends HttpServlet {
     				else {
     					try {
     						Date fechaNac = format.parse(date);
-    						if (!nacionalidad.equals("")) {
-    							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail, fechaNac, nacionalidad, password);
-    						} else if (linkProv != null && descripcion!= null) {
-    							conAlta.confirmarAltaProveedor(nick, nombre, apellido, mail, fechaNac, descripcion, linkProv, true, password); 
-    						}
-    						else if (descripcion!= null) {
-    							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail, fechaNac, descripcion, "", false, password); 
-    						}else {
+                            ServletContext servletContextDef = req.getServletContext();
+                            BufferedImage imgDef = ImageIO.read(servletContextDef.getResourceAsStream("/WEB-INF/data/default_imagen.jpg"));
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            ImageIO.write(imgDef, "jpg", baos);
+                            byte[] imgDefBytes = baos.toByteArray();
+                            if (!nacionalidad.equals("")) {
+                                conAlta.confirmarAltaTurista(nick, nombre , apellido, mail, fechaNac, nacionalidad, password,imgDefBytes);
+                            } else if (linkProv != null && descripcion!= null) {
+                                conAlta.confirmarAltaProveedor(nick, nombre, apellido, mail, fechaNac, descripcion, linkProv, true, password,imgDefBytes); 
+                            }
+                            else if (descripcion!= null) {
+                                conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail, fechaNac, descripcion, "", false, password, imgDefBytes); 
+                            }else {
     							// no deberia pasar
     							break;
     						}
@@ -413,8 +424,14 @@ public class ServletAlta extends HttpServlet {
                     // No se subió imagen
                     else {
                         try {
+                        	ServletContext servletContextDef = req.getServletContext();
+                            BufferedImage imgDef = ImageIO.read(servletContextDef.getResourceAsStream("/WEB-INF/data/default_imagen.jpg"));
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            ImageIO.write(imgDef, "jpg", baos);
+                            byte[] imgDefBytes = baos.toByteArray();
+                            
                             Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);
-                            conAlta.confirmarAltaSalida(actividad, salidaNombre, fechaSalida, horaSalida, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualS);
+                            conAlta.confirmarAltaSalida(actividad, salidaNombre, fechaSalida, horaSalida, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualS,imgDefBytes);
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
