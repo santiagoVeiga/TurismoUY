@@ -141,7 +141,7 @@
 					                                    <div class="card-body">
 					                                        <p class="card-text"> <%= DP[0].getNombre() %></p>
 					                                        <p class="card-text">cantidad: <%= ((DataCompraPaquete)arrDCP[0]).getCantidad()%></p> 
-					                                        <p class="card-text">costo: <%= arrDCP[0].getCosto()%></p> 
+					                                        <p class="card-text">costo: <%= Math.round(arrDCP[0].getCosto())%></p> 
 					                                        <p class="card-text">fecha: <%=arrDCP[0].getFecha().getDate() + "/" + (arrDCP[0].getFecha().getMonth()+1)+ "/" + (arrDCP[0].getFecha().getYear()+1900) %> </p> 
 					                                        <p class="card-text">vencimiento: <%= arrDCP[0].getVencimiento().getDate() + "/" + (arrDCP[0].getVencimiento().getMonth()+1)+ "/" + (arrDCP[0].getVencimiento().getYear()+1900) %></p>                                  
 					                                    </div>
@@ -159,7 +159,7 @@
 							                                    <div class="card-body">
 							                                        <p class="card-text"> <%= DP[i].getNombre() %></p>
 							                                        <p class="card-text">cantidad: <%= ((DataCompraPaquete)arrDCP[i]).getCantidad()%></p> 
-							                                        <p class="card-text">costo: <%= arrDCP[i].getCosto()%></p> 
+							                                        <p class="card-text">costo: <%= Math.round(arrDCP[i].getCosto())%></p> 
 							                                        <p class="card-text">fecha: <%=arrDCP[i].getFecha().getDate() + "/" + (arrDCP[i].getFecha().getMonth()+1)+ "/" + (arrDCP[i].getFecha().getYear()+1900) %> </p> 
 							                                        <p class="card-text">vencimiento: <%= arrDCP[i].getVencimiento().getDate() + "/" + (arrDCP[i].getVencimiento().getMonth()+1)+ "/" + (arrDCP[i].getVencimiento().getYear()+1900) %></p>                                  
 							                                    </div>
