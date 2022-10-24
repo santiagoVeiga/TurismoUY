@@ -82,7 +82,7 @@
 					
 				  <div class="tab-container">
 				  <div id="tab1" class="tab">
-				      <a href="#tab1">Informacion Basica</a>
+				      <a href="#tab1">Información Básica</a>
 				      <div class="tab-content">
 					        <li><span>Nombre: </span> <%=DU.getNombre() %></li>
 		                    <li><span>Apellido: </span>  <%=DU.getApellido() %></li>
@@ -104,6 +104,7 @@
 				    </div> 
 				  
 				  	<% 
+				  	if (usr != null && DU.getNick().equals(usr.getNick())){
 				      if(DU instanceof DataTurista){
 				    	    Set<DataCompraGeneral> salidas;
 				    	    Set<DataCompraPaquete> DCP = ((DataTurista)DU).getComprasPaq();
@@ -295,7 +296,7 @@
 					                            <div class="carousel-inner">
 					                              
 					                             <%
-					                             	if((arrDS[0].getEstado() != estadoAct.agregada) || ( ((DataUsuario) session.getAttribute("usuario")).getNick() == NickUsuario)){
+					                             	if((arrDS[0].getEstado() == estadoAct.confirmada) || ( ((DataUsuario) session.getAttribute("usuario")).getNick() == NickUsuario)){
 							                          	%>
 							                      		<div class="carousel-item active">
 					                                <div class="card" >
@@ -311,7 +312,7 @@
 					                           
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
-							                          		if((arrDS[i].getEstado() != estadoAct.agregada) || ( ((DataUsuario) session.getAttribute("usuario")).getNick() == NickUsuario)){
+							                          		if((arrDS[i].getEstado() == estadoAct.confirmada) || ( ((DataUsuario) session.getAttribute("usuario")).getNick() == NickUsuario)){
 							                          		String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          	%>
 							                            <div class="carousel-item">
@@ -346,7 +347,7 @@
 	                                    </div>
 					      </div>
 					    </div> 
-                      <%}}
+                      <%}}}
 				      %>
 				    </div> 
 				    
