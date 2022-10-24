@@ -126,6 +126,9 @@ public class ServletAlta extends HttpServlet {
                     Set<String> categoriasAct = null;
                     if (auxCategorias != null) {
                         categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
+                    }else {
+                        req.setAttribute("Exception", "La Actividad debe tener al menos una categoría");
+                        req.getRequestDispatcher("/home").forward(req, resp);   
                     }
                     // Fecha del Sistema
                     Date date1 = new Date();
