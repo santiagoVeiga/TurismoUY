@@ -80,8 +80,8 @@
 		</div>
 	</div>
 	<ul>
-           <li><a href="/tarea2p2/AltaActividad"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Actividad Turistica</a></li>
-           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Salida Turistica</a></li>
+           <li><a href="/tarea2p2/AltaActividad"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Actividad Turística</a></li>
+           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Salida Turística</a></li>
            <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
           <li><a href="/tarea2p2/ConsultaUsuario"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
@@ -97,14 +97,14 @@
                 <div class="col-lg-9">
                     <div class="row">
                     	<div class="info_salida">
-                    		<span> Informacion de la Salida Seleccionada: </span><br />
+                    		<span> Información de la Salida Seleccionada: </span><br />
                     		<div class="row">
 		                    	<div class="col-lg-15">
 		                    		<div class="cabezales_salida">
 		                    			<span> Nombre: </span><br />
 		                    			<span> Fecha: </span><br />
 		                    			<span> Hora: </span><br />
-		                    			<span> Cantidad Maxima Turistas: </span><br />
+		                    			<span> Cantidad Máxima Turistas: </span><br />
 		                    			<span> Lugar: </span><br />
 		                    			<span> Fecha de Alta: </span><br />
 		                    		</div>
