@@ -126,97 +126,97 @@ public class ServletAlta extends HttpServlet {
                     Set<String> categoriasAct = null;
                     if (auxCategorias != null) {
                         categoriasAct = new HashSet<>(Arrays.asList(auxCategorias));
+                     // Fecha del Sistema
+                        Date date1 = new Date();
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                        String str = formatter.format(date1);
+                         
+                        //Usuario logeado
+                        HttpSession sessionAct = req.getSession();
+                        DataProveedor dtProveedor = (DataProveedor) sessionAct.getAttribute("usuario");
+                        String proveedorAct = dtProveedor.getNick();
+                        conAlta = fab.getIControladorAlta();
+                        
+                        //Chequeo imagen cargada
+                        InputStream inputStreamAct = null;
+                        Part filePartAct = req.getPart("imagenActividad");
+                        //Si se subió imagen
+                        if (filePartAct.getSize() > 0) {
+                            inputStreamAct = filePartAct.getInputStream();
+                            FileOutputStream outputAct = null;
+                            byte[] imgBytesAct = null;
+                            try {
+                                File nuevaImgAct = new File(req.getSession().getServletContext().getRealPath("/") + proveedorAct + filePartAct.getSubmittedFileName());
+                                if (nuevaImgAct.createNewFile())
+                                  System.out.println("El fichero se ha creado correctamente");
+                                else
+                                  System.out.println("No ha podido ser creado el fichero");
+                                outputAct = new FileOutputStream(nuevaImgAct);
+                                int leidos = 0;
+                                leidos = inputStreamAct.read();
+                                while (leidos != -1) {
+                                    outputAct.write(leidos);
+                                    leidos = inputStreamAct.read();
+                                }
+                                imgBytesAct = Files.readAllBytes(Paths.get(nuevaImgAct.getAbsolutePath()));
+                              } catch (IOException ioeAct) {
+                                ioeAct.printStackTrace();
+                              } finally {
+                                try {
+                                    outputAct.flush();
+                                    outputAct.close();
+                                    inputStreamAct.close();
+                                } catch (IOException ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                          
+                            try {
+                                conAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct),
+                                        Integer.parseInt(costoAct), ciudadAct, date1, proveedorAct, categoriasAct, imgBytesAct);
+                                resp.sendRedirect("/tarea2p2/home");
+            
+                            } catch (NumberFormatException e2) {
+                                req.setAttribute("Exception", "Formato numerico no aceptado");
+                                req.getRequestDispatcher("/AltaActividad").forward(req, resp);
+                            } catch (ActividadRepetidaException e2) {
+                                req.setAttribute("Exception", e2.getMessage());
+                                req.getRequestDispatcher("/AltaActividad").forward(req, resp);
+                            } catch (UsuarioNoExisteException e2) {
+                                req.setAttribute("Exception", e2.getMessage());
+                                req.getRequestDispatcher("/AltaActividad").forward(req, resp);
+                            } catch (ProveedorNoNacidoException e2) {
+                                req.setAttribute("Exception", e2.getMessage());
+                                req.getRequestDispatcher("/AltaActividad").forward(req, resp);
+                            }
+                        }
+                        // No se subió imagen
+                        else {
+                            try {
+                                ServletContext servletContextDef = req.getServletContext();
+                                BufferedImage imgDef = ImageIO.read(servletContextDef.getResourceAsStream("/WEB-INF/data/default_imagen.jpg"));
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                ImageIO.write(imgDef, "jpg", baos);
+                                byte[] imgDefBytes = baos.toByteArray();
+                                conAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1, proveedorAct, categoriasAct,imgDefBytes);
+                                resp.sendRedirect("/tarea2p2/home");
+            
+                            } catch (NumberFormatException e2) {
+                                e2.printStackTrace();
+                            } catch (ActividadRepetidaException e2) {
+                                req.setAttribute("Exception", e2.getMessage());
+                                req.getRequestDispatcher("/AltaActividad").forward(req, resp);
+                            } catch (UsuarioNoExisteException e2) {
+                                req.setAttribute("Exception", e2.getMessage());
+                                req.getRequestDispatcher("/AltaActividad").forward(req, resp);
+                            } catch (ProveedorNoNacidoException e2) {
+                                req.setAttribute("Exception", e2.getMessage());
+                                req.getRequestDispatcher("/AltaActividad").forward(req, resp);
+                            }
+                        }
                     }else {
                         req.setAttribute("Exception", "La Actividad debe tener al menos una categoría");
                         req.getRequestDispatcher("/home").forward(req, resp);   
-                    }
-                    // Fecha del Sistema
-                    Date date1 = new Date();
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                    String str = formatter.format(date1);
-                     
-                    //Usuario logeado
-                    HttpSession sessionAct = req.getSession();
-                    DataProveedor dtProveedor = (DataProveedor) sessionAct.getAttribute("usuario");
-                    String proveedorAct = dtProveedor.getNick();
-                    conAlta = fab.getIControladorAlta();
-                    
-                    //Chequeo imagen cargada
-                    InputStream inputStreamAct = null;
-                    Part filePartAct = req.getPart("imagenActividad");
-                    //Si se subió imagen
-                    if (filePartAct.getSize() > 0) {
-                        inputStreamAct = filePartAct.getInputStream();
-                        FileOutputStream outputAct = null;
-                        byte[] imgBytesAct = null;
-                        try {
-                            File nuevaImgAct = new File(req.getSession().getServletContext().getRealPath("/") + proveedorAct + filePartAct.getSubmittedFileName());
-                            if (nuevaImgAct.createNewFile())
-                              System.out.println("El fichero se ha creado correctamente");
-                            else
-                              System.out.println("No ha podido ser creado el fichero");
-                            outputAct = new FileOutputStream(nuevaImgAct);
-                            int leidos = 0;
-                            leidos = inputStreamAct.read();
-                            while (leidos != -1) {
-                                outputAct.write(leidos);
-                                leidos = inputStreamAct.read();
-                            }
-                            imgBytesAct = Files.readAllBytes(Paths.get(nuevaImgAct.getAbsolutePath()));
-                          } catch (IOException ioeAct) {
-                            ioeAct.printStackTrace();
-                          } finally {
-                            try {
-                                outputAct.flush();
-                                outputAct.close();
-                                inputStreamAct.close();
-                            } catch (IOException ex) {
-                                ex.printStackTrace();
-                            }
-                        }
-                      
-                        try {
-                            conAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct),
-                                    Integer.parseInt(costoAct), ciudadAct, date1, proveedorAct, categoriasAct, imgBytesAct);
-                            resp.sendRedirect("/tarea2p2/home");
-        
-                        } catch (NumberFormatException e2) {
-                            req.setAttribute("Exception", "Formato numerico no aceptado");
-                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
-                        } catch (ActividadRepetidaException e2) {
-                            req.setAttribute("Exception", e2.getMessage());
-                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
-                        } catch (UsuarioNoExisteException e2) {
-                            req.setAttribute("Exception", e2.getMessage());
-                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
-                        } catch (ProveedorNoNacidoException e2) {
-                            req.setAttribute("Exception", e2.getMessage());
-                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
-                        }
-                    }
-                    // No se subió imagen
-                    else {
-                        try {
-                        	ServletContext servletContextDef = req.getServletContext();
-                            BufferedImage imgDef = ImageIO.read(servletContextDef.getResourceAsStream("/WEB-INF/data/default_imagen.jpg"));
-                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            ImageIO.write(imgDef, "jpg", baos);
-                            byte[] imgDefBytes = baos.toByteArray();
-                            conAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1, proveedorAct, categoriasAct,imgDefBytes);
-                            resp.sendRedirect("/tarea2p2/home");
-        
-                        } catch (NumberFormatException e2) {
-                            e2.printStackTrace();
-                        } catch (ActividadRepetidaException e2) {
-                            req.setAttribute("Exception", e2.getMessage());
-                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
-                        } catch (UsuarioNoExisteException e2) {
-                            req.setAttribute("Exception", e2.getMessage());
-                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
-                        } catch (ProveedorNoNacidoException e2) {
-                            req.setAttribute("Exception", e2.getMessage());
-                            req.getRequestDispatcher("/AltaActividad").forward(req, resp);
-                        }
                     }
                     break;
     			case "/UsuarioCreado":
