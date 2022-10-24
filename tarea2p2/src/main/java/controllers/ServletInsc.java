@@ -109,20 +109,12 @@ public class ServletInsc extends HttpServlet {
     				LocalDateTime horaLocal = LocalDateTime.now();
     				Date fecha = java.util.Date.from(horaLocal.atZone(ZoneId.systemDefault()).toInstant());
     				try {
-    				    IControladorConsulta conCons = fab.getIControladorConsulta();
-    				    double costo = 0;
     					if (paqInsc == null) {
     						conInsc.inscribir(dataUsu.getNick(), salInsc, cant, fecha, act);
-    						DataActividad acti = conCons.obtenerDataActividad(act);
-    						costo = cant*acti.getCosto();
     					} else {
     						conInsc.inscribir(dataUsu.getNick(), salInsc, cant, fecha, act, paqInsc);
-    						DataActividad acti = conCons.obtenerDataActividad(act);
-    						DataPaquete paq = conCons.obtenerDataPaquete(paqInsc);
-                            costo = cant*acti.getCosto();
-                            costo = costo - cant*acti.getCosto()*paq.getDescuento();
     					}
-    					req.setAttribute("Inscrip", "La inscripcion fue realizada con exito! Costo: $" + Double.toString(costo));
+    					req.setAttribute("Inscrip", "La inscripcion fue realizada con exito!");
                         req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
     				} catch (TuristaConSalida | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException
     						| InscFechaDespSalida | TuristaNoHaNacido | PaqueteRepetidoException
@@ -142,15 +134,7 @@ public class ServletInsc extends HttpServlet {
     				IControladorConsulta conCons = fab.getIControladorConsulta();
     				try {
     					conInsc.comprarPaquete(du1.getNick(), fecha1, cant1, nomPaquete);
-    					DataPaquete dataPaq = conCons.obtenerDataPaquete(nomPaquete);
-    					double costo = 0;
-    					for (DataActividad iter : dataPaq.getDtAct()) {
-    					    costo += iter.getCosto();
-    					}
-    					double num = dataPaq.getDescuento();
-    					costo = costo*cant1;
-    					costo = costo - (num/100)*costo*cant1;
-    					req.setAttribute("CompraPaq", "La compra fue realizada con exito! Costo: $" + Double.toString(costo));
+    					req.setAttribute("CompraPaq", "La compra fue realizada con exito!");
     					req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp); //lo cambie
     				} catch (PaqueteNoExisteException | PaqueteRepetidoException e) {
     					req.setAttribute("Exception", e.getMessage());

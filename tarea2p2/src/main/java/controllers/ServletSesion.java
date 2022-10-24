@@ -71,95 +71,95 @@ public void initSession(HttpServletRequest request) {
 	HttpSession session = request.getSession();
 	if (session.getAttribute("estado_sesion") == null) {
 		session.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
+    	Fabrica fab = Fabrica.getInstance();
+        IControladorAlta conAlta = fab.getIControladorAlta();
+        try {
+            conAlta.cargarCategorias();
+            // Categs listas
+            ServletContext servletContext = request.getServletContext();
+            InputStream input = servletContext.getResourceAsStream("/WEB-INF/data/Departamentos.csv");
+            CSVReader reader = new CSVReader(new InputStreamReader(input));
+            conAlta.cargarDptos(reader);
+            // dptos listos
+            input = servletContext.getResourceAsStream("/WEB-INF/data/Usuarios.csv");
+            reader = new CSVReader(new InputStreamReader(input));
+            Map<String, byte[]> imagenes = new HashMap<String, byte[]>();
+            for (int i=1; i<=13; i++ ) {
+                BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Users/u"+Integer.toString(i)+".jpg"));
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(img, "jpg", baos);
+                byte[] imgBytes = baos.toByteArray();
+                imagenes.put(Integer.toString(i), imgBytes);
+            }
+            conAlta.cargarUsuarios(reader, imagenes);
+            // usus listos
+            input = servletContext.getResourceAsStream("/WEB-INF/data/Actividades.csv");
+            reader = new CSVReader(new InputStreamReader(input));
+            imagenes.clear();
+            for (int i=1; i<=10; i++ ) {
+                BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Actvs/a"+Integer.toString(i)+".jpg"));
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(img, "jpg", baos);
+                byte[] imgBytes = baos.toByteArray();
+                imagenes.put(Integer.toString(i), imgBytes);
+            }
+            conAlta.cargarActs(reader, imagenes);
+            // acts listas
+            input = servletContext.getResourceAsStream("/WEB-INF/data/Paquetes.csv");
+            reader = new CSVReader(new InputStreamReader(input));
+            imagenes.clear();
+            for (int i=1; i<=3; i++ ) {
+                BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Paqs/p"+Integer.toString(i)+".jpg"));
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(img, "jpg", baos);
+                byte[] imgBytes = baos.toByteArray();
+                imagenes.put(Integer.toString(i), imgBytes);
+            }
+            conAlta.cargarPaquetes(reader, imagenes);
+            //Paqs listos
+            input = servletContext.getResourceAsStream("/WEB-INF/data/Salidas.csv");
+            reader = new CSVReader(new InputStreamReader(input));
+            imagenes.clear();
+            for (int i=1; i<=18; i++ ) {
+                InputStream instm = servletContext.getResourceAsStream("/WEB-INF/data/Salidas/s"+Integer.toString(i)+".jpg");
+                byte[] imgBytes = null;
+                if (instm != null) {
+                    BufferedImage img = ImageIO.read(instm);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    ImageIO.write(img, "jpg", baos);
+                    imgBytes = baos.toByteArray();
+                }
+                else {
+                    BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/default_imagen.jpg"));
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    ImageIO.write(img, "jpg", baos);
+                    imgBytes = baos.toByteArray();
+                }
+                imagenes.put(Integer.toString(i), imgBytes);
+                imgBytes = null;
+            }
+            conAlta.cargarSalidas(reader, imagenes);
+            IControladorInsc cins = fab.getIControladorInsc();
+            input = servletContext.getResourceAsStream("/WEB-INF/data/ActividadesPaquetes.csv");
+            reader = new CSVReader(new InputStreamReader(input));
+            cins.cargarActsPaqs(reader);
+            input = servletContext.getResourceAsStream("/WEB-INF/data/ComprasPaquetes.csv");
+            reader = new CSVReader(new InputStreamReader(input));
+            conAlta.cargarCompPaq(reader);
+            input = servletContext.getResourceAsStream("/WEB-INF/data/Inscripciones.csv");
+            reader = new CSVReader(new InputStreamReader(input));
+            cins.cargarInsc(reader);
+        } catch (NumberFormatException | IOException | UsuarioRepetidoException | ParseException
+                | DepartamentoYaExisteExeption | ActividadRepetidaException | UsuarioNoExisteException
+                | ProveedorNoNacidoException | SalidaYaExisteExeption | PaqueteRepetidoException
+                | FechaAltaSalidaInvalida | FechaAltaSalidaAnteriorActividad | TuristaConSalida
+                | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException | InscFechaDespSalida
+                | TuristaNoHaNacido | NoHayCuposException | PaqueteNoExisteException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            System.out.println(e1.toString());
+        }
 	}
-	Fabrica fab = Fabrica.getInstance();
-    IControladorAlta conAlta = fab.getIControladorAlta();
-    try {
-        conAlta.cargarCategorias();
-        // Categs listas
-        ServletContext servletContext = request.getServletContext();
-        InputStream input = servletContext.getResourceAsStream("/WEB-INF/data/Departamentos.csv");
-        CSVReader reader = new CSVReader(new InputStreamReader(input));
-        conAlta.cargarDptos(reader);
-        // dptos listos
-        input = servletContext.getResourceAsStream("/WEB-INF/data/Usuarios.csv");
-        reader = new CSVReader(new InputStreamReader(input));
-        Map<String, byte[]> imagenes = new HashMap<String, byte[]>();
-        for (int i=1; i<=13; i++ ) {
-            BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Users/u"+Integer.toString(i)+".jpg"));
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(img, "jpg", baos);
-            byte[] imgBytes = baos.toByteArray();
-            imagenes.put(Integer.toString(i), imgBytes);
-        }
-        conAlta.cargarUsuarios(reader, imagenes);
-        // usus listos
-        input = servletContext.getResourceAsStream("/WEB-INF/data/Actividades.csv");
-        reader = new CSVReader(new InputStreamReader(input));
-        imagenes.clear();
-        for (int i=1; i<=10; i++ ) {
-            BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Actvs/a"+Integer.toString(i)+".jpg"));
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(img, "jpg", baos);
-            byte[] imgBytes = baos.toByteArray();
-            imagenes.put(Integer.toString(i), imgBytes);
-        }
-        conAlta.cargarActs(reader, imagenes);
-        // acts listas
-        input = servletContext.getResourceAsStream("/WEB-INF/data/Paquetes.csv");
-        reader = new CSVReader(new InputStreamReader(input));
-        imagenes.clear();
-        for (int i=1; i<=3; i++ ) {
-            BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Paqs/p"+Integer.toString(i)+".jpg"));
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(img, "jpg", baos);
-            byte[] imgBytes = baos.toByteArray();
-            imagenes.put(Integer.toString(i), imgBytes);
-        }
-        conAlta.cargarPaquetes(reader, imagenes);
-        //Paqs listos
-        input = servletContext.getResourceAsStream("/WEB-INF/data/Salidas.csv");
-        reader = new CSVReader(new InputStreamReader(input));
-        imagenes.clear();
-        for (int i=1; i<=18; i++ ) {
-            InputStream instm = servletContext.getResourceAsStream("/WEB-INF/data/Salidas/s"+Integer.toString(i)+".jpg");
-            byte[] imgBytes = null;
-            if (instm != null) {
-                BufferedImage img = ImageIO.read(instm);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write(img, "jpg", baos);
-                imgBytes = baos.toByteArray();
-            }
-            else {
-                BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/default_imagen.jpg"));
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write(img, "jpg", baos);
-                imgBytes = baos.toByteArray();
-            }
-            imagenes.put(Integer.toString(i), imgBytes);
-            imgBytes = null;
-        }
-        conAlta.cargarSalidas(reader, imagenes);
-        IControladorInsc cins = fab.getIControladorInsc();
-        input = servletContext.getResourceAsStream("/WEB-INF/data/ActividadesPaquetes.csv");
-        reader = new CSVReader(new InputStreamReader(input));
-        cins.cargarActsPaqs(reader);
-        input = servletContext.getResourceAsStream("/WEB-INF/data/ComprasPaquetes.csv");
-        reader = new CSVReader(new InputStreamReader(input));
-        conAlta.cargarCompPaq(reader);
-        input = servletContext.getResourceAsStream("/WEB-INF/data/Inscripciones.csv");
-        reader = new CSVReader(new InputStreamReader(input));
-        cins.cargarInsc(reader);
-    } catch (NumberFormatException | IOException | UsuarioRepetidoException | ParseException
-            | DepartamentoYaExisteExeption | ActividadRepetidaException | UsuarioNoExisteException
-            | ProveedorNoNacidoException | SalidaYaExisteExeption | PaqueteRepetidoException
-            | FechaAltaSalidaInvalida | FechaAltaSalidaAnteriorActividad | TuristaConSalida
-            | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException | InscFechaDespSalida
-            | TuristaNoHaNacido | NoHayCuposException | PaqueteNoExisteException e1) {
-        // TODO Auto-generated catch block
-        e1.printStackTrace();
-        System.out.println(e1.toString());
-    }
     
 }
 
