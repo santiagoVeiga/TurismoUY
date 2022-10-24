@@ -350,14 +350,24 @@ public class CrearActividad extends JInternalFrame {
         }
 
         try {
-            Integer.parseInt(costoAct);
+            int aux = Integer.parseInt(costoAct);
+            if (aux < 1) {
+            	JOptionPane.showMessageDialog(this, "El Costo debe ser un numero positivo", "Registrar Actividad",
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El Costo debe ser un numero", "Registrar Actividad",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
         try {
-            Integer.parseInt(duracionAct);
+            int aux2 = Integer.parseInt(duracionAct);
+            if (aux2 < 1) {
+            	JOptionPane.showMessageDialog(this, "La duracion debe ser un numero positivo", "Registrar Actividad",
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "La Duracion debe ser un numero", "Registrar Actividad",
                     JOptionPane.ERROR_MESSAGE);
