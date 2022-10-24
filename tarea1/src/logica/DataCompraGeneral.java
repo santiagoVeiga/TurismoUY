@@ -53,8 +53,8 @@ public class DataCompraGeneral{
 		this.porPaquete = porPaquete;
 	}
 
-	public void setCantidad(int cost) {
-    	costo = cost;
+	public void setCantidad(int cant) {
+    	cantidad = cant;
     }
 
     public void setFecha(Date fechaC) {
