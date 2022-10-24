@@ -22,7 +22,6 @@ import excepciones.PaqueteRepetidoException;
 import excepciones.SalidasNoExisteException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
-import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataPaquete;
 import logica.DataUsuario;

@@ -198,7 +198,7 @@ public class ServletAlta extends HttpServlet {
                                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                                 ImageIO.write(imgDef, "jpg", baos);
                                 byte[] imgDefBytes = baos.toByteArray();
-                                conAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1, proveedorAct, categoriasAct,imgDefBytes);
+                                conAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1, proveedorAct, categoriasAct, imgDefBytes);
                                 resp.sendRedirect("/tarea2p2/home");
             
                             } catch (NumberFormatException e2) {
@@ -311,9 +311,9 @@ public class ServletAlta extends HttpServlet {
                             ImageIO.write(imgDef, "jpg", baos);
                             byte[] imgDefBytes = baos.toByteArray();
                             if (!nacionalidad.equals("")) {
-                                conAlta.confirmarAltaTurista(nick, nombre , apellido, mail, fechaNac, nacionalidad, password,imgDefBytes);
+                                conAlta.confirmarAltaTurista(nick, nombre , apellido, mail, fechaNac, nacionalidad, password, imgDefBytes);
                             } else if (linkProv != null && descripcion!= null) {
-                                conAlta.confirmarAltaProveedor(nick, nombre, apellido, mail, fechaNac, descripcion, linkProv, true, password,imgDefBytes); 
+                                conAlta.confirmarAltaProveedor(nick, nombre, apellido, mail, fechaNac, descripcion, linkProv, true, password, imgDefBytes); 
                             }
                             else if (descripcion!= null) {
                                 conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail, fechaNac, descripcion, "", false, password, imgDefBytes); 
@@ -434,7 +434,7 @@ public class ServletAlta extends HttpServlet {
                             byte[] imgDefBytes = baos.toByteArray();
                             
                             Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);
-                            conAlta.confirmarAltaSalida(actividad, salidaNombre, fechaSalida, horaSalida, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualS,imgDefBytes);
+                            conAlta.confirmarAltaSalida(actividad, salidaNombre, fechaSalida, horaSalida, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualS, imgDefBytes);
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
