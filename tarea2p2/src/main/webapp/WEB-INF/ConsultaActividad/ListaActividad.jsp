@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="logica.estadoAct,java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataActividad,logica.DataSalida,java.util.Set,logica.DataDepartamento" %>
+<%@page import="controllers.EstadoSesion, logica.estadoAct,java.util.Base64,logica.DataUsuario, logica.DataProveedor, logica.DataTurista,logica.DataActividad,logica.DataSalida,java.util.Set,logica.DataDepartamento" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -40,7 +40,49 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="row">
-                    	<jsp:include page="/WEB-INF/template/miPerfil.jsp"/>
+<%DataUsuario usr = null;
+   if (session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO) {
+   	usr = (DataUsuario) session.getAttribute("usuario");
+   }
+     %>
+<div class="hero__perfil">
+<% if (usr == null) {%>
+	<ul>
+           <li><a href="/tarea2p2/ConsultaUsuario"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
+           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
+           <li><a href="#" onclick="return seleccionarAct();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
+       </ul>
+<% } else if (usr instanceof DataTurista){ %>
+	<div class="hero__perfil__all" style="cursor: pointer;" onclick="window.location='./ConsultaUsuario?nick=<%=usr.getNick()%>';">
+		<span>Mi Perfil</span>
+		<div class="ax float-right">
+			<i class="fa fa-caret-square-o-right" aria-hidden="true"></i>
+		</div>
+	</div>
+	<ul>
+           <li><a href="#" onclick="return seleccionarAct();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Inscripcion a Salida Turistica</a></li>
+           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Comprar Paquete</a></li>
+           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
+           <li><a href="#" onclick="return seleccionarAct();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
+           <li><a href="/tarea2p2/ConsultaUsuario"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
+       </ul>
+<% } else if (usr instanceof DataProveedor){%>
+	<div class="hero__perfil__all" style="cursor: pointer;" onclick="window.location='./ConsultaUsuario?nick=<%=usr.getNick()%>';">
+		<span>Mi Perfil</span>
+		<div class="ax float-right">
+			<i class="fa fa-caret-square-o-right" aria-hidden="true"></i>
+		</div>
+	</div>
+	<ul>
+           <li><a href="/tarea2p2/AltaActividad"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Actividad Turística</a></li>
+           <li><a href="#" onclick="return seleccionarAct();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Salida Turística</a></li>
+           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
+          <li><a href="#" onclick="return seleccionarAct();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
+          <li><a href="/tarea2p2/ConsultaUsuario"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
+       </ul>
+<% } %>
+	
+</div>
                         <jsp:include page="/WEB-INF/template/dptosCats.jsp"/>
 
                     </div>
