@@ -205,13 +205,13 @@ public class ServletAlta extends HttpServlet {
                                 e2.printStackTrace();
                             } catch (ActividadRepetidaException e2) {
                                 req.setAttribute("Exception", e2.getMessage());
-                                req.getRequestDispatcher("/AltaActividad").forward(req, resp);
+                                req.getRequestDispatcher("/home").forward(req, resp);
                             } catch (UsuarioNoExisteException e2) {
                                 req.setAttribute("Exception", e2.getMessage());
-                                req.getRequestDispatcher("/AltaActividad").forward(req, resp);
+                                req.getRequestDispatcher("/home").forward(req, resp);
                             } catch (ProveedorNoNacidoException e2) {
                                 req.setAttribute("Exception", e2.getMessage());
-                                req.getRequestDispatcher("/AltaActividad").forward(req, resp);
+                                req.getRequestDispatcher("/home").forward(req, resp);
                             }
                         }
                     }else {
@@ -408,19 +408,19 @@ public class ServletAlta extends HttpServlet {
                         try {
                             Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);
                             conAlta.confirmarAltaSalida(actividad, salidaNombre, fechaSalida, horaSalida, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualS, imgBytesSal);
-                            resp.sendRedirect("/tarea2p2/home");
+                            resp.sendRedirect("/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/tarea2p2/home").forward(req, resp);
+                            req.getRequestDispatcher("/home").forward(req, resp);
                         }catch( FechaAltaSalidaAnteriorActividad e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/tarea2p2/home").forward(req, resp);
+                            req.getRequestDispatcher("/home").forward(req, resp);
                         }catch( FechaAltaSalidaInvalida  e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/tarea2p2/home").forward(req, resp);
+                            req.getRequestDispatcher("/home").forward(req, resp);
                         }catch (ParseException e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/tarea2p2/home").forward(req, resp);
+                            req.getRequestDispatcher("/home").forward(req, resp);
                             // TODO Auto-generated catch block
                         }
                     }
@@ -438,16 +438,16 @@ public class ServletAlta extends HttpServlet {
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/AltaSalida").forward(req, resp);
+                            req.getRequestDispatcher("/home").forward(req, resp);
                         }catch( FechaAltaSalidaAnteriorActividad e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/AltaSalida").forward(req, resp);
+                            req.getRequestDispatcher("/home").forward(req, resp);
                         }catch( FechaAltaSalidaInvalida  e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/AltaSalida").forward(req, resp);
+                            req.getRequestDispatcher("/home").forward(req, resp);
                         }catch (ParseException e3) {
                             req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/AltaSalida").forward(req, resp);
+                            req.getRequestDispatcher("/home").forward(req, resp);
                             // TODO Auto-generated catch block
                         }   
                     }
