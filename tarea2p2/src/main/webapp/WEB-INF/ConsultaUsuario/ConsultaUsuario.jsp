@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.Base64,logica.DataCompraPaquete,logica.DataCompraGeneral,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,logica.DataPaquete,logica.DataActividad" %>
+<%@page import="java.util.Base64,logica.DataCompraPaquete,logica.estadoAct,logica.DataCompraGeneral,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,logica.DataPaquete,logica.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -45,7 +45,7 @@
 	  else
 		  tipo="Proveedor";
 	
-	
+  	String NickUsuario = DU.getNick();
 	%>
     <!-- Hero Section Begin -->
     <section class="hero">
@@ -135,11 +135,15 @@
 					                            <div class="carousel-inner">
 					                              <div class="carousel-item active">
 					                                <div class="card" >
-					                                    <a> 
+					                                    <a style= "width: 550px;" href="/tarea2p2/ConsultaPaquete?paquete=<%= DP[0].getNombre() %>"> 
 					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenp %>"  alt="Card image cap"> 
 					                                    </a>
 					                                    <div class="card-body">
-					                                      <p class="card-text" ><%= DP[0].getNombre() %></p>
+					                                        <p class="card-text"> <%= DP[0].getNombre() %></p>
+					                                        <p class="card-text">cantidad: <%= ((DataCompraPaquete)arrDCP[0]).getCantidad()%></p> 
+					                                        <p class="card-text">costo: <%= arrDCP[0].getCosto()%></p> 
+					                                        <p class="card-text">fecha: <%=arrDCP[0].getFecha().getDate() + "/" + (arrDCP[0].getFecha().getMonth()+1)+ "/" + (arrDCP[0].getFecha().getYear()+1900) %> </p> 
+					                                        <p class="card-text">vencimiento: <%= arrDCP[0].getVencimiento().getDate() + "/" + (arrDCP[0].getVencimiento().getMonth()+1)+ "/" + (arrDCP[0].getVencimiento().getYear()+1900) %></p>                                  
 					                                    </div>
 					                                  </div>
 					                                </div>
@@ -149,7 +153,7 @@
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
-							                                	<a> 
+							                                	<a style= "width: 550px;" href="/tarea2p2/ConsultaPaquete?paquete=<%= DP[i].getNombre() %>"> 
 							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenp1 %>"  alt="Card image cap"> 
 							                                    </a>
 							                                    <div class="card-body">
@@ -157,7 +161,7 @@
 							                                        <p class="card-text">cantidad: <%= ((DataCompraPaquete)arrDCP[i]).getCantidad()%></p> 
 							                                        <p class="card-text">costo: <%= arrDCP[i].getCosto()%></p> 
 							                                        <p class="card-text">fecha: <%=arrDCP[i].getFecha().getDate() + "/" + (arrDCP[i].getFecha().getMonth()+1)+ "/" + (arrDCP[i].getFecha().getYear()+1900) %> </p> 
-							                                        <p class="card-text">vencimiento: <%= arrDCP[i].getVencimiento()%></p>                                  
+							                                        <p class="card-text">vencimiento: <%= arrDCP[i].getVencimiento().getDate() + "/" + (arrDCP[i].getVencimiento().getMonth()+1)+ "/" + (arrDCP[i].getVencimiento().getYear()+1900) %></p>                                  
 							                                    </div>
 							                                 </div>
 							                            </div>
@@ -212,21 +216,26 @@
 					                            <div class="carousel-inner">
 					                              <div class="carousel-item active">
 					                                <div class="card" >
-					                                    <a> 
+					                                    <a style= "width: 550px;" href="/tarea2p2/ConsultaSalida?salida=<%= arrDS[0].getNombre() %>"> 
 					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagen1 %> " alt="Card image cap"> 
 					                                    </a>
 					                                    <div class="card-body">
-					                                      <p class="card-text" ><%= arrDS[0].getNombre() %></p>
+					                                        <p class="card-text"><%= arrDS[0].getNombre() %></p>
+					                                        <p class="card-text">Costo: <%= arrDCG[0].getCosto() %></p>
+					                                        <p class="card-text">Fecha:<%=arrDCG[0].getFecha().getDate() + "/" + (arrDCG[0].getFecha().getMonth()+1)+ "/" + (arrDCG[0].getFecha().getYear()+1900) %></p>
+					                                        <p class="card-text">Cantidad:<%= arrDCG[0].getCantidad() %></p>
+					                                        <p class="card-text">Es de un paquete:<%if(arrDCG[0].isPorPaquete()){%>Si<%}else{%>No<%}%></p> 
 					                                    </div>
 					                                  </div>
 					                                </div>
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
 							                          		String imagen2 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
+							                          		
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
-							                                	<a> 
+							                                	<a style= "width: 550px;" href="/tarea2p2/ConsultaSalida?salida=<%= arrDS[i].getNombre() %>">  
 							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagen2 %>"  alt="Card image cap"> 
 							                                    </a>
 							                                    <div class="card-body">
@@ -284,31 +293,39 @@
 	                                        <div class="row">
 	                                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 					                            <div class="carousel-inner">
-					                              <div class="carousel-item active">
+					                              
+					                             <%
+					                             	if((arrDS[0].getEstado() != estadoAct.agregada) || ( ((DataUsuario) session.getAttribute("usuario")).getNick() == NickUsuario)){
+							                          	%>
+							                      		<div class="carousel-item active">
 					                                <div class="card" >
-					                                    <a> 
+					                                    <a style= "width: 550px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[0].getNombre() %>">  
 					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv %>" alt="Card image cap"> 
 					                                    </a>
 					                                    <div class="card-body">
 					                                      <p class="card-text" ><%= arrDS[0].getNombre() %></p>
 					                                    </div>
 					                                  </div>
-					                                </div>
+					                                </div>        
+							                        <%} %>  
+					                           
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
+							                          		if((arrDS[i].getEstado() != estadoAct.agregada) || ( ((DataUsuario) session.getAttribute("usuario")).getNick() == NickUsuario)){
 							                          		String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
-							                                	<a > 
+							                                	<a style= "width: 550px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[i].getNombre() %>"> 
 							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv1 %>"  alt="Card image cap"> 
 							                                    </a>
 							                                    <div class="card-body">
-							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>                                    </div>
+							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>                                    
+							                                    </div>
 							                                    </div>
 							                                 </div>
 							                            </div>
-							                              <%} %>  
+							                              <%}} %>  
 					                              
 					                           <%
 							                          	if(arrDS.length!=1){
