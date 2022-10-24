@@ -273,12 +273,8 @@
 				      <%}}
 				      else
 				      {
-				    	  Object[] ppp= ((DataProveedor) DU).getActividades().toArray();
-					        DataActividad[] arrDS = new DataActividad[ppp.length];
-					        for (int i = 0; i < ppp.length; i++) {
-					        	arrDS[i] = (DataActividad) ppp[i];
-					        }
-					        if (ppp.length != 0) {
+					        DataActividad[] arrDS = ((DataProveedor) DU).getActividades().toArray(new DataActividad[0]);
+					        if (arrDS.length != 0) {
 					        	String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
                       	%>
 	                      	<div id="tab2" class="tab">
@@ -294,10 +290,6 @@
 	                                        <div class="row">
 	                                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 					                            <div class="carousel-inner">
-					                              
-					                             <%
-					                             	if((arrDS[0].getEstado() == estadoAct.confirmada) || ( ((DataUsuario) session.getAttribute("usuario")).getNick() == NickUsuario)){
-							                          	%>
 							                      		<div class="carousel-item active">
 					                                <div class="card" >
 					                                    <a style= "width: 550px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[0].getNombre() %>">  
@@ -307,12 +299,10 @@
 					                                      <p class="card-text" ><%= arrDS[0].getNombre() %></p>
 					                                    </div>
 					                                  </div>
-					                                </div>        
-							                        <%} %>  
+					                                </div>         
 					                           
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
-							                          		if((arrDS[i].getEstado() == estadoAct.confirmada) || ( ((DataUsuario) session.getAttribute("usuario")).getNick() == NickUsuario)){
 							                          		String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          	%>
 							                            <div class="carousel-item">
@@ -325,12 +315,9 @@
 							                                    </div>
 							                                    </div>
 							                                 </div>
-							                            </div>
-							                              <%}} %>  
+							                              <%} %>  
 					                              
-					                           <%
-							                          	if(arrDS.length!=1){
-							                          	%>
+					                           
 							                          	<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
 							                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 							                              <span class="sr-only">Previous</span>
@@ -339,8 +326,7 @@
 							                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
 							                              <span class="sr-only">Next</span>
 							                            </a>
-							                              <%} 
-							                      %>  
+							                              
 					                          </div>
 	                                        </div>
 	                                    
