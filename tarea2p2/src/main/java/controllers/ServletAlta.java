@@ -408,7 +408,7 @@ public class ServletAlta extends HttpServlet {
                         try {
                             Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);
                             conAlta.confirmarAltaSalida(actividad, salidaNombre, fechaSalida, horaSalida, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualS, imgBytesSal);
-                            resp.sendRedirect("/home");
+                            resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
                             req.getRequestDispatcher("/home").forward(req, resp);
