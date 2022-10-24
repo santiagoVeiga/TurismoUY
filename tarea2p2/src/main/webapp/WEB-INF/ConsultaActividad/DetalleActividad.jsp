@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@page import="controllers.EstadoSesion, java.util.Base64,logica.DataUsuario,logica.DataDepartamento, logica.DataProveedor,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,controllers.EstadoSesion,logica.DataPaquete,logica.DataActividad, manejadores.ManejadorPaquete" %>
+<%@page import="controllers.EstadoSesion,logica.estadoAct, java.util.Base64,logica.DataUsuario,logica.DataDepartamento, logica.DataProveedor,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,controllers.EstadoSesion,logica.DataPaquete,logica.DataActividad, manejadores.ManejadorPaquete" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -129,7 +129,7 @@
 							      <th scope="row">Categoria/as</th>
 							      <td><%= actividadSeleccionada.getCategorias()%></td>
 							    </tr>
-							    <%if(usr instanceof DataProveedor){%>
+							    <%if(usr instanceof DataProveedor && actividadSeleccionada.getEstado() == estadoAct.confirmada){%>
                             	<tr>
 							      <th scope="row">Alta Salida</th>
 							      <td><a href="/tarea2p2/AltaSalida?actividadSal=<%=actividadSeleccionada.getNombre()%>&actDepto=<%=actividadSeleccionada.getDepartamento()%>&actCiudad=<%=actividadSeleccionada.getCiudad()%>">Agregar una Salida</a></td>
