@@ -147,7 +147,7 @@ public class ServletAlta extends HttpServlet {
                         FileOutputStream outputAct = null;
                         byte[] imgBytesAct = null;
                         try {
-                            File nuevaImgAct = new File("/home/vagrant/Descargas" + filePartAct.getSubmittedFileName());
+                            File nuevaImgAct = new File(req.getSession().getServletContext().getRealPath("/") + proveedorAct + filePartAct.getSubmittedFileName());
                             if (nuevaImgAct.createNewFile())
                               System.out.println("El fichero se ha creado correctamente");
                             else
@@ -377,7 +377,7 @@ public class ServletAlta extends HttpServlet {
                         FileOutputStream outputSal = null;
                         byte[] imgBytesSal = null;
                         try {
-                            File nuevaImgSal = new File("/home/vagrant/Descargas" + filePartSal.getSubmittedFileName());
+                            File nuevaImgSal = new File(req.getSession().getServletContext().getRealPath("/")+ salidaNombre + filePartSal.getSubmittedFileName());
                             if (nuevaImgSal.createNewFile())
                               System.out.println("El fichero se ha creado correctamente");
                             else
