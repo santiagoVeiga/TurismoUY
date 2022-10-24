@@ -7,12 +7,12 @@ public class DataCompraPaquete{
 	
 	private DataPaquete paq;
 	private int cantidad;
-	private int costo; 
+	private float costo; 
 	private Date fecha;
 	private Date vencimiento;
 	private Map<String, Integer> restAct;
 	
-	public DataCompraPaquete(Date fecha, int cant, int costo, Date vencimiento, DataPaquete paquete, Map<String, Integer> restAct) {
+	public DataCompraPaquete(Date fecha, int cant, float costo, Date vencimiento, DataPaquete paquete, Map<String, Integer> restAct) {
 		this.setCantidad(cant);
 		this.setCosto(costo);
 		this.setFecha(fecha);
@@ -33,7 +33,7 @@ public class DataCompraPaquete{
         return fecha;
     }
 	
-	public int getCosto() {
+	public float getCosto() {
         return costo;
     }
 	
@@ -74,7 +74,7 @@ public class DataCompraPaquete{
     	fecha = fechaC;
     }
 
-    public void setCosto(int cost) {
+    public void setCosto(float cost) {
     	costo = cost;
     }
     

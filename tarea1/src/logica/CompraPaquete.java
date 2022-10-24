@@ -14,7 +14,7 @@ public class CompraPaquete{
 	
 	private Paquete paq;
 	private int cantidad;
-	private int costo; 
+	private float costo; 
 	private Date fecha;
 	private Date vencimiento;
 	private Map<String, Integer> restAct;
@@ -29,13 +29,14 @@ public class CompraPaquete{
 		setVencimiento(calendario.getTime());
 		Collection<Actividad> acts = paquete.getColAct().values();
 		setRestAct(new HashMap<String, Integer>());
-		int costo = 0;
+		float cost = 0;
 		for (Actividad aux: acts) {
 			this.restAct.put(aux.getNombre(), cant);
-			costo += aux.getCosto();
+			cost = cost + aux.getCosto();
 		}
-		costo = costo*(paquete.getDescuento()/100);
-		setCosto(costo);
+		float aux = 100 - paquete.getDescuento();
+		cost = cost*(aux/100)*cant;
+		setCosto(cost);
 		if (!this.paq.isComprado()) {
 			getPaq().setComprado(true);
 		}
@@ -63,7 +64,7 @@ public class CompraPaquete{
         return fecha;
     }
 	
-	public int getCosto() {
+	public float getCosto() {
         return costo;
     }
 	
@@ -104,7 +105,7 @@ public class CompraPaquete{
     	fecha = fechaC;
     }
 
-    public void setCosto(int cost) {
+    public void setCosto(float cost) {
     	costo = cost;
     }
     
