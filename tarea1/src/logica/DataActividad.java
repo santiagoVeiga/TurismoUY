@@ -36,7 +36,7 @@ public class DataActividad {
 		this.duracion = dur;
 		this.salidas = dataSalidas;
 		this.paquetes = paquetes;
-		estado = estado2;
+		this.estado = estado2;
 		this.setImagen(null);
 	}
 	
@@ -50,7 +50,7 @@ public class DataActividad {
 		this.salidas = dataSalidas;
 		this.paquetes = paquetes;
 		this.setCategorias(categorias);
-		estado = estado2;
+		this.estado = estado2;
 		this.setDepartamento(dep);
 		this.setImagen(imagen);
 	}

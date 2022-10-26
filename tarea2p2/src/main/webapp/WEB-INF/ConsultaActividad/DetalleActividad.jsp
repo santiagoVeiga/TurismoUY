@@ -129,6 +129,10 @@
 							      <th scope="row">Categoria/as</th>
 							      <td><%= actividadSeleccionada.getCategorias()%></td>
 							    </tr>
+							    <tr> 
+							      <th scope="row">Estado</th>
+							      <td><%= actividadSeleccionada.getEstado()%></td>
+							    </tr>
 							    <%if(usr instanceof DataProveedor && actividadSeleccionada.getEstado() == estadoAct.confirmada){%>
                             	<tr>
 							      <th scope="row">Alta Salida</th>

@@ -431,14 +431,20 @@ public class CrearUsuario extends JInternalFrame {
         String mailU = this.textFieldMail.getText();
         String nacionalidadU = this.textFieldNacionalidad.getText();
         String descripcionU = this.textFieldDescripcion.getText();
+        String contrasenia = this.textField.getText();
+        String confirmarContrasenia = this.textField1.getText();
 
-        if (rdbtnTurista.isSelected() && (nombreU.isEmpty() || apellidoU.isEmpty() || nickU.isEmpty() || mailU.isEmpty()|| nacionalidadU.isEmpty())) {
+        
+
+        if (rdbtnTurista.isSelected() && (nombreU.isEmpty() || apellidoU.isEmpty() || nickU.isEmpty() || mailU.isEmpty()
+        		|| nacionalidadU.isEmpty() || contrasenia.isEmpty() || confirmarContrasenia.isEmpty())) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
         
-        if (rdbtnProveedor.isSelected() && (nombreU.isEmpty() || apellidoU.isEmpty() || nickU.isEmpty() || mailU.isEmpty() || descripcionU.isEmpty())) {
+        if (rdbtnProveedor.isSelected() && (nombreU.isEmpty() || apellidoU.isEmpty() || nickU.isEmpty() || mailU.isEmpty() 
+        		|| descripcionU.isEmpty() || contrasenia.isEmpty() || confirmarContrasenia.isEmpty())) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
                     JOptionPane.ERROR_MESSAGE);
             return false;
