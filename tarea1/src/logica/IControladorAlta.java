@@ -83,8 +83,11 @@ public interface IControladorAlta {
 	
     public abstract void actualizarDatosTurista(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad);
 
+	public abstract void actualizarDatosTurista(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad, String password,byte[] imagen);
+
 	public abstract void actualizarDatosProveedor(String nick, String mail, String nombre, String apellido, Date fechaN, String descripcion, String link, boolean hayLink);
 
+	public abstract void actualizarDatosProveedor(String nick, String mail, String nombre, String apellido, Date fechaN, String descripcion, String link, boolean hayLink, String password, byte[] imagen);
 	
 	public abstract void cargarPaquetes(CSVReader reader, Map<String, byte[]> imagenes) throws FileNotFoundException, NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException;
 

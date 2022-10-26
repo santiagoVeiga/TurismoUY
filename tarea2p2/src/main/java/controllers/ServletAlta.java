@@ -458,34 +458,51 @@ public class ServletAlta extends HttpServlet {
                     String apellidoNuevo = (String) req.getParameter("apellidoNuevo");
                     String fechaNueva = (String) req.getParameter("fechaNueva");
                     SimpleDateFormat formatFecha = new SimpleDateFormat("yyyy-MM-dd");
-                    
+                    String contrasenaActualIngresada = (String) req.getParameter("passwordActual");
+                    String contrasenaNuevaIng = (String) req.getParameter("passwordNueva");
+                    String contrasenaNuevaConf = (String) req.getParameter("confirmPasswordNueva");
                     conCons = fab.getIControladorConsulta();
     				conAlta = fab.getIControladorAlta();
                     HttpSession session = req.getSession();
                     DataUsuario usuario = (DataUsuario) session .getAttribute("usuario");
+                    String contrasenaActual = usuario.getPassword();
                     
                     try {
                         
                         if (usuario instanceof DataTurista) {
                             String nacionalidadNueva = (String) req.getParameter("nacionalidadNueva");
+                            if(!contrasenaActualIngresada.equals(null) || !contrasenaActualIngresada.equals("")) {
+                                if(contrasenaActualIngresada.equals(contrasenaActual)) {
+                                    if(contrasenaNuevaIng.equals(contrasenaNuevaConf) &&  (!contrasenaNuevaIng.equals(null)) && (!contrasenaNuevaIng.equals(""))) {
+                                        contrasenaActual = contrasenaNuevaIng;
+                                    }
+                                }
+                            }
                             if (fechaNueva.equals(null) || fechaNueva.equals("")) {
-                                conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva);
+                                conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva, contrasenaActual, usuario.getImagen());
                             } else {
                                 Date fechaNuevaNac = formatFecha.parse(fechaNueva);
-                                conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, nacionalidadNueva);
+                                conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, nacionalidadNueva, contrasenaActual, usuario.getImagen());
                             }
                         } else if (usuario instanceof DataProveedor){
                             String descripcionNueva = (String) req.getParameter("descripcionNueva");
                             String linkNuevo = (String) req.getParameter("linkNuevo");
                             boolean hayLink = false;
+                            if(!contrasenaActualIngresada.equals(null) || !contrasenaActualIngresada.equals("")) {
+                                if(contrasenaActualIngresada.equals(contrasenaActual)) {
+                                    if(contrasenaNuevaIng.equals(contrasenaNuevaConf) &&  (!contrasenaNuevaIng.equals(null)) && (!contrasenaNuevaIng.equals(""))) {
+                                        contrasenaActual = contrasenaNuevaIng;
+                                    }
+                                }
+                            }
                             if (!linkNuevo.equals(null) || !linkNuevo.equals("")) {
                                 hayLink = true;
                             }
                             if (fechaNueva.equals(null) || fechaNueva.equals("")) {
-                                conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink);
+                                conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink, contrasenaActual, usuario.getImagen());
                             }else {
                                 Date fechaNuevaNac = formatFecha.parse(fechaNueva);
-                                conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, descripcionNueva, linkNuevo, hayLink);
+                                conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, descripcionNueva, linkNuevo, hayLink, contrasenaActual, usuario.getImagen());
                             }
                         }
                         req.setAttribute("DataUsuario", usuario);

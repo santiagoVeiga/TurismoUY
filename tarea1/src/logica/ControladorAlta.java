@@ -261,6 +261,37 @@ public class ControladorAlta implements IControladorAlta {
     	}
     }
 
+    public void actualizarDatosTurista(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad, String password,byte[] imagen) {
+    	ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+    	Usuario usu = mUsu.obtenerUsuarioNick(nick);
+    	if (usu!=null) {
+    		if (usu instanceof Turista) {
+    			usu.setNombre(nombre);
+    			usu.setApellido(apellido);
+    			usu.setNacimiento(fechaN);
+    			usu.setPassword(password);
+    			usu.setImagen(imagen);
+    			((Turista) usu).setNacionalidad(nacionalidad);
+    		}
+    	}
+    }
+    
+    public void actualizarDatosProveedor(String nick, String mail, String nombre, String apellido, Date fechaN, String descripcion, String link, boolean hayLink, String password, byte[] imagen) {
+    	ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+    	Usuario usu = mUsu.obtenerUsuarioNick(nick);
+    	if (usu!=null) {
+    		if (usu instanceof Proveedor) {
+        		usu.setNombre(nombre);
+        		usu.setApellido(apellido);
+        		usu.setNacimiento(fechaN);
+        		usu.setPassword(password);
+        		usu.setImagen(imagen);
+        		((Proveedor) usu).setDescripcion(descripcion);
+        		((Proveedor) usu).setLink(link);
+        		((Proveedor) usu).setHayLink(hayLink);
+        	}
+    	}
+    }
 
 
 

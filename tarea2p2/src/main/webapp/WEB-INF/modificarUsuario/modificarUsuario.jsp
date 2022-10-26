@@ -129,6 +129,26 @@
 															            	</div>
 											                        <%}%>
 														            
+														            
+														            
+														            <div class="form-outline mb-4">
+														              <label class="form-label" for="form2Example28">Contraseña actual</label>
+														              <input type="password" id="actual_password" name="passwordActual" class="form-control form-control-lg" />
+														            </div>
+														            
+														            <div class="form-outline mb-4">
+														              <label class="form-label" for="form2Example28">Nueva Contraseña</label>
+														              <input type="password" id="password" name="passwordNueva" class="form-control form-control-lg" />
+														              
+														            </div>
+														
+														            <div class="form-outline mb-4">
+														              <label class="form-label" for="form2Example28">Confirmar Nueva Contraseña</label>
+														              <input type="password" id="confirm_password" name="confirmPasswordNueva" class="form-control form-control-lg" />
+														              
+														            </div>
+														            
+														            
 														            <!-- Botones -->
 									                                <button type="submit" class="btn btn-info btn-lg btn-block">Confirmar</button>
 														      </div> 
