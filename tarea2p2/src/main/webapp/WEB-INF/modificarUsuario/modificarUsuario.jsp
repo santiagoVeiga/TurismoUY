@@ -129,7 +129,17 @@
 															            	</div>
 											                        <%}%>
 														            
+														            <div>
+														            	<label class="form-label" for="nuevaFotoPerfil">Foto De Perfil</label>
+														            	<br>
+														            	<input accept="image/*" type="file" id="nuevaFotoPerfil" name="nuevaFotoPerfil">
+														            </div>
 														            
+														            <br>
+														            <br>
+														            <div class="form-outline mb-4">
+														              <p>Si desea cambiar su contrasena complete los siguientes campos:</p>
+														            </div>
 														            
 														            <div class="form-outline mb-4">
 														              <label class="form-label" for="form2Example28">Contraseña actual</label>

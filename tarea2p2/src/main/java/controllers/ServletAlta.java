@@ -467,6 +467,46 @@ public class ServletAlta extends HttpServlet {
                     DataUsuario usuario = (DataUsuario) session .getAttribute("usuario");
                     String contrasenaActual = usuario.getPassword();
                     
+                    InputStream inputNueva = null;
+                    Part fileNueva = req.getPart("nuevaFotoPerfil");
+                    byte[] imgBytesNueva = null;
+
+                    //Si se subió imagen
+                    if (fileNueva.getSize() > 0) {
+                        inputNueva = fileNueva.getInputStream();
+                        FileOutputStream outputNueva = null;
+                        try {
+                            File nuevaImgUsr = new File(req.getSession().getServletContext().getRealPath("/") + usuario.getNick() + fileNueva.getSubmittedFileName());
+                            if (nuevaImgUsr.createNewFile())
+                              System.out.println("El fichero se ha creado correctamente");
+                            else
+                              System.out.println("No ha podido ser creado el fichero");
+                            outputNueva = new FileOutputStream(nuevaImgUsr);
+                            int leidoNueva = 0;
+                            leidoNueva = inputNueva.read();
+                            while (leidoNueva != -1) {
+                                outputNueva.write(leidoNueva);
+                                leidoNueva = inputNueva.read();
+                            }
+                            imgBytesNueva = Files.readAllBytes(Paths.get(nuevaImgUsr.getAbsolutePath()));
+                          } catch (IOException ioeAct) {
+                            ioeAct.printStackTrace();
+                          } finally {
+                            try {
+                                outputNueva.flush();
+                                outputNueva.close();
+                                inputNueva.close();
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                        InputStream inSt = new ByteArrayInputStream(imgBytesNueva);
+                        BufferedImage buffIm = ImageIO.read(inSt);
+                        ByteArrayOutputStream outputA = new ByteArrayOutputStream();
+                        ImageIO.write(buffIm, "jpg", outputA);
+                        String imageAsBase64 = Base64.getEncoder().encodeToString(outputA.toByteArray());
+                        session.setAttribute("imagenUsuario", imageAsBase64);
+                    }
                     try {
                         
                         if (usuario instanceof DataTurista) {
@@ -475,14 +515,29 @@ public class ServletAlta extends HttpServlet {
                                 if(contrasenaActualIngresada.equals(contrasenaActual)) {
                                     if(contrasenaNuevaIng.equals(contrasenaNuevaConf) &&  (!contrasenaNuevaIng.equals(null)) && (!contrasenaNuevaIng.equals(""))) {
                                         contrasenaActual = contrasenaNuevaIng;
+                                        req.setAttribute("Exception", "Datos y contrasena editados con exito");
+                                    }else {
+                                        req.setAttribute("Exception", "Datos editados con exito. Nueva contrasena incorrecta");
                                     }
+                                }else{
+                                    req.setAttribute("Exception", "Datos editados con exito. Contrasena incambiada");
                                 }
+                            }else {
+                                req.setAttribute("Exception", "Datos editados con exito. Contrasena incambiada");
                             }
                             if (fechaNueva.equals(null) || fechaNueva.equals("")) {
-                                conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva, contrasenaActual, usuario.getImagen());
+                                if(fileNueva.getSize() > 0) {
+                                    conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva, contrasenaActual, imgBytesNueva);
+                                }else {
+                                    conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva, contrasenaActual, usuario.getImagen());
+                                }
                             } else {
                                 Date fechaNuevaNac = formatFecha.parse(fechaNueva);
-                                conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, nacionalidadNueva, contrasenaActual, usuario.getImagen());
+                                if(fileNueva.getSize() > 0) {
+                                    conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, nacionalidadNueva, contrasenaActual, imgBytesNueva);
+                                }else {
+                                    conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, nacionalidadNueva, contrasenaActual, usuario.getImagen());
+                                }
                             }
                         } else if (usuario instanceof DataProveedor){
                             String descripcionNueva = (String) req.getParameter("descripcionNueva");
@@ -492,17 +547,32 @@ public class ServletAlta extends HttpServlet {
                                 if(contrasenaActualIngresada.equals(contrasenaActual)) {
                                     if(contrasenaNuevaIng.equals(contrasenaNuevaConf) &&  (!contrasenaNuevaIng.equals(null)) && (!contrasenaNuevaIng.equals(""))) {
                                         contrasenaActual = contrasenaNuevaIng;
+                                        req.setAttribute("Exception", "Datos y contrasena editados con exito");
+                                    }else {
+                                        req.setAttribute("Exception", "Datos editados con exito. Nueva contrasena incorrecta");
                                     }
+                                }else{
+                                    req.setAttribute("Exception", "Datos editados con exito. Contrasena incambiada");
                                 }
+                            }else {
+                                req.setAttribute("Exception", "Datos editados con exito. Contrasena incambiada");
                             }
                             if (!linkNuevo.equals(null) || !linkNuevo.equals("")) {
                                 hayLink = true;
                             }
                             if (fechaNueva.equals(null) || fechaNueva.equals("")) {
-                                conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink, contrasenaActual, usuario.getImagen());
+                                if(fileNueva.getSize() > 0) {
+                                    conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink, contrasenaActual, imgBytesNueva);
+                                }else {
+                                    conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink, contrasenaActual, usuario.getImagen());
+                                }
                             }else {
                                 Date fechaNuevaNac = formatFecha.parse(fechaNueva);
-                                conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, descripcionNueva, linkNuevo, hayLink, contrasenaActual, usuario.getImagen());
+                                if(fileNueva.getSize() > 0) {
+                                    conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, descripcionNueva, linkNuevo, hayLink, contrasenaActual, imgBytesNueva);
+                                }else {
+                                    conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, descripcionNueva, linkNuevo, hayLink, contrasenaActual, usuario.getImagen());
+                                }
                             }
                         }
                         req.setAttribute("DataUsuario", usuario);
@@ -511,7 +581,7 @@ public class ServletAlta extends HttpServlet {
                         } catch (UsuarioNoExisteException e) {
                             // TODO Auto-generated catch block
                         }
-                        req.getRequestDispatcher("/ConsultaUsuario").forward(req, resp);
+                        req.getRequestDispatcher("/ConsultaUsuario?nick="+usuario.getNick()).forward(req, resp);
                     }catch (ParseException e){
                         // TODO Auto-generated catch block
                     }

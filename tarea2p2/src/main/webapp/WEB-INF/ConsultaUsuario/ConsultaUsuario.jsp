@@ -78,7 +78,13 @@
             	<div class="row">
             		<div class="col-lg-9">
             			<div class="tabs" margin-left="100px">
-				
+							<% String alert = (String) request.getAttribute("Exception");
+			               if(alert != null){%>
+			               <div class="alert alert-success" role="alert" style="display: flex;justify-content: space-between;">
+							  <%= alert %>
+							  <button id="closei" onclick="this.parentNode.remove(); return false;" >x</button>
+							</div>
+						<%} %>
 					
 				  <div class="tab-container">
 				  <div id="tab1" class="tab">
