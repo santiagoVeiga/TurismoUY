@@ -11,5 +11,29 @@
 	<classpathentry kind="lib" path="src/data/opencsv-3.8.jar"/>
 	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/angus-activation.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/angus-mail.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/FastInfoset.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/gmbal-api-only.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/ha-api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/jakarta.activation-api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/jakarta.annotation-api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/jakarta.mail-api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/jakarta.xml.bind-api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/jakarta.xml.soap-api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/jakarta.xml.ws-api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/jaxb-core.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/jaxb-impl.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/jaxb-jxc.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/jaxb-xjc.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/jaxws-rt.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/jaxws-tools.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/management-api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/mimepull.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/saaj-impl.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/stax2-api.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/stax-ex.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/streambuffer.jar"/>
+	<classpathentry kind="lib" path="lib/jaxws-ri/lib/woodstox-core.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
