@@ -229,7 +229,7 @@ public class ServletAlta extends HttpServlet {
     				String descripcion = (String) req.getParameter("descripcion");
     				String linkProv = (String) req.getParameter("linkProv");
     				String date = (String) req.getParameter("input_date");
-    				SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+    				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     				InputStream inputStream = null; // input stream of the upload file
     		        // obtains the upload file part in this multipart request
     		        Part filePart = req.getPart("imgUsuario");
