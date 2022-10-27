@@ -27,6 +27,7 @@ import excepciones.SalidaYaExisteExeption;
 import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.IControladorAlta;
+import logica.estadoAct;
 
 public class AltaSalida extends JInternalFrame {
 	
@@ -336,10 +337,20 @@ public class AltaSalida extends JInternalFrame {
 			auxi = dataDepartamentos[iCont].getColAct();
 			Iterator<DataActividad> iter = auxi.iterator();
 			int jCont = 0;
-			String[] ActividadesNombres = new String[auxi.size()];
 			while (iter.hasNext()) {
-				ActividadesNombres[jCont] = iter.next().getNombre();
-				jCont++;
+				if (iter.next().getEstado() == estadoAct.confirmada) {
+					jCont++;
+				}
+			}
+			String[] ActividadesNombres = new String[jCont];
+			jCont = 0;
+			iter = auxi.iterator();
+			while (iter.hasNext()) {
+				DataActividad act = iter.next();
+				if (act.getEstado() == estadoAct.confirmada) {
+					ActividadesNombres[jCont] = act.getNombre();
+					jCont++;
+				}
 			}
 	    	model = new DefaultComboBoxModel<String>(ActividadesNombres);
 	    	seleccionarActividadCAMPO.setModel(model);
