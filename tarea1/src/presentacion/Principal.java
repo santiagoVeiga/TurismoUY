@@ -33,7 +33,7 @@ import logica.Fabrica;
 import logica.IControladorAlta;
 import logica.IControladorConsulta;
 import logica.IControladorInsc;
-import servidor.PublicadorIControladorAlta;
+import servidor.PublicadorIControlador;
 
 
 public class Principal {
@@ -65,7 +65,7 @@ public class Principal {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-            		PublicadorIControladorAlta pubAlta = new PublicadorIControladorAlta();
+            		PublicadorIControlador pubAlta = new PublicadorIControlador();
             		pubAlta.publicar();
                     Principal window;
 					try {

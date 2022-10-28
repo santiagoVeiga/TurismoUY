@@ -5,6 +5,7 @@ import jakarta.jws.soap.SOAPBinding.Style;
 import jakarta.jws.soap.SOAPBinding.ParameterStyle;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
@@ -28,6 +29,7 @@ import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
+import excepciones.SalidasNoExisteException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
@@ -35,10 +37,14 @@ import excepciones.UsuarioRepetidoException;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
+import logica.DataActividad;
 import logica.DataDepartamento;
+import logica.DataPaquete;
+import logica.DataSalida;
 import logica.DataUsuario;
 import logica.Fabrica;
 import logica.IControladorAlta;
+import logica.IControladorConsulta;
 
 /**
  * @author TProg2017
@@ -46,15 +52,34 @@ import logica.IControladorAlta;
  */
 @WebService
 @SOAPBinding(style=Style.RPC,parameterStyle=ParameterStyle.WRAPPED)
-public class PublicadorIControladorAlta {
-	public PublicadorIControladorAlta() {
+public class PublicadorIControlador {
+	public PublicadorIControlador() {
 	}
 	private IControladorAlta conAlta = Fabrica.getInstance().getIControladorAlta();
+	private IControladorConsulta conCons = Fabrica.getInstance().getIControladorConsulta();
 	private Endpoint endpoint = null;
 	@WebMethod(exclude=true)
 	public void publicar() {
-		endpoint = Endpoint.publish("http://localhost:9129/publicador", this);
+		// --- Obtener puerto libre ---
+		ServerSocket serverSocket = null;
+		try {
+			serverSocket = new ServerSocket(0);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		String puertoLibre = Integer.toString(serverSocket.getLocalPort());
+		try {
+			serverSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// ------------------------  
+		System.out.println("Publicador iniciado en puerto: " + puertoLibre);
+		endpoint = Endpoint.publish("http://localhost:" + puertoLibre + "/publicador", this);
 	}
+	
+	//Controlador Alta
+	
     @WebMethod
     public void confirmarAltaTurista(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad) throws UsuarioRepetidoException{}
     @WebMethod
@@ -126,6 +151,37 @@ public class PublicadorIControladorAlta {
 	public  void cargarCompPaq() throws IOException, ParseException, NumberFormatException, PaqueteNoExisteException, PaqueteRepetidoException{}
     @WebMethod
     public  void cargarCompPaq(CSVReader reader) throws IOException, ParseException, PaqueteNoExisteException, PaqueteRepetidoException{}
+    
+    //Controlador Consulta
+    
+    /*public DataUsuario[] listarUsuarios() {
+	return null;}*/
+	@WebMethod
+	public DataUsuario ingresarDatos(String nick){
+		return null;}
+	/*public DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException{
+		return null;}
+	public String[] listarPaquetes(){
+		return null;}*/
+	@WebMethod
+	public DataPaquete obtenerDataPaquete(String paq){
+		return null;}
+	/*public Set<String> obtenerNombreCategorias(){
+		return null;}
+	public DataActividad[] obtenerActividadCategoria(String categoria){
+		return null;}*/
+	@WebMethod
+	public DataUsuario obtenerDataUsuarioNick(String nick) throws UsuarioNoExisteException{
+		return null;}
+	@WebMethod
+	public DataUsuario obtenerDataUsuarioMail(String mail) throws UsuarioNoExisteException{
+		return null;}
+	@WebMethod
+	public DataActividad obtenerDataActividad(String nomAct) throws ActividadNoExisteException{
+		return null;}
+	@WebMethod
+	public DataSalida obtenerDataSalida(String nomSal) throws SalidasNoExisteException{
+		return null;}
     @WebMethod(exclude = true)
 	public Endpoint getEndpoint() {
 		return endpoint;
