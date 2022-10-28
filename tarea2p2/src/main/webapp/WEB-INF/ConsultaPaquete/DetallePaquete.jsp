@@ -112,23 +112,38 @@
 		                    	<div class="info_paquete">
 		                    		<span> Informacion del Paquete Seleccionado: </span><br />
 		                    		<div class="row justify-content-center">
-				                    	<div class="col-lg-5">
+				                    	<div class="col-lg-12">
 				                    		<div class="cabezales_paquete">
-				                    			<span> Nombre: </span><br />
-				                    			<span> Validez: </span><br />
-				                    			<span> Descuento: </span><br />
-				                    			<span> Fecha de Alta: </span><br />
-				                    			<span> Descripción: </span><br />
-				                    			<span> </span><br />
-				                    		</div>
-				                    	</div>
-				                    	<div class="col-lg-6">
-				                    		<div class="datos_paquete">
-				                    			<span> <%= dataPaquete.getNombre() %> </span><br />
-				                    			<span> <%= dataPaquete.getValidez() + " dias" %> </span><br />
-				                    			<span> <%= dataPaquete.getDescuento() + "%" %> </span><br />
-				                    			<span> <%= dataPaquete.getFechaAlta().getDate() + "/" + (dataPaquete.getFechaAlta().getMonth()+1) + "/" + (dataPaquete.getFechaAlta().getYear()+1900) %> </span><br />
-				                    			<span> <%= dataPaquete.getDescripcion() %> </span><br />
+									        <table class="table">
+												<thead>
+				                    			</thead>
+							  					<tbody>
+												    <tr>
+												      <th scope="row">Nombre:</th>
+												      <td><%= dataPaquete.getNombre() %></td>
+												    </tr>
+												    <tr>
+												      <th scope="row">Validez:</th>
+												      <td><%= dataPaquete.getValidez() + " días"%></td>
+												    </tr>
+												    <tr>
+												      <th scope="row">Descuento:</th>
+												      <td><%= dataPaquete.getDescuento() + "%"%></td>
+												    </tr>
+												    <tr>
+												      <th scope="row">Fecha de Alta:</th>
+												      <td><%= dataPaquete.getFechaAlta().getDate() + "/" + (dataPaquete.getFechaAlta().getMonth()+1) + "/" + (dataPaquete.getFechaAlta().getYear()+1900) %></td>
+												    </tr>
+												    <tr>
+												      <th scope="row">Descripción:</th>
+												      <td><%= dataPaquete.getDescripcion() %></td>
+												    </tr>
+												    <tr>
+												      <th scope="row">Categorias:</th>
+												      <td><%= dataPaquete.getCategorias() %></td>
+												    </tr>
+												</tbody>
+											</table>
 				                    		</div>
 				                    	</div>
 				                    </div>

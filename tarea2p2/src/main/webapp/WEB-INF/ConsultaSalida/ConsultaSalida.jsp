@@ -98,30 +98,44 @@
                     <div class="row">
                     	<div class="info_salida">
                     		<span> Información de la Salida Seleccionada: </span><br />
-                    		<div class="row">
-		                    	<div class="col-lg-15">
+                    		<div class="row justify-content-center">
+		                    	<div class="col-lg-12">
 		                    		<div class="cabezales_salida">
-		                    			<span> Nombre: </span><br />
-		                    			<span> Fecha: </span><br />
-		                    			<span> Hora: </span><br />
-		                    			<span> Cantidad Máxima Turistas: </span><br />
-		                    			<span> Lugar: </span><br />
-		                    			<span> Fecha de Alta: </span><br />
-		                    		</div>
-		                    	</div>
-		                    	<div class="col-lg-15">
-		                    		<div class="datos_salida">
-		                    			<span> <%= dataSalida.getNombre() %> </span><br />
-		                    			<span> <%= dataSalida.getFecha().getDate() + "/" + (dataSalida.getFecha().getMonth()+1) + "/" + (dataSalida.getFecha().getYear()+1900) %> </span><br />
-		                    			<span> <%= dataSalida.gethora().getHours() %> </span><br />
-		                    			<span> <%= dataSalida.getCant() %> </span><br />
-		                    			<span> <%= dataSalida.getLugar() %> </span><br />
-		                    			<span> <%= dataSalida.getFechaAlta().getDate() + "/" + (dataSalida.getFechaAlta().getMonth()+1) + "/" + (dataSalida.getFechaAlta().getYear()+1900) %> </span><br />
+		                    			<table class="table">
+											<thead>
+			                    			</thead>
+						  					<tbody>
+											    <tr>
+											      <th scope="row">Nombre:</th>
+											      <td><%= dataSalida.getNombre() %></td>
+											    </tr>
+											    <tr>
+											      <th scope="row">Fecha:</th>
+											      <td><%= dataSalida.getFecha().getDate() + "/" + (dataSalida.getFecha().getMonth()+1) + "/" + (dataSalida.getFecha().getYear()+1900)%></td>
+											    </tr>
+											    <tr>
+											      <th scope="row">Hora:</th>
+											      <td><%= dataSalida.gethora().getHours() %></td>
+											    </tr>
+											    <tr>
+											      <th scope="row">Cantidad Máxima Turistas:</th>
+											      <td><%= dataSalida.getCant() %></td>
+											    </tr>
+											    <tr>
+											      <th scope="row">Lugar:</th>
+											      <td><%= dataSalida.getLugar() %></td>
+											    </tr>
+   											    <tr>
+											      <th scope="row">Fecha de Alta:</th>
+											      <td><%= dataSalida.getFechaAlta().getDate() + "/" + (dataSalida.getFechaAlta().getMonth()+1) + "/" + (dataSalida.getFechaAlta().getYear()+1900) %></td>
+											    </tr>
+											</tbody>
+										</table>
 		                    		</div>
 		                    	</div>
 		                    </div>
 		                    <div class="row">
-		                    	<div class="col-lg-15">
+		                    	<div class="col-lg-12">
 		                    		<div class="imagen_salida">
 		                    			<img src="data:image/jpg;base64,<%= imagen %>" alt="">
 		                    		</div>
