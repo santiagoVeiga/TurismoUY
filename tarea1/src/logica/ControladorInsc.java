@@ -143,6 +143,9 @@ public class ControladorInsc implements IControladorInsc {
 		if (!((Turista) tur).paqueteComprado(nombrePaq)) {
 			throw new PaqueteRepetidoException("El paquete: " + nombrePaq + " no ha sido comprado por el turista: " + nick);
 		}
+		if (fecha.after(compraPaq.getVencimiento())) {
+			throw new InscFechaInconsistente("La fecha de inscripcion debe ser anterior a la fecha del vencimiento del paquete");
+		}
 		compraPaq.reducirCuposAct(nombreAct, cantTuristas);
 		float costo = act.getCosto();
 		costo = costo*cantTuristas*(1 - ((float) (compraPaq.getDescuento())/100));

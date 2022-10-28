@@ -37,6 +37,7 @@ public class ConsultaPaquete extends JInternalFrame {
     private JButton btnInfoActividad;
     private JComboBox<String> jcbPaquete;
     private JComboBox<String> jcbActividades;
+    private JComboBox<String> jcbCategorias;
     private String[] paquetes;
     private JLabel actividadesL;
     private JLabel paqNombre;
@@ -55,6 +56,8 @@ public class ConsultaPaquete extends JInternalFrame {
     private ConsultarActividad conActividad;
     private String paq;
     private JLabel paqueteL;
+    private JLabel categoriasL;
+    private String[] nombresCat;
     /**
      * Create the frame.
      */
@@ -69,7 +72,7 @@ public class ConsultaPaquete extends JInternalFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
         setTitle("Consulta Paquete");
-        setBounds(30, 30, 578, 334);
+        setBounds(30, 30, 578, 390);
 
         // En este caso usaremos el Absolute Layout y deberemos indicar
         // la posición absoluta de todos los componentes
@@ -128,7 +131,7 @@ public class ConsultaPaquete extends JInternalFrame {
                 setVisible(false);
             }
         });
-        btnCerrar.setBounds(440, 272, 89, 23);
+        btnCerrar.setBounds(440, 323, 89, 23);
         getContentPane().add(btnCerrar);
         
         btnBuscar = new JButton("Buscar");
@@ -140,7 +143,7 @@ public class ConsultaPaquete extends JInternalFrame {
             	cargarActividades();
             }
         });
-        btnBuscar.setBounds(36, 272, 89, 23);
+        btnBuscar.setBounds(40, 323, 89, 23);
         getContentPane().add(btnBuscar);
         btnBuscar.setVisible(false);
         
@@ -152,7 +155,7 @@ public class ConsultaPaquete extends JInternalFrame {
             	conActividad.setVisible(true);
             }
         });
-        btnInfoActividad.setBounds(281, 272, 129, 23);
+        btnInfoActividad.setBounds(281, 323, 129, 23);
         getContentPane().add(btnInfoActividad);
         btnInfoActividad.setVisible(false);
         
@@ -249,7 +252,22 @@ public class ConsultaPaquete extends JInternalFrame {
     	gbc_paqFechaR.insets = new Insets(2, 2, 5, 5);
     	getContentPane().add(paqFechaR, gbc_paqFechaR);
     	paqFechaR.setVisible(false);
+    	
+        categoriasL = new JLabel("Categorias: ");
+        categoriasL.setSize(125, 32);
+        categoriasL.setLocation(40, 272);
+    	GridBagConstraints gbc_Categorias = new GridBagConstraints();
+    	gbc_Categorias.anchor = GridBagConstraints.EAST;
+    	gbc_Categorias.insets = new Insets(2, 2, 5, 5);
+    	getContentPane().add(categoriasL, gbc_Categorias);
+    	categoriasL.setVisible(false);
+    	
+        jcbCategorias = new JComboBox<String>();
+        jcbCategorias.setBounds(253, 276, 276, 24);
+        getContentPane().add(jcbCategorias);
+        jcbCategorias.setVisible(false);
     }	
+    
     
 
 public void cargarPaquetes(){
@@ -291,6 +309,7 @@ public void mostrarPaquete() {
 	paqFechaR.setText(paqElegido.getFechaAlta().getDate() + "/" + (paqElegido.getFechaAlta().getMonth() + 1) + "/" + (paqElegido.getFechaAlta().getYear() +1900));
 	paqFechaR.setVisible(true);
 	cargarActividades();
+	cargarCategorias();
 }
 
 public void cargarActividades(){
@@ -315,6 +334,15 @@ public void cargarActividades(){
 	}
 }
 
+public void cargarCategorias() {
+	DefaultComboBoxModel<String> model;
+	nombresCat = paqElegido.getCategorias().toArray(new String[0]);
+	categoriasL.setVisible(true);
+	jcbCategorias.setVisible(true);
+	model = new DefaultComboBoxModel<String>(nombresCat);
+    jcbCategorias.setModel(model);
+}
+
     // Permite borrar el contenido de un formulario antes de cerrarlo.
     // Recordar que las ventanas no se destruyen, sino que simplemente 
     // se ocultan, por lo que conviene borrar la información para que 
@@ -325,6 +353,9 @@ public void cargarActividades(){
         jcbPaquete.setVisible(false);
         btnBuscar.setVisible(false);
         btnInfoActividad.setVisible(false);
+        jcbCategorias.removeAllItems();
+        categoriasL.setVisible(false);
+        jcbCategorias.setVisible(false);
         limpiarFormularioPaquete();
     }
 

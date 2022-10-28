@@ -1,6 +1,8 @@
 package logica;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DataPaquete {
 	
@@ -86,5 +88,13 @@ public class DataPaquete {
 
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
+	}
+	
+	public Set<String> getCategorias(){
+		Set<String> resultado = new HashSet<String>();
+		for (DataActividad itAct: dtAct) {
+			resultado.addAll(itAct.getCategorias());
+		}
+		return resultado;
 	}
 }
