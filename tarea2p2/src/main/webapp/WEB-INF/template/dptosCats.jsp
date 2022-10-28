@@ -23,11 +23,13 @@
 </head>
 <body>
 
-<%DataUsuario usr = null;
+	<%DataUsuario usr = null;
     if (session.getAttribute("estado_sesion") != EstadoSesion.NO_LOGIN) {
     	usr = (DataUsuario) session.getAttribute("usuario");
     }
-      %>
+    boolean movil = (boolean) session.getAttribute("esMovil");
+    if (!movil){
+    %>
       <div class="hero__deps">
          <div class="hero__deps__all">
              <i class="fa fa-bars"  ></i>
@@ -56,8 +58,47 @@
          <%} %>
          </ul>
      </div>
-    
-     
+	<%} else { %>
+	<!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+        <div class="humberger__menu__logo">
+            <a href="#"><img src="img/logo.png" alt=""></a>
+        </div>
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li class="active"><a href="./index.html">Home</a></li>
+                <li><a href="#">Consulta Actividad</a>
+                    <ul class="header__menu__dropdown">
+                        <li><a href="#">Departamentos</a>
+                        	<ul class="header__menu__dropdown">
+                        		<%
+                        		DataDepartamento[] dptos = (DataDepartamento[]) session.getAttribute("dptos");
+						        if (dptos!=null)
+						        	for (DataDepartamento it : dptos){
+						        	%>
+						        		<li><a href="?DTDConsultaActividad=<%= it.getNombre() %>"><%= it.getNombre() %></a></li>
+						        	<%} %>
+                   			 </ul>
+                        </li>
+                        <li><a href="#">Categorias</a>
+                        	<ul class="header__menu__dropdown">
+						        <%Set<String> cats = (Set<String>) session.getAttribute("categorias");
+						        if(cats!=null)
+						        	for (String it : cats){
+						        	%>
+						            	<li><a href="?CatConsultaActividad=<%= it  %>"><%= it %></a></li>
+						        	<%} %>
+                   			</ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+    </div>
+    <!-- Humberger End -->
+	<%} %>
      
 <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
