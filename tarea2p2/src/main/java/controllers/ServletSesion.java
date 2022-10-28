@@ -42,6 +42,7 @@ import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.DataDepartamento;
+import logica.DataTurista;
 import logica.DataUsuario;
 import logica.Fabrica;
 import logica.IControladorAlta;
@@ -69,6 +70,11 @@ public ServletSesion() {
  */
 public void initSession(HttpServletRequest request) {
 	HttpSession session = request.getSession();
+	String userAg = request.getHeader("USER-AGENT");
+	session.setAttribute("esMovil", false); 
+	if (userAg.contains("Mobile")) {
+	    session.setAttribute("esMovil", true);
+	}
 	if (session.getAttribute("estado_sesion") == null) {
 		session.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
     	Fabrica fab = Fabrica.getInstance();
@@ -244,63 +250,127 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     			break;
     		case "/sesionIniciada":
     			DataUsuario[] ususSistema = conAlta.getUsuariosComp();
-    			String nickOrEmail = (String) req.getParameter("emailnick_inicioSesion");
-    			for (DataUsuario it : ususSistema) {
-    				if (it.getMail().equals(nickOrEmail)) {
-    					String password = (String) req.getParameter("pass_iniSesion");
-    					if (it.getPassword().equals(password)) { 
-    						//Sesion iniciada correctamente
-    						ses.setAttribute("usuario", it);
-    						// Setear imagen
-    						String imageAsBase64 = null;
-    						if (it.getImagen()!=null) {
-    						    InputStream inSt = new ByteArrayInputStream(it.getImagen());
-        				        BufferedImage buffIM = ImageIO.read(inSt);
-        				        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        						ImageIO.write(buffIM, "jpg", output);
-        						imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
-    						}
-    				        ses.setAttribute("imagenUsuario", imageAsBase64);
-    				        //
-    				        ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
-    						req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
-    						return;
-    					}
-    					else {
-    						req.setAttribute("error_contrasena", "error");
-    						req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
-    						return;
-    					}
-    				}
-    				else if (it.getNick().equals(nickOrEmail)) {
-    					String password = (String) req.getParameter("pass_iniSesion");
-    					if (it.getPassword().equals(password)) { 
-    						//Sesion iniciada correctamente
-    						ses.setAttribute("usuario", it);
-    						// Setear imagen
-    						String imageAsBase64 = null;
-                            if (it.getImagen()!=null) {
-                                InputStream inSt = new ByteArrayInputStream(it.getImagen());
-                                BufferedImage buffIm = ImageIO.read(inSt );
-                                ByteArrayOutputStream output = new ByteArrayOutputStream();
-                                ImageIO.write(buffIm, "jpg", output);
-                                imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+    			boolean esMovil = (boolean) ses.getAttribute("esMovil");
+    			if(!esMovil) {
+    			    String nickOrEmail = (String) req.getParameter("emailnick_inicioSesion");
+                    for (DataUsuario it : ususSistema) {
+                        if (it.getMail().equals(nickOrEmail)) {
+                            String password = (String) req.getParameter("pass_iniSesion");
+                            if (it.getPassword().equals(password)) { 
+                                //Sesion iniciada correctamente
+                                ses.setAttribute("usuario", it);
+                                // Setear imagen
+                                String imageAsBase64 = null;
+                                if (it.getImagen()!=null) {
+                                    InputStream inSt = new ByteArrayInputStream(it.getImagen());
+                                    BufferedImage buffIM = ImageIO.read(inSt);
+                                    ByteArrayOutputStream output = new ByteArrayOutputStream();
+                                    ImageIO.write(buffIM, "jpg", output);
+                                    imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+                                }
+                                ses.setAttribute("imagenUsuario", imageAsBase64);
+                                //
+                                ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
+                                req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
+                                return;
                             }
-                            ses.setAttribute("imagenUsuario", imageAsBase64);
-    				        //
-    						ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
-    						resp.sendRedirect("/tarea2p2/home");
-    						return;
-    					}
-    					else {
-    						req.setAttribute("error_contrasena", "error");
-    						req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
-    						return;
-    					}
-    				}
+                            else {
+                                req.setAttribute("error_contrasena", "error");
+                                req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
+                                return;
+                            }
+                        }
+                        else if (it.getNick().equals(nickOrEmail)) {
+                            String password = (String) req.getParameter("pass_iniSesion");
+                            if (it.getPassword().equals(password)) { 
+                                //Sesion iniciada correctamente
+                                ses.setAttribute("usuario", it);
+                                // Setear imagen
+                                String imageAsBase64 = null;
+                                if (it.getImagen()!=null) {
+                                    InputStream inSt = new ByteArrayInputStream(it.getImagen());
+                                    BufferedImage buffIm = ImageIO.read(inSt );
+                                    ByteArrayOutputStream output = new ByteArrayOutputStream();
+                                    ImageIO.write(buffIm, "jpg", output);
+                                    imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+                                }
+                                ses.setAttribute("imagenUsuario", imageAsBase64);
+                                //
+                                ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
+                                resp.sendRedirect("/tarea2p2/home");
+                                return;
+                            }
+                            else {
+                                req.setAttribute("error_contrasena", "error");
+                                req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
+                                return;
+                            }
+                        }
+                    }
+                    req.setAttribute("error_emailnick", "error");
+                    req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
     			}
-    			req.setAttribute("error_emailnick", "error");
-    			req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
+    			else {
+    			    String nickOrEmail = (String) req.getParameter("emailnick_inicioSesionM");
+                    for (DataUsuario it : ususSistema) {
+                        if(it instanceof DataTurista) {
+                            if (it.getMail().equals(nickOrEmail)) {
+                                String password = (String) req.getParameter("pass_iniSesionM");
+                                if (it.getPassword().equals(password)) { 
+                                    //Sesion iniciada correctamente
+                                    ses.setAttribute("usuario", it);
+                                    // Setear imagen
+                                    String imageAsBase64 = null;
+                                    if (it.getImagen()!=null) {
+                                        InputStream inSt = new ByteArrayInputStream(it.getImagen());
+                                        BufferedImage buffIM = ImageIO.read(inSt);
+                                        ByteArrayOutputStream output = new ByteArrayOutputStream();
+                                        ImageIO.write(buffIM, "jpg", output);
+                                        imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+                                    }
+                                    ses.setAttribute("imagenUsuario", imageAsBase64);
+                                    //
+                                    ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
+                                    req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
+                                    return;
+                                }
+                                else {
+                                    req.setAttribute("error_contrasena", "error");
+                                    req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
+                                    return;
+                                }
+                            }
+                            else if (it.getNick().equals(nickOrEmail)) {
+                                String password = (String) req.getParameter("pass_iniSesionM");
+                                if (it.getPassword().equals(password)) { 
+                                    //Sesion iniciada correctamente
+                                    ses.setAttribute("usuario", it);
+                                    // Setear imagen
+                                    String imageAsBase64 = null;
+                                    if (it.getImagen()!=null) {
+                                        InputStream inSt = new ByteArrayInputStream(it.getImagen());
+                                        BufferedImage buffIm = ImageIO.read(inSt );
+                                        ByteArrayOutputStream output = new ByteArrayOutputStream();
+                                        ImageIO.write(buffIm, "jpg", output);
+                                        imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+                                    }
+                                    ses.setAttribute("imagenUsuario", imageAsBase64);
+                                    //
+                                    ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
+                                    resp.sendRedirect("/tarea2p2/home");
+                                    return;
+                                }
+                                else {
+                                    req.setAttribute("error_contrasena", "error");
+                                    req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
+                                    return;
+                                }
+                            }
+                        }
+                        }
+                    req.setAttribute("error_emailnick", "error");
+                    req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
+    			}
     			break;
     		case "/sesionCerrada":
     			break;

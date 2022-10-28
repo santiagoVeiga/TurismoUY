@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     </head>
    <body>
+   <%boolean esMovil = (boolean) session.getAttribute("esMovil"); 
+   if (!esMovil){%>
+   
    <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -119,6 +122,64 @@
         </div>
     </section>
     <!-- Hero Section End -->
+    <%} else { %>
+    	<!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    
+    <section class="vh-100">
+	  <div class="container-fluid">
+	    <div class="row" >
+	      <div class="col-sm-12 text-black">
+	
+	        <div class="d-flex align-items-center">
+				
+	          <form id="iniSesM" style="width: 23rem;" action = "sesionIniciada" method="post">
+				<a href="/tarea2p2/home"><img alt="" src="img/logo.png"></a>
+				<br>
+	            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inicio de Sesion</h3>
+	            
+	            <% String ec = (String) request.getAttribute("error_contrasena"); 
+	               String een = (String) request.getAttribute("error_emailnick");
+	               if(een != null && een.equals("error")){%>
+	               <div class="alert alert-danger" role="alert" style="display: flex;justify-content: space-between;">
+					  Email o nickname incorrecto
+					  <button id="closei" onclick="this.parentNode.remove(); return false;" >x</button>
+					</div>
+				<%} else if (ec != null && ec.equals("error")){ %>
+					<div class="alert alert-danger" role="alert" style="display: flex;justify-content: space-between;">
+					  Contraseña incorrecta
+					  <button id="closei" onclick="this.parentNode.remove(); return false;" >x</button>
+					</div>
+				<%} %>
+			<fieldset>
+	            <div class="form-outline mb-4">
+	            	<label class="form-label" for="emailnick_inicioSesion">Email address or nickname</label>
+	              <input type="text" id="emailnick_inicioSesionM" name="emailnick_inicioSesionM" class="form-control form-control-lg" required/>
+	            </div>
+	
+	            <div class="form-outline mb-4">
+	              <label class="form-label" for="pass_iniSesion">Password</label>
+	              <input type="password" id="pass_iniSesionM" name="pass_iniSesionM" class="form-control form-control-lg" required/>
+	            </div>
+	         </fieldset>   
+				
+				<div class="pt-1 mb-4" >
+	              <button class="btn btn-info btn-lg btn-block" id="btn-iniSM" onclick="inicioSesionM();" style="background : #4bb1ff;" type="button">Iniciar Sesion</button>
+	            </div>            
+	
+	
+	          </form>
+	
+	        </div>
+	
+	      </div>
+	    </div>
+	  </div>
+	</section>
+	
+    <%} %>
 
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -129,7 +190,26 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
-
+	
+	<script src="js/jquery.validate.js"></script>
+    
+	<script> function inicioSesionM(){
+		$("#iniSesM").validate({
+			rules:{
+				emailnick_inicioSesionM: "required",
+				pass_iniSesionM: "required"
+			},
+			messages:{
+				emailnick_inicioSesionM: "Por favor ingrese email o nick",
+				pass_iniSesionM: "Por favor ingrese contraseña"
+			},
+			errorElement: 'span'
+		});
+		if($("#iniSesM").valid()){
+			document.getElementById("iniSesM").submit();
+		}
+	}
+	</script>
 	
 
 	
