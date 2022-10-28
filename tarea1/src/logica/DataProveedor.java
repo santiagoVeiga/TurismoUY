@@ -21,7 +21,14 @@ public class DataProveedor extends DataUsuario {
     	this.link = link;
     	this.actividades = Actividades;
     }
-
+    
+    public DataProveedor(String nick, String nombre, String apellido, String mail, Date nacimiento, String descripcion, String link, Set<DataActividad> Actividades, String pass, byte[] imagen, Set<String> seguidores, Set<String> seguidos) {
+        super(nick, nombre, apellido, mail, nacimiento, pass, imagen, seguidores, seguidos);
+    	this.descripcion = descripcion;
+    	this.link = link;
+    	this.actividades = Actividades;
+    }
+    
     public String getDescripcion() {
         return descripcion;
     }

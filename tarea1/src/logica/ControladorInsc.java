@@ -11,6 +11,7 @@ import java.util.Set;
 import com.opencsv.CSVReader;
 
 import excepciones.ActividadNoExisteException;
+import excepciones.ActividadRepetidaException;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
@@ -20,6 +21,8 @@ import excepciones.PaqueteRepetidoException;
 import excepciones.SalidasNoExisteException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
+import excepciones.UsuarioNoExisteException;
+import excepciones.UsuarioRepetidoException;
 import excepciones.estadoActividadIncorrecto;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorDepartamentos;
@@ -277,6 +280,38 @@ public class ControladorInsc implements IControladorInsc {
 		return mAct.obtenerNomActvidiadDeSalida(salida);
 	}
 
+	
+	public void seguirDejarDeSeguirUsuario(String nickSeguidor, String nickSeguido, boolean seguir) throws UsuarioNoExisteException, UsuarioRepetidoException{
+		ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
+		Usuario seguidor = manUsu.obtenerUsuarioNick(nickSeguidor);
+		Usuario seguido = manUsu.obtenerUsuarioNick(nickSeguido);
+		if (seguidor == null) {
+			throw new UsuarioNoExisteException("No existe un usuario con el nick " + nickSeguidor);
+		}
+		if (seguido == null) {
+			throw new UsuarioNoExisteException("No existe un usuario con el nick " + nickSeguido);
+		}
+		if (seguir) {
+			seguidor.seguirUsuario(seguido);
+			seguido.agregarSeguidor(seguidor);
+		} else {
+			seguidor.dejarDeSeguirUsuario(seguido);
+			seguido.eliminarSeguidor(seguidor);
+		}
+	}
+	
+	public void agregarQuitarActividadFavorita(String nickTurista, String nombreAct, boolean agregar) throws UsuarioNoExisteException, ActividadNoExisteException, ActividadRepetidaException {
+		ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
+		Usuario usuAux = manUsu.obtenerUsuarioNick(nickTurista);
+		if (usuAux ==null || !(usuAux instanceof Turista)) {
+			throw new UsuarioNoExisteException("El nick " + nickTurista + " no coincide con un turista registrado en el sistema");
+		}
+		Turista tur = (Turista) usuAux;
+		ManejadorActividad manAct = ManejadorActividad.getInstance();
+		Actividad act = manAct.getActividad(nombreAct);
+		tur.agregarQuitarActividadFavorita(act, agregar);
+	}
+	
 	@Override
 	public void cargarActsPaqs(CSVReader reader) throws IOException {
 		String[] nextLine;

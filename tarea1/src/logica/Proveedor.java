@@ -90,7 +90,7 @@ public class Proveedor extends Usuario {
     		Actividad act = entry.getValue();
     		dAct.add(act.getDataAT());
     	}
-    	DataProveedor dProv = new DataProveedor(getNickname(), getNombre(), getApellido(), getMail(), getNacimiento(), descripcion, link, dAct, getPassword(), getImagen());
+    	DataProveedor dProv = new DataProveedor(getNickname(), getNombre(), getApellido(), getMail(), getNacimiento(), descripcion, link, dAct, getPassword(), getImagen(), this.getSeguidores().keySet(), this.getSeguidos().keySet());
     	return dProv;
 	}
 

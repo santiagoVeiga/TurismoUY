@@ -1,6 +1,8 @@
 package logica;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Datatype para transportar la información de un usuario entre capa lógica y de presentación.
@@ -17,6 +19,8 @@ public class DataUsuario {
     private Date nacimiento;
     private String password;
     private byte[] imagen;
+    private Set<String> seguidores;
+    private Set<String> seguidos;
 
     public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento) {
     	this.nick = nick;
@@ -26,6 +30,8 @@ public class DataUsuario {
         this.nacimiento = nacimiento;
         this.password = null;
         this.imagen = null;
+        this.seguidores = new HashSet<String>();
+        this.seguidos = new HashSet<String>();
     }
     
     public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento, String pass, byte[] imagen) {
@@ -36,6 +42,20 @@ public class DataUsuario {
         this.nacimiento = nacimiento;
         password = pass;
         this.imagen = imagen;
+        this.seguidores = new HashSet<String>();
+        this.seguidos = new HashSet<String>();
+    }
+    
+    public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento, String pass, byte[] imagen, Set<String> seguidores, Set<String> seguidos) {
+    	this.nick = nick;
+    	this.nombre= nombre;
+        this.apellido = apellido;
+        this.mail = mail;
+        this.nacimiento = nacimiento;
+        password = pass;
+        this.imagen = imagen;
+        this.setSeguidores(seguidores);
+        this.setSeguidos(seguidos);
     }
 
     public String getNick() {
@@ -68,6 +88,22 @@ public class DataUsuario {
 
 	public byte[] getImagen() {
 		return imagen;
+	}
+
+	public Set<String> getSeguidores() {
+		return seguidores;
+	}
+
+	public Set<String> getSeguidos() {
+		return seguidos;
+	}
+
+	public void setSeguidos(Set<String> seguidos) {
+		this.seguidos = seguidos;
+	}
+
+	public void setSeguidores(Set<String> seguidores) {
+		this.seguidores = seguidores;
 	}
 
 	public void setImagen(byte[] imagen) {

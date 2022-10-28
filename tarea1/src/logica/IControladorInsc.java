@@ -8,6 +8,7 @@ import java.util.Set;
 import com.opencsv.CSVReader;
 
 import excepciones.ActividadNoExisteException;
+import excepciones.ActividadRepetidaException;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
@@ -17,6 +18,8 @@ import excepciones.PaqueteRepetidoException;
 import excepciones.SalidasNoExisteException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
+import excepciones.UsuarioNoExisteException;
+import excepciones.UsuarioRepetidoException;
 import excepciones.estadoActividadIncorrecto;
 
 public interface IControladorInsc {
@@ -39,4 +42,6 @@ public interface IControladorInsc {
 	public abstract String[] obtenerPaquetesComprados(String nickTurista);
 	public abstract String obtenerNomActPorSalida(String salida) throws SalidasNoExisteException;
 	public abstract void cargarInsc(CSVReader reader) throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException;
+	public abstract void seguirDejarDeSeguirUsuario(String nickSeguidor, String nickASeguir, boolean seguir) throws UsuarioNoExisteException, UsuarioRepetidoException;
+	public abstract void agregarQuitarActividadFavorita(String nickTurista, String nombreAct, boolean agregar) throws UsuarioNoExisteException, ActividadNoExisteException, ActividadRepetidaException;
 }
