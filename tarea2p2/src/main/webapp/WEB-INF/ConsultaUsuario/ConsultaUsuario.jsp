@@ -101,11 +101,50 @@
 		                    	<li><span>Link: </span><%=((DataProveedor)DU).getLink()%></li>
 		                    	
 		                    <%}%>
+		                    <br>
 		                    <% DataUsuario usr = (DataUsuario) session.getAttribute("usuario");
+		                    
 		                    if (usr != null && DU.getNick().equals(usr.getNick())){
 		                    	%>
 		                    <button type="button" class="btn btn-light"><a href="/tarea2p2/ModificarUsuario?dataUsuario=<%= DU.getNick() %>">Modificar datos personales</a></button>
-		                   <% }%> 
+		                   <% }else{
+		                    	%>
+		                    <button type="button2" class="btn btn-light"><a>Seguir</a></button>
+		                   <% }%>
+		                   
+		                   <div class="col-lg-3">
+		                   	<div class="hero__deps">
+						   		<div class="hero__deps__all">
+						             <i class="fa fa-bars"  ></i>
+						             <span>Seguidores</span>
+						         </div>
+						         <ul>
+						         <%String[] Segui = DU.getSeguidores().toArray(new String[0]);
+						         if(Segui!=null)
+						         for (String it : Segui){
+						         %>
+						             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
+						         <%} %>
+						         </ul>
+						     </div>
+		                   </div>
+		                   <div class="col-lg-3">
+		                   	<div class="hero__deps">
+						   		<div class="hero__deps__all">
+						             <i class="fa fa-bars"  ></i>
+						             <span>Seguidos</span>
+						         </div>
+						         <ul>
+						         <%String[] Seguidos = DU.getSeguidos().toArray(new String[0]);
+						         if(Segui!=null)
+						         for (String it : Seguidos){
+						         %>
+						             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
+						         <%} %>
+						         </ul>
+						     </div>
+		                   </div>
+		                    
 				      </div> 
 				    </div> 
 				  
@@ -123,6 +162,7 @@
 					        	DP[i] = ((DataCompraPaquete) uuuu[i]).getPaq();
 					        	
 					        }
+				    	    if (usr != null && DU.getNick().equals(usr.getNick())){
 				    	    /*DataPaquete[] DP = (DataPaquete[]) request.getAttribute("ArregloPaquetes");*/
 				    	    if (DP.length != 0){
 				    	    	String imagenp = Base64.getEncoder().encodeToString(DP[0].getImagen());
@@ -171,14 +211,12 @@
 							                                    </a>
 							                                    <div class="card-body">
 							                                        <p class="card-text"> <%= DP[i].getNombre() %></p>
-							                                        <%	if (usr != null && DU.getNick().equals(usr.getNick())){ 
-					                                        %>
+							                                %>
 							                                        <p class="card-text">cantidad: <%= ((DataCompraPaquete)arrDCP[i]).getCantidad()%></p> 
 							                                        <p class="card-text">costo: <%= Math.round(arrDCP[i].getCosto())%></p> 
 							                                        <p class="card-text">fecha: <%=arrDCP[i].getFecha().getDate() + "/" + (arrDCP[i].getFecha().getMonth()+1)+ "/" + (arrDCP[i].getFecha().getYear()+1900) %> </p> 
 							                                        <p class="card-text">vencimiento: <%= arrDCP[i].getVencimiento().getDate() + "/" + (arrDCP[i].getVencimiento().getMonth()+1)+ "/" + (arrDCP[i].getVencimiento().getYear()+1900) %></p>                                  
-							                                <%}
-					                                    	%>
+							                                
 							                                    </div>
 							                                 </div>
 							                            </div>
@@ -206,6 +244,7 @@
 					    
 					      
 						<%
+				    	    }
 				    	    }
 						salidas = ((DataTurista) DU).getInscripcionesSal();
 						Object[] uuu = salidas.toArray();
@@ -384,6 +423,7 @@
 				    		  DataActividad[] arrDS = ((DataProveedor) DU).getActividades().toArray(new DataActividad[0]);
 				    		  if (arrDS.length != 0) {
 						        	String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
+						        	DataSalida[] arrDSA = arrDS[0].getSalidas().toArray(new DataSalida[0]);
 	                    	  %>
 						    <div id="tab2" class="tab">
 					      	<a href="#tab2">Actividades</a>
@@ -407,12 +447,25 @@
 					                                    <div class="card-body">
 					                                      <p class="card-text" ><%= arrDS[0].getNombre() %></p>                                    
 							                              <p class="card-text">Estado : <%= arrDS[0].getEstado() %></p>
+					                                      <br>
+					                                      
+					                                      <p align="center" class="card-text">Salidas Asociadas:</p>                              
+				                                    	  
+				                                    	  <%for(int x = 0; x < arrDSA.length; x++) {%>
+				                                    	  <a href="/tarea2p2/ConsultaSalida?salida=<%= arrDSA[x].getNombre() %>"> 
+							                                    	   <p align="center" class="card-text" ><%= arrDSA[x].getNombre() %></p>
+							                                    	  </a>
+							                                    	  
+				                                    	  <%} %>
+				                                    	  
 					                                    </div>
 					                                  </div>
 					                                </div>         
 					                           
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
+							                          		
+							                          		arrDSA = arrDS[i].getSalidas().toArray(new DataSalida[0]);
 							                          		if(arrDS[i]!=null){
 							                          		String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          	%>
@@ -423,7 +476,14 @@
 							                                    </a>
 							                                    <div class="card-body">
 							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>                                    
-							                                        <p class="card-text">Estado : <%= arrDS[i].getEstado() %></p>                                    
+							                                        <p class="card-text">Estado : <%= arrDS[i].getEstado() %></p>
+							                                        <br>
+							                                        <p align="center" class="card-text">Salidas Asociadas:</p>                                    
+							                                    	<%for(int x = 0; x < arrDSA.length; x++) {%>
+							                                    	<a href="/tarea2p2/ConsultaSalida?salida=<%= arrDSA[x].getNombre() %>"> 
+							                                    	   <p align="center" class="card-text" ><%= arrDSA[x].getNombre() %></p>
+							                                    	  </a>
+							                                    	  <%} %>
 							                                    </div>
 							                                    </div>
 							                                 </div>
