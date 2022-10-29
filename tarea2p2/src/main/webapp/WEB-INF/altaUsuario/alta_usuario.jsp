@@ -50,8 +50,9 @@
 
             <div class="form-outline mb-4">
             	<label class="form-label" for="form2Example18">Nickname</label>
-              <input type="text" id="username" name="username" class="form-control form-control-lg" required/>
-              
+              <input type="text" id="username" name="username" class="form-control form-control-lg" onkeyup="nickDisp()" required/>
+              <div id="checkNick">
+              </div>
             </div>
             
             <div class="form-outline mb-4">
@@ -154,7 +155,24 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/jquery.validate.js"></script>
-
+	<script>
+	function nickDisp() {
+		  const xhttp = new XMLHttpRequest();
+		  xhttp.onload = function() {
+			  var resp = this.responseText;
+			  if (resp == "y"){
+				  $("#checkNick").empty ();
+				  document.getElementById("checkNick").innerHTML = "Nick disponible";
+			  }
+			  else{
+				  $("#checkNick").empty ();
+				  document.getElementById("checkNick").innerHTML = "Nick no disponible";
+			  }
+		    }
+		  xhttp.open("GET", "/tarea2p2/perteneceNick?nick="+document.getElementById("username").value, true);
+		  xhttp.send();
+		}
+	</script>
 
 
 </body>

@@ -24,7 +24,7 @@ import logica.IControladorConsulta;
 /**
  * Servlet implementation class Home
  */
-@WebServlet (urlPatterns={"/ConsultaUsuario", "/ConsultaActividad", "/ConsultaSalida", "/ConsultaPaquete"})
+@WebServlet (urlPatterns={"/ConsultaUsuario", "/ConsultaActividad", "/ConsultaSalida", "/ConsultaPaquete", "/perteneceNick"})
 
 public class ServletConsulta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -76,6 +76,18 @@ public class ServletConsulta extends HttpServlet {
             selecCat(req, resp, nomCat);
         } else {
     		switch (req.getServletPath()){
+    		    case "/perteneceNick":
+    		        String text = "n";
+    		        resp.setContentType("text/plain");  
+                    resp.setCharacterEncoding("UTF-8"); 
+    		        try {
+    		            conCons = fab.getIControladorConsulta();
+                        DataUsuario usu = conCons.obtenerDataUsuarioNick(req.getParameter("nick"));
+                    } catch (UsuarioNoExisteException e1) {
+                        text = "y";
+                    }
+    		        resp.getWriter().write(text);
+    		        break;
     			case "/ConsultaUsuario":
     				String usuario = (String) req.getParameter("nick");
     				conCons = fab.getIControladorConsulta();
