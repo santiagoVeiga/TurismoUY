@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
-<body>
+<body onload="ocuDesocu()">
 <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -44,15 +44,35 @@
                         
                     </div>
                 </div>
+                
+                <%
+                Set<DataPaquete> paqs;
+                paqs = (Set<DataPaquete>) request.getAttribute("paquetes");
+                Set<DataActividad> acts;
+                acts = (Set<DataActividad>) request.getAttribute("actividades");
+                int cantRes = paqs.size()+acts.size();%>
                 <div class="col-lg-9">
                 	<div class="sidebar__item">
+                		<div style="display: flex;justify-content: space-between;">
+                			<div>
+                				<p><%= cantRes %> Resultados</p>
+                			</div>
+                			<div class="dropdown">
+							  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" onclick="ocuDesocu()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    Ordenar por
+							  </button>
+							  <div class="dropdown-menu" id="menuOrden">
+							    <a class="dropdown-item" href="#">Alfabéticamente (A-Z a-z)</a>
+							    <a class="dropdown-item" href="#">Año (descendente)</a>
+							  </div>
+							</div>
+                		</div>
                         <div class="latest-product__text">
-                            <h4>Resultados</h4>
+                            
                             <div class="latest-product__slider owl-carousel">
                                 <div class="latest-prdouct__slider__item">
                                 	<% 
-                                	Set<DataPaquete> paqs;
-                                	paqs = (Set<DataPaquete>) request.getAttribute("paquetes");
+                                	
                                 	for(DataPaquete iter : paqs){
                                 		String imagen = Base64.getEncoder().encodeToString(iter.getImagen());
                                 	%>
@@ -77,8 +97,7 @@
                             <div class="latest-product__slider owl-carousel">
                                 <div class="latest-prdouct__slider__item">
                                 	<% 
-                                	Set<DataActividad> acts;
-                                	acts = (Set<DataActividad>) request.getAttribute("actividades");
+                                	
                                 	for(DataActividad iter : acts){
                                 		String imagen = Base64.getEncoder().encodeToString(iter.getImagen());
                                 	%>
@@ -105,13 +124,24 @@
     </section>
                
        <!-- Js Plugins -->
+       
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.slicknav.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+    function ocuDesocu(){
+    	var x = document.getElementById("menuOrden");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }</script>
 </body>
 </html>
