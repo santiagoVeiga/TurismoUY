@@ -29,7 +29,9 @@
     if (session.getAttribute("estado_sesion") != EstadoSesion.NO_LOGIN) {
     	usr = (DataUsuario) session.getAttribute("usuario");
     }
-      %>
+    boolean movil = (boolean) session.getAttribute("esMovil");
+    if (!movil){
+    %>
 
     <!-- Header Section Begin -->
     <header class="header">
@@ -90,6 +92,36 @@
         </div>
     </header>
     <!-- Header Section End -->
+    <%} else { %>
+        <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1">
+                    <div class="header__logo">
+                        <a href="/tarea2p2/home"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                	<div class="row float-right">
+                        <div class="header__top__right__Usu" style="cursor: pointer;" onclick="window.location='/tarea2p2/ConsultaUsuario?nick=<%=usr.getNick()%>';">
+                            <span><img src="data:image/jpg;base64,${imagenUsuario}"> &nbsp; <%= usr.getNombre() %> <%= usr.getApellido() %></span>
+                        </div>
+                    </div>
+                    <div class="row float-right">
+                    	<div class="header__top__right__csesion ">
+                           	<a href="/tarea2p2/cerrarSesion"> Cerrar Sesion</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+    <% }%>
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

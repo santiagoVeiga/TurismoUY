@@ -22,11 +22,14 @@
 </head>
 <body>
 
-<%DataUsuario usr = null;
-   if (session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO) {
-   	usr = (DataUsuario) session.getAttribute("usuario");
-   }
-     %>
+<%
+	boolean movil = (boolean) session.getAttribute("esMovil");
+	if (!movil){
+		DataUsuario usr = null;
+	    if (session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO) {
+	   		usr = (DataUsuario) session.getAttribute("usuario");
+	    }
+   %>
 <div class="hero__perfil">
 <% if (usr == null) {%>
 	<ul>
@@ -62,7 +65,8 @@
           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
           <li><a href="/tarea2p2/ConsultaUsuario"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
        </ul>
-<% } %>
+<% 	}
+}%>
 	
 </div>
 <!-- Js Plugins -->
