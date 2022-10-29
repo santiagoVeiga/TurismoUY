@@ -81,8 +81,9 @@
 			
 			<div class="form-outline mb-4">
 			  <label class="form-label" for="form2Example28">Email</label>
-              <input type="email" id="email" name="email" class="form-control form-control-lg" required/>
-              
+              <input type="email" id="email" name="email" class="form-control form-control-lg" onkeyup="emailDisp()" required/>
+              <div id="checkEmail">
+              </div>
             </div>
             
            <div class="form-outline mb-4">
@@ -170,6 +171,24 @@
 			  }
 		    }
 		  xhttp.open("GET", "/tarea2p2/perteneceNick?nick="+document.getElementById("username").value, true);
+		  xhttp.send();
+		}
+	</script>
+	<script>
+	function emailDisp() {
+		  const xhttp = new XMLHttpRequest();
+		  xhttp.onload = function() {
+			  var resp = this.responseText;
+			  if (resp == "y"){
+				  $("#checkEmail").empty ();
+				  document.getElementById("checkEmail").innerHTML = "Email disponible";
+			  }
+			  else{
+				  $("#checkEmail").empty ();
+				  document.getElementById("checkEmail").innerHTML = "Email no disponible";
+			  }
+		    }
+		  xhttp.open("GET", "/tarea2p2/perteneceEmail?email="+document.getElementById("email").value, true);
 		  xhttp.send();
 		}
 	</script>
