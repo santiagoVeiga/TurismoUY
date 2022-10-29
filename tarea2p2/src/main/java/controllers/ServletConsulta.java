@@ -79,12 +79,15 @@ public class ServletConsulta extends HttpServlet {
     		    case "/perteneceNick":
     		        String text = "n";
     		        resp.setContentType("text/plain");  
-                    resp.setCharacterEncoding("UTF-8"); 
-    		        try {
-    		            conCons = fab.getIControladorConsulta();
-                        DataUsuario usu = conCons.obtenerDataUsuarioNick(req.getParameter("nick"));
-                    } catch (UsuarioNoExisteException e1) {
-                        text = "y";
+                    resp.setCharacterEncoding("UTF-8");
+                    String nReq = req.getParameter("nick");
+                    if (!nReq.equals("")) {
+                        try {
+        		            conCons = fab.getIControladorConsulta();
+                            DataUsuario usu = conCons.obtenerDataUsuarioNick(nReq);
+                        } catch (UsuarioNoExisteException e1) {
+                            text = "y";
+                        }
                     }
     		        resp.getWriter().write(text);
     		        break;
@@ -92,11 +95,14 @@ public class ServletConsulta extends HttpServlet {
                     String text1 = "n";
                     resp.setContentType("text/plain");  
                     resp.setCharacterEncoding("UTF-8"); 
-                    try {
-                        conCons = fab.getIControladorConsulta();
-                        DataUsuario usu = conCons.obtenerDataUsuarioMail(req.getParameter("email"));
-                    } catch (UsuarioNoExisteException e1) {
-                        text1 = "y";
+                    String eReq = req.getParameter("email");
+                    if (!eReq.equals("")) {
+                        try {
+                            conCons = fab.getIControladorConsulta();
+                            DataUsuario usu = conCons.obtenerDataUsuarioMail(eReq);
+                        } catch (UsuarioNoExisteException e1) {
+                            text1 = "y";
+                        }
                     }
                     resp.getWriter().write(text1);
                     break;

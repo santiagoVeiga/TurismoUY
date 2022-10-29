@@ -51,7 +51,8 @@
             <div class="form-outline mb-4">
             	<label class="form-label" for="form2Example18">Nickname</label>
               <input type="text" id="username" name="username" class="form-control form-control-lg" onkeyup="nickDisp()" required/>
-              <div id="checkNick">
+              <div >
+              	<p id="checkNick"> </p>
               </div>
             </div>
             
@@ -82,7 +83,8 @@
 			<div class="form-outline mb-4">
 			  <label class="form-label" for="form2Example28">Email</label>
               <input type="email" id="email" name="email" class="form-control form-control-lg" onkeyup="emailDisp()" required/>
-              <div id="checkEmail">
+              <div id="divCheckEmail">
+              	<p id="checkEmail"></p>
               </div>
             </div>
             
@@ -164,10 +166,14 @@
 			  if (resp == "y"){
 				  $("#checkNick").empty ();
 				  document.getElementById("checkNick").innerHTML = "Nick disponible";
+				  var campo = document.getElementById('checkNick');
+				  campo.style.color="#00c109";
 			  }
 			  else{
 				  $("#checkNick").empty ();
 				  document.getElementById("checkNick").innerHTML = "Nick no disponible";
+				  var campo = document.getElementById('checkNick');
+				  campo.style.color="#ff0000";
 			  }
 		    }
 		  xhttp.open("GET", "/tarea2p2/perteneceNick?nick="+document.getElementById("username").value, true);
@@ -181,11 +187,15 @@
 			  var resp = this.responseText;
 			  if (resp == "y"){
 				  $("#checkEmail").empty ();
-				  document.getElementById("checkEmail").innerHTML = "Email disponible";
+				  document.getElementById("checkEmail").textContent = "Email disponible";
+				  var campo = document.getElementById('checkEmail');
+				  campo.style.color="#00c109";
 			  }
 			  else{
 				  $("#checkEmail").empty ();
-				  document.getElementById("checkEmail").innerHTML = "Email no disponible";
+				  document.getElementById("checkEmail").textContent = "Email no disponible";
+				  var campo = document.getElementById('checkEmail');
+				  campo.style.color="#ff0000";
 			  }
 		    }
 		  xhttp.open("GET", "/tarea2p2/perteneceEmail?email="+document.getElementById("email").value, true);
