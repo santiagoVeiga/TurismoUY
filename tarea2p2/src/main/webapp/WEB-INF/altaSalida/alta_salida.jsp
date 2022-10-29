@@ -81,7 +81,10 @@
                                     <!-- Nombre -->
                                     <div class="col-md-6 mb-3">
                                         <label for="productName">Nombre</label>
-                                        <input type="text" class="form-control" id="salidaNombre" name="salidaNombre" required placeholder="" value="" >
+                                        <input type="text" class="form-control" id="salidaNombre" name="salidaNombre" onkeyup="salDisp()" required placeholder="" value="" >
+                                        <div >
+						              	<p id="checkNom"> </p>
+						              </div>
                                         <!-- <div class="invalid-feedback">
                                         Ingresa un nombre
                                         </div> -->
@@ -176,6 +179,28 @@
     <script src="js/jquery.validate.js"></script>
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
+    <script>
+	function salDisp() {
+		  const xhttp = new XMLHttpRequest();
+		  xhttp.onload = function() {
+			  var resp = this.responseText;
+			  if (resp == "y"){
+				  $("#checkNom").empty ();
+				  document.getElementById("checkNom").innerHTML = "Nombre disponible";
+				  var campo = document.getElementById('checkNom');
+				  campo.style.color="#00c109";
+			  }
+			  else{
+				  $("#checkNom").empty ();
+				  document.getElementById("checkNom").innerHTML = "Nombre no disponible";
+				  var campo = document.getElementById('checkNom');
+				  campo.style.color="#ff0000";
+			  }
+		    }
+		  xhttp.open("GET", "/tarea2p2/perteneceSal?sal="+document.getElementById("salidaNombre").value, true);
+		  xhttp.send();
+		}
+	</script>
 </body>
 
 </html>

@@ -24,7 +24,7 @@ import logica.IControladorConsulta;
 /**
  * Servlet implementation class Home
  */
-@WebServlet (urlPatterns={"/ConsultaUsuario", "/ConsultaActividad", "/ConsultaSalida", "/ConsultaPaquete", "/perteneceNick", "/perteneceEmail"})
+@WebServlet (urlPatterns={"/ConsultaUsuario", "/ConsultaActividad", "/ConsultaSalida", "/ConsultaPaquete", "/perteneceNick", "/perteneceEmail", "/perteneceAct", "/perteneceSal"})
 
 public class ServletConsulta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -76,6 +76,36 @@ public class ServletConsulta extends HttpServlet {
             selecCat(req, resp, nomCat);
         } else {
     		switch (req.getServletPath()){
+    		    case "/perteneceSal":
+                    String text3 = "n";
+                    resp.setContentType("text/plain");  
+                    resp.setCharacterEncoding("UTF-8");
+                    String sReq = req.getParameter("sal");
+                    if (!sReq.equals("")) {
+                        try {
+                            conCons = fab.getIControladorConsulta();
+                            DataSalida usu = conCons.obtenerDataSalida(sReq);
+                        } catch (SalidasNoExisteException e1) {
+                            text3 = "y";
+                        }
+                    }
+                    resp.getWriter().write(text3);
+                    break;
+    		    case "/perteneceAct":
+                    String text2 = "n";
+                    resp.setContentType("text/plain");  
+                    resp.setCharacterEncoding("UTF-8");
+                    String aReq = req.getParameter("act");
+                    if (!aReq.equals("")) {
+                        try {
+                            conCons = fab.getIControladorConsulta();
+                            DataActividad usu = conCons.obtenerDataActividad(aReq);
+                        } catch (ActividadNoExisteException e1) {
+                            text2 = "y";
+                        }
+                    }
+                    resp.getWriter().write(text2);
+                    break;
     		    case "/perteneceNick":
     		        String text = "n";
     		        resp.setContentType("text/plain");  
