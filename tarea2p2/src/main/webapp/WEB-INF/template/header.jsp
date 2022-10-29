@@ -57,8 +57,8 @@
                 <div class="col-lg-7">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
-                                <input type="text" placeholder="Buscar en turismo.uy">
+                            <form method="post" action="/tarea2p2/buscar">
+                                <input id="abuscar" name="abuscar" type="text" placeholder="Buscar en turismo.uy">
                                 <button type="submit" class="site-btn">BUSCAR</button>
                             </form>
                         </div>

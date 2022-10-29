@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import excepciones.ActividadNoExisteException;
+import excepciones.DepartamentoNoExisteException;
 import excepciones.SalidasNoExisteException;
 import excepciones.UsuarioNoExisteException;
 import logica.DataActividad;
@@ -19,12 +22,13 @@ import logica.DataSalida;
 import logica.DataTurista;
 import logica.DataUsuario;
 import logica.Fabrica;
+import logica.IControladorAlta;
 import logica.IControladorConsulta;
 
 /**
  * Servlet implementation class Home
  */
-@WebServlet (urlPatterns={"/ConsultaUsuario", "/ConsultaActividad", "/ConsultaSalida", "/ConsultaPaquete", "/perteneceNick", "/perteneceEmail", "/perteneceAct", "/perteneceSal"})
+@WebServlet (urlPatterns={"/ConsultaUsuario", "/ConsultaActividad", "/ConsultaSalida", "/ConsultaPaquete", "/perteneceNick", "/perteneceEmail", "/perteneceAct", "/perteneceSal", "/buscar"})
 
 public class ServletConsulta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -76,6 +80,35 @@ public class ServletConsulta extends HttpServlet {
             selecCat(req, resp, nomCat);
         } else {
     		switch (req.getServletPath()){
+    		    case "/buscar":
+    		        String input = req.getParameter("abuscar");
+    		        conCons = fab.getIControladorConsulta();
+    		        String[] nPaqs = conCons.listarPaquetes();
+    		        Set<DataPaquete> resPaqs = new HashSet<DataPaquete>();
+    		        for (String iter : nPaqs) {
+    		            DataPaquete aux = conCons.obtenerDataPaquete(iter);
+    		            if (aux.getDescripcion().contains(input) || aux.getNombre().contains(input)) {
+    		                resPaqs.add(aux);
+    		            }
+    		        }
+    		        req.setAttribute("paquetes", resPaqs);
+    		        IControladorAlta conAlta = fab.getIControladorAlta();
+    		        Set<DataActividad> acts = new HashSet<DataActividad>();
+    		        try {
+                        DataDepartamento[] deps = conAlta.obtenerDataDepartamentos();
+                        for (DataDepartamento iterD : deps) {
+                            for (DataActividad iterA : iterD.getColAct()) {
+                                if (iterA.getNombre().contains(input) || iterA.getDescripcion().contains(input)) {
+                                    acts.add(iterA);
+                                }
+                            }
+                        }
+                    } catch (DepartamentoNoExisteException e2) {
+                        e2.printStackTrace();
+                    }
+    		        req.setAttribute("actividades", acts);
+    		        req.getRequestDispatcher("/WEB-INF/buscar/buscador.jsp").forward(req, resp);
+    		        break;
     		    case "/perteneceSal":
                     String text3 = "n";
                     resp.setContentType("text/plain");  
