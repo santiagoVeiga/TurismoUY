@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import excepciones.ActividadNoExisteException;
+import excepciones.ActividadRepetidaException;
 import excepciones.ExcedeTuristas;
 import excepciones.InscFechaDespSalida;
 import excepciones.InscFechaInconsistente;
@@ -26,6 +27,7 @@ import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.DataDepartamento;
 import logica.DataPaquete;
+import logica.DataTurista;
 import logica.DataUsuario;
 import logica.Fabrica;
 import logica.IControladorConsulta;
@@ -34,7 +36,7 @@ import logica.IControladorInsc;
 /**
  * Servlet implementation class Home
  */
-@WebServlet (urlPatterns={"/Inscripcion", "/Inscripto", "/CompraPaquete", "/SeguirUsuario"})
+@WebServlet (urlPatterns={"/Inscripcion", "/Inscripto", "/CompraPaquete", "/SeguirUsuario", "/AgregarFavs"})
 
 public class ServletInsc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -150,15 +152,26 @@ public class ServletInsc extends HttpServlet {
                     DataUsuario du2 = (DataUsuario) session2.getAttribute("usuario");
                     String nickUsu = req.getParameter("nickUsuASeguir");
                     try {
-
-                        conInsc.seguirDejarDeSeguirUsuario(du2.getNick(), nickUsu, false);
-                        req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp); //lo cambie
-                    } catch (UsuarioNoExisteException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (UsuarioRepetidoException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        conInsc.seguirDejarDeSeguirUsuario(du2.getNick(), nickUsu, !du2.getSeguidos().contains(nickUsu));
+                        session2.setAttribute("usuario", fab.getIControladorConsulta().obtenerDataUsuarioNick(du2.getNick()));
+                        req.getRequestDispatcher("/ConsultaUsuario?nick=" + nickUsu).forward(req, resp); //lo cambie
+                    } catch (UsuarioNoExisteException | UsuarioRepetidoException e) {
+                        req.setAttribute("Exception", e.getMessage());
+                        req.getRequestDispatcher("/home").forward(req, resp);
+                    }
+                    break;
+    			case "/AgregarFavs":
+                    conInsc = fab.getIControladorInsc();
+                    HttpSession session3 = req.getSession();
+                    DataTurista dTur = (DataTurista) session3.getAttribute("usuario");
+                    String nomAct = req.getParameter("nomAct");
+                    try {
+                        conInsc.agregarQuitarActividadFavorita(dTur.getNick(), nomAct, !dTur.getActFavoritas().contains(nomAct));
+                        session3.setAttribute("usuario", fab.getIControladorConsulta().obtenerDataUsuarioNick(dTur.getNick()));
+                        req.getRequestDispatcher("/ConsultaActividad?actividad=" + nomAct).forward(req, resp); //lo cambie
+                    } catch (UsuarioNoExisteException | ActividadNoExisteException | ActividadRepetidaException e) {
+                        req.setAttribute("Exception", e.getMessage());
+                        req.getRequestDispatcher("/home").forward(req, resp);
                     }
                     break;
     		}

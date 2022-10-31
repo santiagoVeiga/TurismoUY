@@ -144,7 +144,25 @@
 	                            <%}%>
 								  </tbody>
 								</table>
-	                            
+	                            <%
+				                    if (usr != null && usr instanceof DataTurista){
+				                    	%>
+				                    <form action="AgregarFavs" method="POST">
+				                    	<%
+				                    	DataTurista tur = (DataTurista) usr;
+				                    	Set<String> favoritas = tur.getActFavoritas();
+				                    	String auxFavs = null;
+				                    	if (favoritas.contains(actividadSeleccionada.getNombre())){
+				                    		auxFavs = "Sacar de Favoritas";
+				                    	} else {
+				                    		auxFavs = "Añadir a Favoritas";
+				                    	}
+				                    	%>
+		                   				<input type="hidden" id="nomAct" name="nomAct" value="<%=actividadSeleccionada.getNombre()%>">
+									    <input type="submit" value="<%= auxFavs %>" onclick="submit()">
+				                    </form>
+				                   <% }
+				                    	%>
 	                            
 	                            <% Set<DataSalida> Salidas = actividadSeleccionada.getSalidas(); %>
 	                            <% Set<String> Paquetes = actividadSeleccionada.getPaquetes(); %>
