@@ -107,10 +107,14 @@
 		                    if (usr != null && DU.getNick().equals(usr.getNick())){
 		                    	%>
 		                    <button type="button" class="btn btn-light"><a href="/tarea2p2/ModificarUsuario?dataUsuario=<%= DU.getNick() %>">Modificar datos personales</a></button>
-		                   <% }else{
+		                    <form>
+		                    	<% Set<String> seguidos = null;
 		                    	%>
-		                    <button type="button2" class="btn btn-light"><a>Seguir</a></button>
-		                   <% }%>
+                   				<input type="hidden" id="nickUsuASeguir" name="nickUsuASeguir" value="<%=usr.getNick()%>">
+							    <input type="submit" value="Seguir" onclick="submit()">
+		                    </form>
+		                   <% }
+		                    	%>
 		                   
 		                   <div class="col-lg-3">
 		                   	<div class="hero__deps">
@@ -119,12 +123,12 @@
 						             <span>Seguidores</span>
 						         </div>
 						         <ul>
-						         <%String[] Segui = DU.getSeguidores().toArray(new String[0]);
+<%-- 						         <%String[] Segui = DU.getSeguidores().toArray(new String[0]);
 						         if(Segui!=null)
 						         for (String it : Segui){
 						         %>
 						             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
-						         <%} %>
+						         <%} %> --%>
 						         </ul>
 						     </div>
 		                   </div>
@@ -135,12 +139,12 @@
 						             <span>Seguidos</span>
 						         </div>
 						         <ul>
-						         <%String[] Seguidos = DU.getSeguidos().toArray(new String[0]);
+<%-- 						         <%String[] Seguidos = DU.getSeguidos().toArray(new String[0]);
 						         if(Segui!=null)
 						         for (String it : Seguidos){
 						         %>
 						             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
-						         <%} %>
+						         <%} %> --%>
 						         </ul>
 						     </div>
 		                   </div>

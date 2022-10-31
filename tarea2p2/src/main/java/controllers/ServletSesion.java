@@ -70,13 +70,13 @@ public ServletSesion() {
  */
 public void initSession(HttpServletRequest request) {
 	HttpSession session = request.getSession();
-	String userAg = request.getHeader("USER-AGENT");
-	session.setAttribute("esMovil", false); 
-	if (userAg.contains("Mobile")) {
-	    session.setAttribute("esMovil", true);
-	}
 	if (session.getAttribute("estado_sesion") == null) {
 		session.setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
+		String userAg = request.getHeader("USER-AGENT");
+	    session.setAttribute("esMovil", false); 
+	    if (userAg.contains("Mobile")) {
+	        session.setAttribute("esMovil", true);
+	    }
     	Fabrica fab = Fabrica.getInstance();
         IControladorAlta conAlta = fab.getIControladorAlta();
         try {
@@ -331,7 +331,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
                                     ses.setAttribute("imagenUsuario", imageAsBase64);
                                     //
                                     ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
-                                    req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
+                                    req.getRequestDispatcher("/WEB-INF/home/iniciarMovil.jsp").forward(req, resp);
                                     return;
                                 }
                                 else {
@@ -357,7 +357,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
                                     ses.setAttribute("imagenUsuario", imageAsBase64);
                                     //
                                     ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
-                                    resp.sendRedirect("/tarea2p2/home");
+                                    req.getRequestDispatcher("/WEB-INF/home/iniciarMovil.jsp").forward(req, resp);
                                     return;
                                 }
                                 else {
