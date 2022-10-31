@@ -22,6 +22,8 @@ import excepciones.PaqueteRepetidoException;
 import excepciones.SalidasNoExisteException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
+import excepciones.UsuarioNoExisteException;
+import excepciones.UsuarioRepetidoException;
 import logica.DataDepartamento;
 import logica.DataPaquete;
 import logica.DataUsuario;
@@ -32,7 +34,7 @@ import logica.IControladorInsc;
 /**
  * Servlet implementation class Home
  */
-@WebServlet (urlPatterns={"/Inscripcion", "/Inscripto", "/CompraPaquete"})
+@WebServlet (urlPatterns={"/Inscripcion", "/Inscripto", "/CompraPaquete", "/SeguirUsuario"})
 
 public class ServletInsc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -142,6 +144,23 @@ public class ServletInsc extends HttpServlet {
     					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req, resp);
     				}
     				break;
+    			case "/SeguirUsuario":
+    			    conInsc = fab.getIControladorInsc();
+    			    HttpSession session2 = req.getSession();
+                    DataUsuario du2 = (DataUsuario) session2.getAttribute("usuario");
+                    String nickUsu = req.getParameter("nickUsuASeguir");
+                    try {
+
+                        conInsc.seguirDejarDeSeguirUsuario(du2.getNick(), nickUsu, false);
+                        req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp); //lo cambie
+                    } catch (UsuarioNoExisteException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (UsuarioRepetidoException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    break;
     		}
         }
 	}

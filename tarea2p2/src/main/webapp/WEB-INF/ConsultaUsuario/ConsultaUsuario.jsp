@@ -104,14 +104,21 @@
 		                    <br>
 		                    <% DataUsuario usr = (DataUsuario) session.getAttribute("usuario");
 		                    
-		                    if (usr != null && DU.getNick().equals(usr.getNick())){
+		                    if (usr != null && !DU.getNick().equals(usr.getNick())){
 		                    	%>
 		                    <button type="button" class="btn btn-light"><a href="/tarea2p2/ModificarUsuario?dataUsuario=<%= DU.getNick() %>">Modificar datos personales</a></button>
-		                    <form>
-		                    	<% Set<String> seguidos = null;
+		                    <form action="SeguirUsuario" method="POST">
+		                    	<% 
+		                    	Set<String> seguidores = DU.getSeguidores();
+		                    	String auxSeguir = null;
+		                    	if (seguidores.contains(usr.getNick())){
+		                    		auxSeguir = "Dejar de seguir";
+		                    	} else {
+		                    		auxSeguir = "Seguir";
+		                    	}
 		                    	%>
-                   				<input type="hidden" id="nickUsuASeguir" name="nickUsuASeguir" value="<%=usr.getNick()%>">
-							    <input type="submit" value="Seguir" onclick="submit()">
+                   				<input type="hidden" id="nickUsuASeguir" name="nickUsuASeguir" value="<%=DU.getNick()%>">
+							    <input type="submit" value="<%= auxSeguir %>" onclick="submit()">
 		                    </form>
 		                   <% }
 		                    	%>
@@ -123,12 +130,12 @@
 						             <span>Seguidores</span>
 						         </div>
 						         <ul>
-<%-- 						         <%String[] Segui = DU.getSeguidores().toArray(new String[0]);
+						         <%String[] Segui = DU.getSeguidores().toArray(new String[0]);
 						         if(Segui!=null)
 						         for (String it : Segui){
 						         %>
 						             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
-						         <%} %> --%>
+						         <%} %>
 						         </ul>
 						     </div>
 		                   </div>
@@ -139,12 +146,12 @@
 						             <span>Seguidos</span>
 						         </div>
 						         <ul>
-<%-- 						         <%String[] Seguidos = DU.getSeguidos().toArray(new String[0]);
+						         <%String[] Seguidos = DU.getSeguidos().toArray(new String[0]);
 						         if(Segui!=null)
 						         for (String it : Seguidos){
 						         %>
 						             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
-						         <%} %> --%>
+						         <%} %>
 						         </ul>
 						     </div>
 		                   </div>
