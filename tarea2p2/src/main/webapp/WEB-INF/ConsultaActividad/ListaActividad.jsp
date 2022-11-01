@@ -44,6 +44,8 @@
    if (session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO) {
    	usr = (DataUsuario) session.getAttribute("usuario");
    }
+	boolean movil = (boolean) session.getAttribute("esMovil");
+	if (!movil){
      %>
 <div class="hero__perfil">
 <% if (usr == null) {%>
@@ -83,6 +85,7 @@
 <% } %>
 	
 </div>
+<%} %>
                         <jsp:include page="/WEB-INF/template/dptosCats.jsp"/>
 
                     </div>

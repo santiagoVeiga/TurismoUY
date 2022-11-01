@@ -104,13 +104,24 @@
 		                    <br>
 		                    <% DataUsuario usr = (DataUsuario) session.getAttribute("usuario");
 		                    
-		                    if (usr != null && DU.getNick().equals(usr.getNick())){
+		                    if (usr != null && !DU.getNick().equals(usr.getNick())){
 		                    	%>
 		                    <button type="button" class="btn btn-light"><a href="/tarea2p2/ModificarUsuario?dataUsuario=<%= DU.getNick() %>">Modificar datos personales</a></button>
-		                   <% }else{
+		                    <form action="SeguirUsuario" method="POST">
+		                    	<% 
+		                    	Set<String> seguidores = DU.getSeguidores();
+		                    	String auxSeguir = null;
+		                    	if (seguidores.contains(usr.getNick())){
+		                    		auxSeguir = "Dejar de seguir";
+		                    	} else {
+		                    		auxSeguir = "Seguir";
+		                    	}
 		                    	%>
-		                    <button type="button2" class="btn btn-light"><a>Seguir</a></button>
-		                   <% }%>
+                   				<input type="hidden" id="nickUsuASeguir" name="nickUsuASeguir" value="<%=DU.getNick()%>">
+							    <input type="submit" value="<%= auxSeguir %>" onclick="submit()">
+		                    </form>
+		                   <% }
+		                    	%>
 		                   
 		                   <div class="col-lg-3">
 		                   	<div class="hero__deps">
