@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page errorPage="/WEB-INF/errorPages/500.jsp" %>
-<%@page import="logica.DataPaquete,logica.estadoAct,java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataActividad,java.util.Set,logica.DataDepartamento,controllers.EstadoSesion,java.text.SimpleDateFormat" %>
+<%@page import="logica.DataBuscar,logica.DataPaquete,logica.estadoAct,java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataActividad,java.util.Set,logica.DataDepartamento,controllers.EstadoSesion,java.text.SimpleDateFormat" %>
 
 <!DOCTYPE html>
 <html>
@@ -46,11 +46,9 @@
                 </div>
                 
                 <%
-                Set<DataPaquete> paqs;
-                paqs = (Set<DataPaquete>) request.getAttribute("paquetes");
-                Set<DataActividad> acts;
-                acts = (Set<DataActividad>) request.getAttribute("actividades");
-                int cantRes = paqs.size()+acts.size();%>
+                Set<DataBuscar> res;
+                res = (Set<DataBuscar>) request.getAttribute("resultado");
+                int cantRes = res.size();%>
                 <div class="col-lg-9">
                 	<div class="sidebar__item">
                 		<div style="display: flex;justify-content: space-between;">
@@ -62,61 +60,57 @@
 							    Ordenar por
 							  </button>
 							  <div class="dropdown-menu" id="menuOrden">
-							    <a class="dropdown-item" href="#">Alfabéticamente (A-Z a-z)</a>
-							    <a class="dropdown-item" href="#">Año (descendente)</a>
+							    <button class="dropdown-item" type="button" onclick="ordenAlfa()">Alfabéticamente (A-Z a-z)</button>
+							    <button class="dropdown-item"  type="button">Año (descendente)</button>
 							  </div>
 							</div>
                 		</div>
                         <div class="latest-product__text">
-                            
                             <div class="latest-product__slider owl-carousel">
-                                <div class="latest-prdouct__slider__item">
+                                <div class="latest-prdouct__slider__item" >
+                                  <div id="listaAordenarr">
                                 	<% 
                                 	
-                                	for(DataPaquete iter : paqs){
-                                		String imagen = Base64.getEncoder().encodeToString(iter.getImagen());
-                                	%>
-                                	<div class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="data:image/jpg;base64,<%= imagen %>" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h5> <%= iter.getNombre() %> </h5>
-                                            <h6> <%= iter.getDescripcion() %> </h6>
-                                            <a href="/tarea2p2/ConsultaPaquete?paquete=<%= iter.getNombre() %>">
-                                            	<span class="blog__btn" >LEER MÁS </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                	<% } %>
+                                	for(DataBuscar iter : res){
+                                		if (iter instanceof DataPaquete){
+                                			DataPaquete paq = (DataPaquete) iter;
+                                			String imagen = Base64.getEncoder().encodeToString(paq.getImagen());
+	                                	%>
+	                                	<div class="latest-product__item">
+	                                        <div class="latest-product__item__pic">
+	                                            <img src="data:image/jpg;base64,<%= imagen %>" alt="">
+	                                        </div>
+	                                        <div class="latest-product__item__text">
+	                                            <h5> <%= paq.getNombre() %> </h5>
+	                                            <h6> <%= paq.getDescripcion() %> </h6>
+	                                            <% %>
+	                                            <a href="/tarea2p2/ConsultaPaquete?paquete=<%= paq.getNombre() %>">
+	                                            	<span class="blog__btn" >LEER MÁS </span>
+	                                            </a>
+	                                        </div>
+	                                    </div>
+	                                	<% } else{
+	                                		DataActividad act = (DataActividad) iter;
+                                			String imagen = Base64.getEncoder().encodeToString(act.getImagen());
+	                                	%>
+	                                		<div class="latest-product__item">
+		                                        <div class="latest-product__item__pic">
+		                                            <img src="data:image/jpg;base64,<%= imagen %>" alt="">
+		                                        </div>
+		                                        <div class="latest-product__item__text">
+		                                            <h5> <%= act.getNombre() %> </h5>
+		                                            <h6> <%= act.getDescripcion() %> </h6>
+		                                            <% %>
+		                                            <a href="/tarea2p2/ConsultaPaquete?paquete=<%= act.getNombre() %>">
+		                                            	<span class="blog__btn" >LEER MÁS </span>
+		                                            </a>
+		                                        </div>
+		                                    </div>
+                                	<%}} %>
                                 </div>
                             </div>
                         </div>
-                    
-                        <div class="latest-product__text">
-                            <div class="latest-product__slider owl-carousel">
-                                <div class="latest-prdouct__slider__item">
-                                	<% 
-                                	
-                                	for(DataActividad iter : acts){
-                                		String imagen = Base64.getEncoder().encodeToString(iter.getImagen());
-                                	%>
-                                	<div class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="data:image/jpg;base64,<%= imagen %>" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h5> <%= iter.getNombre() %> </h5>
-                                            <h6> <%= iter.getDescripcion() %> </h6>
-                                            <a href="/tarea2p2/ConsultaActividad?actividad=<%= iter.getNombre() %>">
-                                            	<span class="blog__btn" >LEER MÁS </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                	<% } %>
-                                </div>
-                            </div>
-                        </div>
+                      </div>
                      </div>
                 </div>
              </div>
@@ -143,5 +137,27 @@
             x.style.display = "none";
         }
     }</script>
+   <script>
+   function ordenAlfa(){
+	   var lista = document.getElementById("listaAordenarr");
+	   var elems = lista.getElementsByClassName("latest-product__item");
+	   const elemsArray = Array.from(elems);
+	   const map1 = new Map();
+	   var arr = [];
+	   for (i=0; i < elemsArray.length; i++){
+		   var noms = elems[i].getElementsByTagName("h5");
+		   var nomsArray = Array.from(noms);
+		   map1.set(nomsArray[0].innerHTML,elemsArray[i].innerHTML);
+		   arr.push(nomsArray[0].innerHTML);
+	   }
+	   arr.sort();
+	   lista.innerHTML = "";
+	   for (i=0; i < arr.length; i++){
+		   document.querySelector("#listaAordenarr").innerHTML += map1.get(arr[i]);
+		   alert(map1.get(arr[i]));
+	   }
+	   
+   }
+   </script>
 </body>
 </html>

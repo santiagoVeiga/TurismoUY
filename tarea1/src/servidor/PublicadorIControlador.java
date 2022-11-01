@@ -79,7 +79,7 @@ public class PublicadorIControlador {
 		}
 		// ------------------------  
 		System.out.println("Publicador iniciado en puerto: " + puertoLibre);
-		endpoint = Endpoint.publish("http://localhost:" + puertoLibre + "/publicador", this);
+		endpoint = Endpoint.publish("http://10.0.2.15:40000/publicador", this);
 	}
 	
 	//Controlador Alta

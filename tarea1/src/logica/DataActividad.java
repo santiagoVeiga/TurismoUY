@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DataActividad {
+public class DataActividad extends DataBuscar {
 	
 	public DataActividad() {
 		salidas = new HashSet<DataSalida>();

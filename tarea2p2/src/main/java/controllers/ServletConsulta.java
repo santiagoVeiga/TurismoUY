@@ -1,7 +1,10 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -16,6 +19,7 @@ import excepciones.DepartamentoNoExisteException;
 import excepciones.SalidasNoExisteException;
 import excepciones.UsuarioNoExisteException;
 import logica.DataActividad;
+import logica.DataBuscar;
 import logica.DataDepartamento;
 import logica.DataPaquete;
 import logica.DataSalida;
@@ -84,29 +88,27 @@ public class ServletConsulta extends HttpServlet {
     		        String input = req.getParameter("abuscar");
     		        conCons = fab.getIControladorConsulta();
     		        String[] nPaqs = conCons.listarPaquetes();
-    		        Set<DataPaquete> resPaqs = new HashSet<DataPaquete>();
+    		        Set<DataBuscar> res = new HashSet<DataBuscar>();
     		        for (String iter : nPaqs) {
     		            DataPaquete aux = conCons.obtenerDataPaquete(iter);
     		            if (aux.getDescripcion().contains(input) || aux.getNombre().contains(input)) {
-    		                resPaqs.add(aux);
+    		                res.add(aux);
     		            }
     		        }
-    		        req.setAttribute("paquetes", resPaqs);
     		        IControladorAlta conAlta = fab.getIControladorAlta();
-    		        Set<DataActividad> acts = new HashSet<DataActividad>();
     		        try {
                         DataDepartamento[] deps = conAlta.obtenerDataDepartamentos();
                         for (DataDepartamento iterD : deps) {
                             for (DataActividad iterA : iterD.getColAct()) {
                                 if (iterA.getNombre().contains(input) || iterA.getDescripcion().contains(input)) {
-                                    acts.add(iterA);
+                                    res.add(iterA);
                                 }
                             }
                         }
                     } catch (DepartamentoNoExisteException e2) {
                         e2.printStackTrace();
                     }
-    		        req.setAttribute("actividades", acts);
+    		        req.setAttribute("resultado", res);
     		        req.getRequestDispatcher("/WEB-INF/buscar/buscador.jsp").forward(req, resp);
     		        break;
     		    case "/perteneceSal":
