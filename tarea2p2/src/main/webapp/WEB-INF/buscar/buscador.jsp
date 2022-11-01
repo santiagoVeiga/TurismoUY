@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page errorPage="/WEB-INF/errorPages/500.jsp" %>
-<%@page import="logica.DataBuscar,logica.DataPaquete,logica.estadoAct,java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataActividad,java.util.Set,logica.DataDepartamento,controllers.EstadoSesion,java.text.SimpleDateFormat" %>
+<%@page import="java.util.List,logica.DataBuscar,logica.DataPaquete,logica.estadoAct,java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataActividad,java.util.Set,logica.DataDepartamento,controllers.EstadoSesion,java.text.SimpleDateFormat" %>
 
 <!DOCTYPE html>
 <html>
@@ -46,8 +46,8 @@
                 </div>
                 
                 <%
-                Set<DataBuscar> res;
-                res = (Set<DataBuscar>) request.getAttribute("resultado");
+                List<DataBuscar> res;
+                res = (List<DataBuscar>) request.getAttribute("resultado");
                 int cantRes = res.size();%>
                 <div class="col-lg-9">
                 	<div class="sidebar__item">
@@ -60,8 +60,8 @@
 							    Ordenar por
 							  </button>
 							  <div class="dropdown-menu" id="menuOrden">
-							    <button class="dropdown-item" type="button" onclick="ordenAlfa()">Alfabéticamente (A-Z a-z)</button>
-							    <button class="dropdown-item"  type="button">Año (descendente)</button>
+							    <a class="dropdown-item" href="/tarea2p2/buscar?ordenAlfa=1">Alfabéticamente (A-Z a-z)</a>
+							    <a class="dropdown-item"  href="/tarea2p2/buscar?ordenAnio=1">Año (descendente)</a>
 							  </div>
 							</div>
                 		</div>
@@ -139,23 +139,6 @@
     }</script>
    <script>
    function ordenAlfa(){
-	   var lista = document.getElementById("listaAordenarr");
-	   var elems = lista.getElementsByClassName("latest-product__item");
-	   const elemsArray = Array.from(elems);
-	   const map1 = new Map();
-	   var arr = [];
-	   for (i=0; i < elemsArray.length; i++){
-		   var noms = elems[i].getElementsByTagName("h5");
-		   var nomsArray = Array.from(noms);
-		   map1.set(nomsArray[0].innerHTML,elemsArray[i].innerHTML);
-		   arr.push(nomsArray[0].innerHTML);
-	   }
-	   arr.sort();
-	   lista.innerHTML = "";
-	   for (i=0; i < arr.length; i++){
-		   document.querySelector("#listaAordenarr").innerHTML += map1.get(arr[i]);
-		   alert(map1.get(arr[i]));
-	   }
 	   
    }
    </script>

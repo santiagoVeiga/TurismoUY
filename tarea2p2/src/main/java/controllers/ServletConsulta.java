@@ -18,6 +18,8 @@ import excepciones.ActividadNoExisteException;
 import excepciones.DepartamentoNoExisteException;
 import excepciones.SalidasNoExisteException;
 import excepciones.UsuarioNoExisteException;
+import logica.CompAnioDataBuscar;
+import logica.CompNomDataBuscar;
 import logica.DataActividad;
 import logica.DataBuscar;
 import logica.DataDepartamento;
@@ -86,9 +88,15 @@ public class ServletConsulta extends HttpServlet {
     		switch (req.getServletPath()){
     		    case "/buscar":
     		        String input = req.getParameter("abuscar");
+    		        if (input == null) {
+    		            input = (String) session.getAttribute("abuscar");
+    		        }
+    		        else {
+    		            session.setAttribute("abuscar", input);
+    		        }
     		        conCons = fab.getIControladorConsulta();
     		        String[] nPaqs = conCons.listarPaquetes();
-    		        Set<DataBuscar> res = new HashSet<DataBuscar>();
+    		        List<DataBuscar> res = new ArrayList<DataBuscar>();
     		        for (String iter : nPaqs) {
     		            DataPaquete aux = conCons.obtenerDataPaquete(iter);
     		            if (aux.getDescripcion().contains(input) || aux.getNombre().contains(input)) {
@@ -108,6 +116,14 @@ public class ServletConsulta extends HttpServlet {
                     } catch (DepartamentoNoExisteException e2) {
                         e2.printStackTrace();
                     }
+    		        // Si corresponde ordenar
+    		        String ordenarAlfa = req.getParameter("ordenAlfa");
+    		        String ordenarAnio = req.getParameter("ordenAnio");
+    		        if (ordenarAlfa != null) {
+    		            Collections.sort(res, new CompNomDataBuscar());
+    		        } else if (ordenarAnio != null) {
+    		            Collections.sort(res, new CompAnioDataBuscar());
+    		        }
     		        req.setAttribute("resultado", res);
     		        req.getRequestDispatcher("/WEB-INF/buscar/buscador.jsp").forward(req, resp);
     		        break;
