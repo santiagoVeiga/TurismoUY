@@ -7,7 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -88,42 +90,66 @@ public class PublicadorIControlador {
     public void confirmarAltaTurista(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad) throws UsuarioRepetidoException{
     	conAlta.confirmarAltaTurista(nick, nom, apellido, mail, nacimiento, nacionalidad);
     }
+    
     @WebMethod
-    public void confirmarAltaTurista(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String pass) throws UsuarioRepetidoException{
+    public void confirmarAltaTuristaPass(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String pass) throws UsuarioRepetidoException{
     	conAlta.confirmarAltaTurista(nick, nom, apellido, mail, nacimiento, nacionalidad, pass);
     }
+    
+ // Arreglar array de bytes
     @WebMethod
-    public void confirmarAltaTurista(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String pass, byte[] imagen) throws UsuarioRepetidoException{
+    public void confirmarAltaTuristaCompleto(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String pass, byte[] imagen) throws UsuarioRepetidoException{
     	conAlta.confirmarAltaTurista(nick, nom, apellido, mail, nacimiento, nacionalidad, pass, imagen);
     }
+    
     @WebMethod
     public  void confirmarAltaProveedor(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String link, boolean hayLink) throws UsuarioRepetidoException{
     	conAlta.confirmarAltaProveedor(nick, nom, apellido, mail, nacimiento, nacionalidad, link, hayLink);
     }
+    
     @WebMethod
-    public  void confirmarAltaProveedor(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String link, boolean hayLink, String pass) throws UsuarioRepetidoException{
+    public  void confirmarAltaProveedorPass(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String link, boolean hayLink, String pass) throws UsuarioRepetidoException{
     	conAlta.confirmarAltaProveedor(nick, nom, apellido, mail, nacimiento, nacionalidad, link, hayLink, pass);
     }
+    
+ // Arreglar array de bytes
     @WebMethod
-    public  void confirmarAltaProveedor(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String link, boolean hayLink, String pass, byte[] imagen) throws UsuarioRepetidoException{
+    public void confirmarAltaProveedorCompleto(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String link, boolean hayLink, String pass, byte[] imagen) throws UsuarioRepetidoException{
     	conAlta.confirmarAltaProveedor(nick, nom, apellido, mail, nacimiento, nacionalidad, link, hayLink, pass, imagen);
     }
-   /* @WebMethod
-    public  DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException{
-		return null;}
+   @WebMethod
+    public  DataColeccionObject obtenerDataDepartamentos() throws DepartamentoNoExisteException{
+	   return new DataColeccionObject((Object[]) conCons.obtenerDataDepartamentos());
+	}
     @WebMethod
-    public  void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException{}
+    public  void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, DataColeccionObject cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException{
+    	Set<String> categorias = new HashSet<String>();
+    	Collections.addAll(categorias,((String[]) cat.getSet().toArray()));
+    	conAlta.registrarActividad(dep, nom, desc, dur, costo, ciudad, fecha, proveedor, categorias);
+    }
+    
+ // Arreglar array de bytes
     @WebMethod
-    public  void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, Set<String> cat, byte[] imagen) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException{}
+    public  void registrarActividadImagen(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, DataColeccionObject cat, byte[] imagen) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException{
+    	Set<String> categorias = new HashSet<String>();
+    	Collections.addAll(categorias,((String[]) cat.getSet().toArray()));
+    	conAlta.registrarActividad(dep, nom, desc, dur, costo, ciudad, fecha, proveedor, categorias, imagen);
+    }
+    
     @WebMethod
     public  DataUsuario verInfoUsuario(String nick) throws UsuarioNoExisteException{
-		return null;}
-   /* @WebMethod
-    public  DataUsuario[] getUsuarios() throws UsuarioNoExisteException{
-		return null;}
+		return conAlta.verInfoUsuario(nick);
+	}
+    
     @WebMethod
-    public  DataUsuario[] getUsuariosComp() throws UsuarioNoExisteException{
-		return null;}*/
+    public  DataColeccionObject getUsuarios() throws UsuarioNoExisteException{
+		return new DataColeccionObject(conAlta.getUsuarios());
+	}
+    
+    @WebMethod
+    public  DataColeccionObject getUsuariosComp() throws UsuarioNoExisteException{
+		return new DataColeccionObject(conAlta.getUsuariosComp());
+	}
 
     @WebMethod(exclude = true)
 	public void cargarDptos(CSVReader reader) throws IOException, DepartamentoYaExisteExeption{
@@ -134,64 +160,89 @@ public class PublicadorIControlador {
     	conAlta.cargarCategorias();
     }
 
-   // @WebMethod
-	//public  void cargarUsuarios(CSVReader reader, Map<String, byte[]> imgs) throws IOException, UsuarioRepetidoException, ParseException {}
+    @WebMethod(exclude = true)
+	public  void cargarUsuarios(CSVReader reader, Map<String, byte[]> imgs) throws IOException, UsuarioRepetidoException, ParseException {
+    	conAlta.cargarUsuarios(reader, imgs);
+    }
+    
     @WebMethod
 	public  void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta) throws SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad {
     	conAlta.confirmarAltaSalida(nombreActividad, nombreSalida, fecha, hora, lugar, maxCantTuristas, fechaAlta);
     }
+    
+    //Arreglar arreglo de bytes
     @WebMethod
-    public  void confirmarAltaSalida(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta, byte[] imagen) throws SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad {
+    public  void confirmarAltaSalidaImagen(String nombreActividad, String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas, Date fechaAlta, byte[] imagen) throws SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad {
     	conAlta.confirmarAltaSalida(nombreActividad, nombreSalida, fecha, hora, lugar, maxCantTuristas, fechaAlta, imagen);
     }
 	
-   // @WebMethod
-//	public  void cargarActs(CSVReader reader, Map<String, byte[]> imgBytes) throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException, ParseException, UsuarioNoExisteException, ProveedorNoNacidoException{}
-    @WebMethod
+    @WebMethod(exclude = true)
+	public  void cargarActs(CSVReader reader, Map<String, byte[]> imgBytes) throws IOException, DepartamentoYaExisteExeption, NumberFormatException, ActividadRepetidaException, ParseException, UsuarioNoExisteException, ProveedorNoNacidoException{
+    	conAlta.cargarActs(reader, imgBytes);
+    }
+
+    @WebMethod(exclude = true)
 	public  void confirmarAltaDepartamento(String nombre, String descripcion, String URL) throws DepartamentoYaExisteExeption {
     	conAlta.confirmarAltaDepartamento(nombre, descripcion, URL);
     } 
 	
-  //  @WebMethod
-//	public  void cargarSalidas(CSVReader reader, Map<String, byte[]> imgBytes) throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad{}
-    @WebMethod
+    @WebMethod(exclude = true)
+	public  void cargarSalidas(CSVReader reader, Map<String, byte[]> imgBytes) throws NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad{
+    	conAlta.cargarSalidas(reader, imgBytes);
+    }
+
+    @WebMethod(exclude = true)
 	public  void altaPaquete(String nombre, String descripcion, int descuento, int validez, Date fechaAlta) throws PaqueteRepetidoException{
     	conAlta.altaPaquete(nombre, descripcion, descuento, validez, fechaAlta);
     }
+    
     @WebMethod
     public  void actualizarDatosTurista(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad){
     	conAlta.actualizarDatosTurista(nick, mail, nombre, apellido, fechaN, nacionalidad);
     }
+    
+    // Arreglar array de bytes
     @WebMethod
-	public  void actualizarDatosTurista(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad, String password,byte[] imagen){
+	public  void actualizarDatosTuristaCompleto(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad, String password,byte[] imagen){
     	conAlta.actualizarDatosTurista(nick, mail, nombre, apellido, fechaN, nacionalidad, password, imagen);
     }
+    
     @WebMethod
 	public  void actualizarDatosProveedor(String nick, String mail, String nombre, String apellido, Date fechaN, String descripcion, String link, boolean hayLink){
     	conAlta.actualizarDatosProveedor(nick, mail, nombre, apellido, fechaN, descripcion, link, hayLink);
     }
+    
+ // Arreglar array de bytes
     @WebMethod
-	public  void actualizarDatosProveedor(String nick, String mail, String nombre, String apellido, Date fechaN, String descripcion, String link, boolean hayLink, String password, byte[] imagen){
+	public  void actualizarDatosProveedorCompleto(String nick, String mail, String nombre, String apellido, Date fechaN, String descripcion, String link, boolean hayLink, String password, byte[] imagen){
     	conAlta.actualizarDatosProveedor(nick, mail, nombre, apellido, fechaN, descripcion, link, hayLink, password, imagen);
     }
-   // @WebMethod
-	//public  void cargarPaquetes(CSVReader reader, Map<String, byte[]> imagenes) throws FileNotFoundException, NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException{}
+    @WebMethod(exclude = true)
+	public  void cargarPaquetes(CSVReader reader, Map<String, byte[]> imagenes) throws FileNotFoundException, NumberFormatException, IOException, ParseException, SalidaYaExisteExeption, PaqueteRepetidoException{
+    	conAlta.cargarPaquetes(reader, imagenes);
+    }
+    
     @WebMethod(exclude = true)
 	public  void cargarDatos() throws FileNotFoundException, IOException, UsuarioRepetidoException, ParseException, NumberFormatException, DepartamentoYaExisteExeption, ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException, SalidaYaExisteExeption, PaqueteRepetidoException, FechaAltaSalidaInvalida, FechaAltaSalidaAnteriorActividad, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, NoHayCuposException, PaqueteNoExisteException{
     	conAlta.cargarDatos();
     }
     @WebMethod
-	public  DataColeccionString obtenerNombreCategorias() throws NoExisteCategoriaException{
-		return new DataColeccionString(conAlta.obtenerNombreCategorias());
+	public  DataColeccionObject obtenerNombreCategorias() throws NoExisteCategoriaException{
+    	Set<Object> res = new HashSet<Object>();
+    	Collections.addAll(res, conAlta.obtenerNombreCategorias());
+		return new DataColeccionObject(res);
 	}
+    
     @WebMethod
 	public  void registrarCategoria(String text) throws CategoriaYaExiste{
     	conAlta.registrarCategoria(text);
     }
+    
     @WebMethod(exclude = true)
 	public  void cargarCompPaq() throws IOException, ParseException, NumberFormatException, PaqueteNoExisteException, PaqueteRepetidoException{
     	conAlta.cargarCompPaq();
     }
+    
     @WebMethod(exclude = true)
     public  void cargarCompPaq(CSVReader reader) throws IOException, ParseException, PaqueteNoExisteException, PaqueteRepetidoException{
     	conAlta.cargarCompPaq(reader);
@@ -199,68 +250,128 @@ public class PublicadorIControlador {
     
     //Controlador Consulta
     
-    /*public DataUsuario[] listarUsuarios() {
-	return null;}*/
+    public DataColeccionObject listarUsuarios() {
+    	return new DataColeccionObject(conCons.listarUsuarios());
+	}
+    
 	@WebMethod
 	public DataUsuario ingresarDatos(String nick){
-		return null;}
-	/*public DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException{
-		return null;}
-	public String[] listarPaquetes(){
-		return null;}*/
+		return conCons.ingresarDatos(nick);
+	}
+	
+	public DataColeccionObject listarPaquetes(){
+		return new DataColeccionObject(conCons.listarPaquetes());
+	}
+	
 	@WebMethod
 	public DataPaquete obtenerDataPaquete(String paq){
-		return null;}
-	/*public Set<String> obtenerNombreCategorias(){
-		return null;}
-	public DataActividad[] obtenerActividadCategoria(String categoria){
-		return null;}*/
+		return conCons.obtenerDataPaquete(paq);
+	}
+	
+	public DataColeccionObject obtenerActividadCategoria(String categoria){
+		return new DataColeccionObject(conCons.obtenerActividadCategoria(categoria));
+	}
+	
 	@WebMethod
 	public DataUsuario obtenerDataUsuarioNick(String nick) throws UsuarioNoExisteException{
-		return null;}
+		return conCons.obtenerDataUsuarioNick(nick);
+	}
+	
 	@WebMethod
 	public DataUsuario obtenerDataUsuarioMail(String mail) throws UsuarioNoExisteException{
-		return null;}
+		return conCons.obtenerDataUsuarioMail(mail);
+	}
+	
 	@WebMethod
 	public DataActividad obtenerDataActividad(String nomAct) throws ActividadNoExisteException{
-		return null;}
+		return conCons.obtenerDataActividad(nomAct);
+	}
+	
 	@WebMethod
 	public DataSalida obtenerDataSalida(String nomSal) throws SalidasNoExisteException{
-		return null;}
+		return conCons.obtenerDataSalida(nomSal);
+	}
 	
 	// Controlador Insc
+	@WebMethod
+	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido{
+		conInsc.inscribir(nick, nomSalida, cantTuristas, fecha, nombreAct);
+	}
 	
-	/*public Set<DataDepartamento> listarDepartamentos(){
-		return null;}*/
-	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido{}
-	/*public Set<DataSalida> salidas(String sal) throws ActividadNoExisteException{
-		return null;}
-	public Set<DataActividad> selecDepartamento(String sal){
-		return null;}
-	public String[] listarPaquetes(){
-		return null;}
-	public Set<DataActividad> actividadesPorDepartamentoNoEnPaquete(String dep, String sal){
-		return null;}*/
-	public void confirmar(String paq, String act){}
-	//public DataUsuario[] listarUsuarios(){
-		//return null;}
-	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException{}
-	public void cargarActsPaqs() throws IOException{}
-	public void cargarActsPaqs(CSVReader reader) throws IOException{}
-	//public Set<String> listarActividadesAgregadas(){
-		//return null;}
-	public void aceptarRechazarAct(String nomAct, estadoAct estado) throws estadoActividadIncorrecto, ActividadNoExisteException{}
-	//public String[] listarPaquetesNoComprados(){
-		//return null;}
-	public void comprarPaquete(String nick, Date fecha, int cant, String paqString) throws PaqueteNoExisteException, PaqueteRepetidoException{}
-	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct, String nombrePaq) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException{}
-	//public String[] obtenerPaquetesComprados(String nickTurista){
-		//return null;}
-	public String obtenerNomActPorSalida(String salida) throws SalidasNoExisteException{
-		return salida;}
-	public void cargarInsc(CSVReader reader) throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException{}
+	@WebMethod
+	public DataColeccionObject salidas(String nombreAct) throws ActividadNoExisteException{
+		return new DataColeccionObject(conInsc.salidas(nombreAct).toArray(new DataSalida[0]));
+	}
+	
+	@WebMethod
+	public DataColeccionObject selecDepartamento(String dep){
+		return new DataColeccionObject(conInsc.selecDepartamento(dep).toArray(new DataActividad[0]));
+	}
+	
+	@WebMethod
+	public DataColeccionObject actividadesPorDepartamentoNoEnPaquete(String dep, String paq){
+		return new DataColeccionObject(conInsc.actividadesPorDepartamentoNoEnPaquete(dep, paq).toArray(new DataActividad[0]));
+	}
+	
+	@WebMethod
+	public void confirmar(String paq, String act){
+		conInsc.confirmar(paq, act);
+	}
+	
+	@WebMethod(exclude = true)
+	public void cargarInsc() throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException{
+		conInsc.cargarInsc();
+	}
+	@WebMethod(exclude = true)
+	public void cargarActsPaqs() throws IOException{
+		conInsc.cargarActsPaqs();
+	}
+	
+	@WebMethod(exclude = true)
+	public void cargarActsPaqs(CSVReader reader) throws IOException{
+		conInsc.cargarActsPaqs(reader);
+	}
+	
+	@WebMethod
+	public DataColeccionObject listarActividadesAgregadas(){
+		return new DataColeccionObject(conInsc.listarActividadesAgregadas().toArray(new String[0]));
+	}
+	
+	@WebMethod
+	public void aceptarRechazarAct(String nomAct, estadoAct estado) throws estadoActividadIncorrecto, ActividadNoExisteException{
+		conInsc.aceptarRechazarAct(nomAct, estado);
+	}
+	
+	@WebMethod
+	public DataColeccionObject listarPaquetesNoComprados(){
+		return new DataColeccionObject(conInsc.listarPaquetesNoComprados());
+	}
+	
+	@WebMethod
+	public void comprarPaquete(String nick, Date fecha, int cant, String paqString) throws PaqueteNoExisteException, PaqueteRepetidoException{
+		conInsc.comprarPaquete(nick, fecha, cant, paqString);
+	}
+	
+	@WebMethod
+	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct, String nombrePaq) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException{
+		conInsc.inscribir(nick, nomSalida, cantTuristas, fecha, nombreAct, nombrePaq);
+	}
+	
+	@WebMethod
+	public DataColeccionObject obtenerPaquetesComprados(String nickTurista){
+		return new DataColeccionObject(conInsc.obtenerPaquetesComprados(nickTurista));
+	}
 
-	//
+	@WebMethod
+	public String obtenerNomActPorSalida(String salida) throws SalidasNoExisteException{
+		return conInsc.obtenerNomActPorSalida(salida);
+	}
+	
+	@WebMethod(exclude = true)
+	public void cargarInsc(CSVReader reader) throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException{
+		conInsc.cargarInsc(reader);
+	}
+
 	
     @WebMethod(exclude = true)
 	public Endpoint getEndpoint() {
