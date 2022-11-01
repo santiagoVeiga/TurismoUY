@@ -60,15 +60,15 @@
 							    Ordenar por
 							  </button>
 							  <div class="dropdown-menu" id="menuOrden">
-							    <a class="dropdown-item" href="/tarea2p2/buscar?ordenAlfa=1">Alfabéticamente (A-Z a-z)</a>
+							    <button class="dropdown-item" type="button" onclick="ordenAlfa()">Alfabéticamente (A-Z a-z)</button>
 							    <a class="dropdown-item"  href="/tarea2p2/buscar?ordenAnio=1">Año (descendente)</a>
 							  </div>
 							</div>
                 		</div>
                         <div class="latest-product__text">
-                            <div class="latest-product__slider owl-carousel">
+                            
                                 <div class="latest-prdouct__slider__item" >
-                                  <div id="listaAordenarr">
+                                  
                                 	<% 
                                 	
                                 	for(DataBuscar iter : res){
@@ -76,7 +76,7 @@
                                 			DataPaquete paq = (DataPaquete) iter;
                                 			String imagen = Base64.getEncoder().encodeToString(paq.getImagen());
 	                                	%>
-	                                	<div class="latest-product__item">
+	                                	<div class="latest-product__item" data-nombre="<%=paq.getNombre() %>">
 	                                        <div class="latest-product__item__pic">
 	                                            <img src="data:image/jpg;base64,<%= imagen %>" alt="">
 	                                        </div>
@@ -93,7 +93,7 @@
 	                                		DataActividad act = (DataActividad) iter;
                                 			String imagen = Base64.getEncoder().encodeToString(act.getImagen());
 	                                	%>
-	                                		<div class="latest-product__item">
+	                                		<div class="latest-product__item" data-nombre="<%=act.getNombre() %>">
 		                                        <div class="latest-product__item__pic">
 		                                            <img src="data:image/jpg;base64,<%= imagen %>" alt="">
 		                                        </div>
@@ -107,10 +107,10 @@
 		                                        </div>
 		                                    </div>
                                 	<%}} %>
-                                </div>
+                                
                             </div>
                         </div>
-                      </div>
+                      
                      </div>
                 </div>
              </div>
@@ -139,7 +139,19 @@
     }</script>
    <script>
    function ordenAlfa(){
-	   
+	   var $wrap = $('.latest-prdouct__slider__item');
+	   var res = $wrap.find('.latest-product__item').sort(function (a,b)
+			   {
+				   if (a.dataset.nombre < b.dataset.nombre) { 
+					   return -1;
+					 } else if (a.dataset.nombre > b.dataset.nombre) {
+					   return 1;
+					 } else {
+					   return 0;
+					 }
+			   });
+	   $wrap.html("");
+	   $wrap.html(res);
    }
    </script>
 </body>
