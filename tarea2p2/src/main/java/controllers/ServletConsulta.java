@@ -30,6 +30,7 @@ import logica.DataUsuario;
 import logica.Fabrica;
 import logica.IControladorAlta;
 import logica.IControladorConsulta;
+import logica.estadoAct;
 
 /**
  * Servlet implementation class Home
@@ -108,7 +109,7 @@ public class ServletConsulta extends HttpServlet {
                         DataDepartamento[] deps = conAlta.obtenerDataDepartamentos();
                         for (DataDepartamento iterD : deps) {
                             for (DataActividad iterA : iterD.getColAct()) {
-                                if (iterA.getNombre().contains(input) || iterA.getDescripcion().contains(input)) {
+                                if ((iterA.getNombre().contains(input) || iterA.getDescripcion().contains(input)) && iterA.getEstado() == estadoAct.confirmada) {
                                     res.add(iterA);
                                 }
                             }
@@ -116,15 +117,57 @@ public class ServletConsulta extends HttpServlet {
                     } catch (DepartamentoNoExisteException e2) {
                         e2.printStackTrace();
                     }
-    		        // Si corresponde ordenar
-    		        String ordenarAlfa = req.getParameter("ordenAlfa");
-    		        String ordenarAnio = req.getParameter("ordenAnio");
-    		        if (ordenarAlfa != null) {
-    		            Collections.sort(res, new CompNomDataBuscar());
-    		        } else if (ordenarAnio != null) {
-    		            Collections.sort(res, new CompAnioDataBuscar());
+                    /*
+                     * // Si corresponde ordenar
+                     * String ordenarAlfa = req.getParameter("ordenAlfa");
+                     * String ordenarAnio = req.getParameter("ordenAnio");
+                     * if (ordenarAlfa != null) {
+                     * Collections.sort(res, new CompNomDataBuscar());
+                     * } else if (ordenarAnio != null) {
+                     * Collections.sort(res, new CompAnioDataBuscar());
+                     * }
+                     */
+    		        // Si corresponde filtrar
+    		        List<DataBuscar> resMod = new ArrayList<DataBuscar>(res);
+    		        String dpto = req.getParameter("dpto");
+    		        String categ = req.getParameter("catg");
+    		        if (dpto != null) {
+    		            for (DataBuscar iter : res) {
+    		                if (iter instanceof DataActividad) {
+    		                    DataActividad aux = (DataActividad) iter;
+    		                    if (!aux.getDepartamento().equals(dpto))
+    		                        resMod.remove(aux);
+    		                }
+    		                else {
+    		                    DataPaquete aux = (DataPaquete) iter;
+    		                    boolean eliminar = false;
+    		                    for (DataActividad itr : aux.getDtAct()) {
+    		                        eliminar = eliminar || itr.getDepartamento().equals(dpto);
+    		                    }
+    		                    if (!eliminar)
+                                    resMod.remove(aux);
+    		                }
+    		            }
     		        }
-    		        req.setAttribute("resultado", res);
+    		        else if (categ != null) {
+    		            for (DataBuscar iter : res) {
+                            if (iter instanceof DataActividad) {
+                                DataActividad aux = (DataActividad) iter;
+                                if (!aux.getCategorias().contains(categ))
+                                    resMod.remove(aux);
+                            }
+                            else {
+                                DataPaquete aux = (DataPaquete) iter;
+                                boolean eliminar = false;
+                                for (DataActividad itr : aux.getDtAct()) {
+                                    eliminar = eliminar || itr.getCategorias().contains(categ);
+                                }
+                                if (!eliminar)
+                                    resMod.remove(aux);
+                            }
+                        }
+    		        }
+    		        req.setAttribute("resultado", resMod);
     		        req.getRequestDispatcher("/WEB-INF/buscar/buscador.jsp").forward(req, resp);
     		        break;
     		    case "/perteneceSal":
