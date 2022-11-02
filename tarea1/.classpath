@@ -35,5 +35,6 @@
 	<classpathentry kind="lib" path="lib/jaxws-ri/lib/stax-ex.jar"/>
 	<classpathentry kind="lib" path="lib/jaxws-ri/lib/streambuffer.jar"/>
 	<classpathentry kind="lib" path="lib/jaxws-ri/lib/woodstox-core.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
@@ -15,5 +15,35 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/opencsv-3.8.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/model.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/axis.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-discovery-0.2.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jaxrpc.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/saaj.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/wsdl4j.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/angus-activation.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/angus-mail.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/FastInfoset.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/gmbal-api-only.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/ha-api.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/jakarta.activation-api.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/jakarta.annotation-api.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/jakarta.mail-api.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/jakarta.xml.bind-api.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/jakarta.xml.soap-api.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/jaxb-core.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/jaxb-impl.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/jaxb-jxc.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/jaxb-xjc.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/jaxws-rt.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/jaxws-tools.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/management-api.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/mimepull.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/saaj-impl.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/stax2-api.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/stax-ex.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/streambuffer.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/woodstox-core.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lib/jakarta.xml.ws-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -3,6 +3,7 @@
 	<name>tarea2</name>
 	<comment></comment>
 	<projects>
+		<project>tarea1</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
