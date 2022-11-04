@@ -28,6 +28,7 @@ import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.DataDepartamento;
 import logica.DataPaquete;
+import logica.DataProveedor;
 import logica.DataTurista;
 import logica.DataUsuario;
 import logica.Fabrica;
@@ -178,8 +179,11 @@ public class ServletInsc extends HttpServlet {
     			case "/FinalizarActividad":
     			    String actividadSeleccionada = req.getParameter("actividad");
                     conInsc = fab.getIControladorInsc();
+                    HttpSession session4 = req.getSession();
+                    DataProveedor dataProveedor = (DataProveedor) session4.getAttribute("usuario");
                     try {
                         conInsc.finalizarActividad(actividadSeleccionada);
+                        session4.setAttribute("usuario", fab.getIControladorConsulta().obtenerDataUsuarioNick(dataProveedor.getNick()));
                     } catch (Exception e) {
                             System.out.printf("esepsssion \n" + e.getMessage());
                             req.setAttribute("Exception", e.getMessage());
