@@ -87,6 +87,50 @@
 						<%} %>
 					
 				  <div class="tab-container">
+				  <div id="tab2" class="tab">
+					      <a href="#tab2">Social</a>
+					      <div class="tab-content">
+					      	<div class="product__discount">
+	                                        <div class="section-title product__discount__title">
+	                                            
+	                                        </div>
+	                                        <div class="row">
+	                                            <div class="col-lg-4">
+								                   	<div class="hero__deps">
+												   		<div class="hero__deps__all">
+												             <i class="fa fa-bars"  ></i>
+												             <span>Seguidores</span>
+												         </div>
+												         <ul>
+												         <%String[] Segui = DU.getSeguidores().toArray(new String[0]);
+												         if(Segui!=null)
+												         for (String it : Segui){
+												         %>
+												             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
+												         <%} %>
+												         </ul>
+												     </div>
+								                   </div>
+								                   <div class="col-lg-4">
+								                   	<div class="hero__deps">
+												   		<div class="hero__deps__all">
+												             <i class="fa fa-bars"  ></i>
+												             <span>Seguidos</span>
+												         </div>
+												         <ul>
+												         <%String[] Seguidos = DU.getSeguidos().toArray(new String[0]);
+												         if(Seguidos!=null)
+												         for (String it : Seguidos){
+												         %>
+												             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
+												         <%} %>
+												         </ul>
+												     </div>
+								                   </div>
+	                                    </div>
+					      </div>
+					    </div>
+					    </div>
 				  <div id="tab1" class="tab">
 				      <a href="#tab1">Información Básica</a>
 				      <div class="tab-content">
@@ -106,7 +150,6 @@
 		                    
 		                    if (usr != null && !DU.getNick().equals(usr.getNick())){
 		                    	%>
-		                    <button type="button" class="btn btn-light"><a href="/tarea2p2/ModificarUsuario?dataUsuario=<%= DU.getNick() %>">Modificar datos personales</a></button>
 		                    <form action="SeguirUsuario" method="POST">
 		                    	<% 
 		                    	Set<String> seguidores = DU.getSeguidores();
@@ -118,44 +161,14 @@
 		                    	}
 		                    	%>
                    				<input type="hidden" id="nickUsuASeguir" name="nickUsuASeguir" value="<%=DU.getNick()%>">
-							    <input type="submit" value="<%= auxSeguir %>" onclick="submit()">
+							    <input class="btn btn-light" type="submit" value="<%= auxSeguir %>" onclick="submit()">
 		                    </form>
-		                   <% }
+		                   <% }else{
 		                    	%>
-		                   
-		                   <div class="col-lg-3">
-		                   	<div class="hero__deps">
-						   		<div class="hero__deps__all">
-						             <i class="fa fa-bars"  ></i>
-						             <span>Seguidores</span>
-						         </div>
-						         <ul>
-						         <%String[] Segui = DU.getSeguidores().toArray(new String[0]);
-						         if(Segui!=null)
-						         for (String it : Segui){
-						         %>
-						             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
-						         <%} %>
-						         </ul>
-						     </div>
-		                   </div>
-		                   <div class="col-lg-3">
-		                   	<div class="hero__deps">
-						   		<div class="hero__deps__all">
-						             <i class="fa fa-bars"  ></i>
-						             <span>Seguidos</span>
-						         </div>
-						         <ul>
-						         <%String[] Seguidos = DU.getSeguidos().toArray(new String[0]);
-						         if(Segui!=null)
-						         for (String it : Seguidos){
-						         %>
-						             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
-						         <%} %>
-						         </ul>
-						     </div>
-		                   </div>
-		                    
+		                    	<button type="button" class="btn btn-light"><a href="/tarea2p2/ModificarUsuario?dataUsuario=<%= DU.getNick() %>">Modificar datos personales</a></button>
+		                    <% }
+		                   %>
+		                   		                    
 				      </div> 
 				    </div> 
 				  
@@ -178,8 +191,8 @@
 				    	    if (DP.length != 0){
 				    	    	String imagenp = Base64.getEncoder().encodeToString(DP[0].getImagen());
 				      %>
-					  	<div id="tab3" class="tab">
-					      <a href="#tab3">Paquetes</a>
+					  	<div id="tab4" class="tab">
+					      <a href="#tab4">Paquetes</a>
 					      <div class="tab-content">
 					      	<div class="product__discount">
 	                                        <br>
@@ -268,8 +281,8 @@
 				        if (uuu.length != 0){
 				        String imagen1 = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						%>
-					    <div id="tab2" class="tab">
-					      <a href="#tab2">Salidas</a>
+					    <div id="tab3" class="tab">
+					      <a href="#tab3">Salidas</a>
 					      <div class="tab-content">
 					      	<div class="product__discount">
 	                                        <br>
@@ -369,8 +382,8 @@
 						        	String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						        
                       	%>
-	                      	<div id="tab2" class="tab">
-					      	<a href="#tab2">Actividades</a>
+	                      	<div id="tab3" class="tab">
+					      	<a href="#tab3">Actividades</a>
 					      	<div class="tab-content">
 					      	<div class="product__discount">
 	                                        <br>
@@ -425,6 +438,8 @@
 	                                        </div>
 	                                    
 	                                    </div>
+	                                    <br>
+	                                    <button type="button" class="btn btn-light"><a>Descargar PDF</a></button>
 					      </div>
 					    </div> 
                       <%}}
@@ -436,8 +451,8 @@
 						        	String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						        	DataSalida[] arrDSA = arrDS[0].getSalidas().toArray(new DataSalida[0]);
 	                    	  %>
-						    <div id="tab2" class="tab">
-					      	<a href="#tab2">Actividades</a>
+						    <div id="tab3" class="tab">
+					      	<a href="#tab3">Actividades</a>
 					      	<div class="tab-content">
 					      	<div class="product__discount">
 	                                        <br>
@@ -514,6 +529,8 @@
 	                                        </div>
 	                                    
 	                                    </div>
+	                                    <br>
+	                                    <button type="button" class="btn btn-light"><a>Descargar PDF</a></button>
 					      </div>
 					    </div>   
 						      
