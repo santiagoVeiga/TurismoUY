@@ -21,6 +21,7 @@ import excepciones.NoHayCuposException;
 import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.SalidasNoExisteException;
+import excepciones.SalidasVigentesException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
@@ -177,19 +178,13 @@ public class ServletInsc extends HttpServlet {
     			case "/FinalizarActividad":
     			    String actividadSeleccionada = req.getParameter("actividad");
                     conInsc = fab.getIControladorInsc();
-                    conInsc.finalizarActividad(actividadSeleccionada);
-                    req.getRequestDispatcher("/ConsultaUsuario").forward(req, resp);
-                    /*HttpSession session3 = req.getSession();
-                    DataTurista dTur = (DataTurista) session3.getAttribute("usuario");
-                    String nomAct = req.getParameter("nomAct");
                     try {
-                        conInsc.agregarQuitarActividadFavorita(dTur.getNick(), nomAct, !dTur.getActFavoritas().contains(nomAct));
-                        session3.setAttribute("usuario", fab.getIControladorConsulta().obtenerDataUsuarioNick(dTur.getNick()));
-                        req.getRequestDispatcher("/ConsultaActividad?actividad=" + nomAct).forward(req, resp); //lo cambie
-                    } catch (UsuarioNoExisteException | ActividadNoExisteException | ActividadRepetidaException e) {
-                        req.setAttribute("Exception", e.getMessage());
-                        req.getRequestDispatcher("/home").forward(req, resp);
-                    }*/
+                        conInsc.finalizarActividad(actividadSeleccionada);
+                    } catch (Exception e) {
+                            System.out.printf("esepsssion \n" + e.getMessage());
+                            req.setAttribute("Exception", e.getMessage());
+                    }
+                    req.getRequestDispatcher("/home").forward(req, resp);
                     break;
     		}
         }

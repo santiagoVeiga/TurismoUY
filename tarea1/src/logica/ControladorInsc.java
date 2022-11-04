@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.opencsv.CSVReader;
@@ -19,6 +20,7 @@ import excepciones.NoHayCuposException;
 import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.SalidasNoExisteException;
+import excepciones.SalidasVigentesException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
@@ -328,14 +330,26 @@ public class ControladorInsc implements IControladorInsc {
 		
 	}
 	
-	public void finalizarActividad(String nombreActividad) {
+	public void finalizarActividad(String nombreActividad) throws ActividadNoExisteException, SalidasVigentesException {
 		ManejadorActividad manAct = ManejadorActividad.getInstance();
-		try {
 			Actividad act = manAct.getActividad(nombreActividad);
-			act.setEstado(estadoAct.finalizada);
-		} catch (ActividadNoExisteException e) {
-			// TODO Auto-generated catch block
-		}
+			Map<String, Salida> salidasAct = act.getColSal();
+			boolean salidasTerminadas = true;
+			Date fechaActualS = new Date();
+            SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MM-yyyy");
+            String str2 = formatter2.format(fechaActualS);
+			for (Map.Entry<String, Salida> entry : salidasAct.entrySet()) {
+				Salida salida = entry.getValue();
+				if(salida.getFecha().after(fechaActualS)) {
+					salidasTerminadas = false;
+				}
+			}
+			if(salidasTerminadas) {
+				act.setEstado(estadoAct.finalizada);
+			}else {
+				throw new SalidasVigentesException("La actividad cuenta con salidas Vigentes");
+			}
+		
 		
 	}
 
