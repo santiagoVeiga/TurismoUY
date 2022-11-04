@@ -460,6 +460,12 @@
 							                              <p class="card-text">Estado : <%= arrDS[0].getEstado() %></p>
 					                                      <br>
 					                                      
+					                                      <!-- Finalizar Tarea -->
+					                                       
+					                                      <%if(arrDS[0].getEstado() == estadoAct.confirmada){%>
+					                                      	<button type="button" class="btn btn-light"><a href="/tarea2p2/FinalizarActividad=<%= arrDS[0].getNombre() %>">Finalizar Actividad</a></button>
+					                                      <%} %>
+					                                      
 					                                      <p align="center" class="card-text">Salidas Asociadas:</p>                              
 				                                    	  
 				                                    	  <%for(int x = 0; x < arrDSA.length; x++) {%>
@@ -489,6 +495,12 @@
 							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>                                    
 							                                        <p class="card-text">Estado : <%= arrDS[i].getEstado() %></p>
 							                                        <br>
+							                                        
+							                                        <!-- Finalizar Tarea -->
+							                                        
+							                                        <%if(arrDS[i].getEstado() == estadoAct.confirmada){%>
+					                                      				<button type="button" class="btn btn-light"><a href="/tarea2p2/FinalizarActividad?actividad=<%= arrDS[i].getNombre() %>">Finalizar Actividad</a></button>
+					                                      			<%} %>
 							                                        <p align="center" class="card-text">Salidas Asociadas:</p>                                    
 							                                    	<%for(int x = 0; x < arrDSA.length; x++) {%>
 							                                    	<a href="/tarea2p2/ConsultaSalida?salida=<%= arrDSA[x].getNombre() %>"> 

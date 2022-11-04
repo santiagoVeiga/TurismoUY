@@ -36,7 +36,7 @@ import logica.IControladorInsc;
 /**
  * Servlet implementation class Home
  */
-@WebServlet (urlPatterns={"/Inscripcion", "/Inscripto", "/CompraPaquete", "/SeguirUsuario", "/AgregarFavs"})
+@WebServlet (urlPatterns={"/Inscripcion", "/Inscripto", "/CompraPaquete", "/SeguirUsuario", "/AgregarFavs", "/FinalizarActividad"})
 
 public class ServletInsc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -173,6 +173,23 @@ public class ServletInsc extends HttpServlet {
                         req.setAttribute("Exception", e.getMessage());
                         req.getRequestDispatcher("/home").forward(req, resp);
                     }
+                    break;
+    			case "/FinalizarActividad":
+    			    String actividadSeleccionada = req.getParameter("actividad");
+                    conInsc = fab.getIControladorInsc();
+                    conInsc.finalizarActividad(actividadSeleccionada);
+                    req.getRequestDispatcher("/ConsultaUsuario").forward(req, resp);
+                    /*HttpSession session3 = req.getSession();
+                    DataTurista dTur = (DataTurista) session3.getAttribute("usuario");
+                    String nomAct = req.getParameter("nomAct");
+                    try {
+                        conInsc.agregarQuitarActividadFavorita(dTur.getNick(), nomAct, !dTur.getActFavoritas().contains(nomAct));
+                        session3.setAttribute("usuario", fab.getIControladorConsulta().obtenerDataUsuarioNick(dTur.getNick()));
+                        req.getRequestDispatcher("/ConsultaActividad?actividad=" + nomAct).forward(req, resp); //lo cambie
+                    } catch (UsuarioNoExisteException | ActividadNoExisteException | ActividadRepetidaException e) {
+                        req.setAttribute("Exception", e.getMessage());
+                        req.getRequestDispatcher("/home").forward(req, resp);
+                    }*/
                     break;
     		}
         }

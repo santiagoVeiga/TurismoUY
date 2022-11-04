@@ -327,4 +327,16 @@ public class ControladorInsc implements IControladorInsc {
 	      }
 		
 	}
+	
+	public void finalizarActividad(String nombreActividad) {
+		ManejadorActividad manAct = ManejadorActividad.getInstance();
+		try {
+			Actividad act = manAct.getActividad(nombreActividad);
+			act.setEstado(estadoAct.finalizada);
+		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
+		}
+		
+	}
+
 }

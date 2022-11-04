@@ -44,4 +44,5 @@ public interface IControladorInsc {
 	public abstract void cargarInsc(CSVReader reader) throws NumberFormatException, IOException, ParseException, TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido, PaqueteRepetidoException, NoHayCuposException;
 	public abstract void seguirDejarDeSeguirUsuario(String nickSeguidor, String nickASeguir, boolean seguir) throws UsuarioNoExisteException, UsuarioRepetidoException;
 	public abstract void agregarQuitarActividadFavorita(String nickTurista, String nombreAct, boolean agregar) throws UsuarioNoExisteException, ActividadNoExisteException, ActividadRepetidaException;
+	public abstract void finalizarActividad(String nombreActividad);
 }

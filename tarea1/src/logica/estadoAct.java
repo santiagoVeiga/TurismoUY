@@ -1,5 +1,5 @@
 package logica;
 
 public enum estadoAct {
-	agregada, confirmada, rechazada
+	agregada, confirmada, rechazada, finalizada
 }
