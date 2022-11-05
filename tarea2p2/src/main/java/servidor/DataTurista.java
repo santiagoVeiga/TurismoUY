@@ -14,6 +14,8 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
 
     private servidor.DataCompraGeneral[] inscripcionesSal;
 
+    private java.lang.String[] paquetes;
+
     public DataTurista() {
     }
 
@@ -29,7 +31,8 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
            java.lang.String[] seguidos,
            java.lang.String[] actFavoritas,
            servidor.DataCompraPaquete[] comprasPaq,
-           servidor.DataCompraGeneral[] inscripcionesSal) {
+           servidor.DataCompraGeneral[] inscripcionesSal,
+           java.lang.String[] paquetes) {
         super(
             apellido,
             imagen,
@@ -43,6 +46,7 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
         this.actFavoritas = actFavoritas;
         this.comprasPaq = comprasPaq;
         this.inscripcionesSal = inscripcionesSal;
+        this.paquetes = paquetes;
     }
 
 
@@ -129,6 +133,34 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
         this.inscripcionesSal[i] = _value;
     }
 
+
+    /**
+     * Gets the paquetes value for this DataTurista.
+     * 
+     * @return paquetes
+     */
+    public java.lang.String[] getPaquetes() {
+        return paquetes;
+    }
+
+
+    /**
+     * Sets the paquetes value for this DataTurista.
+     * 
+     * @param paquetes
+     */
+    public void setPaquetes(java.lang.String[] paquetes) {
+        this.paquetes = paquetes;
+    }
+
+    public java.lang.String getPaquetes(int i) {
+        return this.paquetes[i];
+    }
+
+    public void setPaquetes(int i, java.lang.String _value) {
+        this.paquetes[i] = _value;
+    }
+
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof DataTurista)) return false;
@@ -149,7 +181,10 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
               java.util.Arrays.equals(this.comprasPaq, other.getComprasPaq()))) &&
             ((this.inscripcionesSal==null && other.getInscripcionesSal()==null) || 
              (this.inscripcionesSal!=null &&
-              java.util.Arrays.equals(this.inscripcionesSal, other.getInscripcionesSal())));
+              java.util.Arrays.equals(this.inscripcionesSal, other.getInscripcionesSal()))) &&
+            ((this.paquetes==null && other.getPaquetes()==null) || 
+             (this.paquetes!=null &&
+              java.util.Arrays.equals(this.paquetes, other.getPaquetes())));
         __equalsCalc = null;
         return _equals;
     }
@@ -194,6 +229,17 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
                 }
             }
         }
+        if (getPaquetes() != null) {
+            for (int i=0;
+                 i<java.lang.reflect.Array.getLength(getPaquetes());
+                 i++) {
+                java.lang.Object obj = java.lang.reflect.Array.get(getPaquetes(), i);
+                if (obj != null &&
+                    !obj.getClass().isArray()) {
+                    _hashCode += obj.hashCode();
+                }
+            }
+        }
         __hashCodeCalc = false;
         return _hashCode;
     }
@@ -224,6 +270,14 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
         elemField.setFieldName("inscripcionesSal");
         elemField.setXmlName(new javax.xml.namespace.QName("", "inscripcionesSal"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://servidor/", "dataCompraGeneral"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(true);
+        elemField.setMaxOccursUnbounded(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("paquetes");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "paquetes"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(true);
         elemField.setMaxOccursUnbounded(true);

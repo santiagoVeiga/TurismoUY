@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -13,24 +14,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.rpc.ServiceException;
 
-import excepciones.ActividadNoExisteException;
-import excepciones.DepartamentoNoExisteException;
-import excepciones.SalidasNoExisteException;
-import excepciones.UsuarioNoExisteException;
+import servidor.ActividadNoExisteException;
+import servidor.DepartamentoNoExisteException;
+import servidor.SalidasNoExisteException;
+import servidor.UsuarioNoExisteException;
 import logica.CompAnioDataBuscar;
 import logica.CompNomDataBuscar;
-import logica.DataActividad;
-import logica.DataBuscar;
-import logica.DataDepartamento;
-import logica.DataPaquete;
-import logica.DataSalida;
-import logica.DataTurista;
-import logica.DataUsuario;
-import logica.Fabrica;
-import logica.IControladorAlta;
-import logica.IControladorConsulta;
-import logica.estadoAct;
+import servidor.DataActividad;
+import servidor.DataBuscar;
+import servidor.DataDepartamento;
+import servidor.DataPaquete;
+import servidor.DataSalida;
+import servidor.DataTurista;
+import servidor.DataUsuario;
+import servidor.EstadoAct;
 
 /**
  * Servlet implementation class Home
@@ -39,8 +38,6 @@ import logica.estadoAct;
 
 public class ServletConsulta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Fabrica fab = Fabrica.getInstance();;
-	private IControladorConsulta conCons;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -81,6 +78,13 @@ public class ServletConsulta extends HttpServlet {
         //Ver si se presiona sobre un dpto
         String nomDpto = req.getParameter("DTDConsultaActividad");
         String nomCat = req.getParameter("CatConsultaActividad");
+        servidor.PublicadorIControladorService service = new servidor.PublicadorIControladorServiceLocator();
+        servidor.PublicadorIControlador port = null;
+        try {
+            port = service.getPublicadorIControladorPort();
+        } catch (ServiceException e1) {
+            e1.printStackTrace();
+        }
         if (nomDpto != null) {
             selecDep(req, resp, nomDpto);
         } else if (nomCat != null) {
@@ -95,21 +99,19 @@ public class ServletConsulta extends HttpServlet {
     		        else {
     		            session.setAttribute("abuscar", input);
     		        }
-    		        conCons = fab.getIControladorConsulta();
-    		        String[] nPaqs = conCons.listarPaquetes();
+    		        String[] nPaqs = Arrays.copyOf(port.listarPaquetes(), port.listarPaquetes().length, String[].class);
     		        List<DataBuscar> res = new ArrayList<DataBuscar>();
     		        for (String iter : nPaqs) {
-    		            DataPaquete aux = conCons.obtenerDataPaquete(iter);
+    		            DataPaquete aux = port.obtenerDataPaquete(iter);
     		            if (aux.getDescripcion().contains(input) || aux.getNombre().contains(input)) {
     		                res.add(aux);
     		            }
     		        }
-    		        IControladorAlta conAlta = fab.getIControladorAlta();
     		        try {
-                        DataDepartamento[] deps = conAlta.obtenerDataDepartamentos();
+                        DataDepartamento[] deps = Arrays.copyOf(port.obtenerDataDepartamentos(), port.obtenerDataDepartamentos().length, DataDepartamento[].class);
                         for (DataDepartamento iterD : deps) {
                             for (DataActividad iterA : iterD.getColAct()) {
-                                if ((iterA.getNombre().contains(input) || iterA.getDescripcion().contains(input)) && iterA.getEstado() == estadoAct.confirmada) {
+                                if ((iterA.getNombre().contains(input) || iterA.getDescripcion().contains(input)) && iterA.getEstado() == EstadoAct.confirmada) {
                                     res.add(iterA);
                                 }
                             }
@@ -151,18 +153,17 @@ public class ServletConsulta extends HttpServlet {
     		        }
     		        else if (categ != null) {
     		            for (DataBuscar iter : res) {
+    		                Set<String> categorias = new HashSet<String>();
                             if (iter instanceof DataActividad) {
                                 DataActividad aux = (DataActividad) iter;
-                                if (!aux.getCategorias().contains(categ))
+                                Collections.addAll(categorias, aux.getCategorias());
+                                if (!categorias.contains(categ))
                                     resMod.remove(aux);
                             }
                             else {
                                 DataPaquete aux = (DataPaquete) iter;
-                                boolean eliminar = false;
-                                for (DataActividad itr : aux.getDtAct()) {
-                                    eliminar = eliminar || itr.getCategorias().contains(categ);
-                                }
-                                if (!eliminar)
+                                Collections.addAll(categorias, aux.getCategorias());
+                                if (!categorias.contains(categ))
                                     resMod.remove(aux);
                             }
                         }
@@ -177,8 +178,7 @@ public class ServletConsulta extends HttpServlet {
                     String sReq = req.getParameter("sal");
                     if (!sReq.equals("")) {
                         try {
-                            conCons = fab.getIControladorConsulta();
-                            DataSalida usu = conCons.obtenerDataSalida(sReq);
+                            DataSalida usu = port.obtenerDataSalida(sReq);
                         } catch (SalidasNoExisteException e1) {
                             text3 = "y";
                         }
@@ -192,8 +192,7 @@ public class ServletConsulta extends HttpServlet {
                     String aReq = req.getParameter("act");
                     if (!aReq.equals("")) {
                         try {
-                            conCons = fab.getIControladorConsulta();
-                            DataActividad usu = conCons.obtenerDataActividad(aReq);
+                            DataActividad usu = port.obtenerDataActividad(aReq);
                         } catch (ActividadNoExisteException e1) {
                             text2 = "y";
                         }
@@ -207,8 +206,7 @@ public class ServletConsulta extends HttpServlet {
                     String nReq = req.getParameter("nick");
                     if (!nReq.equals("")) {
                         try {
-        		            conCons = fab.getIControladorConsulta();
-                            DataUsuario usu = conCons.obtenerDataUsuarioNick(nReq);
+                            DataUsuario usu = port.obtenerDataUsuarioNick(nReq);
                         } catch (UsuarioNoExisteException e1) {
                             text = "y";
                         }
@@ -222,8 +220,7 @@ public class ServletConsulta extends HttpServlet {
                     String eReq = req.getParameter("email");
                     if (!eReq.equals("")) {
                         try {
-                            conCons = fab.getIControladorConsulta();
-                            DataUsuario usu = conCons.obtenerDataUsuarioMail(eReq);
+                            DataUsuario usu = port.obtenerDataUsuarioMail(eReq);
                         } catch (UsuarioNoExisteException e1) {
                             text1 = "y";
                         }
@@ -232,23 +229,22 @@ public class ServletConsulta extends HttpServlet {
                     break;
     			case "/ConsultaUsuario":
     				String usuario = (String) req.getParameter("nick");
-    				conCons = fab.getIControladorConsulta();
     				if (usuario == null) {
-    					DataUsuario[] usuarios = conCons.listarUsuarios();
+    					DataUsuario[] usuarios = Arrays.copyOf(port.listarUsuarios(), port.listarUsuarios().length, DataUsuario[].class);
     					req.setAttribute("ArregloUsuarios", usuarios);
     					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ListaUsuario.jsp").forward(req, resp);
     				} else {
     					DataUsuario dataUsu;
                         try {
-                            dataUsu = conCons.obtenerDataUsuarioNick(usuario);
+                            dataUsu = port.obtenerDataUsuarioNick(usuario);
                             req.setAttribute("UsuarioElegido", dataUsu);
                             if (dataUsu instanceof DataTurista) {
                                 DataPaquete[] arrDataPaquetes = null;
                                 DataPaquete DataPaqueteAux ; 
-                                arrDataPaquetes = new DataPaquete[((DataTurista) dataUsu).getPaquetes().size()];
-                               String[] arrPaquetes = ((DataTurista) dataUsu).getPaquetes().toArray(new String[0]);
+                                arrDataPaquetes = new DataPaquete[((DataTurista) dataUsu).getPaquetes().length];
+                                String[] arrPaquetes = ((DataTurista) dataUsu).getPaquetes();
                                for (int i =0 ; i<arrPaquetes.length; i++) {
-                                   DataPaqueteAux = conCons.obtenerDataPaquete(arrPaquetes[i]);
+                                   DataPaqueteAux = port.obtenerDataPaquete(arrPaquetes[i]);
                                    arrDataPaquetes[i] = DataPaqueteAux ; 
                                }
                                req.setAttribute("ArregloPaquetes", arrDataPaquetes);
@@ -261,7 +257,6 @@ public class ServletConsulta extends HttpServlet {
     				}				
     				break;
     			case "/ConsultaActividad":
-    			    conCons = fab.getIControladorConsulta();
     			    String actividad = (String) session.getAttribute("actividad_inicio");
                     session.setAttribute("actividad_inicio", null);
                     if (actividad == null) {
@@ -270,12 +265,12 @@ public class ServletConsulta extends HttpServlet {
     				DataActividad[] actividades = null;
     				if (actividad == null) {
     				    if (session.getAttribute("DTDConsultaActividad")!= null) {
-                            actividades = ((DataDepartamento) session.getAttribute("DTDConsultaActividad")).getColAct().toArray(new DataActividad[0]);
+                            actividades = ((DataDepartamento) session.getAttribute("DTDConsultaActividad")).getColAct();
                             session.setAttribute("DTDConsultaActividad", null);
                         } else {
                             String categoria = (String) session.getAttribute("CatConsultaActividad");
                             if (categoria != null) {
-                                actividades = conCons.obtenerActividadCategoria(categoria);
+                                actividades = Arrays.copyOf(port.obtenerActividadCategoria(categoria), port.obtenerActividadCategoria(categoria).length, DataActividad[].class);
                                 session.setAttribute("CatConsultaActividad", null);
                             }
                         }
@@ -283,18 +278,17 @@ public class ServletConsulta extends HttpServlet {
     					session.setAttribute("ArregloActividades", actividades);
     					req.getRequestDispatcher("/WEB-INF/ConsultaActividad/ListaActividad.jsp").forward(req, resp);
     				} else {
-                        conCons = fab.getIControladorConsulta();
                         DataActividad act = null;
                         DataPaquete[] arrDataPaquetes = null ;  
 
                         try {
-                           act = conCons.obtenerDataActividad(actividad);
+                           act = port.obtenerDataActividad(actividad);
                          
                            //genero un array de dataPaquetes para cada actividad que quiero consultar
-                           arrDataPaquetes = new DataPaquete[act.getPaquetes().size()];
-                           String[] arrPaquetes = act.getPaquetes().toArray(new String[act.getPaquetes().size()]);
+                           arrDataPaquetes = new DataPaquete[act.getPaquetes().length];
+                           String[] arrPaquetes = act.getPaquetes();
                            for (int i=0 ; i<arrPaquetes.length; i++) {
-                               arrDataPaquetes[i] = conCons.obtenerDataPaquete(arrPaquetes[i]);
+                               arrDataPaquetes[i] = port.obtenerDataPaquete(arrPaquetes[i]);
                            }
                            
                            
@@ -309,10 +303,9 @@ public class ServletConsulta extends HttpServlet {
     				}
     				break;
     			case "/ConsultaSalida":
-    			    conCons = fab.getIControladorConsulta();
     			    String salida = req.getParameter("salida");
     			    try {
-                        DataSalida dataSal = conCons.obtenerDataSalida(salida);
+                        DataSalida dataSal = port.obtenerDataSalida(salida);
                         req.setAttribute("SalidaElegida", dataSal);
                         req.getRequestDispatcher("/WEB-INF/ConsultaSalida/ConsultaSalida.jsp").forward(req, resp); //Ver si entregar el set de salidas o no, por ahora se devuelve el DataSalida que viene desde la lista.
                     } catch (SalidasNoExisteException e) {
@@ -321,19 +314,17 @@ public class ServletConsulta extends HttpServlet {
                     }
     				break;
     			case "/ConsultaPaquete":
-    			    conCons = fab.getIControladorConsulta();
     				String paquete = (String) req.getParameter("paquete");
     				if (paquete == null) {
-    					conCons = fab.getIControladorConsulta();
-    					String[] nombresPaq = conCons.listarPaquetes();
+    					String[] nombresPaq = Arrays.copyOf(port.listarPaquetes(), port.listarPaquetes().length, String[].class);
     					DataPaquete[] dps = new DataPaquete[nombresPaq.length];
     					for (int i=0; i<nombresPaq.length; i++) {
-    						dps[i] = conCons.obtenerDataPaquete(nombresPaq[i]);
+    						dps[i] = port.obtenerDataPaquete(nombresPaq[i]);
     					}
     					req.setAttribute("ArregloPaquetes", dps);
     					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/ListaPaquetes.jsp").forward(req, resp);
     				} else {
-    					DataPaquete dataPaq = conCons.obtenerDataPaquete(paquete);
+    					DataPaquete dataPaq = port.obtenerDataPaquete(paquete);
     					req.setAttribute("PaqueteElegido", dataPaq);
     					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req, resp);
     				}

@@ -50,7 +50,7 @@ public class DataTurista extends DataUsuario {
     public Set<String> getPaquetes(){
     	return paquetes;
     }
-
+    
 	public Set<DataCompraGeneral> getInscripcionesSal() {
 		return inscripcionesSal;
 	}
@@ -63,6 +63,10 @@ public class DataTurista extends DataUsuario {
 		return actFavoritas;
 	}
 
+    public void setPaquetes(Set<String> set) {
+    	this.paquetes = set;
+    }
+	
 	public void setActFavoritas(Set<String> actFavoritas) {
 		this.actFavoritas = actFavoritas;
 	}
