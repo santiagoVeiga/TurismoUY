@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,22 +28,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.xml.rpc.ServiceException;
 
-import excepciones.ActividadRepetidaException;
-import excepciones.FechaAltaSalidaAnteriorActividad;
-import excepciones.FechaAltaSalidaInvalida;
-import excepciones.ProveedorNoNacidoException;
-import excepciones.SalidaYaExisteExeption;
-import excepciones.UsuarioNoExisteException;
-import excepciones.UsuarioRepetidoException;
-import logica.DataActividad;
-import logica.DataDepartamento;
-import logica.DataProveedor;
-import logica.DataTurista;
-import logica.DataUsuario;
-import logica.Fabrica;
-import logica.IControladorAlta;
-import logica.IControladorConsulta;
+import servidor.ActividadRepetidaException;
+import servidor.DataActividad;
+import servidor.DataDepartamento;
+import servidor.DataProveedor;
+import servidor.DataTurista;
+import servidor.DataUsuario;
+import servidor.FechaAltaSalidaAnteriorActividad;
+import servidor.FechaAltaSalidaInvalida;
+import servidor.ProveedorNoNacidoException;
+import servidor.SalidaYaExisteExeption;
+import servidor.UsuarioNoExisteException;
+import servidor.UsuarioRepetidoException;
 
 /**
  * Servlet implementation class Home
@@ -52,9 +51,6 @@ import logica.IControladorConsulta;
 @MultipartConfig(maxFileSize = 16177215) 
 public class ServletAlta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Fabrica fab = Fabrica.getInstance();;
-	private IControladorAlta conAlta;
-	private IControladorConsulta conCons;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -94,6 +90,13 @@ public class ServletAlta extends HttpServlet {
 			throws ServletException, IOException {
 	    String nomDpto = req.getParameter("DTDConsultaActividad");
         String nomCat = req.getParameter("CatConsultaActividad");
+        servidor.PublicadorIControladorService service = new servidor.PublicadorIControladorServiceLocator();
+        servidor.PublicadorIControlador port = null;
+        try {
+            port = service.getPublicadorIControladorPort();
+        } catch (ServiceException e1) {
+            e1.printStackTrace();
+        }
         if (nomDpto != null) {
             selecDep(req, resp, nomDpto);
         } else if (nomCat != null) {
@@ -135,7 +138,6 @@ public class ServletAlta extends HttpServlet {
                         HttpSession sessionAct = req.getSession();
                         DataProveedor dtProveedor = (DataProveedor) sessionAct.getAttribute("usuario");
                         String proveedorAct = dtProveedor.getNick();
-                        conAlta = fab.getIControladorAlta();
                         
                         //Chequeo imagen cargada
                         InputStream inputStreamAct = null;
@@ -172,8 +174,10 @@ public class ServletAlta extends HttpServlet {
                             }
                           
                             try {
-                                conAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct),
-                                        Integer.parseInt(costoAct), ciudadAct, date1, proveedorAct, categoriasAct, imgBytesAct);
+                                Calendar date1C = Calendar.getInstance();
+                                date1C.setTime(date1);
+                                port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct),
+                                        Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, categoriasAct.toArray(new String[0]), imgBytesAct);
                                 resp.sendRedirect("/tarea2p2/home");
             
                             } catch (NumberFormatException e2) {
@@ -198,7 +202,9 @@ public class ServletAlta extends HttpServlet {
                                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                                 ImageIO.write(imgDef, "jpg", baos);
                                 byte[] imgDefBytes = baos.toByteArray();
-                                conAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1, proveedorAct, categoriasAct, imgDefBytes);
+                                Calendar date1C = Calendar.getInstance();
+                                date1C.setTime(date1);
+                                port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, categoriasAct.toArray(new String[0]), imgDefBytes);
                                 resp.sendRedirect("/tarea2p2/home");
             
                             } catch (NumberFormatException e2) {
@@ -233,8 +239,6 @@ public class ServletAlta extends HttpServlet {
     				InputStream inputStream = null; // input stream of the upload file
     		        // obtains the upload file part in this multipart request
     		        Part filePart = req.getPart("imgUsuario");
-    		        conAlta = fab.getIControladorAlta();
-    		        conCons = fab.getIControladorConsulta();
     		        if (filePart.getSize() > 0) {
     		             
     		            // obtains input stream of the upload file
@@ -270,27 +274,23 @@ public class ServletAlta extends HttpServlet {
     		          
     		            try {
     						Date fechaNac = format.parse(date);
+    						Calendar fechaNacC = Calendar.getInstance();
+    						fechaNacC.setTime(fechaNac);
     						if (!nacionalidad.equals("")) {
-    							conAlta.confirmarAltaTurista(nick, nombre , apellido, mail, fechaNac , nacionalidad, password, imgBytes);
+    							port.confirmarAltaTuristaCompleto(nick, nombre , apellido, mail, fechaNacC , nacionalidad, password, imgBytes);
     						} else if (linkProv != null && descripcion != null) {
-    							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail, fechaNac, descripcion, linkProv, true, password, imgBytes); 
+    							port.confirmarAltaProveedorCompleto(nick, nombre , apellido, mail, fechaNacC, descripcion, linkProv, true, password, imgBytes); 
     						}
     						else if (descripcion!= null) {
-    							conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail , fechaNac, descripcion, "", false, password, imgBytes); 
+    							port.confirmarAltaProveedorCompleto(nick, nombre , apellido, mail , fechaNacC, descripcion, "", false, password, imgBytes); 
     						}else {
     							// no deberia pasar
     							break;
     						}
     						HttpSession session = req.getSession();
-    						DataUsuario dataUsu = conCons.obtenerDataUsuarioNick(nick);
+    						DataUsuario dataUsu = port.obtenerDataUsuarioNick(nick);
     						session.setAttribute("usuario", dataUsu);
-    						//Setear imagen
-    						InputStream inSt = new ByteArrayInputStream(imgBytes);
-                            BufferedImage buffIm = ImageIO.read(inSt);
-                            ByteArrayOutputStream outputA = new ByteArrayOutputStream();
-                            ImageIO.write(buffIm, "jpg", outputA);
-                            String imageAsBase64 = Base64.getEncoder().encodeToString(outputA.toByteArray());
-    						session.setAttribute("imagenUsuario", imageAsBase64);
+    						session.setAttribute("imagenUsuario", dataUsu.getImagen());
     						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
     						resp.sendRedirect("/tarea2p2/home");
     					} catch (UsuarioRepetidoException e) {
@@ -305,24 +305,26 @@ public class ServletAlta extends HttpServlet {
     				else {
     					try {
     						Date fechaNac = format.parse(date);
+    						Calendar fechaNacC = Calendar.getInstance();
+                            fechaNacC.setTime(fechaNac);
                             ServletContext servletContextDef = req.getServletContext();
                             BufferedImage imgDef = ImageIO.read(servletContextDef.getResourceAsStream("/WEB-INF/data/default_imagen.jpg"));
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
                             ImageIO.write(imgDef, "jpg", baos);
                             byte[] imgDefBytes = baos.toByteArray();
                             if (!nacionalidad.equals("")) {
-                                conAlta.confirmarAltaTurista(nick, nombre , apellido, mail, fechaNac, nacionalidad, password, imgDefBytes);
+                                port.confirmarAltaTuristaCompleto(nick, nombre , apellido, mail, fechaNacC, nacionalidad, password, imgDefBytes);
                             } else if (linkProv != null && descripcion!= null) {
-                                conAlta.confirmarAltaProveedor(nick, nombre, apellido, mail, fechaNac, descripcion, linkProv, true, password, imgDefBytes); 
+                                port.confirmarAltaProveedorCompleto(nick, nombre, apellido, mail, fechaNacC, descripcion, linkProv, true, password, imgDefBytes); 
                             }
                             else if (descripcion!= null) {
-                                conAlta.confirmarAltaProveedor(nick, nombre , apellido, mail, fechaNac, descripcion, "", false, password, imgDefBytes); 
+                                port.confirmarAltaProveedorCompleto(nick, nombre , apellido, mail, fechaNacC, descripcion, "", false, password, imgDefBytes); 
                             }else {
     							// no deberia pasar
     							break;
     						}
     						HttpSession session = req.getSession();
-    						DataUsuario dataUsu = conCons.obtenerDataUsuarioNick(nick);
+    						DataUsuario dataUsu = port.obtenerDataUsuarioNick(nick);
     						session.setAttribute("usuario", dataUsu);
     						session.setAttribute("imagenUsuario", null); // revisar esto
     						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
@@ -337,21 +339,6 @@ public class ServletAlta extends HttpServlet {
     					}
     				}
     				break;
-    			case "/ ":
-    				DataActividad dataAct = (DataActividad) req.getAttribute("DataActividad");
-    				HttpSession session1 = req.getSession();
-    				DataUsuario aux = (DataUsuario) session1.getAttribute("usuario");
-    				String proveedor = aux.getNick();
-    				conAlta = fab.getIControladorAlta();
-    				try {
-    					//da.getDepartamento()
-    					conAlta.registrarActividad("Rocha", dataAct.getNombre() , dataAct.getDescripcion(), dataAct.getDuracion(), dataAct.getCosto(), dataAct.getCiudad(), dataAct.getFechaAlta(), proveedor, dataAct.getCategorias());
-    					resp.sendRedirect("/WEB-INF/iniciar.jsp");
-    				} catch (ActividadRepetidaException | UsuarioNoExisteException | ProveedorNoNacidoException e) {
-    					req.setAttribute("Exception", e.getMessage());
-    					req.getRequestDispatcher("/WEB-INF/alta_actividad.jsp").forward(req, resp);
-    				}
-    				break;
     			case "/SalidaCreada":
                     String salidaNombre = (String) req.getParameter("salidaNombre");
                     String salidaLugar = (String) req.getParameter("salidaLugar");
@@ -362,14 +349,26 @@ public class ServletAlta extends HttpServlet {
                     SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MM-yyyy");
                     String str2 = formatter2.format(fechaActualS);
                     String fechaSal = (String) req.getParameter("salidaFecha");
+                    Date fechaSalida = null;
+                    try {
+                        fechaSalida = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);
+                    } catch (ParseException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                    
+                    Calendar fechaActualSC = Calendar.getInstance();
+                    fechaActualSC.setTime(fechaActualS);
+                    
+                    Calendar fechaSalidaC = Calendar.getInstance();
+                    fechaSalidaC.setTime(fechaSalida);
                     
                     String horaSal = (String) req.getParameter("salidaHora");
                     Date horaSalida = new Date(0, 0, 0, Integer.parseInt(horaSal), 0, 0);
+                    Calendar horaSalidaC = Calendar.getInstance();
+                    horaSalidaC.setTime(horaSalida);
                     
-                    // No se esta contrrolando las salidas duplicadas
-                                        
-    				conAlta = fab.getIControladorAlta();
-    				
+                    // No se esta contrrolando las salidas duplicada
     				//Chequeo imagen cargada
                     InputStream inputStreamSal = null;
                     Part filePartSal = req.getPart("salidaFotos");
@@ -406,8 +405,7 @@ public class ServletAlta extends HttpServlet {
                         }
                       
                         try {
-                            Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);
-                            conAlta.confirmarAltaSalida(actividad, salidaNombre, fechaSalida, horaSalida, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualS, imgBytesSal);
+                            port.confirmarAltaSalidaImagen(actividad, salidaNombre, fechaSalidaC, horaSalidaC, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualSC, imgBytesSal);
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
@@ -418,10 +416,6 @@ public class ServletAlta extends HttpServlet {
                         }catch( FechaAltaSalidaInvalida  e3) {
                             req.setAttribute("Exception", e3.getMessage());
                             req.getRequestDispatcher("/home").forward(req, resp);
-                        }catch (ParseException e3) {
-                            req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/home").forward(req, resp);
-                            // TODO Auto-generated catch block
                         }
                     }
                     // No se subió imagen
@@ -432,9 +426,7 @@ public class ServletAlta extends HttpServlet {
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
                             ImageIO.write(imgDef, "jpg", baos);
                             byte[] imgDefBytes = baos.toByteArray();
-                            
-                            Date fechaSalida=new SimpleDateFormat("yyyy-MM-dd").parse(fechaSal);
-                            conAlta.confirmarAltaSalida(actividad, salidaNombre, fechaSalida, horaSalida, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualS, imgDefBytes);
+                            port.confirmarAltaSalidaImagen(actividad, salidaNombre, fechaSalidaC, horaSalidaC, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualSC, imgDefBytes);
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
                             req.setAttribute("Exception", e3.getMessage());
@@ -445,10 +437,6 @@ public class ServletAlta extends HttpServlet {
                         }catch( FechaAltaSalidaInvalida  e3) {
                             req.setAttribute("Exception", e3.getMessage());
                             req.getRequestDispatcher("/home").forward(req, resp);
-                        }catch (ParseException e3) {
-                            req.setAttribute("Exception", e3.getMessage());
-                            req.getRequestDispatcher("/home").forward(req, resp);
-                            // TODO Auto-generated catch block
                         }   
                     }
     				
@@ -461,8 +449,6 @@ public class ServletAlta extends HttpServlet {
                     String contrasenaActualIngresada = (String) req.getParameter("passwordActual");
                     String contrasenaNuevaIng = (String) req.getParameter("passwordNueva");
                     String contrasenaNuevaConf = (String) req.getParameter("confirmPasswordNueva");
-                    conCons = fab.getIControladorConsulta();
-    				conAlta = fab.getIControladorAlta();
                     HttpSession session = req.getSession();
                     DataUsuario usuario = (DataUsuario) session .getAttribute("usuario");
                     String contrasenaActual = usuario.getPassword();
@@ -527,16 +513,18 @@ public class ServletAlta extends HttpServlet {
                             }
                             if (fechaNueva.equals(null) || fechaNueva.equals("")) {
                                 if(fileNueva.getSize() > 0) {
-                                    conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva, contrasenaActual, imgBytesNueva);
+                                    port.actualizarDatosTuristaCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva, contrasenaActual, imgBytesNueva);
                                 }else {
-                                    conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva, contrasenaActual, usuario.getImagen());
+                                    port.actualizarDatosTuristaCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva, contrasenaActual, port.getFile(usuario.getImagen()));
                                 }
                             } else {
                                 Date fechaNuevaNac = formatFecha.parse(fechaNueva);
+                                Calendar fechaNuevaNacC = Calendar.getInstance();
+                                fechaNuevaNacC.setTime(fechaNuevaNac);
                                 if(fileNueva.getSize() > 0) {
-                                    conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, nacionalidadNueva, contrasenaActual, imgBytesNueva);
+                                    port.actualizarDatosTuristaCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNacC, nacionalidadNueva, contrasenaActual, imgBytesNueva);
                                 }else {
-                                    conAlta.actualizarDatosTurista(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, nacionalidadNueva, contrasenaActual, usuario.getImagen());
+                                    port.actualizarDatosTuristaCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNacC, nacionalidadNueva, contrasenaActual, port.getFile(usuario.getImagen()));
                                 }
                             }
                         } else if (usuario instanceof DataProveedor){
@@ -562,22 +550,24 @@ public class ServletAlta extends HttpServlet {
                             }
                             if (fechaNueva.equals(null) || fechaNueva.equals("")) {
                                 if(fileNueva.getSize() > 0) {
-                                    conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink, contrasenaActual, imgBytesNueva);
+                                    port.actualizarDatosProveedorCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink, contrasenaActual, imgBytesNueva);
                                 }else {
-                                    conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink, contrasenaActual, usuario.getImagen());
+                                    port.actualizarDatosProveedorCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink, contrasenaActual, port.getFile(usuario.getImagen()));
                                 }
                             }else {
                                 Date fechaNuevaNac = formatFecha.parse(fechaNueva);
+                                Calendar fechaNuevaNacC = Calendar.getInstance();
+                                fechaNuevaNacC.setTime(fechaNuevaNac);
                                 if(fileNueva.getSize() > 0) {
-                                    conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, descripcionNueva, linkNuevo, hayLink, contrasenaActual, imgBytesNueva);
+                                    port.actualizarDatosProveedorCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNacC, descripcionNueva, linkNuevo, hayLink, contrasenaActual, imgBytesNueva);
                                 }else {
-                                    conAlta.actualizarDatosProveedor(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNac, descripcionNueva, linkNuevo, hayLink, contrasenaActual, usuario.getImagen());
+                                    port.actualizarDatosProveedorCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNacC, descripcionNueva, linkNuevo, hayLink, contrasenaActual, port.getFile(usuario.getImagen()));
                                 }
                             }
                         }
                         req.setAttribute("DataUsuario", usuario);
                         try {
-                            session.setAttribute("usuario", conCons.obtenerDataUsuarioNick(usuario.getNick()));
+                            session.setAttribute("usuario", port.obtenerDataUsuarioNick(usuario.getNick()));
                         } catch (UsuarioNoExisteException e) {
                             // TODO Auto-generated catch block
                         }

@@ -104,7 +104,7 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.confirmarAltaProveedorCompleto(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
   }
   
-  public void registrarActividadImagen(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, int arg3, int arg4, java.lang.String arg5, java.util.Calendar arg6, java.lang.String arg7, servidor.DataColeccionObject arg8, byte[] arg9) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.ProveedorNoNacidoException, servidor.UsuarioNoExisteException{
+  public void registrarActividadImagen(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, int arg3, int arg4, java.lang.String arg5, java.util.Calendar arg6, java.lang.String arg7, java.lang.Object[] arg8, byte[] arg9) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.ProveedorNoNacidoException, servidor.UsuarioNoExisteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     publicadorIControlador.registrarActividadImagen(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
@@ -116,7 +116,7 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     return publicadorIControlador.verInfoUsuario(arg0);
   }
   
-  public servidor.DataColeccionObject getUsuariosComp() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException{
+  public java.lang.Object[] getUsuariosComp() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.getUsuariosComp();
@@ -146,7 +146,7 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     return publicadorIControlador.ingresarDatos(arg0);
   }
   
-  public servidor.DataColeccionObject obtenerActividadCategoria(java.lang.String arg0) throws java.rmi.RemoteException{
+  public java.lang.Object[] obtenerActividadCategoria(java.lang.String arg0) throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.obtenerActividadCategoria(arg0);
@@ -188,7 +188,7 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.inscribirPaq(arg0, arg1, arg2, arg3, arg4, arg5);
   }
   
-  public servidor.DataColeccionObject obtenerPaquetesComprados(java.lang.String arg0) throws java.rmi.RemoteException{
+  public java.lang.Object[] obtenerPaquetesComprados(java.lang.String arg0) throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.obtenerPaquetesComprados(arg0);
@@ -200,13 +200,13 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     return publicadorIControlador.obtenerNomActPorSalida(arg0);
   }
   
-  public servidor.DataColeccionObject selecDepartamento(java.lang.String arg0) throws java.rmi.RemoteException{
+  public java.lang.Object[] selecDepartamento(java.lang.String arg0) throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.selecDepartamento(arg0);
   }
   
-  public servidor.DataColeccionObject salidas(java.lang.String arg0) throws java.rmi.RemoteException, servidor.ActividadNoExisteException{
+  public java.lang.Object[] salidas(java.lang.String arg0) throws java.rmi.RemoteException, servidor.ActividadNoExisteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.salidas(arg0);
@@ -218,25 +218,25 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.inscribir(arg0, arg1, arg2, arg3, arg4);
   }
   
-  public servidor.DataColeccionObject listarUsuarios() throws java.rmi.RemoteException{
+  public java.lang.Object[] listarUsuarios() throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.listarUsuarios();
   }
   
-  public void registrarActividad(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, int arg3, int arg4, java.lang.String arg5, java.util.Calendar arg6, java.lang.String arg7, servidor.DataColeccionObject arg8) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.ProveedorNoNacidoException, servidor.UsuarioNoExisteException{
+  public void registrarActividad(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, int arg3, int arg4, java.lang.String arg5, java.util.Calendar arg6, java.lang.String arg7, java.lang.Object[] arg8) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.ProveedorNoNacidoException, servidor.UsuarioNoExisteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     publicadorIControlador.registrarActividad(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
   }
   
-  public servidor.DataColeccionObject getUsuarios() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException{
+  public java.lang.Object[] getUsuarios() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.getUsuarios();
   }
   
-  public servidor.DataColeccionObject obtenerNombreCategorias() throws java.rmi.RemoteException, servidor.NoExisteCategoriaException{
+  public java.lang.Object[] obtenerNombreCategorias() throws java.rmi.RemoteException, servidor.NoExisteCategoriaException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.obtenerNombreCategorias();
@@ -260,7 +260,7 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.confirmarAltaProveedor(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
   }
   
-  public servidor.DataColeccionObject listarPaquetes() throws java.rmi.RemoteException{
+  public java.lang.Object[] listarPaquetes() throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.listarPaquetes();
@@ -284,19 +284,19 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.actualizarDatosProveedor(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
   }
   
-  public servidor.DataColeccionObject listarActividadesAgregadas() throws java.rmi.RemoteException{
+  public java.lang.Object[] listarActividadesAgregadas() throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.listarActividadesAgregadas();
   }
   
-  public servidor.DataColeccionObject actividadesPorDepartamentoNoEnPaquete(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException{
+  public java.lang.Object[] actividadesPorDepartamentoNoEnPaquete(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.actividadesPorDepartamentoNoEnPaquete(arg0, arg1);
   }
   
-  public servidor.DataColeccionObject listarPaquetesNoComprados() throws java.rmi.RemoteException{
+  public java.lang.Object[] listarPaquetesNoComprados() throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.listarPaquetesNoComprados();
@@ -308,7 +308,7 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.excepciones();
   }
   
-  public servidor.DataColeccionObject obtenerDataDepartamentos() throws java.rmi.RemoteException, servidor.DepartamentoNoExisteException{
+  public java.lang.Object[] obtenerDataDepartamentos() throws java.rmi.RemoteException, servidor.DepartamentoNoExisteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.obtenerDataDepartamentos();

@@ -192,7 +192,8 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg7"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg8"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"), servidor.DataColeccionObject.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg8"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"), java.lang.Object[].class, false, false);
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg9"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "base64Binary"), byte[].class, false, false);
         oper.addParameter(param);
@@ -239,8 +240,10 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getUsuariosComp");
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
-        oper.setReturnClass(servidor.DataColeccionObject.class);
+        oper.setReturnClass(java.lang.Object[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
@@ -358,8 +361,10 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
-        oper.setReturnClass(servidor.DataColeccionObject.class);
+        oper.setReturnClass(java.lang.Object[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[17] = oper;
@@ -536,8 +541,10 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
-        oper.setReturnClass(servidor.DataColeccionObject.class);
+        oper.setReturnClass(java.lang.Object[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[24] = oper;
@@ -564,8 +571,10 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
-        oper.setReturnClass(servidor.DataColeccionObject.class);
+        oper.setReturnClass(java.lang.Object[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[26] = oper;
@@ -575,8 +584,10 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
-        oper.setReturnClass(servidor.DataColeccionObject.class);
+        oper.setReturnClass(java.lang.Object[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
@@ -643,8 +654,10 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("listarUsuarios");
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
-        oper.setReturnClass(servidor.DataColeccionObject.class);
+        oper.setReturnClass(java.lang.Object[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[29] = oper;
@@ -672,7 +685,8 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg7"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg8"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"), servidor.DataColeccionObject.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg8"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"), java.lang.Object[].class, false, false);
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.addParameter(param);
         oper.setReturnType(org.apache.axis.encoding.XMLType.AXIS_VOID);
         oper.setStyle(org.apache.axis.constants.Style.RPC);
@@ -700,8 +714,10 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getUsuarios");
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
-        oper.setReturnClass(servidor.DataColeccionObject.class);
+        oper.setReturnClass(java.lang.Object[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
@@ -715,8 +731,10 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("obtenerNombreCategorias");
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
-        oper.setReturnClass(servidor.DataColeccionObject.class);
+        oper.setReturnClass(java.lang.Object[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
@@ -827,8 +845,10 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("listarPaquetes");
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
-        oper.setReturnClass(servidor.DataColeccionObject.class);
+        oper.setReturnClass(java.lang.Object[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[36] = oper;
@@ -894,8 +914,10 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("listarActividadesAgregadas");
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
-        oper.setReturnClass(servidor.DataColeccionObject.class);
+        oper.setReturnClass(java.lang.Object[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[40] = oper;
@@ -907,8 +929,10 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
-        oper.setReturnClass(servidor.DataColeccionObject.class);
+        oper.setReturnClass(java.lang.Object[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[41] = oper;
@@ -916,8 +940,10 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("listarPaquetesNoComprados");
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
-        oper.setReturnClass(servidor.DataColeccionObject.class);
+        oper.setReturnClass(java.lang.Object[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[42] = oper;
@@ -1064,8 +1090,10 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("obtenerDataDepartamentos");
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
-        oper.setReturnClass(servidor.DataColeccionObject.class);
+        oper.setReturnClass(java.lang.Object[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         oper.addFault(new org.apache.axis.description.FaultDesc(
@@ -1160,10 +1188,12 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 
             qName = new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject");
             cachedSerQNames.add(qName);
-            cls = servidor.DataColeccionObject.class;
+            cls = java.lang.Object[].class;
             cachedSerClasses.add(cls);
-            cachedSerFactories.add(beansf);
-            cachedDeserFactories.add(beandf);
+            qName = new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "anyType");
+            qName2 = new javax.xml.namespace.QName("", "array");
+            cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
+            cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
 
             qName = new javax.xml.namespace.QName("http://servidor/", "dataCompraGeneral");
             cachedSerQNames.add(qName);
@@ -1791,7 +1821,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public void registrarActividadImagen(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, int arg3, int arg4, java.lang.String arg5, java.util.Calendar arg6, java.lang.String arg7, servidor.DataColeccionObject arg8, byte[] arg9) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.ProveedorNoNacidoException, servidor.UsuarioNoExisteException {
+    public void registrarActividadImagen(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, int arg3, int arg4, java.lang.String arg5, java.util.Calendar arg6, java.lang.String arg7, java.lang.Object[] arg8, byte[] arg9) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.ProveedorNoNacidoException, servidor.UsuarioNoExisteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -1874,7 +1904,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public servidor.DataColeccionObject getUsuariosComp() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException {
+    public java.lang.Object[] getUsuariosComp() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -1898,9 +1928,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         else {
             extractAttachments(_call);
             try {
-                return (servidor.DataColeccionObject) _resp;
+                return (java.lang.Object[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (servidor.DataColeccionObject) org.apache.axis.utils.JavaUtils.convert(_resp, servidor.DataColeccionObject.class);
+                return (java.lang.Object[]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.Object[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2045,7 +2075,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public servidor.DataColeccionObject obtenerActividadCategoria(java.lang.String arg0) throws java.rmi.RemoteException {
+    public java.lang.Object[] obtenerActividadCategoria(java.lang.String arg0) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -2069,9 +2099,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         else {
             extractAttachments(_call);
             try {
-                return (servidor.DataColeccionObject) _resp;
+                return (java.lang.Object[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (servidor.DataColeccionObject) org.apache.axis.utils.JavaUtils.convert(_resp, servidor.DataColeccionObject.class);
+                return (java.lang.Object[]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.Object[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2341,7 +2371,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public servidor.DataColeccionObject obtenerPaquetesComprados(java.lang.String arg0) throws java.rmi.RemoteException {
+    public java.lang.Object[] obtenerPaquetesComprados(java.lang.String arg0) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -2365,9 +2395,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         else {
             extractAttachments(_call);
             try {
-                return (servidor.DataColeccionObject) _resp;
+                return (java.lang.Object[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (servidor.DataColeccionObject) org.apache.axis.utils.JavaUtils.convert(_resp, servidor.DataColeccionObject.class);
+                return (java.lang.Object[]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.Object[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2417,7 +2447,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public servidor.DataColeccionObject selecDepartamento(java.lang.String arg0) throws java.rmi.RemoteException {
+    public java.lang.Object[] selecDepartamento(java.lang.String arg0) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -2441,9 +2471,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         else {
             extractAttachments(_call);
             try {
-                return (servidor.DataColeccionObject) _resp;
+                return (java.lang.Object[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (servidor.DataColeccionObject) org.apache.axis.utils.JavaUtils.convert(_resp, servidor.DataColeccionObject.class);
+                return (java.lang.Object[]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.Object[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2451,7 +2481,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public servidor.DataColeccionObject salidas(java.lang.String arg0) throws java.rmi.RemoteException, servidor.ActividadNoExisteException {
+    public java.lang.Object[] salidas(java.lang.String arg0) throws java.rmi.RemoteException, servidor.ActividadNoExisteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -2475,9 +2505,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         else {
             extractAttachments(_call);
             try {
-                return (servidor.DataColeccionObject) _resp;
+                return (java.lang.Object[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (servidor.DataColeccionObject) org.apache.axis.utils.JavaUtils.convert(_resp, servidor.DataColeccionObject.class);
+                return (java.lang.Object[]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.Object[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2543,7 +2573,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public servidor.DataColeccionObject listarUsuarios() throws java.rmi.RemoteException {
+    public java.lang.Object[] listarUsuarios() throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -2567,9 +2597,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         else {
             extractAttachments(_call);
             try {
-                return (servidor.DataColeccionObject) _resp;
+                return (java.lang.Object[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (servidor.DataColeccionObject) org.apache.axis.utils.JavaUtils.convert(_resp, servidor.DataColeccionObject.class);
+                return (java.lang.Object[]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.Object[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2577,7 +2607,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public void registrarActividad(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, int arg3, int arg4, java.lang.String arg5, java.util.Calendar arg6, java.lang.String arg7, servidor.DataColeccionObject arg8) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.ProveedorNoNacidoException, servidor.UsuarioNoExisteException {
+    public void registrarActividad(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, int arg3, int arg4, java.lang.String arg5, java.util.Calendar arg6, java.lang.String arg7, java.lang.Object[] arg8) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.ProveedorNoNacidoException, servidor.UsuarioNoExisteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -2618,7 +2648,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public servidor.DataColeccionObject getUsuarios() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException {
+    public java.lang.Object[] getUsuarios() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -2642,9 +2672,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         else {
             extractAttachments(_call);
             try {
-                return (servidor.DataColeccionObject) _resp;
+                return (java.lang.Object[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (servidor.DataColeccionObject) org.apache.axis.utils.JavaUtils.convert(_resp, servidor.DataColeccionObject.class);
+                return (java.lang.Object[]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.Object[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2660,7 +2690,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public servidor.DataColeccionObject obtenerNombreCategorias() throws java.rmi.RemoteException, servidor.NoExisteCategoriaException {
+    public java.lang.Object[] obtenerNombreCategorias() throws java.rmi.RemoteException, servidor.NoExisteCategoriaException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -2684,9 +2714,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         else {
             extractAttachments(_call);
             try {
-                return (servidor.DataColeccionObject) _resp;
+                return (java.lang.Object[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (servidor.DataColeccionObject) org.apache.axis.utils.JavaUtils.convert(_resp, servidor.DataColeccionObject.class);
+                return (java.lang.Object[]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.Object[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2813,7 +2843,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public servidor.DataColeccionObject listarPaquetes() throws java.rmi.RemoteException {
+    public java.lang.Object[] listarPaquetes() throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -2837,9 +2867,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         else {
             extractAttachments(_call);
             try {
-                return (servidor.DataColeccionObject) _resp;
+                return (java.lang.Object[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (servidor.DataColeccionObject) org.apache.axis.utils.JavaUtils.convert(_resp, servidor.DataColeccionObject.class);
+                return (java.lang.Object[]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.Object[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2935,7 +2965,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public servidor.DataColeccionObject listarActividadesAgregadas() throws java.rmi.RemoteException {
+    public java.lang.Object[] listarActividadesAgregadas() throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -2959,9 +2989,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         else {
             extractAttachments(_call);
             try {
-                return (servidor.DataColeccionObject) _resp;
+                return (java.lang.Object[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (servidor.DataColeccionObject) org.apache.axis.utils.JavaUtils.convert(_resp, servidor.DataColeccionObject.class);
+                return (java.lang.Object[]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.Object[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -2969,7 +2999,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public servidor.DataColeccionObject actividadesPorDepartamentoNoEnPaquete(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException {
+    public java.lang.Object[] actividadesPorDepartamentoNoEnPaquete(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -2993,9 +3023,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         else {
             extractAttachments(_call);
             try {
-                return (servidor.DataColeccionObject) _resp;
+                return (java.lang.Object[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (servidor.DataColeccionObject) org.apache.axis.utils.JavaUtils.convert(_resp, servidor.DataColeccionObject.class);
+                return (java.lang.Object[]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.Object[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -3003,7 +3033,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public servidor.DataColeccionObject listarPaquetesNoComprados() throws java.rmi.RemoteException {
+    public java.lang.Object[] listarPaquetesNoComprados() throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -3027,9 +3057,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         else {
             extractAttachments(_call);
             try {
-                return (servidor.DataColeccionObject) _resp;
+                return (java.lang.Object[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (servidor.DataColeccionObject) org.apache.axis.utils.JavaUtils.convert(_resp, servidor.DataColeccionObject.class);
+                return (java.lang.Object[]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.Object[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -3135,7 +3165,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public servidor.DataColeccionObject obtenerDataDepartamentos() throws java.rmi.RemoteException, servidor.DepartamentoNoExisteException {
+    public java.lang.Object[] obtenerDataDepartamentos() throws java.rmi.RemoteException, servidor.DepartamentoNoExisteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -3159,9 +3189,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         else {
             extractAttachments(_call);
             try {
-                return (servidor.DataColeccionObject) _resp;
+                return (java.lang.Object[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (servidor.DataColeccionObject) org.apache.axis.utils.JavaUtils.convert(_resp, servidor.DataColeccionObject.class);
+                return (java.lang.Object[]) org.apache.axis.utils.JavaUtils.convert(_resp, java.lang.Object[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

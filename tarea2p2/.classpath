@@ -14,7 +14,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/opencsv-3.8.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/model.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/axis.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-discovery-0.2.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-logging.jar"/>

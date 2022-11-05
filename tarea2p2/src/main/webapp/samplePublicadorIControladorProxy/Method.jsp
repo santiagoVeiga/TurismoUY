@@ -32,21 +32,20 @@
 <LI><A HREF="Input.jsp?method=280" TARGET="inputs"> salidas(java.lang.String)</A></LI>
 <LI><A HREF="Input.jsp?method=285" TARGET="inputs"> inscribir(java.lang.String,java.lang.String,int,java.util.Calendar,java.lang.String)</A></LI>
 <LI><A HREF="Input.jsp?method=298" TARGET="inputs"> listarUsuarios()</A></LI>
-<LI><A HREF="Input.jsp?method=301" TARGET="inputs"> registrarActividad(java.lang.String,java.lang.String,java.lang.String,int,int,java.lang.String,java.util.Calendar,java.lang.String,servidor.DataColeccionObject)</A></LI>
-<LI><A HREF="Input.jsp?method=322" TARGET="inputs"> getUsuarios()</A></LI>
-<LI><A HREF="Input.jsp?method=325" TARGET="inputs"> obtenerNombreCategorias()</A></LI>
-<LI><A HREF="Input.jsp?method=328" TARGET="inputs"> confirmarAltaSalida(java.lang.String,java.lang.String,java.util.Calendar,java.util.Calendar,java.lang.String,int,java.util.Calendar)</A></LI>
-<LI><A HREF="Input.jsp?method=345" TARGET="inputs"> confirmarAltaTurista(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.util.Calendar,java.lang.String,java.lang.String)</A></LI>
-<LI><A HREF="Input.jsp?method=362" TARGET="inputs"> confirmarAltaProveedor(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.util.Calendar,java.lang.String,java.lang.String,boolean,java.lang.String)</A></LI>
-<LI><A HREF="Input.jsp?method=383" TARGET="inputs"> listarPaquetes()</A></LI>
-<LI><A HREF="Input.jsp?method=386" TARGET="inputs"> obtenerDataPaquete(java.lang.String)</A></LI>
-<LI><A HREF="Input.jsp?method=403" TARGET="inputs"> actualizarDatosTurista(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.util.Calendar,java.lang.String)</A></LI>
-<LI><A HREF="Input.jsp?method=418" TARGET="inputs"> actualizarDatosProveedor(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.util.Calendar,java.lang.String,java.lang.String,boolean)</A></LI>
-<LI><A HREF="Input.jsp?method=437" TARGET="inputs"> listarActividadesAgregadas()</A></LI>
-<LI><A HREF="Input.jsp?method=440" TARGET="inputs"> actividadesPorDepartamentoNoEnPaquete(java.lang.String,java.lang.String)</A></LI>
-<LI><A HREF="Input.jsp?method=447" TARGET="inputs"> listarPaquetesNoComprados()</A></LI>
-<LI><A HREF="Input.jsp?method=450" TARGET="inputs"> excepciones()</A></LI>
-<LI><A HREF="Input.jsp?method=453" TARGET="inputs"> obtenerDataDepartamentos()</A></LI>
+<LI><A HREF="Input.jsp?method=301" TARGET="inputs"> getUsuarios()</A></LI>
+<LI><A HREF="Input.jsp?method=304" TARGET="inputs"> obtenerNombreCategorias()</A></LI>
+<LI><A HREF="Input.jsp?method=307" TARGET="inputs"> confirmarAltaSalida(java.lang.String,java.lang.String,java.util.Calendar,java.util.Calendar,java.lang.String,int,java.util.Calendar)</A></LI>
+<LI><A HREF="Input.jsp?method=324" TARGET="inputs"> confirmarAltaTurista(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.util.Calendar,java.lang.String,java.lang.String)</A></LI>
+<LI><A HREF="Input.jsp?method=341" TARGET="inputs"> confirmarAltaProveedor(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.util.Calendar,java.lang.String,java.lang.String,boolean,java.lang.String)</A></LI>
+<LI><A HREF="Input.jsp?method=362" TARGET="inputs"> listarPaquetes()</A></LI>
+<LI><A HREF="Input.jsp?method=365" TARGET="inputs"> obtenerDataPaquete(java.lang.String)</A></LI>
+<LI><A HREF="Input.jsp?method=382" TARGET="inputs"> actualizarDatosTurista(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.util.Calendar,java.lang.String)</A></LI>
+<LI><A HREF="Input.jsp?method=397" TARGET="inputs"> actualizarDatosProveedor(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.util.Calendar,java.lang.String,java.lang.String,boolean)</A></LI>
+<LI><A HREF="Input.jsp?method=416" TARGET="inputs"> listarActividadesAgregadas()</A></LI>
+<LI><A HREF="Input.jsp?method=419" TARGET="inputs"> actividadesPorDepartamentoNoEnPaquete(java.lang.String,java.lang.String)</A></LI>
+<LI><A HREF="Input.jsp?method=426" TARGET="inputs"> listarPaquetesNoComprados()</A></LI>
+<LI><A HREF="Input.jsp?method=429" TARGET="inputs"> excepciones()</A></LI>
+<LI><A HREF="Input.jsp?method=432" TARGET="inputs"> obtenerDataDepartamentos()</A></LI>
 </UL>
 </BODY>
 </HTML>

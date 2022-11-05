@@ -775,18 +775,21 @@ java.lang.String typeapellido130 = verInfoUsuario115mtemp.getApellido();
 break;
 case 134:
         gotMethod = true;
-        servidor.DataColeccionObject getUsuariosComp134mtemp = samplePublicadorIControladorProxyid.getUsuariosComp();
+        java.lang.Object[] getUsuariosComp134mtemp = samplePublicadorIControladorProxyid.getUsuariosComp();
 if(getUsuariosComp134mtemp == null){
 %>
 <%=getUsuariosComp134mtemp %>
 <%
 }else{
-        if(getUsuariosComp134mtemp!= null){
-        String tempreturnp135 = getUsuariosComp134mtemp.toString();
+        String tempreturnp135 = null;
+        if(getUsuariosComp134mtemp != null){
+        java.util.List listreturnp135= java.util.Arrays.asList(getUsuariosComp134mtemp);
+        tempreturnp135 = listreturnp135.toString();
+        }
         %>
         <%=tempreturnp135%>
         <%
-        }}
+}
 break;
 case 137:
         gotMethod = true;
@@ -909,18 +912,21 @@ case 156:
         if(!arg0_4id.equals("")){
          arg0_4idTemp  = arg0_4id;
         }
-        servidor.DataColeccionObject obtenerActividadCategoria156mtemp = samplePublicadorIControladorProxyid.obtenerActividadCategoria(arg0_4idTemp);
+        java.lang.Object[] obtenerActividadCategoria156mtemp = samplePublicadorIControladorProxyid.obtenerActividadCategoria(arg0_4idTemp);
 if(obtenerActividadCategoria156mtemp == null){
 %>
 <%=obtenerActividadCategoria156mtemp %>
 <%
 }else{
-        if(obtenerActividadCategoria156mtemp!= null){
-        String tempreturnp157 = obtenerActividadCategoria156mtemp.toString();
+        String tempreturnp157 = null;
+        if(obtenerActividadCategoria156mtemp != null){
+        java.util.List listreturnp157= java.util.Arrays.asList(obtenerActividadCategoria156mtemp);
+        tempreturnp157 = listreturnp157.toString();
+        }
         %>
         <%=tempreturnp157%>
         <%
-        }}
+}
 break;
 case 161:
         gotMethod = true;
@@ -1451,18 +1457,21 @@ case 265:
         if(!arg0_19id.equals("")){
          arg0_19idTemp  = arg0_19id;
         }
-        servidor.DataColeccionObject obtenerPaquetesComprados265mtemp = samplePublicadorIControladorProxyid.obtenerPaquetesComprados(arg0_19idTemp);
+        java.lang.Object[] obtenerPaquetesComprados265mtemp = samplePublicadorIControladorProxyid.obtenerPaquetesComprados(arg0_19idTemp);
 if(obtenerPaquetesComprados265mtemp == null){
 %>
 <%=obtenerPaquetesComprados265mtemp %>
 <%
 }else{
-        if(obtenerPaquetesComprados265mtemp!= null){
-        String tempreturnp266 = obtenerPaquetesComprados265mtemp.toString();
+        String tempreturnp266 = null;
+        if(obtenerPaquetesComprados265mtemp != null){
+        java.util.List listreturnp266= java.util.Arrays.asList(obtenerPaquetesComprados265mtemp);
+        tempreturnp266 = listreturnp266.toString();
+        }
         %>
         <%=tempreturnp266%>
         <%
-        }}
+}
 break;
 case 270:
         gotMethod = true;
@@ -1490,18 +1499,21 @@ case 275:
         if(!arg0_21id.equals("")){
          arg0_21idTemp  = arg0_21id;
         }
-        servidor.DataColeccionObject selecDepartamento275mtemp = samplePublicadorIControladorProxyid.selecDepartamento(arg0_21idTemp);
+        java.lang.Object[] selecDepartamento275mtemp = samplePublicadorIControladorProxyid.selecDepartamento(arg0_21idTemp);
 if(selecDepartamento275mtemp == null){
 %>
 <%=selecDepartamento275mtemp %>
 <%
 }else{
-        if(selecDepartamento275mtemp!= null){
-        String tempreturnp276 = selecDepartamento275mtemp.toString();
+        String tempreturnp276 = null;
+        if(selecDepartamento275mtemp != null){
+        java.util.List listreturnp276= java.util.Arrays.asList(selecDepartamento275mtemp);
+        tempreturnp276 = listreturnp276.toString();
+        }
         %>
         <%=tempreturnp276%>
         <%
-        }}
+}
 break;
 case 280:
         gotMethod = true;
@@ -1510,18 +1522,21 @@ case 280:
         if(!arg0_22id.equals("")){
          arg0_22idTemp  = arg0_22id;
         }
-        servidor.DataColeccionObject salidas280mtemp = samplePublicadorIControladorProxyid.salidas(arg0_22idTemp);
+        java.lang.Object[] salidas280mtemp = samplePublicadorIControladorProxyid.salidas(arg0_22idTemp);
 if(salidas280mtemp == null){
 %>
 <%=salidas280mtemp %>
 <%
 }else{
-        if(salidas280mtemp!= null){
-        String tempreturnp281 = salidas280mtemp.toString();
+        String tempreturnp281 = null;
+        if(salidas280mtemp != null){
+        java.util.List listreturnp281= java.util.Arrays.asList(salidas280mtemp);
+        tempreturnp281 = listreturnp281.toString();
+        }
         %>
         <%=tempreturnp281%>
         <%
-        }}
+}
 break;
 case 285:
         gotMethod = true;
@@ -1554,255 +1569,223 @@ case 285:
 break;
 case 298:
         gotMethod = true;
-        servidor.DataColeccionObject listarUsuarios298mtemp = samplePublicadorIControladorProxyid.listarUsuarios();
+        java.lang.Object[] listarUsuarios298mtemp = samplePublicadorIControladorProxyid.listarUsuarios();
 if(listarUsuarios298mtemp == null){
 %>
 <%=listarUsuarios298mtemp %>
 <%
 }else{
-        if(listarUsuarios298mtemp!= null){
-        String tempreturnp299 = listarUsuarios298mtemp.toString();
+        String tempreturnp299 = null;
+        if(listarUsuarios298mtemp != null){
+        java.util.List listreturnp299= java.util.Arrays.asList(listarUsuarios298mtemp);
+        tempreturnp299 = listreturnp299.toString();
+        }
         %>
         <%=tempreturnp299%>
         <%
-        }}
+}
 break;
 case 301:
         gotMethod = true;
-        String arg0_28id=  request.getParameter("arg0304");
+        java.lang.Object[] getUsuarios301mtemp = samplePublicadorIControladorProxyid.getUsuarios();
+if(getUsuarios301mtemp == null){
+%>
+<%=getUsuarios301mtemp %>
+<%
+}else{
+        String tempreturnp302 = null;
+        if(getUsuarios301mtemp != null){
+        java.util.List listreturnp302= java.util.Arrays.asList(getUsuarios301mtemp);
+        tempreturnp302 = listreturnp302.toString();
+        }
+        %>
+        <%=tempreturnp302%>
+        <%
+}
+break;
+case 304:
+        gotMethod = true;
+        java.lang.Object[] obtenerNombreCategorias304mtemp = samplePublicadorIControladorProxyid.obtenerNombreCategorias();
+if(obtenerNombreCategorias304mtemp == null){
+%>
+<%=obtenerNombreCategorias304mtemp %>
+<%
+}else{
+        String tempreturnp305 = null;
+        if(obtenerNombreCategorias304mtemp != null){
+        java.util.List listreturnp305= java.util.Arrays.asList(obtenerNombreCategorias304mtemp);
+        tempreturnp305 = listreturnp305.toString();
+        }
+        %>
+        <%=tempreturnp305%>
+        <%
+}
+break;
+case 307:
+        gotMethod = true;
+        String arg0_28id=  request.getParameter("arg0310");
             java.lang.String arg0_28idTemp = null;
         if(!arg0_28id.equals("")){
          arg0_28idTemp  = arg0_28id;
         }
-        String arg1_29id=  request.getParameter("arg1306");
+        String arg1_29id=  request.getParameter("arg1312");
             java.lang.String arg1_29idTemp = null;
         if(!arg1_29id.equals("")){
          arg1_29idTemp  = arg1_29id;
         }
-        String arg2_30id=  request.getParameter("arg2308");
-            java.lang.String arg2_30idTemp = null;
+        String arg2_30id=  request.getParameter("arg2314");
+            java.util.Calendar arg2_30idTemp = null;
         if(!arg2_30id.equals("")){
-         arg2_30idTemp  = arg2_30id;
+        java.text.DateFormat dateFormatarg2314 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg2314  = dateFormatarg2314.parse(arg2_30id);
+         arg2_30idTemp = new java.util.GregorianCalendar();
+        arg2_30idTemp.setTime(dateTemparg2314);
         }
-        String arg3_31id=  request.getParameter("arg3310");
-        int arg3_31idTemp  = Integer.parseInt(arg3_31id);
-        String arg4_32id=  request.getParameter("arg4312");
-        int arg4_32idTemp  = Integer.parseInt(arg4_32id);
-        String arg5_33id=  request.getParameter("arg5314");
-            java.lang.String arg5_33idTemp = null;
-        if(!arg5_33id.equals("")){
-         arg5_33idTemp  = arg5_33id;
+        String arg3_31id=  request.getParameter("arg3316");
+            java.util.Calendar arg3_31idTemp = null;
+        if(!arg3_31id.equals("")){
+        java.text.DateFormat dateFormatarg3316 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg3316  = dateFormatarg3316.parse(arg3_31id);
+         arg3_31idTemp = new java.util.GregorianCalendar();
+        arg3_31idTemp.setTime(dateTemparg3316);
         }
-        String arg6_34id=  request.getParameter("arg6316");
+        String arg4_32id=  request.getParameter("arg4318");
+            java.lang.String arg4_32idTemp = null;
+        if(!arg4_32id.equals("")){
+         arg4_32idTemp  = arg4_32id;
+        }
+        String arg5_33id=  request.getParameter("arg5320");
+        int arg5_33idTemp  = Integer.parseInt(arg5_33id);
+        String arg6_34id=  request.getParameter("arg6322");
             java.util.Calendar arg6_34idTemp = null;
         if(!arg6_34id.equals("")){
-        java.text.DateFormat dateFormatarg6316 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg6316  = dateFormatarg6316.parse(arg6_34id);
+        java.text.DateFormat dateFormatarg6322 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg6322  = dateFormatarg6322.parse(arg6_34id);
          arg6_34idTemp = new java.util.GregorianCalendar();
-        arg6_34idTemp.setTime(dateTemparg6316);
+        arg6_34idTemp.setTime(dateTemparg6322);
         }
-        String arg7_35id=  request.getParameter("arg7318");
-            java.lang.String arg7_35idTemp = null;
-        if(!arg7_35id.equals("")){
-         arg7_35idTemp  = arg7_35id;
-        }
-        %>
-        <jsp:useBean id="servidor1DataColeccionObject_36id" scope="session" class="servidor.DataColeccionObject" />
-        <%
-        samplePublicadorIControladorProxyid.registrarActividad(arg0_28idTemp,arg1_29idTemp,arg2_30idTemp,arg3_31idTemp,arg4_32idTemp,arg5_33idTemp,arg6_34idTemp,arg7_35idTemp,servidor1DataColeccionObject_36id);
+        samplePublicadorIControladorProxyid.confirmarAltaSalida(arg0_28idTemp,arg1_29idTemp,arg2_30idTemp,arg3_31idTemp,arg4_32idTemp,arg5_33idTemp,arg6_34idTemp);
 break;
-case 322:
+case 324:
         gotMethod = true;
-        servidor.DataColeccionObject getUsuarios322mtemp = samplePublicadorIControladorProxyid.getUsuarios();
-if(getUsuarios322mtemp == null){
-%>
-<%=getUsuarios322mtemp %>
-<%
-}else{
-        if(getUsuarios322mtemp!= null){
-        String tempreturnp323 = getUsuarios322mtemp.toString();
-        %>
-        <%=tempreturnp323%>
-        <%
-        }}
+        String arg0_35id=  request.getParameter("arg0327");
+            java.lang.String arg0_35idTemp = null;
+        if(!arg0_35id.equals("")){
+         arg0_35idTemp  = arg0_35id;
+        }
+        String arg1_36id=  request.getParameter("arg1329");
+            java.lang.String arg1_36idTemp = null;
+        if(!arg1_36id.equals("")){
+         arg1_36idTemp  = arg1_36id;
+        }
+        String arg2_37id=  request.getParameter("arg2331");
+            java.lang.String arg2_37idTemp = null;
+        if(!arg2_37id.equals("")){
+         arg2_37idTemp  = arg2_37id;
+        }
+        String arg3_38id=  request.getParameter("arg3333");
+            java.lang.String arg3_38idTemp = null;
+        if(!arg3_38id.equals("")){
+         arg3_38idTemp  = arg3_38id;
+        }
+        String arg4_39id=  request.getParameter("arg4335");
+            java.util.Calendar arg4_39idTemp = null;
+        if(!arg4_39id.equals("")){
+        java.text.DateFormat dateFormatarg4335 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg4335  = dateFormatarg4335.parse(arg4_39id);
+         arg4_39idTemp = new java.util.GregorianCalendar();
+        arg4_39idTemp.setTime(dateTemparg4335);
+        }
+        String arg5_40id=  request.getParameter("arg5337");
+            java.lang.String arg5_40idTemp = null;
+        if(!arg5_40id.equals("")){
+         arg5_40idTemp  = arg5_40id;
+        }
+        String arg6_41id=  request.getParameter("arg6339");
+            java.lang.String arg6_41idTemp = null;
+        if(!arg6_41id.equals("")){
+         arg6_41idTemp  = arg6_41id;
+        }
+        samplePublicadorIControladorProxyid.confirmarAltaTurista(arg0_35idTemp,arg1_36idTemp,arg2_37idTemp,arg3_38idTemp,arg4_39idTemp,arg5_40idTemp,arg6_41idTemp);
 break;
-case 325:
+case 341:
         gotMethod = true;
-        servidor.DataColeccionObject obtenerNombreCategorias325mtemp = samplePublicadorIControladorProxyid.obtenerNombreCategorias();
-if(obtenerNombreCategorias325mtemp == null){
-%>
-<%=obtenerNombreCategorias325mtemp %>
-<%
-}else{
-        if(obtenerNombreCategorias325mtemp!= null){
-        String tempreturnp326 = obtenerNombreCategorias325mtemp.toString();
-        %>
-        <%=tempreturnp326%>
-        <%
-        }}
-break;
-case 328:
-        gotMethod = true;
-        String arg0_37id=  request.getParameter("arg0331");
-            java.lang.String arg0_37idTemp = null;
-        if(!arg0_37id.equals("")){
-         arg0_37idTemp  = arg0_37id;
+        String arg0_42id=  request.getParameter("arg0344");
+            java.lang.String arg0_42idTemp = null;
+        if(!arg0_42id.equals("")){
+         arg0_42idTemp  = arg0_42id;
         }
-        String arg1_38id=  request.getParameter("arg1333");
-            java.lang.String arg1_38idTemp = null;
-        if(!arg1_38id.equals("")){
-         arg1_38idTemp  = arg1_38id;
+        String arg1_43id=  request.getParameter("arg1346");
+            java.lang.String arg1_43idTemp = null;
+        if(!arg1_43id.equals("")){
+         arg1_43idTemp  = arg1_43id;
         }
-        String arg2_39id=  request.getParameter("arg2335");
-            java.util.Calendar arg2_39idTemp = null;
-        if(!arg2_39id.equals("")){
-        java.text.DateFormat dateFormatarg2335 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg2335  = dateFormatarg2335.parse(arg2_39id);
-         arg2_39idTemp = new java.util.GregorianCalendar();
-        arg2_39idTemp.setTime(dateTemparg2335);
+        String arg2_44id=  request.getParameter("arg2348");
+            java.lang.String arg2_44idTemp = null;
+        if(!arg2_44id.equals("")){
+         arg2_44idTemp  = arg2_44id;
         }
-        String arg3_40id=  request.getParameter("arg3337");
-            java.util.Calendar arg3_40idTemp = null;
-        if(!arg3_40id.equals("")){
-        java.text.DateFormat dateFormatarg3337 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg3337  = dateFormatarg3337.parse(arg3_40id);
-         arg3_40idTemp = new java.util.GregorianCalendar();
-        arg3_40idTemp.setTime(dateTemparg3337);
+        String arg3_45id=  request.getParameter("arg3350");
+            java.lang.String arg3_45idTemp = null;
+        if(!arg3_45id.equals("")){
+         arg3_45idTemp  = arg3_45id;
         }
-        String arg4_41id=  request.getParameter("arg4339");
-            java.lang.String arg4_41idTemp = null;
-        if(!arg4_41id.equals("")){
-         arg4_41idTemp  = arg4_41id;
+        String arg4_46id=  request.getParameter("arg4352");
+            java.util.Calendar arg4_46idTemp = null;
+        if(!arg4_46id.equals("")){
+        java.text.DateFormat dateFormatarg4352 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg4352  = dateFormatarg4352.parse(arg4_46id);
+         arg4_46idTemp = new java.util.GregorianCalendar();
+        arg4_46idTemp.setTime(dateTemparg4352);
         }
-        String arg5_42id=  request.getParameter("arg5341");
-        int arg5_42idTemp  = Integer.parseInt(arg5_42id);
-        String arg6_43id=  request.getParameter("arg6343");
-            java.util.Calendar arg6_43idTemp = null;
-        if(!arg6_43id.equals("")){
-        java.text.DateFormat dateFormatarg6343 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg6343  = dateFormatarg6343.parse(arg6_43id);
-         arg6_43idTemp = new java.util.GregorianCalendar();
-        arg6_43idTemp.setTime(dateTemparg6343);
+        String arg5_47id=  request.getParameter("arg5354");
+            java.lang.String arg5_47idTemp = null;
+        if(!arg5_47id.equals("")){
+         arg5_47idTemp  = arg5_47id;
         }
-        samplePublicadorIControladorProxyid.confirmarAltaSalida(arg0_37idTemp,arg1_38idTemp,arg2_39idTemp,arg3_40idTemp,arg4_41idTemp,arg5_42idTemp,arg6_43idTemp);
-break;
-case 345:
-        gotMethod = true;
-        String arg0_44id=  request.getParameter("arg0348");
-            java.lang.String arg0_44idTemp = null;
-        if(!arg0_44id.equals("")){
-         arg0_44idTemp  = arg0_44id;
+        String arg6_48id=  request.getParameter("arg6356");
+            java.lang.String arg6_48idTemp = null;
+        if(!arg6_48id.equals("")){
+         arg6_48idTemp  = arg6_48id;
         }
-        String arg1_45id=  request.getParameter("arg1350");
-            java.lang.String arg1_45idTemp = null;
-        if(!arg1_45id.equals("")){
-         arg1_45idTemp  = arg1_45id;
+        String arg7_49id=  request.getParameter("arg7358");
+        boolean arg7_49idTemp  = Boolean.valueOf(arg7_49id).booleanValue();
+        String arg8_50id=  request.getParameter("arg8360");
+            java.lang.String arg8_50idTemp = null;
+        if(!arg8_50id.equals("")){
+         arg8_50idTemp  = arg8_50id;
         }
-        String arg2_46id=  request.getParameter("arg2352");
-            java.lang.String arg2_46idTemp = null;
-        if(!arg2_46id.equals("")){
-         arg2_46idTemp  = arg2_46id;
-        }
-        String arg3_47id=  request.getParameter("arg3354");
-            java.lang.String arg3_47idTemp = null;
-        if(!arg3_47id.equals("")){
-         arg3_47idTemp  = arg3_47id;
-        }
-        String arg4_48id=  request.getParameter("arg4356");
-            java.util.Calendar arg4_48idTemp = null;
-        if(!arg4_48id.equals("")){
-        java.text.DateFormat dateFormatarg4356 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg4356  = dateFormatarg4356.parse(arg4_48id);
-         arg4_48idTemp = new java.util.GregorianCalendar();
-        arg4_48idTemp.setTime(dateTemparg4356);
-        }
-        String arg5_49id=  request.getParameter("arg5358");
-            java.lang.String arg5_49idTemp = null;
-        if(!arg5_49id.equals("")){
-         arg5_49idTemp  = arg5_49id;
-        }
-        String arg6_50id=  request.getParameter("arg6360");
-            java.lang.String arg6_50idTemp = null;
-        if(!arg6_50id.equals("")){
-         arg6_50idTemp  = arg6_50id;
-        }
-        samplePublicadorIControladorProxyid.confirmarAltaTurista(arg0_44idTemp,arg1_45idTemp,arg2_46idTemp,arg3_47idTemp,arg4_48idTemp,arg5_49idTemp,arg6_50idTemp);
+        samplePublicadorIControladorProxyid.confirmarAltaProveedor(arg0_42idTemp,arg1_43idTemp,arg2_44idTemp,arg3_45idTemp,arg4_46idTemp,arg5_47idTemp,arg6_48idTemp,arg7_49idTemp,arg8_50idTemp);
 break;
 case 362:
         gotMethod = true;
-        String arg0_51id=  request.getParameter("arg0365");
+        java.lang.Object[] listarPaquetes362mtemp = samplePublicadorIControladorProxyid.listarPaquetes();
+if(listarPaquetes362mtemp == null){
+%>
+<%=listarPaquetes362mtemp %>
+<%
+}else{
+        String tempreturnp363 = null;
+        if(listarPaquetes362mtemp != null){
+        java.util.List listreturnp363= java.util.Arrays.asList(listarPaquetes362mtemp);
+        tempreturnp363 = listreturnp363.toString();
+        }
+        %>
+        <%=tempreturnp363%>
+        <%
+}
+break;
+case 365:
+        gotMethod = true;
+        String arg0_51id=  request.getParameter("arg0380");
             java.lang.String arg0_51idTemp = null;
         if(!arg0_51id.equals("")){
          arg0_51idTemp  = arg0_51id;
         }
-        String arg1_52id=  request.getParameter("arg1367");
-            java.lang.String arg1_52idTemp = null;
-        if(!arg1_52id.equals("")){
-         arg1_52idTemp  = arg1_52id;
-        }
-        String arg2_53id=  request.getParameter("arg2369");
-            java.lang.String arg2_53idTemp = null;
-        if(!arg2_53id.equals("")){
-         arg2_53idTemp  = arg2_53id;
-        }
-        String arg3_54id=  request.getParameter("arg3371");
-            java.lang.String arg3_54idTemp = null;
-        if(!arg3_54id.equals("")){
-         arg3_54idTemp  = arg3_54id;
-        }
-        String arg4_55id=  request.getParameter("arg4373");
-            java.util.Calendar arg4_55idTemp = null;
-        if(!arg4_55id.equals("")){
-        java.text.DateFormat dateFormatarg4373 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg4373  = dateFormatarg4373.parse(arg4_55id);
-         arg4_55idTemp = new java.util.GregorianCalendar();
-        arg4_55idTemp.setTime(dateTemparg4373);
-        }
-        String arg5_56id=  request.getParameter("arg5375");
-            java.lang.String arg5_56idTemp = null;
-        if(!arg5_56id.equals("")){
-         arg5_56idTemp  = arg5_56id;
-        }
-        String arg6_57id=  request.getParameter("arg6377");
-            java.lang.String arg6_57idTemp = null;
-        if(!arg6_57id.equals("")){
-         arg6_57idTemp  = arg6_57id;
-        }
-        String arg7_58id=  request.getParameter("arg7379");
-        boolean arg7_58idTemp  = Boolean.valueOf(arg7_58id).booleanValue();
-        String arg8_59id=  request.getParameter("arg8381");
-            java.lang.String arg8_59idTemp = null;
-        if(!arg8_59id.equals("")){
-         arg8_59idTemp  = arg8_59id;
-        }
-        samplePublicadorIControladorProxyid.confirmarAltaProveedor(arg0_51idTemp,arg1_52idTemp,arg2_53idTemp,arg3_54idTemp,arg4_55idTemp,arg5_56idTemp,arg6_57idTemp,arg7_58idTemp,arg8_59idTemp);
-break;
-case 383:
-        gotMethod = true;
-        servidor.DataColeccionObject listarPaquetes383mtemp = samplePublicadorIControladorProxyid.listarPaquetes();
-if(listarPaquetes383mtemp == null){
+        servidor.DataPaquete obtenerDataPaquete365mtemp = samplePublicadorIControladorProxyid.obtenerDataPaquete(arg0_51idTemp);
+if(obtenerDataPaquete365mtemp == null){
 %>
-<%=listarPaquetes383mtemp %>
-<%
-}else{
-        if(listarPaquetes383mtemp!= null){
-        String tempreturnp384 = listarPaquetes383mtemp.toString();
-        %>
-        <%=tempreturnp384%>
-        <%
-        }}
-break;
-case 386:
-        gotMethod = true;
-        String arg0_60id=  request.getParameter("arg0401");
-            java.lang.String arg0_60idTemp = null;
-        if(!arg0_60id.equals("")){
-         arg0_60idTemp  = arg0_60id;
-        }
-        servidor.DataPaquete obtenerDataPaquete386mtemp = samplePublicadorIControladorProxyid.obtenerDataPaquete(arg0_60idTemp);
-if(obtenerDataPaquete386mtemp == null){
-%>
-<%=obtenerDataPaquete386mtemp %>
+<%=obtenerDataPaquete365mtemp %>
 <%
 }else{
 %>
@@ -1814,9 +1797,9 @@ if(obtenerDataPaquete386mtemp == null){
 <TD COLSPAN="2" ALIGN="LEFT">descuento:</TD>
 <TD>
 <%
-if(obtenerDataPaquete386mtemp != null){
+if(obtenerDataPaquete365mtemp != null){
 %>
-<%=obtenerDataPaquete386mtemp.getDescuento()
+<%=obtenerDataPaquete365mtemp.getDescuento()
 %><%}%>
 </TD>
 <TR>
@@ -1824,13 +1807,13 @@ if(obtenerDataPaquete386mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">fechaAlta:</TD>
 <TD>
 <%
-if(obtenerDataPaquete386mtemp != null){
-java.util.Calendar typefechaAlta391 = obtenerDataPaquete386mtemp.getFechaAlta();
-        java.text.DateFormat dateFormatfechaAlta391 = java.text.DateFormat.getDateInstance();
-        java.util.Date datefechaAlta391 = typefechaAlta391.getTime();
-        String tempResultfechaAlta391 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta391.format(datefechaAlta391));
+if(obtenerDataPaquete365mtemp != null){
+java.util.Calendar typefechaAlta370 = obtenerDataPaquete365mtemp.getFechaAlta();
+        java.text.DateFormat dateFormatfechaAlta370 = java.text.DateFormat.getDateInstance();
+        java.util.Date datefechaAlta370 = typefechaAlta370.getTime();
+        String tempResultfechaAlta370 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta370.format(datefechaAlta370));
         %>
-        <%= tempResultfechaAlta391 %>
+        <%= tempResultfechaAlta370 %>
         <%
 }%>
 </TD>
@@ -1839,11 +1822,11 @@ java.util.Calendar typefechaAlta391 = obtenerDataPaquete386mtemp.getFechaAlta();
 <TD COLSPAN="2" ALIGN="LEFT">descripcion:</TD>
 <TD>
 <%
-if(obtenerDataPaquete386mtemp != null){
-java.lang.String typedescripcion393 = obtenerDataPaquete386mtemp.getDescripcion();
-        String tempResultdescripcion393 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedescripcion393));
+if(obtenerDataPaquete365mtemp != null){
+java.lang.String typedescripcion372 = obtenerDataPaquete365mtemp.getDescripcion();
+        String tempResultdescripcion372 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedescripcion372));
         %>
-        <%= tempResultdescripcion393 %>
+        <%= tempResultdescripcion372 %>
         <%
 }%>
 </TD>
@@ -1852,9 +1835,9 @@ java.lang.String typedescripcion393 = obtenerDataPaquete386mtemp.getDescripcion(
 <TD COLSPAN="2" ALIGN="LEFT">validez:</TD>
 <TD>
 <%
-if(obtenerDataPaquete386mtemp != null){
+if(obtenerDataPaquete365mtemp != null){
 %>
-<%=obtenerDataPaquete386mtemp.getValidez()
+<%=obtenerDataPaquete365mtemp.getValidez()
 %><%}%>
 </TD>
 <TR>
@@ -1862,11 +1845,11 @@ if(obtenerDataPaquete386mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">nombre:</TD>
 <TD>
 <%
-if(obtenerDataPaquete386mtemp != null){
-java.lang.String typenombre397 = obtenerDataPaquete386mtemp.getNombre();
-        String tempResultnombre397 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre397));
+if(obtenerDataPaquete365mtemp != null){
+java.lang.String typenombre376 = obtenerDataPaquete365mtemp.getNombre();
+        String tempResultnombre376 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre376));
         %>
-        <%= tempResultnombre397 %>
+        <%= tempResultnombre376 %>
         <%
 }%>
 </TD>
@@ -1875,11 +1858,11 @@ java.lang.String typenombre397 = obtenerDataPaquete386mtemp.getNombre();
 <TD COLSPAN="2" ALIGN="LEFT">imagen:</TD>
 <TD>
 <%
-if(obtenerDataPaquete386mtemp != null){
-java.lang.String typeimagen399 = obtenerDataPaquete386mtemp.getImagen();
-        String tempResultimagen399 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeimagen399));
+if(obtenerDataPaquete365mtemp != null){
+java.lang.String typeimagen378 = obtenerDataPaquete365mtemp.getImagen();
+        String tempResultimagen378 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeimagen378));
         %>
-        <%= tempResultimagen399 %>
+        <%= tempResultimagen378 %>
         <%
 }%>
 </TD>
@@ -1887,160 +1870,172 @@ java.lang.String typeimagen399 = obtenerDataPaquete386mtemp.getImagen();
 <%
 }
 break;
-case 403:
+case 382:
         gotMethod = true;
-        String arg0_61id=  request.getParameter("arg0406");
-            java.lang.String arg0_61idTemp = null;
-        if(!arg0_61id.equals("")){
-         arg0_61idTemp  = arg0_61id;
+        String arg0_52id=  request.getParameter("arg0385");
+            java.lang.String arg0_52idTemp = null;
+        if(!arg0_52id.equals("")){
+         arg0_52idTemp  = arg0_52id;
         }
-        String arg1_62id=  request.getParameter("arg1408");
-            java.lang.String arg1_62idTemp = null;
-        if(!arg1_62id.equals("")){
-         arg1_62idTemp  = arg1_62id;
+        String arg1_53id=  request.getParameter("arg1387");
+            java.lang.String arg1_53idTemp = null;
+        if(!arg1_53id.equals("")){
+         arg1_53idTemp  = arg1_53id;
         }
-        String arg2_63id=  request.getParameter("arg2410");
-            java.lang.String arg2_63idTemp = null;
-        if(!arg2_63id.equals("")){
-         arg2_63idTemp  = arg2_63id;
+        String arg2_54id=  request.getParameter("arg2389");
+            java.lang.String arg2_54idTemp = null;
+        if(!arg2_54id.equals("")){
+         arg2_54idTemp  = arg2_54id;
         }
-        String arg3_64id=  request.getParameter("arg3412");
-            java.lang.String arg3_64idTemp = null;
-        if(!arg3_64id.equals("")){
-         arg3_64idTemp  = arg3_64id;
+        String arg3_55id=  request.getParameter("arg3391");
+            java.lang.String arg3_55idTemp = null;
+        if(!arg3_55id.equals("")){
+         arg3_55idTemp  = arg3_55id;
         }
-        String arg4_65id=  request.getParameter("arg4414");
-            java.util.Calendar arg4_65idTemp = null;
-        if(!arg4_65id.equals("")){
-        java.text.DateFormat dateFormatarg4414 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg4414  = dateFormatarg4414.parse(arg4_65id);
-         arg4_65idTemp = new java.util.GregorianCalendar();
-        arg4_65idTemp.setTime(dateTemparg4414);
+        String arg4_56id=  request.getParameter("arg4393");
+            java.util.Calendar arg4_56idTemp = null;
+        if(!arg4_56id.equals("")){
+        java.text.DateFormat dateFormatarg4393 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg4393  = dateFormatarg4393.parse(arg4_56id);
+         arg4_56idTemp = new java.util.GregorianCalendar();
+        arg4_56idTemp.setTime(dateTemparg4393);
         }
-        String arg5_66id=  request.getParameter("arg5416");
-            java.lang.String arg5_66idTemp = null;
-        if(!arg5_66id.equals("")){
-         arg5_66idTemp  = arg5_66id;
+        String arg5_57id=  request.getParameter("arg5395");
+            java.lang.String arg5_57idTemp = null;
+        if(!arg5_57id.equals("")){
+         arg5_57idTemp  = arg5_57id;
         }
-        samplePublicadorIControladorProxyid.actualizarDatosTurista(arg0_61idTemp,arg1_62idTemp,arg2_63idTemp,arg3_64idTemp,arg4_65idTemp,arg5_66idTemp);
+        samplePublicadorIControladorProxyid.actualizarDatosTurista(arg0_52idTemp,arg1_53idTemp,arg2_54idTemp,arg3_55idTemp,arg4_56idTemp,arg5_57idTemp);
 break;
-case 418:
+case 397:
         gotMethod = true;
-        String arg0_67id=  request.getParameter("arg0421");
-            java.lang.String arg0_67idTemp = null;
-        if(!arg0_67id.equals("")){
-         arg0_67idTemp  = arg0_67id;
+        String arg0_58id=  request.getParameter("arg0400");
+            java.lang.String arg0_58idTemp = null;
+        if(!arg0_58id.equals("")){
+         arg0_58idTemp  = arg0_58id;
         }
-        String arg1_68id=  request.getParameter("arg1423");
-            java.lang.String arg1_68idTemp = null;
-        if(!arg1_68id.equals("")){
-         arg1_68idTemp  = arg1_68id;
+        String arg1_59id=  request.getParameter("arg1402");
+            java.lang.String arg1_59idTemp = null;
+        if(!arg1_59id.equals("")){
+         arg1_59idTemp  = arg1_59id;
         }
-        String arg2_69id=  request.getParameter("arg2425");
-            java.lang.String arg2_69idTemp = null;
-        if(!arg2_69id.equals("")){
-         arg2_69idTemp  = arg2_69id;
+        String arg2_60id=  request.getParameter("arg2404");
+            java.lang.String arg2_60idTemp = null;
+        if(!arg2_60id.equals("")){
+         arg2_60idTemp  = arg2_60id;
         }
-        String arg3_70id=  request.getParameter("arg3427");
-            java.lang.String arg3_70idTemp = null;
-        if(!arg3_70id.equals("")){
-         arg3_70idTemp  = arg3_70id;
+        String arg3_61id=  request.getParameter("arg3406");
+            java.lang.String arg3_61idTemp = null;
+        if(!arg3_61id.equals("")){
+         arg3_61idTemp  = arg3_61id;
         }
-        String arg4_71id=  request.getParameter("arg4429");
-            java.util.Calendar arg4_71idTemp = null;
-        if(!arg4_71id.equals("")){
-        java.text.DateFormat dateFormatarg4429 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg4429  = dateFormatarg4429.parse(arg4_71id);
-         arg4_71idTemp = new java.util.GregorianCalendar();
-        arg4_71idTemp.setTime(dateTemparg4429);
+        String arg4_62id=  request.getParameter("arg4408");
+            java.util.Calendar arg4_62idTemp = null;
+        if(!arg4_62id.equals("")){
+        java.text.DateFormat dateFormatarg4408 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg4408  = dateFormatarg4408.parse(arg4_62id);
+         arg4_62idTemp = new java.util.GregorianCalendar();
+        arg4_62idTemp.setTime(dateTemparg4408);
         }
-        String arg5_72id=  request.getParameter("arg5431");
-            java.lang.String arg5_72idTemp = null;
-        if(!arg5_72id.equals("")){
-         arg5_72idTemp  = arg5_72id;
+        String arg5_63id=  request.getParameter("arg5410");
+            java.lang.String arg5_63idTemp = null;
+        if(!arg5_63id.equals("")){
+         arg5_63idTemp  = arg5_63id;
         }
-        String arg6_73id=  request.getParameter("arg6433");
-            java.lang.String arg6_73idTemp = null;
-        if(!arg6_73id.equals("")){
-         arg6_73idTemp  = arg6_73id;
+        String arg6_64id=  request.getParameter("arg6412");
+            java.lang.String arg6_64idTemp = null;
+        if(!arg6_64id.equals("")){
+         arg6_64idTemp  = arg6_64id;
         }
-        String arg7_74id=  request.getParameter("arg7435");
-        boolean arg7_74idTemp  = Boolean.valueOf(arg7_74id).booleanValue();
-        samplePublicadorIControladorProxyid.actualizarDatosProveedor(arg0_67idTemp,arg1_68idTemp,arg2_69idTemp,arg3_70idTemp,arg4_71idTemp,arg5_72idTemp,arg6_73idTemp,arg7_74idTemp);
+        String arg7_65id=  request.getParameter("arg7414");
+        boolean arg7_65idTemp  = Boolean.valueOf(arg7_65id).booleanValue();
+        samplePublicadorIControladorProxyid.actualizarDatosProveedor(arg0_58idTemp,arg1_59idTemp,arg2_60idTemp,arg3_61idTemp,arg4_62idTemp,arg5_63idTemp,arg6_64idTemp,arg7_65idTemp);
 break;
-case 437:
+case 416:
         gotMethod = true;
-        servidor.DataColeccionObject listarActividadesAgregadas437mtemp = samplePublicadorIControladorProxyid.listarActividadesAgregadas();
-if(listarActividadesAgregadas437mtemp == null){
+        java.lang.Object[] listarActividadesAgregadas416mtemp = samplePublicadorIControladorProxyid.listarActividadesAgregadas();
+if(listarActividadesAgregadas416mtemp == null){
 %>
-<%=listarActividadesAgregadas437mtemp %>
+<%=listarActividadesAgregadas416mtemp %>
 <%
 }else{
-        if(listarActividadesAgregadas437mtemp!= null){
-        String tempreturnp438 = listarActividadesAgregadas437mtemp.toString();
+        String tempreturnp417 = null;
+        if(listarActividadesAgregadas416mtemp != null){
+        java.util.List listreturnp417= java.util.Arrays.asList(listarActividadesAgregadas416mtemp);
+        tempreturnp417 = listreturnp417.toString();
+        }
         %>
-        <%=tempreturnp438%>
+        <%=tempreturnp417%>
         <%
-        }}
+}
 break;
-case 440:
+case 419:
         gotMethod = true;
-        String arg0_75id=  request.getParameter("arg0443");
-            java.lang.String arg0_75idTemp = null;
-        if(!arg0_75id.equals("")){
-         arg0_75idTemp  = arg0_75id;
+        String arg0_66id=  request.getParameter("arg0422");
+            java.lang.String arg0_66idTemp = null;
+        if(!arg0_66id.equals("")){
+         arg0_66idTemp  = arg0_66id;
         }
-        String arg1_76id=  request.getParameter("arg1445");
-            java.lang.String arg1_76idTemp = null;
-        if(!arg1_76id.equals("")){
-         arg1_76idTemp  = arg1_76id;
+        String arg1_67id=  request.getParameter("arg1424");
+            java.lang.String arg1_67idTemp = null;
+        if(!arg1_67id.equals("")){
+         arg1_67idTemp  = arg1_67id;
         }
-        servidor.DataColeccionObject actividadesPorDepartamentoNoEnPaquete440mtemp = samplePublicadorIControladorProxyid.actividadesPorDepartamentoNoEnPaquete(arg0_75idTemp,arg1_76idTemp);
-if(actividadesPorDepartamentoNoEnPaquete440mtemp == null){
+        java.lang.Object[] actividadesPorDepartamentoNoEnPaquete419mtemp = samplePublicadorIControladorProxyid.actividadesPorDepartamentoNoEnPaquete(arg0_66idTemp,arg1_67idTemp);
+if(actividadesPorDepartamentoNoEnPaquete419mtemp == null){
 %>
-<%=actividadesPorDepartamentoNoEnPaquete440mtemp %>
+<%=actividadesPorDepartamentoNoEnPaquete419mtemp %>
 <%
 }else{
-        if(actividadesPorDepartamentoNoEnPaquete440mtemp!= null){
-        String tempreturnp441 = actividadesPorDepartamentoNoEnPaquete440mtemp.toString();
+        String tempreturnp420 = null;
+        if(actividadesPorDepartamentoNoEnPaquete419mtemp != null){
+        java.util.List listreturnp420= java.util.Arrays.asList(actividadesPorDepartamentoNoEnPaquete419mtemp);
+        tempreturnp420 = listreturnp420.toString();
+        }
         %>
-        <%=tempreturnp441%>
+        <%=tempreturnp420%>
         <%
-        }}
+}
 break;
-case 447:
+case 426:
         gotMethod = true;
-        servidor.DataColeccionObject listarPaquetesNoComprados447mtemp = samplePublicadorIControladorProxyid.listarPaquetesNoComprados();
-if(listarPaquetesNoComprados447mtemp == null){
+        java.lang.Object[] listarPaquetesNoComprados426mtemp = samplePublicadorIControladorProxyid.listarPaquetesNoComprados();
+if(listarPaquetesNoComprados426mtemp == null){
 %>
-<%=listarPaquetesNoComprados447mtemp %>
+<%=listarPaquetesNoComprados426mtemp %>
 <%
 }else{
-        if(listarPaquetesNoComprados447mtemp!= null){
-        String tempreturnp448 = listarPaquetesNoComprados447mtemp.toString();
+        String tempreturnp427 = null;
+        if(listarPaquetesNoComprados426mtemp != null){
+        java.util.List listreturnp427= java.util.Arrays.asList(listarPaquetesNoComprados426mtemp);
+        tempreturnp427 = listreturnp427.toString();
+        }
         %>
-        <%=tempreturnp448%>
+        <%=tempreturnp427%>
         <%
-        }}
+}
 break;
-case 450:
+case 429:
         gotMethod = true;
         samplePublicadorIControladorProxyid.excepciones();
 break;
-case 453:
+case 432:
         gotMethod = true;
-        servidor.DataColeccionObject obtenerDataDepartamentos453mtemp = samplePublicadorIControladorProxyid.obtenerDataDepartamentos();
-if(obtenerDataDepartamentos453mtemp == null){
+        java.lang.Object[] obtenerDataDepartamentos432mtemp = samplePublicadorIControladorProxyid.obtenerDataDepartamentos();
+if(obtenerDataDepartamentos432mtemp == null){
 %>
-<%=obtenerDataDepartamentos453mtemp %>
+<%=obtenerDataDepartamentos432mtemp %>
 <%
 }else{
-        if(obtenerDataDepartamentos453mtemp!= null){
-        String tempreturnp454 = obtenerDataDepartamentos453mtemp.toString();
+        String tempreturnp433 = null;
+        if(obtenerDataDepartamentos432mtemp != null){
+        java.util.List listreturnp433= java.util.Arrays.asList(obtenerDataDepartamentos432mtemp);
+        tempreturnp433 = listreturnp433.toString();
+        }
         %>
-        <%=tempreturnp454%>
+        <%=tempreturnp433%>
         <%
-        }}
+}
 break;
 }
 } catch (Exception e) { 

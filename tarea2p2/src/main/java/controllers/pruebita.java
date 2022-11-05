@@ -1,36 +1,16 @@
 package controllers;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Calendar;
 
-import javax.imageio.ImageIO;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 import javax.xml.rpc.ServiceException;
 
-import servidor.DataActividad;
-import servidor.DataColeccionObject;
 import servidor.DataDepartamento;
 
 /**
@@ -56,7 +36,7 @@ public class pruebita extends HttpServlet {
        try {
         servidor.PublicadorIControlador sere = ser.getPublicadorIControladorPort();
         //String[] stringArray = Arrays.copyOf(objectArray, objectArray.length, String[].class);
-        DataDepartamento[] dDep = Arrays.copyOf(sere.obtenerDataDepartamentos().getArray(), sere.obtenerDataDepartamentos().getArray().length, DataDepartamento[].class);
+        DataDepartamento[] dDep = Arrays.copyOf(sere.obtenerDataDepartamentos(), sere.obtenerDataDepartamentos().length, DataDepartamento[].class);
         for(DataDepartamento dDepI : dDep)
             System.out.println(dDepI.getNombre());
     } catch (ServiceException e) {
