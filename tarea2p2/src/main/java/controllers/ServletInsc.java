@@ -3,7 +3,12 @@ package controllers;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,29 +16,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.rpc.ServiceException;
 
-import excepciones.ActividadNoExisteException;
-import excepciones.ActividadRepetidaException;
-import excepciones.ExcedeTuristas;
-import excepciones.InscFechaDespSalida;
-import excepciones.InscFechaInconsistente;
-import excepciones.NoHayCuposException;
-import excepciones.PaqueteNoExisteException;
-import excepciones.PaqueteRepetidoException;
-import excepciones.SalidasNoExisteException;
-import excepciones.SalidasVigentesException;
-import excepciones.TuristaConSalida;
-import excepciones.TuristaNoHaNacido;
-import excepciones.UsuarioNoExisteException;
-import excepciones.UsuarioRepetidoException;
-import logica.DataDepartamento;
-import logica.DataPaquete;
-import logica.DataProveedor;
-import logica.DataTurista;
-import logica.DataUsuario;
-import logica.Fabrica;
-import logica.IControladorConsulta;
-import logica.IControladorInsc;
+import servidor.ActividadNoExisteException;
+import servidor.ActividadRepetidaException;
+import servidor.ExcedeTuristas;
+import servidor.InscFechaDespSalida;
+import servidor.InscFechaInconsistente;
+import servidor.NoHayCuposException;
+import servidor.PaqueteNoExisteException;
+import servidor.PaqueteRepetidoException;
+import servidor.SalidasNoExisteException;
+import servidor.SalidasVigentesException;
+import servidor.TuristaConSalida;
+import servidor.TuristaNoHaNacido;
+import servidor.UsuarioNoExisteException;
+import servidor.UsuarioRepetidoException;
+import servidor.DataDepartamento;
+import servidor.DataPaquete;
+import servidor.DataProveedor;
+import servidor.DataTurista;
+import servidor.DataUsuario;
 
 /**
  * Servlet implementation class Home
@@ -42,8 +45,6 @@ import logica.IControladorInsc;
 
 public class ServletInsc extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Fabrica fab = Fabrica.getInstance();;
-	private IControladorInsc conInsc;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -83,6 +84,13 @@ public class ServletInsc extends HttpServlet {
 	    HttpSession session = req.getSession();
 	    String nomDpto = req.getParameter("DTDConsultaActividad");
         String nomCat = req.getParameter("CatConsultaActividad");
+        servidor.PublicadorIControladorService service = new servidor.PublicadorIControladorServiceLocator();
+        servidor.PublicadorIControlador port = null;
+        try {
+            port = service.getPublicadorIControladorPort();
+        } catch (ServiceException e1) {
+            e1.printStackTrace();
+        }
         if (nomDpto != null) {
             selecDep(req, resp, nomDpto);
         } else if (nomCat != null) {
@@ -90,34 +98,35 @@ public class ServletInsc extends HttpServlet {
         } else {
     		switch (req.getServletPath()){
     			case "/Inscripcion":
-    			    conInsc = fab.getIControladorInsc();
     			    String sal = req.getParameter("salida");
     			    DataUsuario usu = (DataUsuario) session.getAttribute("usuario");
-    			    String[] paquetes = conInsc.obtenerPaquetesComprados(usu.getNick());
+    			    
+    			    String[] paquetes = Arrays.copyOf(port.obtenerPaquetesComprados(usu.getNick()), port.obtenerPaquetesComprados(usu.getNick()).length, String[].class);;
                     req.setAttribute("SalidaElegida", sal);
     			    req.setAttribute("PaquetesComprados", paquetes);
     				req.getRequestDispatcher("/WEB-INF/ConsultaSalida/InscripcionSalida.jsp").forward(req, resp);
     				break;
     			case "/Inscripto":
-    				conInsc = fab.getIControladorInsc();
     				String salInsc = req.getParameter("nomSal");
     				DataUsuario dataUsu = (DataUsuario) session.getAttribute("usuario");
     				int cant = Integer.parseInt(req.getParameter("cantTur"));
     				String paqInsc = req.getParameter("paqDisp");
     				String act = null;
                     try {
-                        act = conInsc.obtenerNomActPorSalida(salInsc);
+                        act = port.obtenerNomActPorSalida(salInsc);
                     } catch (SalidasNoExisteException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
     				LocalDateTime horaLocal = LocalDateTime.now();
     				Date fecha = java.util.Date.from(horaLocal.atZone(ZoneId.systemDefault()).toInstant());
+    				Calendar fechaC = Calendar.getInstance();
+    				fechaC.setTime(fecha);
     				try {
     					if (paqInsc == null) {
-    						conInsc.inscribir(dataUsu.getNick(), salInsc, cant, fecha, act);
+    						port.inscribir(dataUsu.getNick(), salInsc, cant, fechaC, act);
     					} else {
-    						conInsc.inscribir(dataUsu.getNick(), salInsc, cant, fecha, act, paqInsc);
+    						port.inscribirPaq(dataUsu.getNick(), salInsc, cant, fechaC, act, paqInsc);
     					}
     					req.setAttribute("Inscrip", "La inscripcion fue realizada con exito!");
                         req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
@@ -129,33 +138,34 @@ public class ServletInsc extends HttpServlet {
     				}
     				break;
     			case "/CompraPaquete":
-    				conInsc = fab.getIControladorInsc();
     				HttpSession session1 = req.getSession();
     				DataUsuario du1 = (DataUsuario) session1.getAttribute("usuario");
     				int cant1 = Integer.parseInt(req.getParameter("cantTurs"));
     				String nomPaquete = (String) req.getParameter("nomPaq");
     				LocalDateTime ld1 = LocalDateTime.now();
     				Date fecha1 = java.util.Date.from(ld1.atZone(ZoneId.systemDefault()).toInstant());
-    				IControladorConsulta conCons = fab.getIControladorConsulta();
+                    Calendar fecha1C = Calendar.getInstance();
+                    fecha1C.setTime(fecha1);
     				try {
-    					conInsc.comprarPaquete(du1.getNick(), fecha1, cant1, nomPaquete);
+    					port.comprarPaquete(du1.getNick(), fecha1C, cant1, nomPaquete);
     					req.setAttribute("CompraPaq", "La compra fue realizada con exito!");
     					req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp); //lo cambie
     				} catch (PaqueteNoExisteException | PaqueteRepetidoException e) {
     					req.setAttribute("Exception", e.getMessage());
-                        DataPaquete dataPaq = conCons.obtenerDataPaquete(nomPaquete);
+                        DataPaquete dataPaq = port.obtenerDataPaquete(nomPaquete);
                         req.setAttribute("PaqueteElegido", dataPaq);
     					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req, resp);
     				}
     				break;
     			case "/SeguirUsuario":
-    			    conInsc = fab.getIControladorInsc();
     			    HttpSession session2 = req.getSession();
                     DataUsuario du2 = (DataUsuario) session2.getAttribute("usuario");
                     String nickUsu = req.getParameter("nickUsuASeguir");
                     try {
-                        conInsc.seguirDejarDeSeguirUsuario(du2.getNick(), nickUsu, !du2.getSeguidos().contains(nickUsu));
-                        session2.setAttribute("usuario", fab.getIControladorConsulta().obtenerDataUsuarioNick(du2.getNick()));
+                        Set<String> setSeguir = new HashSet<String>();
+                        Collections.addAll(setSeguir, du2.getSeguidos());
+                        port.seguirDejarDeSeguirUsuario(du2.getNick(), nickUsu, !setSeguir.contains(nickUsu));
+                        session2.setAttribute("usuario", port.obtenerDataUsuarioNick(du2.getNick()));
                         req.getRequestDispatcher("/ConsultaUsuario?nick=" + nickUsu).forward(req, resp); //lo cambie
                     } catch (UsuarioNoExisteException | UsuarioRepetidoException e) {
                         req.setAttribute("Exception", e.getMessage());
@@ -163,13 +173,14 @@ public class ServletInsc extends HttpServlet {
                     }
                     break;
     			case "/AgregarFavs":
-                    conInsc = fab.getIControladorInsc();
                     HttpSession session3 = req.getSession();
                     DataTurista dTur = (DataTurista) session3.getAttribute("usuario");
                     String nomAct = req.getParameter("nomAct");
                     try {
-                        conInsc.agregarQuitarActividadFavorita(dTur.getNick(), nomAct, !dTur.getActFavoritas().contains(nomAct));
-                        session3.setAttribute("usuario", fab.getIControladorConsulta().obtenerDataUsuarioNick(dTur.getNick()));
+                        Set<String> setFavs = new HashSet<String>();
+                        Collections.addAll(setFavs, dTur.getActFavoritas());
+                        port.agregarQuitarActividadFavorita(dTur.getNick(), nomAct, !setFavs.contains(nomAct));
+                        session3.setAttribute("usuario", port.obtenerDataUsuarioNick(dTur.getNick()));
                         req.getRequestDispatcher("/ConsultaActividad?actividad=" + nomAct).forward(req, resp); //lo cambie
                     } catch (UsuarioNoExisteException | ActividadNoExisteException | ActividadRepetidaException e) {
                         req.setAttribute("Exception", e.getMessage());
@@ -178,12 +189,11 @@ public class ServletInsc extends HttpServlet {
                     break;
     			case "/FinalizarActividad":
     			    String actividadSeleccionada = req.getParameter("actividad");
-                    conInsc = fab.getIControladorInsc();
                     HttpSession session4 = req.getSession();
                     DataProveedor dataProveedor = (DataProveedor) session4.getAttribute("usuario");
                     try {
-                        conInsc.finalizarActividad(actividadSeleccionada);
-                        session4.setAttribute("usuario", fab.getIControladorConsulta().obtenerDataUsuarioNick(dataProveedor.getNick()));
+                        port.finalizarActividad(actividadSeleccionada);
+                        session4.setAttribute("usuario", port.obtenerDataUsuarioNick(dataProveedor.getNick()));
                     } catch (Exception e) {
                             System.out.printf("esepsssion \n" + e.getMessage());
                             req.setAttribute("Exception", e.getMessage());
