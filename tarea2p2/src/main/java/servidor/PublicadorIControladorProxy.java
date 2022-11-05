@@ -44,10 +44,46 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     return publicadorIControlador;
   }
   
-  public servidor.DataDepartamento dataDepartamentoNull() throws java.rmi.RemoteException, servidor.DepartamentoYaExisteExeption{
+  public servidor.DataDepartamento dataDepartamentoNull() throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.dataDepartamentoNull();
+  }
+  
+  public servidor.DataTurista dataTuristaNull() throws java.rmi.RemoteException{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    return publicadorIControlador.dataTuristaNull();
+  }
+  
+  public servidor.DataProveedor dataProveedorNull() throws java.rmi.RemoteException{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    return publicadorIControlador.dataProveedorNull();
+  }
+  
+  public servidor.DataActividad dataActividadNull() throws java.rmi.RemoteException{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    return publicadorIControlador.dataActividadNull();
+  }
+  
+  public servidor.DataCompraGeneral dataCGNull() throws java.rmi.RemoteException{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    return publicadorIControlador.dataCGNull();
+  }
+  
+  public servidor.DataCompraPaquete dataCPNull() throws java.rmi.RemoteException{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    return publicadorIControlador.dataCPNull();
+  }
+  
+  public servidor.EstadoAct estadoActNull() throws java.rmi.RemoteException{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    return publicadorIControlador.estadoActNull();
   }
   
   public void confirmarAltaTuristaPass(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException{
@@ -90,6 +126,24 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.getUsuariosComp();
+  }
+  
+  public void confirmarAltaSalidaImagen(java.lang.String arg0, java.lang.String arg1, java.util.Calendar arg2, java.util.Calendar arg3, java.lang.String arg4, int arg5, java.util.Calendar arg6, byte[] arg7) throws java.rmi.RemoteException, servidor.SalidaYaExisteExeption, servidor.FechaAltaSalidaInvalida, servidor.FechaAltaSalidaAnteriorActividad{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    publicadorIControlador.confirmarAltaSalidaImagen(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+  }
+  
+  public void actualizarDatosTuristaCompleto(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, byte[] arg7) throws java.rmi.RemoteException{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    publicadorIControlador.actualizarDatosTuristaCompleto(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+  }
+  
+  public void actualizarDatosProveedorCompleto(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, boolean arg7, java.lang.String arg8, byte[] arg9) throws java.rmi.RemoteException{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    publicadorIControlador.actualizarDatosProveedorCompleto(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
   }
   
   public servidor.DataUsuario ingresarDatos(java.lang.String arg0) throws java.rmi.RemoteException{
@@ -200,12 +254,6 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.confirmarAltaSalida(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
   }
   
-  public void registrarCategoria(java.lang.String arg0) throws java.rmi.RemoteException, servidor.CategoriaYaExiste{
-    if (publicadorIControlador == null)
-      _initPublicadorIControladorProxy();
-    publicadorIControlador.registrarCategoria(arg0);
-  }
-  
   public void confirmarAltaTurista(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
@@ -242,12 +290,6 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.actualizarDatosProveedor(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
   }
   
-  public void aceptarRechazarAct(java.lang.String arg0, servidor.EstadoAct arg1) throws java.rmi.RemoteException, servidor.EstadoActividadIncorrecto, servidor.ActividadNoExisteException{
-    if (publicadorIControlador == null)
-      _initPublicadorIControladorProxy();
-    publicadorIControlador.aceptarRechazarAct(arg0, arg1);
-  }
-  
   public servidor.DataColeccionObject listarActividadesAgregadas() throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
@@ -266,10 +308,10 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     return publicadorIControlador.listarPaquetesNoComprados();
   }
   
-  public void confirmar(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException{
+  public void excepciones() throws java.rmi.RemoteException, servidor.DepartamentoYaExisteExeption, servidor.UsuarioNoExisteException, servidor.InscFechaDespSalida, servidor.SalidasVigentesException, servidor.PaqueteNoExisteException, servidor.FechaAltaSalidaInvalida, servidor.ActividadNoExisteException, servidor.UsuarioRepetidoException, servidor.FechaAltaSalidaAnteriorActividad, servidor.TuristaConSalida, servidor.ActividadRepetidaException, servidor.ExcedeTuristas, servidor.ProveedorNoNacidoException, servidor.SalidasNoExisteException, servidor.DepartamentoNoExisteException, servidor.TuristaNoHaNacido, servidor.CategoriaYaExiste, servidor.PaqueteRepetidoException, servidor.NoHayCuposException, servidor.NoExisteCategoriaException, servidor.EstadoActividadIncorrecto, servidor.InscFechaInconsistente{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
-    publicadorIControlador.confirmar(arg0, arg1);
+    publicadorIControlador.excepciones();
   }
   
   public servidor.DataColeccionObject obtenerDataDepartamentos() throws java.rmi.RemoteException, servidor.DepartamentoNoExisteException{

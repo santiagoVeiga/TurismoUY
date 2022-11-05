@@ -8,7 +8,13 @@
 package servidor;
 
 public interface PublicadorIControlador extends java.rmi.Remote {
-    public servidor.DataDepartamento dataDepartamentoNull() throws java.rmi.RemoteException, servidor.DepartamentoYaExisteExeption;
+    public servidor.DataDepartamento dataDepartamentoNull() throws java.rmi.RemoteException;
+    public servidor.DataTurista dataTuristaNull() throws java.rmi.RemoteException;
+    public servidor.DataProveedor dataProveedorNull() throws java.rmi.RemoteException;
+    public servidor.DataActividad dataActividadNull() throws java.rmi.RemoteException;
+    public servidor.DataCompraGeneral dataCGNull() throws java.rmi.RemoteException;
+    public servidor.DataCompraPaquete dataCPNull() throws java.rmi.RemoteException;
+    public servidor.EstadoAct estadoActNull() throws java.rmi.RemoteException;
     public void confirmarAltaTuristaPass(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException;
     public void confirmarAltaTuristaCompleto(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, byte[] arg7) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException;
     public void confirmarAltaProveedorPass(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, boolean arg7, java.lang.String arg8) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException;
@@ -16,6 +22,9 @@ public interface PublicadorIControlador extends java.rmi.Remote {
     public void registrarActividadImagen(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, int arg3, int arg4, java.lang.String arg5, java.util.Calendar arg6, java.lang.String arg7, servidor.DataColeccionObject arg8, byte[] arg9) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.ProveedorNoNacidoException, servidor.UsuarioNoExisteException;
     public servidor.DataUsuario verInfoUsuario(java.lang.String arg0) throws java.rmi.RemoteException, servidor.UsuarioNoExisteException;
     public servidor.DataColeccionObject getUsuariosComp() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException;
+    public void confirmarAltaSalidaImagen(java.lang.String arg0, java.lang.String arg1, java.util.Calendar arg2, java.util.Calendar arg3, java.lang.String arg4, int arg5, java.util.Calendar arg6, byte[] arg7) throws java.rmi.RemoteException, servidor.SalidaYaExisteExeption, servidor.FechaAltaSalidaInvalida, servidor.FechaAltaSalidaAnteriorActividad;
+    public void actualizarDatosTuristaCompleto(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, byte[] arg7) throws java.rmi.RemoteException;
+    public void actualizarDatosProveedorCompleto(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, boolean arg7, java.lang.String arg8, byte[] arg9) throws java.rmi.RemoteException;
     public servidor.DataUsuario ingresarDatos(java.lang.String arg0) throws java.rmi.RemoteException;
     public servidor.DataColeccionObject obtenerActividadCategoria(java.lang.String arg0) throws java.rmi.RemoteException;
     public servidor.DataUsuario obtenerDataUsuarioNick(java.lang.String arg0) throws java.rmi.RemoteException, servidor.UsuarioNoExisteException;
@@ -34,17 +43,15 @@ public interface PublicadorIControlador extends java.rmi.Remote {
     public servidor.DataColeccionObject getUsuarios() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException;
     public servidor.DataColeccionObject obtenerNombreCategorias() throws java.rmi.RemoteException, servidor.NoExisteCategoriaException;
     public void confirmarAltaSalida(java.lang.String arg0, java.lang.String arg1, java.util.Calendar arg2, java.util.Calendar arg3, java.lang.String arg4, int arg5, java.util.Calendar arg6) throws java.rmi.RemoteException, servidor.SalidaYaExisteExeption, servidor.FechaAltaSalidaInvalida, servidor.FechaAltaSalidaAnteriorActividad;
-    public void registrarCategoria(java.lang.String arg0) throws java.rmi.RemoteException, servidor.CategoriaYaExiste;
     public void confirmarAltaTurista(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException;
     public void confirmarAltaProveedor(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, boolean arg7) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException;
     public servidor.DataColeccionObject listarPaquetes() throws java.rmi.RemoteException;
     public servidor.DataPaquete obtenerDataPaquete(java.lang.String arg0) throws java.rmi.RemoteException;
     public void actualizarDatosTurista(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5) throws java.rmi.RemoteException;
     public void actualizarDatosProveedor(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, boolean arg7) throws java.rmi.RemoteException;
-    public void aceptarRechazarAct(java.lang.String arg0, servidor.EstadoAct arg1) throws java.rmi.RemoteException, servidor.EstadoActividadIncorrecto, servidor.ActividadNoExisteException;
     public servidor.DataColeccionObject listarActividadesAgregadas() throws java.rmi.RemoteException;
     public servidor.DataColeccionObject actividadesPorDepartamentoNoEnPaquete(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException;
     public servidor.DataColeccionObject listarPaquetesNoComprados() throws java.rmi.RemoteException;
-    public void confirmar(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException;
+    public void excepciones() throws java.rmi.RemoteException, servidor.DepartamentoYaExisteExeption, servidor.UsuarioNoExisteException, servidor.InscFechaDespSalida, servidor.SalidasVigentesException, servidor.PaqueteNoExisteException, servidor.FechaAltaSalidaInvalida, servidor.ActividadNoExisteException, servidor.UsuarioRepetidoException, servidor.FechaAltaSalidaAnteriorActividad, servidor.TuristaConSalida, servidor.ActividadRepetidaException, servidor.ExcedeTuristas, servidor.ProveedorNoNacidoException, servidor.SalidasNoExisteException, servidor.DepartamentoNoExisteException, servidor.TuristaNoHaNacido, servidor.CategoriaYaExiste, servidor.PaqueteRepetidoException, servidor.NoHayCuposException, servidor.NoExisteCategoriaException, servidor.EstadoActividadIncorrecto, servidor.InscFechaInconsistente;
     public servidor.DataColeccionObject obtenerDataDepartamentos() throws java.rmi.RemoteException, servidor.DepartamentoNoExisteException;
 }
