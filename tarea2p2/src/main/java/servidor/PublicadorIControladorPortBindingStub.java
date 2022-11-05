@@ -16,7 +16,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[45];
+        _operations = new org.apache.axis.description.OperationDesc[48];
         _initOperationDesc1();
         _initOperationDesc2();
         _initOperationDesc3();
@@ -567,6 +567,83 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         _operations[25] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("seguirDejarDeSeguirUsuario");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg2"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"), boolean.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(org.apache.axis.encoding.XMLType.AXIS_VOID);
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        oper.addFault(new org.apache.axis.description.FaultDesc(
+                      new javax.xml.namespace.QName("http://servidor/", "UsuarioNoExisteException"),
+                      "servidor.UsuarioNoExisteException",
+                      new javax.xml.namespace.QName("http://servidor/", "UsuarioNoExisteException"), 
+                      true
+                     ));
+        oper.addFault(new org.apache.axis.description.FaultDesc(
+                      new javax.xml.namespace.QName("http://servidor/", "UsuarioRepetidoException"),
+                      "servidor.UsuarioRepetidoException",
+                      new javax.xml.namespace.QName("http://servidor/", "UsuarioRepetidoException"), 
+                      true
+                     ));
+        _operations[26] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("agregarQuitarActividadFavorita");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg2"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"), boolean.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(org.apache.axis.encoding.XMLType.AXIS_VOID);
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        oper.addFault(new org.apache.axis.description.FaultDesc(
+                      new javax.xml.namespace.QName("http://servidor/", "ActividadRepetidaException"),
+                      "servidor.ActividadRepetidaException",
+                      new javax.xml.namespace.QName("http://servidor/", "ActividadRepetidaException"), 
+                      true
+                     ));
+        oper.addFault(new org.apache.axis.description.FaultDesc(
+                      new javax.xml.namespace.QName("http://servidor/", "UsuarioNoExisteException"),
+                      "servidor.UsuarioNoExisteException",
+                      new javax.xml.namespace.QName("http://servidor/", "UsuarioNoExisteException"), 
+                      true
+                     ));
+        oper.addFault(new org.apache.axis.description.FaultDesc(
+                      new javax.xml.namespace.QName("http://servidor/", "ActividadNoExisteException"),
+                      "servidor.ActividadNoExisteException",
+                      new javax.xml.namespace.QName("http://servidor/", "ActividadNoExisteException"), 
+                      true
+                     ));
+        _operations[27] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("finalizarActividad");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(org.apache.axis.encoding.XMLType.AXIS_VOID);
+        oper.setStyle(org.apache.axis.constants.Style.RPC);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        oper.addFault(new org.apache.axis.description.FaultDesc(
+                      new javax.xml.namespace.QName("http://servidor/", "SalidasVigentesException"),
+                      "servidor.SalidasVigentesException",
+                      new javax.xml.namespace.QName("http://servidor/", "SalidasVigentesException"), 
+                      true
+                     ));
+        oper.addFault(new org.apache.axis.description.FaultDesc(
+                      new javax.xml.namespace.QName("http://servidor/", "ActividadNoExisteException"),
+                      "servidor.ActividadNoExisteException",
+                      new javax.xml.namespace.QName("http://servidor/", "ActividadNoExisteException"), 
+                      true
+                     ));
+        _operations[28] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
         oper.setName("selecDepartamento");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         oper.addParameter(param);
@@ -577,8 +654,13 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[26] = oper;
+        _operations[29] = oper;
 
+    }
+
+    private static void _initOperationDesc4(){
+        org.apache.axis.description.OperationDesc oper;
+        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("salidas");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
@@ -596,7 +678,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
                       new javax.xml.namespace.QName("http://servidor/", "ActividadNoExisteException"), 
                       true
                      ));
-        _operations[27] = oper;
+        _operations[30] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("inscribir");
@@ -649,7 +731,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
                       new javax.xml.namespace.QName("http://servidor/", "InscFechaInconsistente"), 
                       true
                      ));
-        _operations[28] = oper;
+        _operations[31] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("listarUsuarios");
@@ -660,13 +742,8 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[29] = oper;
+        _operations[32] = oper;
 
-    }
-
-    private static void _initOperationDesc4(){
-        org.apache.axis.description.OperationDesc oper;
-        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("registrarActividad");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
@@ -709,7 +786,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
                       new javax.xml.namespace.QName("http://servidor/", "UsuarioNoExisteException"), 
                       true
                      ));
-        _operations[30] = oper;
+        _operations[33] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getUsuarios");
@@ -726,7 +803,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
                       new javax.xml.namespace.QName("http://servidor/", "UsuarioNoExisteException"), 
                       true
                      ));
-        _operations[31] = oper;
+        _operations[34] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("obtenerNombreCategorias");
@@ -743,7 +820,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
                       new javax.xml.namespace.QName("http://servidor/", "NoExisteCategoriaException"), 
                       true
                      ));
-        _operations[32] = oper;
+        _operations[35] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("confirmarAltaSalida");
@@ -782,7 +859,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
                       new javax.xml.namespace.QName("http://servidor/", "FechaAltaSalidaAnteriorActividad"), 
                       true
                      ));
-        _operations[33] = oper;
+        _operations[36] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("confirmarAltaTurista");
@@ -809,7 +886,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
                       new javax.xml.namespace.QName("http://servidor/", "UsuarioRepetidoException"), 
                       true
                      ));
-        _operations[34] = oper;
+        _operations[37] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("confirmarAltaProveedor");
@@ -840,7 +917,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
                       new javax.xml.namespace.QName("http://servidor/", "UsuarioRepetidoException"), 
                       true
                      ));
-        _operations[35] = oper;
+        _operations[38] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("listarPaquetes");
@@ -851,8 +928,13 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[36] = oper;
+        _operations[39] = oper;
 
+    }
+
+    private static void _initOperationDesc5(){
+        org.apache.axis.description.OperationDesc oper;
+        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("obtenerDataPaquete");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "arg0"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
@@ -862,7 +944,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[37] = oper;
+        _operations[40] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("actualizarDatosTurista");
@@ -881,7 +963,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         oper.setReturnType(org.apache.axis.encoding.XMLType.AXIS_VOID);
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[38] = oper;
+        _operations[41] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("actualizarDatosProveedor");
@@ -904,13 +986,8 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         oper.setReturnType(org.apache.axis.encoding.XMLType.AXIS_VOID);
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[39] = oper;
+        _operations[42] = oper;
 
-    }
-
-    private static void _initOperationDesc5(){
-        org.apache.axis.description.OperationDesc oper;
-        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("listarActividadesAgregadas");
         oper.setReturnType(new javax.xml.namespace.QName("http://servidor/", "dataColeccionObject"));
@@ -920,7 +997,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[40] = oper;
+        _operations[43] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("actividadesPorDepartamentoNoEnPaquete");
@@ -935,7 +1012,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[41] = oper;
+        _operations[44] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("listarPaquetesNoComprados");
@@ -946,7 +1023,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
         param.setItemQName(new javax.xml.namespace.QName("", "array"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[42] = oper;
+        _operations[45] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("excepciones");
@@ -1085,7 +1162,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
                       new javax.xml.namespace.QName("http://servidor/", "InscFechaInconsistente"), 
                       true
                      ));
-        _operations[43] = oper;
+        _operations[46] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("obtenerDataDepartamentos");
@@ -1102,7 +1179,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
                       new javax.xml.namespace.QName("http://servidor/", "DepartamentoNoExisteException"), 
                       true
                      ));
-        _operations[44] = oper;
+        _operations[47] = oper;
 
     }
 
@@ -2447,12 +2524,129 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public java.lang.Object[] selecDepartamento(java.lang.String arg0) throws java.rmi.RemoteException {
+    public void seguirDejarDeSeguirUsuario(java.lang.String arg0, java.lang.String arg1, boolean arg2) throws java.rmi.RemoteException, servidor.UsuarioNoExisteException, servidor.UsuarioRepetidoException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[26]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("http://servidor/", "seguirDejarDeSeguirUsuario"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {arg0, arg1, new java.lang.Boolean(arg2)});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        extractAttachments(_call);
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+    if (axisFaultException.detail != null) {
+        if (axisFaultException.detail instanceof java.rmi.RemoteException) {
+              throw (java.rmi.RemoteException) axisFaultException.detail;
+         }
+        if (axisFaultException.detail instanceof servidor.UsuarioNoExisteException) {
+              throw (servidor.UsuarioNoExisteException) axisFaultException.detail;
+         }
+        if (axisFaultException.detail instanceof servidor.UsuarioRepetidoException) {
+              throw (servidor.UsuarioRepetidoException) axisFaultException.detail;
+         }
+   }
+  throw axisFaultException;
+}
+    }
+
+    public void agregarQuitarActividadFavorita(java.lang.String arg0, java.lang.String arg1, boolean arg2) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.UsuarioNoExisteException, servidor.ActividadNoExisteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[27]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("http://servidor/", "agregarQuitarActividadFavorita"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {arg0, arg1, new java.lang.Boolean(arg2)});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        extractAttachments(_call);
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+    if (axisFaultException.detail != null) {
+        if (axisFaultException.detail instanceof java.rmi.RemoteException) {
+              throw (java.rmi.RemoteException) axisFaultException.detail;
+         }
+        if (axisFaultException.detail instanceof servidor.ActividadRepetidaException) {
+              throw (servidor.ActividadRepetidaException) axisFaultException.detail;
+         }
+        if (axisFaultException.detail instanceof servidor.UsuarioNoExisteException) {
+              throw (servidor.UsuarioNoExisteException) axisFaultException.detail;
+         }
+        if (axisFaultException.detail instanceof servidor.ActividadNoExisteException) {
+              throw (servidor.ActividadNoExisteException) axisFaultException.detail;
+         }
+   }
+  throw axisFaultException;
+}
+    }
+
+    public void finalizarActividad(java.lang.String arg0) throws java.rmi.RemoteException, servidor.SalidasVigentesException, servidor.ActividadNoExisteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[28]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("http://servidor/", "finalizarActividad"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {arg0});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        extractAttachments(_call);
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+    if (axisFaultException.detail != null) {
+        if (axisFaultException.detail instanceof java.rmi.RemoteException) {
+              throw (java.rmi.RemoteException) axisFaultException.detail;
+         }
+        if (axisFaultException.detail instanceof servidor.SalidasVigentesException) {
+              throw (servidor.SalidasVigentesException) axisFaultException.detail;
+         }
+        if (axisFaultException.detail instanceof servidor.ActividadNoExisteException) {
+              throw (servidor.ActividadNoExisteException) axisFaultException.detail;
+         }
+   }
+  throw axisFaultException;
+}
+    }
+
+    public java.lang.Object[] selecDepartamento(java.lang.String arg0) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[29]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2486,7 +2680,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[27]);
+        _call.setOperation(_operations[30]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2528,7 +2722,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[28]);
+        _call.setOperation(_operations[31]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2578,7 +2772,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[29]);
+        _call.setOperation(_operations[32]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2612,7 +2806,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[30]);
+        _call.setOperation(_operations[33]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2653,7 +2847,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[31]);
+        _call.setOperation(_operations[34]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2695,7 +2889,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[32]);
+        _call.setOperation(_operations[35]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2737,7 +2931,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[33]);
+        _call.setOperation(_operations[36]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2778,7 +2972,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[34]);
+        _call.setOperation(_operations[37]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2813,7 +3007,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[35]);
+        _call.setOperation(_operations[38]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2848,7 +3042,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[36]);
+        _call.setOperation(_operations[39]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2882,7 +3076,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[37]);
+        _call.setOperation(_operations[40]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2916,7 +3110,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[38]);
+        _call.setOperation(_operations[41]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2943,7 +3137,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[39]);
+        _call.setOperation(_operations[42]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -2970,7 +3164,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[40]);
+        _call.setOperation(_operations[43]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -3004,7 +3198,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[41]);
+        _call.setOperation(_operations[44]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -3038,7 +3232,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[42]);
+        _call.setOperation(_operations[45]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -3072,7 +3266,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[43]);
+        _call.setOperation(_operations[46]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);
@@ -3170,7 +3364,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[44]);
+        _call.setOperation(_operations[47]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setEncodingStyle(null);

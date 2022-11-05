@@ -200,6 +200,24 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     return publicadorIControlador.obtenerNomActPorSalida(arg0);
   }
   
+  public void seguirDejarDeSeguirUsuario(java.lang.String arg0, java.lang.String arg1, boolean arg2) throws java.rmi.RemoteException, servidor.UsuarioNoExisteException, servidor.UsuarioRepetidoException{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    publicadorIControlador.seguirDejarDeSeguirUsuario(arg0, arg1, arg2);
+  }
+  
+  public void agregarQuitarActividadFavorita(java.lang.String arg0, java.lang.String arg1, boolean arg2) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.UsuarioNoExisteException, servidor.ActividadNoExisteException{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    publicadorIControlador.agregarQuitarActividadFavorita(arg0, arg1, arg2);
+  }
+  
+  public void finalizarActividad(java.lang.String arg0) throws java.rmi.RemoteException, servidor.SalidasVigentesException, servidor.ActividadNoExisteException{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    publicadorIControlador.finalizarActividad(arg0);
+  }
+  
   public java.lang.Object[] selecDepartamento(java.lang.String arg0) throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();

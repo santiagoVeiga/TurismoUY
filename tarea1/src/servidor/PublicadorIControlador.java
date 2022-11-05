@@ -324,6 +324,21 @@ public class PublicadorIControlador {
 	}
 	
     @WebMethod
+    public void seguirDejarDeSeguirUsuario(String nickSeguidor, String nickASeguir, boolean seguir) throws UsuarioNoExisteException, UsuarioRepetidoException{
+    	conInsc.seguirDejarDeSeguirUsuario(nickSeguidor, nickASeguir, seguir);
+    }
+	
+    @WebMethod
+    public void agregarQuitarActividadFavorita(String nickTurista, String nombreAct, boolean agregar) throws UsuarioNoExisteException, ActividadNoExisteException, ActividadRepetidaException {
+    	conInsc.agregarQuitarActividadFavorita(nickTurista, nombreAct, agregar);
+    }
+    
+    @WebMethod
+    public void finalizarActividad(String nombreActividad) throws ActividadNoExisteException, SalidasVigentesException{
+    	conInsc.finalizarActividad(nombreActividad);
+    }
+    
+    @WebMethod
     public byte[] getFile(@WebParam(name = "fileName") String name)
                     throws  IOException {
         byte[] byteArray = null;

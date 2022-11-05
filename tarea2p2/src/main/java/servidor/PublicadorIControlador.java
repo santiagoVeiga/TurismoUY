@@ -34,6 +34,9 @@ public interface PublicadorIControlador extends java.rmi.Remote {
     public void inscribirPaq(java.lang.String arg0, java.lang.String arg1, int arg2, java.util.Calendar arg3, java.lang.String arg4, java.lang.String arg5) throws java.rmi.RemoteException, servidor.ExcedeTuristas, servidor.TuristaNoHaNacido, servidor.PaqueteRepetidoException, servidor.NoHayCuposException, servidor.InscFechaDespSalida, servidor.ActividadNoExisteException, servidor.TuristaConSalida, servidor.InscFechaInconsistente;
     public java.lang.Object[] obtenerPaquetesComprados(java.lang.String arg0) throws java.rmi.RemoteException;
     public java.lang.String obtenerNomActPorSalida(java.lang.String arg0) throws java.rmi.RemoteException, servidor.SalidasNoExisteException;
+    public void seguirDejarDeSeguirUsuario(java.lang.String arg0, java.lang.String arg1, boolean arg2) throws java.rmi.RemoteException, servidor.UsuarioNoExisteException, servidor.UsuarioRepetidoException;
+    public void agregarQuitarActividadFavorita(java.lang.String arg0, java.lang.String arg1, boolean arg2) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.UsuarioNoExisteException, servidor.ActividadNoExisteException;
+    public void finalizarActividad(java.lang.String arg0) throws java.rmi.RemoteException, servidor.SalidasVigentesException, servidor.ActividadNoExisteException;
     public java.lang.Object[] selecDepartamento(java.lang.String arg0) throws java.rmi.RemoteException;
     public java.lang.Object[] salidas(java.lang.String arg0) throws java.rmi.RemoteException, servidor.ActividadNoExisteException;
     public void inscribir(java.lang.String arg0, java.lang.String arg1, int arg2, java.util.Calendar arg3, java.lang.String arg4) throws java.rmi.RemoteException, servidor.ExcedeTuristas, servidor.TuristaNoHaNacido, servidor.InscFechaDespSalida, servidor.ActividadNoExisteException, servidor.TuristaConSalida, servidor.InscFechaInconsistente;
