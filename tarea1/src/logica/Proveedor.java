@@ -27,14 +27,6 @@ public class Proveedor extends Usuario {
     	this.hayLink = hayl;
     	this.actividades = new HashMap<String, Actividad>();
     }
-    
-    public Proveedor(String nick, String nom, String apellido, String mail, Date nacimiento, String desc, String link, boolean hayl, String pass, byte[] imagen) {
-        super(nick, nom, apellido, mail, nacimiento, pass, imagen);
-    	this.descripcion = desc;
-    	this.link = link;
-    	this.hayLink = hayl;
-    	this.actividades = new HashMap<String, Actividad>();
-    }
 
     /* Getters */
 
@@ -90,7 +82,7 @@ public class Proveedor extends Usuario {
     		Actividad act = entry.getValue();
     		dAct.add(act.getDataAT());
     	}
-    	DataProveedor dProv = new DataProveedor(getNickname(), getNombre(), getApellido(), getMail(), getNacimiento(), descripcion, link, dAct, getPassword(), getImagen(), this.getSeguidores().keySet(), this.getSeguidos().keySet());
+    	DataProveedor dProv = new DataProveedor(getNickname(), getNombre(), getApellido(), getMail(), getNacimiento(), descripcion, link, dAct, getPassword(), this.getSeguidores().keySet(), this.getSeguidos().keySet());
     	return dProv;
 	}
 

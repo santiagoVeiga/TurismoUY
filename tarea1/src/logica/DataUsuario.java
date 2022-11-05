@@ -18,7 +18,7 @@ public class DataUsuario {
     private String mail;
     private Date nacimiento;
     private String password;
-    private byte[] imagen;
+    //private byte[] imagen;
     private Set<String> seguidores;
     private Set<String> seguidos;
 
@@ -29,31 +29,31 @@ public class DataUsuario {
         this.mail = mail;
         this.nacimiento = nacimiento;
         this.password = null;
-        this.imagen = null;
+        //this.imagen = null;
         this.seguidores = new HashSet<String>();
         this.seguidos = new HashSet<String>();
     }
     
-    public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento, String pass, byte[] imagen) {
+    public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento, String pass) { //, byte[] imagen) {
     	this.nick = nick;
     	this.nombre= nombre;
         this.apellido = apellido;
         this.mail = mail;
         this.nacimiento = nacimiento;
         password = pass;
-        this.imagen = imagen;
+        //this.imagen = imagen;
         this.seguidores = new HashSet<String>();
         this.seguidos = new HashSet<String>();
     }
     
-    public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento, String pass, byte[] imagen, Set<String> seguidores, Set<String> seguidos) {
+    public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento, String pass, Set<String> seguidores, Set<String> seguidos) { //byte[] imagen, Set<String> seguidores, Set<String> seguidos) {
     	this.nick = nick;
     	this.nombre= nombre;
         this.apellido = apellido;
         this.mail = mail;
         this.nacimiento = nacimiento;
         password = pass;
-        this.imagen = imagen;
+        //this.imagen = imagen;
         this.setSeguidores(seguidores);
         this.setSeguidos(seguidos);
     }
@@ -86,8 +86,8 @@ public class DataUsuario {
 		this.password = password;
 	}
 
-	public byte[] getImagen() {
-		return imagen;
+	public String getImagen() {
+		return "./src/data/Users" + nick + ".jpg";
 	}
 
 	public Set<String> getSeguidores() {
@@ -106,9 +106,9 @@ public class DataUsuario {
 		this.seguidores = seguidores;
 	}
 
-	public void setImagen(byte[] imagen) {
-		this.imagen = imagen;
-	}
+//	public void setImagen(byte[] imagen) {
+//		this.imagen = imagen;
+//	}
 
 	public void setNick(String nick) {
 		this.nick = nick;

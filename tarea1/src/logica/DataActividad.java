@@ -25,7 +25,7 @@ public class DataActividad extends DataBuscar {
 	private Set<String> paquetes;
 	private Set<String> categorias;
 	private estadoAct estado;
-	private byte[] imagen;
+	//private byte[] imagen;
 	
 	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2) {
 		this.nombre = nom;
@@ -37,10 +37,10 @@ public class DataActividad extends DataBuscar {
 		this.salidas = dataSalidas;
 		this.paquetes = paquetes;
 		this.estado = estado2;
-		this.setImagen(null);
+		//this.setImagen(null);
 	}
 	
-	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2, Set<String> categorias, String dep, byte[] imagen) {
+	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2, Set<String> categorias, String dep) { //, byte[] imagen) {
 		this.nombre = nom;
 		this.descripcion = des;
 		this.fechaAlta = fecha;
@@ -52,7 +52,7 @@ public class DataActividad extends DataBuscar {
 		this.setCategorias(categorias);
 		this.estado = estado2;
 		this.setDepartamento(dep);
-		this.setImagen(imagen);
+		// this.setImagen(imagen);
 	}
 	
 //Getters y Setters
@@ -89,13 +89,13 @@ public class DataActividad extends DataBuscar {
 		return departamento;
 	}
 
-	public byte[] getImagen() {
-		return imagen;
+	public String getImagen() {
+		return "./src/data/Actvs/" + this.getNombre() + ".jpg" ;
 	}
 
-	public void setImagen(byte[] imagen) {
-		this.imagen = imagen;
-	}
+//	public void setImagen(byte[] imagen) {
+//		this.imagen = imagen;
+//	}
 
 	public void setDepartamento(String departamento) {
 		this.departamento = departamento;

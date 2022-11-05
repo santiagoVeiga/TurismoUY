@@ -15,15 +15,15 @@ public class DataProveedor extends DataUsuario {
     	this.actividades = Actividades;
     }
     
-    public DataProveedor(String nick, String nombre, String apellido, String mail, Date nacimiento, String descripcion, String link, Set<DataActividad> Actividades, String pass, byte[] imagen) {
-        super(nick, nombre, apellido, mail, nacimiento, pass, imagen);
+    public DataProveedor(String nick, String nombre, String apellido, String mail, Date nacimiento, String descripcion, String link, Set<DataActividad> Actividades, String pass) { //, byte[] imagen) {
+        super(nick, nombre, apellido, mail, nacimiento, pass); //, imagen);
     	this.descripcion = descripcion;
     	this.link = link;
     	this.actividades = Actividades;
     }
     
-    public DataProveedor(String nick, String nombre, String apellido, String mail, Date nacimiento, String descripcion, String link, Set<DataActividad> Actividades, String pass, byte[] imagen, Set<String> seguidores, Set<String> seguidos) {
-        super(nick, nombre, apellido, mail, nacimiento, pass, imagen, seguidores, seguidos);
+    public DataProveedor(String nick, String nombre, String apellido, String mail, Date nacimiento, String descripcion, String link, Set<DataActividad> Actividades, String pass, Set<String> seguidores, Set<String> seguidos) {
+        super(nick, nombre, apellido, mail, nacimiento, pass, seguidores, seguidos);
     	this.descripcion = descripcion;
     	this.link = link;
     	this.actividades = Actividades;

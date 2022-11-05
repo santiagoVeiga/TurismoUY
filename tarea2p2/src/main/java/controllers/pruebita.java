@@ -16,6 +16,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
@@ -97,8 +98,10 @@ public class pruebita extends HttpServlet {
        servidor.PublicadorIControladorService ser = new servidor.PublicadorIControladorServiceLocator();
        try {
         servidor.PublicadorIControlador sere = ser.getPublicadorIControladorPort();
-        DataColeccionObject aaa = sere.listarPaquetes();
-        System.out.println(aaa.getArray().length);
+        Date fecha = new Date(2000,11,20);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(fecha);
+        sere.confirmarAltaProveedor("A", "A", "A", "A", cal, "A", "A", true);
     } catch (ServiceException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();

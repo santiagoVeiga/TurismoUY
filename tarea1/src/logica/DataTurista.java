@@ -19,8 +19,8 @@ public class DataTurista extends DataUsuario {
     	this.actFavoritas = new HashSet<String>();
     }
     
-    public DataTurista(String nick, String nom, String apellido, String mail, Date nacimiento, String nacionalidad, Set<DataSalida> Salidass, String pass, byte[] imagen, Set<String> paq, Set<DataCompraGeneral> inscripcionesSal, Set<DataCompraPaquete> comprasPaq) {
-        super(nick, nom, apellido, mail, nacimiento, pass, imagen);
+    public DataTurista(String nick, String nom, String apellido, String mail, Date nacimiento, String nacionalidad, Set<DataSalida> Salidass, String pass, Set<String> paq, Set<DataCompraGeneral> inscripcionesSal, Set<DataCompraPaquete> comprasPaq) {
+        super(nick, nom, apellido, mail, nacimiento, pass);
     	this.nacionalidad = nacionalidad;
     	this.salidas = Salidass;
     	this.paquetes = paq;
@@ -29,8 +29,8 @@ public class DataTurista extends DataUsuario {
     	this.actFavoritas = new HashSet<String>();
     }
     
-    public DataTurista(String nick, String nom, String apellido, String mail, Date nacimiento, String nacionalidad, Set<DataSalida> Salidass, String pass, byte[] imagen, Set<String> paq, Set<DataCompraGeneral> inscripcionesSal, Set<DataCompraPaquete> comprasPaq, Set<String> seguidores, Set<String> seguidos, Set<String> actFavs) {
-        super(nick, nom, apellido, mail, nacimiento, pass, imagen, seguidores, seguidos);
+    public DataTurista(String nick, String nom, String apellido, String mail, Date nacimiento, String nacionalidad, Set<DataSalida> Salidass, String pass, Set<String> paq, Set<DataCompraGeneral> inscripcionesSal, Set<DataCompraPaquete> comprasPaq, Set<String> seguidores, Set<String> seguidos, Set<String> actFavs) {
+        super(nick, nom, apellido, mail, nacimiento, pass, seguidores, seguidos);
     	this.nacionalidad = nacionalidad;
     	this.salidas = Salidass;
     	this.paquetes = paq;

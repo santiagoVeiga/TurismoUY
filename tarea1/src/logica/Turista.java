@@ -32,15 +32,6 @@ public class Turista extends Usuario{
     	this.favoritas = new HashMap<String, Actividad>();
     }
     
-    public Turista(String nick, String nom, String apellido, String mail, Date fechaN, String nac, String pass, byte[] imagen) {
-        super(nick, nom, apellido, mail, fechaN, pass, imagen);
-    	this.nacionalidad = nac;
-    	this.comprasG = new HashSet<CompraGeneral>();
-    	this.comprasP = new HashMap<String, CompraPaquete>();
-    	this.favoritas = new HashMap<String, Actividad>();
-    }
-    
-    
     public String getNacionalidad() {
         return nacionalidad;
     }
@@ -116,7 +107,7 @@ public class Turista extends Usuario{
     	}
     	for (CompraPaquete compPaq: comprasP.values())
     		dComPaq.add(compPaq.getDataCompraPaquete());
-    	DataTurista dTur = new DataTurista(getNickname(), getNombre(), getApellido(), getMail(), getNacimiento(), nacionalidad, dSal, getPassword(), getImagen(), comprasP.keySet(), dComGen, dComPaq, this.getSeguidores().keySet(), this.getSeguidos().keySet(), this.favoritas.keySet());
+    	DataTurista dTur = new DataTurista(getNickname(), getNombre(), getApellido(), getMail(), getNacimiento(), nacionalidad, dSal, getPassword(), comprasP.keySet(), dComGen, dComPaq, this.getSeguidores().keySet(), this.getSeguidos().keySet(), this.favoritas.keySet());
     	return dTur;
 	}
 

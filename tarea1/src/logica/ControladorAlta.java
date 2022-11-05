@@ -1,11 +1,16 @@
 package logica;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -312,7 +317,31 @@ public class ControladorAlta implements IControladorAlta {
 	  			e.printStackTrace();
 	  		}  
 	      }
-        paq = new Paquete(nombre, descripcion, descuento, fechaAlta, validez, imgBytes);
+	      FileOutputStream output = null;
+          InputStream inputStream = null;
+	       try {
+	    	File nuevaImg = new File("./src/data/Users/" + nombre + ".jpg");
+	    	nuevaImg.createNewFile();
+          output = new FileOutputStream(nuevaImg);
+          inputStream = new ByteArrayInputStream(imgBytes); 
+          int leido = 0;
+          leido = inputStream.read();
+          while (leido != -1) {
+              output.write(leido);
+              leido = inputStream.read();
+          }
+        } catch (IOException ioe) {
+          ioe.printStackTrace();
+        } finally {
+          try {
+              output.flush();
+              output.close();
+              inputStream.close();
+          } catch (IOException ex) {
+              ex.printStackTrace();
+          }
+      }
+        paq = new Paquete(nombre, descripcion, descuento, fechaAlta, validez);
         mPaq.addPaquete(paq);
 	}
 
@@ -354,7 +383,31 @@ public class ControladorAlta implements IControladorAlta {
   			  e.printStackTrace();
   		  }
 	    }
-        usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad, pass, imagen);
+            FileOutputStream output = null;
+            InputStream inputStream = null;
+	       try {
+	    	File nuevaImg = new File("./src/data/Users/" + nick + ".jpg");
+	    	nuevaImg.createNewFile();
+            output = new FileOutputStream(nuevaImg);
+            inputStream = new ByteArrayInputStream(imagen); 
+            int leido = 0;
+            leido = inputStream.read();
+            while (leido != -1) {
+                output.write(leido);
+                leido = inputStream.read();
+            }
+          } catch (IOException ioe) {
+            ioe.printStackTrace();
+          } finally {
+            try {
+                output.flush();
+                output.close();
+                inputStream.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad, pass);
         mUsu.addUsuario(usu);
 	}
 
@@ -396,7 +449,31 @@ public class ControladorAlta implements IControladorAlta {
     			  e.printStackTrace();
     		  }
   	    }
-        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink, pass, imagen);
+        FileOutputStream output = null;
+        InputStream inputStream = null;
+       try {
+    	File nuevaImg = new File("./src/data/Users/" + nick + ".jpg");
+    	nuevaImg.createNewFile();
+        output = new FileOutputStream(nuevaImg);
+        inputStream = new ByteArrayInputStream(imagen); 
+        int leido = 0;
+        leido = inputStream.read();
+        while (leido != -1) {
+            output.write(leido);
+            leido = inputStream.read();
+        }
+      } catch (IOException ioe) {
+        ioe.printStackTrace();
+      } finally {
+        try {
+            output.flush();
+            output.close();
+            inputStream.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink, pass);
         mUsu.addUsuario(usu);
 	}
 
@@ -503,7 +580,31 @@ public class ControladorAlta implements IControladorAlta {
     			  e.printStackTrace();
     		  }
   	    }
-        act = new Actividad(nom, desc, fecha, ciudad, costo, dur, insDep, categorias, imagen);
+            FileOutputStream output = null;
+            InputStream inputStream = null;
+	       try {
+	    	File nuevaImg = new File("./src/data/Actvs/" + nom + ".jpg");
+	    	nuevaImg.createNewFile();
+            output = new FileOutputStream(nuevaImg);
+            inputStream = new ByteArrayInputStream(imagen); 
+            int leido = 0;
+            leido = inputStream.read();
+            while (leido != -1) {
+                output.write(leido);
+                leido = inputStream.read();
+            }
+          } catch (IOException ioe) {
+            ioe.printStackTrace();
+          } finally {
+            try {
+                output.flush();
+                output.close();
+                inputStream.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        act = new Actividad(nom, desc, fecha, ciudad, costo, dur, insDep, categorias);
         for (Categoria catAux : categorias.values()) {
         	catAux.agregarAct(act);
         }
@@ -544,8 +645,32 @@ public class ControladorAlta implements IControladorAlta {
 		  		  } catch (IOException e) {
 		  			  e.printStackTrace();
 		  		  }
-			    }
-	        act.altaSalida(nombreSalida, fecha, hora, lugar, maxCantTuristas, fechaAlta, imagen);
+			 }
+	            FileOutputStream output = null;
+	            InputStream inputStream = null;
+		       try {
+		    	File nuevaImg = new File("./src/data/Salidas/" + nombreSalida + ".jpg");
+		    	nuevaImg.createNewFile();
+	            output = new FileOutputStream(nuevaImg);
+	            inputStream = new ByteArrayInputStream(imagen); 
+	            int leido = 0;
+	            leido = inputStream.read();
+	            while (leido != -1) {
+	                output.write(leido);
+	                leido = inputStream.read();
+	            }
+	          } catch (IOException ioe) {
+	            ioe.printStackTrace();
+	          } finally {
+	            try {
+	                output.flush();
+	                output.close();
+	                inputStream.close();
+	            } catch (IOException ex) {
+	                ex.printStackTrace();
+	            }
+	        }
+	        act.altaSalida(nombreSalida, fecha, hora, lugar, maxCantTuristas, fechaAlta);
 		} catch (ActividadNoExisteException e) {
 			e.printStackTrace();
 		}

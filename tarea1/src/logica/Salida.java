@@ -22,6 +22,7 @@ public class Salida {
 		setFechaAlta(fechaAlta);
 		setCant(cant);
 		setCantRestante(cant);
+		setImagen(null);
 	};
 	
 	public Salida(String nombreSalida, String lugar2, Date hora2, Date fecha2, Date fechaAlta2, int maxCantTuristas,
@@ -44,7 +45,7 @@ public class Salida {
 	}
 	
 	public DataSalida getDataST(){
-		return new DataSalida(nombre, lugar, hora, fecha, fechaAlta, cant, imagen);
+		return new DataSalida(nombre, lugar, hora, fecha, fechaAlta, cant); //, imagen);
 	}
 
 	public String getNombre() {
