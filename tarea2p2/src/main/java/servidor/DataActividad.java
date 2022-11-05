@@ -24,8 +24,6 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
 
     private java.util.Calendar fechaAlta;
 
-    private byte[] imagen;
-
     private java.lang.String nombre;
 
     private java.lang.String[] paquetes;
@@ -44,7 +42,6 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
            int duracion,
            servidor.EstadoAct estado,
            java.util.Calendar fechaAlta,
-           byte[] imagen,
            java.lang.String nombre,
            java.lang.String[] paquetes,
            servidor.DataSalida[] salidas) {
@@ -56,7 +53,6 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         this.duracion = duracion;
         this.estado = estado;
         this.fechaAlta = fechaAlta;
-        this.imagen = imagen;
         this.nombre = nombre;
         this.paquetes = paquetes;
         this.salidas = salidas;
@@ -232,26 +228,6 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
 
 
     /**
-     * Gets the imagen value for this DataActividad.
-     * 
-     * @return imagen
-     */
-    public byte[] getImagen() {
-        return imagen;
-    }
-
-
-    /**
-     * Sets the imagen value for this DataActividad.
-     * 
-     * @param imagen
-     */
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
-    }
-
-
-    /**
      * Gets the nombre value for this DataActividad.
      * 
      * @return nombre
@@ -358,9 +334,6 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
             ((this.fechaAlta==null && other.getFechaAlta()==null) || 
              (this.fechaAlta!=null &&
               this.fechaAlta.equals(other.getFechaAlta()))) &&
-            ((this.imagen==null && other.getImagen()==null) || 
-             (this.imagen!=null &&
-              java.util.Arrays.equals(this.imagen, other.getImagen()))) &&
             ((this.nombre==null && other.getNombre()==null) || 
              (this.nombre!=null &&
               this.nombre.equals(other.getNombre()))) &&
@@ -408,17 +381,6 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         }
         if (getFechaAlta() != null) {
             _hashCode += getFechaAlta().hashCode();
-        }
-        if (getImagen() != null) {
-            for (int i=0;
-                 i<java.lang.reflect.Array.getLength(getImagen());
-                 i++) {
-                java.lang.Object obj = java.lang.reflect.Array.get(getImagen(), i);
-                if (obj != null &&
-                    !obj.getClass().isArray()) {
-                    _hashCode += obj.hashCode();
-                }
-            }
         }
         if (getNombre() != null) {
             _hashCode += getNombre().hashCode();
@@ -507,13 +469,6 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         elemField.setFieldName("fechaAlta");
         elemField.setXmlName(new javax.xml.namespace.QName("", "fechaAlta"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
-        elemField.setMinOccurs(0);
-        elemField.setNillable(false);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("imagen");
-        elemField.setXmlName(new javax.xml.namespace.QName("", "imagen"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "base64Binary"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

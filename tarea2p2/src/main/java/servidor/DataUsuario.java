@@ -10,8 +10,6 @@ package servidor;
 public class DataUsuario  implements java.io.Serializable {
     private java.lang.String apellido;
 
-    private byte[] imagen;
-
     private java.lang.String mail;
 
     private java.util.Calendar nacimiento;
@@ -31,7 +29,6 @@ public class DataUsuario  implements java.io.Serializable {
 
     public DataUsuario(
            java.lang.String apellido,
-           byte[] imagen,
            java.lang.String mail,
            java.util.Calendar nacimiento,
            java.lang.String nick,
@@ -40,7 +37,6 @@ public class DataUsuario  implements java.io.Serializable {
            java.lang.String[] seguidores,
            java.lang.String[] seguidos) {
            this.apellido = apellido;
-           this.imagen = imagen;
            this.mail = mail;
            this.nacimiento = nacimiento;
            this.nick = nick;
@@ -68,26 +64,6 @@ public class DataUsuario  implements java.io.Serializable {
      */
     public void setApellido(java.lang.String apellido) {
         this.apellido = apellido;
-    }
-
-
-    /**
-     * Gets the imagen value for this DataUsuario.
-     * 
-     * @return imagen
-     */
-    public byte[] getImagen() {
-        return imagen;
-    }
-
-
-    /**
-     * Sets the imagen value for this DataUsuario.
-     * 
-     * @param imagen
-     */
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
     }
 
 
@@ -261,9 +237,6 @@ public class DataUsuario  implements java.io.Serializable {
             ((this.apellido==null && other.getApellido()==null) || 
              (this.apellido!=null &&
               this.apellido.equals(other.getApellido()))) &&
-            ((this.imagen==null && other.getImagen()==null) || 
-             (this.imagen!=null &&
-              java.util.Arrays.equals(this.imagen, other.getImagen()))) &&
             ((this.mail==null && other.getMail()==null) || 
              (this.mail!=null &&
               this.mail.equals(other.getMail()))) &&
@@ -298,17 +271,6 @@ public class DataUsuario  implements java.io.Serializable {
         int _hashCode = 1;
         if (getApellido() != null) {
             _hashCode += getApellido().hashCode();
-        }
-        if (getImagen() != null) {
-            for (int i=0;
-                 i<java.lang.reflect.Array.getLength(getImagen());
-                 i++) {
-                java.lang.Object obj = java.lang.reflect.Array.get(getImagen(), i);
-                if (obj != null &&
-                    !obj.getClass().isArray()) {
-                    _hashCode += obj.hashCode();
-                }
-            }
         }
         if (getMail() != null) {
             _hashCode += getMail().hashCode();
@@ -361,13 +323,6 @@ public class DataUsuario  implements java.io.Serializable {
         elemField.setFieldName("apellido");
         elemField.setXmlName(new javax.xml.namespace.QName("", "apellido"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
-        elemField.setMinOccurs(0);
-        elemField.setNillable(false);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("imagen");
-        elemField.setXmlName(new javax.xml.namespace.QName("", "imagen"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "base64Binary"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

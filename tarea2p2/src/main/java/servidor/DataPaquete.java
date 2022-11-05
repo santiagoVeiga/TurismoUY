@@ -16,8 +16,6 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
 
     private java.util.Calendar fechaAlta;
 
-    private byte[] imagen;
-
     private java.lang.String nombre;
 
     private int validez;
@@ -30,14 +28,12 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
            int descuento,
            servidor.DataActividad[] dtAct,
            java.util.Calendar fechaAlta,
-           byte[] imagen,
            java.lang.String nombre,
            int validez) {
         this.descripcion = descripcion;
         this.descuento = descuento;
         this.dtAct = dtAct;
         this.fechaAlta = fechaAlta;
-        this.imagen = imagen;
         this.nombre = nombre;
         this.validez = validez;
     }
@@ -132,26 +128,6 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
 
 
     /**
-     * Gets the imagen value for this DataPaquete.
-     * 
-     * @return imagen
-     */
-    public byte[] getImagen() {
-        return imagen;
-    }
-
-
-    /**
-     * Sets the imagen value for this DataPaquete.
-     * 
-     * @param imagen
-     */
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
-    }
-
-
-    /**
      * Gets the nombre value for this DataPaquete.
      * 
      * @return nombre
@@ -212,9 +188,6 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
             ((this.fechaAlta==null && other.getFechaAlta()==null) || 
              (this.fechaAlta!=null &&
               this.fechaAlta.equals(other.getFechaAlta()))) &&
-            ((this.imagen==null && other.getImagen()==null) || 
-             (this.imagen!=null &&
-              java.util.Arrays.equals(this.imagen, other.getImagen()))) &&
             ((this.nombre==null && other.getNombre()==null) || 
              (this.nombre!=null &&
               this.nombre.equals(other.getNombre()))) &&
@@ -247,17 +220,6 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
         }
         if (getFechaAlta() != null) {
             _hashCode += getFechaAlta().hashCode();
-        }
-        if (getImagen() != null) {
-            for (int i=0;
-                 i<java.lang.reflect.Array.getLength(getImagen());
-                 i++) {
-                java.lang.Object obj = java.lang.reflect.Array.get(getImagen(), i);
-                if (obj != null &&
-                    !obj.getClass().isArray()) {
-                    _hashCode += obj.hashCode();
-                }
-            }
         }
         if (getNombre() != null) {
             _hashCode += getNombre().hashCode();
@@ -298,13 +260,6 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
         elemField.setFieldName("fechaAlta");
         elemField.setXmlName(new javax.xml.namespace.QName("", "fechaAlta"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
-        elemField.setMinOccurs(0);
-        elemField.setNillable(false);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("imagen");
-        elemField.setXmlName(new javax.xml.namespace.QName("", "imagen"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "base64Binary"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

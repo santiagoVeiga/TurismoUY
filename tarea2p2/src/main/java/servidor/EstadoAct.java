@@ -20,9 +20,11 @@ public class EstadoAct implements java.io.Serializable {
     public static final java.lang.String _agregada = "agregada";
     public static final java.lang.String _confirmada = "confirmada";
     public static final java.lang.String _rechazada = "rechazada";
+    public static final java.lang.String _finalizada = "finalizada";
     public static final EstadoAct agregada = new EstadoAct(_agregada);
     public static final EstadoAct confirmada = new EstadoAct(_confirmada);
     public static final EstadoAct rechazada = new EstadoAct(_rechazada);
+    public static final EstadoAct finalizada = new EstadoAct(_finalizada);
     public java.lang.String getValue() { return _value_;}
     public static EstadoAct fromValue(java.lang.String value)
           throws java.lang.IllegalArgumentException {
