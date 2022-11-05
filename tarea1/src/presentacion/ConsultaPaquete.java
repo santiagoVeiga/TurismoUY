@@ -336,7 +336,7 @@ public void cargarActividades(){
 
 public void cargarCategorias() {
 	DefaultComboBoxModel<String> model;
-	nombresCat = paqElegido.getCategorias().toArray(new String[0]);
+	nombresCat = paqElegido.getCategorias();
 	categoriasL.setVisible(true);
 	jcbCategorias.setVisible(true);
 	model = new DefaultComboBoxModel<String>(nombresCat);

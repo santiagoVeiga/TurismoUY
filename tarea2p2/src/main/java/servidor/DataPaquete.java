@@ -8,6 +8,8 @@
 package servidor;
 
 public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serializable {
+    private java.lang.String[] categorias;
+
     private java.lang.String descripcion;
 
     private int descuento;
@@ -15,6 +17,8 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
     private servidor.DataActividad[] dtAct;
 
     private java.util.Calendar fechaAlta;
+
+    private java.lang.String imagen;
 
     private java.lang.String nombre;
 
@@ -24,18 +28,50 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
     }
 
     public DataPaquete(
+           java.lang.String[] categorias,
            java.lang.String descripcion,
            int descuento,
            servidor.DataActividad[] dtAct,
            java.util.Calendar fechaAlta,
+           java.lang.String imagen,
            java.lang.String nombre,
            int validez) {
+        this.categorias = categorias;
         this.descripcion = descripcion;
         this.descuento = descuento;
         this.dtAct = dtAct;
         this.fechaAlta = fechaAlta;
+        this.imagen = imagen;
         this.nombre = nombre;
         this.validez = validez;
+    }
+
+
+    /**
+     * Gets the categorias value for this DataPaquete.
+     * 
+     * @return categorias
+     */
+    public java.lang.String[] getCategorias() {
+        return categorias;
+    }
+
+
+    /**
+     * Sets the categorias value for this DataPaquete.
+     * 
+     * @param categorias
+     */
+    public void setCategorias(java.lang.String[] categorias) {
+        this.categorias = categorias;
+    }
+
+    public java.lang.String getCategorias(int i) {
+        return this.categorias[i];
+    }
+
+    public void setCategorias(int i, java.lang.String _value) {
+        this.categorias[i] = _value;
     }
 
 
@@ -128,6 +164,26 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
 
 
     /**
+     * Gets the imagen value for this DataPaquete.
+     * 
+     * @return imagen
+     */
+    public java.lang.String getImagen() {
+        return imagen;
+    }
+
+
+    /**
+     * Sets the imagen value for this DataPaquete.
+     * 
+     * @param imagen
+     */
+    public void setImagen(java.lang.String imagen) {
+        this.imagen = imagen;
+    }
+
+
+    /**
      * Gets the nombre value for this DataPaquete.
      * 
      * @return nombre
@@ -178,6 +234,9 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
         __equalsCalc = obj;
         boolean _equals;
         _equals = super.equals(obj) && 
+            ((this.categorias==null && other.getCategorias()==null) || 
+             (this.categorias!=null &&
+              java.util.Arrays.equals(this.categorias, other.getCategorias()))) &&
             ((this.descripcion==null && other.getDescripcion()==null) || 
              (this.descripcion!=null &&
               this.descripcion.equals(other.getDescripcion()))) &&
@@ -188,6 +247,9 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
             ((this.fechaAlta==null && other.getFechaAlta()==null) || 
              (this.fechaAlta!=null &&
               this.fechaAlta.equals(other.getFechaAlta()))) &&
+            ((this.imagen==null && other.getImagen()==null) || 
+             (this.imagen!=null &&
+              this.imagen.equals(other.getImagen()))) &&
             ((this.nombre==null && other.getNombre()==null) || 
              (this.nombre!=null &&
               this.nombre.equals(other.getNombre()))) &&
@@ -203,6 +265,17 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
         }
         __hashCodeCalc = true;
         int _hashCode = super.hashCode();
+        if (getCategorias() != null) {
+            for (int i=0;
+                 i<java.lang.reflect.Array.getLength(getCategorias());
+                 i++) {
+                java.lang.Object obj = java.lang.reflect.Array.get(getCategorias(), i);
+                if (obj != null &&
+                    !obj.getClass().isArray()) {
+                    _hashCode += obj.hashCode();
+                }
+            }
+        }
         if (getDescripcion() != null) {
             _hashCode += getDescripcion().hashCode();
         }
@@ -221,6 +294,9 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
         if (getFechaAlta() != null) {
             _hashCode += getFechaAlta().hashCode();
         }
+        if (getImagen() != null) {
+            _hashCode += getImagen().hashCode();
+        }
         if (getNombre() != null) {
             _hashCode += getNombre().hashCode();
         }
@@ -236,6 +312,14 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
     static {
         typeDesc.setXmlType(new javax.xml.namespace.QName("http://servidor/", "dataPaquete"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("categorias");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "categorias"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(true);
+        elemField.setMaxOccursUnbounded(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("descripcion");
         elemField.setXmlName(new javax.xml.namespace.QName("", "descripcion"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
@@ -260,6 +344,13 @@ public class DataPaquete  extends servidor.DataBuscar  implements java.io.Serial
         elemField.setFieldName("fechaAlta");
         elemField.setXmlName(new javax.xml.namespace.QName("", "fechaAlta"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("imagen");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "imagen"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

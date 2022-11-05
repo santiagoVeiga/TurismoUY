@@ -19,6 +19,7 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
 
     public DataTurista(
            java.lang.String apellido,
+           java.lang.String imagen,
            java.lang.String mail,
            java.util.Calendar nacimiento,
            java.lang.String nick,
@@ -31,6 +32,7 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
            servidor.DataCompraGeneral[] inscripcionesSal) {
         super(
             apellido,
+            imagen,
             mail,
             nacimiento,
             nick,

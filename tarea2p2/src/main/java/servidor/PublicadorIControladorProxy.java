@@ -92,22 +92,10 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     return publicadorIControlador.estadoActNull();
   }
   
-  public void confirmarAltaTuristaPass(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException{
-    if (publicadorIControlador == null)
-      _initPublicadorIControladorProxy();
-    publicadorIControlador.confirmarAltaTuristaPass(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
-  }
-  
   public void confirmarAltaTuristaCompleto(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, byte[] arg7) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     publicadorIControlador.confirmarAltaTuristaCompleto(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
-  }
-  
-  public void confirmarAltaProveedorPass(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, boolean arg7, java.lang.String arg8) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException{
-    if (publicadorIControlador == null)
-      _initPublicadorIControladorProxy();
-    publicadorIControlador.confirmarAltaProveedorPass(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
   }
   
   public void confirmarAltaProveedorCompleto(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, boolean arg7, java.lang.String arg8, byte[] arg9) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException{
@@ -260,16 +248,16 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.confirmarAltaSalida(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
   }
   
-  public void confirmarAltaTurista(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException{
+  public void confirmarAltaTurista(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
-    publicadorIControlador.confirmarAltaTurista(arg0, arg1, arg2, arg3, arg4, arg5);
+    publicadorIControlador.confirmarAltaTurista(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
   }
   
-  public void confirmarAltaProveedor(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, boolean arg7) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException{
+  public void confirmarAltaProveedor(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, boolean arg7, java.lang.String arg8) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
-    publicadorIControlador.confirmarAltaProveedor(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+    publicadorIControlador.confirmarAltaProveedor(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
   }
   
   public servidor.DataColeccionObject listarPaquetes() throws java.rmi.RemoteException{

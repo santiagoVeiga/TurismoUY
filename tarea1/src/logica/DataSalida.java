@@ -15,21 +15,21 @@ public class DataSalida {
 	private Date fecha;
 	private Date fechaAlta;
 	private int cant;
-	//private byte[] imagen;
+	private String imagen;
 	
 	public DataSalida(String nom, String lug, Date hor, Date fech, Date fechAlta, int can) {
 		nombre = nom;
 		lugar = lug;
-		//imagen = null;
+		this.setImagen(".src/data/Salidas" + this.getNombre() + ".jpg");
 		hora = hor;
 		fecha = fech;
 		fechaAlta = fechAlta;
 		cant = can;
 	}
 
-	
+
 	public String getImagen(){
-		return ".src/data/Salidas" + this.getNombre() + ".jpg";
+		return this.imagen;
 	}
 	
 	public String getNombre(){
@@ -82,5 +82,9 @@ public class DataSalida {
 
 	public void setCant(int cant) {
 		this.cant = cant;
+	}
+	
+	public void setImagen(String string) {
+		this.imagen = string;
 	}
 }

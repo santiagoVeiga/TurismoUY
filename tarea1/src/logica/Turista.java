@@ -15,14 +15,6 @@ public class Turista extends Usuario{
     private Set<CompraGeneral> comprasG;
     private Map<String, CompraPaquete> comprasP;
     private Map<String, Actividad> favoritas;
-
-    public Turista(String nick, String nom, String apellido, String mail, Date fechaN, String nac) {
-        super(nick, nom, apellido, mail, fechaN);
-    	this.nacionalidad = nac;
-    	this.comprasG = new HashSet<CompraGeneral>();
-    	this.comprasP = new HashMap<String, CompraPaquete>();
-    	this.favoritas = new HashMap<String, Actividad>();
-    }
     
     public Turista(String nick, String nom, String apellido, String mail, Date fechaN, String nac, String pass) {
         super(nick, nom, apellido, mail, fechaN, pass);

@@ -18,18 +18,18 @@ public class DataUsuario {
     private String mail;
     private Date nacimiento;
     private String password;
-    //private byte[] imagen;
+    private String imagen;
     private Set<String> seguidores;
     private Set<String> seguidos;
-
-    public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento) {
+    
+    public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento) { 
     	this.nick = nick;
     	this.nombre= nombre;
         this.apellido = apellido;
         this.mail = mail;
         this.nacimiento = nacimiento;
         this.password = null;
-        //this.imagen = null;
+        this.setImagen("./src/data/Users" + this.getNick() + ".jpg");
         this.seguidores = new HashSet<String>();
         this.seguidos = new HashSet<String>();
     }
@@ -40,8 +40,8 @@ public class DataUsuario {
         this.apellido = apellido;
         this.mail = mail;
         this.nacimiento = nacimiento;
-        password = pass;
-        //this.imagen = imagen;
+        this.password = pass;
+        this.setImagen("./src/data/Users" + this.getNick() + ".jpg");
         this.seguidores = new HashSet<String>();
         this.seguidos = new HashSet<String>();
     }
@@ -53,7 +53,7 @@ public class DataUsuario {
         this.mail = mail;
         this.nacimiento = nacimiento;
         password = pass;
-        //this.imagen = imagen;
+        this.setImagen("./src/data/Users" + this.getNick() + ".jpg");
         this.setSeguidores(seguidores);
         this.setSeguidos(seguidos);
     }
@@ -87,7 +87,7 @@ public class DataUsuario {
 	}
 
 	public String getImagen() {
-		return "./src/data/Users" + nick + ".jpg";
+		return this.imagen;
 	}
 
 	public Set<String> getSeguidores() {
@@ -106,9 +106,9 @@ public class DataUsuario {
 		this.seguidores = seguidores;
 	}
 
-//	public void setImagen(byte[] imagen) {
-//		this.imagen = imagen;
-//	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 
 	public void setNick(String nick) {
 		this.nick = nick;

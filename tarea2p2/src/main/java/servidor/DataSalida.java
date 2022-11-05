@@ -16,6 +16,8 @@ public class DataSalida  implements java.io.Serializable {
 
     private java.util.Calendar hora;
 
+    private java.lang.String imagen;
+
     private java.lang.String lugar;
 
     private java.lang.String nombre;
@@ -28,12 +30,14 @@ public class DataSalida  implements java.io.Serializable {
            java.util.Calendar fecha,
            java.util.Calendar fechaAlta,
            java.util.Calendar hora,
+           java.lang.String imagen,
            java.lang.String lugar,
            java.lang.String nombre) {
            this.cant = cant;
            this.fecha = fecha;
            this.fechaAlta = fechaAlta;
            this.hora = hora;
+           this.imagen = imagen;
            this.lugar = lugar;
            this.nombre = nombre;
     }
@@ -120,6 +124,26 @@ public class DataSalida  implements java.io.Serializable {
 
 
     /**
+     * Gets the imagen value for this DataSalida.
+     * 
+     * @return imagen
+     */
+    public java.lang.String getImagen() {
+        return imagen;
+    }
+
+
+    /**
+     * Sets the imagen value for this DataSalida.
+     * 
+     * @param imagen
+     */
+    public void setImagen(java.lang.String imagen) {
+        this.imagen = imagen;
+    }
+
+
+    /**
      * Gets the lugar value for this DataSalida.
      * 
      * @return lugar
@@ -180,6 +204,9 @@ public class DataSalida  implements java.io.Serializable {
             ((this.hora==null && other.getHora()==null) || 
              (this.hora!=null &&
               this.hora.equals(other.getHora()))) &&
+            ((this.imagen==null && other.getImagen()==null) || 
+             (this.imagen!=null &&
+              this.imagen.equals(other.getImagen()))) &&
             ((this.lugar==null && other.getLugar()==null) || 
              (this.lugar!=null &&
               this.lugar.equals(other.getLugar()))) &&
@@ -206,6 +233,9 @@ public class DataSalida  implements java.io.Serializable {
         }
         if (getHora() != null) {
             _hashCode += getHora().hashCode();
+        }
+        if (getImagen() != null) {
+            _hashCode += getImagen().hashCode();
         }
         if (getLugar() != null) {
             _hashCode += getLugar().hashCode();
@@ -247,6 +277,13 @@ public class DataSalida  implements java.io.Serializable {
         elemField.setFieldName("hora");
         elemField.setXmlName(new javax.xml.namespace.QName("", "hora"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("imagen");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "imagen"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

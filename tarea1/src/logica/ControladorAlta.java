@@ -73,30 +73,6 @@ public class ControladorAlta implements IControladorAlta {
 
     public ControladorAlta(){
     }
-
-    public void confirmarAltaTurista(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad) throws UsuarioRepetidoException {
-    	ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
-        Usuario usu = manUsu.obtenerUsuarioNick(nick);
-        if (usu != null)
-            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
-        usu = manUsu.obtenerUsuarioMail(mail);
-        if (usu != null)
-            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-        usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad);
-        manUsu.addUsuario(usu);
-    }
-    
-    public void confirmarAltaProveedor(String nick, String nom , String apellido, String mail , Date nacimiento , String descripcion, String link, boolean hayLink) throws UsuarioRepetidoException {
-    	ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
-        Usuario usu = manUsu.obtenerUsuarioNick(nick);
-        if (usu != null)
-            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname:  " + nick);
-        usu = manUsu.obtenerUsuarioMail(mail);
-        if (usu != null)
-            throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink);
-        manUsu.addUsuario(usu);
-    }
     
     public void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException {
     	ManejadorActividad mAct = ManejadorActividad.getInstance();

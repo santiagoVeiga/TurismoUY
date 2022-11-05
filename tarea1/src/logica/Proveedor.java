@@ -11,14 +11,6 @@ public class Proveedor extends Usuario {
     private String link;
     private boolean hayLink;
     private Map<String, Actividad> actividades;
-
-    public Proveedor(String nick, String nom, String apellido, String mail, Date nacimiento, String desc, String link, boolean hayl) {
-        super(nick, nom, apellido, mail, nacimiento);
-    	this.descripcion = desc;
-    	this.link = link;
-    	this.hayLink = hayl;
-    	this.actividades = new HashMap<String, Actividad>();
-    }
     
     public Proveedor(String nick, String nom, String apellido, String mail, Date nacimiento, String desc, String link, boolean hayl, String pass) {
         super(nick, nom, apellido, mail, nacimiento, pass);

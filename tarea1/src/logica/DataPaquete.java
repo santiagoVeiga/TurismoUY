@@ -11,8 +11,9 @@ public class DataPaquete extends DataBuscar {
 	private String descripcion;
 	private Date fechaAlta;
 	private int validez;
-	//private byte[] imagen;
+	private String imagen;
 	private DataActividad[] dtAct;
+	private String[] categorias;
 
 	public DataPaquete(String nom, String desc, int descuento, Date fecha, int val, DataActividad[] dtAct){
 		this.setNombre(nom);
@@ -21,7 +22,8 @@ public class DataPaquete extends DataBuscar {
 		this.setFechaAlta(fecha);
 		this.setValidez(val);
 		this.setDtAct(dtAct);
-		//this.setImagen(null);
+		this.setImagen("src/data/Actvs/" + this.getNombre() + ".jpg");
+		this.setCategorias(this.obtenerCategorias().toArray(new String[0]));
 	}
 
 	public String getNombre() {
@@ -73,14 +75,22 @@ public class DataPaquete extends DataBuscar {
 	}
 
 	public String getImagen() {
-		return ".src/data/Paqs" + this.getNombre() + ".jpg";
+		return this.imagen;
 	}
 
-//	public void setImagen(byte[] imagen) {
-//		this.imagen = imagen;
-//	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 	
-	public Set<String> getCategorias(){
+	public String[] getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(String[] categorias) {
+		this.categorias = categorias;
+	}
+
+	public Set<String> obtenerCategorias(){
 		Set<String> resultado = new HashSet<String>();
 		for (DataActividad itAct: dtAct) {
 			resultado.addAll(itAct.getCategorias());

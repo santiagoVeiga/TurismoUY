@@ -13,6 +13,7 @@ public class DataProveedor  extends servidor.DataUsuario  implements java.io.Ser
 
     public DataProveedor(
            java.lang.String apellido,
+           java.lang.String imagen,
            java.lang.String mail,
            java.util.Calendar nacimiento,
            java.lang.String nick,
@@ -22,6 +23,7 @@ public class DataProveedor  extends servidor.DataUsuario  implements java.io.Ser
            java.lang.String[] seguidos) {
         super(
             apellido,
+            imagen,
             mail,
             nacimiento,
             nick,
