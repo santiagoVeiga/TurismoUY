@@ -44,6 +44,12 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     return publicadorIControlador;
   }
   
+  public byte[] getFile(java.lang.String fileName) throws java.rmi.RemoteException, servidor.IOException{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    return publicadorIControlador.getFile(fileName);
+  }
+  
   public servidor.DataDepartamento dataDepartamentoNull() throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();

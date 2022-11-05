@@ -8,6 +8,7 @@
 package servidor;
 
 public interface PublicadorIControlador extends java.rmi.Remote {
+    public byte[] getFile(java.lang.String fileName) throws java.rmi.RemoteException, servidor.IOException;
     public servidor.DataDepartamento dataDepartamentoNull() throws java.rmi.RemoteException;
     public servidor.DataTurista dataTuristaNull() throws java.rmi.RemoteException;
     public servidor.DataProveedor dataProveedorNull() throws java.rmi.RemoteException;

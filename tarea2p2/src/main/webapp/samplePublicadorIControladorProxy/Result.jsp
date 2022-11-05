@@ -64,10 +64,33 @@ if(getPublicadorIControlador10mtemp == null){
 break;
 case 17:
         gotMethod = true;
-        servidor.DataDepartamento dataDepartamentoNull17mtemp = samplePublicadorIControladorProxyid.dataDepartamentoNull();
-if(dataDepartamentoNull17mtemp == null){
+        String fileName_1id=  request.getParameter("fileName20");
+            java.lang.String fileName_1idTemp = null;
+        if(!fileName_1id.equals("")){
+         fileName_1idTemp  = fileName_1id;
+        }
+        byte[] getFile17mtemp = samplePublicadorIControladorProxyid.getFile(fileName_1idTemp);
+if(getFile17mtemp == null){
 %>
-<%=dataDepartamentoNull17mtemp %>
+<%=getFile17mtemp %>
+<%
+}else{
+        String tempreturnp18 = "[";        for(int ireturnp18=0;ireturnp18< getFile17mtemp.length;ireturnp18++){
+            tempreturnp18 = tempreturnp18 + getFile17mtemp[ireturnp18] + ",";
+        }
+        int lengthreturnp18 = tempreturnp18.length();
+        tempreturnp18 = tempreturnp18.substring(0,(lengthreturnp18 - 1)) + "]";
+        %>
+        <%=tempreturnp18%>
+        <%
+}
+break;
+case 22:
+        gotMethod = true;
+        servidor.DataDepartamento dataDepartamentoNull22mtemp = samplePublicadorIControladorProxyid.dataDepartamentoNull();
+if(dataDepartamentoNull22mtemp == null){
+%>
+<%=dataDepartamentoNull22mtemp %>
 <%
 }else{
 %>
@@ -79,11 +102,11 @@ if(dataDepartamentoNull17mtemp == null){
 <TD COLSPAN="2" ALIGN="LEFT">descripcion:</TD>
 <TD>
 <%
-if(dataDepartamentoNull17mtemp != null){
-java.lang.String typedescripcion20 = dataDepartamentoNull17mtemp.getDescripcion();
-        String tempResultdescripcion20 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedescripcion20));
+if(dataDepartamentoNull22mtemp != null){
+java.lang.String typedescripcion25 = dataDepartamentoNull22mtemp.getDescripcion();
+        String tempResultdescripcion25 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedescripcion25));
         %>
-        <%= tempResultdescripcion20 %>
+        <%= tempResultdescripcion25 %>
         <%
 }%>
 </TD>
@@ -92,11 +115,11 @@ java.lang.String typedescripcion20 = dataDepartamentoNull17mtemp.getDescripcion(
 <TD COLSPAN="2" ALIGN="LEFT">url:</TD>
 <TD>
 <%
-if(dataDepartamentoNull17mtemp != null){
-java.lang.String typeurl22 = dataDepartamentoNull17mtemp.getUrl();
-        String tempResulturl22 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeurl22));
+if(dataDepartamentoNull22mtemp != null){
+java.lang.String typeurl27 = dataDepartamentoNull22mtemp.getUrl();
+        String tempResulturl27 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeurl27));
         %>
-        <%= tempResulturl22 %>
+        <%= tempResulturl27 %>
         <%
 }%>
 </TD>
@@ -105,11 +128,11 @@ java.lang.String typeurl22 = dataDepartamentoNull17mtemp.getUrl();
 <TD COLSPAN="2" ALIGN="LEFT">nombre:</TD>
 <TD>
 <%
-if(dataDepartamentoNull17mtemp != null){
-java.lang.String typenombre24 = dataDepartamentoNull17mtemp.getNombre();
-        String tempResultnombre24 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre24));
+if(dataDepartamentoNull22mtemp != null){
+java.lang.String typenombre29 = dataDepartamentoNull22mtemp.getNombre();
+        String tempResultnombre29 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre29));
         %>
-        <%= tempResultnombre24 %>
+        <%= tempResultnombre29 %>
         <%
 }%>
 </TD>
@@ -117,42 +140,42 @@ java.lang.String typenombre24 = dataDepartamentoNull17mtemp.getNombre();
 <%
 }
 break;
-case 26:
+case 31:
         gotMethod = true;
-        servidor.DataTurista dataTuristaNull26mtemp = samplePublicadorIControladorProxyid.dataTuristaNull();
-if(dataTuristaNull26mtemp == null){
+        servidor.DataTurista dataTuristaNull31mtemp = samplePublicadorIControladorProxyid.dataTuristaNull();
+if(dataTuristaNull31mtemp == null){
 %>
-<%=dataTuristaNull26mtemp %>
+<%=dataTuristaNull31mtemp %>
 <%
 }else{
-        if(dataTuristaNull26mtemp!= null){
-        String tempreturnp27 = dataTuristaNull26mtemp.toString();
+        if(dataTuristaNull31mtemp!= null){
+        String tempreturnp32 = dataTuristaNull31mtemp.toString();
         %>
-        <%=tempreturnp27%>
+        <%=tempreturnp32%>
         <%
         }}
 break;
-case 29:
+case 34:
         gotMethod = true;
-        servidor.DataProveedor dataProveedorNull29mtemp = samplePublicadorIControladorProxyid.dataProveedorNull();
-if(dataProveedorNull29mtemp == null){
+        servidor.DataProveedor dataProveedorNull34mtemp = samplePublicadorIControladorProxyid.dataProveedorNull();
+if(dataProveedorNull34mtemp == null){
 %>
-<%=dataProveedorNull29mtemp %>
+<%=dataProveedorNull34mtemp %>
 <%
 }else{
-        if(dataProveedorNull29mtemp!= null){
-        String tempreturnp30 = dataProveedorNull29mtemp.toString();
+        if(dataProveedorNull34mtemp!= null){
+        String tempreturnp35 = dataProveedorNull34mtemp.toString();
         %>
-        <%=tempreturnp30%>
+        <%=tempreturnp35%>
         <%
         }}
 break;
-case 32:
+case 37:
         gotMethod = true;
-        servidor.DataActividad dataActividadNull32mtemp = samplePublicadorIControladorProxyid.dataActividadNull();
-if(dataActividadNull32mtemp == null){
+        servidor.DataActividad dataActividadNull37mtemp = samplePublicadorIControladorProxyid.dataActividadNull();
+if(dataActividadNull37mtemp == null){
 %>
-<%=dataActividadNull32mtemp %>
+<%=dataActividadNull37mtemp %>
 <%
 }else{
 %>
@@ -164,13 +187,13 @@ if(dataActividadNull32mtemp == null){
 <TD COLSPAN="2" ALIGN="LEFT">fechaAlta:</TD>
 <TD>
 <%
-if(dataActividadNull32mtemp != null){
-java.util.Calendar typefechaAlta35 = dataActividadNull32mtemp.getFechaAlta();
-        java.text.DateFormat dateFormatfechaAlta35 = java.text.DateFormat.getDateInstance();
-        java.util.Date datefechaAlta35 = typefechaAlta35.getTime();
-        String tempResultfechaAlta35 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta35.format(datefechaAlta35));
+if(dataActividadNull37mtemp != null){
+java.util.Calendar typefechaAlta40 = dataActividadNull37mtemp.getFechaAlta();
+        java.text.DateFormat dateFormatfechaAlta40 = java.text.DateFormat.getDateInstance();
+        java.util.Date datefechaAlta40 = typefechaAlta40.getTime();
+        String tempResultfechaAlta40 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta40.format(datefechaAlta40));
         %>
-        <%= tempResultfechaAlta35 %>
+        <%= tempResultfechaAlta40 %>
         <%
 }%>
 </TD>
@@ -179,11 +202,11 @@ java.util.Calendar typefechaAlta35 = dataActividadNull32mtemp.getFechaAlta();
 <TD COLSPAN="2" ALIGN="LEFT">departamento:</TD>
 <TD>
 <%
-if(dataActividadNull32mtemp != null){
-java.lang.String typedepartamento37 = dataActividadNull32mtemp.getDepartamento();
-        String tempResultdepartamento37 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedepartamento37));
+if(dataActividadNull37mtemp != null){
+java.lang.String typedepartamento42 = dataActividadNull37mtemp.getDepartamento();
+        String tempResultdepartamento42 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedepartamento42));
         %>
-        <%= tempResultdepartamento37 %>
+        <%= tempResultdepartamento42 %>
         <%
 }%>
 </TD>
@@ -192,9 +215,9 @@ java.lang.String typedepartamento37 = dataActividadNull32mtemp.getDepartamento()
 <TD COLSPAN="2" ALIGN="LEFT">costo:</TD>
 <TD>
 <%
-if(dataActividadNull32mtemp != null){
+if(dataActividadNull37mtemp != null){
 %>
-<%=dataActividadNull32mtemp.getCosto()
+<%=dataActividadNull37mtemp.getCosto()
 %><%}%>
 </TD>
 <TR>
@@ -202,11 +225,11 @@ if(dataActividadNull32mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">descripcion:</TD>
 <TD>
 <%
-if(dataActividadNull32mtemp != null){
-java.lang.String typedescripcion41 = dataActividadNull32mtemp.getDescripcion();
-        String tempResultdescripcion41 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedescripcion41));
+if(dataActividadNull37mtemp != null){
+java.lang.String typedescripcion46 = dataActividadNull37mtemp.getDescripcion();
+        String tempResultdescripcion46 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedescripcion46));
         %>
-        <%= tempResultdescripcion41 %>
+        <%= tempResultdescripcion46 %>
         <%
 }%>
 </TD>
@@ -215,11 +238,11 @@ java.lang.String typedescripcion41 = dataActividadNull32mtemp.getDescripcion();
 <TD COLSPAN="2" ALIGN="LEFT">ciudad:</TD>
 <TD>
 <%
-if(dataActividadNull32mtemp != null){
-java.lang.String typeciudad43 = dataActividadNull32mtemp.getCiudad();
-        String tempResultciudad43 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeciudad43));
+if(dataActividadNull37mtemp != null){
+java.lang.String typeciudad48 = dataActividadNull37mtemp.getCiudad();
+        String tempResultciudad48 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeciudad48));
         %>
-        <%= tempResultciudad43 %>
+        <%= tempResultciudad48 %>
         <%
 }%>
 </TD>
@@ -228,9 +251,9 @@ java.lang.String typeciudad43 = dataActividadNull32mtemp.getCiudad();
 <TD COLSPAN="2" ALIGN="LEFT">duracion:</TD>
 <TD>
 <%
-if(dataActividadNull32mtemp != null){
+if(dataActividadNull37mtemp != null){
 %>
-<%=dataActividadNull32mtemp.getDuracion()
+<%=dataActividadNull37mtemp.getDuracion()
 %><%}%>
 </TD>
 <TR>
@@ -238,11 +261,11 @@ if(dataActividadNull32mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">nombre:</TD>
 <TD>
 <%
-if(dataActividadNull32mtemp != null){
-java.lang.String typenombre47 = dataActividadNull32mtemp.getNombre();
-        String tempResultnombre47 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre47));
+if(dataActividadNull37mtemp != null){
+java.lang.String typenombre52 = dataActividadNull37mtemp.getNombre();
+        String tempResultnombre52 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre52));
         %>
-        <%= tempResultnombre47 %>
+        <%= tempResultnombre52 %>
         <%
 }%>
 </TD>
@@ -250,12 +273,12 @@ java.lang.String typenombre47 = dataActividadNull32mtemp.getNombre();
 <%
 }
 break;
-case 49:
+case 54:
         gotMethod = true;
-        servidor.DataCompraGeneral dataCGNull49mtemp = samplePublicadorIControladorProxyid.dataCGNull();
-if(dataCGNull49mtemp == null){
+        servidor.DataCompraGeneral dataCGNull54mtemp = samplePublicadorIControladorProxyid.dataCGNull();
+if(dataCGNull54mtemp == null){
 %>
-<%=dataCGNull49mtemp %>
+<%=dataCGNull54mtemp %>
 <%
 }else{
 %>
@@ -267,13 +290,13 @@ if(dataCGNull49mtemp == null){
 <TD COLSPAN="2" ALIGN="LEFT">fecha:</TD>
 <TD>
 <%
-if(dataCGNull49mtemp != null){
-java.util.Calendar typefecha52 = dataCGNull49mtemp.getFecha();
-        java.text.DateFormat dateFormatfecha52 = java.text.DateFormat.getDateInstance();
-        java.util.Date datefecha52 = typefecha52.getTime();
-        String tempResultfecha52 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfecha52.format(datefecha52));
+if(dataCGNull54mtemp != null){
+java.util.Calendar typefecha57 = dataCGNull54mtemp.getFecha();
+        java.text.DateFormat dateFormatfecha57 = java.text.DateFormat.getDateInstance();
+        java.util.Date datefecha57 = typefecha57.getTime();
+        String tempResultfecha57 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfecha57.format(datefecha57));
         %>
-        <%= tempResultfecha52 %>
+        <%= tempResultfecha57 %>
         <%
 }%>
 </TD>
@@ -286,15 +309,15 @@ java.util.Calendar typefecha52 = dataCGNull49mtemp.getFecha();
 <TD COLSPAN="1" ALIGN="LEFT">hora:</TD>
 <TD>
 <%
-if(dataCGNull49mtemp != null){
-servidor.DataSalida tebece0=dataCGNull49mtemp.getSalida();
+if(dataCGNull54mtemp != null){
+servidor.DataSalida tebece0=dataCGNull54mtemp.getSalida();
 if(tebece0 != null){
-java.util.Calendar typehora56 = tebece0.getHora();
-        java.text.DateFormat dateFormathora56 = java.text.DateFormat.getDateInstance();
-        java.util.Date datehora56 = typehora56.getTime();
-        String tempResulthora56 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormathora56.format(datehora56));
+java.util.Calendar typehora61 = tebece0.getHora();
+        java.text.DateFormat dateFormathora61 = java.text.DateFormat.getDateInstance();
+        java.util.Date datehora61 = typehora61.getTime();
+        String tempResulthora61 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormathora61.format(datehora61));
         %>
-        <%= tempResulthora56 %>
+        <%= tempResulthora61 %>
         <%
 }}%>
 </TD>
@@ -304,15 +327,15 @@ java.util.Calendar typehora56 = tebece0.getHora();
 <TD COLSPAN="1" ALIGN="LEFT">fecha:</TD>
 <TD>
 <%
-if(dataCGNull49mtemp != null){
-servidor.DataSalida tebece0=dataCGNull49mtemp.getSalida();
+if(dataCGNull54mtemp != null){
+servidor.DataSalida tebece0=dataCGNull54mtemp.getSalida();
 if(tebece0 != null){
-java.util.Calendar typefecha58 = tebece0.getFecha();
-        java.text.DateFormat dateFormatfecha58 = java.text.DateFormat.getDateInstance();
-        java.util.Date datefecha58 = typefecha58.getTime();
-        String tempResultfecha58 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfecha58.format(datefecha58));
+java.util.Calendar typefecha63 = tebece0.getFecha();
+        java.text.DateFormat dateFormatfecha63 = java.text.DateFormat.getDateInstance();
+        java.util.Date datefecha63 = typefecha63.getTime();
+        String tempResultfecha63 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfecha63.format(datefecha63));
         %>
-        <%= tempResultfecha58 %>
+        <%= tempResultfecha63 %>
         <%
 }}%>
 </TD>
@@ -322,8 +345,8 @@ java.util.Calendar typefecha58 = tebece0.getFecha();
 <TD COLSPAN="1" ALIGN="LEFT">cant:</TD>
 <TD>
 <%
-if(dataCGNull49mtemp != null){
-servidor.DataSalida tebece0=dataCGNull49mtemp.getSalida();
+if(dataCGNull54mtemp != null){
+servidor.DataSalida tebece0=dataCGNull54mtemp.getSalida();
 if(tebece0 != null){
 %>
 <%=tebece0.getCant()
@@ -335,15 +358,15 @@ if(tebece0 != null){
 <TD COLSPAN="1" ALIGN="LEFT">fechaAlta:</TD>
 <TD>
 <%
-if(dataCGNull49mtemp != null){
-servidor.DataSalida tebece0=dataCGNull49mtemp.getSalida();
+if(dataCGNull54mtemp != null){
+servidor.DataSalida tebece0=dataCGNull54mtemp.getSalida();
 if(tebece0 != null){
-java.util.Calendar typefechaAlta62 = tebece0.getFechaAlta();
-        java.text.DateFormat dateFormatfechaAlta62 = java.text.DateFormat.getDateInstance();
-        java.util.Date datefechaAlta62 = typefechaAlta62.getTime();
-        String tempResultfechaAlta62 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta62.format(datefechaAlta62));
+java.util.Calendar typefechaAlta67 = tebece0.getFechaAlta();
+        java.text.DateFormat dateFormatfechaAlta67 = java.text.DateFormat.getDateInstance();
+        java.util.Date datefechaAlta67 = typefechaAlta67.getTime();
+        String tempResultfechaAlta67 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta67.format(datefechaAlta67));
         %>
-        <%= tempResultfechaAlta62 %>
+        <%= tempResultfechaAlta67 %>
         <%
 }}%>
 </TD>
@@ -353,13 +376,13 @@ java.util.Calendar typefechaAlta62 = tebece0.getFechaAlta();
 <TD COLSPAN="1" ALIGN="LEFT">lugar:</TD>
 <TD>
 <%
-if(dataCGNull49mtemp != null){
-servidor.DataSalida tebece0=dataCGNull49mtemp.getSalida();
+if(dataCGNull54mtemp != null){
+servidor.DataSalida tebece0=dataCGNull54mtemp.getSalida();
 if(tebece0 != null){
-java.lang.String typelugar64 = tebece0.getLugar();
-        String tempResultlugar64 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typelugar64));
+java.lang.String typelugar69 = tebece0.getLugar();
+        String tempResultlugar69 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typelugar69));
         %>
-        <%= tempResultlugar64 %>
+        <%= tempResultlugar69 %>
         <%
 }}%>
 </TD>
@@ -369,13 +392,13 @@ java.lang.String typelugar64 = tebece0.getLugar();
 <TD COLSPAN="1" ALIGN="LEFT">nombre:</TD>
 <TD>
 <%
-if(dataCGNull49mtemp != null){
-servidor.DataSalida tebece0=dataCGNull49mtemp.getSalida();
+if(dataCGNull54mtemp != null){
+servidor.DataSalida tebece0=dataCGNull54mtemp.getSalida();
 if(tebece0 != null){
-java.lang.String typenombre66 = tebece0.getNombre();
-        String tempResultnombre66 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre66));
+java.lang.String typenombre71 = tebece0.getNombre();
+        String tempResultnombre71 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre71));
         %>
-        <%= tempResultnombre66 %>
+        <%= tempResultnombre71 %>
         <%
 }}%>
 </TD>
@@ -384,9 +407,9 @@ java.lang.String typenombre66 = tebece0.getNombre();
 <TD COLSPAN="2" ALIGN="LEFT">porPaquete:</TD>
 <TD>
 <%
-if(dataCGNull49mtemp != null){
+if(dataCGNull54mtemp != null){
 %>
-<%=dataCGNull49mtemp.isPorPaquete()
+<%=dataCGNull54mtemp.isPorPaquete()
 %><%}%>
 </TD>
 <TR>
@@ -394,9 +417,9 @@ if(dataCGNull49mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">cantidad:</TD>
 <TD>
 <%
-if(dataCGNull49mtemp != null){
+if(dataCGNull54mtemp != null){
 %>
-<%=dataCGNull49mtemp.getCantidad()
+<%=dataCGNull54mtemp.getCantidad()
 %><%}%>
 </TD>
 <TR>
@@ -404,21 +427,21 @@ if(dataCGNull49mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">costo:</TD>
 <TD>
 <%
-if(dataCGNull49mtemp != null){
+if(dataCGNull54mtemp != null){
 %>
-<%=dataCGNull49mtemp.getCosto()
+<%=dataCGNull54mtemp.getCosto()
 %><%}%>
 </TD>
 </TABLE>
 <%
 }
 break;
-case 74:
+case 79:
         gotMethod = true;
-        servidor.DataCompraPaquete dataCPNull74mtemp = samplePublicadorIControladorProxyid.dataCPNull();
-if(dataCPNull74mtemp == null){
+        servidor.DataCompraPaquete dataCPNull79mtemp = samplePublicadorIControladorProxyid.dataCPNull();
+if(dataCPNull79mtemp == null){
 %>
-<%=dataCPNull74mtemp %>
+<%=dataCPNull79mtemp %>
 <%
 }else{
 %>
@@ -430,15 +453,15 @@ if(dataCPNull74mtemp == null){
 <TD COLSPAN="2" ALIGN="LEFT">restAct:</TD>
 <TD>
 <%
-if(dataCPNull74mtemp != null){
-servidor.DataCompraPaqueteRestActEntry[] typerestAct77 = dataCPNull74mtemp.getRestAct();
-        String temprestAct77 = null;
-        if(typerestAct77 != null){
-        java.util.List listrestAct77= java.util.Arrays.asList(typerestAct77);
-        temprestAct77 = listrestAct77.toString();
+if(dataCPNull79mtemp != null){
+servidor.DataCompraPaqueteRestActEntry[] typerestAct82 = dataCPNull79mtemp.getRestAct();
+        String temprestAct82 = null;
+        if(typerestAct82 != null){
+        java.util.List listrestAct82= java.util.Arrays.asList(typerestAct82);
+        temprestAct82 = listrestAct82.toString();
         }
         %>
-        <%=temprestAct77%>
+        <%=temprestAct82%>
         <%
 }%>
 </TD>
@@ -447,13 +470,13 @@ servidor.DataCompraPaqueteRestActEntry[] typerestAct77 = dataCPNull74mtemp.getRe
 <TD COLSPAN="2" ALIGN="LEFT">fecha:</TD>
 <TD>
 <%
-if(dataCPNull74mtemp != null){
-java.util.Calendar typefecha79 = dataCPNull74mtemp.getFecha();
-        java.text.DateFormat dateFormatfecha79 = java.text.DateFormat.getDateInstance();
-        java.util.Date datefecha79 = typefecha79.getTime();
-        String tempResultfecha79 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfecha79.format(datefecha79));
+if(dataCPNull79mtemp != null){
+java.util.Calendar typefecha84 = dataCPNull79mtemp.getFecha();
+        java.text.DateFormat dateFormatfecha84 = java.text.DateFormat.getDateInstance();
+        java.util.Date datefecha84 = typefecha84.getTime();
+        String tempResultfecha84 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfecha84.format(datefecha84));
         %>
-        <%= tempResultfecha79 %>
+        <%= tempResultfecha84 %>
         <%
 }%>
 </TD>
@@ -462,9 +485,9 @@ java.util.Calendar typefecha79 = dataCPNull74mtemp.getFecha();
 <TD COLSPAN="2" ALIGN="LEFT">cantidad:</TD>
 <TD>
 <%
-if(dataCPNull74mtemp != null){
+if(dataCPNull79mtemp != null){
 %>
-<%=dataCPNull74mtemp.getCantidad()
+<%=dataCPNull79mtemp.getCantidad()
 %><%}%>
 </TD>
 <TR>
@@ -476,8 +499,8 @@ if(dataCPNull74mtemp != null){
 <TD COLSPAN="1" ALIGN="LEFT">descuento:</TD>
 <TD>
 <%
-if(dataCPNull74mtemp != null){
-servidor.DataPaquete tebece0=dataCPNull74mtemp.getPaq();
+if(dataCPNull79mtemp != null){
+servidor.DataPaquete tebece0=dataCPNull79mtemp.getPaq();
 if(tebece0 != null){
 %>
 <%=tebece0.getDescuento()
@@ -489,13 +512,13 @@ if(tebece0 != null){
 <TD COLSPAN="1" ALIGN="LEFT">descripcion:</TD>
 <TD>
 <%
-if(dataCPNull74mtemp != null){
-servidor.DataPaquete tebece0=dataCPNull74mtemp.getPaq();
+if(dataCPNull79mtemp != null){
+servidor.DataPaquete tebece0=dataCPNull79mtemp.getPaq();
 if(tebece0 != null){
-java.lang.String typedescripcion87 = tebece0.getDescripcion();
-        String tempResultdescripcion87 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedescripcion87));
+java.lang.String typedescripcion92 = tebece0.getDescripcion();
+        String tempResultdescripcion92 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedescripcion92));
         %>
-        <%= tempResultdescripcion87 %>
+        <%= tempResultdescripcion92 %>
         <%
 }}%>
 </TD>
@@ -505,15 +528,15 @@ java.lang.String typedescripcion87 = tebece0.getDescripcion();
 <TD COLSPAN="1" ALIGN="LEFT">fechaAlta:</TD>
 <TD>
 <%
-if(dataCPNull74mtemp != null){
-servidor.DataPaquete tebece0=dataCPNull74mtemp.getPaq();
+if(dataCPNull79mtemp != null){
+servidor.DataPaquete tebece0=dataCPNull79mtemp.getPaq();
 if(tebece0 != null){
-java.util.Calendar typefechaAlta89 = tebece0.getFechaAlta();
-        java.text.DateFormat dateFormatfechaAlta89 = java.text.DateFormat.getDateInstance();
-        java.util.Date datefechaAlta89 = typefechaAlta89.getTime();
-        String tempResultfechaAlta89 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta89.format(datefechaAlta89));
+java.util.Calendar typefechaAlta94 = tebece0.getFechaAlta();
+        java.text.DateFormat dateFormatfechaAlta94 = java.text.DateFormat.getDateInstance();
+        java.util.Date datefechaAlta94 = typefechaAlta94.getTime();
+        String tempResultfechaAlta94 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta94.format(datefechaAlta94));
         %>
-        <%= tempResultfechaAlta89 %>
+        <%= tempResultfechaAlta94 %>
         <%
 }}%>
 </TD>
@@ -523,8 +546,8 @@ java.util.Calendar typefechaAlta89 = tebece0.getFechaAlta();
 <TD COLSPAN="1" ALIGN="LEFT">validez:</TD>
 <TD>
 <%
-if(dataCPNull74mtemp != null){
-servidor.DataPaquete tebece0=dataCPNull74mtemp.getPaq();
+if(dataCPNull79mtemp != null){
+servidor.DataPaquete tebece0=dataCPNull79mtemp.getPaq();
 if(tebece0 != null){
 %>
 <%=tebece0.getValidez()
@@ -536,13 +559,13 @@ if(tebece0 != null){
 <TD COLSPAN="1" ALIGN="LEFT">nombre:</TD>
 <TD>
 <%
-if(dataCPNull74mtemp != null){
-servidor.DataPaquete tebece0=dataCPNull74mtemp.getPaq();
+if(dataCPNull79mtemp != null){
+servidor.DataPaquete tebece0=dataCPNull79mtemp.getPaq();
 if(tebece0 != null){
-java.lang.String typenombre93 = tebece0.getNombre();
-        String tempResultnombre93 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre93));
+java.lang.String typenombre98 = tebece0.getNombre();
+        String tempResultnombre98 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre98));
         %>
-        <%= tempResultnombre93 %>
+        <%= tempResultnombre98 %>
         <%
 }}%>
 </TD>
@@ -551,13 +574,13 @@ java.lang.String typenombre93 = tebece0.getNombre();
 <TD COLSPAN="2" ALIGN="LEFT">vencimiento:</TD>
 <TD>
 <%
-if(dataCPNull74mtemp != null){
-java.util.Calendar typevencimiento95 = dataCPNull74mtemp.getVencimiento();
-        java.text.DateFormat dateFormatvencimiento95 = java.text.DateFormat.getDateInstance();
-        java.util.Date datevencimiento95 = typevencimiento95.getTime();
-        String tempResultvencimiento95 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatvencimiento95.format(datevencimiento95));
+if(dataCPNull79mtemp != null){
+java.util.Calendar typevencimiento100 = dataCPNull79mtemp.getVencimiento();
+        java.text.DateFormat dateFormatvencimiento100 = java.text.DateFormat.getDateInstance();
+        java.util.Date datevencimiento100 = typevencimiento100.getTime();
+        String tempResultvencimiento100 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatvencimiento100.format(datevencimiento100));
         %>
-        <%= tempResultvencimiento95 %>
+        <%= tempResultvencimiento100 %>
         <%
 }%>
 </TD>
@@ -566,249 +589,133 @@ java.util.Calendar typevencimiento95 = dataCPNull74mtemp.getVencimiento();
 <TD COLSPAN="2" ALIGN="LEFT">costo:</TD>
 <TD>
 <%
-if(dataCPNull74mtemp != null){
+if(dataCPNull79mtemp != null){
 %>
-<%=dataCPNull74mtemp.getCosto()
+<%=dataCPNull79mtemp.getCosto()
 %><%}%>
 </TD>
 </TABLE>
 <%
 }
 break;
-case 99:
-        gotMethod = true;
-        servidor.EstadoAct estadoActNull99mtemp = samplePublicadorIControladorProxyid.estadoActNull();
-if(estadoActNull99mtemp == null){
-%>
-<%=estadoActNull99mtemp %>
-<%
-}else{
-%>
-<TABLE>
-<TR>
-<TD COLSPAN="3" ALIGN="LEFT">returnp:</TD>
-</TABLE>
-<%
-}
-break;
 case 104:
         gotMethod = true;
-        String arg0_1id=  request.getParameter("arg0107");
-            java.lang.String arg0_1idTemp = null;
-        if(!arg0_1id.equals("")){
-         arg0_1idTemp  = arg0_1id;
-        }
-        String arg1_2id=  request.getParameter("arg1109");
-            java.lang.String arg1_2idTemp = null;
-        if(!arg1_2id.equals("")){
-         arg1_2idTemp  = arg1_2id;
-        }
-        String arg2_3id=  request.getParameter("arg2111");
-            java.lang.String arg2_3idTemp = null;
-        if(!arg2_3id.equals("")){
-         arg2_3idTemp  = arg2_3id;
-        }
-        String arg3_4id=  request.getParameter("arg3113");
-            java.lang.String arg3_4idTemp = null;
-        if(!arg3_4id.equals("")){
-         arg3_4idTemp  = arg3_4id;
-        }
-        String arg4_5id=  request.getParameter("arg4115");
-            java.util.Calendar arg4_5idTemp = null;
-        if(!arg4_5id.equals("")){
-        java.text.DateFormat dateFormatarg4115 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg4115  = dateFormatarg4115.parse(arg4_5id);
-         arg4_5idTemp = new java.util.GregorianCalendar();
-        arg4_5idTemp.setTime(dateTemparg4115);
-        }
-        String arg5_6id=  request.getParameter("arg5117");
-            java.lang.String arg5_6idTemp = null;
-        if(!arg5_6id.equals("")){
-         arg5_6idTemp  = arg5_6id;
-        }
-        String arg6_7id=  request.getParameter("arg6119");
-            java.lang.String arg6_7idTemp = null;
-        if(!arg6_7id.equals("")){
-         arg6_7idTemp  = arg6_7id;
-        }
-        samplePublicadorIControladorProxyid.confirmarAltaTuristaPass(arg0_1idTemp,arg1_2idTemp,arg2_3idTemp,arg3_4idTemp,arg4_5idTemp,arg5_6idTemp,arg6_7idTemp);
-break;
-case 121:
-        gotMethod = true;
-        String arg0_8id=  request.getParameter("arg0124");
-            java.lang.String arg0_8idTemp = null;
-        if(!arg0_8id.equals("")){
-         arg0_8idTemp  = arg0_8id;
-        }
-        String arg1_9id=  request.getParameter("arg1126");
-            java.lang.String arg1_9idTemp = null;
-        if(!arg1_9id.equals("")){
-         arg1_9idTemp  = arg1_9id;
-        }
-        String arg2_10id=  request.getParameter("arg2128");
-            java.lang.String arg2_10idTemp = null;
-        if(!arg2_10id.equals("")){
-         arg2_10idTemp  = arg2_10id;
-        }
-        String arg3_11id=  request.getParameter("arg3130");
-            java.lang.String arg3_11idTemp = null;
-        if(!arg3_11id.equals("")){
-         arg3_11idTemp  = arg3_11id;
-        }
-        String arg4_12id=  request.getParameter("arg4132");
-            java.util.Calendar arg4_12idTemp = null;
-        if(!arg4_12id.equals("")){
-        java.text.DateFormat dateFormatarg4132 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg4132  = dateFormatarg4132.parse(arg4_12id);
-         arg4_12idTemp = new java.util.GregorianCalendar();
-        arg4_12idTemp.setTime(dateTemparg4132);
-        }
-        String arg5_13id=  request.getParameter("arg5134");
-            java.lang.String arg5_13idTemp = null;
-        if(!arg5_13id.equals("")){
-         arg5_13idTemp  = arg5_13id;
-        }
-        String arg6_14id=  request.getParameter("arg6136");
-            java.lang.String arg6_14idTemp = null;
-        if(!arg6_14id.equals("")){
-         arg6_14idTemp  = arg6_14id;
-        }
-        String arg7_15id=  request.getParameter("arg7138");
-        boolean arg7_15idTemp  = Boolean.valueOf(arg7_15id).booleanValue();
-        String arg8_16id=  request.getParameter("arg8140");
-            java.lang.String arg8_16idTemp = null;
-        if(!arg8_16id.equals("")){
-         arg8_16idTemp  = arg8_16id;
-        }
-        samplePublicadorIControladorProxyid.confirmarAltaProveedorPass(arg0_8idTemp,arg1_9idTemp,arg2_10idTemp,arg3_11idTemp,arg4_12idTemp,arg5_13idTemp,arg6_14idTemp,arg7_15idTemp,arg8_16idTemp);
-break;
-case 142:
-        gotMethod = true;
-        String arg0_17id=  request.getParameter("arg0157");
-            java.lang.String arg0_17idTemp = null;
-        if(!arg0_17id.equals("")){
-         arg0_17idTemp  = arg0_17id;
-        }
-        servidor.DataUsuario verInfoUsuario142mtemp = samplePublicadorIControladorProxyid.verInfoUsuario(arg0_17idTemp);
-if(verInfoUsuario142mtemp == null){
+        servidor.EstadoAct estadoActNull104mtemp = samplePublicadorIControladorProxyid.estadoActNull();
+if(estadoActNull104mtemp == null){
 %>
-<%=verInfoUsuario142mtemp %>
+<%=estadoActNull104mtemp %>
 <%
 }else{
 %>
 <TABLE>
 <TR>
 <TD COLSPAN="3" ALIGN="LEFT">returnp:</TD>
-<TR>
-<TD WIDTH="5%"></TD>
-<TD COLSPAN="2" ALIGN="LEFT">nacimiento:</TD>
-<TD>
-<%
-if(verInfoUsuario142mtemp != null){
-java.util.Calendar typenacimiento145 = verInfoUsuario142mtemp.getNacimiento();
-        java.text.DateFormat dateFormatnacimiento145 = java.text.DateFormat.getDateInstance();
-        java.util.Date datenacimiento145 = typenacimiento145.getTime();
-        String tempResultnacimiento145 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatnacimiento145.format(datenacimiento145));
-        %>
-        <%= tempResultnacimiento145 %>
-        <%
-}%>
-</TD>
-<TR>
-<TD WIDTH="5%"></TD>
-<TD COLSPAN="2" ALIGN="LEFT">nick:</TD>
-<TD>
-<%
-if(verInfoUsuario142mtemp != null){
-java.lang.String typenick147 = verInfoUsuario142mtemp.getNick();
-        String tempResultnick147 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenick147));
-        %>
-        <%= tempResultnick147 %>
-        <%
-}%>
-</TD>
-<TR>
-<TD WIDTH="5%"></TD>
-<TD COLSPAN="2" ALIGN="LEFT">mail:</TD>
-<TD>
-<%
-if(verInfoUsuario142mtemp != null){
-java.lang.String typemail149 = verInfoUsuario142mtemp.getMail();
-        String tempResultmail149 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typemail149));
-        %>
-        <%= tempResultmail149 %>
-        <%
-}%>
-</TD>
-<TR>
-<TD WIDTH="5%"></TD>
-<TD COLSPAN="2" ALIGN="LEFT">password:</TD>
-<TD>
-<%
-if(verInfoUsuario142mtemp != null){
-java.lang.String typepassword151 = verInfoUsuario142mtemp.getPassword();
-        String tempResultpassword151 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typepassword151));
-        %>
-        <%= tempResultpassword151 %>
-        <%
-}%>
-</TD>
-<TR>
-<TD WIDTH="5%"></TD>
-<TD COLSPAN="2" ALIGN="LEFT">nombre:</TD>
-<TD>
-<%
-if(verInfoUsuario142mtemp != null){
-java.lang.String typenombre153 = verInfoUsuario142mtemp.getNombre();
-        String tempResultnombre153 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre153));
-        %>
-        <%= tempResultnombre153 %>
-        <%
-}%>
-</TD>
-<TR>
-<TD WIDTH="5%"></TD>
-<TD COLSPAN="2" ALIGN="LEFT">apellido:</TD>
-<TD>
-<%
-if(verInfoUsuario142mtemp != null){
-java.lang.String typeapellido155 = verInfoUsuario142mtemp.getApellido();
-        String tempResultapellido155 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeapellido155));
-        %>
-        <%= tempResultapellido155 %>
-        <%
-}%>
-</TD>
 </TABLE>
 <%
 }
 break;
-case 159:
+case 109:
         gotMethod = true;
-        servidor.DataColeccionObject getUsuariosComp159mtemp = samplePublicadorIControladorProxyid.getUsuariosComp();
-if(getUsuariosComp159mtemp == null){
-%>
-<%=getUsuariosComp159mtemp %>
-<%
-}else{
-        if(getUsuariosComp159mtemp!= null){
-        String tempreturnp160 = getUsuariosComp159mtemp.toString();
-        %>
-        <%=tempreturnp160%>
-        <%
-        }}
+        String arg0_2id=  request.getParameter("arg0112");
+            java.lang.String arg0_2idTemp = null;
+        if(!arg0_2id.equals("")){
+         arg0_2idTemp  = arg0_2id;
+        }
+        String arg1_3id=  request.getParameter("arg1114");
+            java.lang.String arg1_3idTemp = null;
+        if(!arg1_3id.equals("")){
+         arg1_3idTemp  = arg1_3id;
+        }
+        String arg2_4id=  request.getParameter("arg2116");
+            java.lang.String arg2_4idTemp = null;
+        if(!arg2_4id.equals("")){
+         arg2_4idTemp  = arg2_4id;
+        }
+        String arg3_5id=  request.getParameter("arg3118");
+            java.lang.String arg3_5idTemp = null;
+        if(!arg3_5id.equals("")){
+         arg3_5idTemp  = arg3_5id;
+        }
+        String arg4_6id=  request.getParameter("arg4120");
+            java.util.Calendar arg4_6idTemp = null;
+        if(!arg4_6id.equals("")){
+        java.text.DateFormat dateFormatarg4120 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg4120  = dateFormatarg4120.parse(arg4_6id);
+         arg4_6idTemp = new java.util.GregorianCalendar();
+        arg4_6idTemp.setTime(dateTemparg4120);
+        }
+        String arg5_7id=  request.getParameter("arg5122");
+            java.lang.String arg5_7idTemp = null;
+        if(!arg5_7id.equals("")){
+         arg5_7idTemp  = arg5_7id;
+        }
+        String arg6_8id=  request.getParameter("arg6124");
+            java.lang.String arg6_8idTemp = null;
+        if(!arg6_8id.equals("")){
+         arg6_8idTemp  = arg6_8id;
+        }
+        samplePublicadorIControladorProxyid.confirmarAltaTuristaPass(arg0_2idTemp,arg1_3idTemp,arg2_4idTemp,arg3_5idTemp,arg4_6idTemp,arg5_7idTemp,arg6_8idTemp);
 break;
-case 162:
+case 126:
         gotMethod = true;
-        String arg0_18id=  request.getParameter("arg0177");
+        String arg0_9id=  request.getParameter("arg0129");
+            java.lang.String arg0_9idTemp = null;
+        if(!arg0_9id.equals("")){
+         arg0_9idTemp  = arg0_9id;
+        }
+        String arg1_10id=  request.getParameter("arg1131");
+            java.lang.String arg1_10idTemp = null;
+        if(!arg1_10id.equals("")){
+         arg1_10idTemp  = arg1_10id;
+        }
+        String arg2_11id=  request.getParameter("arg2133");
+            java.lang.String arg2_11idTemp = null;
+        if(!arg2_11id.equals("")){
+         arg2_11idTemp  = arg2_11id;
+        }
+        String arg3_12id=  request.getParameter("arg3135");
+            java.lang.String arg3_12idTemp = null;
+        if(!arg3_12id.equals("")){
+         arg3_12idTemp  = arg3_12id;
+        }
+        String arg4_13id=  request.getParameter("arg4137");
+            java.util.Calendar arg4_13idTemp = null;
+        if(!arg4_13id.equals("")){
+        java.text.DateFormat dateFormatarg4137 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg4137  = dateFormatarg4137.parse(arg4_13id);
+         arg4_13idTemp = new java.util.GregorianCalendar();
+        arg4_13idTemp.setTime(dateTemparg4137);
+        }
+        String arg5_14id=  request.getParameter("arg5139");
+            java.lang.String arg5_14idTemp = null;
+        if(!arg5_14id.equals("")){
+         arg5_14idTemp  = arg5_14id;
+        }
+        String arg6_15id=  request.getParameter("arg6141");
+            java.lang.String arg6_15idTemp = null;
+        if(!arg6_15id.equals("")){
+         arg6_15idTemp  = arg6_15id;
+        }
+        String arg7_16id=  request.getParameter("arg7143");
+        boolean arg7_16idTemp  = Boolean.valueOf(arg7_16id).booleanValue();
+        String arg8_17id=  request.getParameter("arg8145");
+            java.lang.String arg8_17idTemp = null;
+        if(!arg8_17id.equals("")){
+         arg8_17idTemp  = arg8_17id;
+        }
+        samplePublicadorIControladorProxyid.confirmarAltaProveedorPass(arg0_9idTemp,arg1_10idTemp,arg2_11idTemp,arg3_12idTemp,arg4_13idTemp,arg5_14idTemp,arg6_15idTemp,arg7_16idTemp,arg8_17idTemp);
+break;
+case 147:
+        gotMethod = true;
+        String arg0_18id=  request.getParameter("arg0162");
             java.lang.String arg0_18idTemp = null;
         if(!arg0_18id.equals("")){
          arg0_18idTemp  = arg0_18id;
         }
-        servidor.DataUsuario ingresarDatos162mtemp = samplePublicadorIControladorProxyid.ingresarDatos(arg0_18idTemp);
-if(ingresarDatos162mtemp == null){
+        servidor.DataUsuario verInfoUsuario147mtemp = samplePublicadorIControladorProxyid.verInfoUsuario(arg0_18idTemp);
+if(verInfoUsuario147mtemp == null){
 %>
-<%=ingresarDatos162mtemp %>
+<%=verInfoUsuario147mtemp %>
 <%
 }else{
 %>
@@ -820,13 +727,13 @@ if(ingresarDatos162mtemp == null){
 <TD COLSPAN="2" ALIGN="LEFT">nacimiento:</TD>
 <TD>
 <%
-if(ingresarDatos162mtemp != null){
-java.util.Calendar typenacimiento165 = ingresarDatos162mtemp.getNacimiento();
-        java.text.DateFormat dateFormatnacimiento165 = java.text.DateFormat.getDateInstance();
-        java.util.Date datenacimiento165 = typenacimiento165.getTime();
-        String tempResultnacimiento165 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatnacimiento165.format(datenacimiento165));
+if(verInfoUsuario147mtemp != null){
+java.util.Calendar typenacimiento150 = verInfoUsuario147mtemp.getNacimiento();
+        java.text.DateFormat dateFormatnacimiento150 = java.text.DateFormat.getDateInstance();
+        java.util.Date datenacimiento150 = typenacimiento150.getTime();
+        String tempResultnacimiento150 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatnacimiento150.format(datenacimiento150));
         %>
-        <%= tempResultnacimiento165 %>
+        <%= tempResultnacimiento150 %>
         <%
 }%>
 </TD>
@@ -835,11 +742,11 @@ java.util.Calendar typenacimiento165 = ingresarDatos162mtemp.getNacimiento();
 <TD COLSPAN="2" ALIGN="LEFT">nick:</TD>
 <TD>
 <%
-if(ingresarDatos162mtemp != null){
-java.lang.String typenick167 = ingresarDatos162mtemp.getNick();
-        String tempResultnick167 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenick167));
+if(verInfoUsuario147mtemp != null){
+java.lang.String typenick152 = verInfoUsuario147mtemp.getNick();
+        String tempResultnick152 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenick152));
         %>
-        <%= tempResultnick167 %>
+        <%= tempResultnick152 %>
         <%
 }%>
 </TD>
@@ -848,11 +755,11 @@ java.lang.String typenick167 = ingresarDatos162mtemp.getNick();
 <TD COLSPAN="2" ALIGN="LEFT">mail:</TD>
 <TD>
 <%
-if(ingresarDatos162mtemp != null){
-java.lang.String typemail169 = ingresarDatos162mtemp.getMail();
-        String tempResultmail169 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typemail169));
+if(verInfoUsuario147mtemp != null){
+java.lang.String typemail154 = verInfoUsuario147mtemp.getMail();
+        String tempResultmail154 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typemail154));
         %>
-        <%= tempResultmail169 %>
+        <%= tempResultmail154 %>
         <%
 }%>
 </TD>
@@ -861,11 +768,11 @@ java.lang.String typemail169 = ingresarDatos162mtemp.getMail();
 <TD COLSPAN="2" ALIGN="LEFT">password:</TD>
 <TD>
 <%
-if(ingresarDatos162mtemp != null){
-java.lang.String typepassword171 = ingresarDatos162mtemp.getPassword();
-        String tempResultpassword171 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typepassword171));
+if(verInfoUsuario147mtemp != null){
+java.lang.String typepassword156 = verInfoUsuario147mtemp.getPassword();
+        String tempResultpassword156 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typepassword156));
         %>
-        <%= tempResultpassword171 %>
+        <%= tempResultpassword156 %>
         <%
 }%>
 </TD>
@@ -874,11 +781,11 @@ java.lang.String typepassword171 = ingresarDatos162mtemp.getPassword();
 <TD COLSPAN="2" ALIGN="LEFT">nombre:</TD>
 <TD>
 <%
-if(ingresarDatos162mtemp != null){
-java.lang.String typenombre173 = ingresarDatos162mtemp.getNombre();
-        String tempResultnombre173 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre173));
+if(verInfoUsuario147mtemp != null){
+java.lang.String typenombre158 = verInfoUsuario147mtemp.getNombre();
+        String tempResultnombre158 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre158));
         %>
-        <%= tempResultnombre173 %>
+        <%= tempResultnombre158 %>
         <%
 }%>
 </TD>
@@ -887,11 +794,11 @@ java.lang.String typenombre173 = ingresarDatos162mtemp.getNombre();
 <TD COLSPAN="2" ALIGN="LEFT">apellido:</TD>
 <TD>
 <%
-if(ingresarDatos162mtemp != null){
-java.lang.String typeapellido175 = ingresarDatos162mtemp.getApellido();
-        String tempResultapellido175 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeapellido175));
+if(verInfoUsuario147mtemp != null){
+java.lang.String typeapellido160 = verInfoUsuario147mtemp.getApellido();
+        String tempResultapellido160 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeapellido160));
         %>
-        <%= tempResultapellido175 %>
+        <%= tempResultapellido160 %>
         <%
 }%>
 </TD>
@@ -899,138 +806,153 @@ java.lang.String typeapellido175 = ingresarDatos162mtemp.getApellido();
 <%
 }
 break;
-case 179:
+case 164:
+        gotMethod = true;
+        servidor.DataColeccionObject getUsuariosComp164mtemp = samplePublicadorIControladorProxyid.getUsuariosComp();
+if(getUsuariosComp164mtemp == null){
+%>
+<%=getUsuariosComp164mtemp %>
+<%
+}else{
+        if(getUsuariosComp164mtemp!= null){
+        String tempreturnp165 = getUsuariosComp164mtemp.toString();
+        %>
+        <%=tempreturnp165%>
+        <%
+        }}
+break;
+case 167:
         gotMethod = true;
         String arg0_19id=  request.getParameter("arg0182");
             java.lang.String arg0_19idTemp = null;
         if(!arg0_19id.equals("")){
          arg0_19idTemp  = arg0_19id;
         }
-        servidor.DataColeccionObject obtenerActividadCategoria179mtemp = samplePublicadorIControladorProxyid.obtenerActividadCategoria(arg0_19idTemp);
-if(obtenerActividadCategoria179mtemp == null){
+        servidor.DataUsuario ingresarDatos167mtemp = samplePublicadorIControladorProxyid.ingresarDatos(arg0_19idTemp);
+if(ingresarDatos167mtemp == null){
 %>
-<%=obtenerActividadCategoria179mtemp %>
+<%=ingresarDatos167mtemp %>
 <%
 }else{
-        if(obtenerActividadCategoria179mtemp!= null){
-        String tempreturnp180 = obtenerActividadCategoria179mtemp.toString();
+%>
+<TABLE>
+<TR>
+<TD COLSPAN="3" ALIGN="LEFT">returnp:</TD>
+<TR>
+<TD WIDTH="5%"></TD>
+<TD COLSPAN="2" ALIGN="LEFT">nacimiento:</TD>
+<TD>
+<%
+if(ingresarDatos167mtemp != null){
+java.util.Calendar typenacimiento170 = ingresarDatos167mtemp.getNacimiento();
+        java.text.DateFormat dateFormatnacimiento170 = java.text.DateFormat.getDateInstance();
+        java.util.Date datenacimiento170 = typenacimiento170.getTime();
+        String tempResultnacimiento170 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatnacimiento170.format(datenacimiento170));
         %>
-        <%=tempreturnp180%>
+        <%= tempResultnacimiento170 %>
         <%
-        }}
+}%>
+</TD>
+<TR>
+<TD WIDTH="5%"></TD>
+<TD COLSPAN="2" ALIGN="LEFT">nick:</TD>
+<TD>
+<%
+if(ingresarDatos167mtemp != null){
+java.lang.String typenick172 = ingresarDatos167mtemp.getNick();
+        String tempResultnick172 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenick172));
+        %>
+        <%= tempResultnick172 %>
+        <%
+}%>
+</TD>
+<TR>
+<TD WIDTH="5%"></TD>
+<TD COLSPAN="2" ALIGN="LEFT">mail:</TD>
+<TD>
+<%
+if(ingresarDatos167mtemp != null){
+java.lang.String typemail174 = ingresarDatos167mtemp.getMail();
+        String tempResultmail174 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typemail174));
+        %>
+        <%= tempResultmail174 %>
+        <%
+}%>
+</TD>
+<TR>
+<TD WIDTH="5%"></TD>
+<TD COLSPAN="2" ALIGN="LEFT">password:</TD>
+<TD>
+<%
+if(ingresarDatos167mtemp != null){
+java.lang.String typepassword176 = ingresarDatos167mtemp.getPassword();
+        String tempResultpassword176 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typepassword176));
+        %>
+        <%= tempResultpassword176 %>
+        <%
+}%>
+</TD>
+<TR>
+<TD WIDTH="5%"></TD>
+<TD COLSPAN="2" ALIGN="LEFT">nombre:</TD>
+<TD>
+<%
+if(ingresarDatos167mtemp != null){
+java.lang.String typenombre178 = ingresarDatos167mtemp.getNombre();
+        String tempResultnombre178 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre178));
+        %>
+        <%= tempResultnombre178 %>
+        <%
+}%>
+</TD>
+<TR>
+<TD WIDTH="5%"></TD>
+<TD COLSPAN="2" ALIGN="LEFT">apellido:</TD>
+<TD>
+<%
+if(ingresarDatos167mtemp != null){
+java.lang.String typeapellido180 = ingresarDatos167mtemp.getApellido();
+        String tempResultapellido180 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeapellido180));
+        %>
+        <%= tempResultapellido180 %>
+        <%
+}%>
+</TD>
+</TABLE>
+<%
+}
 break;
 case 184:
         gotMethod = true;
-        String arg0_20id=  request.getParameter("arg0199");
+        String arg0_20id=  request.getParameter("arg0187");
             java.lang.String arg0_20idTemp = null;
         if(!arg0_20id.equals("")){
          arg0_20idTemp  = arg0_20id;
         }
-        servidor.DataUsuario obtenerDataUsuarioNick184mtemp = samplePublicadorIControladorProxyid.obtenerDataUsuarioNick(arg0_20idTemp);
-if(obtenerDataUsuarioNick184mtemp == null){
+        servidor.DataColeccionObject obtenerActividadCategoria184mtemp = samplePublicadorIControladorProxyid.obtenerActividadCategoria(arg0_20idTemp);
+if(obtenerActividadCategoria184mtemp == null){
 %>
-<%=obtenerDataUsuarioNick184mtemp %>
+<%=obtenerActividadCategoria184mtemp %>
 <%
 }else{
-%>
-<TABLE>
-<TR>
-<TD COLSPAN="3" ALIGN="LEFT">returnp:</TD>
-<TR>
-<TD WIDTH="5%"></TD>
-<TD COLSPAN="2" ALIGN="LEFT">nacimiento:</TD>
-<TD>
-<%
-if(obtenerDataUsuarioNick184mtemp != null){
-java.util.Calendar typenacimiento187 = obtenerDataUsuarioNick184mtemp.getNacimiento();
-        java.text.DateFormat dateFormatnacimiento187 = java.text.DateFormat.getDateInstance();
-        java.util.Date datenacimiento187 = typenacimiento187.getTime();
-        String tempResultnacimiento187 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatnacimiento187.format(datenacimiento187));
+        if(obtenerActividadCategoria184mtemp!= null){
+        String tempreturnp185 = obtenerActividadCategoria184mtemp.toString();
         %>
-        <%= tempResultnacimiento187 %>
+        <%=tempreturnp185%>
         <%
-}%>
-</TD>
-<TR>
-<TD WIDTH="5%"></TD>
-<TD COLSPAN="2" ALIGN="LEFT">nick:</TD>
-<TD>
-<%
-if(obtenerDataUsuarioNick184mtemp != null){
-java.lang.String typenick189 = obtenerDataUsuarioNick184mtemp.getNick();
-        String tempResultnick189 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenick189));
-        %>
-        <%= tempResultnick189 %>
-        <%
-}%>
-</TD>
-<TR>
-<TD WIDTH="5%"></TD>
-<TD COLSPAN="2" ALIGN="LEFT">mail:</TD>
-<TD>
-<%
-if(obtenerDataUsuarioNick184mtemp != null){
-java.lang.String typemail191 = obtenerDataUsuarioNick184mtemp.getMail();
-        String tempResultmail191 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typemail191));
-        %>
-        <%= tempResultmail191 %>
-        <%
-}%>
-</TD>
-<TR>
-<TD WIDTH="5%"></TD>
-<TD COLSPAN="2" ALIGN="LEFT">password:</TD>
-<TD>
-<%
-if(obtenerDataUsuarioNick184mtemp != null){
-java.lang.String typepassword193 = obtenerDataUsuarioNick184mtemp.getPassword();
-        String tempResultpassword193 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typepassword193));
-        %>
-        <%= tempResultpassword193 %>
-        <%
-}%>
-</TD>
-<TR>
-<TD WIDTH="5%"></TD>
-<TD COLSPAN="2" ALIGN="LEFT">nombre:</TD>
-<TD>
-<%
-if(obtenerDataUsuarioNick184mtemp != null){
-java.lang.String typenombre195 = obtenerDataUsuarioNick184mtemp.getNombre();
-        String tempResultnombre195 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre195));
-        %>
-        <%= tempResultnombre195 %>
-        <%
-}%>
-</TD>
-<TR>
-<TD WIDTH="5%"></TD>
-<TD COLSPAN="2" ALIGN="LEFT">apellido:</TD>
-<TD>
-<%
-if(obtenerDataUsuarioNick184mtemp != null){
-java.lang.String typeapellido197 = obtenerDataUsuarioNick184mtemp.getApellido();
-        String tempResultapellido197 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeapellido197));
-        %>
-        <%= tempResultapellido197 %>
-        <%
-}%>
-</TD>
-</TABLE>
-<%
-}
+        }}
 break;
-case 201:
+case 189:
         gotMethod = true;
-        String arg0_21id=  request.getParameter("arg0216");
+        String arg0_21id=  request.getParameter("arg0204");
             java.lang.String arg0_21idTemp = null;
         if(!arg0_21id.equals("")){
          arg0_21idTemp  = arg0_21id;
         }
-        servidor.DataUsuario obtenerDataUsuarioMail201mtemp = samplePublicadorIControladorProxyid.obtenerDataUsuarioMail(arg0_21idTemp);
-if(obtenerDataUsuarioMail201mtemp == null){
+        servidor.DataUsuario obtenerDataUsuarioNick189mtemp = samplePublicadorIControladorProxyid.obtenerDataUsuarioNick(arg0_21idTemp);
+if(obtenerDataUsuarioNick189mtemp == null){
 %>
-<%=obtenerDataUsuarioMail201mtemp %>
+<%=obtenerDataUsuarioNick189mtemp %>
 <%
 }else{
 %>
@@ -1042,13 +964,13 @@ if(obtenerDataUsuarioMail201mtemp == null){
 <TD COLSPAN="2" ALIGN="LEFT">nacimiento:</TD>
 <TD>
 <%
-if(obtenerDataUsuarioMail201mtemp != null){
-java.util.Calendar typenacimiento204 = obtenerDataUsuarioMail201mtemp.getNacimiento();
-        java.text.DateFormat dateFormatnacimiento204 = java.text.DateFormat.getDateInstance();
-        java.util.Date datenacimiento204 = typenacimiento204.getTime();
-        String tempResultnacimiento204 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatnacimiento204.format(datenacimiento204));
+if(obtenerDataUsuarioNick189mtemp != null){
+java.util.Calendar typenacimiento192 = obtenerDataUsuarioNick189mtemp.getNacimiento();
+        java.text.DateFormat dateFormatnacimiento192 = java.text.DateFormat.getDateInstance();
+        java.util.Date datenacimiento192 = typenacimiento192.getTime();
+        String tempResultnacimiento192 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatnacimiento192.format(datenacimiento192));
         %>
-        <%= tempResultnacimiento204 %>
+        <%= tempResultnacimiento192 %>
         <%
 }%>
 </TD>
@@ -1057,11 +979,11 @@ java.util.Calendar typenacimiento204 = obtenerDataUsuarioMail201mtemp.getNacimie
 <TD COLSPAN="2" ALIGN="LEFT">nick:</TD>
 <TD>
 <%
-if(obtenerDataUsuarioMail201mtemp != null){
-java.lang.String typenick206 = obtenerDataUsuarioMail201mtemp.getNick();
-        String tempResultnick206 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenick206));
+if(obtenerDataUsuarioNick189mtemp != null){
+java.lang.String typenick194 = obtenerDataUsuarioNick189mtemp.getNick();
+        String tempResultnick194 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenick194));
         %>
-        <%= tempResultnick206 %>
+        <%= tempResultnick194 %>
         <%
 }%>
 </TD>
@@ -1070,11 +992,11 @@ java.lang.String typenick206 = obtenerDataUsuarioMail201mtemp.getNick();
 <TD COLSPAN="2" ALIGN="LEFT">mail:</TD>
 <TD>
 <%
-if(obtenerDataUsuarioMail201mtemp != null){
-java.lang.String typemail208 = obtenerDataUsuarioMail201mtemp.getMail();
-        String tempResultmail208 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typemail208));
+if(obtenerDataUsuarioNick189mtemp != null){
+java.lang.String typemail196 = obtenerDataUsuarioNick189mtemp.getMail();
+        String tempResultmail196 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typemail196));
         %>
-        <%= tempResultmail208 %>
+        <%= tempResultmail196 %>
         <%
 }%>
 </TD>
@@ -1083,11 +1005,11 @@ java.lang.String typemail208 = obtenerDataUsuarioMail201mtemp.getMail();
 <TD COLSPAN="2" ALIGN="LEFT">password:</TD>
 <TD>
 <%
-if(obtenerDataUsuarioMail201mtemp != null){
-java.lang.String typepassword210 = obtenerDataUsuarioMail201mtemp.getPassword();
-        String tempResultpassword210 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typepassword210));
+if(obtenerDataUsuarioNick189mtemp != null){
+java.lang.String typepassword198 = obtenerDataUsuarioNick189mtemp.getPassword();
+        String tempResultpassword198 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typepassword198));
         %>
-        <%= tempResultpassword210 %>
+        <%= tempResultpassword198 %>
         <%
 }%>
 </TD>
@@ -1096,11 +1018,11 @@ java.lang.String typepassword210 = obtenerDataUsuarioMail201mtemp.getPassword();
 <TD COLSPAN="2" ALIGN="LEFT">nombre:</TD>
 <TD>
 <%
-if(obtenerDataUsuarioMail201mtemp != null){
-java.lang.String typenombre212 = obtenerDataUsuarioMail201mtemp.getNombre();
-        String tempResultnombre212 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre212));
+if(obtenerDataUsuarioNick189mtemp != null){
+java.lang.String typenombre200 = obtenerDataUsuarioNick189mtemp.getNombre();
+        String tempResultnombre200 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre200));
         %>
-        <%= tempResultnombre212 %>
+        <%= tempResultnombre200 %>
         <%
 }%>
 </TD>
@@ -1109,11 +1031,11 @@ java.lang.String typenombre212 = obtenerDataUsuarioMail201mtemp.getNombre();
 <TD COLSPAN="2" ALIGN="LEFT">apellido:</TD>
 <TD>
 <%
-if(obtenerDataUsuarioMail201mtemp != null){
-java.lang.String typeapellido214 = obtenerDataUsuarioMail201mtemp.getApellido();
-        String tempResultapellido214 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeapellido214));
+if(obtenerDataUsuarioNick189mtemp != null){
+java.lang.String typeapellido202 = obtenerDataUsuarioNick189mtemp.getApellido();
+        String tempResultapellido202 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeapellido202));
         %>
-        <%= tempResultapellido214 %>
+        <%= tempResultapellido202 %>
         <%
 }%>
 </TD>
@@ -1121,17 +1043,118 @@ java.lang.String typeapellido214 = obtenerDataUsuarioMail201mtemp.getApellido();
 <%
 }
 break;
-case 218:
+case 206:
         gotMethod = true;
-        String arg0_22id=  request.getParameter("arg0235");
+        String arg0_22id=  request.getParameter("arg0221");
             java.lang.String arg0_22idTemp = null;
         if(!arg0_22id.equals("")){
          arg0_22idTemp  = arg0_22id;
         }
-        servidor.DataActividad obtenerDataActividad218mtemp = samplePublicadorIControladorProxyid.obtenerDataActividad(arg0_22idTemp);
-if(obtenerDataActividad218mtemp == null){
+        servidor.DataUsuario obtenerDataUsuarioMail206mtemp = samplePublicadorIControladorProxyid.obtenerDataUsuarioMail(arg0_22idTemp);
+if(obtenerDataUsuarioMail206mtemp == null){
 %>
-<%=obtenerDataActividad218mtemp %>
+<%=obtenerDataUsuarioMail206mtemp %>
+<%
+}else{
+%>
+<TABLE>
+<TR>
+<TD COLSPAN="3" ALIGN="LEFT">returnp:</TD>
+<TR>
+<TD WIDTH="5%"></TD>
+<TD COLSPAN="2" ALIGN="LEFT">nacimiento:</TD>
+<TD>
+<%
+if(obtenerDataUsuarioMail206mtemp != null){
+java.util.Calendar typenacimiento209 = obtenerDataUsuarioMail206mtemp.getNacimiento();
+        java.text.DateFormat dateFormatnacimiento209 = java.text.DateFormat.getDateInstance();
+        java.util.Date datenacimiento209 = typenacimiento209.getTime();
+        String tempResultnacimiento209 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatnacimiento209.format(datenacimiento209));
+        %>
+        <%= tempResultnacimiento209 %>
+        <%
+}%>
+</TD>
+<TR>
+<TD WIDTH="5%"></TD>
+<TD COLSPAN="2" ALIGN="LEFT">nick:</TD>
+<TD>
+<%
+if(obtenerDataUsuarioMail206mtemp != null){
+java.lang.String typenick211 = obtenerDataUsuarioMail206mtemp.getNick();
+        String tempResultnick211 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenick211));
+        %>
+        <%= tempResultnick211 %>
+        <%
+}%>
+</TD>
+<TR>
+<TD WIDTH="5%"></TD>
+<TD COLSPAN="2" ALIGN="LEFT">mail:</TD>
+<TD>
+<%
+if(obtenerDataUsuarioMail206mtemp != null){
+java.lang.String typemail213 = obtenerDataUsuarioMail206mtemp.getMail();
+        String tempResultmail213 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typemail213));
+        %>
+        <%= tempResultmail213 %>
+        <%
+}%>
+</TD>
+<TR>
+<TD WIDTH="5%"></TD>
+<TD COLSPAN="2" ALIGN="LEFT">password:</TD>
+<TD>
+<%
+if(obtenerDataUsuarioMail206mtemp != null){
+java.lang.String typepassword215 = obtenerDataUsuarioMail206mtemp.getPassword();
+        String tempResultpassword215 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typepassword215));
+        %>
+        <%= tempResultpassword215 %>
+        <%
+}%>
+</TD>
+<TR>
+<TD WIDTH="5%"></TD>
+<TD COLSPAN="2" ALIGN="LEFT">nombre:</TD>
+<TD>
+<%
+if(obtenerDataUsuarioMail206mtemp != null){
+java.lang.String typenombre217 = obtenerDataUsuarioMail206mtemp.getNombre();
+        String tempResultnombre217 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre217));
+        %>
+        <%= tempResultnombre217 %>
+        <%
+}%>
+</TD>
+<TR>
+<TD WIDTH="5%"></TD>
+<TD COLSPAN="2" ALIGN="LEFT">apellido:</TD>
+<TD>
+<%
+if(obtenerDataUsuarioMail206mtemp != null){
+java.lang.String typeapellido219 = obtenerDataUsuarioMail206mtemp.getApellido();
+        String tempResultapellido219 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeapellido219));
+        %>
+        <%= tempResultapellido219 %>
+        <%
+}%>
+</TD>
+</TABLE>
+<%
+}
+break;
+case 223:
+        gotMethod = true;
+        String arg0_23id=  request.getParameter("arg0240");
+            java.lang.String arg0_23idTemp = null;
+        if(!arg0_23id.equals("")){
+         arg0_23idTemp  = arg0_23id;
+        }
+        servidor.DataActividad obtenerDataActividad223mtemp = samplePublicadorIControladorProxyid.obtenerDataActividad(arg0_23idTemp);
+if(obtenerDataActividad223mtemp == null){
+%>
+<%=obtenerDataActividad223mtemp %>
 <%
 }else{
 %>
@@ -1143,13 +1166,13 @@ if(obtenerDataActividad218mtemp == null){
 <TD COLSPAN="2" ALIGN="LEFT">fechaAlta:</TD>
 <TD>
 <%
-if(obtenerDataActividad218mtemp != null){
-java.util.Calendar typefechaAlta221 = obtenerDataActividad218mtemp.getFechaAlta();
-        java.text.DateFormat dateFormatfechaAlta221 = java.text.DateFormat.getDateInstance();
-        java.util.Date datefechaAlta221 = typefechaAlta221.getTime();
-        String tempResultfechaAlta221 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta221.format(datefechaAlta221));
+if(obtenerDataActividad223mtemp != null){
+java.util.Calendar typefechaAlta226 = obtenerDataActividad223mtemp.getFechaAlta();
+        java.text.DateFormat dateFormatfechaAlta226 = java.text.DateFormat.getDateInstance();
+        java.util.Date datefechaAlta226 = typefechaAlta226.getTime();
+        String tempResultfechaAlta226 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta226.format(datefechaAlta226));
         %>
-        <%= tempResultfechaAlta221 %>
+        <%= tempResultfechaAlta226 %>
         <%
 }%>
 </TD>
@@ -1158,11 +1181,11 @@ java.util.Calendar typefechaAlta221 = obtenerDataActividad218mtemp.getFechaAlta(
 <TD COLSPAN="2" ALIGN="LEFT">departamento:</TD>
 <TD>
 <%
-if(obtenerDataActividad218mtemp != null){
-java.lang.String typedepartamento223 = obtenerDataActividad218mtemp.getDepartamento();
-        String tempResultdepartamento223 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedepartamento223));
+if(obtenerDataActividad223mtemp != null){
+java.lang.String typedepartamento228 = obtenerDataActividad223mtemp.getDepartamento();
+        String tempResultdepartamento228 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedepartamento228));
         %>
-        <%= tempResultdepartamento223 %>
+        <%= tempResultdepartamento228 %>
         <%
 }%>
 </TD>
@@ -1171,9 +1194,9 @@ java.lang.String typedepartamento223 = obtenerDataActividad218mtemp.getDepartame
 <TD COLSPAN="2" ALIGN="LEFT">costo:</TD>
 <TD>
 <%
-if(obtenerDataActividad218mtemp != null){
+if(obtenerDataActividad223mtemp != null){
 %>
-<%=obtenerDataActividad218mtemp.getCosto()
+<%=obtenerDataActividad223mtemp.getCosto()
 %><%}%>
 </TD>
 <TR>
@@ -1181,11 +1204,11 @@ if(obtenerDataActividad218mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">descripcion:</TD>
 <TD>
 <%
-if(obtenerDataActividad218mtemp != null){
-java.lang.String typedescripcion227 = obtenerDataActividad218mtemp.getDescripcion();
-        String tempResultdescripcion227 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedescripcion227));
+if(obtenerDataActividad223mtemp != null){
+java.lang.String typedescripcion232 = obtenerDataActividad223mtemp.getDescripcion();
+        String tempResultdescripcion232 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedescripcion232));
         %>
-        <%= tempResultdescripcion227 %>
+        <%= tempResultdescripcion232 %>
         <%
 }%>
 </TD>
@@ -1194,11 +1217,11 @@ java.lang.String typedescripcion227 = obtenerDataActividad218mtemp.getDescripcio
 <TD COLSPAN="2" ALIGN="LEFT">ciudad:</TD>
 <TD>
 <%
-if(obtenerDataActividad218mtemp != null){
-java.lang.String typeciudad229 = obtenerDataActividad218mtemp.getCiudad();
-        String tempResultciudad229 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeciudad229));
+if(obtenerDataActividad223mtemp != null){
+java.lang.String typeciudad234 = obtenerDataActividad223mtemp.getCiudad();
+        String tempResultciudad234 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typeciudad234));
         %>
-        <%= tempResultciudad229 %>
+        <%= tempResultciudad234 %>
         <%
 }%>
 </TD>
@@ -1207,9 +1230,9 @@ java.lang.String typeciudad229 = obtenerDataActividad218mtemp.getCiudad();
 <TD COLSPAN="2" ALIGN="LEFT">duracion:</TD>
 <TD>
 <%
-if(obtenerDataActividad218mtemp != null){
+if(obtenerDataActividad223mtemp != null){
 %>
-<%=obtenerDataActividad218mtemp.getDuracion()
+<%=obtenerDataActividad223mtemp.getDuracion()
 %><%}%>
 </TD>
 <TR>
@@ -1217,11 +1240,11 @@ if(obtenerDataActividad218mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">nombre:</TD>
 <TD>
 <%
-if(obtenerDataActividad218mtemp != null){
-java.lang.String typenombre233 = obtenerDataActividad218mtemp.getNombre();
-        String tempResultnombre233 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre233));
+if(obtenerDataActividad223mtemp != null){
+java.lang.String typenombre238 = obtenerDataActividad223mtemp.getNombre();
+        String tempResultnombre238 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre238));
         %>
-        <%= tempResultnombre233 %>
+        <%= tempResultnombre238 %>
         <%
 }%>
 </TD>
@@ -1229,17 +1252,17 @@ java.lang.String typenombre233 = obtenerDataActividad218mtemp.getNombre();
 <%
 }
 break;
-case 237:
+case 242:
         gotMethod = true;
-        String arg0_23id=  request.getParameter("arg0252");
-            java.lang.String arg0_23idTemp = null;
-        if(!arg0_23id.equals("")){
-         arg0_23idTemp  = arg0_23id;
+        String arg0_24id=  request.getParameter("arg0257");
+            java.lang.String arg0_24idTemp = null;
+        if(!arg0_24id.equals("")){
+         arg0_24idTemp  = arg0_24id;
         }
-        servidor.DataSalida obtenerDataSalida237mtemp = samplePublicadorIControladorProxyid.obtenerDataSalida(arg0_23idTemp);
-if(obtenerDataSalida237mtemp == null){
+        servidor.DataSalida obtenerDataSalida242mtemp = samplePublicadorIControladorProxyid.obtenerDataSalida(arg0_24idTemp);
+if(obtenerDataSalida242mtemp == null){
 %>
-<%=obtenerDataSalida237mtemp %>
+<%=obtenerDataSalida242mtemp %>
 <%
 }else{
 %>
@@ -1251,13 +1274,13 @@ if(obtenerDataSalida237mtemp == null){
 <TD COLSPAN="2" ALIGN="LEFT">hora:</TD>
 <TD>
 <%
-if(obtenerDataSalida237mtemp != null){
-java.util.Calendar typehora240 = obtenerDataSalida237mtemp.getHora();
-        java.text.DateFormat dateFormathora240 = java.text.DateFormat.getDateInstance();
-        java.util.Date datehora240 = typehora240.getTime();
-        String tempResulthora240 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormathora240.format(datehora240));
+if(obtenerDataSalida242mtemp != null){
+java.util.Calendar typehora245 = obtenerDataSalida242mtemp.getHora();
+        java.text.DateFormat dateFormathora245 = java.text.DateFormat.getDateInstance();
+        java.util.Date datehora245 = typehora245.getTime();
+        String tempResulthora245 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormathora245.format(datehora245));
         %>
-        <%= tempResulthora240 %>
+        <%= tempResulthora245 %>
         <%
 }%>
 </TD>
@@ -1266,13 +1289,13 @@ java.util.Calendar typehora240 = obtenerDataSalida237mtemp.getHora();
 <TD COLSPAN="2" ALIGN="LEFT">fecha:</TD>
 <TD>
 <%
-if(obtenerDataSalida237mtemp != null){
-java.util.Calendar typefecha242 = obtenerDataSalida237mtemp.getFecha();
-        java.text.DateFormat dateFormatfecha242 = java.text.DateFormat.getDateInstance();
-        java.util.Date datefecha242 = typefecha242.getTime();
-        String tempResultfecha242 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfecha242.format(datefecha242));
+if(obtenerDataSalida242mtemp != null){
+java.util.Calendar typefecha247 = obtenerDataSalida242mtemp.getFecha();
+        java.text.DateFormat dateFormatfecha247 = java.text.DateFormat.getDateInstance();
+        java.util.Date datefecha247 = typefecha247.getTime();
+        String tempResultfecha247 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfecha247.format(datefecha247));
         %>
-        <%= tempResultfecha242 %>
+        <%= tempResultfecha247 %>
         <%
 }%>
 </TD>
@@ -1281,9 +1304,9 @@ java.util.Calendar typefecha242 = obtenerDataSalida237mtemp.getFecha();
 <TD COLSPAN="2" ALIGN="LEFT">cant:</TD>
 <TD>
 <%
-if(obtenerDataSalida237mtemp != null){
+if(obtenerDataSalida242mtemp != null){
 %>
-<%=obtenerDataSalida237mtemp.getCant()
+<%=obtenerDataSalida242mtemp.getCant()
 %><%}%>
 </TD>
 <TR>
@@ -1291,13 +1314,13 @@ if(obtenerDataSalida237mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">fechaAlta:</TD>
 <TD>
 <%
-if(obtenerDataSalida237mtemp != null){
-java.util.Calendar typefechaAlta246 = obtenerDataSalida237mtemp.getFechaAlta();
-        java.text.DateFormat dateFormatfechaAlta246 = java.text.DateFormat.getDateInstance();
-        java.util.Date datefechaAlta246 = typefechaAlta246.getTime();
-        String tempResultfechaAlta246 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta246.format(datefechaAlta246));
+if(obtenerDataSalida242mtemp != null){
+java.util.Calendar typefechaAlta251 = obtenerDataSalida242mtemp.getFechaAlta();
+        java.text.DateFormat dateFormatfechaAlta251 = java.text.DateFormat.getDateInstance();
+        java.util.Date datefechaAlta251 = typefechaAlta251.getTime();
+        String tempResultfechaAlta251 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta251.format(datefechaAlta251));
         %>
-        <%= tempResultfechaAlta246 %>
+        <%= tempResultfechaAlta251 %>
         <%
 }%>
 </TD>
@@ -1306,11 +1329,11 @@ java.util.Calendar typefechaAlta246 = obtenerDataSalida237mtemp.getFechaAlta();
 <TD COLSPAN="2" ALIGN="LEFT">lugar:</TD>
 <TD>
 <%
-if(obtenerDataSalida237mtemp != null){
-java.lang.String typelugar248 = obtenerDataSalida237mtemp.getLugar();
-        String tempResultlugar248 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typelugar248));
+if(obtenerDataSalida242mtemp != null){
+java.lang.String typelugar253 = obtenerDataSalida242mtemp.getLugar();
+        String tempResultlugar253 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typelugar253));
         %>
-        <%= tempResultlugar248 %>
+        <%= tempResultlugar253 %>
         <%
 }%>
 </TD>
@@ -1319,11 +1342,11 @@ java.lang.String typelugar248 = obtenerDataSalida237mtemp.getLugar();
 <TD COLSPAN="2" ALIGN="LEFT">nombre:</TD>
 <TD>
 <%
-if(obtenerDataSalida237mtemp != null){
-java.lang.String typenombre250 = obtenerDataSalida237mtemp.getNombre();
-        String tempResultnombre250 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre250));
+if(obtenerDataSalida242mtemp != null){
+java.lang.String typenombre255 = obtenerDataSalida242mtemp.getNombre();
+        String tempResultnombre255 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre255));
         %>
-        <%= tempResultnombre250 %>
+        <%= tempResultnombre255 %>
         <%
 }%>
 </TD>
@@ -1331,83 +1354,63 @@ java.lang.String typenombre250 = obtenerDataSalida237mtemp.getNombre();
 <%
 }
 break;
-case 254:
+case 259:
         gotMethod = true;
-        String arg0_24id=  request.getParameter("arg0257");
-            java.lang.String arg0_24idTemp = null;
-        if(!arg0_24id.equals("")){
-         arg0_24idTemp  = arg0_24id;
+        String arg0_25id=  request.getParameter("arg0262");
+            java.lang.String arg0_25idTemp = null;
+        if(!arg0_25id.equals("")){
+         arg0_25idTemp  = arg0_25id;
         }
-        String arg1_25id=  request.getParameter("arg1259");
-            java.util.Calendar arg1_25idTemp = null;
-        if(!arg1_25id.equals("")){
-        java.text.DateFormat dateFormatarg1259 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg1259  = dateFormatarg1259.parse(arg1_25id);
-         arg1_25idTemp = new java.util.GregorianCalendar();
-        arg1_25idTemp.setTime(dateTemparg1259);
+        String arg1_26id=  request.getParameter("arg1264");
+            java.util.Calendar arg1_26idTemp = null;
+        if(!arg1_26id.equals("")){
+        java.text.DateFormat dateFormatarg1264 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg1264  = dateFormatarg1264.parse(arg1_26id);
+         arg1_26idTemp = new java.util.GregorianCalendar();
+        arg1_26idTemp.setTime(dateTemparg1264);
         }
-        String arg2_26id=  request.getParameter("arg2261");
-        int arg2_26idTemp  = Integer.parseInt(arg2_26id);
-        String arg3_27id=  request.getParameter("arg3263");
-            java.lang.String arg3_27idTemp = null;
-        if(!arg3_27id.equals("")){
-         arg3_27idTemp  = arg3_27id;
+        String arg2_27id=  request.getParameter("arg2266");
+        int arg2_27idTemp  = Integer.parseInt(arg2_27id);
+        String arg3_28id=  request.getParameter("arg3268");
+            java.lang.String arg3_28idTemp = null;
+        if(!arg3_28id.equals("")){
+         arg3_28idTemp  = arg3_28id;
         }
-        samplePublicadorIControladorProxyid.comprarPaquete(arg0_24idTemp,arg1_25idTemp,arg2_26idTemp,arg3_27idTemp);
+        samplePublicadorIControladorProxyid.comprarPaquete(arg0_25idTemp,arg1_26idTemp,arg2_27idTemp,arg3_28idTemp);
 break;
-case 265:
+case 270:
         gotMethod = true;
-        String arg0_28id=  request.getParameter("arg0268");
-            java.lang.String arg0_28idTemp = null;
-        if(!arg0_28id.equals("")){
-         arg0_28idTemp  = arg0_28id;
+        String arg0_29id=  request.getParameter("arg0273");
+            java.lang.String arg0_29idTemp = null;
+        if(!arg0_29id.equals("")){
+         arg0_29idTemp  = arg0_29id;
         }
-        String arg1_29id=  request.getParameter("arg1270");
-            java.lang.String arg1_29idTemp = null;
-        if(!arg1_29id.equals("")){
-         arg1_29idTemp  = arg1_29id;
+        String arg1_30id=  request.getParameter("arg1275");
+            java.lang.String arg1_30idTemp = null;
+        if(!arg1_30id.equals("")){
+         arg1_30idTemp  = arg1_30id;
         }
-        String arg2_30id=  request.getParameter("arg2272");
-        int arg2_30idTemp  = Integer.parseInt(arg2_30id);
-        String arg3_31id=  request.getParameter("arg3274");
-            java.util.Calendar arg3_31idTemp = null;
-        if(!arg3_31id.equals("")){
-        java.text.DateFormat dateFormatarg3274 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg3274  = dateFormatarg3274.parse(arg3_31id);
-         arg3_31idTemp = new java.util.GregorianCalendar();
-        arg3_31idTemp.setTime(dateTemparg3274);
+        String arg2_31id=  request.getParameter("arg2277");
+        int arg2_31idTemp  = Integer.parseInt(arg2_31id);
+        String arg3_32id=  request.getParameter("arg3279");
+            java.util.Calendar arg3_32idTemp = null;
+        if(!arg3_32id.equals("")){
+        java.text.DateFormat dateFormatarg3279 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg3279  = dateFormatarg3279.parse(arg3_32id);
+         arg3_32idTemp = new java.util.GregorianCalendar();
+        arg3_32idTemp.setTime(dateTemparg3279);
         }
-        String arg4_32id=  request.getParameter("arg4276");
-            java.lang.String arg4_32idTemp = null;
-        if(!arg4_32id.equals("")){
-         arg4_32idTemp  = arg4_32id;
+        String arg4_33id=  request.getParameter("arg4281");
+            java.lang.String arg4_33idTemp = null;
+        if(!arg4_33id.equals("")){
+         arg4_33idTemp  = arg4_33id;
         }
-        String arg5_33id=  request.getParameter("arg5278");
-            java.lang.String arg5_33idTemp = null;
-        if(!arg5_33id.equals("")){
-         arg5_33idTemp  = arg5_33id;
+        String arg5_34id=  request.getParameter("arg5283");
+            java.lang.String arg5_34idTemp = null;
+        if(!arg5_34id.equals("")){
+         arg5_34idTemp  = arg5_34id;
         }
-        samplePublicadorIControladorProxyid.inscribirPaq(arg0_28idTemp,arg1_29idTemp,arg2_30idTemp,arg3_31idTemp,arg4_32idTemp,arg5_33idTemp);
-break;
-case 280:
-        gotMethod = true;
-        String arg0_34id=  request.getParameter("arg0283");
-            java.lang.String arg0_34idTemp = null;
-        if(!arg0_34id.equals("")){
-         arg0_34idTemp  = arg0_34id;
-        }
-        servidor.DataColeccionObject obtenerPaquetesComprados280mtemp = samplePublicadorIControladorProxyid.obtenerPaquetesComprados(arg0_34idTemp);
-if(obtenerPaquetesComprados280mtemp == null){
-%>
-<%=obtenerPaquetesComprados280mtemp %>
-<%
-}else{
-        if(obtenerPaquetesComprados280mtemp!= null){
-        String tempreturnp281 = obtenerPaquetesComprados280mtemp.toString();
-        %>
-        <%=tempreturnp281%>
-        <%
-        }}
+        samplePublicadorIControladorProxyid.inscribirPaq(arg0_29idTemp,arg1_30idTemp,arg2_31idTemp,arg3_32idTemp,arg4_33idTemp,arg5_34idTemp);
 break;
 case 285:
         gotMethod = true;
@@ -1416,17 +1419,18 @@ case 285:
         if(!arg0_35id.equals("")){
          arg0_35idTemp  = arg0_35id;
         }
-        java.lang.String obtenerNomActPorSalida285mtemp = samplePublicadorIControladorProxyid.obtenerNomActPorSalida(arg0_35idTemp);
-if(obtenerNomActPorSalida285mtemp == null){
+        servidor.DataColeccionObject obtenerPaquetesComprados285mtemp = samplePublicadorIControladorProxyid.obtenerPaquetesComprados(arg0_35idTemp);
+if(obtenerPaquetesComprados285mtemp == null){
 %>
-<%=obtenerNomActPorSalida285mtemp %>
+<%=obtenerPaquetesComprados285mtemp %>
 <%
 }else{
-        String tempResultreturnp286 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(obtenerNomActPorSalida285mtemp));
+        if(obtenerPaquetesComprados285mtemp!= null){
+        String tempreturnp286 = obtenerPaquetesComprados285mtemp.toString();
         %>
-        <%= tempResultreturnp286 %>
+        <%=tempreturnp286%>
         <%
-}
+        }}
 break;
 case 290:
         gotMethod = true;
@@ -1435,18 +1439,17 @@ case 290:
         if(!arg0_36id.equals("")){
          arg0_36idTemp  = arg0_36id;
         }
-        servidor.DataColeccionObject selecDepartamento290mtemp = samplePublicadorIControladorProxyid.selecDepartamento(arg0_36idTemp);
-if(selecDepartamento290mtemp == null){
+        java.lang.String obtenerNomActPorSalida290mtemp = samplePublicadorIControladorProxyid.obtenerNomActPorSalida(arg0_36idTemp);
+if(obtenerNomActPorSalida290mtemp == null){
 %>
-<%=selecDepartamento290mtemp %>
+<%=obtenerNomActPorSalida290mtemp %>
 <%
 }else{
-        if(selecDepartamento290mtemp!= null){
-        String tempreturnp291 = selecDepartamento290mtemp.toString();
+        String tempResultreturnp291 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(obtenerNomActPorSalida290mtemp));
         %>
-        <%=tempreturnp291%>
+        <%= tempResultreturnp291 %>
         <%
-        }}
+}
 break;
 case 295:
         gotMethod = true;
@@ -1455,14 +1458,14 @@ case 295:
         if(!arg0_37id.equals("")){
          arg0_37idTemp  = arg0_37id;
         }
-        servidor.DataColeccionObject salidas295mtemp = samplePublicadorIControladorProxyid.salidas(arg0_37idTemp);
-if(salidas295mtemp == null){
+        servidor.DataColeccionObject selecDepartamento295mtemp = samplePublicadorIControladorProxyid.selecDepartamento(arg0_37idTemp);
+if(selecDepartamento295mtemp == null){
 %>
-<%=salidas295mtemp %>
+<%=selecDepartamento295mtemp %>
 <%
 }else{
-        if(salidas295mtemp!= null){
-        String tempreturnp296 = salidas295mtemp.toString();
+        if(selecDepartamento295mtemp!= null){
+        String tempreturnp296 = selecDepartamento295mtemp.toString();
         %>
         <%=tempreturnp296%>
         <%
@@ -1475,269 +1478,289 @@ case 300:
         if(!arg0_38id.equals("")){
          arg0_38idTemp  = arg0_38id;
         }
-        String arg1_39id=  request.getParameter("arg1305");
-            java.lang.String arg1_39idTemp = null;
-        if(!arg1_39id.equals("")){
-         arg1_39idTemp  = arg1_39id;
-        }
-        String arg2_40id=  request.getParameter("arg2307");
-        int arg2_40idTemp  = Integer.parseInt(arg2_40id);
-        String arg3_41id=  request.getParameter("arg3309");
-            java.util.Calendar arg3_41idTemp = null;
-        if(!arg3_41id.equals("")){
-        java.text.DateFormat dateFormatarg3309 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg3309  = dateFormatarg3309.parse(arg3_41id);
-         arg3_41idTemp = new java.util.GregorianCalendar();
-        arg3_41idTemp.setTime(dateTemparg3309);
-        }
-        String arg4_42id=  request.getParameter("arg4311");
-            java.lang.String arg4_42idTemp = null;
-        if(!arg4_42id.equals("")){
-         arg4_42idTemp  = arg4_42id;
-        }
-        samplePublicadorIControladorProxyid.inscribir(arg0_38idTemp,arg1_39idTemp,arg2_40idTemp,arg3_41idTemp,arg4_42idTemp);
-break;
-case 313:
-        gotMethod = true;
-        servidor.DataColeccionObject listarUsuarios313mtemp = samplePublicadorIControladorProxyid.listarUsuarios();
-if(listarUsuarios313mtemp == null){
+        servidor.DataColeccionObject salidas300mtemp = samplePublicadorIControladorProxyid.salidas(arg0_38idTemp);
+if(salidas300mtemp == null){
 %>
-<%=listarUsuarios313mtemp %>
+<%=salidas300mtemp %>
 <%
 }else{
-        if(listarUsuarios313mtemp!= null){
-        String tempreturnp314 = listarUsuarios313mtemp.toString();
+        if(salidas300mtemp!= null){
+        String tempreturnp301 = salidas300mtemp.toString();
         %>
-        <%=tempreturnp314%>
+        <%=tempreturnp301%>
         <%
         }}
 break;
-case 316:
+case 305:
         gotMethod = true;
-        String arg0_43id=  request.getParameter("arg0319");
-            java.lang.String arg0_43idTemp = null;
-        if(!arg0_43id.equals("")){
-         arg0_43idTemp  = arg0_43id;
+        String arg0_39id=  request.getParameter("arg0308");
+            java.lang.String arg0_39idTemp = null;
+        if(!arg0_39id.equals("")){
+         arg0_39idTemp  = arg0_39id;
         }
-        String arg1_44id=  request.getParameter("arg1321");
-            java.lang.String arg1_44idTemp = null;
-        if(!arg1_44id.equals("")){
-         arg1_44idTemp  = arg1_44id;
+        String arg1_40id=  request.getParameter("arg1310");
+            java.lang.String arg1_40idTemp = null;
+        if(!arg1_40id.equals("")){
+         arg1_40idTemp  = arg1_40id;
         }
-        String arg2_45id=  request.getParameter("arg2323");
-            java.lang.String arg2_45idTemp = null;
-        if(!arg2_45id.equals("")){
-         arg2_45idTemp  = arg2_45id;
+        String arg2_41id=  request.getParameter("arg2312");
+        int arg2_41idTemp  = Integer.parseInt(arg2_41id);
+        String arg3_42id=  request.getParameter("arg3314");
+            java.util.Calendar arg3_42idTemp = null;
+        if(!arg3_42id.equals("")){
+        java.text.DateFormat dateFormatarg3314 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg3314  = dateFormatarg3314.parse(arg3_42id);
+         arg3_42idTemp = new java.util.GregorianCalendar();
+        arg3_42idTemp.setTime(dateTemparg3314);
         }
-        String arg3_46id=  request.getParameter("arg3325");
-        int arg3_46idTemp  = Integer.parseInt(arg3_46id);
-        String arg4_47id=  request.getParameter("arg4327");
-        int arg4_47idTemp  = Integer.parseInt(arg4_47id);
-        String arg5_48id=  request.getParameter("arg5329");
-            java.lang.String arg5_48idTemp = null;
-        if(!arg5_48id.equals("")){
-         arg5_48idTemp  = arg5_48id;
+        String arg4_43id=  request.getParameter("arg4316");
+            java.lang.String arg4_43idTemp = null;
+        if(!arg4_43id.equals("")){
+         arg4_43idTemp  = arg4_43id;
         }
-        String arg6_49id=  request.getParameter("arg6331");
-            java.util.Calendar arg6_49idTemp = null;
-        if(!arg6_49id.equals("")){
-        java.text.DateFormat dateFormatarg6331 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg6331  = dateFormatarg6331.parse(arg6_49id);
-         arg6_49idTemp = new java.util.GregorianCalendar();
-        arg6_49idTemp.setTime(dateTemparg6331);
-        }
-        String arg7_50id=  request.getParameter("arg7333");
-            java.lang.String arg7_50idTemp = null;
-        if(!arg7_50id.equals("")){
-         arg7_50idTemp  = arg7_50id;
-        }
-        %>
-        <jsp:useBean id="servidor1DataColeccionObject_51id" scope="session" class="servidor.DataColeccionObject" />
-        <%
-        samplePublicadorIControladorProxyid.registrarActividad(arg0_43idTemp,arg1_44idTemp,arg2_45idTemp,arg3_46idTemp,arg4_47idTemp,arg5_48idTemp,arg6_49idTemp,arg7_50idTemp,servidor1DataColeccionObject_51id);
+        samplePublicadorIControladorProxyid.inscribir(arg0_39idTemp,arg1_40idTemp,arg2_41idTemp,arg3_42idTemp,arg4_43idTemp);
 break;
-case 337:
+case 318:
         gotMethod = true;
-        servidor.DataColeccionObject getUsuarios337mtemp = samplePublicadorIControladorProxyid.getUsuarios();
-if(getUsuarios337mtemp == null){
+        servidor.DataColeccionObject listarUsuarios318mtemp = samplePublicadorIControladorProxyid.listarUsuarios();
+if(listarUsuarios318mtemp == null){
 %>
-<%=getUsuarios337mtemp %>
+<%=listarUsuarios318mtemp %>
 <%
 }else{
-        if(getUsuarios337mtemp!= null){
-        String tempreturnp338 = getUsuarios337mtemp.toString();
+        if(listarUsuarios318mtemp!= null){
+        String tempreturnp319 = listarUsuarios318mtemp.toString();
         %>
-        <%=tempreturnp338%>
+        <%=tempreturnp319%>
         <%
         }}
 break;
-case 340:
+case 321:
         gotMethod = true;
-        servidor.DataColeccionObject obtenerNombreCategorias340mtemp = samplePublicadorIControladorProxyid.obtenerNombreCategorias();
-if(obtenerNombreCategorias340mtemp == null){
+        String arg0_44id=  request.getParameter("arg0324");
+            java.lang.String arg0_44idTemp = null;
+        if(!arg0_44id.equals("")){
+         arg0_44idTemp  = arg0_44id;
+        }
+        String arg1_45id=  request.getParameter("arg1326");
+            java.lang.String arg1_45idTemp = null;
+        if(!arg1_45id.equals("")){
+         arg1_45idTemp  = arg1_45id;
+        }
+        String arg2_46id=  request.getParameter("arg2328");
+            java.lang.String arg2_46idTemp = null;
+        if(!arg2_46id.equals("")){
+         arg2_46idTemp  = arg2_46id;
+        }
+        String arg3_47id=  request.getParameter("arg3330");
+        int arg3_47idTemp  = Integer.parseInt(arg3_47id);
+        String arg4_48id=  request.getParameter("arg4332");
+        int arg4_48idTemp  = Integer.parseInt(arg4_48id);
+        String arg5_49id=  request.getParameter("arg5334");
+            java.lang.String arg5_49idTemp = null;
+        if(!arg5_49id.equals("")){
+         arg5_49idTemp  = arg5_49id;
+        }
+        String arg6_50id=  request.getParameter("arg6336");
+            java.util.Calendar arg6_50idTemp = null;
+        if(!arg6_50id.equals("")){
+        java.text.DateFormat dateFormatarg6336 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg6336  = dateFormatarg6336.parse(arg6_50id);
+         arg6_50idTemp = new java.util.GregorianCalendar();
+        arg6_50idTemp.setTime(dateTemparg6336);
+        }
+        String arg7_51id=  request.getParameter("arg7338");
+            java.lang.String arg7_51idTemp = null;
+        if(!arg7_51id.equals("")){
+         arg7_51idTemp  = arg7_51id;
+        }
+        %>
+        <jsp:useBean id="servidor1DataColeccionObject_52id" scope="session" class="servidor.DataColeccionObject" />
+        <%
+        samplePublicadorIControladorProxyid.registrarActividad(arg0_44idTemp,arg1_45idTemp,arg2_46idTemp,arg3_47idTemp,arg4_48idTemp,arg5_49idTemp,arg6_50idTemp,arg7_51idTemp,servidor1DataColeccionObject_52id);
+break;
+case 342:
+        gotMethod = true;
+        servidor.DataColeccionObject getUsuarios342mtemp = samplePublicadorIControladorProxyid.getUsuarios();
+if(getUsuarios342mtemp == null){
 %>
-<%=obtenerNombreCategorias340mtemp %>
+<%=getUsuarios342mtemp %>
 <%
 }else{
-        if(obtenerNombreCategorias340mtemp!= null){
-        String tempreturnp341 = obtenerNombreCategorias340mtemp.toString();
+        if(getUsuarios342mtemp!= null){
+        String tempreturnp343 = getUsuarios342mtemp.toString();
         %>
-        <%=tempreturnp341%>
+        <%=tempreturnp343%>
         <%
         }}
 break;
-case 343:
+case 345:
         gotMethod = true;
-        String arg0_52id=  request.getParameter("arg0346");
-            java.lang.String arg0_52idTemp = null;
-        if(!arg0_52id.equals("")){
-         arg0_52idTemp  = arg0_52id;
-        }
-        String arg1_53id=  request.getParameter("arg1348");
-            java.lang.String arg1_53idTemp = null;
-        if(!arg1_53id.equals("")){
-         arg1_53idTemp  = arg1_53id;
-        }
-        String arg2_54id=  request.getParameter("arg2350");
-            java.util.Calendar arg2_54idTemp = null;
-        if(!arg2_54id.equals("")){
-        java.text.DateFormat dateFormatarg2350 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg2350  = dateFormatarg2350.parse(arg2_54id);
-         arg2_54idTemp = new java.util.GregorianCalendar();
-        arg2_54idTemp.setTime(dateTemparg2350);
-        }
-        String arg3_55id=  request.getParameter("arg3352");
-            java.util.Calendar arg3_55idTemp = null;
-        if(!arg3_55id.equals("")){
-        java.text.DateFormat dateFormatarg3352 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg3352  = dateFormatarg3352.parse(arg3_55id);
-         arg3_55idTemp = new java.util.GregorianCalendar();
-        arg3_55idTemp.setTime(dateTemparg3352);
-        }
-        String arg4_56id=  request.getParameter("arg4354");
-            java.lang.String arg4_56idTemp = null;
-        if(!arg4_56id.equals("")){
-         arg4_56idTemp  = arg4_56id;
-        }
-        String arg5_57id=  request.getParameter("arg5356");
-        int arg5_57idTemp  = Integer.parseInt(arg5_57id);
-        String arg6_58id=  request.getParameter("arg6358");
-            java.util.Calendar arg6_58idTemp = null;
-        if(!arg6_58id.equals("")){
-        java.text.DateFormat dateFormatarg6358 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg6358  = dateFormatarg6358.parse(arg6_58id);
-         arg6_58idTemp = new java.util.GregorianCalendar();
-        arg6_58idTemp.setTime(dateTemparg6358);
-        }
-        samplePublicadorIControladorProxyid.confirmarAltaSalida(arg0_52idTemp,arg1_53idTemp,arg2_54idTemp,arg3_55idTemp,arg4_56idTemp,arg5_57idTemp,arg6_58idTemp);
-break;
-case 360:
-        gotMethod = true;
-        String arg0_59id=  request.getParameter("arg0363");
-            java.lang.String arg0_59idTemp = null;
-        if(!arg0_59id.equals("")){
-         arg0_59idTemp  = arg0_59id;
-        }
-        String arg1_60id=  request.getParameter("arg1365");
-            java.lang.String arg1_60idTemp = null;
-        if(!arg1_60id.equals("")){
-         arg1_60idTemp  = arg1_60id;
-        }
-        String arg2_61id=  request.getParameter("arg2367");
-            java.lang.String arg2_61idTemp = null;
-        if(!arg2_61id.equals("")){
-         arg2_61idTemp  = arg2_61id;
-        }
-        String arg3_62id=  request.getParameter("arg3369");
-            java.lang.String arg3_62idTemp = null;
-        if(!arg3_62id.equals("")){
-         arg3_62idTemp  = arg3_62id;
-        }
-        String arg4_63id=  request.getParameter("arg4371");
-            java.util.Calendar arg4_63idTemp = null;
-        if(!arg4_63id.equals("")){
-        java.text.DateFormat dateFormatarg4371 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg4371  = dateFormatarg4371.parse(arg4_63id);
-         arg4_63idTemp = new java.util.GregorianCalendar();
-        arg4_63idTemp.setTime(dateTemparg4371);
-        }
-        String arg5_64id=  request.getParameter("arg5373");
-            java.lang.String arg5_64idTemp = null;
-        if(!arg5_64id.equals("")){
-         arg5_64idTemp  = arg5_64id;
-        }
-        samplePublicadorIControladorProxyid.confirmarAltaTurista(arg0_59idTemp,arg1_60idTemp,arg2_61idTemp,arg3_62idTemp,arg4_63idTemp,arg5_64idTemp);
-break;
-case 375:
-        gotMethod = true;
-        String arg0_65id=  request.getParameter("arg0378");
-            java.lang.String arg0_65idTemp = null;
-        if(!arg0_65id.equals("")){
-         arg0_65idTemp  = arg0_65id;
-        }
-        String arg1_66id=  request.getParameter("arg1380");
-            java.lang.String arg1_66idTemp = null;
-        if(!arg1_66id.equals("")){
-         arg1_66idTemp  = arg1_66id;
-        }
-        String arg2_67id=  request.getParameter("arg2382");
-            java.lang.String arg2_67idTemp = null;
-        if(!arg2_67id.equals("")){
-         arg2_67idTemp  = arg2_67id;
-        }
-        String arg3_68id=  request.getParameter("arg3384");
-            java.lang.String arg3_68idTemp = null;
-        if(!arg3_68id.equals("")){
-         arg3_68idTemp  = arg3_68id;
-        }
-        String arg4_69id=  request.getParameter("arg4386");
-            java.util.Calendar arg4_69idTemp = null;
-        if(!arg4_69id.equals("")){
-        java.text.DateFormat dateFormatarg4386 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg4386  = dateFormatarg4386.parse(arg4_69id);
-         arg4_69idTemp = new java.util.GregorianCalendar();
-        arg4_69idTemp.setTime(dateTemparg4386);
-        }
-        String arg5_70id=  request.getParameter("arg5388");
-            java.lang.String arg5_70idTemp = null;
-        if(!arg5_70id.equals("")){
-         arg5_70idTemp  = arg5_70id;
-        }
-        String arg6_71id=  request.getParameter("arg6390");
-            java.lang.String arg6_71idTemp = null;
-        if(!arg6_71id.equals("")){
-         arg6_71idTemp  = arg6_71id;
-        }
-        String arg7_72id=  request.getParameter("arg7392");
-        boolean arg7_72idTemp  = Boolean.valueOf(arg7_72id).booleanValue();
-        samplePublicadorIControladorProxyid.confirmarAltaProveedor(arg0_65idTemp,arg1_66idTemp,arg2_67idTemp,arg3_68idTemp,arg4_69idTemp,arg5_70idTemp,arg6_71idTemp,arg7_72idTemp);
-break;
-case 394:
-        gotMethod = true;
-        servidor.DataColeccionObject listarPaquetes394mtemp = samplePublicadorIControladorProxyid.listarPaquetes();
-if(listarPaquetes394mtemp == null){
+        servidor.DataColeccionObject obtenerNombreCategorias345mtemp = samplePublicadorIControladorProxyid.obtenerNombreCategorias();
+if(obtenerNombreCategorias345mtemp == null){
 %>
-<%=listarPaquetes394mtemp %>
+<%=obtenerNombreCategorias345mtemp %>
 <%
 }else{
-        if(listarPaquetes394mtemp!= null){
-        String tempreturnp395 = listarPaquetes394mtemp.toString();
+        if(obtenerNombreCategorias345mtemp!= null){
+        String tempreturnp346 = obtenerNombreCategorias345mtemp.toString();
         %>
-        <%=tempreturnp395%>
+        <%=tempreturnp346%>
         <%
         }}
 break;
-case 397:
+case 348:
         gotMethod = true;
-        String arg0_73id=  request.getParameter("arg0410");
-            java.lang.String arg0_73idTemp = null;
-        if(!arg0_73id.equals("")){
-         arg0_73idTemp  = arg0_73id;
+        String arg0_53id=  request.getParameter("arg0351");
+            java.lang.String arg0_53idTemp = null;
+        if(!arg0_53id.equals("")){
+         arg0_53idTemp  = arg0_53id;
         }
-        servidor.DataPaquete obtenerDataPaquete397mtemp = samplePublicadorIControladorProxyid.obtenerDataPaquete(arg0_73idTemp);
-if(obtenerDataPaquete397mtemp == null){
+        String arg1_54id=  request.getParameter("arg1353");
+            java.lang.String arg1_54idTemp = null;
+        if(!arg1_54id.equals("")){
+         arg1_54idTemp  = arg1_54id;
+        }
+        String arg2_55id=  request.getParameter("arg2355");
+            java.util.Calendar arg2_55idTemp = null;
+        if(!arg2_55id.equals("")){
+        java.text.DateFormat dateFormatarg2355 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg2355  = dateFormatarg2355.parse(arg2_55id);
+         arg2_55idTemp = new java.util.GregorianCalendar();
+        arg2_55idTemp.setTime(dateTemparg2355);
+        }
+        String arg3_56id=  request.getParameter("arg3357");
+            java.util.Calendar arg3_56idTemp = null;
+        if(!arg3_56id.equals("")){
+        java.text.DateFormat dateFormatarg3357 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg3357  = dateFormatarg3357.parse(arg3_56id);
+         arg3_56idTemp = new java.util.GregorianCalendar();
+        arg3_56idTemp.setTime(dateTemparg3357);
+        }
+        String arg4_57id=  request.getParameter("arg4359");
+            java.lang.String arg4_57idTemp = null;
+        if(!arg4_57id.equals("")){
+         arg4_57idTemp  = arg4_57id;
+        }
+        String arg5_58id=  request.getParameter("arg5361");
+        int arg5_58idTemp  = Integer.parseInt(arg5_58id);
+        String arg6_59id=  request.getParameter("arg6363");
+            java.util.Calendar arg6_59idTemp = null;
+        if(!arg6_59id.equals("")){
+        java.text.DateFormat dateFormatarg6363 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg6363  = dateFormatarg6363.parse(arg6_59id);
+         arg6_59idTemp = new java.util.GregorianCalendar();
+        arg6_59idTemp.setTime(dateTemparg6363);
+        }
+        samplePublicadorIControladorProxyid.confirmarAltaSalida(arg0_53idTemp,arg1_54idTemp,arg2_55idTemp,arg3_56idTemp,arg4_57idTemp,arg5_58idTemp,arg6_59idTemp);
+break;
+case 365:
+        gotMethod = true;
+        String arg0_60id=  request.getParameter("arg0368");
+            java.lang.String arg0_60idTemp = null;
+        if(!arg0_60id.equals("")){
+         arg0_60idTemp  = arg0_60id;
+        }
+        String arg1_61id=  request.getParameter("arg1370");
+            java.lang.String arg1_61idTemp = null;
+        if(!arg1_61id.equals("")){
+         arg1_61idTemp  = arg1_61id;
+        }
+        String arg2_62id=  request.getParameter("arg2372");
+            java.lang.String arg2_62idTemp = null;
+        if(!arg2_62id.equals("")){
+         arg2_62idTemp  = arg2_62id;
+        }
+        String arg3_63id=  request.getParameter("arg3374");
+            java.lang.String arg3_63idTemp = null;
+        if(!arg3_63id.equals("")){
+         arg3_63idTemp  = arg3_63id;
+        }
+        String arg4_64id=  request.getParameter("arg4376");
+            java.util.Calendar arg4_64idTemp = null;
+        if(!arg4_64id.equals("")){
+        java.text.DateFormat dateFormatarg4376 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg4376  = dateFormatarg4376.parse(arg4_64id);
+         arg4_64idTemp = new java.util.GregorianCalendar();
+        arg4_64idTemp.setTime(dateTemparg4376);
+        }
+        String arg5_65id=  request.getParameter("arg5378");
+            java.lang.String arg5_65idTemp = null;
+        if(!arg5_65id.equals("")){
+         arg5_65idTemp  = arg5_65id;
+        }
+        samplePublicadorIControladorProxyid.confirmarAltaTurista(arg0_60idTemp,arg1_61idTemp,arg2_62idTemp,arg3_63idTemp,arg4_64idTemp,arg5_65idTemp);
+break;
+case 380:
+        gotMethod = true;
+        String arg0_66id=  request.getParameter("arg0383");
+            java.lang.String arg0_66idTemp = null;
+        if(!arg0_66id.equals("")){
+         arg0_66idTemp  = arg0_66id;
+        }
+        String arg1_67id=  request.getParameter("arg1385");
+            java.lang.String arg1_67idTemp = null;
+        if(!arg1_67id.equals("")){
+         arg1_67idTemp  = arg1_67id;
+        }
+        String arg2_68id=  request.getParameter("arg2387");
+            java.lang.String arg2_68idTemp = null;
+        if(!arg2_68id.equals("")){
+         arg2_68idTemp  = arg2_68id;
+        }
+        String arg3_69id=  request.getParameter("arg3389");
+            java.lang.String arg3_69idTemp = null;
+        if(!arg3_69id.equals("")){
+         arg3_69idTemp  = arg3_69id;
+        }
+        String arg4_70id=  request.getParameter("arg4391");
+            java.util.Calendar arg4_70idTemp = null;
+        if(!arg4_70id.equals("")){
+        java.text.DateFormat dateFormatarg4391 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg4391  = dateFormatarg4391.parse(arg4_70id);
+         arg4_70idTemp = new java.util.GregorianCalendar();
+        arg4_70idTemp.setTime(dateTemparg4391);
+        }
+        String arg5_71id=  request.getParameter("arg5393");
+            java.lang.String arg5_71idTemp = null;
+        if(!arg5_71id.equals("")){
+         arg5_71idTemp  = arg5_71id;
+        }
+        String arg6_72id=  request.getParameter("arg6395");
+            java.lang.String arg6_72idTemp = null;
+        if(!arg6_72id.equals("")){
+         arg6_72idTemp  = arg6_72id;
+        }
+        String arg7_73id=  request.getParameter("arg7397");
+        boolean arg7_73idTemp  = Boolean.valueOf(arg7_73id).booleanValue();
+        samplePublicadorIControladorProxyid.confirmarAltaProveedor(arg0_66idTemp,arg1_67idTemp,arg2_68idTemp,arg3_69idTemp,arg4_70idTemp,arg5_71idTemp,arg6_72idTemp,arg7_73idTemp);
+break;
+case 399:
+        gotMethod = true;
+        servidor.DataColeccionObject listarPaquetes399mtemp = samplePublicadorIControladorProxyid.listarPaquetes();
+if(listarPaquetes399mtemp == null){
 %>
-<%=obtenerDataPaquete397mtemp %>
+<%=listarPaquetes399mtemp %>
+<%
+}else{
+        if(listarPaquetes399mtemp!= null){
+        String tempreturnp400 = listarPaquetes399mtemp.toString();
+        %>
+        <%=tempreturnp400%>
+        <%
+        }}
+break;
+case 402:
+        gotMethod = true;
+        String arg0_74id=  request.getParameter("arg0415");
+            java.lang.String arg0_74idTemp = null;
+        if(!arg0_74id.equals("")){
+         arg0_74idTemp  = arg0_74id;
+        }
+        servidor.DataPaquete obtenerDataPaquete402mtemp = samplePublicadorIControladorProxyid.obtenerDataPaquete(arg0_74idTemp);
+if(obtenerDataPaquete402mtemp == null){
+%>
+<%=obtenerDataPaquete402mtemp %>
 <%
 }else{
 %>
@@ -1749,9 +1772,9 @@ if(obtenerDataPaquete397mtemp == null){
 <TD COLSPAN="2" ALIGN="LEFT">descuento:</TD>
 <TD>
 <%
-if(obtenerDataPaquete397mtemp != null){
+if(obtenerDataPaquete402mtemp != null){
 %>
-<%=obtenerDataPaquete397mtemp.getDescuento()
+<%=obtenerDataPaquete402mtemp.getDescuento()
 %><%}%>
 </TD>
 <TR>
@@ -1759,11 +1782,11 @@ if(obtenerDataPaquete397mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">descripcion:</TD>
 <TD>
 <%
-if(obtenerDataPaquete397mtemp != null){
-java.lang.String typedescripcion402 = obtenerDataPaquete397mtemp.getDescripcion();
-        String tempResultdescripcion402 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedescripcion402));
+if(obtenerDataPaquete402mtemp != null){
+java.lang.String typedescripcion407 = obtenerDataPaquete402mtemp.getDescripcion();
+        String tempResultdescripcion407 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typedescripcion407));
         %>
-        <%= tempResultdescripcion402 %>
+        <%= tempResultdescripcion407 %>
         <%
 }%>
 </TD>
@@ -1772,13 +1795,13 @@ java.lang.String typedescripcion402 = obtenerDataPaquete397mtemp.getDescripcion(
 <TD COLSPAN="2" ALIGN="LEFT">fechaAlta:</TD>
 <TD>
 <%
-if(obtenerDataPaquete397mtemp != null){
-java.util.Calendar typefechaAlta404 = obtenerDataPaquete397mtemp.getFechaAlta();
-        java.text.DateFormat dateFormatfechaAlta404 = java.text.DateFormat.getDateInstance();
-        java.util.Date datefechaAlta404 = typefechaAlta404.getTime();
-        String tempResultfechaAlta404 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta404.format(datefechaAlta404));
+if(obtenerDataPaquete402mtemp != null){
+java.util.Calendar typefechaAlta409 = obtenerDataPaquete402mtemp.getFechaAlta();
+        java.text.DateFormat dateFormatfechaAlta409 = java.text.DateFormat.getDateInstance();
+        java.util.Date datefechaAlta409 = typefechaAlta409.getTime();
+        String tempResultfechaAlta409 = org.eclipse.jst.ws.util.JspUtils.markup(dateFormatfechaAlta409.format(datefechaAlta409));
         %>
-        <%= tempResultfechaAlta404 %>
+        <%= tempResultfechaAlta409 %>
         <%
 }%>
 </TD>
@@ -1787,9 +1810,9 @@ java.util.Calendar typefechaAlta404 = obtenerDataPaquete397mtemp.getFechaAlta();
 <TD COLSPAN="2" ALIGN="LEFT">validez:</TD>
 <TD>
 <%
-if(obtenerDataPaquete397mtemp != null){
+if(obtenerDataPaquete402mtemp != null){
 %>
-<%=obtenerDataPaquete397mtemp.getValidez()
+<%=obtenerDataPaquete402mtemp.getValidez()
 %><%}%>
 </TD>
 <TR>
@@ -1797,11 +1820,11 @@ if(obtenerDataPaquete397mtemp != null){
 <TD COLSPAN="2" ALIGN="LEFT">nombre:</TD>
 <TD>
 <%
-if(obtenerDataPaquete397mtemp != null){
-java.lang.String typenombre408 = obtenerDataPaquete397mtemp.getNombre();
-        String tempResultnombre408 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre408));
+if(obtenerDataPaquete402mtemp != null){
+java.lang.String typenombre413 = obtenerDataPaquete402mtemp.getNombre();
+        String tempResultnombre413 = org.eclipse.jst.ws.util.JspUtils.markup(String.valueOf(typenombre413));
         %>
-        <%= tempResultnombre408 %>
+        <%= tempResultnombre413 %>
         <%
 }%>
 </TD>
@@ -1809,158 +1832,158 @@ java.lang.String typenombre408 = obtenerDataPaquete397mtemp.getNombre();
 <%
 }
 break;
-case 412:
+case 417:
         gotMethod = true;
-        String arg0_74id=  request.getParameter("arg0415");
-            java.lang.String arg0_74idTemp = null;
-        if(!arg0_74id.equals("")){
-         arg0_74idTemp  = arg0_74id;
+        String arg0_75id=  request.getParameter("arg0420");
+            java.lang.String arg0_75idTemp = null;
+        if(!arg0_75id.equals("")){
+         arg0_75idTemp  = arg0_75id;
         }
-        String arg1_75id=  request.getParameter("arg1417");
-            java.lang.String arg1_75idTemp = null;
-        if(!arg1_75id.equals("")){
-         arg1_75idTemp  = arg1_75id;
+        String arg1_76id=  request.getParameter("arg1422");
+            java.lang.String arg1_76idTemp = null;
+        if(!arg1_76id.equals("")){
+         arg1_76idTemp  = arg1_76id;
         }
-        String arg2_76id=  request.getParameter("arg2419");
-            java.lang.String arg2_76idTemp = null;
-        if(!arg2_76id.equals("")){
-         arg2_76idTemp  = arg2_76id;
+        String arg2_77id=  request.getParameter("arg2424");
+            java.lang.String arg2_77idTemp = null;
+        if(!arg2_77id.equals("")){
+         arg2_77idTemp  = arg2_77id;
         }
-        String arg3_77id=  request.getParameter("arg3421");
-            java.lang.String arg3_77idTemp = null;
-        if(!arg3_77id.equals("")){
-         arg3_77idTemp  = arg3_77id;
+        String arg3_78id=  request.getParameter("arg3426");
+            java.lang.String arg3_78idTemp = null;
+        if(!arg3_78id.equals("")){
+         arg3_78idTemp  = arg3_78id;
         }
-        String arg4_78id=  request.getParameter("arg4423");
-            java.util.Calendar arg4_78idTemp = null;
-        if(!arg4_78id.equals("")){
-        java.text.DateFormat dateFormatarg4423 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg4423  = dateFormatarg4423.parse(arg4_78id);
-         arg4_78idTemp = new java.util.GregorianCalendar();
-        arg4_78idTemp.setTime(dateTemparg4423);
+        String arg4_79id=  request.getParameter("arg4428");
+            java.util.Calendar arg4_79idTemp = null;
+        if(!arg4_79id.equals("")){
+        java.text.DateFormat dateFormatarg4428 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg4428  = dateFormatarg4428.parse(arg4_79id);
+         arg4_79idTemp = new java.util.GregorianCalendar();
+        arg4_79idTemp.setTime(dateTemparg4428);
         }
-        String arg5_79id=  request.getParameter("arg5425");
-            java.lang.String arg5_79idTemp = null;
-        if(!arg5_79id.equals("")){
-         arg5_79idTemp  = arg5_79id;
+        String arg5_80id=  request.getParameter("arg5430");
+            java.lang.String arg5_80idTemp = null;
+        if(!arg5_80id.equals("")){
+         arg5_80idTemp  = arg5_80id;
         }
-        samplePublicadorIControladorProxyid.actualizarDatosTurista(arg0_74idTemp,arg1_75idTemp,arg2_76idTemp,arg3_77idTemp,arg4_78idTemp,arg5_79idTemp);
+        samplePublicadorIControladorProxyid.actualizarDatosTurista(arg0_75idTemp,arg1_76idTemp,arg2_77idTemp,arg3_78idTemp,arg4_79idTemp,arg5_80idTemp);
 break;
-case 427:
+case 432:
         gotMethod = true;
-        String arg0_80id=  request.getParameter("arg0430");
-            java.lang.String arg0_80idTemp = null;
-        if(!arg0_80id.equals("")){
-         arg0_80idTemp  = arg0_80id;
+        String arg0_81id=  request.getParameter("arg0435");
+            java.lang.String arg0_81idTemp = null;
+        if(!arg0_81id.equals("")){
+         arg0_81idTemp  = arg0_81id;
         }
-        String arg1_81id=  request.getParameter("arg1432");
-            java.lang.String arg1_81idTemp = null;
-        if(!arg1_81id.equals("")){
-         arg1_81idTemp  = arg1_81id;
+        String arg1_82id=  request.getParameter("arg1437");
+            java.lang.String arg1_82idTemp = null;
+        if(!arg1_82id.equals("")){
+         arg1_82idTemp  = arg1_82id;
         }
-        String arg2_82id=  request.getParameter("arg2434");
-            java.lang.String arg2_82idTemp = null;
-        if(!arg2_82id.equals("")){
-         arg2_82idTemp  = arg2_82id;
+        String arg2_83id=  request.getParameter("arg2439");
+            java.lang.String arg2_83idTemp = null;
+        if(!arg2_83id.equals("")){
+         arg2_83idTemp  = arg2_83id;
         }
-        String arg3_83id=  request.getParameter("arg3436");
-            java.lang.String arg3_83idTemp = null;
-        if(!arg3_83id.equals("")){
-         arg3_83idTemp  = arg3_83id;
+        String arg3_84id=  request.getParameter("arg3441");
+            java.lang.String arg3_84idTemp = null;
+        if(!arg3_84id.equals("")){
+         arg3_84idTemp  = arg3_84id;
         }
-        String arg4_84id=  request.getParameter("arg4438");
-            java.util.Calendar arg4_84idTemp = null;
-        if(!arg4_84id.equals("")){
-        java.text.DateFormat dateFormatarg4438 = java.text.DateFormat.getDateInstance();
-        java.util.Date dateTemparg4438  = dateFormatarg4438.parse(arg4_84id);
-         arg4_84idTemp = new java.util.GregorianCalendar();
-        arg4_84idTemp.setTime(dateTemparg4438);
+        String arg4_85id=  request.getParameter("arg4443");
+            java.util.Calendar arg4_85idTemp = null;
+        if(!arg4_85id.equals("")){
+        java.text.DateFormat dateFormatarg4443 = java.text.DateFormat.getDateInstance();
+        java.util.Date dateTemparg4443  = dateFormatarg4443.parse(arg4_85id);
+         arg4_85idTemp = new java.util.GregorianCalendar();
+        arg4_85idTemp.setTime(dateTemparg4443);
         }
-        String arg5_85id=  request.getParameter("arg5440");
-            java.lang.String arg5_85idTemp = null;
-        if(!arg5_85id.equals("")){
-         arg5_85idTemp  = arg5_85id;
+        String arg5_86id=  request.getParameter("arg5445");
+            java.lang.String arg5_86idTemp = null;
+        if(!arg5_86id.equals("")){
+         arg5_86idTemp  = arg5_86id;
         }
-        String arg6_86id=  request.getParameter("arg6442");
-            java.lang.String arg6_86idTemp = null;
-        if(!arg6_86id.equals("")){
-         arg6_86idTemp  = arg6_86id;
+        String arg6_87id=  request.getParameter("arg6447");
+            java.lang.String arg6_87idTemp = null;
+        if(!arg6_87id.equals("")){
+         arg6_87idTemp  = arg6_87id;
         }
-        String arg7_87id=  request.getParameter("arg7444");
-        boolean arg7_87idTemp  = Boolean.valueOf(arg7_87id).booleanValue();
-        samplePublicadorIControladorProxyid.actualizarDatosProveedor(arg0_80idTemp,arg1_81idTemp,arg2_82idTemp,arg3_83idTemp,arg4_84idTemp,arg5_85idTemp,arg6_86idTemp,arg7_87idTemp);
+        String arg7_88id=  request.getParameter("arg7449");
+        boolean arg7_88idTemp  = Boolean.valueOf(arg7_88id).booleanValue();
+        samplePublicadorIControladorProxyid.actualizarDatosProveedor(arg0_81idTemp,arg1_82idTemp,arg2_83idTemp,arg3_84idTemp,arg4_85idTemp,arg5_86idTemp,arg6_87idTemp,arg7_88idTemp);
 break;
-case 446:
+case 451:
         gotMethod = true;
-        servidor.DataColeccionObject listarActividadesAgregadas446mtemp = samplePublicadorIControladorProxyid.listarActividadesAgregadas();
-if(listarActividadesAgregadas446mtemp == null){
+        servidor.DataColeccionObject listarActividadesAgregadas451mtemp = samplePublicadorIControladorProxyid.listarActividadesAgregadas();
+if(listarActividadesAgregadas451mtemp == null){
 %>
-<%=listarActividadesAgregadas446mtemp %>
+<%=listarActividadesAgregadas451mtemp %>
 <%
 }else{
-        if(listarActividadesAgregadas446mtemp!= null){
-        String tempreturnp447 = listarActividadesAgregadas446mtemp.toString();
+        if(listarActividadesAgregadas451mtemp!= null){
+        String tempreturnp452 = listarActividadesAgregadas451mtemp.toString();
         %>
-        <%=tempreturnp447%>
+        <%=tempreturnp452%>
         <%
         }}
 break;
-case 449:
+case 454:
         gotMethod = true;
-        String arg0_88id=  request.getParameter("arg0452");
-            java.lang.String arg0_88idTemp = null;
-        if(!arg0_88id.equals("")){
-         arg0_88idTemp  = arg0_88id;
+        String arg0_89id=  request.getParameter("arg0457");
+            java.lang.String arg0_89idTemp = null;
+        if(!arg0_89id.equals("")){
+         arg0_89idTemp  = arg0_89id;
         }
-        String arg1_89id=  request.getParameter("arg1454");
-            java.lang.String arg1_89idTemp = null;
-        if(!arg1_89id.equals("")){
-         arg1_89idTemp  = arg1_89id;
+        String arg1_90id=  request.getParameter("arg1459");
+            java.lang.String arg1_90idTemp = null;
+        if(!arg1_90id.equals("")){
+         arg1_90idTemp  = arg1_90id;
         }
-        servidor.DataColeccionObject actividadesPorDepartamentoNoEnPaquete449mtemp = samplePublicadorIControladorProxyid.actividadesPorDepartamentoNoEnPaquete(arg0_88idTemp,arg1_89idTemp);
-if(actividadesPorDepartamentoNoEnPaquete449mtemp == null){
+        servidor.DataColeccionObject actividadesPorDepartamentoNoEnPaquete454mtemp = samplePublicadorIControladorProxyid.actividadesPorDepartamentoNoEnPaquete(arg0_89idTemp,arg1_90idTemp);
+if(actividadesPorDepartamentoNoEnPaquete454mtemp == null){
 %>
-<%=actividadesPorDepartamentoNoEnPaquete449mtemp %>
+<%=actividadesPorDepartamentoNoEnPaquete454mtemp %>
 <%
 }else{
-        if(actividadesPorDepartamentoNoEnPaquete449mtemp!= null){
-        String tempreturnp450 = actividadesPorDepartamentoNoEnPaquete449mtemp.toString();
+        if(actividadesPorDepartamentoNoEnPaquete454mtemp!= null){
+        String tempreturnp455 = actividadesPorDepartamentoNoEnPaquete454mtemp.toString();
         %>
-        <%=tempreturnp450%>
+        <%=tempreturnp455%>
         <%
         }}
 break;
-case 456:
+case 461:
         gotMethod = true;
-        servidor.DataColeccionObject listarPaquetesNoComprados456mtemp = samplePublicadorIControladorProxyid.listarPaquetesNoComprados();
-if(listarPaquetesNoComprados456mtemp == null){
+        servidor.DataColeccionObject listarPaquetesNoComprados461mtemp = samplePublicadorIControladorProxyid.listarPaquetesNoComprados();
+if(listarPaquetesNoComprados461mtemp == null){
 %>
-<%=listarPaquetesNoComprados456mtemp %>
+<%=listarPaquetesNoComprados461mtemp %>
 <%
 }else{
-        if(listarPaquetesNoComprados456mtemp!= null){
-        String tempreturnp457 = listarPaquetesNoComprados456mtemp.toString();
+        if(listarPaquetesNoComprados461mtemp!= null){
+        String tempreturnp462 = listarPaquetesNoComprados461mtemp.toString();
         %>
-        <%=tempreturnp457%>
+        <%=tempreturnp462%>
         <%
         }}
 break;
-case 459:
+case 464:
         gotMethod = true;
         samplePublicadorIControladorProxyid.excepciones();
 break;
-case 462:
+case 467:
         gotMethod = true;
-        servidor.DataColeccionObject obtenerDataDepartamentos462mtemp = samplePublicadorIControladorProxyid.obtenerDataDepartamentos();
-if(obtenerDataDepartamentos462mtemp == null){
+        servidor.DataColeccionObject obtenerDataDepartamentos467mtemp = samplePublicadorIControladorProxyid.obtenerDataDepartamentos();
+if(obtenerDataDepartamentos467mtemp == null){
 %>
-<%=obtenerDataDepartamentos462mtemp %>
+<%=obtenerDataDepartamentos467mtemp %>
 <%
 }else{
-        if(obtenerDataDepartamentos462mtemp!= null){
-        String tempreturnp463 = obtenerDataDepartamentos462mtemp.toString();
+        if(obtenerDataDepartamentos467mtemp!= null){
+        String tempreturnp468 = obtenerDataDepartamentos467mtemp.toString();
         %>
-        <%=tempreturnp463%>
+        <%=tempreturnp468%>
         <%
         }}
 break;

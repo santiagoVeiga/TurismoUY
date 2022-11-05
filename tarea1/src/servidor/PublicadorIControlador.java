@@ -3,6 +3,9 @@ package servidor;
 import jakarta.xml.ws.*;
 import jakarta.jws.soap.SOAPBinding.Style;
 import jakarta.jws.soap.SOAPBinding.ParameterStyle;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -39,6 +42,7 @@ import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import excepciones.estadoActividadIncorrecto;
 import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import logica.DataActividad;
@@ -327,6 +331,22 @@ public class PublicadorIControlador {
 	public String obtenerNomActPorSalida(String salida) throws SalidasNoExisteException{
 		return conInsc.obtenerNomActPorSalida(salida);
 	}
+	
+    @WebMethod
+    public byte[] getFile(@WebParam(name = "fileName") String name)
+                    throws  IOException {
+        byte[] byteArray = null;
+        try {
+                File f = new File(name);
+                FileInputStream streamer = new FileInputStream(f);
+                byteArray = new byte[streamer.available()];
+                streamer.read(byteArray);
+                streamer.close();
+        } catch (IOException e) {
+                throw e;
+        }
+        return byteArray;
+    }
 	
     @WebMethod(exclude = true)
 	public Endpoint getEndpoint() {

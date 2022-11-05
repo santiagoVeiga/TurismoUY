@@ -1,6 +1,5 @@
 package controllers;
 
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -30,22 +29,9 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.xml.rpc.ServiceException;
 
-import excepciones.ActividadRepetidaException;
-import excepciones.FechaAltaSalidaAnteriorActividad;
-import excepciones.FechaAltaSalidaInvalida;
-import excepciones.ProveedorNoNacidoException;
-import excepciones.SalidaYaExisteExeption;
-import excepciones.UsuarioNoExisteException;
-import excepciones.UsuarioRepetidoException;
-import logica.DataActividad;
-import logica.DataDepartamento;
-import logica.DataProveedor;
-import logica.DataTurista;
-import logica.DataUsuario;
-import logica.Fabrica;
-import logica.IControladorAlta;
-import logica.IControladorConsulta;
+import servidor.DataActividad;
 import servidor.DataColeccionObject;
+import servidor.DataDepartamento;
 
 /**
  * Servlet implementation class Home
@@ -55,9 +41,6 @@ import servidor.DataColeccionObject;
 @MultipartConfig(maxFileSize = 16177215) 
 public class pruebita extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Fabrica fab = Fabrica.getInstance();;
-	private IControladorAlta conAlta;
-	private IControladorConsulta conCons;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -66,42 +49,16 @@ public class pruebita extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
-    public void selecDep(HttpServletRequest req, HttpServletResponse resp, String nomDpto) {
-        HttpSession session = req.getSession();
-        DataDepartamento[] aux = (DataDepartamento[]) session.getAttribute("dptos");
-        for (DataDepartamento it : aux) {
-            if (it.getNombre().equals(nomDpto)) {
-                session.setAttribute("DTDConsultaActividad", it);
-            }
-        }
-            try {
-                resp.sendRedirect("/tarea2p2/ConsultaActividad");
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-    }
-    
-    public void selecCat(HttpServletRequest req, HttpServletResponse resp, String nomCat) {
-        HttpSession session = req.getSession();
-        session.setAttribute("CatConsultaActividad", nomCat);
-        try {
-            resp.sendRedirect("/tarea2p2/ConsultaActividad");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
        servidor.PublicadorIControladorService ser = new servidor.PublicadorIControladorServiceLocator();
        try {
         servidor.PublicadorIControlador sere = ser.getPublicadorIControladorPort();
-        Date fecha = new Date(2000,11,20);
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(fecha);
-        sere.confirmarAltaProveedor("A", "A", "A", "A", cal, "A", "A", true);
+        //String[] stringArray = Arrays.copyOf(objectArray, objectArray.length, String[].class);
+        DataDepartamento[] dDep = Arrays.copyOf(sere.obtenerDataDepartamentos().getArray(), sere.obtenerDataDepartamentos().getArray().length, DataDepartamento[].class);
+        for(DataDepartamento dDepI : dDep)
+            System.out.println(dDepI.getNombre());
     } catch (ServiceException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();

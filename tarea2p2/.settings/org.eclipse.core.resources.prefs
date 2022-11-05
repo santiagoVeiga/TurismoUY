@@ -21,6 +21,7 @@ encoding//src/main/java/servidor/EstadoActividadIncorrecto.java=UTF-8
 encoding//src/main/java/servidor/ExcedeTuristas.java=UTF-8
 encoding//src/main/java/servidor/FechaAltaSalidaAnteriorActividad.java=UTF-8
 encoding//src/main/java/servidor/FechaAltaSalidaInvalida.java=UTF-8
+encoding//src/main/java/servidor/IOException.java=UTF-8
 encoding//src/main/java/servidor/InscFechaDespSalida.java=UTF-8
 encoding//src/main/java/servidor/InscFechaInconsistente.java=UTF-8
 encoding//src/main/java/servidor/NoExisteCategoriaException.java=UTF-8

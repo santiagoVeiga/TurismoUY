@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page errorPage="/WEB-INF/errorPages/500.jsp" %>
-<%@page import="logica.estadoAct,java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataActividad,java.util.Set,logica.DataDepartamento,controllers.EstadoSesion,java.text.SimpleDateFormat" %>
+<%@page import="servidor.EstadoAct,java.util.Base64, java.util.Calendar,servidor.DataUsuario,servidor.DataTurista,servidor.DataProveedor,servidor.DataActividad,java.util.Set,servidor.DataDepartamento,controllers.EstadoSesion,java.text.SimpleDateFormat" %>
 <!doctype html>
 <html lang="zxx">
    <head>
@@ -77,19 +77,18 @@
 				</div>
 			<%} %>
                 <% DataDepartamento[] dptos = (DataDepartamento[]) session.getAttribute("dptos");
-                Set<DataActividad> actIndex = dptos[4].getColAct(); 
+                DataActividad[] actIndex = dptos[4].getColAct(); 
                 for(DataDepartamento iter : dptos){
-                	if(iter.getColAct().size()!=0){
+                	if (iter.getColAct() != null && iter.getColAct().length!=0){
                 		actIndex = iter.getColAct();
                 	}
                 }
                 boolean addRow = true;
                 	if(actIndex!=null)
 	                for (DataActividad iter : actIndex){
-	                	if(iter.getEstado() == estadoAct.confirmada){
-	                	SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-	                	String date = format.format(iter.getFechaAlta());
-	                	String imagen = Base64.getEncoder().encodeToString(iter.getImagen());
+	                	if(iter.getEstado() == EstadoAct.confirmada){
+	                		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+	                		String date = format.format(iter.getFechaAlta().getTime());
                 		if (addRow){
                 		%>
                     <div class="row">
@@ -97,7 +96,7 @@
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="blog__item">
                                 <div class="blog__item__pic">
-                                    <img src="data:image/jpg;base64,<%= imagen %>" alt="">
+									<img src="/tarea2p2/Imagenes?id=<%= "src/data/Actvs/" + iter.getNombre() + ".jpg" %>" alt="<%= "src/data/Actvs/" + iter.getNombre() + ".jpg" %>">
                                 </div>
                                 <div class="blog__item__text">
                                     <ul>

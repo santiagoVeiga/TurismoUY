@@ -7,8 +7,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,34 +24,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.rpc.ServiceException;
 
-import com.opencsv.CSVReader;
-
-import excepciones.ActividadNoExisteException;
-import excepciones.ActividadRepetidaException;
-import excepciones.DepartamentoNoExisteException;
-import excepciones.DepartamentoYaExisteExeption;
-import excepciones.ExcedeTuristas;
-import excepciones.FechaAltaSalidaAnteriorActividad;
-import excepciones.FechaAltaSalidaInvalida;
-import excepciones.InscFechaDespSalida;
-import excepciones.InscFechaInconsistente;
-import excepciones.NoHayCuposException;
-import excepciones.PaqueteNoExisteException;
-import excepciones.PaqueteRepetidoException;
-import excepciones.ProveedorNoNacidoException;
-import excepciones.SalidaYaExisteExeption;
-import excepciones.TuristaConSalida;
-import excepciones.TuristaNoHaNacido;
-import excepciones.UsuarioNoExisteException;
-import excepciones.UsuarioRepetidoException;
-import logica.DataDepartamento;
-import logica.DataTurista;
-import logica.DataUsuario;
-import logica.Fabrica;
-import logica.IControladorAlta;
-import logica.IControladorConsulta;
-import logica.IControladorInsc;
+import servidor.DataDepartamento;
+import servidor.DataTurista;
+import servidor.DataUsuario;
+import servidor.DepartamentoNoExisteException;
+import servidor.DepartamentoYaExisteExeption;
+import servidor.UsuarioNoExisteException;
 
 /**
  * Servlet implementation
@@ -77,94 +61,6 @@ public void initSession(HttpServletRequest request) {
 	    if (userAg.contains("Mobile")) {
 	        session.setAttribute("esMovil", true);
 	    }
-    	Fabrica fab = Fabrica.getInstance();
-        IControladorAlta conAlta = fab.getIControladorAlta();
-        try {
-            conAlta.cargarCategorias();
-            // Categs listas
-            ServletContext servletContext = request.getServletContext();
-            InputStream input = servletContext.getResourceAsStream("/WEB-INF/data/Departamentos.csv");
-            CSVReader reader = new CSVReader(new InputStreamReader(input));
-            conAlta.cargarDptos(reader);
-            // dptos listos
-            input = servletContext.getResourceAsStream("/WEB-INF/data/Usuarios.csv");
-            reader = new CSVReader(new InputStreamReader(input));
-            Map<String, byte[]> imagenes = new HashMap<String, byte[]>();
-            for (int i=1; i<=13; i++ ) {
-                BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Users/u"+Integer.toString(i)+".jpg"));
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write(img, "jpg", baos);
-                byte[] imgBytes = baos.toByteArray();
-                imagenes.put(Integer.toString(i), imgBytes);
-            }
-            conAlta.cargarUsuarios(reader, imagenes);
-            // usus listos
-            input = servletContext.getResourceAsStream("/WEB-INF/data/Actividades.csv");
-            reader = new CSVReader(new InputStreamReader(input));
-            imagenes.clear();
-            for (int i=1; i<=10; i++ ) {
-                BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Actvs/a"+Integer.toString(i)+".jpg"));
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write(img, "jpg", baos);
-                byte[] imgBytes = baos.toByteArray();
-                imagenes.put(Integer.toString(i), imgBytes);
-            }
-            conAlta.cargarActs(reader, imagenes);
-            // acts listas
-            input = servletContext.getResourceAsStream("/WEB-INF/data/Paquetes.csv");
-            reader = new CSVReader(new InputStreamReader(input));
-            imagenes.clear();
-            for (int i=1; i<=3; i++ ) {
-                BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/Paqs/p"+Integer.toString(i)+".jpg"));
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write(img, "jpg", baos);
-                byte[] imgBytes = baos.toByteArray();
-                imagenes.put(Integer.toString(i), imgBytes);
-            }
-            conAlta.cargarPaquetes(reader, imagenes);
-            //Paqs listos
-            input = servletContext.getResourceAsStream("/WEB-INF/data/Salidas.csv");
-            reader = new CSVReader(new InputStreamReader(input));
-            imagenes.clear();
-            for (int i=1; i<=18; i++ ) {
-                InputStream instm = servletContext.getResourceAsStream("/WEB-INF/data/Salidas/s"+Integer.toString(i)+".jpg");
-                byte[] imgBytes = null;
-                if (instm != null) {
-                    BufferedImage img = ImageIO.read(instm);
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    ImageIO.write(img, "jpg", baos);
-                    imgBytes = baos.toByteArray();
-                }
-                else {
-                    BufferedImage img = ImageIO.read(servletContext.getResourceAsStream("/WEB-INF/data/default_imagen.jpg"));
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    ImageIO.write(img, "jpg", baos);
-                    imgBytes = baos.toByteArray();
-                }
-                imagenes.put(Integer.toString(i), imgBytes);
-                imgBytes = null;
-            }
-            conAlta.cargarSalidas(reader, imagenes);
-            IControladorInsc cins = fab.getIControladorInsc();
-            input = servletContext.getResourceAsStream("/WEB-INF/data/ActividadesPaquetes.csv");
-            reader = new CSVReader(new InputStreamReader(input));
-            cins.cargarActsPaqs(reader);
-            input = servletContext.getResourceAsStream("/WEB-INF/data/ComprasPaquetes.csv");
-            reader = new CSVReader(new InputStreamReader(input));
-            conAlta.cargarCompPaq(reader);
-            input = servletContext.getResourceAsStream("/WEB-INF/data/Inscripciones.csv");
-            reader = new CSVReader(new InputStreamReader(input));
-            cins.cargarInsc(reader);
-        } catch (NumberFormatException | IOException | UsuarioRepetidoException | ParseException
-                | DepartamentoYaExisteExeption | ActividadRepetidaException | UsuarioNoExisteException
-                | ProveedorNoNacidoException | SalidaYaExisteExeption | PaqueteRepetidoException
-                | FechaAltaSalidaInvalida | FechaAltaSalidaAnteriorActividad | TuristaConSalida
-                | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException | InscFechaDespSalida
-                | TuristaNoHaNacido | NoHayCuposException | PaqueteNoExisteException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-            System.out.println(e1.toString());
-        }
 	}
     
 }
@@ -208,9 +104,13 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException, DepartamentoYaExisteExeption, UsuarioNoExisteException {
 	initSession(req);
 	String solicitud = req.getServletPath();
-	Fabrica fab = Fabrica.getInstance();
-	IControladorAlta conAlta = fab.getIControladorAlta();
-	IControladorConsulta conCons = fab.getIControladorConsulta();
+	servidor.PublicadorIControladorService service = new servidor.PublicadorIControladorServiceLocator();
+	servidor.PublicadorIControlador port = null;
+    try {
+        port = service.getPublicadorIControladorPort();
+    } catch (ServiceException e1) {
+        e1.printStackTrace();
+    }
 	HttpSession ses = req.getSession();
     String nomDpto = req.getParameter("DTDConsultaActividad");
     String nomCat = req.getParameter("CatConsultaActividad");
@@ -229,12 +129,14 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     		    else {
     		        DataDepartamento[] aux = null;
         			try {
-        				aux = conCons.obtenerDataDepartamentos();
+        			    //String[] stringArray = Arrays.copyOf(objectArray, objectArray.length, String[].class);
+        				aux = Arrays.copyOf(port.obtenerDataDepartamentos().getArray(), port.obtenerDataDepartamentos().getArray().length, DataDepartamento[].class);//(DataDepartamento[]) ;
         			} catch (DepartamentoNoExisteException e) {
         				System.out.println("no hay deptos");
         			}
         			ses.setAttribute("dptos", aux);
-        			Set<String> cats = conCons.obtenerNombreCategorias();
+        			Set<String> cats = new HashSet<String>();
+        			Collections.addAll(cats, Arrays.copyOf(port.obtenerNombreCategorias().getArray(), port.obtenerNombreCategorias().getArray().length, String[].class));
         			ses.setAttribute("categorias", cats);
         			req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
     		    }
@@ -249,7 +151,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     			req.getRequestDispatcher("/WEB-INF/home/cerrarSesion.jsp").forward(req, resp);
     			break;
     		case "/sesionIniciada":
-    			DataUsuario[] ususSistema = conAlta.getUsuariosComp();
+    			DataUsuario[] ususSistema = (DataUsuario[]) port.getUsuariosComp().getArray(); //conAlta.getUsuariosComp();
     			boolean esMovil = (boolean) ses.getAttribute("esMovil");
     			if(!esMovil) {
     			    String nickOrEmail = (String) req.getParameter("emailnick_inicioSesion");
@@ -260,15 +162,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
                                 //Sesion iniciada correctamente
                                 ses.setAttribute("usuario", it);
                                 // Setear imagen
-                                String imageAsBase64 = null;
-                                if (it.getImagen()!=null) {
-                                    InputStream inSt = new ByteArrayInputStream(it.getImagen());
-                                    BufferedImage buffIM = ImageIO.read(inSt);
-                                    ByteArrayOutputStream output = new ByteArrayOutputStream();
-                                    ImageIO.write(buffIM, "jpg", output);
-                                    imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
-                                }
-                                ses.setAttribute("imagenUsuario", imageAsBase64);
+                                ses.setAttribute("imagenUsuario", "");
                                 //
                                 ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
                                 req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
@@ -286,15 +180,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
                                 //Sesion iniciada correctamente
                                 ses.setAttribute("usuario", it);
                                 // Setear imagen
-                                String imageAsBase64 = null;
-                                if (it.getImagen()!=null) {
-                                    InputStream inSt = new ByteArrayInputStream(it.getImagen());
-                                    BufferedImage buffIm = ImageIO.read(inSt );
-                                    ByteArrayOutputStream output = new ByteArrayOutputStream();
-                                    ImageIO.write(buffIm, "jpg", output);
-                                    imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
-                                }
-                                ses.setAttribute("imagenUsuario", imageAsBase64);
+                                ses.setAttribute("imagenUsuario", "");
                                 //
                                 ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
                                 resp.sendRedirect("/tarea2p2/home");
@@ -320,15 +206,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
                                     //Sesion iniciada correctamente
                                     ses.setAttribute("usuario", it);
                                     // Setear imagen
-                                    String imageAsBase64 = null;
-                                    if (it.getImagen()!=null) {
-                                        InputStream inSt = new ByteArrayInputStream(it.getImagen());
-                                        BufferedImage buffIM = ImageIO.read(inSt);
-                                        ByteArrayOutputStream output = new ByteArrayOutputStream();
-                                        ImageIO.write(buffIM, "jpg", output);
-                                        imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
-                                    }
-                                    ses.setAttribute("imagenUsuario", imageAsBase64);
+                                    ses.setAttribute("imagenUsuario", "");
                                     //
                                     ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
                                     req.getRequestDispatcher("/WEB-INF/home/iniciarMovil.jsp").forward(req, resp);
@@ -346,15 +224,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
                                     //Sesion iniciada correctamente
                                     ses.setAttribute("usuario", it);
                                     // Setear imagen
-                                    String imageAsBase64 = null;
-                                    if (it.getImagen()!=null) {
-                                        InputStream inSt = new ByteArrayInputStream(it.getImagen());
-                                        BufferedImage buffIm = ImageIO.read(inSt );
-                                        ByteArrayOutputStream output = new ByteArrayOutputStream();
-                                        ImageIO.write(buffIm, "jpg", output);
-                                        imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
-                                    }
-                                    ses.setAttribute("imagenUsuario", imageAsBase64);
+                                    ses.setAttribute("imagenUsuario", "");
                                     //
                                     ses.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
                                     req.getRequestDispatcher("/WEB-INF/home/iniciarMovil.jsp").forward(req, resp);

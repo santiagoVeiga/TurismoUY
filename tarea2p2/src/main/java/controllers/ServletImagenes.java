@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.rpc.ServiceException;
 
 /**
  * Servlet implementation class Imagenes
@@ -48,25 +49,29 @@ public class ServletImagenes extends HttpServlet {
         
         byte[] img = null;
         
-        /*
-         * complejoservidor.publicar.WebServicesService service = new
-         * complejoservidor.publicar.WebServicesService();
-         * complejoservidor.publicar.WebServices port = service.getWebServicesPort();
-         * 
-         * try {
-         * 
-         * img = port.getFile(id);
-         * response.setContentType("image/jpg");
-         * response.setContentLength((int) img.length);
-         * OutputStream out = response.getOutputStream();
-         * //ImageIO.write(img, "png", out);
-         * out.write(img);
-         * out.close();
-         * 
-         * } catch (Exception ex) {
-         * 
-         * }
-         */
+        
+            servidor.PublicadorIControladorService service = new servidor.PublicadorIControladorServiceLocator();
+            servidor.PublicadorIControlador port = null;
+            try {
+                port = service.getPublicadorIControladorPort();
+            } catch (ServiceException e1) {
+                e1.printStackTrace();
+            }
+          
+          try {
+          
+          img = port.getFile(id);
+          response.setContentType("image/jpg");
+          response.setContentLength((int) img.length);
+          OutputStream out = response.getOutputStream();
+          //ImageIO.write(img, "png", out);
+          out.write(img);
+          out.close();
+          
+          } catch (Exception ex) {
+          
+          }
+         
     }
 
 	/**
