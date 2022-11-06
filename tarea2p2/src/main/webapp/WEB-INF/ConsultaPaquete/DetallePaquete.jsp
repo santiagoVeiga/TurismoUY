@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.Base64, java.util.Date, servidor.DataUsuario,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,servidor.DataPaquete,servidor.DataActividad" %>
+<%@page import="java.util.Base64, java.util.Date, servidor.DataUsuario,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,java.util.HashSet, java.util.Collections,servidor.DataPaquete,servidor.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -139,7 +139,11 @@
 												    </tr>
 												    <tr>
 												      <th scope="row">Categorias:</th>
-												      <td><%= dataPaquete.getCategorias() %></td>
+												      <% 
+												      Set<String> categorias = new HashSet<String>();
+												      Collections.addAll(categorias,dataPaquete.getCategorias());
+												      %>
+												      <td><%=  categorias %></td>
 												    </tr>
 												</tbody>
 											</table>
