@@ -296,16 +296,16 @@ public class ControladorAlta implements IControladorAlta {
 	      FileOutputStream output = null;
           InputStream inputStream = null;
 	       try {
-	    	File nuevaImg = new File("./src/data/Users/" + nombre + ".jpg");
+    	    File nuevaImg = new File("./src/data/Paqs/" + nombre + ".jpg");
 	    	nuevaImg.createNewFile();
-          output = new FileOutputStream(nuevaImg);
-          inputStream = new ByteArrayInputStream(imgBytes); 
-          int leido = 0;
-          leido = inputStream.read();
-          while (leido != -1) {
-              output.write(leido);
-              leido = inputStream.read();
-          }
+            output = new FileOutputStream(nuevaImg);
+            inputStream = new ByteArrayInputStream(imgBytes); 
+            int leido = 0;
+            leido = inputStream.read();
+            while (leido != -1) {
+                output.write(leido);
+                leido = inputStream.read();
+            }
         } catch (IOException ioe) {
           ioe.printStackTrace();
         } finally {

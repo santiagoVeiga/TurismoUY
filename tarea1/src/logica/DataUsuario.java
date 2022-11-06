@@ -29,7 +29,7 @@ public class DataUsuario {
         this.mail = mail;
         this.nacimiento = nacimiento;
         this.password = null;
-        this.setImagen("./src/data/Users" + this.getNick() + ".jpg");
+        this.setImagen("./src/data/Users/" + this.getNick() + ".jpg");
         this.seguidores = new HashSet<String>();
         this.seguidos = new HashSet<String>();
     }
@@ -41,7 +41,7 @@ public class DataUsuario {
         this.mail = mail;
         this.nacimiento = nacimiento;
         this.password = pass;
-        this.setImagen("./src/data/Users" + this.getNick() + ".jpg");
+        this.setImagen("./src/data/Users/" + this.getNick() + ".jpg");
         this.seguidores = new HashSet<String>();
         this.seguidos = new HashSet<String>();
     }
@@ -53,7 +53,7 @@ public class DataUsuario {
         this.mail = mail;
         this.nacimiento = nacimiento;
         password = pass;
-        this.setImagen("./src/data/Users" + this.getNick() + ".jpg");
+        this.setImagen("./src/data/Users/" + this.getNick() + ".jpg");
         this.setSeguidores(seguidores);
         this.setSeguidos(seguidos);
     }

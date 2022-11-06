@@ -22,7 +22,7 @@ public class DataPaquete extends DataBuscar {
 		this.setFechaAlta(fecha);
 		this.setValidez(val);
 		this.setDtAct(dtAct);
-		this.setImagen("src/data/Actvs/" + this.getNombre() + ".jpg");
+		this.setImagen(".src/data/Paqs/" + this.getNombre() + ".jpg");
 		this.setCategorias(this.obtenerCategorias().toArray(new String[0]));
 	}
 

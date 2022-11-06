@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="controllers.EstadoSesion, java.util.Base64, logica.DataUsuario, logica.DataProveedor, logica.DataTurista,logica.DataActividad,logica.DataSalida,java.util.Set,logica.DataDepartamento,logica.DataPaquete" %>
+<%@page import="controllers.EstadoSesion, java.util.Base64, servidor.DataUsuario, servidor.DataProveedor, servidor.DataTurista,servidor.DataActividad,servidor.DataSalida,java.util.Set,servidor.DataDepartamento,servidor.DataPaquete" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -97,11 +97,10 @@
                                 	DataPaquete[] paqs;
                                 	paqs = (DataPaquete[]) request.getAttribute("ArregloPaquetes");
                                 	for(int i = 0; i < paqs.length; i++){
-                                		String imagen = Base64.getEncoder().encodeToString(paqs[i].getImagen());
                                 	%>
                                 	<div class="latest-product__item">
                                         <div class="latest-product__item__pic">
-                                            <img src="data:image/jpg;base64,<%= imagen %>" alt="">
+                                            <img src="/tarea2p2/Imagenes?id=<%= paqs[i].getImagen() %>" alt="<%= paqs[i].getImagen() %>">
                                         </div>
                                         <div class="latest-product__item__text">
                                             <h5> <%= paqs[i].getNombre() %> </h5>

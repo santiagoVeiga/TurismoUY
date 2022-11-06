@@ -20,7 +20,7 @@ public class DataSalida {
 	public DataSalida(String nom, String lug, Date hor, Date fech, Date fechAlta, int can) {
 		nombre = nom;
 		lugar = lug;
-		this.setImagen(".src/data/Salidas" + this.getNombre() + ".jpg");
+		this.setImagen(".src/data/Salidas/" + this.getNombre() + ".jpg");
 		hora = hor;
 		fecha = fech;
 		fechaAlta = fechAlta;

@@ -75,7 +75,7 @@
                 <%} else { %>
                 	<div class="row float-right">
                         <div class="header__top__right__Usu" style="cursor: pointer;" onclick="window.location='/tarea2p2/ConsultaUsuario?nick=<%=usr.getNick()%>';">
-                            <span><a href="/tarea2p2/ConsultaUsuario?nick=<%=usr.getNick()%>"><img src="data:image/jpg;base64,${imagenUsuario}"> &nbsp; <%= usr.getNombre() %> <%= usr.getApellido() %></a></span>
+                            <span><a href="/tarea2p2/ConsultaUsuario?nick=<%=usr.getNick()%>"><img src="/tarea2p2/Imagenes?id=<%= usr.getImagen() %>" alt="<%= usr.getImagen() %>"> &nbsp; <%= usr.getNombre() %> <%= usr.getApellido() %></a></span>
                         </div>
                     </div>
                     <div class="row float-right">
@@ -104,8 +104,8 @@
                 </div>
                 <div class="col-lg-2">
                 	<div class="row float-right">
-                        <div class="header__top__right__Usu" style="cursor: pointer;" onclick="window.location='/tarea2p2/ConsultaUsuario?nick=<%=usr.getNick()%>';">
-                            <span><img src="data:image/jpg;base64,${imagenUsuario}"> &nbsp; <%= usr.getNombre() %> <%= usr.getApellido() %></span>
+                        <div class="header__top__right__Usu" style="cursor: pointer;">
+                            <span><img src="/tarea2p2/Imagenes?id=<%= usr.getImagen() %>" alt="<%= usr.getImagen() %>"> &nbsp; <%= usr.getNombre() %> <%= usr.getApellido() %></span>
                         </div>
                     </div>
                     <div class="row float-right">

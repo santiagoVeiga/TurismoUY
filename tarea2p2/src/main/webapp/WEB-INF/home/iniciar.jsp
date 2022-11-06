@@ -96,7 +96,7 @@
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="blog__item">
                                 <div class="blog__item__pic">
-									<img src="/tarea2p2/Imagenes?id=<%= "src/data/Actvs/" + iter.getNombre() + ".jpg" %>" alt="<%= "src/data/Actvs/" + iter.getNombre() + ".jpg" %>">
+									<img src="/tarea2p2/Imagenes?id=<%= iter.getImagen() %>" alt="<%= iter.getImagen() %>">
                                 </div>
                                 <div class="blog__item__text">
                                     <ul>

@@ -139,7 +139,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     			req.getRequestDispatcher("/WEB-INF/home/cerrarSesion.jsp").forward(req, resp);
     			break;
     		case "/sesionIniciada":
-    			DataUsuario[] ususSistema = (DataUsuario[]) port.getUsuariosComp(); //conAlta.getUsuariosComp();
+    			DataUsuario[] ususSistema = Arrays.copyOf(port.getUsuariosComp(), port.getUsuariosComp().length, DataUsuario[].class); //conAlta.getUsuariosComp();
     			boolean esMovil = (boolean) ses.getAttribute("esMovil");
     			if(!esMovil) {
     			    String nickOrEmail = (String) req.getParameter("emailnick_inicioSesion");

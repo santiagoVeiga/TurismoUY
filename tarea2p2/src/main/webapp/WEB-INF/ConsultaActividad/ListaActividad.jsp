@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="controllers.EstadoSesion, logica.estadoAct,java.util.Base64,logica.DataUsuario, logica.DataProveedor, logica.DataTurista,logica.DataActividad,logica.DataSalida,java.util.Set,logica.DataDepartamento" %>
+<%@page import="controllers.EstadoSesion, servidor.EstadoAct,java.util.Base64,servidor.DataUsuario, servidor.DataProveedor, servidor.DataTurista,servidor.DataActividad,servidor.DataSalida,java.util.Set,servidor.DataDepartamento" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -97,26 +97,19 @@
                             <div class="latest-product__slider owl-carousel">
                                 <div class="latest-prdouct__slider__item">
                                 	<% 
-                                	DataActividad[] acts;
-                                	String imagen = null;
+                                	DataActividad[] acts = null;
                                 	acts = (DataActividad[]) request.getAttribute("ArregloActividades");
                                 	for (int i = 0; i < acts.length; i++){
-                                		if (acts[i].getEstado() == estadoAct.confirmada){
-	                                		if (acts[i].getImagen() != null) {
-	                                			imagen = Base64.getEncoder().encodeToString(acts[i].getImagen());
-	                                		}
+                                		if (acts[i].getEstado() == EstadoAct.confirmada){
                                 	%>
                                 		<!-- <a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>" class="latest-product__item">  -->
                                 	<div class="latest-product__item">
-                                		<%
-                                		if(acts[i].getImagen()!=null) {
-                                		%>
+
                                 		<a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>">
 	                                		<div class="latest-product__item__pic">
-	                                        	<img src="data:image/jpg;base64,<%= imagen %>" alt="">
+	                                        	<img src="/tarea2p2/Imagenes?id=<%= acts[i].getImagen() %>" alt="<%= acts[i].getImagen() %>">
 	                                   		</div>
                                    		</a>
-                                		<% } %>
                                         <div class="latest-product__item__text">
                                             <h5> <%= acts[i].getNombre() %> </h5>
                                             <h6> <%= acts[i].getDescripcion() %> </h6>

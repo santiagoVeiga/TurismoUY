@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="controllers.EstadoSesion,java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,logica.DataDepartamento" %>
+<%@page import="controllers.EstadoSesion,java.util.Base64, java.util.Date,servidor.DataUsuario,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,servidor.DataDepartamento" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -35,10 +35,6 @@
     
 				<%! DataSalida dataSalida; %>
                 <% dataSalida = (DataSalida) request.getAttribute("SalidaElegida"); 
-                String imagen = null;
-                if (dataSalida.getImagen() != null ){
-                	imagen = Base64.getEncoder().encodeToString(dataSalida.getImagen());
-                }
                 %>
     <jsp:include page="/WEB-INF/template/header.jsp"/>
     <!-- Hero Section Begin -->
@@ -115,11 +111,13 @@
 											    </tr>
 											    <tr>
 											      <th scope="row">Fecha:</th>
-											      <td><%= dataSalida.getFecha().getDate() + "/" + (dataSalida.getFecha().getMonth()+1) + "/" + (dataSalida.getFecha().getYear()+1900)%></td>
+												  <%Date fecha = dataSalida.getFecha().getTime(); %>
+												  <td><%= fecha.getDate() + "/" + (fecha.getMonth()+1) + "/" + (fecha.getYear()+1900) %></td>	
 											    </tr>
 											    <tr>
 											      <th scope="row">Hora:</th>
-											      <td><%= dataSalida.gethora().getHours() %></td>
+											      <%Date hora = dataSalida.getHora().getTime(); %>	
+											      <td><%= hora.getHours() %></td>
 											    </tr>
 											    <tr>
 											      <th scope="row">Cantidad Máxima Turistas:</th>
@@ -131,8 +129,8 @@
 											    </tr>
    											    <tr>
 											      <th scope="row">Fecha de Alta:</th>
-											      <td><%= dataSalida.getFechaAlta().getDate() + "/" + (dataSalida.getFechaAlta().getMonth()+1) + "/" + (dataSalida.getFechaAlta().getYear()+1900) %></td>
-											    </tr>
+												  <%Date fechaAlta = dataSalida.getFechaAlta().getTime(); %>
+												  <td><%= fechaAlta.getDate() + "/" + (fechaAlta.getMonth()+1) + "/" + (fechaAlta.getYear()+1900) %></td>											    </tr>
 											</tbody>
 										</table>
 		                    		</div>
@@ -141,7 +139,7 @@
 		                    <div class="row">
 		                    	<div class="col-lg-12">
 		                    		<div class="imagen_salida">
-		                    			<img src="data:image/jpg;base64,<%= imagen %>" alt="">
+                                            <img src="/tarea2p2/Imagenes?id=<%= dataSalida.getImagen() %>" alt="<%= dataSalida.getImagen() %>">
 		                    		</div>
 		                    	</div>
 		                    </div>

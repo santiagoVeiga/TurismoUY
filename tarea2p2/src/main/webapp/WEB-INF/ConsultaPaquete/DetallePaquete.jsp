@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.Base64, logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,logica.DataPaquete,logica.DataActividad" %>
+<%@page import="java.util.Base64, java.util.Date, servidor.DataUsuario,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,servidor.DataPaquete,servidor.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -51,7 +51,6 @@
                 <%! DataPaquete dataPaquete; %>
                 <% 
                 dataPaquete = (DataPaquete) request.getAttribute("PaqueteElegido"); 
-                String imagenPaq = Base64.getEncoder().encodeToString(dataPaquete.getImagen());
                 DataActividad[] acts =dataPaquete.getDtAct();	
                 
                 %>
@@ -72,7 +71,6 @@
 	                            <div class="carousel-inner">
 	                            	<%
 	                            	for(int i = 0; i < acts.length; i++){
-	                            		String imagen = Base64.getEncoder().encodeToString(acts[i].getImagen());
 	                            		if(i == 0){
 	                            	%>	
 	                            	<div class="carousel-item active">
@@ -84,7 +82,7 @@
 	                               %>
 	                                <div class="card" >
 	                                    <a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>"> 
-	                                    	<img src="data:image/jpg;base64,<%= imagen %>" alt=""> 
+											<img src="/tarea2p2/Imagenes?id=<%= acts[i].getImagen() %>" alt="<%= acts[i].getImagen() %>">
 	                                    </a>
 	                                    <div class="card-body">
 	                                      <p class="card-text" ><%= acts[i].getNombre() %></p>
@@ -132,7 +130,8 @@
 												    </tr>
 												    <tr>
 												      <th scope="row">Fecha de Alta:</th>
-												      <td><%= dataPaquete.getFechaAlta().getDate() + "/" + (dataPaquete.getFechaAlta().getMonth()+1) + "/" + (dataPaquete.getFechaAlta().getYear()+1900) %></td>
+												      <%Date fechaAlta = dataPaquete.getFechaAlta().getTime(); %>
+												      <td><%= fechaAlta.getDate() + "/" + (fechaAlta.getMonth()+1) + "/" + (fechaAlta.getYear()+1900) %></td>
 												    </tr>
 												    <tr>
 												      <th scope="row">Descripción:</th>
@@ -149,7 +148,7 @@
 				                    </div>
 				                    <div class="row justify-content-center">
 				                    		<div class="imagen_paquete">
-				                    			<img src="data:image/jpg;base64,<%= imagenPaq %>" alt="">
+        			                           <img src="/tarea2p2/Imagenes?id=<%= dataPaquete.getImagen() %>" alt="<%= dataPaquete.getImagen() %>">
 				                    		</div>
 				                    </div>
 				                    <%! DataUsuario dataUsu; %>
