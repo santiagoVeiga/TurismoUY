@@ -67,7 +67,7 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
+                <li><a href="./index.html">Home</a></li>
                 <li><a href="#">Consulta Actividad</a>
                     <ul class="header__menu__dropdown">
                         <li><a href="#">Departamentos</a>
@@ -86,6 +86,31 @@
 						        <%Set<String> cats = (Set<String>) session.getAttribute("categorias");
 						        if(cats!=null)
 						        	for (String it : cats){
+						        	%>
+						            	<li><a href="?CatConsultaActividad=<%= it  %>"><%= it %></a></li>
+						        	<%} %>
+                   			</ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#">Consulta Salida</a>
+                    <ul class="header__menu__dropdown">
+                        <li><a href="#">Departamentos</a>
+                        	<ul class="header__menu__dropdown">
+                        		<%
+                        		DataDepartamento[] dptos2 = (DataDepartamento[]) session.getAttribute("dptos");
+						        if (dptos!=null)
+						        	for (DataDepartamento it : dptos2){
+						        	%>
+						        		<li><a href="?DTDConsultaActividad=<%= it.getNombre() %>"><%= it.getNombre() %></a></li>
+						        	<%} %>
+                   			 </ul>
+                        </li>
+                        <li><a href="#">Categorias</a>
+                        	<ul class="header__menu__dropdown">
+						        <%Set<String> cats2 = (Set<String>) session.getAttribute("categorias");
+						        if(cats!=null)
+						        	for (String it : cats2){
 						        	%>
 						            	<li><a href="?CatConsultaActividad=<%= it  %>"><%= it %></a></li>
 						        	<%} %>
