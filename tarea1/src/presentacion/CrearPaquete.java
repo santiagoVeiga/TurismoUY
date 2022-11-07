@@ -45,6 +45,7 @@ public class CrearPaquete extends JInternalFrame {
 	private JTextField validezTextField;
 	private JTextField descuentoTextField;
     private JCalendar calendario;
+    private JButton btnAadir;
     private File fileImgPaq = null;
 
 	public CrearPaquete(IControladorAlta ica) {
@@ -156,7 +157,7 @@ public class CrearPaquete extends JInternalFrame {
 		gbc_lblImagen.gridy = 6;
 		getContentPane().add(lblImagen, gbc_lblImagen);
 		
-		JButton btnAadir = new JButton("Añadir");
+		btnAadir = new JButton("Añadir");
 		btnAadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
@@ -320,5 +321,6 @@ public class CrearPaquete extends JInternalFrame {
         descripcionTextField.setText("");
         validezTextField.setText("");
         descuentoTextField.setText("");
+        btnAadir.setText("Añadir");
     }
 }
