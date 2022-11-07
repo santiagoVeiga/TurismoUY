@@ -79,6 +79,7 @@ public interface IControladorAlta {
 
 	public abstract void altaPaquete(String nombre, String descripcion, int descuento, int validez, Date fechaAlta) throws PaqueteRepetidoException;
 	
+	
     public abstract void actualizarDatosTurista(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad);
 
 	public abstract void actualizarDatosTurista(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad, String password,byte[] imagen);

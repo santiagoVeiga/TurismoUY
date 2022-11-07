@@ -5,9 +5,19 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -15,12 +25,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.toedter.calendar.JCalendar;
 
 import excepciones.NumeroNegativoException;
 import excepciones.PaqueteRepetidoException;
 import logica.IControladorAlta;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+import javax.swing.JTextArea;
 
 
 @SuppressWarnings("serial")
@@ -32,6 +45,7 @@ public class CrearPaquete extends JInternalFrame {
 	private JTextField validezTextField;
 	private JTextField descuentoTextField;
     private JCalendar calendario;
+    private File fileImgPaq = null;
 
 	public CrearPaquete(IControladorAlta ica) {
 		
@@ -135,9 +149,36 @@ public class CrearPaquete extends JInternalFrame {
 		gbc_calendario_1.gridy = 5;
 		getContentPane().add(calendario, gbc_calendario_1);
 		
+		JLabel lblImagen = DefaultComponentFactory.getInstance().createLabel("Imagen");
+		GridBagConstraints gbc_lblImagen = new GridBagConstraints();
+		gbc_lblImagen.insets = new Insets(0, 0, 5, 5);
+		gbc_lblImagen.gridx = 1;
+		gbc_lblImagen.gridy = 6;
+		getContentPane().add(lblImagen, gbc_lblImagen);
+		
+		JButton btnAadir = new JButton("Añadir");
+		btnAadir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+			    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+			        "JPG Images", "jpg");
+			    chooser.setFileFilter(filter);
+			    int returnVal = chooser.showOpenDialog(getParent());
+			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+			       btnAadir.setText("Añadida");
+			       fileImgPaq = chooser.getSelectedFile();
+			    }
+			}
+		});
+		GridBagConstraints gbc_btnAadir = new GridBagConstraints();
+		gbc_btnAadir.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAadir.gridx = 2;
+		gbc_btnAadir.gridy = 6;
+		getContentPane().add(btnAadir, gbc_btnAadir);
+		
 		JSplitPane splitPane = new JSplitPane();
 		GridBagConstraints gbc_splitPane = new GridBagConstraints();
-		gbc_splitPane.insets = new Insets(0, 0, 5, 5);
+		gbc_splitPane.insets = new Insets(0, 0, 0, 5);
 		gbc_splitPane.fill = GridBagConstraints.BOTH;
 		gbc_splitPane.gridx = 2;
 		gbc_splitPane.gridy = 7;
@@ -173,13 +214,55 @@ public class CrearPaquete extends JInternalFrame {
 
         if (checkFormulario()) {
             try {
+            	byte[] imgBytes = null;
+            	if (fileImgPaq != null) {
+            		imgBytes = Files.readAllBytes(fileImgPaq.toPath());
+            	}else {
+            		 try {
+	       	    	      BufferedImage img;
+	       	    	      img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
+	       	    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	       	    	      ImageIO.write(img, "jpg", baos);
+	       	    	      imgBytes = baos.toByteArray();
+	       	  		} catch (IOException e) {
+	       	  			// TODO Auto-generated catch block
+	       	  			e.printStackTrace();
+	       	  		}  
+            	}
+        		FileOutputStream output = null;
+                InputStream inputStream = null;
+        		try {
+            	    File nuevaImg = new File("./src/data/Paqs/" + nombrePaq + ".jpg");
+        	    	nuevaImg.createNewFile();
+                    output = new FileOutputStream(nuevaImg);
+                    inputStream = new ByteArrayInputStream(imgBytes); 
+                    int leido = 0;
+                    leido = inputStream.read();
+                    while (leido != -1) {
+                        output.write(leido);
+                        leido = inputStream.read();
+                    }
+                } catch (IOException ioe) {
+                  ioe.printStackTrace();
+                } finally {
+                  try {
+                      output.flush();
+                      output.close();
+                      inputStream.close();
+                  } catch (IOException ex) {
+                      ex.printStackTrace();
+                  }
+                }
                 controlAlta.altaPaquete(nombrePaq, descripcionPaq, Integer.parseInt(descuentoPaq), Integer.parseInt(validezPaq), fechaPaq);
                 JOptionPane.showMessageDialog(this, "El paquete ha sido registrado exitosamente.", "Registrar Paquete",
                         JOptionPane.INFORMATION_MESSAGE);
 
             } catch (PaqueteRepetidoException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Paquete", JOptionPane.ERROR_MESSAGE);
-            }
+            } catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             limpiarFormulario();
             setVisible(false);
         }
