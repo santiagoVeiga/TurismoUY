@@ -34,6 +34,11 @@ import logica.IControladorAlta;
 import logica.IControladorConsulta;
 import logica.IControladorInsc;
 import servidor.PublicadorIControlador;
+import javax.swing.JInternalFrame;
+import javax.swing.JTable;
+import java.awt.BorderLayout;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.border.BevelBorder;
 
 
 public class Principal {
@@ -55,6 +60,8 @@ public class Principal {
     private ModificarUsuario modUsrInternalFrame;
     private AltaCategoria creCatInternalFrame;
 	private AceptarRechazar acepRecInternalFrame;
+	
+	private masVisit internalFrame;
 
 
 
@@ -93,85 +100,98 @@ public class Principal {
         conAlta = fabrica.getIControladorAlta();
         conCons = fabrica.getIControladorConsulta();
         conInsc = fabrica.getIControladorInsc();
-        // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
-        // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
-        // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
-        
-        // ******** USUARIO *******
-        creUsrInternalFrame = new CrearUsuario(conAlta);
-        creUsrInternalFrame.setVisible(false);
-
-        lisUsrInternalFrame = new ListarUsuarios(conCons);
-        lisUsrInternalFrame.setVisible(false);
-        
-        frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
-        //****** MODIFICAR *********/
-        modUsrInternalFrame= new ModificarUsuario(conAlta);
-        modUsrInternalFrame.setVisible(false);
-
-
-        //****** ACTIVIDAD *********/
-        
-     
-        creActInternalFrame = new CrearActividad(conAlta);
-        creActInternalFrame.setVisible(false);
-
-        conActInternalFrame = new ConsultarActividad(conCons);
-        conActInternalFrame.setVisible(false);
-        
-        acepRecInternalFrame = new AceptarRechazar(conInsc);
-        acepRecInternalFrame.setVisible(false);
-        
-        //categoria
-        
-        creCatInternalFrame = new AltaCategoria();
-        creCatInternalFrame.setVisible(false);
-        
-        //****** SALIDA *********/----------------------------------------------------
-        creSalInternalFrame = new AltaSalida(conAlta);
-        creSalInternalFrame.setVisible(false);
-       
-        consultaSalidaInternalFrame = new ConsultaSalidaTuristica(conCons);
-        consultaSalidaInternalFrame.setVisible(false);
         //----------------------------------------------------------------------------
 
         /* Inscripcion */
         
-        insInternalFrame = new Inscribir(conInsc);
-        insInternalFrame.setVisible(false);
-        insInternalFrame.setLocation(10, 30);
-        
-        //Paquetes
-        
-        crePaqInternalFrame = new CrearPaquete(conAlta);
-        crePaqInternalFrame.setVisible(false);
-        
-        agrPaqInternalFrame = new AgregarActPaquete(conInsc);
-        agrPaqInternalFrame.setVisible(false);
-        
-        conPaqInternalFrame = new ConsultaPaquete(conCons);
-        conPaqInternalFrame.setVisible(false);
-        
-    	conActInternalFrame.setConPaquete(conPaqInternalFrame);
-        conPaqInternalFrame.setConActividad(conActInternalFrame);
-        
         frmGestionDeUsuarios.getContentPane().setLayout(null);
-        frmGestionDeUsuarios.getContentPane().add(insInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(conActInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(creCatInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(creSalInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(consultaSalidaInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(crePaqInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(agrPaqInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(conPaqInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(modUsrInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(acepRecInternalFrame);
-        lisUsrInternalFrame.setSal(consultaSalidaInternalFrame);
-        lisUsrInternalFrame.setAct(conActInternalFrame);
-        conActInternalFrame.setSalida(consultaSalidaInternalFrame);
+    	
+    	//Paquetes
+    	
+    	crePaqInternalFrame = new CrearPaquete(conAlta);
+    	crePaqInternalFrame.setBounds(12, 35, 541, 413);
+    	frmGestionDeUsuarios.getContentPane().add(crePaqInternalFrame);
+    	
+    	        lisUsrInternalFrame = new ListarUsuarios(conCons);
+    	        lisUsrInternalFrame.setBounds(12, 0, 300, 100);
+    	        frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
+    	        lisUsrInternalFrame.setVisible(false);
+    	        
+    	        insInternalFrame = new Inscribir(conInsc);
+    	        insInternalFrame.setBounds(22, 0, 731, 400);
+    	        frmGestionDeUsuarios.getContentPane().add(insInternalFrame);
+    	        
+    	        
+    	        
+    	        //****** SALIDA *********/----------------------------------------------------
+    	        creSalInternalFrame = new AltaSalida(conAlta);
+    	        creSalInternalFrame.setBounds(146, 0, 456, 423);
+    	        insInternalFrame.getContentPane().add(creSalInternalFrame);
+    	        
+    	        internalFrame = new masVisit();
+    	        internalFrame.setBounds(68, 0, 694, 408);
+    	        frmGestionDeUsuarios.getContentPane().add(internalFrame);
+    	        
+    	                //****** ACTIVIDAD *********/
+    	                
+    	             
+    	                creActInternalFrame = new CrearActividad(conAlta);
+    	                creActInternalFrame.setBounds(144, 0, 541, 537);
+    	                frmGestionDeUsuarios.getContentPane().add(creActInternalFrame);
+    	                
+    	                acepRecInternalFrame = new AceptarRechazar(conInsc);
+    	                acepRecInternalFrame.setBounds(170, 0, 618, 324);
+    	                frmGestionDeUsuarios.getContentPane().add(acepRecInternalFrame);
+    	                
+    	                //categoria
+    	                
+    	                creCatInternalFrame = new AltaCategoria();
+    	                creCatInternalFrame.setBounds(170, 0, 477, 356);
+    	                frmGestionDeUsuarios.getContentPane().add(creCatInternalFrame);
+    	                
+    	                 consultaSalidaInternalFrame = new ConsultaSalidaTuristica(conCons);
+    	                 consultaSalidaInternalFrame.setBounds(672, 0, 517, 423);
+    	                 frmGestionDeUsuarios.getContentPane().add(consultaSalidaInternalFrame);
+    	                 consultaSalidaInternalFrame.setVisible(false);
+    	lisUsrInternalFrame.setSal(consultaSalidaInternalFrame);
+    	
+    	conPaqInternalFrame = new ConsultaPaquete(conCons);
+    	conPaqInternalFrame.setBounds(480, 0, 578, 390);
+    	frmGestionDeUsuarios.getContentPane().add(conPaqInternalFrame);
+    	conPaqInternalFrame.setVisible(false);
+    	//****** MODIFICAR *********/
+    	modUsrInternalFrame= new ModificarUsuario(conAlta);
+    	modUsrInternalFrame.setBounds(0, 241, 499, 389);
+    	frmGestionDeUsuarios.getContentPane().add(modUsrInternalFrame);
+    	        conActInternalFrame = new ConsultarActividad(conCons);
+    	        conActInternalFrame.setBounds(149, 120, 618, 464);
+    	        
+    	        conActInternalFrame.setVisible(false);
+    	        conActInternalFrame.setSalida(consultaSalidaInternalFrame);
+    	        // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
+    	        // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
+    	        // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
+    	        
+    	        // ******** USUARIO *******
+    	        creUsrInternalFrame = new CrearUsuario(conAlta);
+    	        creUsrInternalFrame.setBounds(0, 0, 844, 462);
+    	        creUsrInternalFrame.setVisible(false);
+    	        lisUsrInternalFrame.setAct(conActInternalFrame);
+    	        frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
+    	        conActInternalFrame.setConPaquete(conPaqInternalFrame);
+    	        conPaqInternalFrame.setConActividad(conActInternalFrame);
+    	        frmGestionDeUsuarios.getContentPane().add(conActInternalFrame);
+    	agrPaqInternalFrame = new AgregarActPaquete(conInsc);
+    	agrPaqInternalFrame.setBounds(663, 0, 578, 206);
+    	frmGestionDeUsuarios.getContentPane().add(agrPaqInternalFrame);
+    	agrPaqInternalFrame.setVisible(false);
+    	modUsrInternalFrame.setVisible(false);
+    	                creCatInternalFrame.setVisible(false);
+    	                acepRecInternalFrame.setVisible(false);
+    	                creActInternalFrame.setVisible(false);
+    	        creSalInternalFrame.setVisible(false);
+    	        insInternalFrame.setVisible(false);
+    	crePaqInternalFrame.setVisible(false);
     }
 
     /**
@@ -182,7 +202,7 @@ public class Principal {
         // Se crea el Frame con las dimensiones indicadas.
         frmGestionDeUsuarios = new JFrame();
         frmGestionDeUsuarios.setTitle("Gestion de Actividades Turisticas");
-        frmGestionDeUsuarios.setBounds(100, 100, 953, 667);
+        frmGestionDeUsuarios.setBounds(100, 100, 1261, 667);
         frmGestionDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Se crea una barra de menú (JMenuBar) con dos menú (JMenu) desplegables.
@@ -411,6 +431,17 @@ public class Principal {
         	
         });
         mnCargar.add(mntmCargarusuarios);
+        
+        JMenu mnMasvisitadas = new JMenu("MasVisitadas");
+        menuBar.add(mnMasvisitadas);
+        
+        JMenuItem mntmLista = new JMenuItem("Lista");
+        mntmLista.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		internalFrame.setVisible(true);
+        	}
+        });
+        mnMasvisitadas.add(mntmLista);
     
     }
 }
