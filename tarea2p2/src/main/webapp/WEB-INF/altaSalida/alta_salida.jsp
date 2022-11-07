@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@page import="logica.DataUsuario,logica.DataDepartamento,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,controllers.EstadoSesion,logica.DataPaquete,logica.DataActividad" %>
+<%@page import="servidor.DataUsuario,servidor.DataDepartamento,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,controllers.EstadoSesion,servidor.DataPaquete,servidor.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">

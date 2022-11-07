@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@page import="controllers.EstadoSesion,logica.estadoAct, java.util.Base64,logica.DataUsuario,logica.DataDepartamento, logica.DataProveedor,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,controllers.EstadoSesion,logica.DataPaquete,logica.DataActividad, manejadores.ManejadorPaquete" %>
+<%@page import="controllers.EstadoSesion,servidor.EstadoAct, java.util.Base64,servidor.DataUsuario,servidor.DataDepartamento, servidor.DataProveedor,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,controllers.EstadoSesion,servidor.DataPaquete,servidor.DataActividad, manejadores.ManejadorPaquete" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -100,12 +100,14 @@
 	                    <div class="card border-dark mb-3" style="background-color: rgba(80, 80, 80, 0.229);">
 	                    
 	                    	<% DataActividad actividadSeleccionada = (DataActividad) request.getAttribute("ActividadElegida");
-	                    		String imagen = Base64.getEncoder().encodeToString(actividadSeleccionada.getImagen());%>
+	                    		%>
 	                        <div class="card-header"><p><%=actividadSeleccionada.getNombre()%></p></div>
 	                        <div class="card-body text-dark">
 	                            <div style="display: flex; justify-content: space-around; padding-bottom: 20px;">
 	                                <p style="color: black; "><%=actividadSeleccionada.getDescripcion()%></p>
-	                                <img src="data:image/jpg;base64,<%= imagen %>" style="height: 100px; border-radius: 5px; " alt="">
+	                                
+	                                <img src="/tarea2p2/Imagenes?id=<%= actividadSeleccionada.getImagen() %>" alt="<%= actividadSeleccionada.getImagen() %>">
+	                                
 	                            </div>
 	                            <table class="table">
 								  <thead>
@@ -121,8 +123,9 @@
 								      <td><%= actividadSeleccionada.getDuracion()%></td>
 								    </tr>
 								    <tr>
-								      <th scope="row">Fecha de Alta</th> 
-								      <td><%= actividadSeleccionada.getFechaAlta().getDate() + "/" + (actividadSeleccionada.getFechaAlta().getMonth()+1) + "/" + (actividadSeleccionada.getFechaAlta().getYear()+1900) %></td>
+								      <th scope="row">Fecha de Alta</th>
+								      <% Date fechaActividad = actividadSeleccionada.getFechaAlta().getTime(); %>
+								      <td><%= fechaActividad.getDate() + "/" + (fechaActividad.getMonth()+1) + "/" + (fechaActividad.getYear()+1900) %></td>
 								    </tr>
 								    <tr>
 								      <th scope="row">Costo</th>
@@ -136,7 +139,7 @@
 								      <th scope="row">Estado</th>
 								      <td><%= actividadSeleccionada.getEstado()%></td>
 								    </tr>
-								    <%if(usr instanceof DataProveedor && actividadSeleccionada.getEstado() == estadoAct.confirmada){%>
+								    <%if(usr instanceof DataProveedor && actividadSeleccionada.getEstado() == EstadoAct.confirmada){%>
 	                            	<tr>
 								      <th scope="row">Alta Salida</th>
 								      <td><a href="/tarea2p2/AltaSalida?actividadSal=<%=actividadSeleccionada.getNombre()%>&actDepto=<%=actividadSeleccionada.getDepartamento()%>&actCiudad=<%=actividadSeleccionada.getCiudad()%>">Agregar una Salida</a></td>
@@ -495,7 +498,7 @@
 								      <th scope="row">Estado</th>
 								      <td><%= actividadSeleccionada.getEstado()%></td>
 								    </tr>
-								    <%if(usr instanceof DataProveedor && actividadSeleccionada.getEstado() == estadoAct.confirmada){%>
+								    <%if(usr instanceof DataProveedor && actividadSeleccionada.getEstado() == EstadoAct.confirmada){%>
 	                            	<tr>
 								      <th scope="row">Alta Salida</th>
 								      <td><a href="/tarea2p2/AltaSalida?actividadSal=<%=actividadSeleccionada.getNombre()%>&actDepto=<%=actividadSeleccionada.getDepartamento()%>&actCiudad=<%=actividadSeleccionada.getCiudad()%>">Agregar una Salida</a></td>
