@@ -243,35 +243,8 @@ public class ServletAlta extends HttpServlet {
     		             
     		            // obtains input stream of the upload file
     		            inputStream = filePart.getInputStream();
-    		            FileOutputStream output = null;
-    		            byte[] imgBytes = null;
-    		            try {
-    		                // A partir del objeto File creamos el fichero físicamente
-    		                File nuevaImg = new File(req.getSession().getServletContext().getRealPath("/") + nick + filePart.getSubmittedFileName());
-    		                if (nuevaImg.createNewFile())
-    		                  System.out.println("El fichero se ha creado correctamente");
-    		                else
-    		                  System.out.println("No ha podido ser creado el fichero");
-    		                output = new FileOutputStream(nuevaImg);
-    		                int leido = 0;
-    		                leido = inputStream.read();
-    		                while (leido != -1) {
-    		                    output.write(leido);
-    		                    leido = inputStream.read();
-    		                }
-    		                imgBytes = Files.readAllBytes(Paths.get(nuevaImg.getAbsolutePath()));
-    		              } catch (IOException ioe) {
-    		                ioe.printStackTrace();
-    		              } finally {
-    		                try {
-    		                    output.flush();
-    		                    output.close();
-    		                    inputStream.close();
-    		                } catch (IOException ex) {
-    		                    ex.printStackTrace();
-    		                }
-    		            }
-    		          
+    		            byte[] imgBytes = new byte[inputStream.available()];
+    		            inputStream.read(imgBytes);
     		            try {
     						Date fechaNac = format.parse(date);
     						Calendar fechaNacC = Calendar.getInstance();
