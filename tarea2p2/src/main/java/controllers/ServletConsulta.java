@@ -14,7 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.rpc.ServiceException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
 import servidor.ActividadNoExisteException;
 import servidor.DepartamentoNoExisteException;
@@ -72,13 +77,29 @@ public class ServletConsulta extends HttpServlet {
         }
     }
     
+    
+    private String dirIPPort() {
+        String ipport = null;
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
+            Document document = documentBuilder.parse(getServletContext().getResourceAsStream("/WEB-INF/data/configIPPort.xml"));
+            document.getDocumentElement().normalize();
+            NodeList datos = document.getElementsByTagName("datos");
+            ipport = datos.item(0).getTextContent();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ipport;
+    }
+    
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 	    HttpSession session = req.getSession();
         //Ver si se presiona sobre un dpto
         String nomDpto = req.getParameter("DTDConsultaActividad");
         String nomCat = req.getParameter("CatConsultaActividad");
-        servidor.PublicadorIControladorService service = new servidor.PublicadorIControladorServiceLocator();
+        servidor.PublicadorIControladorService service = new servidor.PublicadorIControladorServiceLocator(dirIPPort());
         servidor.PublicadorIControlador port = null;
         try {
             port = service.getPublicadorIControladorPort();
@@ -346,5 +367,7 @@ public class ServletConsulta extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
+
+    
 
 }

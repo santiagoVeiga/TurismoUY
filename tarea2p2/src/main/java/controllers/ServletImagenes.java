@@ -7,7 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.rpc.ServiceException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
 /**
  * Servlet implementation class Imagenes
@@ -38,6 +43,22 @@ public class ServletImagenes extends HttpServlet {
 
     }
     
+    
+    private String dirIPPort() {
+        String ipport = null;
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
+            Document document = documentBuilder.parse(getServletContext().getResourceAsStream("/WEB-INF/data/configIPPort.xml"));
+            document.getDocumentElement().normalize();
+            NodeList datos = document.getElementsByTagName("datos");
+            ipport = datos.item(0).getTextContent();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ipport;
+    }
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -50,7 +71,7 @@ public class ServletImagenes extends HttpServlet {
         byte[] img = null;
         
         
-            servidor.PublicadorIControladorService service = new servidor.PublicadorIControladorServiceLocator();
+            servidor.PublicadorIControladorService service = new servidor.PublicadorIControladorServiceLocator(dirIPPort());
             servidor.PublicadorIControlador port = null;
             try {
                 port = service.getPublicadorIControladorPort();

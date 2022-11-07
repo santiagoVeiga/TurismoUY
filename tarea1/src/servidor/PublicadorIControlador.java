@@ -60,6 +60,13 @@ import logica.IControladorConsulta;
 import logica.IControladorInsc;
 import logica.estadoAct;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 /**
  * @author TProg2017
  *
@@ -75,22 +82,20 @@ public class PublicadorIControlador {
 	private Endpoint endpoint = null;
 	@WebMethod(exclude=true)
 	public void publicar() {
-		// --- Obtener puerto libre ---
-		ServerSocket serverSocket = null;
 		try {
-			serverSocket = new ServerSocket(0);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		String puertoLibre = Integer.toString(serverSocket.getLocalPort());
-		try {
-			serverSocket.close();
-		} catch (IOException e) {
+			File archivo = new File("./src/data/configIPPort.xml");
+	        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
+	        Document document = documentBuilder.parse(archivo);
+	        document.getDocumentElement().normalize();
+	        NodeList datos = document.getElementsByTagName("datos");
+	        Node ipport = datos.item(0);
+			System.out.println("Publicador iniciado en: " + ipport.getTextContent());
+			endpoint = Endpoint.publish("http://" + ipport.getTextContent() + "/publicador", this);
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		// ------------------------  
-		System.out.println("Publicador iniciado en puerto: " + puertoLibre);
-		endpoint = Endpoint.publish("http://10.0.2.15:40000/publicador", this);
+		
 	}
 	
 	// DATAS

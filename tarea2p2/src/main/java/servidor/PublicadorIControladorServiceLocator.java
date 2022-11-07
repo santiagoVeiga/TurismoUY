@@ -7,12 +7,26 @@
 
 package servidor;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+
 public class PublicadorIControladorServiceLocator extends org.apache.axis.client.Service implements servidor.PublicadorIControladorService {
 
-    public PublicadorIControladorServiceLocator() {
+    
+    
+    public PublicadorIControladorServiceLocator(String conf) {
+           PublicadorIControladorPort_address = "http://"+ conf +"/publicador";
     }
-
-
+    
     public PublicadorIControladorServiceLocator(org.apache.axis.EngineConfiguration config) {
         super(config);
     }
@@ -22,7 +36,9 @@ public class PublicadorIControladorServiceLocator extends org.apache.axis.client
     }
 
     // Use to get a proxy class for PublicadorIControladorPort
-    private java.lang.String PublicadorIControladorPort_address = "http://10.0.2.15:40000/publicador";
+    private java.lang.String PublicadorIControladorPort_address = null;
+    
+
 
     public java.lang.String getPublicadorIControladorPortAddress() {
         return PublicadorIControladorPort_address;
