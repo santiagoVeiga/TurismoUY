@@ -310,7 +310,7 @@ public class CrearActividad extends JInternalFrame {
         
         if (checkFormulario()) {
             try {
-                controlAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, fechaAct, proveedorAct, setCat);
+                controlAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, fechaAct, proveedorAct, setCat,null,false);
                 JOptionPane.showMessageDialog(this, "La actividad ha sido registrada exitosamente.", "Registrar Actividad",
                         JOptionPane.INFORMATION_MESSAGE);
 

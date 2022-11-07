@@ -24,7 +24,11 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
 
     private java.util.Calendar fechaAlta;
 
+    private boolean hayLink;
+
     private java.lang.String imagen;
+
+    private java.lang.String link;
 
     private java.lang.String nombre;
 
@@ -44,7 +48,9 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
            int duracion,
            servidor.EstadoAct estado,
            java.util.Calendar fechaAlta,
+           boolean hayLink,
            java.lang.String imagen,
+           java.lang.String link,
            java.lang.String nombre,
            java.lang.String[] paquetes,
            servidor.DataSalida[] salidas) {
@@ -56,7 +62,9 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         this.duracion = duracion;
         this.estado = estado;
         this.fechaAlta = fechaAlta;
+        this.hayLink = hayLink;
         this.imagen = imagen;
+        this.link = link;
         this.nombre = nombre;
         this.paquetes = paquetes;
         this.salidas = salidas;
@@ -232,6 +240,26 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
 
 
     /**
+     * Gets the hayLink value for this DataActividad.
+     * 
+     * @return hayLink
+     */
+    public boolean isHayLink() {
+        return hayLink;
+    }
+
+
+    /**
+     * Sets the hayLink value for this DataActividad.
+     * 
+     * @param hayLink
+     */
+    public void setHayLink(boolean hayLink) {
+        this.hayLink = hayLink;
+    }
+
+
+    /**
      * Gets the imagen value for this DataActividad.
      * 
      * @return imagen
@@ -248,6 +276,26 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
      */
     public void setImagen(java.lang.String imagen) {
         this.imagen = imagen;
+    }
+
+
+    /**
+     * Gets the link value for this DataActividad.
+     * 
+     * @return link
+     */
+    public java.lang.String getLink() {
+        return link;
+    }
+
+
+    /**
+     * Sets the link value for this DataActividad.
+     * 
+     * @param link
+     */
+    public void setLink(java.lang.String link) {
+        this.link = link;
     }
 
 
@@ -358,9 +406,13 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
             ((this.fechaAlta==null && other.getFechaAlta()==null) || 
              (this.fechaAlta!=null &&
               this.fechaAlta.equals(other.getFechaAlta()))) &&
+            this.hayLink == other.isHayLink() &&
             ((this.imagen==null && other.getImagen()==null) || 
              (this.imagen!=null &&
               this.imagen.equals(other.getImagen()))) &&
+            ((this.link==null && other.getLink()==null) || 
+             (this.link!=null &&
+              this.link.equals(other.getLink()))) &&
             ((this.nombre==null && other.getNombre()==null) || 
              (this.nombre!=null &&
               this.nombre.equals(other.getNombre()))) &&
@@ -409,8 +461,12 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         if (getFechaAlta() != null) {
             _hashCode += getFechaAlta().hashCode();
         }
+        _hashCode += (isHayLink() ? Boolean.TRUE : Boolean.FALSE).hashCode();
         if (getImagen() != null) {
             _hashCode += getImagen().hashCode();
+        }
+        if (getLink() != null) {
+            _hashCode += getLink().hashCode();
         }
         if (getNombre() != null) {
             _hashCode += getNombre().hashCode();
@@ -503,8 +559,21 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("hayLink");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "hayLink"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "boolean"));
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("imagen");
         elemField.setXmlName(new javax.xml.namespace.QName("", "imagen"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("link");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "link"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);

@@ -158,8 +158,8 @@ $(document).ready(function(){
     /*--------------------------
         Select
     ----------------------------*/
-    $("select").niceSelect();
-   
+    //$("select").niceSelect();
+   // comentado porque no despliega los select en Alta Actividad
    
 
     /*------------------

@@ -25,6 +25,7 @@ public class PublicadorIControladorServiceLocator extends org.apache.axis.client
     // Use to get a proxy class for PublicadorIControladorPort
     private java.lang.String PublicadorIControladorPort_address = null;
 
+
     public java.lang.String getPublicadorIControladorPortAddress() {
         return PublicadorIControladorPort_address;
     }

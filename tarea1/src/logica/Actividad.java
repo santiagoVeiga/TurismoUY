@@ -23,8 +23,10 @@ private Map<String, Salida> colSal;
 	private estadoAct estado;
 	private byte[] imagen;
 	private int visitas;
-
-	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String, Categoria> categorias) {
+	private String link;
+	boolean hayLink;
+	
+	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String, Categoria> categorias, String link, boolean hayLink) {
 		colSal = new HashMap<String, Salida>();
 		setNombre(nom);
 		setDescripcion(desc);
@@ -33,13 +35,15 @@ private Map<String, Salida> colSal;
 		setCosto(costo);
 		setDuracion(dur);
 		setDepartamento(dep);
+		setHayLink(hayLink);
+		setLink(link);
 		this.colpaq = new HashMap<String, Paquete>();
 		setCategorias(categorias); 
 		estado = estadoAct.agregada;
 		setVisitas(0);
 	}
 	
-	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String, Categoria> categorias, byte[] imagen) {
+	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String, Categoria> categorias, String link, boolean hayLink, byte[] imagen) {
 		colSal = new HashMap<String, Salida>();
 		setNombre(nom);
 		setDescripcion(desc);
@@ -48,6 +52,8 @@ private Map<String, Salida> colSal;
 		setCosto(costo);
 		setDuracion(dur);
 		setDepartamento(dep);
+		setHayLink(hayLink);
+		setLink(link);
 		this.colpaq = new HashMap<String, Paquete>();
 		setCategorias(categorias); 
 		estado = estadoAct.agregada;
@@ -83,6 +89,14 @@ private Map<String, Salida> colSal;
 	
 	public Departamento getDepartamento() {
 		return this.departamento;
+	}
+	
+	public String getLink() {
+		return this.link;
+	}
+	
+	public boolean getHayLink() {
+		return this.hayLink;
 	}
 	
 	public Map<String, Salida> getColSal() {
@@ -125,6 +139,14 @@ private Map<String, Salida> colSal;
 		this.colSal.put(salida.getNombre(), salida);
 	}
 	
+	public void setLink(String link) {
+		this.link = link;
+	}
+	
+	public void setHayLink(boolean hayLink) {
+		this.hayLink = hayLink;
+	}
+	
 	public void addPaquete(Paquete paquete) {
 		this.colpaq.put(paquete.getNombre(), paquete);
 	}
@@ -132,7 +154,7 @@ private Map<String, Salida> colSal;
 	//Operaciones
 	
 	public DataActividad getDataAT() {
-		return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.getNombreCategorias(), this.getDepartamento().getNombre()); // , this.getImagen());
+		return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getDepartamento().getNombre()); // , this.getImagen());
 	}
 	
 	public Set<String> getPaquetes(){	

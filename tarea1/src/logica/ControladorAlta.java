@@ -74,7 +74,7 @@ public class ControladorAlta implements IControladorAlta {
     public ControladorAlta(){
     }
     
-    public void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException {
+    public void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, Set<String> cat, String link, boolean hayLink) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException {
     	ManejadorActividad mAct = ManejadorActividad.getInstance();
     	ManejadorDepartamentos mDep = ManejadorDepartamentos.getInstance();
         ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
@@ -104,7 +104,7 @@ public class ControladorAlta implements IControladorAlta {
             }
         }
         
-        act = new Actividad(nom, desc, fecha, ciudad, costo, dur, insDep, categorias);
+        act = new Actividad(nom, desc, fecha, ciudad, costo, dur, insDep, categorias,link,hayLink);
         if (usu instanceof Proveedor) {
         	((Proveedor) usu).agregarActividad(act);
         }
@@ -517,7 +517,7 @@ public class ControladorAlta implements IControladorAlta {
 
 	@Override
 	public void registrarActividad(String dep, String nom, String desc, int dur, int costo, String ciudad, Date fecha,
-			String proveedor, Set<String> cat, byte[] imagen)
+			String proveedor, Set<String> cat, String link, boolean hayLink, byte[] imagen)
 			throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException {
 		ManejadorActividad mAct = ManejadorActividad.getInstance();
     	ManejadorDepartamentos mDep = ManejadorDepartamentos.getInstance();
@@ -580,7 +580,7 @@ public class ControladorAlta implements IControladorAlta {
                 ex.printStackTrace();
             }
         }
-        act = new Actividad(nom, desc, fecha, ciudad, costo, dur, insDep, categorias);
+        act = new Actividad(nom, desc, fecha, ciudad, costo, dur, insDep, categorias, link, hayLink);
         for (Categoria catAux : categorias.values()) {
         	catAux.agregarAct(act);
         }
@@ -720,7 +720,7 @@ public class ControladorAlta implements IControladorAlta {
 	    	  if (cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[7].strip());
-	    		  registrarActividad(nextLine[6].strip(), nextLine[1].strip(), nextLine[2].strip(), Integer.parseInt(nextLine[3]), Integer.parseInt(nextLine[4]), nextLine[5].strip(), fecha, nextLine[9].strip(), categos.get(Integer.toString(cont)), imgBytes.get(Integer.toString(cont)));
+	    		  registrarActividad(nextLine[6].strip(), nextLine[1].strip(), nextLine[2].strip(), Integer.parseInt(nextLine[3]), Integer.parseInt(nextLine[4]), nextLine[5].strip(), fecha, nextLine[9].strip(), categos.get(Integer.toString(cont)), null, false, imgBytes.get(Integer.toString(cont)));
 	    		  
 	    		  if (cont<=6) {
 	    			  Fabrica fabr = Fabrica.getInstance();
