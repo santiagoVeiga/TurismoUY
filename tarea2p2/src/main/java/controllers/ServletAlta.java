@@ -199,7 +199,7 @@ public class ServletAlta extends HttpServlet {
                                 Calendar date1C = Calendar.getInstance();
                                 date1C.setTime(date1);
                                 port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct),
-                                        Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, categoriasAct.toArray(new String[0]), imgBytesAct);
+                                        Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, categoriasAct.toArray(new String[0]), null, false, imgBytesAct);
                                 resp.sendRedirect("/tarea2p2/home");
             
                             } catch (NumberFormatException e2) {
@@ -226,7 +226,8 @@ public class ServletAlta extends HttpServlet {
                                 byte[] imgDefBytes = baos.toByteArray();
                                 Calendar date1C = Calendar.getInstance();
                                 date1C.setTime(date1);
-                                port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, categoriasAct.toArray(new String[0]), imgDefBytes);
+                                port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, 
+                                        categoriasAct.toArray(new String[0]), null, false, imgDefBytes);
                                 resp.sendRedirect("/tarea2p2/home");
             
                             } catch (NumberFormatException e2) {
