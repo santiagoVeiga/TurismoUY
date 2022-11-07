@@ -146,6 +146,11 @@ public class ServletAlta extends HttpServlet {
                     String costoAct = (String) req.getParameter("actividadCosto");
                     String duracionAct = (String) req.getParameter("actividadDuracion");
                     String ciudadAct = (String) req.getParameter("actividadCiudad");
+                    String linkVideo = (String) req.getParameter("linkVideo");
+                    boolean hayVideo = false;
+                    if(!linkVideo.equals("")) { //!linkVideo.equals(null) && 
+                        hayVideo = true;
+                    }
                     //obtengo categorias 
                     String[] auxCategorias =  req.getParameterValues("actividadCategoria");
                     Set<String> categoriasAct = null;
@@ -199,7 +204,7 @@ public class ServletAlta extends HttpServlet {
                                 Calendar date1C = Calendar.getInstance();
                                 date1C.setTime(date1);
                                 port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct),
-                                        Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, categoriasAct.toArray(new String[0]), null, false, imgBytesAct);
+                                        Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, categoriasAct.toArray(new String[0]), linkVideo, hayVideo, imgBytesAct);
                                 resp.sendRedirect("/tarea2p2/home");
             
                             } catch (NumberFormatException e2) {
@@ -227,7 +232,7 @@ public class ServletAlta extends HttpServlet {
                                 Calendar date1C = Calendar.getInstance();
                                 date1C.setTime(date1);
                                 port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, 
-                                        categoriasAct.toArray(new String[0]), null, false, imgDefBytes);
+                                        categoriasAct.toArray(new String[0]), linkVideo, hayVideo, imgDefBytes);
                                 resp.sendRedirect("/tarea2p2/home");
             
                             } catch (NumberFormatException e2) {

@@ -163,6 +163,12 @@
                                     </div>
                                 </div>
                                 
+                                <!-- Link de Video  -->
+                                <div class="row">
+					              <label class="form-label" for="linkVideo">Link de Video (opcional)</label>
+					              <input type="url" id="linkVideo" name="linkVideo" class="form-control form-control-lg" />
+					            </div>
+                                
                                 <!-- Imagenes opcionales-->
                                 <hr class="mb-4">
                                 <div class="row">
