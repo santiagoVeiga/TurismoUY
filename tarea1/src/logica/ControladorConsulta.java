@@ -97,4 +97,20 @@ public class ControladorConsulta implements IControladorConsulta {
 			throw new SalidasNoExisteException("No existe una actividad asociada a la salida con nombre" + nomSal);
 		}
 	}
+
+	@Override
+	public void sumarVistaAAct(String act) throws ActividadNoExisteException {
+		ManejadorActividad mAct = ManejadorActividad.getInstance();
+		Actividad acti = mAct.getActividad(act);
+		acti.incrementarVisitas();
+	}
+
+	@Override
+	public void sumarVistaASal(String sal) throws SalidasNoExisteException, ActividadNoExisteException {
+		ManejadorActividad mAct = ManejadorActividad.getInstance();
+		String sali = mAct.obtenerNomActvidiadDeSalida(sal);
+		Actividad act = mAct.getActividad(sali);
+		Salida salid = act.getSalida(sal);
+		salid.incrementarVisitas();
+	}
 }

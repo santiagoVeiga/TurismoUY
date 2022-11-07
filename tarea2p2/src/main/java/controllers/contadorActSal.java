@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -25,6 +26,8 @@ import org.w3c.dom.NodeList;
 @WebFilter(urlPatterns={"/ConsultaActividad","/ConsultaSalida"})
 public class contadorActSal extends HttpFilter implements Filter {
        
+    private ServletContext context;
+
     /**
      * @see HttpFilter#HttpFilter()
      */
@@ -45,7 +48,7 @@ public class contadorActSal extends HttpFilter implements Filter {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
-            Document document = documentBuilder.parse(getServletContext().getResourceAsStream("/WEB-INF/data/configIPPort.xml"));
+            Document document = documentBuilder.parse(getContext().getResourceAsStream("/WEB-INF/data/configIPPort.xml"));
             document.getDocumentElement().normalize();
             NodeList datos = document.getElementsByTagName("datos");
             ipport = datos.item(0).getTextContent();
@@ -74,12 +77,14 @@ public class contadorActSal extends HttpFilter implements Filter {
             actividad = (String) request.getParameter("actividad");
         }
         if (actividad != null) {
-           // port.sumarVistaAAct(actividad);
+            port.sumarVistaAAct(actividad);
+            System.out.println("Se sumo a act");
         }
         else {
             String salida = request.getParameter("salida");
             if (salida != null) {
-              //port.sumarVistaASal(salida);
+              port.sumarVistaASal(salida);
+              System.out.println("Se sumo a sal");
             }
         }
 		// pass the request along the filter chain
@@ -91,6 +96,11 @@ public class contadorActSal extends HttpFilter implements Filter {
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
+	    context = fConfig.getServletContext();
 	}
+
+    public ServletContext getContext() {
+        return context;
+    }
 
 }

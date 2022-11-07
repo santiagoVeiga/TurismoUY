@@ -19,4 +19,6 @@ public interface IControladorConsulta {
 	public abstract DataUsuario obtenerDataUsuarioMail(String mail) throws UsuarioNoExisteException;
 	public abstract DataActividad obtenerDataActividad(String nomAct) throws ActividadNoExisteException;
 	public abstract DataSalida obtenerDataSalida(String nomSal) throws SalidasNoExisteException;
+	public abstract void sumarVistaAAct(String act) throws ActividadNoExisteException;
+	public abstract void sumarVistaASal(String sal) throws SalidasNoExisteException, ActividadNoExisteException;
 }

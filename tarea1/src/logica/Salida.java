@@ -13,6 +13,7 @@ public class Salida {
 	private int cant;
 	private int cantRestante;
 	private byte[] imagen;
+	private int visitas;
 	
 	public Salida(String nom, String lugar, Date hora, Date fecha, Date fechaAlta, int cant){
 		setNombre(nom);
@@ -115,6 +116,18 @@ public class Salida {
 
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
+	}
+
+	public void incrementarVisitas() {
+		setVisitas(getVisitas() + 1);
+	}
+
+	public int getVisitas() {
+		return visitas;
+	}
+
+	public void setVisitas(int visitas) {
+		this.visitas = visitas;
 	}
 	
 }

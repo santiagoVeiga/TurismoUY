@@ -194,6 +194,16 @@ public class PublicadorIControlador {
 	}
     
     @WebMethod
+    public void sumarVistaAAct(String act) throws ActividadNoExisteException {
+    	conCons.sumarVistaAAct(act);
+    }
+    
+    @WebMethod
+    public void sumarVistaASal(String sal) throws SalidasNoExisteException, ActividadNoExisteException {
+    	conCons.sumarVistaASal(sal);
+    }
+    
+    @WebMethod
     public  DataColeccionObject getUsuariosComp() throws UsuarioNoExisteException{
 		return new DataColeccionObject(conAlta.getUsuariosComp());
 	}

@@ -22,6 +22,7 @@ private Map<String, Salida> colSal;
 	private Map<String, Categoria> categorias ;	
 	private estadoAct estado;
 	private byte[] imagen;
+	private int visitas;
 
 	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String, Categoria> categorias) {
 		colSal = new HashMap<String, Salida>();
@@ -35,6 +36,7 @@ private Map<String, Salida> colSal;
 		this.colpaq = new HashMap<String, Paquete>();
 		setCategorias(categorias); 
 		estado = estadoAct.agregada;
+		setVisitas(0);
 	}
 	
 	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String, Categoria> categorias, byte[] imagen) {
@@ -50,6 +52,7 @@ private Map<String, Salida> colSal;
 		setCategorias(categorias); 
 		estado = estadoAct.agregada;
 		this.imagen = imagen;
+		setVisitas(0);
 	}
 	
 	//Getters
@@ -196,6 +199,18 @@ private Map<String, Salida> colSal;
 		Salida aux; 
 		aux = new Salida(nombreSalida, lugar, hora, fecha, fechaAlta2, maxCantTuristas, imagen2);
 		colSal.put(nombreSalida, aux);
+	}
+
+	public void incrementarVisitas() {
+		setVisitas(getVisitas() + 1);
+	}
+
+	public int getVisitas() {
+		return visitas;
+	}
+
+	public void setVisitas(int visitas) {
+		this.visitas = visitas;
 	}
 	
 }
