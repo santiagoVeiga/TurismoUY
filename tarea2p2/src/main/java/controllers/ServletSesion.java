@@ -19,6 +19,7 @@ import servidor.DataTurista;
 import servidor.DataUsuario;
 import servidor.DepartamentoNoExisteException;
 import servidor.DepartamentoYaExisteExeption;
+import servidor.NoExisteCategoriaException;
 import servidor.UsuarioNoExisteException;
 
 /**
@@ -123,8 +124,14 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
         				System.out.println("no hay deptos");
         			}
         			ses.setAttribute("dptos", aux);
-        			Set<String> cats = new HashSet<String>();
-        			Collections.addAll(cats, Arrays.copyOf(port.obtenerNombreCategorias(), port.obtenerNombreCategorias().length, String[].class));
+        			Set<String> cats = null;
+        			try {
+        			    cats = new HashSet<String>();
+        			    Object[] auxi = port.obtenerNombreCategorias();
+                        Collections.addAll(cats, Arrays.copyOf(auxi, auxi.length, String[].class));
+        			} catch (NoExisteCategoriaException eee) {
+        			    eee.printStackTrace();
+        			}
         			ses.setAttribute("categorias", cats);
         			req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
     		    }

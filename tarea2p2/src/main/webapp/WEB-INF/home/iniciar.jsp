@@ -77,6 +77,7 @@
 				</div>
 			<%} %>
                 <% DataDepartamento[] dptos = (DataDepartamento[]) session.getAttribute("dptos");
+                if (dptos != null){
                 DataActividad[] actIndex = dptos[4].getColAct(); 
                 for(DataDepartamento iter : dptos){
                 	if (iter.getColAct() != null && iter.getColAct().length!=0){
@@ -115,7 +116,7 @@
                     
                 <%} else {addRow = true; // esta para arreglar %>
                 </div> 
-                  <%   }}} %>
+                  <%   }}} }%>
                 </div>
             </div>
         </div>
