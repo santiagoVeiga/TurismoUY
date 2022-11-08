@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.Base64,logica.DataCompraPaquete,logica.estadoAct,logica.DataCompraGeneral,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,logica.DataPaquete,logica.DataActividad" %>
+<%@page import="java.util.Base64,servidor.DataCompraPaquete,logica.estadoAct,servidor.DataCompraGeneral,servidor.DataUsuario,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,servidor.DataPaquete,servidor.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -62,10 +62,10 @@
                       <div class="row">
                       
                       
-                      	<%String imagen = Base64.getEncoder().encodeToString(DU.getImagen()); %>
+                      	<%//String imagen = Base64.getEncoder().encodeToString(DU.getImagen()); %>
                       	<div class="blog__details__author">
                           <div class="blog__details__author__pic">
-                              <img src="data:image/jpg;base64,<%= imagen %>" alt="">                                   
+                              <img src="/tarea2p2/Imagenes?id=<%= DU.getImagen() %>" alt="<%= DU.getImagen() %>">                               
                           	</div>
                           	<div class="blog__details__author__text">
                               	<h6><%=DU.getNombre()%></h6>
@@ -102,7 +102,7 @@
 												             <span>Seguidores</span>
 												         </div>
 												         <ul>
-												         <%String[] Segui = DU.getSeguidores().toArray(new String[0]);
+												         <%String[] Segui = DU.getSeguidores();
 												         if(Segui!=null)
 												         for (String it : Segui){
 												         %>
@@ -118,7 +118,7 @@
 												             <span>Seguidos</span>
 												         </div>
 												         <ul>
-												         <%String[] Seguidos = DU.getSeguidos().toArray(new String[0]);
+												         <%String[] Seguidos = DU.getSeguidos();
 												         if(Seguidos!=null)
 												         for (String it : Seguidos){
 												         %>
@@ -152,9 +152,14 @@
 		                    	%>
 		                    <form action="SeguirUsuario" method="POST">
 		                    	<% 
-		                    	Set<String> seguidores = DU.getSeguidores();
+		                    	String[] seguidores = DU.getSeguidores();
 		                    	String auxSeguir = null;
-		                    	if (seguidores.contains(usr.getNick())){
+		                    	boolean bandera = false;
+		                    	for(String it : seguidores){
+		                    		if(it==usr.getNick())
+		                    			bandera = true;
+		                    	}
+		                    	if (bandera){
 		                    		auxSeguir = "Dejar de seguir";
 		                    	} else {
 		                    		auxSeguir = "Seguir";
@@ -189,7 +194,7 @@
 				    	    if (usr != null && DU.getNick().equals(usr.getNick())){
 				    	    /*DataPaquete[] DP = (DataPaquete[]) request.getAttribute("ArregloPaquetes");*/
 				    	    if (DP.length != 0){
-				    	    	String imagenp = Base64.getEncoder().encodeToString(DP[0].getImagen());
+				    	    	
 				      %>
 					  	<div id="tab4" class="tab">
 					      <a href="#tab4">Paquetes</a>
@@ -207,7 +212,7 @@
 					                              <div class="carousel-item active">
 					                                <div class="card" >
 					                                    <a style= "width: 550px;" href="/tarea2p2/ConsultaPaquete?paquete=<%= DP[0].getNombre() %>"> 
-					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenp %>"  alt="Card image cap"> 
+					                                    	<img src="/tarea2p2/Imagenes?id=<%= DP[0].getImagen() %>" alt="<%= DP[0].getImagen() %>">
 					                                    </a>
 					                                    <div class="card-body">
 					                                        <p class="card-text"> <%= DP[0].getNombre() %></p>
@@ -226,12 +231,12 @@
 					                                </div>
 					                              <%
 							                          	for(int i = 1; i < DP.length; i++){
-							                          		String imagenp1 = Base64.getEncoder().encodeToString(DP[i].getImagen());
+							                          		//String imagenp1 = Base64.getEncoder().encodeToString(DP[i].getImagen());
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
 							                                	<a style= "width: 550px;" href="/tarea2p2/ConsultaPaquete?paquete=<%= DP[i].getNombre() %>"> 
-							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenp1 %>"  alt="Card image cap"> 
+							                                    	<img src="/tarea2p2/Imagenes?id=<%= DP[i].getImagen() %>" alt="<%= DP[i].getImagen() %>"> 
 							                                    </a>
 							                                    <div class="card-body">
 							                                        <p class="card-text"> <%= DP[i].getNombre() %></p>
@@ -279,7 +284,7 @@
 				        	arrDCG[i] = (DataCompraGeneral) uuu[i];
 				        }
 				        if (uuu.length != 0){
-				        String imagen1 = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
+				        //String imagen1 = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						%>
 					    <div id="tab3" class="tab">
 					      <a href="#tab3">Salidas</a>
@@ -297,7 +302,7 @@
 					                              <div class="carousel-item active">
 					                                <div class="card" >
 					                                    <a style= "width: 550px;" href="/tarea2p2/ConsultaSalida?salida=<%= arrDS[0].getNombre() %>"> 
-					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagen1 %> " alt="Card image cap"> 
+					                                    	<img src="/tarea2p2/Imagenes?id=<%= arrDS[0].getImagen() %>" alt="<%= arrDS[0].getImagen() %>">
 					                                    </a>
 					                                    <div class="card-body">
 					                                        <p class="card-text"><%= arrDS[0].getNombre() %></p>
@@ -313,14 +318,14 @@
 					                                </div>
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
-							                          		String imagen2 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
+							                          		//String imagen2 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          		
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
 							                                	<a style= "width: 550px;" href="/tarea2p2/ConsultaSalida?salida=<%= arrDS[i].getNombre() %>">  
-							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagen2 %>"  alt="Card image cap"> 
-							                                    </a>
+							                                    	<img src="/tarea2p2/Imagenes?id=<%= arrDS[i].getImagen() %>" alt="<%= arrDS[i].getImagen() %>">
+					                                    		</a>
 							                                    <div class="card-body">
 							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>
 							                                            <%	if (usr != null && DU.getNick().equals(usr.getNick())){ 
@@ -379,7 +384,7 @@
 					        	
 					        	arrDS = arrDS1;
 					        	if (arrDS.length != 0) {
-						        	String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
+						        	//String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						        
                       	%>
 	                      	<div id="tab3" class="tab">
@@ -399,7 +404,8 @@
 							                      		<div class="carousel-item active">
 					                                <div class="card" >
 					                                    <a style= "width: 550px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[0].getNombre() %>">  
-					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv %>" alt="Card image cap"> 
+					                                    		<img src="/tarea2p2/Imagenes?id=<%= arrDS[0].getImagen() %>" alt="<%= arrDS[0].getImagen() %>">
+					                                    
 					                                    </a>
 					                                    <div class="card-body">
 					                                      <p class="card-text" ><%= arrDS[0].getNombre() %></p>
@@ -410,12 +416,13 @@
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
 							                          		if(arrDS[i]!=null && arrDS[i].getEstado() == estadoAct.confirmada){
-							                          		String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
+							                          		//String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
 							                                	<a style= "width: 550px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[i].getNombre() %>"> 
-							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv1 %>"  alt="Card image cap"> 
+							                                    		<img src="/tarea2p2/Imagenes?id=<%= arrDS[i].getImagen() %>" alt="<%= arrDS[i].getImagen() %>">
+					                                    
 							                                    </a>
 							                                    <div class="card-body">
 							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>                                    
@@ -448,7 +455,7 @@
 				    	  else{
 				    		  DataActividad[] arrDS = ((DataProveedor) DU).getActividades().toArray(new DataActividad[0]);
 				    		  if (arrDS.length != 0) {
-						        	String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
+						        	//String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						        	DataSalida[] arrDSA = arrDS[0].getSalidas().toArray(new DataSalida[0]);
 	                    	  %>
 						    <div id="tab3" class="tab">
@@ -468,7 +475,8 @@
 							                      		<div class="carousel-item active">
 					                                <div class="card" >
 					                                    <a style= "width: 550px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[0].getNombre() %>">  
-					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv %>" alt="Card image cap"> 
+					                                    		<img src="/tarea2p2/Imagenes?id=<%= arrDS[0].getImagen() %>" alt="<%= arrDS[0].getImagen() %>">
+					                                    
 					                                    </a>
 					                                    <div class="card-body">
 					                                      <p class="card-text" ><%= arrDS[0].getNombre() %></p>                                    
@@ -499,12 +507,12 @@
 							                          		
 							                          		arrDSA = arrDS[i].getSalidas().toArray(new DataSalida[0]);
 							                          		if(arrDS[i]!=null){
-							                          		String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
+							                          		//String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
 							                                	<a style= "width: 550px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[i].getNombre() %>"> 
-							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv1 %>"  alt="Card image cap"> 
+							                                    	<img src="/tarea2p2/Imagenes?id=<%= arrDS[i].getImagen() %>" alt="<%= arrDS[i].getImagen() %>">
 							                                    </a>
 							                                    <div class="card-body">
 							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>                                    
