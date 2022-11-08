@@ -6,19 +6,50 @@ import java.util.Map;
 
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
+@Entity
+@Table(name="Usuarios")
+@Inheritance(strategy=InheritanceType.JOINED)
+//This example shows usage of integer discriminators.
+@DiscriminatorColumn(name="tipo_usuario", discriminatorType=DiscriminatorType.INTEGER)
 public abstract class Usuario {
 
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	@Column(unique = true, nullable = false)
 	private String nickname;
+	@Column(nullable = false)
     private String nombre;
+	@Column(nullable = false)
     private String apellido;
+	@Column(unique = true, nullable = false)
     private String mail;
+	@Column(nullable = false)
     private Date nacimiento;
+	@Transient
     private String password;
+	@Transient
     private byte[] imagen;
+	@Transient
     private Map<String, Usuario> seguidores;
+	@Transient
     private Map<String, Usuario> seguidos;
 
+	public Usuario() {
+		
+	}
+	
     public Usuario(String nickname, String nombre, String apellido, String mail, Date nacimiento) {
         this.nombre = nombre;
         this.apellido = apellido;

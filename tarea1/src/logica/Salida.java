@@ -3,17 +3,42 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
+@Entity
+@Table(name="Salidas")
 public class Salida {
 	
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	@Column(unique = true, nullable = false)
 	private String nombre;
+	@Column(nullable = false)
 	private String lugar;
+	@Column(nullable = false)
 	private Date hora;
+	@Column(nullable = false)
 	private Date fecha;
+	@Column(nullable = false)
 	private Date fechaAlta;
+	@Column(nullable = false)
 	private int cant;
+	@Transient
 	private int cantRestante;
+	@Transient
 	private byte[] imagen;
+	@Transient
 	private int visitas;
+	
+	public Salida() {
+		
+	}
 	
 	public Salida(String nom, String lugar, Date hora, Date fecha, Date fechaAlta, int cant){
 		setNombre(nom);

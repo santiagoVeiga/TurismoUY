@@ -4,6 +4,18 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
 /**
  * Datatype para transportar la información de un usuario entre capa lógica y de presentación.
  * En Java los datatypes se definen con setters y getters, y se denominan JavaBean.
@@ -21,6 +33,10 @@ public class DataUsuario {
     private String imagen;
     private Set<String> seguidores;
     private Set<String> seguidos;
+	
+	public DataUsuario() {
+		
+	}
     
     public DataUsuario(String nick, String nombre, String apellido, String mail, Date nacimiento) { 
     	this.nick = nick;

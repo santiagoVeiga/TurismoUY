@@ -7,23 +7,47 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name="Actividades_finalizadas")
 public class Actividad {
 
-private Map<String, Salida> colSal;
-	private Map<String, Paquete> colpaq;
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	@Column(unique = true, nullable = false)
 	private String nombre;
+	@Column(nullable = false)
 	private String descripcion;
+	@Column(nullable = false)
 	private Date fechaAlta;
+	@Column(nullable = false)
 	private String ciudad;
+	@Column(nullable = false)
 	private int costo;
+	@Column(nullable = false)
 	private int duracion;
+	@Transient
 	private Departamento departamento;
-	private Map<String, Categoria> categorias ;	
+    @JoinColumn(name="id_actividad", nullable = false)
+    private Set<Salida> salidasPersistir;
+    @Transient
+	private Map<String, Salida> colSal;
 	private estadoAct estado;
+	private Date fechaBaja = null;
+	@Transient
+	private Map<String, Categoria> categorias ;
+	@Transient
+	private Map<String, Paquete> colpaq;
+	@Transient
 	private byte[] imagen;
+	@Transient
 	private int visitas;
 
+	public Actividad() {
+		
+	}
+	
 	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String, Categoria> categorias) {
 		colSal = new HashMap<String, Salida>();
 		setNombre(nom);
