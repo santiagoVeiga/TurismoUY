@@ -36,5 +36,13 @@
 	<classpathentry kind="lib" path="lib/jaxws-ri/lib/streambuffer.jar"/>
 	<classpathentry kind="lib" path="lib/jaxws-ri/lib/woodstox-core.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="lib/JPA/eclipselink.jar"/>
+	<classpathentry kind="lib" path="lib/JPA/eclipselink-sources.jar"/>
+	<classpathentry kind="lib" path="lib/JPA/hsqldb.jar"/>
+	<classpathentry kind="lib" path="lib/JPA/jakarta.annotation-api.jar"/>
+	<classpathentry kind="lib" path="lib/JPA/jakarta.persistence-api.jar"/>
+	<classpathentry kind="lib" path="lib/JPA/org.eclipse.persistence.jpa.modelgen.processor.jar"/>
+	<classpathentry kind="lib" path="lib/JPA/org.eclipse.persistence.jpars.jar"/>
+	<classpathentry kind="lib" path="lib/JPA/org.eclipse.persistence.jpars-javadoc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

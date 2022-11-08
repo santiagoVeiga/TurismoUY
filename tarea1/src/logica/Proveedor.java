@@ -5,12 +5,37 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.experimental.categories.Categories.ExcludeCategory;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapKey;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
+@Entity
+@Table(name="Proveedores")
+@DiscriminatorValue("2")
 public class Proveedor extends Usuario {
 
+	@Column(nullable = false)
     private String descripcion;
     private String link;
+    @Transient
     private boolean hayLink;
+    @OneToMany
+    @JoinColumn(name="id_proveedor", nullable = false)
+    private Set<Actividad> actividadesPersistir;
+    @Transient
     private Map<String, Actividad> actividades;
+    
+    public Proveedor() {
+    	
+    }
     
     public Proveedor(String nick, String nom, String apellido, String mail, Date nacimiento, String desc, String link, boolean hayl, String pass) {
         super(nick, nom, apellido, mail, nacimiento, pass);

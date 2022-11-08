@@ -8,14 +8,33 @@ import java.util.Set;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
+@Entity
+@Table(name="Turistas")
+@DiscriminatorValue("1")
 public class Turista extends Usuario{
 
+	@Column(nullable = false)
     private String nacionalidad;
+	@Transient
     private Set<CompraGeneral> comprasG;
+	@Transient
     private Map<String, CompraPaquete> comprasP;
+	@Transient
     private Map<String, Actividad> favoritas;
     
+	public Turista() {
+		
+	}
+	
     public Turista(String nick, String nom, String apellido, String mail, Date fechaN, String nac, String pass) {
         super(nick, nom, apellido, mail, fechaN, pass);
     	this.nacionalidad = nac;

@@ -3,15 +3,29 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DataTurista extends DataUsuario {
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
+public class DataTurista extends DataUsuario {
+	
     private String nacionalidad;
     private Set<DataSalida> salidas;
+
     private Set<String> paquetes;
+
     private Set<DataCompraGeneral> inscripcionesSal;
+
     private Set<DataCompraPaquete> comprasPaq;
+
     private Set<String> actFavoritas;
 
+	public DataTurista() {
+		
+	}
+	
     public DataTurista(String nick, String nom, String apellido, String mail, Date nacimiento, String nacionalidad, Set<DataSalida> Salidas) {
         super(nick, nom, apellido, mail, nacimiento);
     	this.nacionalidad = nacionalidad;

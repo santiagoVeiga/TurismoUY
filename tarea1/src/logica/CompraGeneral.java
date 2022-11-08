@@ -1,13 +1,38 @@
 package logica;
 import java.util.Date;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
+@IdClass(InscripcionesPK.class)
+@Entity
+@Table(name="Inscripciones")
 public class CompraGeneral{
 	
+	@Column(nullable = false)
 	private int cantidad;
+	@Column(nullable = false)
 	private Date fecha;
-	private int costo; 
+	@Column(nullable = false)
+	private int costo;
+	@Id
+	@ManyToOne
 	private Salida salida;
+	@Id
+	@ManyToOne
+	private Turista turista;
+	@Transient
 	private boolean porPaquete;
+	
+	public CompraGeneral() {
+		
+	}
 	
 	public CompraGeneral(Date fecha, int cant, int costo) {
 		this.cantidad = cant;
