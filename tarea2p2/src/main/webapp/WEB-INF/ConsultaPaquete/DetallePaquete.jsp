@@ -70,9 +70,9 @@
 					      	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 	                            <div class="carousel-inner">
 	                            	<%
-	                            	for(int i = 0; i < acts.length; i++){
-	                            		if(i == 0){
-	                            	%>	
+	                            	for(int i=0; i < acts.length; i++){
+	                            		if(i==0){
+	                            	%>
 	                            	<div class="carousel-item active">
 	                            	<%
 	                            		} else {

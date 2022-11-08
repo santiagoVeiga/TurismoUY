@@ -305,7 +305,8 @@ public class ServletConsulta extends HttpServlet {
                         try {
                            act = port.obtenerDataActividad(actividad);
                          
-                           //genero un array de dataPaquetes para cada actividad que quiero consultar
+                           //genero un array de dataPaquetes para cada actividad que quiero consultar                           
+                           
                            arrDataPaquetes = new DataPaquete[act.getPaquetes().length];
                            String[] arrPaquetes = act.getPaquetes();
                            for (int i=0 ; i<arrPaquetes.length; i++) {
