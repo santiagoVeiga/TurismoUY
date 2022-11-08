@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.List;
 import java.util.Set;
 
 import excepciones.ActividadNoExisteException;
@@ -21,4 +22,5 @@ public interface IControladorConsulta {
 	public abstract DataSalida obtenerDataSalida(String nomSal) throws SalidasNoExisteException;
 	public abstract void sumarVistaAAct(String act) throws ActividadNoExisteException;
 	public abstract void sumarVistaASal(String sal) throws SalidasNoExisteException, ActividadNoExisteException;
+	public abstract List<DataVisitas> diezMasVisitadas();
 }

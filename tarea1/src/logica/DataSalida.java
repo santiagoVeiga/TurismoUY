@@ -9,7 +9,7 @@ public class DataSalida {
 	
 	private String nombre;
 	
-
+	private int cantVis;
 	private String lugar;
 	private Date hora;
 	private Date fecha;
@@ -17,7 +17,7 @@ public class DataSalida {
 	private int cant;
 	private String imagen;
 	
-	public DataSalida(String nom, String lug, Date hor, Date fech, Date fechAlta, int can) {
+	public DataSalida(String nom, String lug, Date hor, Date fech, Date fechAlta, int can, int cantV) {
 		nombre = nom;
 		lugar = lug;
 		this.setImagen("./src/data/Salidas/" + this.getNombre() + ".jpg");
@@ -25,6 +25,7 @@ public class DataSalida {
 		fecha = fech;
 		fechaAlta = fechAlta;
 		cant = can;
+		setCantVis(cantV);
 	}
 
 
@@ -86,5 +87,16 @@ public class DataSalida {
 	
 	public void setImagen(String string) {
 		this.imagen = string;
+	}
+
+
+
+	public int getCantVis() {
+		return cantVis;
+	}
+
+
+	public void setCantVis(int cantVis) {
+		this.cantVis = cantVis;
 	}
 }

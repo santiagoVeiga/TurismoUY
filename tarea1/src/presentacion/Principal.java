@@ -128,7 +128,7 @@ public class Principal {
     	        creSalInternalFrame.setBounds(146, 0, 456, 423);
     	        insInternalFrame.getContentPane().add(creSalInternalFrame);
     	        
-    	        internalFrame = new masVisit();
+    	        internalFrame = new masVisit(conCons);
     	        internalFrame.setBounds(68, 0, 694, 408);
     	        frmGestionDeUsuarios.getContentPane().add(internalFrame);
     	        
