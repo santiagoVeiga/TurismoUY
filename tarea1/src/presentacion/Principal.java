@@ -438,6 +438,7 @@ public class Principal {
         JMenuItem mntmLista = new JMenuItem("Lista");
         mntmLista.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		internalFrame.actualizarTabla();
         		internalFrame.setVisible(true);
         	}
         });

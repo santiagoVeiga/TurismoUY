@@ -10,6 +10,8 @@ package servidor;
 public class DataSalida  implements java.io.Serializable {
     private int cant;
 
+    private int cantVis;
+
     private java.util.Calendar fecha;
 
     private java.util.Calendar fechaAlta;
@@ -27,6 +29,7 @@ public class DataSalida  implements java.io.Serializable {
 
     public DataSalida(
            int cant,
+           int cantVis,
            java.util.Calendar fecha,
            java.util.Calendar fechaAlta,
            java.util.Calendar hora,
@@ -34,6 +37,7 @@ public class DataSalida  implements java.io.Serializable {
            java.lang.String lugar,
            java.lang.String nombre) {
            this.cant = cant;
+           this.cantVis = cantVis;
            this.fecha = fecha;
            this.fechaAlta = fechaAlta;
            this.hora = hora;
@@ -60,6 +64,26 @@ public class DataSalida  implements java.io.Serializable {
      */
     public void setCant(int cant) {
         this.cant = cant;
+    }
+
+
+    /**
+     * Gets the cantVis value for this DataSalida.
+     * 
+     * @return cantVis
+     */
+    public int getCantVis() {
+        return cantVis;
+    }
+
+
+    /**
+     * Sets the cantVis value for this DataSalida.
+     * 
+     * @param cantVis
+     */
+    public void setCantVis(int cantVis) {
+        this.cantVis = cantVis;
     }
 
 
@@ -195,6 +219,7 @@ public class DataSalida  implements java.io.Serializable {
         boolean _equals;
         _equals = true && 
             this.cant == other.getCant() &&
+            this.cantVis == other.getCantVis() &&
             ((this.fecha==null && other.getFecha()==null) || 
              (this.fecha!=null &&
               this.fecha.equals(other.getFecha()))) &&
@@ -225,6 +250,7 @@ public class DataSalida  implements java.io.Serializable {
         __hashCodeCalc = true;
         int _hashCode = 1;
         _hashCode += getCant();
+        _hashCode += getCantVis();
         if (getFecha() != null) {
             _hashCode += getFecha().hashCode();
         }
@@ -256,6 +282,12 @@ public class DataSalida  implements java.io.Serializable {
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("cant");
         elemField.setXmlName(new javax.xml.namespace.QName("", "cant"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("cantVis");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "cantVis"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

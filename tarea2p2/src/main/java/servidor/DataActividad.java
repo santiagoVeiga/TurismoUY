@@ -8,6 +8,8 @@
 package servidor;
 
 public class DataActividad  extends servidor.DataBuscar  implements java.io.Serializable {
+    private int cantVis;
+
     private java.lang.String[] categorias;
 
     private java.lang.String ciudad;
@@ -40,6 +42,7 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
     }
 
     public DataActividad(
+           int cantVis,
            java.lang.String[] categorias,
            java.lang.String ciudad,
            int costo,
@@ -54,6 +57,7 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
            java.lang.String nombre,
            java.lang.String[] paquetes,
            servidor.DataSalida[] salidas) {
+        this.cantVis = cantVis;
         this.categorias = categorias;
         this.ciudad = ciudad;
         this.costo = costo;
@@ -68,6 +72,26 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         this.nombre = nombre;
         this.paquetes = paquetes;
         this.salidas = salidas;
+    }
+
+
+    /**
+     * Gets the cantVis value for this DataActividad.
+     * 
+     * @return cantVis
+     */
+    public int getCantVis() {
+        return cantVis;
+    }
+
+
+    /**
+     * Sets the cantVis value for this DataActividad.
+     * 
+     * @param cantVis
+     */
+    public void setCantVis(int cantVis) {
+        this.cantVis = cantVis;
     }
 
 
@@ -386,6 +410,7 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         __equalsCalc = obj;
         boolean _equals;
         _equals = super.equals(obj) && 
+            this.cantVis == other.getCantVis() &&
             ((this.categorias==null && other.getCategorias()==null) || 
              (this.categorias!=null &&
               java.util.Arrays.equals(this.categorias, other.getCategorias()))) &&
@@ -433,6 +458,7 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         }
         __hashCodeCalc = true;
         int _hashCode = super.hashCode();
+        _hashCode += getCantVis();
         if (getCategorias() != null) {
             for (int i=0;
                  i<java.lang.reflect.Array.getLength(getCategorias());
@@ -504,6 +530,12 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
     static {
         typeDesc.setXmlType(new javax.xml.namespace.QName("http://servidor/", "dataActividad"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("cantVis");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "cantVis"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("categorias");
         elemField.setXmlName(new javax.xml.namespace.QName("", "categorias"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));

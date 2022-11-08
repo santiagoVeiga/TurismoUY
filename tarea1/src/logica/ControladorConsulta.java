@@ -125,10 +125,12 @@ public class ControladorConsulta implements IControladorConsulta {
 			DataUsuario[] auxi = listarUsuarios();
 			int cont = 0;
 			boolean bandera = false;
-			while (cont<auxi.length && bandera) {
+			while (cont<auxi.length && !bandera) {
 				if (auxi[cont] instanceof DataProveedor) {
 					DataProveedor prov = (DataProveedor) auxi[cont];
-					bandera = prov.getActividades().contains(iter);
+					for (DataActividad actp : prov.getActividades()) {
+						bandera = bandera || actp.getNombre().equals(iter.getNombre());
+					}
 				}
 				if (!bandera) {
 					cont++;
@@ -141,7 +143,7 @@ public class ControladorConsulta implements IControladorConsulta {
 		}
 		Collections.sort(aux, new CompVisitas());
 		List<DataVisitas> res = new ArrayList<DataVisitas>();
-		int maximo = Math.max(aux.size(), 10);
+		int maximo = Math.min(aux.size(), 10);
 		for (int i = 0; i< maximo; i++) {
 			res.add(i, aux.get(i));
 		}
