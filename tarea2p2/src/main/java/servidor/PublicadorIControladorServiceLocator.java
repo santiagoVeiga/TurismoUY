@@ -29,6 +29,7 @@ public class PublicadorIControladorServiceLocator extends org.apache.axis.client
         return PublicadorIControladorPort_address;
     }
 
+
     // The WSDD service name defaults to the port name.
     private java.lang.String PublicadorIControladorPortWSDDServiceName = "PublicadorIControladorPort";
 

@@ -14,6 +14,8 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
 
     private servidor.DataCompraGeneral[] inscripcionesSal;
 
+    private java.lang.String nacionalidad;
+
     private java.lang.String[] paquetes;
 
     public DataTurista() {
@@ -32,6 +34,7 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
            java.lang.String[] actFavoritas,
            servidor.DataCompraPaquete[] comprasPaq,
            servidor.DataCompraGeneral[] inscripcionesSal,
+           java.lang.String nacionalidad,
            java.lang.String[] paquetes) {
         super(
             apellido,
@@ -46,6 +49,7 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
         this.actFavoritas = actFavoritas;
         this.comprasPaq = comprasPaq;
         this.inscripcionesSal = inscripcionesSal;
+        this.nacionalidad = nacionalidad;
         this.paquetes = paquetes;
     }
 
@@ -135,6 +139,26 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
 
 
     /**
+     * Gets the nacionalidad value for this DataTurista.
+     * 
+     * @return nacionalidad
+     */
+    public java.lang.String getNacionalidad() {
+        return nacionalidad;
+    }
+
+
+    /**
+     * Sets the nacionalidad value for this DataTurista.
+     * 
+     * @param nacionalidad
+     */
+    public void setNacionalidad(java.lang.String nacionalidad) {
+        this.nacionalidad = nacionalidad;
+    }
+
+
+    /**
      * Gets the paquetes value for this DataTurista.
      * 
      * @return paquetes
@@ -182,6 +206,9 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
             ((this.inscripcionesSal==null && other.getInscripcionesSal()==null) || 
              (this.inscripcionesSal!=null &&
               java.util.Arrays.equals(this.inscripcionesSal, other.getInscripcionesSal()))) &&
+            ((this.nacionalidad==null && other.getNacionalidad()==null) || 
+             (this.nacionalidad!=null &&
+              this.nacionalidad.equals(other.getNacionalidad()))) &&
             ((this.paquetes==null && other.getPaquetes()==null) || 
              (this.paquetes!=null &&
               java.util.Arrays.equals(this.paquetes, other.getPaquetes())));
@@ -229,6 +256,9 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
                 }
             }
         }
+        if (getNacionalidad() != null) {
+            _hashCode += getNacionalidad().hashCode();
+        }
         if (getPaquetes() != null) {
             for (int i=0;
                  i<java.lang.reflect.Array.getLength(getPaquetes());
@@ -273,6 +303,13 @@ public class DataTurista  extends servidor.DataUsuario  implements java.io.Seria
         elemField.setMinOccurs(0);
         elemField.setNillable(true);
         elemField.setMaxOccursUnbounded(true);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("nacionalidad");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "nacionalidad"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("paquetes");
