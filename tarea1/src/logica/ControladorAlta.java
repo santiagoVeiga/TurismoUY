@@ -492,7 +492,7 @@ public class ControladorAlta implements IControladorAlta {
 		cargarPaquetes(reader, imagenes);
 		reader = new CSVReader(new FileReader("./src/data/Salidas.csv"));
 	    imagenes.clear();
-        for (int i=1; i<=3; i++ ) {
+        for (int i=1; i<=6; i++ ) {
             BufferedImage img = ImageIO.read(new File("./src/data/Salidas/s"+String.valueOf(i)+".jpg"));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, "jpg", baos);
