@@ -14,7 +14,7 @@ public class DataActividad extends DataBuscar {
 	
 	private String nombre;
 	
-
+	private int cantVis;
 	private String descripcion;
 	private Date fechaAlta;
 	private String ciudad;
@@ -29,7 +29,7 @@ public class DataActividad extends DataBuscar {
 	private String link;
 	boolean hayLink;
 	
-	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2, String link, boolean hayLink) {
+	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2, String link, boolean hayLink, int cantV) {
 		this.nombre = nom;
 		this.descripcion = des;
 		this.fechaAlta = fecha;
@@ -42,9 +42,10 @@ public class DataActividad extends DataBuscar {
 		this.link = link;
 		this.hayLink = hayLink;
 		this.setImagen("./src/data/Actvs/" + this.getNombre() + ".jpg");
+		setCantVis(cantV);
 	}
 	
-	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2, String link, boolean hayLink, Set<String> categorias, String dep) { //, byte[] imagen) {
+	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2, String link, boolean hayLink, Set<String> categorias, String dep, int cantV) { //, byte[] imagen) {
 		this.nombre = nom;
 		this.descripcion = des;
 		this.fechaAlta = fecha;
@@ -59,6 +60,7 @@ public class DataActividad extends DataBuscar {
 		this.link = link;
 		this.hayLink = hayLink;
 		this.setImagen("./src/data/Actvs/" + this.getNombre() + ".jpg");
+		setCantVis(cantV);
 	}
 	
 //Getters y Setters
@@ -185,6 +187,14 @@ public class DataActividad extends DataBuscar {
 
 	public void setHayLink(boolean hayLink) {
 		this.hayLink = hayLink;
+	}
+
+	public int getCantVis() {
+		return cantVis;
+	}
+
+	public void setCantVis(int cantVis) {
+		this.cantVis = cantVis;
 	}
 	
 }

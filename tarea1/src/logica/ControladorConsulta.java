@@ -1,4 +1,7 @@
 package logica;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import excepciones.ActividadNoExisteException;
@@ -112,5 +115,38 @@ public class ControladorConsulta implements IControladorConsulta {
 		Actividad act = mAct.getActividad(sali);
 		Salida salid = act.getSalida(sal);
 		salid.incrementarVisitas();
+	}
+
+	@Override
+	public List<DataVisitas> diezMasVisitadas() {
+		List<DataVisitas> aux = new ArrayList<DataVisitas>();
+		ManejadorActividad mAct = ManejadorActividad.getInstance();
+		for (DataActividad iter : mAct.getDAct()) {
+			DataUsuario[] auxi = listarUsuarios();
+			int cont = 0;
+			boolean bandera = false;
+			while (cont<auxi.length && !bandera) {
+				if (auxi[cont] instanceof DataProveedor) {
+					DataProveedor prov = (DataProveedor) auxi[cont];
+					for (DataActividad actp : prov.getActividades()) {
+						bandera = bandera || actp.getNombre().equals(iter.getNombre());
+					}
+				}
+				if (!bandera) {
+					cont++;
+				}
+			}
+			aux.add(new DataVisitas(true,iter.getCantVis(),iter.getNombre(),auxi[cont].getNombre()));
+			for (DataSalida itSal : iter.getSalidas()) {
+				aux.add(new DataVisitas(false,itSal.getCantVis(),itSal.getNombre(),auxi[cont].getNombre()));
+			}
+		}
+		Collections.sort(aux, new CompVisitas());
+		List<DataVisitas> res = new ArrayList<DataVisitas>();
+		int maximo = Math.min(aux.size(), 10);
+		for (int i = 0; i< maximo; i++) {
+			res.add(i, aux.get(i));
+		}
+		return res;
 	}
 }

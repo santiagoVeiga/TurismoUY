@@ -180,7 +180,7 @@ public class Actividad {
 	//Operaciones
 	
 	public DataActividad getDataAT() {
-		return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getDepartamento().getNombre()); // , this.getImagen());
+		return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getDepartamento().getNombre(),getVisitas() ); // , this.getImagen());
 	}
 	
 	public Set<String> getPaquetes(){	

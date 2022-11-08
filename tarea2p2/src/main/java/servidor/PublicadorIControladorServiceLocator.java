@@ -23,8 +23,7 @@ public class PublicadorIControladorServiceLocator extends org.apache.axis.client
     }
 
     // Use to get a proxy class for PublicadorIControladorPort
-    private java.lang.String PublicadorIControladorPort_address = null;
-
+    private java.lang.String PublicadorIControladorPort_address = "http://10.0.2.15:40000/publicador";
 
     public java.lang.String getPublicadorIControladorPortAddress() {
         return PublicadorIControladorPort_address;
