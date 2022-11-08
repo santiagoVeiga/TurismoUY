@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.Base64,servidor.DataCompraPaquete,logica.estadoAct,servidor.DataCompraGeneral,servidor.DataUsuario,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,servidor.DataPaquete,servidor.DataActividad" %>
+<%@page import="java.util.Base64,java.util.Calendar,servidor.DataCompraPaquete,servidor.EstadoAct,servidor.DataCompraGeneral,servidor.DataUsuario,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,servidor.DataPaquete,servidor.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -137,7 +137,7 @@
 					        <li><span>Nombre: </span> <%=DU.getNombre() %></li>
 		                    <li><span>Apellido: </span>  <%=DU.getApellido() %></li>
 		                    <li><span>EMail: </span>  <%=DU.getMail() %></li>
-		                    <li><span>FechaNac: </span>  <%=DU.getNacimiento().getDate() + "/" + (DU.getNacimiento().getMonth()+1)+ "/" + (DU.getNacimiento().getYear()+1900) %></li>
+		                    <li><span>FechaNac: </span>  <%=DU.getNacimiento().get(Calendar.DATE) + "/" + (DU.getNacimiento().get(Calendar.MONTH))+ "/" + (DU.getNacimiento().get(Calendar.YEAR)) %></li>
 		                    <%if(tipo == "Turista"){%>
 		                    	<li><span>Nacionalidad: </span><%=((DataTurista)DU).getNacionalidad()%></li>
 		                    <%}else{%>
@@ -221,8 +221,8 @@
 					                                        
 					                                        <p class="card-text">cantidad: <%= ((DataCompraPaquete)arrDCP[0]).getCantidad()%></p> 
 					                                        <p class="card-text">costo: <%= Math.round(arrDCP[0].getCosto())%></p> 
-					                                        <p class="card-text">fecha: <%=arrDCP[0].getFecha().getDate() + "/" + (arrDCP[0].getFecha().getMonth()+1)+ "/" + (arrDCP[0].getFecha().getYear()+1900) %> </p> 
-					                                        <p class="card-text">vencimiento: <%= arrDCP[0].getVencimiento().getDate() + "/" + (arrDCP[0].getVencimiento().getMonth()+1)+ "/" + (arrDCP[0].getVencimiento().getYear()+1900) %></p>                                  
+					                                        <p class="card-text">fecha: <%=arrDCP[0].getFecha().get(Calendar.DATE) + "/" + (arrDCP[0].getFecha().get(Calendar.MONTH))+ "/" + (arrDCP[0].getFecha().get(Calendar.YEAR)) %> </p> 
+					                                        <p class="card-text">vencimiento: <%= arrDCP[0].getVencimiento().get(Calendar.DATE) + "/" + (arrDCP[0].getVencimiento().get(Calendar.MONTH))+ "/" + (arrDCP[0].getVencimiento().get(Calendar.YEAR)) %></p>                                  
 					                                    
 					                                    	<%}
 					                                    	%>
@@ -243,8 +243,8 @@
 							                                %>
 							                                        <p class="card-text">cantidad: <%= ((DataCompraPaquete)arrDCP[i]).getCantidad()%></p> 
 							                                        <p class="card-text">costo: <%= Math.round(arrDCP[i].getCosto())%></p> 
-							                                        <p class="card-text">fecha: <%=arrDCP[i].getFecha().getDate() + "/" + (arrDCP[i].getFecha().getMonth()+1)+ "/" + (arrDCP[i].getFecha().getYear()+1900) %> </p> 
-							                                        <p class="card-text">vencimiento: <%= arrDCP[i].getVencimiento().getDate() + "/" + (arrDCP[i].getVencimiento().getMonth()+1)+ "/" + (arrDCP[i].getVencimiento().getYear()+1900) %></p>                                  
+							                                        <p class="card-text">fecha: <%=arrDCP[i].getFecha().get(Calendar.DATE) + "/" + (arrDCP[i].getFecha().get(Calendar.MONTH))+ "/" + (arrDCP[i].getFecha().get(Calendar.YEAR)) %> </p> 
+							                                        <p class="card-text">vencimiento: <%= arrDCP[i].getVencimiento().get(Calendar.DATE) + "/" + (arrDCP[i].getVencimiento().get(Calendar.MONTH))+ "/" + (arrDCP[i].getVencimiento().get(Calendar.YEAR)) %></p>                                  
 							                                
 							                                    </div>
 							                                 </div>
@@ -309,7 +309,7 @@
 					                                              <%	if (usr != null && DU.getNick().equals(usr.getNick())){ 
 					                                        %>
 					                                        <p class="card-text">Costo: <%= arrDCG[0].getCosto() %></p>
-					                                        <p class="card-text">Fecha:<%=arrDCG[0].getFecha().getDate() + "/" + (arrDCG[0].getFecha().getMonth()+1)+ "/" + (arrDCG[0].getFecha().getYear()+1900) %></p>
+					                                        <p class="card-text">Fecha:<%=arrDCG[0].getFecha().get(Calendar.DATE) + "/" + (arrDCG[0].getFecha().get(Calendar.MONTH))+ "/" + (arrDCG[0].getFecha().get(Calendar.YEAR)) %></p>
 					                                        <p class="card-text">Cantidad:<%= arrDCG[0].getCantidad() %></p>
 					                                        <p class="card-text">Es de un paquete:<%if(arrDCG[0].isPorPaquete()){%>Si<%}else{%>No<%}%></p> 
 					                                    	<%} %>
@@ -331,7 +331,7 @@
 							                                            <%	if (usr != null && DU.getNick().equals(usr.getNick())){ 
 					                                        %>
 							                                        <p class="card-text">Costo: <%= arrDCG[i].getCosto() %></p>
-							                                        <p class="card-text">Fecha:<%=arrDCG[i].getFecha().getDate() + "/" + (arrDCG[i].getFecha().getMonth()+1)+ "/" + (arrDCG[i].getFecha().getYear()+1900) %></p>
+							                                        <p class="card-text">Fecha:<%=arrDCG[i].getFecha().get(Calendar.DATE) + "/" + (arrDCG[i].getFecha().get(Calendar.MONTH))+ "/" + (arrDCG[i].getFecha().get(Calendar.YEAR)) %></p>
 							                                        <p class="card-text">Cantidad:<%= arrDCG[i].getCantidad() %></p>
 							                                        <p class="card-text">Es de un paquete:<%if(arrDCG[i].isPorPaquete()){%>Si<%}else{%>No<%}%></p>                                    
 							                                      <%} 
@@ -371,9 +371,9 @@
 					        DataActividad[] arrDS = new DataActividad[arrDS1.length];
 					       	
 					        	int cont = 1;
-					        	while(arrDS1[0].getEstado() != estadoAct.confirmada && (cont<arrDS1.length))
+					        	while(arrDS1[0].getEstado() != EstadoAct.confirmada && (cont<arrDS1.length))
 			        			{
-			        				if(arrDS1[cont].getEstado() == estadoAct.confirmada)
+			        				if(arrDS1[cont].getEstado() == EstadoAct.confirmada)
 			        				{
 			        					DataActividad aux = arrDS1[cont];
 				        				arrDS1[cont] = arrDS1[0];
@@ -415,7 +415,7 @@
 					                           
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
-							                          		if(arrDS[i]!=null && arrDS[i].getEstado() == estadoAct.confirmada){
+							                          		if(arrDS[i]!=null && arrDS[i].getEstado() == EstadoAct.confirmada){
 							                          		//String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          	%>
 							                            <div class="carousel-item">
@@ -456,7 +456,7 @@
 				    		  DataActividad[] arrDS = ((DataProveedor) DU).getActividades().toArray(new DataActividad[0]);
 				    		  if (arrDS.length != 0) {
 						        	//String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
-						        	DataSalida[] arrDSA = arrDS[0].getSalidas().toArray(new DataSalida[0]);
+						        	DataSalida[] arrDSA = arrDS[0].getSalidas();
 	                    	  %>
 						    <div id="tab3" class="tab">
 					      	<a href="#tab3">Actividades</a>
@@ -485,7 +485,7 @@
 					                                      
 					                                      <!-- Finalizar Tarea -->
 					                                       
-					                                      <%if(arrDS[0].getEstado() == estadoAct.confirmada){%>
+					                                      <%if(arrDS[0].getEstado() == EstadoAct.confirmada){%>
 					                                      	<button type="button" class="btn btn-light"><a href="/tarea2p2/FinalizarActividad=<%=arrDS[0].getNombre()%>">Finalizar Actividad</a></button>
 					                                      <%} %>
 					                                      
@@ -505,7 +505,7 @@
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
 							                          		
-							                          		arrDSA = arrDS[i].getSalidas().toArray(new DataSalida[0]);
+							                          		arrDSA = arrDS[i].getSalidas();
 							                          		if(arrDS[i]!=null){
 							                          		//String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          	%>
@@ -521,7 +521,7 @@
 							                                        
 							                                        <!-- Finalizar Tarea -->
 							                                        
-							                                        <%if(arrDS[i].getEstado() == estadoAct.confirmada){%>
+							                                        <%if(arrDS[i].getEstado() == EstadoAct.confirmada){%>
 					                                      				<button type="button" class="btn btn-light"><a href="/tarea2p2/FinalizarActividad?actividad=<%= arrDS[i].getNombre() %>">Finalizar Actividad</a></button>
 					                                      			<%} %>
 							                                        <p align="center" class="card-text">Salidas Asociadas:</p>                                    
