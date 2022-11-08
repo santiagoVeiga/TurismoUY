@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@page import="controllers.EstadoSesion,servidor.EstadoAct, java.util.Base64,servidor.DataUsuario,servidor.DataDepartamento, servidor.DataProveedor,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,controllers.EstadoSesion,servidor.DataPaquete,servidor.DataActividad, manejadores.ManejadorPaquete" %>
+<%@page import="controllers.EstadoSesion,servidor.EstadoAct,java.util.Date, java.util.Base64,servidor.DataUsuario,servidor.DataDepartamento, servidor.DataProveedor,servidor.DataTurista,servidor.DataTurista,servidor.DataSalida,java.util.Set,controllers.EstadoSesion,servidor.DataPaquete,servidor.DataActividad, manejadores.ManejadorPaquete
+,java.util.Base64, java.util.Date, servidor.DataUsuario,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,java.util.HashSet, java.util.Collections,servidor.DataPaquete,servidor.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -133,7 +134,11 @@
 								    </tr>
 								    <tr> 
 								      <th scope="row">Categoria/as</th>
+								      <%if (actividadSeleccionada.getCategorias()!=null){ %>
 								      <td><%= actividadSeleccionada.getCategorias()%></td>
+								      <%}else{ %>
+								      <td>sin categoria</td>
+								      <%} %>
 								    </tr>
 								    <tr> 
 								      <th scope="row">Estado</th>
@@ -153,9 +158,15 @@
 				                    <form action="AgregarFavs" method="POST">
 				                    	<%
 				                    	DataTurista tur = (DataTurista) usr;
-				                    	Set<String> favoritas = tur.getActFavoritas();
+				                    	String[] favoritas = tur.getActFavoritas();
 				                    	String auxFavs = null;
-				                    	if (favoritas.contains(actividadSeleccionada.getNombre())){
+				                    	boolean flag = false ; 
+				                    	for (int x=0;x<favoritas.length;x++){//checkeo si la actividad esta en las favoritas del turista 
+				                    		if (favoritas[x] == actividadSeleccionada.getNombre()){
+				                    			flag = true ; 
+				                    		}
+				                    	}
+				                    	if (flag){
 				                    		auxFavs = "Sacar de Favoritas";
 				                    	} else {
 				                    		auxFavs = "Añadir a Favoritas";
@@ -167,8 +178,8 @@
 				                   <% }
 				                    	%>
 	                            
-	                            <% Set<DataSalida> Salidas = actividadSeleccionada.getSalidas(); %>
-	                            <% Set<String> Paquetes = actividadSeleccionada.getPaquetes(); %>
+	                            <% DataSalida[] arrSalidas = actividadSeleccionada.getSalidas(); %>
+	                            <% String[] paquetes = actividadSeleccionada.getPaquetes(); %> <!-- se usa para algo? -->
 	                            
 	                            <div style="display: flex; justify-content:center; align-items: center;">
 	                                <a style="margin-right:22%; margin-top: 15px; ">Salidas</a>
@@ -180,7 +191,7 @@
 	                                
 	                                <% if (actividadSeleccionada.haySalidas()){%>
 	                                 
-	                                <% DataSalida[] arrSalidas = Salidas.toArray(new DataSalida[Salidas.size()]);%>
+	                                <!--< DataSalida[] arrSalidas = Salidas.toArray(new DataSalida[Salidas.size()]);%> -->
 	                                
 	                                <%
 	                                String img = "";
@@ -272,7 +283,7 @@
 	                                    </a>
 	                                </div>
 	                                
-	                                <%} %>
+	                                <%}%>
 	                                    
 	                                 
 	                                
@@ -281,7 +292,7 @@
 	                                
 	                                
 	                                
-	                                <% DataPaquete[] arrayPaquetes = (DataPaquete[]) request.getAttribute("ArrayPaquetes");%>
+	                                <% DataPaquete[] arrayPaquetes = (DataPaquete[]) request.getAttribute("ArrayPaquetes"); %>
 	                                
 	                                
 	                                <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
@@ -523,13 +534,7 @@
 	                                 
 	                                <% DataSalida[] arrSalidas = Salidas.toArray(new DataSalida[Salidas.size()]);%>
 	                                
-	                                <%
-	                                String img = "";
-	                                if(arrSalidas[0].getImagen() != null){
-	                                	img = Base64.getEncoder().encodeToString(arrSalidas[0].getImagen()); 
-	                                }
-	                                %>
-	                                
+	                            
 	                                
 	                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
 	                                    style="margin-right: 70px;">
@@ -538,9 +543,7 @@
 	                                        <div class="carousel-item active">
 	                                            <a href="/tarea2p2/ConsultaSalida?salida=<%=arrSalidas[0].getNombre()%>">  
 	                                                <div class="card" style="width: 18rem;">
-	                                                    <img class="card-img-top"
-	                                                        src="data:image/jpg;base64,<%= img %>"
-	                                                        alt="Card image cap">
+	                                                        <img img class="card-img-top" src="/tarea2p2/Imagenes?id=<%= arrSalidas[0].getImagen() %>" alt="<%= arrSalidas[0].getImagen() %>">
 	                                                    <div class="card-body">
 	                                                        <p class="card-text" style="text-align: center;"><%=arrSalidas[0].getNombre()%></p>
 	                                                    </div>
@@ -549,18 +552,11 @@
 	                                        </div>
 	                                        
 	                                        
-	                                        <% for(int i=1; i<arrSalidas.length; i++) { 
-	                                        	String img2 = "";
-	                                            if(arrSalidas[i].getImagen() != null){
-	                                            	img2 = Base64.getEncoder().encodeToString(arrSalidas[i].getImagen()); 
-	                                            }
-	                                          	 %>
+	                                       
 	                                        <div class="carousel-item">
 	                                            <a href="/tarea2p2/ConsultaSalida?salida=<%=arrSalidas[i].getNombre()%>">  
 	                                                <div class="card" style="width: 18rem;">
-	                                                    <img class="card-img-top"
-	                                                        src="data:image/jpg;base64,<%= img2 %>"
-	                                                        alt="Card image cap">
+	                                                        <img img class="card-img-top" src="/tarea2p2/Imagenes?id=<%= arrSalidas[i].getImagen() %>" alt="<%= arrSalidas[i].getImagen() %>">
 	                                                    <div class="card-body">
 	                                                        <p class="card-text" style="text-align: center;"><%=arrSalidas[i].getNombre()%></p>
 	                                                    </div>
@@ -634,11 +630,7 @@
 	                                                <div class="card" style="width: 18rem;">
 	                                                    
 	                                                    <%if(arrayPaquetes[0].getImagen()!=null){ 
-	                                					String img = "";
-	                                					img = Base64.getEncoder().encodeToString(arrayPaquetes[0].getImagen()); %>
-	                                                    	<img class="card-img-top"
-	                                                        src="data:image/jpg;base64,<%= img %>"
-	                                                        alt="Card image cap">
+	                                                    	<img class="card-img-top" src="/tarea2p2/Imagenes?id=<%=arrayPaquetes[0].getImagen()%>" alt="<%= arrayPaquetes[0].getImagen() %>">
 	                                                     <%}else{ %>
 	                                                     	<img class="card-img-top"
 	                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
@@ -656,11 +648,8 @@
 		                                            <a href="/tarea2p2/ConsultaPaquete?paquete=<%=arrayPaquetes[i].getNombre()%>">  
 		                                                <div class="card" style="width: 18rem;">
 		                                                    <%if(arrayPaquetes[i].getImagen()!=null){
-		                                                   		String img = "";
-	                                							img = Base64.getEncoder().encodeToString(arrayPaquetes[i].getImagen());%>
-		                                                    	<img class="card-img-top"
-		                                                        src="data:image/jpg;base64,<%= img %>"
-		                                                        alt="Card image cap">
+		                                                    	<img class="card-img-top" src="/tarea2p2/Imagenes?id=<%=arrayPaquetes[i].getImagen()%>" alt="<%= arrayPaquetes[i].getImagen() %>">
+
 		                                                     <%}else{ %>
 		                                                     	<img class="card-img-top"
 		                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
