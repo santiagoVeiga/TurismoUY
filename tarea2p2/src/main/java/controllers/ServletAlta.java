@@ -146,6 +146,11 @@ public class ServletAlta extends HttpServlet {
                     String costoAct = (String) req.getParameter("actividadCosto");
                     String duracionAct = (String) req.getParameter("actividadDuracion");
                     String ciudadAct = (String) req.getParameter("actividadCiudad");
+                    String linkVideo = (String) req.getParameter("linkVideo");
+                    boolean hayVideo = false;
+                    if(!linkVideo.equals("")) { //!linkVideo.equals(null) && 
+                        hayVideo = true;
+                    }
                     //obtengo categorias 
                     String[] auxCategorias =  req.getParameterValues("actividadCategoria");
                     Set<String> categoriasAct = null;
@@ -167,39 +172,19 @@ public class ServletAlta extends HttpServlet {
                         //Si se subió imagen
                         if (filePartAct.getSize() > 0) {
                             inputStreamAct = filePartAct.getInputStream();
-                            FileOutputStream outputAct = null;
-                            byte[] imgBytesAct = null;
+                            byte[] imgBytesAct = new byte[inputStreamAct.available()];
+                            inputStreamAct.read(imgBytesAct);
+                            
+                            //inputStreamAct = filePartAct.getInputStream();
+                            //FileOutputStream outputAct = null;
+                            //byte[] imgBytesAct = null;
                             try {
-                                File nuevaImgAct = new File(req.getSession().getServletContext().getRealPath("/") + proveedorAct + filePartAct.getSubmittedFileName());
-                                if (nuevaImgAct.createNewFile())
-                                  System.out.println("El fichero se ha creado correctamente");
-                                else
-                                  System.out.println("No ha podido ser creado el fichero");
-                                outputAct = new FileOutputStream(nuevaImgAct);
-                                int leidos = 0;
-                                leidos = inputStreamAct.read();
-                                while (leidos != -1) {
-                                    outputAct.write(leidos);
-                                    leidos = inputStreamAct.read();
-                                }
-                                imgBytesAct = Files.readAllBytes(Paths.get(nuevaImgAct.getAbsolutePath()));
-                              } catch (IOException ioeAct) {
-                                ioeAct.printStackTrace();
-                              } finally {
-                                try {
-                                    outputAct.flush();
-                                    outputAct.close();
-                                    inputStreamAct.close();
-                                } catch (IOException ex) {
-                                    ex.printStackTrace();
-                                }
-                            }
-                          
-                            try {
+                                //File nuevaImgAct = new File(req.getSession().getServletContext().getRealPath("/") + proveedorAct + filePartAct.getSubmittedFileName());
+                               
                                 Calendar date1C = Calendar.getInstance();
                                 date1C.setTime(date1);
                                 port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct),
-                                        Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, categoriasAct.toArray(new String[0]), imgBytesAct);
+                                        Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, categoriasAct.toArray(new String[0]), linkVideo, hayVideo, imgBytesAct);
                                 resp.sendRedirect("/tarea2p2/home");
             
                             } catch (NumberFormatException e2) {
@@ -226,7 +211,8 @@ public class ServletAlta extends HttpServlet {
                                 byte[] imgDefBytes = baos.toByteArray();
                                 Calendar date1C = Calendar.getInstance();
                                 date1C.setTime(date1);
-                                port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, categoriasAct.toArray(new String[0]), imgDefBytes);
+                                port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, 
+                                        categoriasAct.toArray(new String[0]), linkVideo, hayVideo, imgDefBytes);
                                 resp.sendRedirect("/tarea2p2/home");
             
                             } catch (NumberFormatException e2) {

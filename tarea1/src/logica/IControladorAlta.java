@@ -51,8 +51,8 @@ public interface IControladorAlta {
     
     public abstract DataDepartamento[] obtenerDataDepartamentos() throws DepartamentoNoExisteException;
     
-    public abstract void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, Set<String> cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException;
-    public abstract void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, Set<String> cat, byte[] imagen) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException;
+    public abstract void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, Set<String> cat, String link, boolean hayLink) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException;
+    public abstract void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, Set<String> cat, String link, boolean hayLink, byte[] imagen) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException;
     
     public abstract DataUsuario verInfoUsuario(String nick) throws UsuarioNoExisteException;
     public abstract DataUsuario[] getUsuarios() throws UsuarioNoExisteException;

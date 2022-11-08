@@ -170,17 +170,17 @@ public class PublicadorIControlador {
 	}
    
     @WebMethod
-    public  void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, DataColeccionObject cat) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException{
+    public  void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, DataColeccionObject cat, String link, boolean hayLink) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException{
     	Set<String> categorias = new HashSet<String>();
     	Collections.addAll(categorias,((String[]) cat.getArray()));
-    	conAlta.registrarActividad(dep, nom, desc, dur, costo, ciudad, fecha, proveedor, categorias);
+    	conAlta.registrarActividad(dep, nom, desc, dur, costo, ciudad, fecha, proveedor, categorias, link, hayLink);
     }
 
     @WebMethod
-    public  void registrarActividadImagen(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, DataColeccionObject cat, byte[] imagen) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException{
+    public  void registrarActividadImagen(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, DataColeccionObject cat,  String link, boolean hayLink, byte[] imagen) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException{
     	Set<String> categorias = new HashSet<String>();
     	Collections.addAll(categorias,((String[]) cat.getArray()));
-    	conAlta.registrarActividad(dep, nom, desc, dur, costo, ciudad, fecha, proveedor, categorias, imagen);
+    	conAlta.registrarActividad(dep, nom, desc, dur, costo, ciudad, fecha, proveedor, categorias, link, hayLink, imagen);
     }
     
     @WebMethod

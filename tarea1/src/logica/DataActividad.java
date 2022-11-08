@@ -26,8 +26,10 @@ public class DataActividad extends DataBuscar {
 	private Set<String> categorias;
 	private estadoAct estado;
 	private String imagen;
+	private String link;
+	boolean hayLink;
 	
-	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2) {
+	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2, String link, boolean hayLink) {
 		this.nombre = nom;
 		this.descripcion = des;
 		this.fechaAlta = fecha;
@@ -37,10 +39,12 @@ public class DataActividad extends DataBuscar {
 		this.salidas = dataSalidas;
 		this.paquetes = paquetes;
 		this.estado = estado2;
+		this.link = link;
+		this.hayLink = hayLink;
 		this.setImagen("./src/data/Actvs/" + this.getNombre() + ".jpg");
 	}
 	
-	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2, Set<String> categorias, String dep) { //, byte[] imagen) {
+	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2, String link, boolean hayLink, Set<String> categorias, String dep) { //, byte[] imagen) {
 		this.nombre = nom;
 		this.descripcion = des;
 		this.fechaAlta = fecha;
@@ -52,6 +56,8 @@ public class DataActividad extends DataBuscar {
 		this.setCategorias(categorias);
 		this.estado = estado2;
 		this.setDepartamento(dep);
+		this.link = link;
+		this.hayLink = hayLink;
 		this.setImagen("./src/data/Actvs/" + this.getNombre() + ".jpg");
 	}
 	
@@ -80,7 +86,15 @@ public class DataActividad extends DataBuscar {
 	public int getDuracion() {
 		return this.duracion;
 	}
+	
+	public String getLink() {
+		return this.link;
+	}
 
+	public boolean getHayLink() {
+		return this.hayLink;
+	}
+	
 	public Set<String> getPaquetes() {
 		return paquetes;
 	}
@@ -164,4 +178,13 @@ public class DataActividad extends DataBuscar {
 	public void setPaquetes(Set<String> paquetes) {
 		this.paquetes = paquetes;
 	}
+	
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	public void setHayLink(boolean hayLink) {
+		this.hayLink = hayLink;
+	}
+	
 }

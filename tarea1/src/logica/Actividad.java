@@ -43,12 +43,16 @@ public class Actividad {
 	private byte[] imagen;
 	@Transient
 	private int visitas;
+	@Transient
+	private String link;
+	@Transient
+	private boolean hayLink;
 
 	public Actividad() {
 		
 	}
 	
-	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String, Categoria> categorias) {
+	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String, Categoria> categorias, String link, boolean hayLink) {
 		colSal = new HashMap<String, Salida>();
 		setNombre(nom);
 		setDescripcion(desc);
@@ -57,13 +61,15 @@ public class Actividad {
 		setCosto(costo);
 		setDuracion(dur);
 		setDepartamento(dep);
+		setHayLink(hayLink);
+		setLink(link);
 		this.colpaq = new HashMap<String, Paquete>();
 		setCategorias(categorias); 
 		estado = estadoAct.agregada;
 		setVisitas(0);
 	}
 	
-	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String, Categoria> categorias, byte[] imagen) {
+	public Actividad(String nom, String desc, Date fecha, String ciudad, int costo, int dur, Departamento dep, Map<String, Categoria> categorias, String link, boolean hayLink, byte[] imagen) {
 		colSal = new HashMap<String, Salida>();
 		setNombre(nom);
 		setDescripcion(desc);
@@ -72,6 +78,8 @@ public class Actividad {
 		setCosto(costo);
 		setDuracion(dur);
 		setDepartamento(dep);
+		setHayLink(hayLink);
+		setLink(link);
 		this.colpaq = new HashMap<String, Paquete>();
 		setCategorias(categorias); 
 		estado = estadoAct.agregada;
@@ -107,6 +115,14 @@ public class Actividad {
 	
 	public Departamento getDepartamento() {
 		return this.departamento;
+	}
+	
+	public String getLink() {
+		return this.link;
+	}
+	
+	public boolean getHayLink() {
+		return this.hayLink;
 	}
 	
 	public Map<String, Salida> getColSal() {
@@ -149,6 +165,14 @@ public class Actividad {
 		this.colSal.put(salida.getNombre(), salida);
 	}
 	
+	public void setLink(String link) {
+		this.link = link;
+	}
+	
+	public void setHayLink(boolean hayLink) {
+		this.hayLink = hayLink;
+	}
+	
 	public void addPaquete(Paquete paquete) {
 		this.colpaq.put(paquete.getNombre(), paquete);
 	}
@@ -156,7 +180,7 @@ public class Actividad {
 	//Operaciones
 	
 	public DataActividad getDataAT() {
-		return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.getNombreCategorias(), this.getDepartamento().getNombre()); // , this.getImagen());
+		return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getDepartamento().getNombre()); // , this.getImagen());
 	}
 	
 	public Set<String> getPaquetes(){	
