@@ -86,6 +86,11 @@
 							</div>
 						<%} %>
 				  <div style= "width: 800px;" class="tab-container">
+				  
+				  <% 
+				  String[] Segui = DU.getSeguidores();
+				  String[] Seguidos = DU.getSeguidos();
+				  //if(Segui==null && Seguidos==null){ %>
 				  <div id="tab2" class="tab">
 					      <a href="#tab2">Social</a>
 					      <div class="tab-content">
@@ -101,7 +106,7 @@
 												             <span>Seguidores</span>
 												         </div>
 												         <ul>
-												         <%String[] Segui = DU.getSeguidores();
+												         <%
 												         if(Segui!=null){
 												         for (String it : Segui){
 												         %>
@@ -110,14 +115,14 @@
 												         </ul>
 												     </div>
 								                   </div>
-								                   <div class="col-lg-4">
+								                   <div  class="col-lg-4">
 								                   	<div class="hero__deps">
 												   		<div class="hero__deps__all">
 												             <i class="fa fa-bars"  ></i>
 												             <span>Seguidos</span>
 												         </div>
 												         <ul>
-												         <%String[] Seguidos = DU.getSeguidos();
+												         <%
 												         if(Seguidos!=null){
 												         for (String it : Seguidos){
 												         %>
@@ -130,6 +135,7 @@
 					      </div>
 					    </div>
 					    </div>
+					    <%//} %>
 				  <div id="tab1" class="tab">
 				      <a href="#tab1">Información Básica</a>
 				      <div class="tab-content">
@@ -154,13 +160,14 @@
 		                    	String[] seguidores = DU.getSeguidores();
 		                    	String auxSeguir = null;
 		                    	boolean bandera = false;
-		                    	if(seguidores==null)
+		                    	if(seguidores==null){
 		                    		bandera = false;
-		                    	else
+		                    	}else{
 			                    	for(String it : seguidores){
-			                    		if(it==usr.getNick())
+			                    		if(it.equals(usr.getNick()))
 			                    			bandera = true;
 			                    	}
+		                    	}
 		                    	if (bandera){
 		                    		auxSeguir = "Dejar de seguir";
 		                    	} else {
