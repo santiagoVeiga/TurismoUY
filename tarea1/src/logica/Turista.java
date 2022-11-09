@@ -25,7 +25,7 @@ public class Turista extends Usuario{
 
 	@Column(nullable = false)
     private String nacionalidad;
-	@OneToMany(mappedBy = "turista")
+	@Transient
     private Set<CompraGeneral> comprasG;
 	@Transient
 	private Set<String> salidasCGFinalizadas;

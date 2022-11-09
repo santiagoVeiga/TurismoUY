@@ -116,9 +116,10 @@ public class ControladorInsc implements IControladorInsc {
 			throw new TuristaNoHaNacido("El turista aun no ha nacido");
 		}
 		// Se realiza la inscripcion
-		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, costo);
+		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, costo, (Turista) tur);
 		compraGen.setSalida(sal);
 		sal.setCantRestante(sal.getCantRestante()-cantTuristas);
+		sal.agregarInsc(compraGen);
 		((Turista) tur).agregarCompraGeneral(compraGen);
 	}
 	
@@ -156,9 +157,10 @@ public class ControladorInsc implements IControladorInsc {
 		costo = costo*cantTuristas*(1 - ((float) (compraPaq.getDescuento())/100));
 		int cost = Math.round(costo);
 		// Se realiza la inscripcion
-		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, cost, true);
+		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, cost, true, (Turista) tur);
 		compraGen.setSalida(sal);
 		sal.setCantRestante(sal.getCantRestante()-cantTuristas);
+		sal.agregarInsc(compraGen);
 		((Turista) tur).agregarCompraGeneral(compraGen);
 	}
 

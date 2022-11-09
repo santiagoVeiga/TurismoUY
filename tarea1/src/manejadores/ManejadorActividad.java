@@ -102,22 +102,29 @@ public class ManejadorActividad {
 		// comienza la persistencia en la base
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
 		EntityManager em = emf.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
 		Query queryProv = em.createQuery("SELECT p FROM Proveedor p WHERE p.nickname = '" + prov.getNickname() + "'");
+		boolean perProv = false;
 		try {
 			queryProv.getSingleResult();
 		} catch (NoResultException e) {
-			em.persist(prov);
+			perProv = true;
 		}
 		Query queryTur = null;
 		for (Turista iter : turistas) {
 			queryTur = em.createQuery("SELECT t FROM Turista t WHERE t.nickname = '" + iter.getNickname() + "'");
 			try {
 				queryTur.getSingleResult();
+				turistas.remove(iter);
 			} catch (NoResultException e) {
-				em.persist(iter);
+				
 			}
+		}
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		if (perProv)
+			em.persist(prov);
+		for (Turista iter : turistas) {
+			em.persist(iter);
 		}
 		em.persist(act);
 		tx.commit();

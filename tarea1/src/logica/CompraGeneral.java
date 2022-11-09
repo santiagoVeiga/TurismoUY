@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -23,10 +24,10 @@ public class CompraGeneral{
 	@Column(nullable = false)
 	private int costo;
 	@Id
-	@ManyToOne
+	@OneToOne
 	private Salida salida;
 	@Id
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Turista turista;
 	@Transient
 	private boolean porPaquete;
@@ -35,18 +36,20 @@ public class CompraGeneral{
 		
 	}
 	
-	public CompraGeneral(Date fecha, int cant, int costo) {
+	public CompraGeneral(Date fecha, int cant, int costo, Turista tur) {
 		this.cantidad = cant;
 		this.fecha = fecha;
 		this.costo = costo;
 		this.setPorPaquete(false);
+		this.setTurista(tur);
 	}
 	
-	public CompraGeneral(Date fecha, int cant, int costo, boolean paq) {
+	public CompraGeneral(Date fecha, int cant, int costo, boolean paq, Turista tur) {
 		this.cantidad = cant;
 		this.fecha = fecha;
 		this.costo = costo;
 		this.setPorPaquete(paq);
+		this.setTurista(tur);
 	}
 
 	/*
@@ -93,6 +96,14 @@ public class CompraGeneral{
 	
 	public boolean getPorPaquete() {
 		return this.porPaquete;
+	}
+
+	public Turista getTurista() {
+		return turista;
+	}
+
+	public void setTurista(Turista turista) {
+		this.turista = turista;
 	}
 
 	public void setCantidad(int cost) {
