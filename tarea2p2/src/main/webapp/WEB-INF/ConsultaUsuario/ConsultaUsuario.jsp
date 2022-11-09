@@ -150,7 +150,7 @@
 		                    		
 		                    	%>
 		                    <form action="SeguirUsuario" method="POST">
-		                    	<% 
+		                    	<% //khg
 		                    	String[] seguidores = DU.getSeguidores();
 		                    	String auxSeguir = null;
 		                    	boolean bandera = false;
