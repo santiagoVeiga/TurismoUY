@@ -12,6 +12,7 @@ import excepciones.SalidaYaExisteExeption;
 import excepciones.SalidasNoExisteException;
 import logica.Actividad;
 import logica.DataActividad;
+import logica.Proveedor;
  
 public class ManejadorActividad {
 
@@ -20,11 +21,13 @@ public class ManejadorActividad {
 	private static ManejadorActividad instancia = null;
 
 	private Map<String, Actividad> colAct;
+	private Set<String> actsFinalizadas;
 	
 	// Constructor
     
 	private ManejadorActividad() {
     	colAct = new HashMap<String, Actividad>();
+    	actsFinalizadas = new HashSet<String>();
     }
 
     public static ManejadorActividad getInstance() {
@@ -79,6 +82,15 @@ public class ManejadorActividad {
 			throw new SalidasNoExisteException("No existe una salida con nombre" + salida);
 		}
 		return res;
+	}
+	
+	public void finalizarAct(String nomAct, Proveedor prov) throws ActividadNoExisteException {
+		if (colAct.get(nomAct) == null) {
+			throw new ActividadNoExisteException("No existe una actividad con nombre: " + nomAct);
+		}
+		Actividad act = colAct.get(nomAct);
+		prov.finalizarAct(nomAct);
+		//for (Salida iter : act.ge)
 	}
 	
 }

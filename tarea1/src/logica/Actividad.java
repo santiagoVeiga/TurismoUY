@@ -29,6 +29,7 @@ public class Actividad {
 	private int duracion;
 	@Transient
 	private Departamento departamento;
+	private String nombreDepartamento;
     @JoinColumn(name="id_actividad", nullable = false)
     private Set<Salida> salidasPersistir;
     @Transient
@@ -61,6 +62,7 @@ public class Actividad {
 		setCosto(costo);
 		setDuracion(dur);
 		setDepartamento(dep);
+		setNombreDepartamento(dep.getNombre());
 		setHayLink(hayLink);
 		setLink(link);
 		this.colpaq = new HashMap<String, Paquete>();
@@ -259,6 +261,26 @@ public class Actividad {
 
 	public void setVisitas(int visitas) {
 		this.visitas = visitas;
+	}
+
+	public Date getFechaBaja() {
+		return fechaBaja;
+	}
+
+	public void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
+	
+	public String getNombreDepartamento() {
+		return nombreDepartamento;
+	}
+
+	public void setNombreDepartamento(String nombreDepartamento) {
+		this.nombreDepartamento = nombreDepartamento;
+	}
+
+	public void finalizarAct() {
+		
 	}
 	
 }

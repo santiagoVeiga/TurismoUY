@@ -8,6 +8,7 @@ import java.util.Set;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -24,8 +25,10 @@ public class Turista extends Usuario{
 
 	@Column(nullable = false)
     private String nacionalidad;
-	@Transient
+	@OneToMany(mappedBy = "turista")
     private Set<CompraGeneral> comprasG;
+	@Transient
+	private Set<String> salidasCGFinalizadas;
 	@Transient
     private Map<String, CompraPaquete> comprasP;
 	@Transient
@@ -41,6 +44,7 @@ public class Turista extends Usuario{
     	this.comprasG = new HashSet<CompraGeneral>();
     	this.comprasP = new HashMap<String, CompraPaquete>();
     	this.favoritas = new HashMap<String, Actividad>();
+    	this.salidasCGFinalizadas = new HashSet<String>();
     }
     
     public String getNacionalidad() {
@@ -133,6 +137,14 @@ public class Turista extends Usuario{
 				throw new ActividadNoExisteException("El turista " + this.getNickname() + " no tiene como favorita a la actividad " + act.getNombre());
 			}
 			this.favoritas.remove(act.getNombre());
+		}
+	}
+	
+	public void finalizarActividad(String act, CompraGeneral compraG) {
+		this.comprasG.remove(compraG);
+		this.salidasCGFinalizadas.add(compraG.getSalida().getNombre());
+		if (this.favoritas.containsKey(act)){
+			this.favoritas.remove(act);
 		}
 	}
 }

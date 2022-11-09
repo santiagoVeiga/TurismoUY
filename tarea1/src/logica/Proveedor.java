@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.junit.experimental.categories.Categories.ExcludeCategory;
 
+import excepciones.ActividadNoExisteException;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -103,4 +104,13 @@ public class Proveedor extends Usuario {
     	return dProv;
 	}
 
+	public void finalizarAct(String nomAct) throws ActividadNoExisteException {
+		if (actividades.get(nomAct) == null) {
+			throw new ActividadNoExisteException("No existe una actividad con nombre: " + nomAct);
+		}
+		Actividad act = actividades.get(nomAct);
+		actividadesPersistir.add(act);
+		actividades.remove(nomAct);
+	}
+	
 }

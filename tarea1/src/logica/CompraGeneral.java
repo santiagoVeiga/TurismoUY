@@ -1,6 +1,7 @@
 package logica;
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -25,7 +26,7 @@ public class CompraGeneral{
 	@ManyToOne
 	private Salida salida;
 	@Id
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Turista turista;
 	@Transient
 	private boolean porPaquete;
@@ -116,6 +117,10 @@ public class CompraGeneral{
     
 	public DataCompraGeneral getDataCompraGeneral() {
 		return new DataCompraGeneral(this.getFecha(), this.getCantidad(), this.getCosto(), this.getPorPaquete(), this.getSalida().getDataST());
+	}
+	
+	public void finalizarActividad(String act) {
+		this.turista.finalizarActividad(act, this);
 	}
 	
 }
