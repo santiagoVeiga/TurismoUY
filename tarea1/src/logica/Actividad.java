@@ -216,26 +216,46 @@ public class Actividad {
 	//Operaciones
 	
 	public DataActividad getDataAT() {
-		return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getDepartamento().getNombre(),getVisitas() ); // , this.getImagen());
+		if (this.getEstado() != estadoAct.finalizada) {
+			return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getDepartamento().getNombre(),getVisitas() ); // , this.getImagen());
+		} else {
+			return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getNombreDepartamento(), 0); // , this.getImagen());
+		}
 	}
 	
-	public Set<String> getPaquetes(){	
-		return colpaq.keySet();
+	public Set<String> getPaquetes(){
+		if (this.getEstado() != estadoAct.finalizada) {
+			return colpaq.keySet();
+		} else {
+			return null;
+		}
 	}
 	
 	public Set<String> getNombreCategorias(){
-		return categorias.keySet();
+		if (this.getEstado() != estadoAct.finalizada) {
+			return categorias.keySet();
+		} else {
+			return null;
+		}
 	}
 
 	//revisar
 	public Set<DataSalida> getSalidas() {
-		Set<DataSalida> res = new HashSet<DataSalida>();
-		Set<Entry<String, Salida>> aux = colSal.entrySet();
-    	Iterator<Entry<String, Salida>> iter = aux.iterator();
-    	while (iter.hasNext()){
-    			res.add(iter.next().getValue().getDataST());
-    			}
-		return res;
+		if (this.getEstado() != estadoAct.finalizada) {
+			Set<DataSalida> res = new HashSet<DataSalida>();
+			Set<Entry<String, Salida>> aux = colSal.entrySet();
+	    	Iterator<Entry<String, Salida>> iter = aux.iterator();
+	    	while (iter.hasNext()){
+	    			res.add(iter.next().getValue().getDataST());
+	    			}
+			return res;
+		} else {
+			Set<DataSalida> res = new HashSet<DataSalida>();
+			for (Salida sal : salidasPersistir) {
+				res.add(sal.getDataST());
+			}
+			return res;
+		}
 	}
 	
 	public void setCategorias(Map<String, Categoria> cat) {
