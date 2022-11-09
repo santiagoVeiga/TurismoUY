@@ -104,7 +104,7 @@ public class Proveedor extends Usuario {
     	}
     	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
     	EntityManager em = emf.createEntityManager();
-    	List<Actividad> listaCG = em.createQuery("SELECT cg FROM CompraGeneral cg, Turista t WHERE t.nickname = '" + this.getNickname() + "' t.id = c.turista_id").getResultList();
+    	List<Actividad> listaCG = em.createQuery("SELECT a FROM Actividad a join Proveedor p WHERE p.nickname = '" + this.getNickname() + "'").getResultList();
     	for (Actividad acts : listaCG) {
     		dAct.add(acts.getDataAT());
     	}

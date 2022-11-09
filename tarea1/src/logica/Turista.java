@@ -128,7 +128,7 @@ public class Turista extends Usuario{
     	}
     	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
     	EntityManager em = emf.createEntityManager();
-    	List<CompraGeneral> listaCG = em.createQuery("SELECT cg FROM CompraGeneral cg, Turista t WHERE t.nickname = '" + this.getNickname() + "' and t.id = c.turista_id").getResultList();
+    	List<CompraGeneral> listaCG = em.createQuery("SELECT cg FROM CompraGeneral cg join Turista t WHERE t.nickname = '" + this.getNickname() + "'").getResultList();
     	for (CompraGeneral compG : listaCG) {
     		dComGen.add(compG.getDataCompraGeneral());
     		dSal.add(compG.getSalida().getDataST());
