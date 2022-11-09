@@ -119,8 +119,9 @@ public class CompraGeneral{
 		return new DataCompraGeneral(this.getFecha(), this.getCantidad(), this.getCosto(), this.getPorPaquete(), this.getSalida().getDataST());
 	}
 	
-	public void finalizarActividad(String act) {
+	public Turista finalizarActividad(String act) {
 		this.turista.finalizarActividad(act, this);
+		return this.turista;
 	}
 	
 }

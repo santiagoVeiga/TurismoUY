@@ -33,6 +33,7 @@ public class Actividad {
 	private Departamento departamento;
 	private String nombreDepartamento;
     @JoinColumn(name="id_actividad", nullable = false)
+    @OneToMany(cascade = CascadeType.PERSIST)
     private Set<Salida> salidasPersistir;
     @Transient
 	private Map<String, Salida> colSal;
@@ -301,19 +302,21 @@ public class Actividad {
 		this.nombreDepartamento = nombreDepartamento;
 	}
 
-	public void finalizarAct() {
+	public Set<Turista> finalizarAct() {
+		Set<Turista> resultado = new HashSet<Turista>();
 		this.getDepartamento().removerActividad(this.getNombre());
 		for (Categoria cats: this.categorias.values()) {
 			cats.removerActividad(this.getNombre());
 		}
 		for (Salida sal : this.colSal.values()) {
-			sal.finalizarAct(this.getNombre());
+			resultado.addAll(sal.finalizarAct(this.getNombre()));
 		}
 		Set<Salida> salidas = new HashSet<Salida>();
 		salidas.addAll(this.colSal.values());
 		this.setSalidasPersistir(salidas);
 		LocalDateTime fecha = LocalDateTime.now();
 		this.setFechaBaja(java.util.Date.from(fecha.atZone(ZoneId.systemDefault()).toInstant()));
+		return resultado;
 	}
 	
 }

@@ -44,6 +44,7 @@ public class Proveedor extends Usuario {
     	this.link = link;
     	this.hayLink = hayl;
     	this.actividades = new HashMap<String, Actividad>();
+    	this.actividadesPersistir = new HashSet<Actividad>();
     }
 
     /* Getters */

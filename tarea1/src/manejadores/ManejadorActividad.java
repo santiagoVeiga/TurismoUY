@@ -98,29 +98,28 @@ public class ManejadorActividad {
 		}
 		Actividad act = colAct.get(nomAct);
 		prov.finalizarAct(nomAct);
-		act.finalizarAct();
+		Set<Turista> turistas = act.finalizarAct();
 		// comienza la persistencia en la base
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
 		EntityManager em = emf.createEntityManager();
-		Query queryProv = em.createQuery("SELECT p FROM Proveedores p WHERE p.nickname = '" + prov.getNickname() + "'");
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		Query queryProv = em.createQuery("SELECT p FROM Proveedor p WHERE p.nickname = '" + prov.getNickname() + "'");
 		try {
 			queryProv.getSingleResult();
 		} catch (NoResultException e) {
 			em.persist(prov);
 		}
 		Query queryTur = null;
-//		for (boolean var = true) {
-//			queryTur = em.createQuery("SELECT p FROM Proveedores p WHERE p.nickname = '" + prov.getNickname() + "'");
-//			try {
-//				queryTur.getSingleResult();
-//			} catch (NoResultException e) {
-//				em.persist(prov);
-//			}
-//		}
-		Turista dtTur = new Turista("Turista1", "n", "a", "mail1", new Date(0, 0, 0), "nac", null);
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-		em.persist(dtTur);
+		for (Turista iter : turistas) {
+			queryTur = em.createQuery("SELECT t FROM Turista t WHERE t.nickname = '" + iter.getNickname() + "'");
+			try {
+				queryTur.getSingleResult();
+			} catch (NoResultException e) {
+				em.persist(iter);
+			}
+		}
+		em.persist(act);
 		tx.commit();
 		em.close();
 		emf.close();

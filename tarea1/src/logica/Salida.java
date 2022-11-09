@@ -175,10 +175,12 @@ public class Salida {
 		this.inscripciones.add(cGen);
 	}
 	
-	public void finalizarAct(String act) {
+	public Set<Turista> finalizarAct(String act) {
+		Set<Turista> resultado = new HashSet<Turista>();
 		for (CompraGeneral iter : getInscripciones()) {
-			iter.finalizarActividad(act);
+			resultado.add(iter.finalizarActividad(act));
 		}
+		return resultado;
 	}
 	
 }
