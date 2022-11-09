@@ -332,8 +332,8 @@ public class ControladorInsc implements IControladorInsc {
 		
 	}
 	
-	public void finalizarActividad(String nombreActividad) throws ActividadNoExisteException, SalidasVigentesException {
-		ManejadorActividad manAct = ManejadorActividad.getInstance();
+	public void finalizarActividad(String nombreActividad, String nickProv) throws ActividadNoExisteException, SalidasVigentesException {
+			ManejadorActividad manAct = ManejadorActividad.getInstance();
 			Actividad act = manAct.getActividad(nombreActividad);
 			Map<String, Salida> salidasAct = act.getColSal();
 			boolean salidasTerminadas = true;
@@ -346,9 +346,11 @@ public class ControladorInsc implements IControladorInsc {
 					salidasTerminadas = false;
 				}
 			}
-			if(salidasTerminadas) {
-				act.setEstado(estadoAct.finalizada);
-			}else {
+			if (salidasTerminadas) {
+				ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
+				manAct.finalizarAct(nombreActividad, (Proveedor) manUsu.obtenerUsuarioNick(nickProv));
+				
+			} else {
 				throw new SalidasVigentesException("La actividad cuenta con salidas Vigentes");
 			}
 		

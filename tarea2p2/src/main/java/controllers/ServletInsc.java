@@ -213,7 +213,7 @@ public class ServletInsc extends HttpServlet {
                     HttpSession session4 = req.getSession();
                     DataProveedor dataProveedor = (DataProveedor) session4.getAttribute("usuario");
                     try {
-                        port.finalizarActividad(actividadSeleccionada);
+                        port.finalizarActividad(actividadSeleccionada, dataProveedor.getNick());
                         session4.setAttribute("usuario", port.obtenerDataUsuarioNick(dataProveedor.getNick()));
                     } catch (Exception e) {
                             System.out.printf("esepsssion \n" + e.getMessage());

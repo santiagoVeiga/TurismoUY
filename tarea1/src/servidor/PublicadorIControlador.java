@@ -349,8 +349,8 @@ public class PublicadorIControlador {
     }
     
     @WebMethod
-    public void finalizarActividad(String nombreActividad) throws ActividadNoExisteException, SalidasVigentesException{
-    	conInsc.finalizarActividad(nombreActividad);
+    public void finalizarActividad(String nombreActividad, String nickProv) throws ActividadNoExisteException, SalidasVigentesException{
+    	conInsc.finalizarActividad(nombreActividad, nickProv);
     }
     
     @WebMethod

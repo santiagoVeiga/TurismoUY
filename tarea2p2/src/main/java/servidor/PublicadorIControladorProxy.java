@@ -224,10 +224,10 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.agregarQuitarActividadFavorita(arg0, arg1, arg2);
   }
   
-  public void finalizarActividad(java.lang.String arg0) throws java.rmi.RemoteException, servidor.SalidasVigentesException, servidor.ActividadNoExisteException{
+  public void finalizarActividad(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException, servidor.SalidasVigentesException, servidor.ActividadNoExisteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
-    publicadorIControlador.finalizarActividad(arg0);
+    publicadorIControlador.finalizarActividad(arg0, arg1);
   }
   
   public java.lang.Object[] listarUsuarios() throws java.rmi.RemoteException{

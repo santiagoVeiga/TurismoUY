@@ -38,7 +38,7 @@ public interface PublicadorIControlador extends java.rmi.Remote {
     public java.lang.String obtenerNomActPorSalida(java.lang.String arg0) throws java.rmi.RemoteException, servidor.SalidasNoExisteException;
     public void seguirDejarDeSeguirUsuario(java.lang.String arg0, java.lang.String arg1, boolean arg2) throws java.rmi.RemoteException, servidor.UsuarioNoExisteException, servidor.UsuarioRepetidoException;
     public void agregarQuitarActividadFavorita(java.lang.String arg0, java.lang.String arg1, boolean arg2) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.UsuarioNoExisteException, servidor.ActividadNoExisteException;
-    public void finalizarActividad(java.lang.String arg0) throws java.rmi.RemoteException, servidor.SalidasVigentesException, servidor.ActividadNoExisteException;
+    public void finalizarActividad(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException, servidor.SalidasVigentesException, servidor.ActividadNoExisteException;
     public java.lang.Object[] listarUsuarios() throws java.rmi.RemoteException;
     public java.lang.Object[] obtenerDataDepartamentos() throws java.rmi.RemoteException, servidor.DepartamentoNoExisteException;
     public void confirmarAltaSalida(java.lang.String arg0, java.lang.String arg1, java.util.Calendar arg2, java.util.Calendar arg3, java.lang.String arg4, int arg5, java.util.Calendar arg6) throws java.rmi.RemoteException, servidor.SalidaYaExisteExeption, servidor.FechaAltaSalidaInvalida, servidor.FechaAltaSalidaAnteriorActividad;

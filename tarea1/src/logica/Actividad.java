@@ -31,6 +31,9 @@ public class Actividad {
 	private int duracion;
 	@Transient
 	private Departamento departamento;
+	@ManyToOne
+	@JoinColumn(name="id_proveedor", nullable = false)
+	private Proveedor provedoor;
 	private String nombreDepartamento;
     @JoinColumn(name="id_actividad", nullable = false)
     @OneToMany(cascade = CascadeType.PERSIST)
@@ -146,6 +149,14 @@ public class Actividad {
 
 	public Set<Salida> getSalidasPersistir() {
 		return salidasPersistir;
+	}
+
+	public Proveedor getProveedor() {
+		return provedoor;
+	}
+
+	public void setProveedor(Proveedor prov) {
+		this.provedoor = prov;
 	}
 
 	public void setId(int id) {

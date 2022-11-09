@@ -3,8 +3,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 
 import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
@@ -12,9 +14,13 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -119,6 +125,13 @@ public class Turista extends Usuario{
     		CompraGeneral compraGen = itr.next();
     		dComGen.add(compraGen.getDataCompraGeneral());
     		dSal.add(compraGen.getSalida().getDataST());
+    	}
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+    	EntityManager em = emf.createEntityManager();
+    	List<CompraGeneral> listaCG = em.createQuery("SELECT cg FROM CompraGeneral cg, Turista t WHERE t.nickname = '" + this.getNickname() + "' and t.id = c.turista_id").getResultList();
+    	for (CompraGeneral compG : listaCG) {
+    		dComGen.add(compG.getDataCompraGeneral());
+    		dSal.add(compG.getSalida().getDataST());
     	}
     	for (CompraPaquete compPaq: comprasP.values())
     		dComPaq.add(compPaq.getDataCompraPaquete());
