@@ -74,4 +74,10 @@ public class Departamento {
 	public void agregarActividad(Actividad act) {
 		colAct.put(act.getNombre(), act);
 	}
+	
+	public void removerActividad(String nomAct) {
+		if (this.colAct.containsKey(nomAct)) {
+			this.colAct.remove(nomAct);
+		}
+	}
 }

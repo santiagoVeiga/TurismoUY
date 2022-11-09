@@ -1,5 +1,6 @@
 package manejadores;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,9 +11,16 @@ import java.util.Set;
 import excepciones.ActividadNoExisteException;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.SalidasNoExisteException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import logica.Actividad;
 import logica.DataActividad;
 import logica.Proveedor;
+import logica.Turista;
  
 public class ManejadorActividad {
 
@@ -90,7 +98,32 @@ public class ManejadorActividad {
 		}
 		Actividad act = colAct.get(nomAct);
 		prov.finalizarAct(nomAct);
-		//for (Salida iter : act.ge)
+		act.finalizarAct();
+		// comienza la persistencia en la base
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+		EntityManager em = emf.createEntityManager();
+		Query queryProv = em.createQuery("SELECT p FROM Proveedores p WHERE p.nickname = '" + prov.getNickname() + "'");
+		try {
+			queryProv.getSingleResult();
+		} catch (NoResultException e) {
+			em.persist(prov);
+		}
+		Query queryTur = null;
+//		for (boolean var = true) {
+//			queryTur = em.createQuery("SELECT p FROM Proveedores p WHERE p.nickname = '" + prov.getNickname() + "'");
+//			try {
+//				queryTur.getSingleResult();
+//			} catch (NoResultException e) {
+//				em.persist(prov);
+//			}
+//		}
+		Turista dtTur = new Turista("Turista1", "n", "a", "mail1", new Date(0, 0, 0), "nac", null);
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		em.persist(dtTur);
+		tx.commit();
+		em.close();
+		emf.close();
 	}
 	
 }

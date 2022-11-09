@@ -1,5 +1,7 @@
 package logica;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -137,6 +139,26 @@ public class Actividad {
 	
 	// Setters
 	
+	public int getId() {
+		return id;
+	}
+
+	public Set<Salida> getSalidasPersistir() {
+		return salidasPersistir;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	public void setSalidasPersistir(Set<Salida> salidasPersistir) {
+		this.salidasPersistir = salidasPersistir;
+	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -280,7 +302,18 @@ public class Actividad {
 	}
 
 	public void finalizarAct() {
-		
+		this.getDepartamento().removerActividad(this.getNombre());
+		for (Categoria cats: this.categorias.values()) {
+			cats.removerActividad(this.getNombre());
+		}
+		for (Salida sal : this.colSal.values()) {
+			sal.finalizarAct(this.getNombre());
+		}
+		Set<Salida> salidas = new HashSet<Salida>();
+		salidas.addAll(this.colSal.values());
+		this.setSalidasPersistir(salidas);
+		LocalDateTime fecha = LocalDateTime.now();
+		this.setFechaBaja(java.util.Date.from(fecha.atZone(ZoneId.systemDefault()).toInstant()));
 	}
 	
 }
