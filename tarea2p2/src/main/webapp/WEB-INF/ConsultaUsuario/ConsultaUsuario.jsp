@@ -102,11 +102,11 @@
 												         </div>
 												         <ul>
 												         <%String[] Segui = DU.getSeguidores();
-												         if(Segui!=null)
+												         if(Segui!=null){
 												         for (String it : Segui){
 												         %>
 												             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
-												         <%} %>
+												         <%}} %>
 												         </ul>
 												     </div>
 								                   </div>
@@ -118,11 +118,11 @@
 												         </div>
 												         <ul>
 												         <%String[] Seguidos = DU.getSeguidos();
-												         if(Seguidos!=null)
+												         if(Seguidos!=null){
 												         for (String it : Seguidos){
 												         %>
 												             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
-												         <%} %>
+												         <%} }%>
 												         </ul>
 												     </div>
 								                   </div>
@@ -146,18 +146,21 @@
 		                    <%}%>
 		                    <br>
 		                    <% DataUsuario usr = (DataUsuario) session.getAttribute("usuario");
-		                    
-		                    	if (usr != null && DU.getNick()!=usr.getNick()){
+		                    	if (usr != null && !DU.getNick().equals(usr.getNick())){
+		                    		
 		                    	%>
 		                    <form action="SeguirUsuario" method="POST">
 		                    	<% 
 		                    	String[] seguidores = DU.getSeguidores();
 		                    	String auxSeguir = null;
 		                    	boolean bandera = false;
-		                    	for(String it : seguidores){
-		                    		if(it==usr.getNick())
-		                    			bandera = true;
-		                    	}
+		                    	if(seguidores==null)
+		                    		bandera = false;
+		                    	else
+			                    	for(String it : seguidores){
+			                    		if(it==usr.getNick())
+			                    			bandera = true;
+			                    	}
 		                    	if (bandera){
 		                    		auxSeguir = "Dejar de seguir";
 		                    	} else {
@@ -167,8 +170,10 @@
                    				<input type="hidden" id="nickUsuASeguir" name="nickUsuASeguir" value="<%=DU.getNick()%>">
 							    <input class="btn btn-light" type="submit" value="<%= auxSeguir %>" onclick="submit()">
 		                    </form>
-		                   <% }
-		                    	if(usr != null && DU.getNick()==usr.getNick()){
+		                   <% 
+		               
+                   	
+		                    	}else if(usr != null && DU.getNick().equals(usr.getNick())){
 		                    	%>
 		                    	<button type="button" class="btn btn-light"><a href="/tarea2p2/ModificarUsuario?dataUsuario=<%= DU.getNick() %>">Modificar datos personales</a></button>
 		                    <% 	}
@@ -184,7 +189,7 @@
 				    	    DataCompraPaquete[] arrDCP = ((DataTurista)DU).getComprasPaq();
 				    	    
 				    	    
-				    	    if (usr != null && DU.getNick()==usr.getNick()){
+				    	    if (usr != null && DU.getNick().equals(usr.getNick())){
 				    	    //DataPaquete[] DP = (DataPaquete[]) request.getAttribute("ArregloPaquetes");
 				    	    if (arrDCP != null && arrDCP.length != 0){
 				    	    	DataPaquete[] DP = new DataPaquete[arrDCP.length];
