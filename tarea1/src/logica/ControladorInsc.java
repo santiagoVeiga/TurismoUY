@@ -59,6 +59,11 @@ public class ControladorInsc implements IControladorInsc {
 		    		  Date fecha = formato.parse(nextLine[5].strip());
 		    		  inscribir(nextLine[2].strip(), nextLine[1].strip(), Integer.parseInt(nextLine[3]), fecha, nextLine[6].strip());
 		    	  }
+	    		  else if (cont == 16 || cont == 18 || cont == 20 || cont == 22) {
+	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+		    		  Date fecha = formato.parse(nextLine[5].strip());
+		    		  inscribir(nextLine[2].strip(), nextLine[1].strip(), Integer.parseInt(nextLine[3]), fecha, nextLine[6].strip());
+	    		  }
 		    	  else if (cont<=22) { // paquete
 		    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 		    		  Date fecha = formato.parse(nextLine[5].strip());
@@ -81,6 +86,11 @@ public class ControladorInsc implements IControladorInsc {
 		    		  Date fecha = formato.parse(nextLine[5].strip());
 		    		  inscribir(nextLine[2].strip(), nextLine[1].strip(), Integer.parseInt(nextLine[3]), fecha, nextLine[6].strip());
 		    	  }
+	    		  else if (cont == 16 || cont == 18 || cont == 20 || cont == 22) {
+	    			  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
+		    		  Date fecha = formato.parse(nextLine[5].strip());
+		    		  inscribir(nextLine[2].strip(), nextLine[1].strip(), Integer.parseInt(nextLine[3]), fecha, nextLine[6].strip());
+	    		  }
 		    	  else if (cont<=22) { // paquete
 		    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 		    		  Date fecha = formato.parse(nextLine[5].strip());
