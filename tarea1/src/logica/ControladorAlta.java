@@ -469,6 +469,8 @@ public class ControladorAlta implements IControladorAlta {
             imagenes.put(Integer.toString(i), imgBytes);
         }
 		cargarUsuarios(reader, imagenes);
+		reader = new CSVReader(new FileReader("./src/data/Usuarios-Seguidores.csv"));
+		cargarSeguidos(reader);
 		reader = new CSVReader(new FileReader("./src/data/Departamentos.csv"));
 		cargarDptos(reader);
 		reader = new CSVReader(new FileReader("./src/data/Actividades.csv"));
@@ -490,7 +492,11 @@ public class ControladorAlta implements IControladorAlta {
             byte[] imgBytes = baos.toByteArray();
             imagenes.put(Integer.toString(i), imgBytes);
         }
+        imagenes.put(Integer.toString(4), null);
 		cargarPaquetes(reader, imagenes);
+		reader = new CSVReader(new FileReader("./src/data/Favoritas.csv"));
+	    imagenes.clear();
+	    cargarFavoritas(reader);
 		reader = new CSVReader(new FileReader("./src/data/Salidas.csv"));
 	    imagenes.clear();
         for (int i=1; i<=6; i++ ) {
@@ -513,17 +519,42 @@ public class ControladorAlta implements IControladorAlta {
 		conIns.cargarActsPaqs();
 		cargarCompPaq();
 		conIns.cargarInsc();
-		Date actDate = new Date(200,0,0);
-		Set<String> categorias = new HashSet<String>();
-		categorias.add("Gastronomia");
-		registrarActividad("Rocha", "Act", "ActDesc", 5, 5, "ActCiudad", actDate, "eldiez", categorias, null, false);
-		try {
-			conIns.finalizarActividad("Act", "eldiez");
-		} catch (ActividadNoExisteException | SalidasVigentesException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
+
+
+	private void cargarFavoritas(CSVReader reader) throws IOException, UsuarioNoExisteException, UsuarioRepetidoException, ActividadNoExisteException, ActividadRepetidaException {
+		String[] nextLine;
+	      int cont = 0;
+	      Fabrica fabr = Fabrica.getInstance();
+		  IControladorInsc conIns = fabr.getIControladorInsc();
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if (cont!=0) {
+	    		  conIns.agregarQuitarActividadFavorita(nextLine[1].strip(), nextLine[2].strip(), true);
+	    	  }
+	    	  cont++;
+	      }
+		
+	}
+
+
+
+	public void cargarSeguidos(CSVReader reader) throws NumberFormatException, IOException, ParseException, PaqueteNoExisteException, PaqueteRepetidoException, UsuarioNoExisteException, UsuarioRepetidoException {
+		String[] nextLine;
+	      int cont = 0;
+	      Fabrica fabr = Fabrica.getInstance();
+		  IControladorInsc conIns = fabr.getIControladorInsc();
+	      //reads one line at a time  
+	      while ((nextLine = reader.readNext()) != null) {
+	    	  if (cont!=0) {
+	    		  conIns.seguirDejarDeSeguirUsuario(nextLine[1].strip(), nextLine[2].strip(), true);
+	    	  }
+	    	  cont++;
+	      }
+		
+	}
+
 
 
 	@Override
@@ -706,8 +737,10 @@ public class ControladorAlta implements IControladorAlta {
 	      Map<String, Set<String>> categos = new HashMap<String, Set<String>>();
 	      Set<String> act1 = new HashSet<String>();
 	      act1.add("Gastronomia");
-	      categos.put(Integer.toString(1), act1); 
-	      categos.put(Integer.toString(4), act1); 
+	      Set<String> act8 = new HashSet<String>();
+	      act8.add("Gastronomia");
+	      categos.put(Integer.toString(1), act8); 
+	      categos.put(Integer.toString(4), act8); 
 	      act1.add("Cultura y Patrimonio");
 	      categos.put(Integer.toString(2), act1); 	
 	      Set<String> act3 = new HashSet<String>();
@@ -716,9 +749,11 @@ public class ControladorAlta implements IControladorAlta {
 	      categos.put(Integer.toString(7), act3);
 	      categos.put(Integer.toString(8), act3);
 	      categos.put(Integer.toString(10), act3);
+	      Set<String> act4 = new HashSet<String>();
+	      act4.add("Campo y Naturaleza");
+	      categos.put(Integer.toString(6), act4);
 	      Set<String> act5 = new HashSet<String>();
 	      act5.add("Campo y Naturaleza");
-	      categos.put(Integer.toString(6), act5);
 	      act5.add("Gastronomia");
 	      categos.put(Integer.toString(5), act5);
 	      Set<String> act9 = new HashSet<String>();

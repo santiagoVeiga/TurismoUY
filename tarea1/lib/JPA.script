@@ -11,4 +11,7 @@ CREATE USER SA PASSWORD ""
 GRANT DBA TO SA
 SET WRITE_DELAY 10
 SET SCHEMA PUBLIC
-INSERT INTO SEQUENCE VALUES('SEQ_GEN',0)
+INSERT INTO SEQUENCE VALUES('SEQ_GEN',300)
+INSERT INTO ACTIVIDADES_FINALIZADAS VALUES(2,'ActCiudad',5,'ActDesc',5,3,'2099-12-31 00:00:00.000000000','2022-11-10 10:05:27.544000000','Act','Rocha',1)
+INSERT INTO USUARIOS VALUES(1,2,'Bengoechea','eldiez@socfomturriv.org.uy','1965-06-27 00:00:00.000000000','eldiez','Pablo')
+INSERT INTO PROVEEDORES VALUES(1,'Pablo es el presidente de la Sociedad de Fomento Tur\u00edstico de Rivera (conocida como Socfomturriv)','http://wwww.socfomturriv.org.uy')

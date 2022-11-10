@@ -18,6 +18,7 @@ public class masVisit extends JInternalFrame {
 	public masVisit(IControladorConsulta ccc) {
 		cCons= ccc;
         setClosable(true);
+        setResizable(true);
         setBounds(223, 15, 694, 408);
         setVisible(false);
         String[][] aaa = new String[10][4];
@@ -32,6 +33,12 @@ public class masVisit extends JInternalFrame {
         	aaa[cont][0] = iter.getNombre();
         	aaa[cont][1] = iter.getProv();
         	aaa[cont][3] = Integer.toString(iter.getCantVis());
+        	if (iter.isEsAct()) {
+        		aaa[cont][2] = "Actividad";
+        	}
+        	else {
+        		aaa[cont][2] = "Salida";
+        	}
         	cont++;
         }
         table = new JTable();
@@ -77,6 +84,12 @@ public void actualizarTabla() {
     	aaa[cont][0] = iter.getNombre();
     	aaa[cont][1] = iter.getProv();
     	aaa[cont][3] = Integer.toString(iter.getCantVis());
+    	if (iter.isEsAct()) {
+    		aaa[cont][2] = "Actividad";
+    	}
+    	else {
+    		aaa[cont][2] = "Salida";
+    	}
     	cont++;
     }
     table.setModel(new DefaultTableModel(
