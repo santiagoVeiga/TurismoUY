@@ -7,7 +7,7 @@
 
 package servidor;
 
-public class ActividadNoExisteException  extends servidor.Exception  implements java.io.Serializable {
+public class ActividadNoExisteException  extends org.apache.axis.AxisFault  implements java.io.Serializable {
     private java.lang.String message1;
 
     public ActividadNoExisteException() {

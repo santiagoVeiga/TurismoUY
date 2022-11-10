@@ -7,7 +7,7 @@
 
 package servidor;
 
-public class ExcedeTuristas  extends servidor.Exception  implements java.io.Serializable {
+public class ExcedeTuristas  extends org.apache.axis.AxisFault  implements java.io.Serializable {
     private java.lang.String message1;
 
     public ExcedeTuristas() {

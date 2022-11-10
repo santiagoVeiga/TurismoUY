@@ -7,7 +7,7 @@
 
 package servidor;
 
-public class DepartamentoYaExisteExeption  extends servidor.Exception  implements java.io.Serializable {
+public class DepartamentoYaExisteExeption  extends org.apache.axis.AxisFault  implements java.io.Serializable {
     private java.lang.String message1;
 
     public DepartamentoYaExisteExeption() {

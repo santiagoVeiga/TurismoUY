@@ -7,7 +7,7 @@
 
 package servidor;
 
-public class SalidaYaExisteExeption  extends servidor.Exception  implements java.io.Serializable {
+public class SalidaYaExisteExeption  extends org.apache.axis.AxisFault  implements java.io.Serializable {
     private java.lang.String message1;
 
     public SalidaYaExisteExeption() {
