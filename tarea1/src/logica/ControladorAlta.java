@@ -39,6 +39,7 @@ import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
+import excepciones.SalidasVigentesException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
@@ -492,7 +493,7 @@ public class ControladorAlta implements IControladorAlta {
 		cargarPaquetes(reader, imagenes);
 		reader = new CSVReader(new FileReader("./src/data/Salidas.csv"));
 	    imagenes.clear();
-        for (int i=1; i<=3; i++ ) {
+        for (int i=1; i<=6; i++ ) {
             BufferedImage img = ImageIO.read(new File("./src/data/Salidas/s"+String.valueOf(i)+".jpg"));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, "jpg", baos);
@@ -512,6 +513,16 @@ public class ControladorAlta implements IControladorAlta {
 		conIns.cargarActsPaqs();
 		cargarCompPaq();
 		conIns.cargarInsc();
+		Date actDate = new Date(200,0,0);
+		Set<String> categorias = new HashSet<String>();
+		categorias.add("Gastronomia");
+		registrarActividad("Rocha", "Act", "ActDesc", 5, 5, "ActCiudad", actDate, "eldiez", categorias, null, false);
+		try {
+			conIns.finalizarActividad("Act", "eldiez");
+		} catch (ActividadNoExisteException | SalidasVigentesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 

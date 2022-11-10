@@ -262,14 +262,25 @@ public class ServletConsulta extends HttpServlet {
                             if (dataUsu instanceof DataTurista) {
                                 DataPaquete[] arrDataPaquetes = null;
                                 DataPaquete DataPaqueteAux ; 
-                                arrDataPaquetes = new DataPaquete[((DataTurista) dataUsu).getPaquetes().length];
+                                int aux;
+                                String[] aux2 = ((DataTurista)dataUsu).getPaquetes(); 
+                                if(!(aux2 == null)) {
+                                    aux =((DataTurista) dataUsu).getPaquetes().length;
+                                }
+                                else { 
+                                   aux= 0;
+                                }
+                                arrDataPaquetes = new DataPaquete[aux];
                                 String[] arrPaquetes = ((DataTurista) dataUsu).getPaquetes();
-                               for (int i =0 ; i<arrPaquetes.length; i++) {
+                               if(!(arrPaquetes==null)) {
+                                for (int i =0 ; i<arrPaquetes.length; i++) {
                                    DataPaqueteAux = port.obtenerDataPaquete(arrPaquetes[i]);
                                    arrDataPaquetes[i] = DataPaqueteAux ; 
                                }
                                req.setAttribute("ArregloPaquetes", arrDataPaquetes);
-                            }
+                               }else
+                                   req.setAttribute("ArregloPaquetes", null);
+                               }
                             req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ConsultaUsuario.jsp").forward(req, resp);
                         } catch (UsuarioNoExisteException e) {
                             // TODO Auto-generated catch block
@@ -306,12 +317,14 @@ public class ServletConsulta extends HttpServlet {
                            act = port.obtenerDataActividad(actividad);
                          
                            //genero un array de dataPaquetes para cada actividad que quiero consultar
-                           arrDataPaquetes = new DataPaquete[act.getPaquetes().length];
+                           if(!(act.getPaquetes()==null))
+                               arrDataPaquetes = new DataPaquete[act.getPaquetes().length];
                            String[] arrPaquetes = act.getPaquetes();
-                           for (int i=0 ; i<arrPaquetes.length; i++) {
-                               arrDataPaquetes[i] = port.obtenerDataPaquete(arrPaquetes[i]);
-                           }
-                           
+                           if(!(arrPaquetes==null)) {
+                               for (int i=0 ; i<arrPaquetes.length; i++) {
+                                   arrDataPaquetes[i] = port.obtenerDataPaquete(arrPaquetes[i]);
+                               }}
+                               
                            
                            
                            
@@ -319,7 +332,8 @@ public class ServletConsulta extends HttpServlet {
                             e.printStackTrace();
                         }
     				    req.setAttribute("ActividadElegida", act);
-                        req.setAttribute("ArrayPaquetes", arrDataPaquetes);
+    				    
+    				    req.setAttribute("ArrayPaquetes", arrDataPaquetes);
                         req.getRequestDispatcher("/WEB-INF/ConsultaActividad/DetalleActividad.jsp").forward(req, resp);
     				}
     				break;

@@ -2,18 +2,21 @@ package logica;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.junit.experimental.categories.Categories.ExcludeCategory;
-
+import excepciones.ActividadNoExisteException;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapKey;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Persistence;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -27,9 +30,8 @@ public class Proveedor extends Usuario {
     private String link;
     @Transient
     private boolean hayLink;
-    @OneToMany
-    @JoinColumn(name="id_proveedor", nullable = false)
-    private Set<Actividad> actividadesPersistir;
+    @Transient
+    private Set<String> actividadesPersistir;
     @Transient
     private Map<String, Actividad> actividades;
     
@@ -43,6 +45,7 @@ public class Proveedor extends Usuario {
     	this.link = link;
     	this.hayLink = hayl;
     	this.actividades = new HashMap<String, Actividad>();
+    	this.actividadesPersistir = new HashSet<String>();
     }
 
     /* Getters */
@@ -99,8 +102,22 @@ public class Proveedor extends Usuario {
     		Actividad act = entry.getValue();
     		dAct.add(act.getDataAT());
     	}
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+    	EntityManager em = emf.createEntityManager();
+    	List<Actividad> listaCG = em.createQuery("SELECT a FROM Actividad a join Proveedor p WHERE p.nickname = '" + this.getNickname() + "'").getResultList();
+    	for (Actividad acts : listaCG) {
+    		dAct.add(acts.getDataAT());
+    	}
     	DataProveedor dProv = new DataProveedor(getNickname(), getNombre(), getApellido(), getMail(), getNacimiento(), descripcion, link, dAct, getPassword(), this.getSeguidores().keySet(), this.getSeguidos().keySet());
     	return dProv;
 	}
 
+	public void finalizarAct(String nomAct) throws ActividadNoExisteException {
+		if (actividades.get(nomAct) == null) {
+			throw new ActividadNoExisteException("No existe una actividad con nombre: " + nomAct);
+		}
+		actividadesPersistir.add(nomAct);
+		actividades.remove(nomAct);
+	}
+	
 }

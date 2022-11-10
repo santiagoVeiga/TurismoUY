@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.Base64,logica.DataCompraPaquete,logica.estadoAct,logica.DataCompraGeneral,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,logica.DataPaquete,logica.DataActividad" %>
+<%@page import="java.util.Base64,java.util.Calendar,servidor.DataCompraPaquete,servidor.EstadoAct,servidor.DataCompraGeneral,servidor.DataUsuario,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,servidor.DataPaquete,servidor.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -62,10 +62,10 @@
                       <div class="row">
                       
                       
-                      	<%String imagen = Base64.getEncoder().encodeToString(DU.getImagen()); %>
+                      	<%//String imagen = Base64.getEncoder().encodeToString(DU.getImagen()); %>
                       	<div class="blog__details__author">
                           <div class="blog__details__author__pic">
-                              <img src="data:image/jpg;base64,<%= imagen %>" alt="">                                   
+                              <img src="/tarea2p2/Imagenes?id=<%= DU.getImagen() %>" alt="<%= DU.getImagen() %>">                               
                           	</div>
                           	<div class="blog__details__author__text">
                               	<h6><%=DU.getNombre()%></h6>
@@ -85,8 +85,12 @@
 							  <button id="closei" onclick="this.parentNode.remove(); return false;" >x</button>
 							</div>
 						<%} %>
-					
-				  <div class="tab-container">
+				  <div style= "width: 800px;" class="tab-container">
+				  
+				  <% 
+				  String[] Segui = DU.getSeguidores();
+				  String[] Seguidos = DU.getSeguidos();
+				  //if(Segui==null && Seguidos==null){ %>
 				  <div id="tab2" class="tab">
 					      <a href="#tab2">Social</a>
 					      <div class="tab-content">
@@ -102,28 +106,28 @@
 												             <span>Seguidores</span>
 												         </div>
 												         <ul>
-												         <%String[] Segui = DU.getSeguidores().toArray(new String[0]);
-												         if(Segui!=null)
+												         <%
+												         if(Segui!=null){
 												         for (String it : Segui){
 												         %>
 												             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
-												         <%} %>
+												         <%}} %>
 												         </ul>
 												     </div>
 								                   </div>
-								                   <div class="col-lg-4">
+								                   <div  class="col-lg-4">
 								                   	<div class="hero__deps">
 												   		<div class="hero__deps__all">
 												             <i class="fa fa-bars"  ></i>
 												             <span>Seguidos</span>
 												         </div>
 												         <ul>
-												         <%String[] Seguidos = DU.getSeguidos().toArray(new String[0]);
-												         if(Seguidos!=null)
+												         <%
+												         if(Seguidos!=null){
 												         for (String it : Seguidos){
 												         %>
 												             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
-												         <%} %>
+												         <%} }%>
 												         </ul>
 												     </div>
 								                   </div>
@@ -131,13 +135,14 @@
 					      </div>
 					    </div>
 					    </div>
+					    <%//} %>
 				  <div id="tab1" class="tab">
 				      <a href="#tab1">Información Básica</a>
 				      <div class="tab-content">
 					        <li><span>Nombre: </span> <%=DU.getNombre() %></li>
 		                    <li><span>Apellido: </span>  <%=DU.getApellido() %></li>
 		                    <li><span>EMail: </span>  <%=DU.getMail() %></li>
-		                    <li><span>FechaNac: </span>  <%=DU.getNacimiento().getDate() + "/" + (DU.getNacimiento().getMonth()+1)+ "/" + (DU.getNacimiento().getYear()+1900) %></li>
+		                    <li><span>FechaNac: </span>  <%=DU.getNacimiento().get(Calendar.DATE) + "/" + (DU.getNacimiento().get(Calendar.MONTH)+1)+ "/" + (DU.getNacimiento().get(Calendar.YEAR)) %></li>
 		                    <%if(tipo == "Turista"){%>
 		                    	<li><span>Nacionalidad: </span><%=((DataTurista)DU).getNacionalidad()%></li>
 		                    <%}else{%>
@@ -147,14 +152,23 @@
 		                    <%}%>
 		                    <br>
 		                    <% DataUsuario usr = (DataUsuario) session.getAttribute("usuario");
-		                    
-		                    if (usr != null && !DU.getNick().equals(usr.getNick())){
+		                    	if (usr != null && !DU.getNick().equals(usr.getNick())){
+		                    		
 		                    	%>
 		                    <form action="SeguirUsuario" method="POST">
-		                    	<% 
-		                    	Set<String> seguidores = DU.getSeguidores();
+		                    	<% //khg
+		                    	String[] seguidores = DU.getSeguidores();
 		                    	String auxSeguir = null;
-		                    	if (seguidores.contains(usr.getNick())){
+		                    	boolean bandera = false;
+		                    	if(seguidores==null){
+		                    		bandera = false;
+		                    	}else{
+			                    	for(String it : seguidores){
+			                    		if(it.equals(usr.getNick()))
+			                    			bandera = true;
+			                    	}
+		                    	}
+		                    	if (bandera){
 		                    		auxSeguir = "Dejar de seguir";
 		                    	} else {
 		                    		auxSeguir = "Seguir";
@@ -163,10 +177,13 @@
                    				<input type="hidden" id="nickUsuASeguir" name="nickUsuASeguir" value="<%=DU.getNick()%>">
 							    <input class="btn btn-light" type="submit" value="<%= auxSeguir %>" onclick="submit()">
 		                    </form>
-		                   <% }else{
+		                   <% 
+		               
+                   	
+		                    	}else if(usr != null && DU.getNick().equals(usr.getNick())){
 		                    	%>
 		                    	<button type="button" class="btn btn-light"><a href="/tarea2p2/ModificarUsuario?dataUsuario=<%= DU.getNick() %>">Modificar datos personales</a></button>
-		                    <% }
+		                    <% 	}
 		                   %>
 		                   		                    
 				      </div> 
@@ -175,21 +192,19 @@
 				  	<% 
 				  	
 				      if(DU instanceof DataTurista){
-				    	    Set<DataCompraGeneral> salidas;
-				    	    Set<DataCompraPaquete> DCP = ((DataTurista)DU).getComprasPaq();
+				    	    DataCompraGeneral[] salidas;
+				    	    DataCompraPaquete[] arrDCP = ((DataTurista)DU).getComprasPaq();
 				    	    
-				    	    Object[] uuuu = DCP.toArray();
-				    	    DataCompraPaquete[] arrDCP = new DataCompraPaquete[uuuu.length];
-				    	    DataPaquete[] DP = new DataPaquete[uuuu.length];
-				    	    for (int i = 0; i < uuuu.length; i++) {
-					        	arrDCP[i] = (DataCompraPaquete) uuuu[i];
-					        	DP[i] = ((DataCompraPaquete) uuuu[i]).getPaq();
-					        	
-					        }
+				    	    
 				    	    if (usr != null && DU.getNick().equals(usr.getNick())){
-				    	    /*DataPaquete[] DP = (DataPaquete[]) request.getAttribute("ArregloPaquetes");*/
-				    	    if (DP.length != 0){
-				    	    	String imagenp = Base64.getEncoder().encodeToString(DP[0].getImagen());
+				    	    //DataPaquete[] DP = (DataPaquete[]) request.getAttribute("ArregloPaquetes");
+				    	    if (arrDCP != null && arrDCP.length != 0){
+				    	    	DataPaquete[] DP = new DataPaquete[arrDCP.length];
+					    	    
+					    	    for (int i = 0; i < arrDCP.length; i++) {
+						        	DP[i] = ((DataCompraPaquete) arrDCP[i]).getPaq();
+						        	
+						        }	
 				      %>
 					  	<div id="tab4" class="tab">
 					      <a href="#tab4">Paquetes</a>
@@ -206,8 +221,8 @@
 					                            <div class="carousel-inner">
 					                              <div class="carousel-item active">
 					                                <div class="card" >
-					                                    <a style= "width: 550px;" href="/tarea2p2/ConsultaPaquete?paquete=<%= DP[0].getNombre() %>"> 
-					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenp %>"  alt="Card image cap"> 
+					                                    <a style= "width: 700px;" href="/tarea2p2/ConsultaPaquete?paquete=<%= DP[0].getNombre() %>"> 
+					                                    	<img src="/tarea2p2/Imagenes?id=<%= DP[0].getImagen() %>" alt="<%= DP[0].getImagen() %>">
 					                                    </a>
 					                                    <div class="card-body">
 					                                        <p class="card-text"> <%= DP[0].getNombre() %></p>
@@ -216,8 +231,8 @@
 					                                        
 					                                        <p class="card-text">cantidad: <%= ((DataCompraPaquete)arrDCP[0]).getCantidad()%></p> 
 					                                        <p class="card-text">costo: <%= Math.round(arrDCP[0].getCosto())%></p> 
-					                                        <p class="card-text">fecha: <%=arrDCP[0].getFecha().getDate() + "/" + (arrDCP[0].getFecha().getMonth()+1)+ "/" + (arrDCP[0].getFecha().getYear()+1900) %> </p> 
-					                                        <p class="card-text">vencimiento: <%= arrDCP[0].getVencimiento().getDate() + "/" + (arrDCP[0].getVencimiento().getMonth()+1)+ "/" + (arrDCP[0].getVencimiento().getYear()+1900) %></p>                                  
+					                                        <p class="card-text">fecha: <%=arrDCP[0].getFecha().get(Calendar.DATE) + "/" + (arrDCP[0].getFecha().get(Calendar.MONTH)+1)+ "/" + (arrDCP[0].getFecha().get(Calendar.YEAR)) %> </p> 
+					                                        <p class="card-text">vencimiento: <%= arrDCP[0].getVencimiento().get(Calendar.DATE) + "/" + (arrDCP[0].getVencimiento().get(Calendar.MONTH)+1)+ "/" + (arrDCP[0].getVencimiento().get(Calendar.YEAR)) %></p>                                  
 					                                    
 					                                    	<%}
 					                                    	%>
@@ -226,20 +241,20 @@
 					                                </div>
 					                              <%
 							                          	for(int i = 1; i < DP.length; i++){
-							                          		String imagenp1 = Base64.getEncoder().encodeToString(DP[i].getImagen());
+							                          		//String imagenp1 = Base64.getEncoder().encodeToString(DP[i].getImagen());
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
-							                                	<a style= "width: 550px;" href="/tarea2p2/ConsultaPaquete?paquete=<%= DP[i].getNombre() %>"> 
-							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenp1 %>"  alt="Card image cap"> 
+							                                	<a style= "width: 700px;" href="/tarea2p2/ConsultaPaquete?paquete=<%= DP[i].getNombre() %>"> 
+							                                    	<img src="/tarea2p2/Imagenes?id=<%= DP[i].getImagen() %>" alt="<%= DP[i].getImagen() %>"> 
 							                                    </a>
 							                                    <div class="card-body">
 							                                        <p class="card-text"> <%= DP[i].getNombre() %></p>
 							                                %>
 							                                        <p class="card-text">cantidad: <%= ((DataCompraPaquete)arrDCP[i]).getCantidad()%></p> 
 							                                        <p class="card-text">costo: <%= Math.round(arrDCP[i].getCosto())%></p> 
-							                                        <p class="card-text">fecha: <%=arrDCP[i].getFecha().getDate() + "/" + (arrDCP[i].getFecha().getMonth()+1)+ "/" + (arrDCP[i].getFecha().getYear()+1900) %> </p> 
-							                                        <p class="card-text">vencimiento: <%= arrDCP[i].getVencimiento().getDate() + "/" + (arrDCP[i].getVencimiento().getMonth()+1)+ "/" + (arrDCP[i].getVencimiento().getYear()+1900) %></p>                                  
+							                                        <p class="card-text">fecha: <%=arrDCP[i].getFecha().get(Calendar.DATE) + "/" + (arrDCP[i].getFecha().get(Calendar.MONTH)+1)+ "/" + (arrDCP[i].getFecha().get(Calendar.YEAR)) %> </p> 
+							                                        <p class="card-text">vencimiento: <%= arrDCP[i].getVencimiento().get(Calendar.DATE) + "/" + (arrDCP[i].getVencimiento().get(Calendar.MONTH)+1)+ "/" + (arrDCP[i].getVencimiento().get(Calendar.YEAR)) %></p>                                  
 							                                
 							                                    </div>
 							                                 </div>
@@ -271,15 +286,14 @@
 				    	    }
 				    	    }
 						salidas = ((DataTurista) DU).getInscripcionesSal();
-						Object[] uuu = salidas.toArray();
-				        DataSalida[] arrDS = new DataSalida[uuu.length];
-				        DataCompraGeneral[] arrDCG = new DataCompraGeneral[uuu.length]; 
-				        for (int i = 0; i < uuu.length; i++) {
-				        	arrDS[i] = ((DataCompraGeneral) uuu[i]).getSalida();
-				        	arrDCG[i] = (DataCompraGeneral) uuu[i];
+				        DataSalida[] arrDS = new DataSalida[salidas.length];
+				        DataCompraGeneral[] arrDCG = new DataCompraGeneral[salidas.length]; 
+				        for (int i = 0; i < salidas.length; i++) {
+				        	arrDS[i] = ((DataCompraGeneral) salidas[i]).getSalida();
+				        	arrDCG[i] = (DataCompraGeneral) salidas[i];
 				        }
-				        if (uuu.length != 0){
-				        String imagen1 = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
+				        if (salidas.length != 0){
+				        //String imagen1 = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						%>
 					    <div id="tab3" class="tab">
 					      <a href="#tab3">Salidas</a>
@@ -296,44 +310,67 @@
 					                            <div class="carousel-inner">
 					                              <div class="carousel-item active">
 					                                <div class="card" >
-					                                    <a style= "width: 550px;" href="/tarea2p2/ConsultaSalida?salida=<%= arrDS[0].getNombre() %>"> 
-					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagen1 %> " alt="Card image cap"> 
+					                                    <a style= "width: 700px;" href="/tarea2p2/ConsultaSalida?salida=<%= arrDS[0].getNombre() %>"> 
+					                                    	<img src="/tarea2p2/Imagenes?id=<%= arrDS[0].getImagen() %>" alt="<%= arrDS[0].getImagen() %>">
 					                                    </a>
 					                                    <div class="card-body">
 					                                        <p class="card-text"><%= arrDS[0].getNombre() %></p>
 					                                              <%	if (usr != null && DU.getNick().equals(usr.getNick())){ 
 					                                        %>
 					                                        <p class="card-text">Costo: <%= arrDCG[0].getCosto() %></p>
-					                                        <p class="card-text">Fecha:<%=arrDCG[0].getFecha().getDate() + "/" + (arrDCG[0].getFecha().getMonth()+1)+ "/" + (arrDCG[0].getFecha().getYear()+1900) %></p>
+					                                        <p class="card-text">Fecha:<%=arrDCG[0].getFecha().get(Calendar.DATE) + "/" + (arrDCG[0].getFecha().get(Calendar.MONTH)+1)+ "/" + (arrDCG[0].getFecha().get(Calendar.YEAR)) %></p>
 					                                        <p class="card-text">Cantidad:<%= arrDCG[0].getCantidad() %></p>
 					                                        <p class="card-text">Es de un paquete:<%if(arrDCG[0].isPorPaquete()){%>Si<%}else{%>No<%}%></p> 
-					                                    	<%} %>
+					                                    	<br>
+							                                          
+					                                    	<%}/*
+					                              				    Document doc = new Document();
+					                                                  //String Destino = "Salida.pdf";
+					                                                  
+					                                                  try {
+					                                                      PdfWriter.getInstance(doc, new FileOutputStream("Salida.pdf"));
+					                                                      doc.open();
+					                                                      Phrase p = new Phrase("asdasd");
+					                                                      doc.add(p);
+					                                                      doc.close();
+					                                                  } catch (DocumentException e) {
+					                                                      // TODO Auto-generated catch block
+					                                                      e.printStackTrace();
+					                                                  }
+					                                                      
+					                              				    
+					                              				}
+					                                    	*/
+					                                    	%>
 					                                    </div>
 					                                  </div>
 					                                </div>
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
-							                          		String imagen2 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
+							                          		//String imagen2 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          		
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
-							                                	<a style= "width: 550px;" href="/tarea2p2/ConsultaSalida?salida=<%= arrDS[i].getNombre() %>">  
-							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagen2 %>"  alt="Card image cap"> 
-							                                    </a>
+							                                	<a style= "width: 700px;" href="/tarea2p2/ConsultaSalida?salida=<%= arrDS[i].getNombre() %>">  
+							                                    	<img src="/tarea2p2/Imagenes?id=<%= arrDS[i].getImagen() %>" alt="<%= arrDS[i].getImagen() %>">
+					                                    		</a>
 							                                    <div class="card-body">
 							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>
 							                                            <%	if (usr != null && DU.getNick().equals(usr.getNick())){ 
 					                                        %>
 							                                        <p class="card-text">Costo: <%= arrDCG[i].getCosto() %></p>
-							                                        <p class="card-text">Fecha:<%=arrDCG[i].getFecha().getDate() + "/" + (arrDCG[i].getFecha().getMonth()+1)+ "/" + (arrDCG[i].getFecha().getYear()+1900) %></p>
+							                                        <p class="card-text">Fecha:<%=arrDCG[i].getFecha().get(Calendar.DATE) + "/" + (arrDCG[i].getFecha().get(Calendar.MONTH)+1)+ "/" + (arrDCG[i].getFecha().get(Calendar.YEAR)) %></p>
 							                                        <p class="card-text">Cantidad:<%= arrDCG[i].getCantidad() %></p>
-							                                        <p class="card-text">Es de un paquete:<%if(arrDCG[i].isPorPaquete()){%>Si<%}else{%>No<%}%></p>                                    
+							                                        <p class="card-text">Es de un paquete:<%if(arrDCG[i].isPorPaquete()){%>Si<%}else{%>No<%}%></p>        
+							                                        <br>
+							                                                                    
 							                                      <%} 
 					                                        %>
 					                                       		 </div>
 							                                    </div>
 							                                 </div>
+							                                 
 							                            
 							                              <%} %>  
 					                              <%
@@ -351,9 +388,10 @@
 							                      %>  					                            
 					                            </div>
 	                                        </div>
-	                                    
-	                                    	
-					                          </div>
+	                                        <br>
+	                                        <button type="button" class="btn btn-light"><a href="/tarea2p2/ConsultaUsuario?nick=@@@PDF@@@" %>Descargar PDF</a></button>
+		                                      
+		                                      </div>
 	                                    
 	                                    </div>
 					      </div>
@@ -362,13 +400,13 @@
 				      {
 				    	  
 				    	  if (!(usr != null && DU.getNick().equals(usr.getNick()))){
-					        DataActividad[] arrDS1 = ((DataProveedor) DU).getActividades().toArray(new DataActividad[0]);
+					        DataActividad[] arrDS1 = ((DataProveedor) DU).getActividades();
 					        DataActividad[] arrDS = new DataActividad[arrDS1.length];
 					       	
 					        	int cont = 1;
-					        	while(arrDS1[0].getEstado() != estadoAct.confirmada && (cont<arrDS1.length))
+					        	while(arrDS1[0].getEstado() != EstadoAct.confirmada && (cont<arrDS1.length))
 			        			{
-			        				if(arrDS1[cont].getEstado() == estadoAct.confirmada)
+			        				if(arrDS1[cont].getEstado() == EstadoAct.confirmada)
 			        				{
 			        					DataActividad aux = arrDS1[cont];
 				        				arrDS1[cont] = arrDS1[0];
@@ -379,7 +417,7 @@
 					        	
 					        	arrDS = arrDS1;
 					        	if (arrDS.length != 0) {
-						        	String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
+						        	//String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						        
                       	%>
 	                      	<div id="tab3" class="tab">
@@ -398,8 +436,9 @@
 							                      	
 							                      		<div class="carousel-item active">
 					                                <div class="card" >
-					                                    <a style= "width: 550px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[0].getNombre() %>">  
-					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv %>" alt="Card image cap"> 
+					                                    <a style= "width: 700px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[0].getNombre() %>">  
+					                                    		<img src="/tarea2p2/Imagenes?id=<%= arrDS[0].getImagen() %>" alt="<%= arrDS[0].getImagen() %>">
+					                                    
 					                                    </a>
 					                                    <div class="card-body">
 					                                      <p class="card-text" ><%= arrDS[0].getNombre() %></p>
@@ -409,13 +448,14 @@
 					                           
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
-							                          		if(arrDS[i]!=null && arrDS[i].getEstado() == estadoAct.confirmada){
-							                          		String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
+							                          		if(arrDS[i]!=null && arrDS[i].getEstado() == EstadoAct.confirmada){
+							                          		//String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
-							                                	<a style= "width: 550px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[i].getNombre() %>"> 
-							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv1 %>"  alt="Card image cap"> 
+							                                	<a style= "width: 700px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[i].getNombre() %>"> 
+							                                    		<img src="/tarea2p2/Imagenes?id=<%= arrDS[i].getImagen() %>" alt="<%= arrDS[i].getImagen() %>">
+					                                    
 							                                    </a>
 							                                    <div class="card-body">
 							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>                                    
@@ -439,17 +479,17 @@
 	                                    
 	                                    </div>
 	                                    <br>
-	                                    <button type="button" class="btn btn-light"><a>Descargar PDF</a></button>
+	                                    
 					      </div>
 					    </div> 
                       <%}}
 				    	  
 				    	  
 				    	  else{
-				    		  DataActividad[] arrDS = ((DataProveedor) DU).getActividades().toArray(new DataActividad[0]);
+				    		  DataActividad[] arrDS = ((DataProveedor) DU).getActividades();
 				    		  if (arrDS.length != 0) {
-						        	String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
-						        	DataSalida[] arrDSA = arrDS[0].getSalidas().toArray(new DataSalida[0]);
+						        	//String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
+						        	DataSalida[] arrDSA = arrDS[0].getSalidas();
 	                    	  %>
 						    <div id="tab3" class="tab">
 					      	<a href="#tab3">Actividades</a>
@@ -467,8 +507,9 @@
 							                      	
 							                      		<div class="carousel-item active">
 					                                <div class="card" >
-					                                    <a style= "width: 550px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[0].getNombre() %>">  
-					                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv %>" alt="Card image cap"> 
+					                                    <a style= "width: 700px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[0].getNombre() %>">  
+					                                    		<img src="/tarea2p2/Imagenes?id=<%= arrDS[0].getImagen() %>" alt="<%= arrDS[0].getImagen() %>">
+					                                    
 					                                    </a>
 					                                    <div class="card-body">
 					                                      <p class="card-text" ><%= arrDS[0].getNombre() %></p>                                    
@@ -477,18 +518,19 @@
 					                                      
 					                                      <!-- Finalizar Tarea -->
 					                                       
-					                                      <%if(arrDS[0].getEstado() == estadoAct.confirmada){%>
+					                                      <%if(arrDS[0].getEstado().equals(EstadoAct.confirmada)){%>
 					                                      	<button type="button" class="btn btn-light"><a href="/tarea2p2/FinalizarActividad=<%=arrDS[0].getNombre()%>">Finalizar Actividad</a></button>
-					                                      <%} %>
+					                                      <%} //asd%>
 					                                      
 					                                      <p align="center" class="card-text">Salidas Asociadas:</p>                              
 				                                    	  
-				                                    	  <%for(int x = 0; x < arrDSA.length; x++) {%>
+				                                    	  <% if(arrDSA!=null){
+				                                    	  for(int x = 0; x < arrDSA.length; x++) {%>
 				                                    	  <a href="/tarea2p2/ConsultaSalida?salida=<%= arrDSA[x].getNombre() %>"> 
 							                                    	   <p align="center" class="card-text" ><%= arrDSA[x].getNombre() %></p>
 							                                    	  </a>
 							                                    	  
-				                                    	  <%} %>
+				                                    	  <%} }//asdasd%>
 				                                    	  
 					                                    </div>
 					                                  </div>
@@ -497,14 +539,14 @@
 					                              <%
 							                          	for(int i = 1; i < arrDS.length; i++){
 							                          		
-							                          		arrDSA = arrDS[i].getSalidas().toArray(new DataSalida[0]);
+							                          		arrDSA = arrDS[i].getSalidas();
 							                          		if(arrDS[i]!=null){
-							                          		String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
+							                          		//String imagenProv1 = Base64.getEncoder().encodeToString(arrDS[i].getImagen());
 							                          	%>
 							                            <div class="carousel-item">
 							                                <div class="card">
-							                                	<a style= "width: 550px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[i].getNombre() %>"> 
-							                                    	<img class="card-img-top" src="data:image/jpg;base64,<%= imagenProv1 %>"  alt="Card image cap"> 
+							                                	<a style= "width: 700px;" href="/tarea2p2/ConsultaActividad?actividad=<%= arrDS[i].getNombre() %>"> 
+							                                    	<img src="/tarea2p2/Imagenes?id=<%= arrDS[i].getImagen() %>" alt="<%= arrDS[i].getImagen() %>">
 							                                    </a>
 							                                    <div class="card-body">
 							                                        <p class="card-text"><%= arrDS[i].getNombre() %></p>                                    
@@ -513,15 +555,17 @@
 							                                        
 							                                        <!-- Finalizar Tarea -->
 							                                        
-							                                        <%if(arrDS[i].getEstado() == estadoAct.confirmada){%>
+							                                        <%if(arrDS[i].getEstado().equals(EstadoAct.confirmada)){%>
 					                                      				<button type="button" class="btn btn-light"><a href="/tarea2p2/FinalizarActividad?actividad=<%= arrDS[i].getNombre() %>">Finalizar Actividad</a></button>
 					                                      			<%} %>
 							                                        <p align="center" class="card-text">Salidas Asociadas:</p>                                    
-							                                    	<%for(int x = 0; x < arrDSA.length; x++) {%>
+							                                    	<%
+							                                    	if(arrDSA!=null){
+							                                    	for(int x = 0; x < arrDSA.length; x++) {%>
 							                                    	<a href="/tarea2p2/ConsultaSalida?salida=<%= arrDSA[x].getNombre() %>"> 
 							                                    	   <p align="center" class="card-text" ><%= arrDSA[x].getNombre() %></p>
 							                                    	  </a>
-							                                    	  <%} %>
+							                                    	  <%} }%>
 							                                    </div>
 							                                    </div>
 							                                 </div>
@@ -542,7 +586,6 @@
 	                                    
 	                                    </div>
 	                                    <br>
-	                                    <button type="button" class="btn btn-light"><a>Descargar PDF</a></button>
 					      </div>
 					    </div>   
 						      
@@ -591,6 +634,5 @@
 </body>
 
 </html>
-
 
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@page import="controllers.EstadoSesion,servidor.EstadoAct, java.util.Base64,servidor.DataUsuario,servidor.DataDepartamento, servidor.DataProveedor,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,controllers.EstadoSesion,servidor.DataPaquete,servidor.DataActividad, manejadores.ManejadorPaquete" %>
+<%@page import="controllers.EstadoSesion,servidor.EstadoAct,java.util.Date, java.util.Base64,servidor.DataUsuario,servidor.DataDepartamento, servidor.DataProveedor,servidor.DataTurista,servidor.DataTurista,servidor.DataSalida,java.util.Set,controllers.EstadoSesion,servidor.DataPaquete,servidor.DataActividad, manejadores.ManejadorPaquete
+,java.util.Base64, java.util.Date, servidor.DataUsuario,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,java.util.HashSet, java.util.Collections,servidor.DataPaquete,servidor.DataActividad" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -28,7 +29,15 @@
 
 <body>
    
+   	
+   	<%DataUsuario usr = null;
+	   if (session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO) {
+	   	usr = (DataUsuario) session.getAttribute("usuario");
+	   }
+	     %>
+   	
    	<%boolean esMovil = (boolean) session.getAttribute("esMovil"); 
+   	
    	if (!esMovil){%>
 	    <!-- Page Preloder -->
 	    <div id="preloder">
@@ -44,11 +53,7 @@
 	            <div class="row">
 	                <div class="col-lg-3">
 	                    <div class="row">
-	                    	<%DataUsuario usr = null;
-	   if (session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO) {
-	   	usr = (DataUsuario) session.getAttribute("usuario");
-	   }
-	     %>
+	                    	
 	<div class="hero__perfil">
 	<% if (usr == null) {%>
 		<ul>
@@ -87,11 +92,13 @@
 	<% } %>
 		
 	</div>
+	<%} %>
 	                        <jsp:include page="/WEB-INF/template/dptosCats.jsp"/>
 	                        
-	                        
+	             <%    if(!esMovil){   %>   
 	                    </div>
 	                </div>
+	                <%} %>
 	                
 	                
 	                <!-- Actividades -->
@@ -106,7 +113,7 @@
 	                            <div style="display: flex; justify-content: space-around; padding-bottom: 20px;">
 	                                <p style="color: black; "><%=actividadSeleccionada.getDescripcion()%></p>
 	                                
-	                                <img src="/tarea2p2/Imagenes?id=<%= actividadSeleccionada.getImagen() %>" alt="<%= actividadSeleccionada.getImagen() %>">
+	                                <img src="/tarea2p2/Imagenes?id=<%= actividadSeleccionada.getImagen() %>" style="height: 100px; border-radius: 5px; " alt="<%= actividadSeleccionada.getImagen() %>">
 	                                
 	                            </div>
 	                            <table class="table">
@@ -127,13 +134,29 @@
 								      <% Date fechaActividad = actividadSeleccionada.getFechaAlta().getTime(); %>
 								      <td><%= fechaActividad.getDate() + "/" + (fechaActividad.getMonth()+1) + "/" + (fechaActividad.getYear()+1900) %></td>
 								    </tr>
+								    <%if (actividadSeleccionada.getEstado()==EstadoAct.finalizada){ %>
+								    <tr>
+								      <th scope="row">Fecha de Baja</th>
+								      <td>hardcodeds</td>
+								    </tr>
+								    <%}%>
 								    <tr>
 								      <th scope="row">Costo</th>
 								      <td><%= actividadSeleccionada.getCosto()%></td>
 								    </tr>
 								    <tr> 
 								      <th scope="row">Categoria/as</th>
-								      <td><%= actividadSeleccionada.getCategorias()%></td>
+					   
+								      <%if (actividadSeleccionada.getCategorias()!=null){ 
+								     String[] arrCategorias = actividadSeleccionada.getCategorias();
+								      String categoriaString = arrCategorias[0];
+								      for (int i=1; i<arrCategorias.length ; i++){
+								    	  categoriaString = categoriaString + ", " + arrCategorias[i] ;
+								      }%>
+								      <td><%= categoriaString %></td>
+								      <%}else{ %>
+								      <td>sin informacion de categoria</td>
+								      <%}%>
 								    </tr>
 								    <tr> 
 								      <th scope="row">Estado</th>
@@ -148,14 +171,20 @@
 								  </tbody>
 								</table>
 	                            <%
-				                    if (usr != null && usr instanceof DataTurista){
+				                    if (usr != null && usr instanceof DataTurista && actividadSeleccionada.getEstado()!=EstadoAct.finalizada){
 				                    	%>
 				                    <form action="AgregarFavs" method="POST">
 				                    	<%
 				                    	DataTurista tur = (DataTurista) usr;
-				                    	Set<String> favoritas = tur.getActFavoritas();
+				                    	String[] favoritas = tur.getActFavoritas();
 				                    	String auxFavs = null;
-				                    	if (favoritas.contains(actividadSeleccionada.getNombre())){
+				                    	boolean flag = false ; 
+				                    	for (int x=0;x<favoritas.length;x++){//checkeo si la actividad esta en las favoritas del turista 
+				                    		if (favoritas[x] == actividadSeleccionada.getNombre()){
+				                    			flag = true ; 
+				                    		}
+				                    	}
+				                    	if (flag){
 				                    		auxFavs = "Sacar de Favoritas";
 				                    	} else {
 				                    		auxFavs = "Añadir a Favoritas";
@@ -167,8 +196,8 @@
 				                   <% }
 				                    	%>
 	                            
-	                            <% Set<DataSalida> Salidas = actividadSeleccionada.getSalidas(); %>
-	                            <% Set<String> Paquetes = actividadSeleccionada.getPaquetes(); %>
+	                            <% DataSalida[] arrSalidas = actividadSeleccionada.getSalidas(); %>
+	                            <% String[] paquetes = actividadSeleccionada.getPaquetes(); %> <!-- se usa para algo? -->
 	                            
 	                            <div style="display: flex; justify-content:center; align-items: center;">
 	                                <a style="margin-right:22%; margin-top: 15px; ">Salidas</a>
@@ -178,16 +207,11 @@
 	                                style="padding-top:20px ; margin-right: 50px; margin-left: 50px; display: flex; justify-content: space-between;">
 	                                
 	                                
-	                                <% if (actividadSeleccionada.haySalidas()){%>
+	                                <% if (actividadSeleccionada.getSalidas().length > 0){%>
 	                                 
-	                                <% DataSalida[] arrSalidas = Salidas.toArray(new DataSalida[Salidas.size()]);%>
+	                                <!--< DataSalida[] arrSalidas = Salidas.toArray(new DataSalida[Salidas.size()]);%> -->
 	                                
-	                                <%
-	                                String img = "";
-	                                if(arrSalidas[0].getImagen() != null){
-	                                	img = Base64.getEncoder().encodeToString(arrSalidas[0].getImagen()); 
-	                                }
-	                                %>
+	                               
 	                                
 	                                
 	                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
@@ -197,9 +221,7 @@
 	                                        <div class="carousel-item active">
 	                                            <a href="/tarea2p2/ConsultaSalida?salida=<%=arrSalidas[0].getNombre()%>">  
 	                                                <div class="card" style="width: 18rem;">
-	                                                    <img class="card-img-top"
-	                                                        src="data:image/jpg;base64,<%= img %>"
-	                                                        alt="Card image cap">
+	                                                    <img class="card-img-top" src="/tarea2p2/Imagenes?id=<%=arrSalidas[0].getImagen()%>" alt="<%= arrSalidas[0].getImagen() %>">
 	                                                    <div class="card-body">
 	                                                        <p class="card-text" style="text-align: center;"><%=arrSalidas[0].getNombre()%></p>
 	                                                    </div>
@@ -208,18 +230,12 @@
 	                                        </div>
 	                                        
 	                                        
-	                                        <% for(int i=1; i<arrSalidas.length; i++) { 
-	                                        	String img2 = "";
-	                                            if(arrSalidas[i].getImagen() != null){
-	                                            	img2 = Base64.getEncoder().encodeToString(arrSalidas[i].getImagen()); 
-	                                            }
-	                                          	 %>
+	                                       <% for(int i=1; i<arrSalidas.length; i++) { %>
+	                                       
 	                                        <div class="carousel-item">
 	                                            <a href="/tarea2p2/ConsultaSalida?salida=<%=arrSalidas[i].getNombre()%>">  
 	                                                <div class="card" style="width: 18rem;">
-	                                                    <img class="card-img-top"
-	                                                        src="data:image/jpg;base64,<%= img2 %>"
-	                                                        alt="Card image cap">
+	                                                    <img class="card-img-top" src="/tarea2p2/Imagenes?id=<%=arrSalidas[i].getImagen()%>" alt="<%= arrSalidas[i].getImagen() %>">
 	                                                    <div class="card-body">
 	                                                        <p class="card-text" style="text-align: center;"><%=arrSalidas[i].getNombre()%></p>
 	                                                    </div>
@@ -272,16 +288,16 @@
 	                                    </a>
 	                                </div>
 	                                
-	                                <%} %>
+	                                <%}%>
 	                                    
 	                                 
 	                                
 	                                
-	                                <% if (actividadSeleccionada.hayPaquetes()){%>
+	                                <% if (actividadSeleccionada.getPaquetes().length>0){ %>
 	                                
 	                                
 	                                
-	                                <% DataPaquete[] arrayPaquetes = (DataPaquete[]) request.getAttribute("ArrayPaquetes");%>
+	                                <% DataPaquete[] arrayPaquetes = (DataPaquete[]) request.getAttribute("ArrayPaquetes"); %>
 	                                
 	                                
 	                                <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
@@ -292,465 +308,104 @@
 	                                            <a href="/tarea2p2/ConsultaPaquete?paquete=<%=arrayPaquetes[0].getNombre()%>"> 
 	                                                <div class="card" style="width: 18rem;">
 	                                                    
-	                                                    <%if(arrayPaquetes[0].getImagen()!=null){ 
-	                                					String img = "";
-	                                					img = Base64.getEncoder().encodeToString(arrayPaquetes[0].getImagen()); %>
-	                                                    	<img class="card-img-top"
-	                                                        src="data:image/jpg;base64,<%= img %>"
-	                                                        alt="Card image cap">
-	                                                     <%}else{ %>
-	                                                     	<img class="card-img-top"
-	                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
-	                                                        alt="Card image cap">
-	                                                     <%} %>
-	                                                    <div class="card-body">
-	                                                        <p class="card-text" style="text-align: center;"><%=arrayPaquetes[0].getNombre()%></p>
-	                                                    </div>
-	                                                </div>
-	                                            </a>
-	                                        </div>
-	                                        
-	                                        <% for(int i=1; i<arrayPaquetes.length; i++) { %>
-		                                        <div class="carousel-item">
-		                                            <a href="/tarea2p2/ConsultaPaquete?paquete=<%=arrayPaquetes[i].getNombre()%>">  
-		                                                <div class="card" style="width: 18rem;">
-		                                                    <%if(arrayPaquetes[i].getImagen()!=null){
-		                                                   		String img = "";
-	                                							img = Base64.getEncoder().encodeToString(arrayPaquetes[i].getImagen());%>
-		                                                    	<img class="card-img-top"
-		                                                        src="data:image/jpg;base64,<%= img %>"
-		                                                        alt="Card image cap">
-		                                                     <%}else{ %>
-		                                                     	<img class="card-img-top"
-		                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
-		                                                        alt="Card image cap">
-		                                                     <%} %>
-		                                                    <div class="card-body">
-		                                                        <p class="card-text" style="text-align: center;"><%=arrayPaquetes[i].getNombre()%></p>
-		                                                    </div>
-		                                                </div>
-		                                            </a>
-		                                        </div>
-	                                        <%}%>
-	                                        
-	                                        
-	                                        
-	                                    </div>
-	                                    <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
-	                                        data-slide="prev">
-	                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                    <a class="carousel-control-next" href="#carouselExampleControls2" role="button"
-	                                        data-slide="next">
-	                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </div>
-	                                
-	                                <%}else{ %>
-	                                
-	                                <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
-	                                    style="margin-left: 70px;">
-	                                    <div class="carousel-inner">
-	                                        
-	                                        <div class="carousel-item active">
-	                                         
-	                                                <div class="card" style="width: 18rem;">
-	                                                    <img class="card-img-top"
-	                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
-	                                                        alt="Card image cap">
-	                                                    <div class="card-body">
-	                                                        <p class="card-text" style="text-align: center;">no hay paquetes</p>
-	                                                    </div>
-	                                                </div>
-	                                           
-	                                        </div>
-	                                       
-	                                    </div>
-	                                    <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
-	                                        data-slide="prev">
-	                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                    <a class="carousel-control-next" href="#carouselExampleControls2" role="button"
-	                                        data-slide="next">
-	                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </div>
-	                                
-	                                <%} %>
-	                                
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </section>
-	    <!-- Hero Section End -->
-	  <%} else { %>
-	  
-	   <!-- Page Preloder -->
-	    <div id="preloder">
-	        <div class="loader"></div>
-	    </div>
-	 
-	    <!-- Header -->
-	    <jsp:include page="/WEB-INF/template/header.jsp"/>
-	    
-	    <!-- Hero Section Begin -->
-	    <section class="hero">
-	        <div class="container">
-	            <div class="row">
-	                <div class="col-lg-3">
-	                    <div class="row">
-	                    	<%DataUsuario usr = null;
-	   if (session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO) {
-	   	usr = (DataUsuario) session.getAttribute("usuario");
-	   }
-	     %>
-	<div class="hero__perfil">
-	<% if (usr == null) {%>
-		<ul>
-	           <li><a href="/tarea2p2/ConsultaUsuario"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
-	           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
-	           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
-	       </ul>
-	<% } else if (usr instanceof DataTurista){ %>
-		<div class="hero__perfil__all" style="cursor: pointer;" onclick="window.location='./ConsultaUsuario?nick=<%=usr.getNick()%>';">
-			<span>Mi Perfil</span>
-			<div class="ax float-right">
-				<i class="fa fa-caret-square-o-right" aria-hidden="true"></i>
-			</div>
-		</div>
-		<ul>
-	           <li><a href="#" onclick="return seleccionarSal();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Inscripcion a Salida Turistica</a></li>
-	           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Comprar Paquete</a></li>
-	           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
-	           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
-	           <li><a href="/tarea2p2/ConsultaUsuario"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
-	       </ul>
-	<% } else if (usr instanceof DataProveedor){%>
-		<div class="hero__perfil__all" style="cursor: pointer;" onclick="window.location='./ConsultaUsuario?nick=<%=usr.getNick()%>';">
-			<span>Mi Perfil</span>
-			<div class="ax float-right">
-				<i class="fa fa-caret-square-o-right" aria-hidden="true"></i>
-			</div>
-		</div>
-		<ul>
-	           <li><a href="/tarea2p2/AltaActividad"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Actividad Turística</a></li>
-	           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Salida Turística</a></li>
-	           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
-	          <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
-	          <li><a href="/tarea2p2/ConsultaUsuario"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
-	       </ul>
-	<% } %>
-		
-	</div>
-	                        <jsp:include page="/WEB-INF/template/dptosCats.jsp"/>
-	                        
-	                        
-	                    </div>
-	                </div>
-	                
-	                
-	                <!-- Actividades -->
-	                <div class="col-lg-9" border-radius: 25px; padding: 20px; padding-top:30px">
-	                    <!-- Seccion de Consulta de actividades -->
-	                    <div class="card border-dark mb-3" style="background-color: rgba(80, 80, 80, 0.229);">
-	                    
-	                    	<% DataActividad actividadSeleccionada = (DataActividad) request.getAttribute("ActividadElegida");
-	                    		String imagen = Base64.getEncoder().encodeToString(actividadSeleccionada.getImagen());%>
-	                        <div class="card-header"><p><%=actividadSeleccionada.getNombre()%></p></div>
-	                        <div class="card-body text-dark">
-	                            <div style="display: flex; justify-content: space-around; padding-bottom: 20px;">
-	                                <p style="color: black; "><%=actividadSeleccionada.getDescripcion()%></p>
-	                                <img src="data:image/jpg;base64,<%= imagen %>" style="height: 100px; border-radius: 5px; " alt="">
-	                            </div>
-	                            <table class="table">
-								  <thead>
-							
-								  </thead>
-								  <tbody>
-								    <tr>
-								      <th scope="row">Ciudad</th>
-								      <td><%=actividadSeleccionada.getCiudad()%></td>
-								    </tr>
-								    <tr>
-								      <th scope="row">Duracion</th>
-								      <td><%= actividadSeleccionada.getDuracion()%></td>
-								    </tr>
-								    <tr>
-								      <th scope="row">Fecha de Alta</th> 
-								      <td><%= actividadSeleccionada.getFechaAlta().getDate() + "/" + (actividadSeleccionada.getFechaAlta().getMonth()+1) + "/" + (actividadSeleccionada.getFechaAlta().getYear()+1900) %></td>
-								    </tr>
-								    <tr>
-								      <th scope="row">Costo</th>
-								      <td><%= actividadSeleccionada.getCosto()%></td>
-								    </tr>
-								    <tr> 
-								      <th scope="row">Categoria/as</th>
-								      <td><%= actividadSeleccionada.getCategorias()%></td>
-								    </tr>
-								    <tr> 
-								      <th scope="row">Estado</th>
-								      <td><%= actividadSeleccionada.getEstado()%></td>
-								    </tr>
-								    <%if(usr instanceof DataProveedor && actividadSeleccionada.getEstado() == EstadoAct.confirmada){%>
-	                            	<tr>
-								      <th scope="row">Alta Salida</th>
-								      <td><a href="/tarea2p2/AltaSalida?actividadSal=<%=actividadSeleccionada.getNombre()%>&actDepto=<%=actividadSeleccionada.getDepartamento()%>&actCiudad=<%=actividadSeleccionada.getCiudad()%>">Agregar una Salida</a></td>
-								    </tr>
-	                            <%}%>
-								  </tbody>
-								</table>
-	                            
-	                            
-	                            <% Set<DataSalida> Salidas = actividadSeleccionada.getSalidas(); %>
-	                            <% Set<String> Paquetes = actividadSeleccionada.getPaquetes(); %>
-	                            
-	                            <div style="display: flex; justify-content:center; align-items: center;">
-	                                <a style="margin-right:22%; margin-top: 15px; ">Salidas</a>
-	                       			<a style="margin-left:25%; margin-top: 15px; ">Paquetes</a>
-	                            </div>
-	                            <div
-	                                style="padding-top:20px ; margin-right: 50px; margin-left: 50px; display: flex; justify-content: space-between;">
-	                                
-	                                
-	                                <% if (actividadSeleccionada.haySalidas()){%>
-	                                 
-	                                <% DataSalida[] arrSalidas = Salidas.toArray(new DataSalida[Salidas.size()]);%>
-	                                
-	                                <%
-	                                String img = "";
-	                                if(arrSalidas[0].getImagen() != null){
-	                                	img = Base64.getEncoder().encodeToString(arrSalidas[0].getImagen()); 
-	                                }
-	                                %>
-	                                
-	                                
-	                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
-	                                    style="margin-right: 70px;">
-	                                    <div class="carousel-inner">
-	                                        
-	                                        <div class="carousel-item active">
-	                                            <a href="/tarea2p2/ConsultaSalida?salida=<%=arrSalidas[0].getNombre()%>">  
-	                                                <div class="card" style="width: 18rem;">
-	                                                    <img class="card-img-top"
-	                                                        src="data:image/jpg;base64,<%= img %>"
-	                                                        alt="Card image cap">
-	                                                    <div class="card-body">
-	                                                        <p class="card-text" style="text-align: center;"><%=arrSalidas[0].getNombre()%></p>
-	                                                    </div>
-	                                                </div>
-	                                            </a>     
-	                                        </div>
-	                                        
-	                                        
-	                                        <% for(int i=1; i<arrSalidas.length; i++) { 
-	                                        	String img2 = "";
-	                                            if(arrSalidas[i].getImagen() != null){
-	                                            	img2 = Base64.getEncoder().encodeToString(arrSalidas[i].getImagen()); 
-	                                            }
-	                                          	 %>
-	                                        <div class="carousel-item">
-	                                            <a href="/tarea2p2/ConsultaSalida?salida=<%=arrSalidas[i].getNombre()%>">  
-	                                                <div class="card" style="width: 18rem;">
-	                                                    <img class="card-img-top"
-	                                                        src="data:image/jpg;base64,<%= img2 %>"
-	                                                        alt="Card image cap">
-	                                                    <div class="card-body">
-	                                                        <p class="card-text" style="text-align: center;"><%=arrSalidas[i].getNombre()%></p>
-	                                                    </div>
-	                                                </div>
-	                                            </a>
-	                                        </div>
-	                                    	<%}%>
-	                                       </div>
-	                                    
-	                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-	                                        data-slide="prev">
-	                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-	                                        data-slide="next">
-	                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </div>
-	                                    
-	                                    <%}else {%>
-	                                  
-	                                
-	                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
-	                                    style="margin-left: 70px;">
-	                                    <div class="carousel-inner">
-	                                        
-	                                        <div class="carousel-item active">
-	                                                <div class="card" style="width: 18rem;">
-	                                                    <img class="card-img-top"
-	                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
-	                                                        alt="Card image cap">
-	                                                    <div class="card-body">
-	                                                        <p class="card-text" style="text-align: center;">no hay salidas</p>
-	                                                    </div>
-	                                                </div>
-	                                        </div>
-	                                       
-	                                    </div>
-	                                      <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-	                                        data-slide="prev">
-	                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-	                                        data-slide="next">
-	                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </div>
-	                                
-	                                <%} %>
-	                                    
-	                                 
-	                                
-	                                
-	                                <% if (actividadSeleccionada.hayPaquetes()){%>
-	                                
-	                                
-	                                
-	                                <% DataPaquete[] arrayPaquetes = (DataPaquete[]) request.getAttribute("ArrayPaquetes");%>
-	                                
-	                                
-	                                <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
-	                                    style="margin-left: 70px;">
-	                                    <div class="carousel-inner">
-	                                        
-	                                        <div class="carousel-item active">
-	                                            <a href="/tarea2p2/ConsultaPaquete?paquete=<%=arrayPaquetes[0].getNombre()%>"> 
-	                                                <div class="card" style="width: 18rem;">
-	                                                    
-	                                                    <%if(arrayPaquetes[0].getImagen()!=null){ 
-	                                					String img = "";
-	                                					img = Base64.getEncoder().encodeToString(arrayPaquetes[0].getImagen()); %>
-	                                                    	<img class="card-img-top"
-	                                                        src="data:image/jpg;base64,<%= img %>"
-	                                                        alt="Card image cap">
-	                                                     <%}else{ %>
-	                                                     	<img class="card-img-top"
-	                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
-	                                                        alt="Card image cap">
-	                                                     <%} %>
-	                                                    <div class="card-body">
-	                                                        <p class="card-text" style="text-align: center;"><%=arrayPaquetes[0].getNombre()%></p>
-	                                                    </div>
-	                                                </div>
-	                                            </a>
-	                                        </div>
-	                                        
-	                                        <% for(int i=1; i<arrayPaquetes.length; i++) { %>
-		                                        <div class="carousel-item">
-		                                            <a href="/tarea2p2/ConsultaPaquete?paquete=<%=arrayPaquetes[i].getNombre()%>">  
-		                                                <div class="card" style="width: 18rem;">
-		                                                    <%if(arrayPaquetes[i].getImagen()!=null){
-		                                                   		String img = "";
-	                                							img = Base64.getEncoder().encodeToString(arrayPaquetes[i].getImagen());%>
-		                                                    	<img class="card-img-top"
-		                                                        src="data:image/jpg;base64,<%= img %>"
-		                                                        alt="Card image cap">
-		                                                     <%}else{ %>
-		                                                     	<img class="card-img-top"
-		                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
-		                                                        alt="Card image cap">
-		                                                     <%} %>
-		                                                    <div class="card-body">
-		                                                        <p class="card-text" style="text-align: center;"><%=arrayPaquetes[i].getNombre()%></p>
-		                                                    </div>
-		                                                </div>
-		                                            </a>
-		                                        </div>
-	                                        <%}%>
-	                                        
-	                                        
-	                                        
-	                                    </div>
-	                                    <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
-	                                        data-slide="prev">
-	                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                    <a class="carousel-control-next" href="#carouselExampleControls2" role="button"
-	                                        data-slide="next">
-	                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </div>
-	                                
-	                                <%}else{ %>
-	                                
-	                                <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
-	                                    style="margin-left: 70px;">
-	                                    <div class="carousel-inner">
-	                                        
-	                                        <div class="carousel-item active">
-	                                         
-	                                                <div class="card" style="width: 18rem;">
-	                                                    <img class="card-img-top"
-	                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
-	                                                        alt="Card image cap">
-	                                                    <div class="card-body">
-	                                                        <p class="card-text" style="text-align: center;">no hay paquetes</p>
-	                                                    </div>
-	                                                </div>
-	                                           
-	                                        </div>
-	                                       
-	                                    </div>
-	                                    <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
-	                                        data-slide="prev">
-	                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	                                        <span class="sr-only">Previous</span>
-	                                    </a>
-	                                    <a class="carousel-control-next" href="#carouselExampleControls2" role="button"
-	                                        data-slide="next">
-	                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	                                        <span class="sr-only">Next</span>
-	                                    </a>
-	                                </div>
-	                                
-	                                <%} %>
-	                                
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </section>
-	    <!-- Hero Section End -->
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  <%} %>
+	                                                    <%if(arrayPaquetes[0].getImagen()!=null){ %>
+	                                                    	<img class="card-img-top" src="/tarea2p2/Imagenes?id=<%=arrayPaquetes[0].getImagen()%>" alt="<%= arrayPaquetes[0].getImagen() %>">
 
+	                                                     <%}else{ %>
+	                                                     	<img class="card-img-top"
+	                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
+	                                                        alt="Card image cap">
+	                                                     <%} %>
+	                                                    <div class="card-body">
+	                                                        <p class="card-text" style="text-align: center;"><%=arrayPaquetes[0].getNombre()%></p>
+	                                                    </div>
+	                                                </div>
+	                                            </a>
+	                                        </div>
+	                                        
+	                                        <% for(int i=1; i<arrayPaquetes.length; i++) { %>
+		                                        <div class="carousel-item">
+		                                            <a href="/tarea2p2/ConsultaPaquete?paquete=<%=arrayPaquetes[i].getNombre()%>">  
+		                                                <div class="card" style="width: 18rem;">
+		                                                    <%if(arrayPaquetes[i].getImagen()!=null){%>
+		                                                    	<img class="card-img-top" src="/tarea2p2/Imagenes?id=<%=arrayPaquetes[i].getImagen()%>" alt="<%= arrayPaquetes[i].getImagen() %>">
+		                                                     <%}else{ %>
+		                                                     	<img class="card-img-top"
+		                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
+		                                                        alt="Card image cap">
+		                                                     <%} %>
+		                                                    <div class="card-body">
+		                                                        <p class="card-text" style="text-align: center;"><%=arrayPaquetes[i].getNombre()%></p>
+		                                                    </div>
+		                                                </div>
+		                                            </a>
+		                                        </div>
+	                                        <%}%>
+	                                        
+	                                        
+	                                        
+	                                    </div>
+	                                    <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
+	                                        data-slide="prev">
+	                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	                                        <span class="sr-only">Previous</span>
+	                                    </a>
+	                                    <a class="carousel-control-next" href="#carouselExampleControls2" role="button"
+	                                        data-slide="next">
+	                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	                                        <span class="sr-only">Next</span>
+	                                    </a>
+	                                </div>
+	                                <%}else{ %>
+	                                
+	                                
+	                                
+	                                
+	                                <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
+	                                    style="margin-left: 70px;">
+	                                    <div class="carousel-inner">
+	                                        
+	                                        <div class="carousel-item active">
+	                                         
+	                                                <div class="card" style="width: 18rem;">
+	                                                    <img class="card-img-top"
+	                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
+	                                                        alt="Card image cap">
+	                                                    <div class="card-body">
+	                                                   <% if (actividadSeleccionada.getEstado()!=EstadoAct.finalizada){ %>
+	                                                        <p class="card-text" style="text-align: center;">no hay paquetes</p>
+	                                                   <%}else{ %>
+	                                                   <p class="card-text" style="text-align: center;">no existe informacion de paquetes</p>
+	                                                   <%}%>
+	                                                    </div>
+	                                                </div>
+	                                           
+	                                        </div>
+	                                       
+	                                    </div>
+	                                    <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
+	                                        data-slide="prev">
+	                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	                                        <span class="sr-only">Previous</span>
+	                                    </a>
+	                                    <a class="carousel-control-next" href="#carouselExampleControls2" role="button"
+	                                        data-slide="next">
+	                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	                                        <span class="sr-only">Next</span>
+	                                    </a>
+	                                </div>
+	                                
+	                                <%} %>
+	                                
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </section>
+	    <!-- Hero Section End -->
+	  
     <!-- Js Plugins -->
     <script src="js/altaActividad.js"></script>
     <script src="js/main.js"></script>

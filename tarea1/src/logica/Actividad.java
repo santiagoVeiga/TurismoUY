@@ -1,5 +1,7 @@
 package logica;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,7 +31,12 @@ public class Actividad {
 	private int duracion;
 	@Transient
 	private Departamento departamento;
+	@ManyToOne
+	@JoinColumn(name="id_proveedor", nullable = false)
+	private Proveedor provedoor;
+	private String nombreDepartamento;
     @JoinColumn(name="id_actividad", nullable = false)
+    @OneToMany(cascade = CascadeType.PERSIST)
     private Set<Salida> salidasPersistir;
     @Transient
 	private Map<String, Salida> colSal;
@@ -61,6 +68,7 @@ public class Actividad {
 		setCosto(costo);
 		setDuracion(dur);
 		setDepartamento(dep);
+		setNombreDepartamento(dep.getNombre());
 		setHayLink(hayLink);
 		setLink(link);
 		this.colpaq = new HashMap<String, Paquete>();
@@ -135,6 +143,34 @@ public class Actividad {
 	
 	// Setters
 	
+	public int getId() {
+		return id;
+	}
+
+	public Set<Salida> getSalidasPersistir() {
+		return salidasPersistir;
+	}
+
+	public Proveedor getProveedor() {
+		return provedoor;
+	}
+
+	public void setProveedor(Proveedor prov) {
+		this.provedoor = prov;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	public void setSalidasPersistir(Set<Salida> salidasPersistir) {
+		this.salidasPersistir = salidasPersistir;
+	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -180,26 +216,46 @@ public class Actividad {
 	//Operaciones
 	
 	public DataActividad getDataAT() {
-		return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getDepartamento().getNombre(),getVisitas() ); // , this.getImagen());
+		if (this.getEstado() != estadoAct.finalizada) {
+			return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getDepartamento().getNombre(),getVisitas() ); // , this.getImagen());
+		} else {
+			return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getNombreDepartamento(), 0); // , this.getImagen());
+		}
 	}
 	
-	public Set<String> getPaquetes(){	
-		return colpaq.keySet();
+	public Set<String> getPaquetes(){
+		if (this.getEstado() != estadoAct.finalizada) {
+			return colpaq.keySet();
+		} else {
+			return null;
+		}
 	}
 	
 	public Set<String> getNombreCategorias(){
-		return categorias.keySet();
+		if (this.getEstado() != estadoAct.finalizada) {
+			return categorias.keySet();
+		} else {
+			return null;
+		}
 	}
 
 	//revisar
 	public Set<DataSalida> getSalidas() {
-		Set<DataSalida> res = new HashSet<DataSalida>();
-		Set<Entry<String, Salida>> aux = colSal.entrySet();
-    	Iterator<Entry<String, Salida>> iter = aux.iterator();
-    	while (iter.hasNext()){
-    			res.add(iter.next().getValue().getDataST());
-    			}
-		return res;
+		if (this.getEstado() != estadoAct.finalizada) {
+			Set<DataSalida> res = new HashSet<DataSalida>();
+			Set<Entry<String, Salida>> aux = colSal.entrySet();
+	    	Iterator<Entry<String, Salida>> iter = aux.iterator();
+	    	while (iter.hasNext()){
+	    			res.add(iter.next().getValue().getDataST());
+	    			}
+			return res;
+		} else {
+			Set<DataSalida> res = new HashSet<DataSalida>();
+			for (Salida sal : salidasPersistir) {
+				res.add(sal.getDataST());
+			}
+			return res;
+		}
 	}
 	
 	public void setCategorias(Map<String, Categoria> cat) {
@@ -259,6 +315,39 @@ public class Actividad {
 
 	public void setVisitas(int visitas) {
 		this.visitas = visitas;
+	}
+
+	public Date getFechaBaja() {
+		return fechaBaja;
+	}
+
+	public void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
+	
+	public String getNombreDepartamento() {
+		return nombreDepartamento;
+	}
+
+	public void setNombreDepartamento(String nombreDepartamento) {
+		this.nombreDepartamento = nombreDepartamento;
+	}
+
+	public Set<Turista> finalizarAct() {
+		Set<Turista> resultado = new HashSet<Turista>();
+		this.getDepartamento().removerActividad(this.getNombre());
+		for (Categoria cats: this.categorias.values()) {
+			cats.removerActividad(this.getNombre());
+		}
+		for (Salida sal : this.colSal.values()) {
+			resultado.addAll(sal.finalizarAct(this.getNombre()));
+		}
+		Set<Salida> salidas = new HashSet<Salida>();
+		salidas.addAll(this.colSal.values());
+		this.setSalidasPersistir(salidas);
+		LocalDateTime fecha = LocalDateTime.now();
+		this.setFechaBaja(java.util.Date.from(fecha.atZone(ZoneId.systemDefault()).toInstant()));
+		return resultado;
 	}
 	
 }

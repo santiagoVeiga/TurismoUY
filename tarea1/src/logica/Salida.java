@@ -2,12 +2,16 @@ package logica;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -29,6 +33,8 @@ public class Salida {
 	private Date fechaAlta;
 	@Column(nullable = false)
 	private int cant;
+	@OneToMany(mappedBy = "salida", cascade = CascadeType.PERSIST)
+	private Set<CompraGeneral> inscripciones;
 	@Transient
 	private int cantRestante;
 	@Transient
@@ -49,6 +55,7 @@ public class Salida {
 		setCant(cant);
 		setCantRestante(cant);
 		setImagen(null);
+		this.inscripciones = new HashSet<CompraGeneral>();
 	};
 	
 	public Salida(String nombreSalida, String lugar2, Date hora2, Date fecha2, Date fechaAlta2, int maxCantTuristas,
@@ -62,6 +69,7 @@ public class Salida {
 		setCant(maxCantTuristas);
 		setCantRestante(maxCantTuristas);
 		this.imagen = imagen;
+		this.inscripciones = new HashSet<CompraGeneral>();
 	}
 
 	public boolean estaVigente(){
@@ -153,6 +161,26 @@ public class Salida {
 
 	public void setVisitas(int visitas) {
 		this.visitas = visitas;
+	}
+
+	public Set<CompraGeneral> getInscripciones() {
+		return inscripciones;
+	}
+
+	public void setInscripciones(Set<CompraGeneral> inscripciones) {
+		this.inscripciones = inscripciones;
+	}
+	
+	public void agregarInsc(CompraGeneral cGen) {
+		this.inscripciones.add(cGen);
+	}
+	
+	public Set<Turista> finalizarAct(String act) {
+		Set<Turista> resultado = new HashSet<Turista>();
+		for (CompraGeneral iter : getInscripciones()) {
+			resultado.add(iter.finalizarActividad(act));
+		}
+		return resultado;
 	}
 	
 }

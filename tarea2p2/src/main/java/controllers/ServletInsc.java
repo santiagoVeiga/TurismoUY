@@ -184,7 +184,8 @@ public class ServletInsc extends HttpServlet {
                     String nickUsu = req.getParameter("nickUsuASeguir");
                     try {
                         Set<String> setSeguir = new HashSet<String>();
-                        Collections.addAll(setSeguir, du2.getSeguidos());
+                        if(du2.getSeguidos()!=null)
+                            Collections.addAll(setSeguir, du2.getSeguidos());
                         port.seguirDejarDeSeguirUsuario(du2.getNick(), nickUsu, !setSeguir.contains(nickUsu));
                         session2.setAttribute("usuario", port.obtenerDataUsuarioNick(du2.getNick()));
                         req.getRequestDispatcher("/ConsultaUsuario?nick=" + nickUsu).forward(req, resp); //lo cambie
@@ -213,7 +214,7 @@ public class ServletInsc extends HttpServlet {
                     HttpSession session4 = req.getSession();
                     DataProveedor dataProveedor = (DataProveedor) session4.getAttribute("usuario");
                     try {
-                        port.finalizarActividad(actividadSeleccionada);
+                        port.finalizarActividad(actividadSeleccionada, dataProveedor.getNick());
                         session4.setAttribute("usuario", port.obtenerDataUsuarioNick(dataProveedor.getNick()));
                     } catch (Exception e) {
                             System.out.printf("esepsssion \n" + e.getMessage());

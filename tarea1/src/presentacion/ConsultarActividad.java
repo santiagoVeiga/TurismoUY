@@ -26,6 +26,7 @@ import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataSalida;
 import logica.IControladorConsulta;
+import logica.estadoAct;
 
 /**
  * JInternalFrame que permite consultar la información de un usuario del sistema.
@@ -62,6 +63,8 @@ public class ConsultarActividad extends JInternalFrame {
     private JLabel actDuracionR;
     private JLabel actFecha;
     private JLabel actFechaR;
+    private JLabel actLink;
+    private JLabel actLinkR;
     private JLabel salidasL;
     private JLabel paquetesL;
     private JLabel categoriasL;
@@ -76,17 +79,15 @@ public class ConsultarActividad extends JInternalFrame {
      * Create the frame.
      */
     public ConsultarActividad(IControladorConsulta icc) {
+    	setResizable(true);
         // Se inicializa con el controlador de usuarios
         controlCons = icc;
-        
-        // Propiedades del JInternalFrame como dimensión, posición dentro del frame, etc.
-        setResizable(true);
         setIconifiable(true);
         setMaximizable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
         setTitle("Consultar una Actividad");
-        setBounds(30, 30, 618, 464);
+        setBounds(30, 30, 618, 567);
 
         // En este caso usaremos el Absolute Layout y deberemos indicar
         // la posición absoluta de todos los componentes
@@ -133,7 +134,7 @@ public class ConsultarActividad extends JInternalFrame {
         
         categoriasL = new JLabel("Categorias: ");
         categoriasL.setSize(125, 32);
-        categoriasL.setLocation(40, 282);
+        categoriasL.setLocation(40, 317);
     	GridBagConstraints gbc_Categorias = new GridBagConstraints();
     	gbc_Categorias.anchor = GridBagConstraints.EAST;
     	gbc_Categorias.insets = new Insets(2, 2, 5, 5);
@@ -141,13 +142,13 @@ public class ConsultarActividad extends JInternalFrame {
     	categoriasL.setVisible(false);
     	
         jcbCategorias = new JComboBox<String>();
-        jcbCategorias.setBounds(253, 286, 320, 24);
+        jcbCategorias.setBounds(253, 321, 320, 24);
         getContentPane().add(jcbCategorias);
         jcbCategorias.setVisible(false);
         
     	salidasL = new JLabel("Salidas: ");
         salidasL.setSize(125, 32);
-        salidasL.setLocation(40, 316);
+        salidasL.setLocation(40, 353);
     	GridBagConstraints gbc_Salidas = new GridBagConstraints();
     	gbc_Salidas.anchor = GridBagConstraints.EAST;
     	gbc_Salidas.insets = new Insets(2, 2, 5, 5);
@@ -155,7 +156,7 @@ public class ConsultarActividad extends JInternalFrame {
     	salidasL.setVisible(false);
     	
         jcbSalidas = new JComboBox<String>();
-        jcbSalidas.setBounds(253, 320, 320, 24);
+        jcbSalidas.setBounds(253, 357, 320, 24);
         getContentPane().add(jcbSalidas);
         jcbSalidas.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent eve) {
@@ -166,7 +167,7 @@ public class ConsultarActividad extends JInternalFrame {
         
     	paquetesL = new JLabel("Paquetes: ");
         paquetesL.setSize(125, 32);
-        paquetesL.setLocation(40, 353);
+        paquetesL.setLocation(40, 389);
     	GridBagConstraints gbc_Paquetes = new GridBagConstraints();
     	gbc_Paquetes.anchor = GridBagConstraints.EAST;
     	gbc_Paquetes.insets = new Insets(2, 2, 5, 5);
@@ -174,7 +175,7 @@ public class ConsultarActividad extends JInternalFrame {
     	paquetesL.setVisible(false);
         
         jcbPaquetes = new JComboBox<String>();
-        jcbPaquetes.setBounds(253, 357, 320, 24);
+        jcbPaquetes.setBounds(253, 393, 320, 24);
         getContentPane().add(jcbPaquetes);
         jcbPaquetes.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent eve) {
@@ -196,7 +197,7 @@ public class ConsultarActividad extends JInternalFrame {
                 setVisible(false);
             }
         });
-        btnCerrar.setBounds(507, 397, 89, 23);
+        btnCerrar.setBounds(507, 433, 89, 23);
         getContentPane().add(btnCerrar);
         
         btnBuscar = new JButton("Buscar");
@@ -206,7 +207,7 @@ public class ConsultarActividad extends JInternalFrame {
             	cargarActividades();
             }
         });
-        btnBuscar.setBounds(12, 397, 89, 23);
+        btnBuscar.setBounds(12, 433, 89, 23);
         getContentPane().add(btnBuscar);
         btnBuscar.setVisible(false);
         
@@ -221,7 +222,7 @@ public class ConsultarActividad extends JInternalFrame {
             	mostrarActividad();
             }
         });
-        btnSeleccionar.setBounds(113, 397, 116, 23);
+        btnSeleccionar.setBounds(113, 433, 116, 23);
         getContentPane().add(btnSeleccionar);
         btnSeleccionar.setVisible(false);
         
@@ -233,7 +234,7 @@ public class ConsultarActividad extends JInternalFrame {
             	salida.setVisible(true);
             }
         });
-        btnInfoSalida.setBounds(241, 397, 116, 23);
+        btnInfoSalida.setBounds(241, 433, 116, 23);
         getContentPane().add(btnInfoSalida);
         btnInfoSalida.setVisible(false);
         
@@ -244,7 +245,7 @@ public class ConsultarActividad extends JInternalFrame {
             	conPaquete.setVisible(true);
             }
         });
-        btnInfoPaquete.setBounds(369, 397, 126, 23);
+        btnInfoPaquete.setBounds(369, 433, 126, 23);
         getContentPane().add(btnInfoPaquete);
         btnInfoPaquete.setVisible(false);
         
@@ -361,6 +362,16 @@ public class ConsultarActividad extends JInternalFrame {
     	gbc_actFechaR.insets = new Insets(2, 2, 5, 5);
     	getContentPane().add(actFechaR, gbc_actFechaR);
     	actFechaR.setVisible(false);
+    	
+    	actLink = new JLabel("Link de Video:");
+    	actLink.setBounds(40, 286, 189, 15);
+    	getContentPane().add(actLink);
+    	actLink.setVisible(false);
+    	
+    	actLinkR = new JLabel("Aca va el Link");
+    	actLinkR.setBounds(253, 286, 320, 15);
+    	getContentPane().add(actLinkR);
+    	actLinkR.setVisible(false);
     }	
     
 
@@ -431,7 +442,7 @@ public void cargarSalidas(){
 public void cargarPaquetes() {
 	DefaultComboBoxModel<String> model;
 	try {
-		if (actElegida.getPaquetes().size() == 0) {
+		if (actElegida.getEstado() == estadoAct.finalizada || actElegida.getPaquetes().size() == 0) {
 			throw new PaqueteNoExisteException("No hay paquetes asociadas a dicha Actividad");
 		}
 		nombresPaq = actElegida.getPaquetes().toArray(new String[0]);
@@ -446,7 +457,12 @@ public void cargarPaquetes() {
 
 public void cargarCategorias() {
 	DefaultComboBoxModel<String> model;
-	nombresCat = actElegida.getCategorias().toArray(new String[0]);
+	if (actElegida.getEstado() != estadoAct.finalizada)
+		nombresCat = actElegida.getCategorias().toArray(new String[0]);
+	else {
+		nombresCat = new String[1];
+		nombresCat[0] = "No hay categorias debido a que es una actividad finalizada";
+	}
 	categoriasL.setVisible(true);
 	jcbCategorias.setVisible(true);
 	model = new DefaultComboBoxModel<String>(nombresCat);
@@ -478,6 +494,9 @@ public void mostrarActividad() {
 	actFecha.setVisible(true);
 	actFechaR.setText(actElegida.getFechaAlta().getDate() + "/" + (actElegida.getFechaAlta().getMonth() + 1) + "/" + (actElegida.getFechaAlta().getYear() +1900));
 	actFechaR.setVisible(true);
+	actLink.setVisible(true);
+	actLinkR.setText(actElegida.getLink());
+	actLinkR.setVisible(true);
 	cargarCategorias();
 	cargarSalidas();
 	cargarPaquetes();
@@ -516,6 +535,8 @@ public void mostrarActividad() {
     	actDuracionR.setVisible(false);
     	actFecha.setVisible(false);
     	actFechaR.setVisible(false);
+    	actLink.setVisible(false);
+    	actLinkR.setVisible(false);
     	salidasL.setVisible(false);
     	jcbSalidas.setVisible(false);
     	paquetesL.setVisible(false);

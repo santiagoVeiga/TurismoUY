@@ -1,12 +1,14 @@
 package logica;
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -22,10 +24,10 @@ public class CompraGeneral{
 	@Column(nullable = false)
 	private int costo;
 	@Id
-	@ManyToOne
+	@OneToOne
 	private Salida salida;
 	@Id
-	@ManyToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Turista turista;
 	@Transient
 	private boolean porPaquete;
@@ -34,18 +36,20 @@ public class CompraGeneral{
 		
 	}
 	
-	public CompraGeneral(Date fecha, int cant, int costo) {
+	public CompraGeneral(Date fecha, int cant, int costo, Turista tur) {
 		this.cantidad = cant;
 		this.fecha = fecha;
 		this.costo = costo;
 		this.setPorPaquete(false);
+		this.setTurista(tur);
 	}
 	
-	public CompraGeneral(Date fecha, int cant, int costo, boolean paq) {
+	public CompraGeneral(Date fecha, int cant, int costo, boolean paq, Turista tur) {
 		this.cantidad = cant;
 		this.fecha = fecha;
 		this.costo = costo;
 		this.setPorPaquete(paq);
+		this.setTurista(tur);
 	}
 
 	/*
@@ -94,6 +98,14 @@ public class CompraGeneral{
 		return this.porPaquete;
 	}
 
+	public Turista getTurista() {
+		return turista;
+	}
+
+	public void setTurista(Turista turista) {
+		this.turista = turista;
+	}
+
 	public void setCantidad(int cost) {
     	costo = cost;
     }
@@ -116,6 +128,11 @@ public class CompraGeneral{
     
 	public DataCompraGeneral getDataCompraGeneral() {
 		return new DataCompraGeneral(this.getFecha(), this.getCantidad(), this.getCosto(), this.getPorPaquete(), this.getSalida().getDataST());
+	}
+	
+	public Turista finalizarActividad(String act) {
+		this.turista.finalizarActividad(act, this);
+		return this.turista;
 	}
 	
 }

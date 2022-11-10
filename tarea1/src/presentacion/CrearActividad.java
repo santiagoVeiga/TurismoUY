@@ -62,18 +62,19 @@ public class CrearActividad extends JInternalFrame {
     private JComboBox<String> categoriasComboBox;
     private JList<String> categoriasList;
     private DefaultListModel<String> modelo;
+    private JTextField linkTextField;
     
 
 	public CrearActividad(IControladorAlta ica) {
 		
         controlAlta = ica;
-        setBounds(10, 40, 541, 537);
+        setBounds(10, 40, 541, 601);
         
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {30, 30, 30, 30, 30, 30, 30};
-		gridBagLayout.rowHeights = new int[] {30, 30, 30, 30, 30, 0, 30, 30, 30, 30, 30, 30};
+		gridBagLayout.rowHeights = new int[] {30, 30, 30, 30, 30, 0, 30, 30, 30, 30, 0, 30, 30};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
 		JLabel Nombre = new JLabel("Nombre: ");
@@ -260,13 +261,30 @@ public class CrearActividad extends JInternalFrame {
 		getContentPane().add(duracionTextField, gbc_duracionTextField);
 		duracionTextField.setColumns(10);
 		
+		JLabel link = new JLabel("Link video:");
+		GridBagConstraints gbc_link = new GridBagConstraints();
+		gbc_link.insets = new Insets(0, 0, 5, 5);
+		gbc_link.anchor = GridBagConstraints.EAST;
+		gbc_link.gridx = 1;
+		gbc_link.gridy = 10;
+		getContentPane().add(link, gbc_link);
+		
+		linkTextField = new JTextField();
+		linkTextField.setColumns(10);
+		GridBagConstraints gbc_linkTextField = new GridBagConstraints();
+		gbc_linkTextField.insets = new Insets(0, 0, 5, 5);
+		gbc_linkTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_linkTextField.gridx = 2;
+		gbc_linkTextField.gridy = 10;
+		getContentPane().add(linkTextField, gbc_linkTextField);
+		
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(0, 0, 0, 5);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 2;
-		gbc_panel.gridy = 10;
+		gbc_panel.gridy = 11;
 		getContentPane().add(panel, gbc_panel);
 		
 		JSplitPane splitPane = new JSplitPane();
@@ -298,6 +316,8 @@ public class CrearActividad extends JInternalFrame {
         String descripcionAct = this.descripcionTextField.getText();
         String costoAct = this.costoTextField.getText(); 
         String duracionAct = this.duracionTextField.getText();
+        String linkVideo = this.linkTextField.getText();
+        boolean hayVideo = false;
         Date fechaAct = calendario.getDate();
         String ciudadAct = this.ciudadTextField.getText();
         String departamentoAct = (String) departamentoComboBox.getSelectedItem();
@@ -307,10 +327,12 @@ public class CrearActividad extends JInternalFrame {
         for (int i = 0 ; i < elementos.length; i++) { 
         	setCat.add((String) elementos[i]);
         }
-        
+        if(linkVideo != "") {
+        	hayVideo = true;
+        }
         if (checkFormulario()) {
             try {
-                controlAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, fechaAct, proveedorAct, setCat,null,false);
+                controlAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, fechaAct, proveedorAct, setCat, linkVideo, hayVideo);
                 JOptionPane.showMessageDialog(this, "La actividad ha sido registrada exitosamente.", "Registrar Actividad",
                         JOptionPane.INFORMATION_MESSAGE);
 

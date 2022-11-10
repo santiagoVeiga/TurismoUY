@@ -9,6 +9,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+
 
 public class DataProveedor extends DataUsuario {
 
@@ -51,6 +54,18 @@ public class DataProveedor extends DataUsuario {
     
     public Set<DataActividad> getActividades(){
     	return actividades;
+    }
+    
+    public void setDescripcion(String descr) {
+        descripcion = descr;
+    }
+
+    public void setLink(String link2) {
+        link = link2;
+    }
+    
+    public void setActividades(Set<DataActividad> dataA){
+    	actividades = dataA;
     }
     
 }

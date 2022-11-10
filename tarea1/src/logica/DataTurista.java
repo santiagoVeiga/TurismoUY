@@ -8,10 +8,13 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 
 public class DataTurista extends DataUsuario {
 	
     private String nacionalidad;
+    
     private Set<DataSalida> salidas;
 
     private Set<String> paquetes;
@@ -22,6 +25,8 @@ public class DataTurista extends DataUsuario {
 
     private Set<String> actFavoritas;
 
+    
+    
 	public DataTurista() {
 		
 	}
@@ -59,6 +64,10 @@ public class DataTurista extends DataUsuario {
 
     public String getNacionalidad() {
         return nacionalidad;
+    }
+    
+    public void setNacionalidad(String Nacio) {
+        nacionalidad = Nacio;
     }
     
     public Set<String> getPaquetes(){

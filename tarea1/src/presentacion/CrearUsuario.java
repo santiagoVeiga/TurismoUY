@@ -434,7 +434,20 @@ public class CrearUsuario extends JInternalFrame {
         String contrasenia = this.textField.getText();
         String confirmarContrasenia = this.textField1.getText();
 
+        String[] principio = mailU.split("@");
         
+        if(principio.length<=1){
+            JOptionPane.showMessageDialog(this, "Mail invalido, porfavor ingresar mail correcto", "Registrar Usuario",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else {
+        	String[] principio2 = principio[1].split("\\.");
+        	if(principio2.length<=1){
+                JOptionPane.showMessageDialog(this, "Mail invalido, porfavor ingresar mail correcto", "Registrar Usuario",
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+        	}
+        }
 
         if (rdbtnTurista.isSelected() && (nombreU.isEmpty() || apellidoU.isEmpty() || nickU.isEmpty() || mailU.isEmpty()
         		|| nacionalidadU.isEmpty() || contrasenia.isEmpty() || confirmarContrasenia.isEmpty())) {

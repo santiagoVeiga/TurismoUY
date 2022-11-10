@@ -116,9 +116,10 @@ public class ControladorInsc implements IControladorInsc {
 			throw new TuristaNoHaNacido("El turista aun no ha nacido");
 		}
 		// Se realiza la inscripcion
-		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, costo);
+		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, costo, (Turista) tur);
 		compraGen.setSalida(sal);
 		sal.setCantRestante(sal.getCantRestante()-cantTuristas);
+		sal.agregarInsc(compraGen);
 		((Turista) tur).agregarCompraGeneral(compraGen);
 	}
 	
@@ -156,9 +157,10 @@ public class ControladorInsc implements IControladorInsc {
 		costo = costo*cantTuristas*(1 - ((float) (compraPaq.getDescuento())/100));
 		int cost = Math.round(costo);
 		// Se realiza la inscripcion
-		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, cost, true);
+		CompraGeneral compraGen = new CompraGeneral(fecha, cantTuristas, cost, true, (Turista) tur);
 		compraGen.setSalida(sal);
 		sal.setCantRestante(sal.getCantRestante()-cantTuristas);
+		sal.agregarInsc(compraGen);
 		((Turista) tur).agregarCompraGeneral(compraGen);
 	}
 
@@ -330,8 +332,8 @@ public class ControladorInsc implements IControladorInsc {
 		
 	}
 	
-	public void finalizarActividad(String nombreActividad) throws ActividadNoExisteException, SalidasVigentesException {
-		ManejadorActividad manAct = ManejadorActividad.getInstance();
+	public void finalizarActividad(String nombreActividad, String nickProv) throws ActividadNoExisteException, SalidasVigentesException {
+			ManejadorActividad manAct = ManejadorActividad.getInstance();
 			Actividad act = manAct.getActividad(nombreActividad);
 			Map<String, Salida> salidasAct = act.getColSal();
 			boolean salidasTerminadas = true;
@@ -344,9 +346,11 @@ public class ControladorInsc implements IControladorInsc {
 					salidasTerminadas = false;
 				}
 			}
-			if(salidasTerminadas) {
-				act.setEstado(estadoAct.finalizada);
-			}else {
+			if (salidasTerminadas) {
+				ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
+				manAct.finalizarAct(nombreActividad, (Proveedor) manUsu.obtenerUsuarioNick(nickProv));
+				
+			} else {
 				throw new SalidasVigentesException("La actividad cuenta con salidas Vigentes");
 			}
 		
