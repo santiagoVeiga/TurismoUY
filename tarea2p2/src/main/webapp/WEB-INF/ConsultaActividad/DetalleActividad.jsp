@@ -184,12 +184,12 @@
 	                            <%}%>
 								  </tbody>
 								</table>
-	                            <%	DataTurista tur = (DataTurista) usr;
-				                    if (usr != null && usr instanceof DataTurista && tur.getActFavoritas()!=null && actividadSeleccionada.getEstado()!=EstadoAct.finalizada){
+	                            <%	
+				                    if (usr != null && usr instanceof DataTurista && ((DataTurista)usr).getActFavoritas()!=null && actividadSeleccionada.getEstado()!=EstadoAct.finalizada){
 				                    	%>
 				                    <form action="AgregarFavs" method="POST">
 				                    	<%
-				                    	
+				                    	DataTurista tur = (DataTurista) usr;
 				                    	String[] favoritas = tur.getActFavoritas();
 				                    	String auxFavs = null;
 				                    	boolean flag = false ; 
