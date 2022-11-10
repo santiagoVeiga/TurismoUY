@@ -766,8 +766,12 @@ public class ControladorAlta implements IControladorAlta {
 	    	  if (cont!=0) {
 	    		  SimpleDateFormat formato = new SimpleDateFormat("dd–MM--yyyy");
 	    		  Date fecha = formato.parse(nextLine[7].strip());
-	    		  registrarActividad(nextLine[6].strip(), nextLine[1].strip(), nextLine[2].strip(), Integer.parseInt(nextLine[3]), Integer.parseInt(nextLine[4]), nextLine[5].strip(), fecha, nextLine[9].strip(), categos.get(Integer.toString(cont)), null, false, imgBytes.get(Integer.toString(cont)));
-	    		  
+	    		  if (cont == 8 || cont == 10) {
+	    			  registrarActividad(nextLine[6].strip(), nextLine[1].strip(), nextLine[2].strip(), Integer.parseInt(nextLine[3]), Integer.parseInt(nextLine[4]), nextLine[5].strip(), fecha, nextLine[9].strip(), categos.get(Integer.toString(cont)), null, false, imgBytes.get(Integer.toString(cont)));
+	    		  }
+	    		  else {
+	    			  registrarActividad(nextLine[6].strip(), nextLine[1].strip(), nextLine[2].strip(), Integer.parseInt(nextLine[3]), Integer.parseInt(nextLine[4]), nextLine[5].strip(), fecha, nextLine[9].strip(), categos.get(Integer.toString(cont)), nextLine[11].strip(), true, imgBytes.get(Integer.toString(cont)));
+	    		  }
 	    		  if (cont<=6) {
 	    			  Fabrica fabr = Fabrica.getInstance();
 	    			  IControladorInsc conIns = fabr.getIControladorInsc();
