@@ -282,18 +282,13 @@ public class ServletAlta extends HttpServlet {
     						Date fechaNac = format.parse(date);
     						Calendar fechaNacC = Calendar.getInstance();
                             fechaNacC.setTime(fechaNac);
-                            ServletContext servletContextDef = req.getServletContext();
-                            BufferedImage imgDef = ImageIO.read(servletContextDef.getResourceAsStream("/WEB-INF/data/default_imagen.jpg"));
-                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            ImageIO.write(imgDef, "jpg", baos);
-                            byte[] imgDefBytes = baos.toByteArray();
                             if (!nacionalidad.equals("")) {
-                                port.confirmarAltaTuristaCompleto(nick, nombre , apellido, mail, fechaNacC, nacionalidad, password, imgDefBytes);
+                                port.confirmarAltaTurista(nick, nombre , apellido, mail, fechaNacC, nacionalidad, password);
                             } else if (linkProv != null && descripcion!= null) {
-                                port.confirmarAltaProveedorCompleto(nick, nombre, apellido, mail, fechaNacC, descripcion, linkProv, true, password, imgDefBytes); 
+                                port.confirmarAltaProveedor(nick, nombre, apellido, mail, fechaNacC, descripcion, linkProv, true, password); 
                             }
                             else if (descripcion!= null) {
-                                port.confirmarAltaProveedorCompleto(nick, nombre , apellido, mail, fechaNacC, descripcion, "", false, password, imgDefBytes); 
+                                port.confirmarAltaProveedor(nick, nombre , apellido, mail, fechaNacC, descripcion, "", false, password); 
                             }else {
     							// no deberia pasar
     							break;

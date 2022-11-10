@@ -519,7 +519,7 @@
 					                                      <!-- Finalizar Tarea -->
 					                                       
 					                                      <%if(arrDS[0].getEstado().equals(EstadoAct.confirmada)){%>
-					                                      	<button type="button" class="btn btn-light"><a href="/tarea2p2/FinalizarActividad=<%=arrDS[0].getNombre()%>">Finalizar Actividad</a></button>
+					                                      	<button type="button" class="btn btn-light"><a href="/tarea2p2/FinalizarActividad?=actividad<%=arrDS[0].getNombre()%>">Finalizar Actividad</a></button>
 					                                      <%} //asd%>
 					                                      
 					                                      <p align="center" class="card-text">Salidas Asociadas:</p>                              
