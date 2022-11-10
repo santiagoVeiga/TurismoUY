@@ -122,7 +122,7 @@ public class ServletInsc extends HttpServlet {
     			    String sal = req.getParameter("salida");
     			    DataUsuario usu = (DataUsuario) session.getAttribute("usuario");
     			    
-    			    String[] paquetes = Arrays.copyOf(port.obtenerPaquetesComprados(usu.getNick()), port.obtenerPaquetesComprados(usu.getNick()).length, String[].class);;
+    			    String[] paquetes = Arrays.copyOf(port.obtenerPaquetesComprados(usu.getNick()).getArray(), port.obtenerPaquetesComprados(usu.getNick()).getArray().length, String[].class);;
                     req.setAttribute("SalidaElegida", sal);
     			    req.setAttribute("PaquetesComprados", paquetes);
     				req.getRequestDispatcher("/WEB-INF/ConsultaSalida/InscripcionSalida.jsp").forward(req, resp);

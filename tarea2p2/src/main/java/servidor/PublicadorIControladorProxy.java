@@ -92,6 +92,12 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     return publicadorIControlador.estadoActNull();
   }
   
+  public void prueba(servidor.DataColeccionObject arg0) throws java.rmi.RemoteException{
+    if (publicadorIControlador == null)
+      _initPublicadorIControladorProxy();
+    publicadorIControlador.prueba(arg0);
+  }
+  
   public void confirmarAltaTuristaCompleto(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.util.Calendar arg4, java.lang.String arg5, java.lang.String arg6, byte[] arg7) throws java.rmi.RemoteException, servidor.UsuarioRepetidoException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
@@ -104,7 +110,7 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.confirmarAltaProveedorCompleto(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
   }
   
-  public void registrarActividadImagen(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, int arg3, int arg4, java.lang.String arg5, java.util.Calendar arg6, java.lang.String arg7, java.lang.Object[] arg8, java.lang.String arg9, boolean arg10, byte[] arg11) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.ProveedorNoNacidoException, servidor.UsuarioNoExisteException{
+  public void registrarActividadImagen(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, int arg3, int arg4, java.lang.String arg5, java.util.Calendar arg6, java.lang.String arg7, servidor.DataColeccionObject arg8, java.lang.String arg9, boolean arg10, byte[] arg11) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.ProveedorNoNacidoException, servidor.UsuarioNoExisteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     publicadorIControlador.registrarActividadImagen(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
@@ -128,7 +134,7 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.sumarVistaASal(arg0);
   }
   
-  public java.lang.Object[] getUsuariosComp() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException{
+  public servidor.DataColeccionObject getUsuariosComp() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.getUsuariosComp();
@@ -158,7 +164,7 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     return publicadorIControlador.ingresarDatos(arg0);
   }
   
-  public java.lang.Object[] obtenerActividadCategoria(java.lang.String arg0) throws java.rmi.RemoteException{
+  public servidor.DataColeccionObject obtenerActividadCategoria(java.lang.String arg0) throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.obtenerActividadCategoria(arg0);
@@ -200,7 +206,7 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.inscribirPaq(arg0, arg1, arg2, arg3, arg4, arg5);
   }
   
-  public java.lang.Object[] obtenerPaquetesComprados(java.lang.String arg0) throws java.rmi.RemoteException{
+  public servidor.DataColeccionObject obtenerPaquetesComprados(java.lang.String arg0) throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.obtenerPaquetesComprados(arg0);
@@ -230,13 +236,13 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.finalizarActividad(arg0, arg1);
   }
   
-  public java.lang.Object[] listarUsuarios() throws java.rmi.RemoteException{
+  public servidor.DataColeccionObject listarUsuarios() throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.listarUsuarios();
   }
   
-  public java.lang.Object[] obtenerDataDepartamentos() throws java.rmi.RemoteException, servidor.DepartamentoNoExisteException{
+  public servidor.DataColeccionObject obtenerDataDepartamentos() throws java.rmi.RemoteException, servidor.DepartamentoNoExisteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.obtenerDataDepartamentos();
@@ -248,31 +254,31 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.confirmarAltaSalida(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
   }
   
-  public void registrarActividad(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, int arg3, int arg4, java.lang.String arg5, java.util.Calendar arg6, java.lang.String arg7, java.lang.Object[] arg8, java.lang.String arg9, boolean arg10) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.ProveedorNoNacidoException, servidor.UsuarioNoExisteException{
+  public void registrarActividad(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, int arg3, int arg4, java.lang.String arg5, java.util.Calendar arg6, java.lang.String arg7, servidor.DataColeccionObject arg8, java.lang.String arg9, boolean arg10) throws java.rmi.RemoteException, servidor.ActividadRepetidaException, servidor.ProveedorNoNacidoException, servidor.UsuarioNoExisteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     publicadorIControlador.registrarActividad(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
   }
   
-  public java.lang.Object[] getUsuarios() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException{
+  public servidor.DataColeccionObject getUsuarios() throws java.rmi.RemoteException, servidor.UsuarioNoExisteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.getUsuarios();
   }
   
-  public java.lang.Object[] obtenerNombreCategorias() throws java.rmi.RemoteException, servidor.NoExisteCategoriaException{
+  public servidor.DataColeccionObject obtenerNombreCategorias() throws java.rmi.RemoteException, servidor.NoExisteCategoriaException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.obtenerNombreCategorias();
   }
   
-  public java.lang.Object[] selecDepartamento(java.lang.String arg0) throws java.rmi.RemoteException{
+  public servidor.DataColeccionObject selecDepartamento(java.lang.String arg0) throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.selecDepartamento(arg0);
   }
   
-  public java.lang.Object[] salidas(java.lang.String arg0) throws java.rmi.RemoteException, servidor.ActividadNoExisteException{
+  public servidor.DataColeccionObject salidas(java.lang.String arg0) throws java.rmi.RemoteException, servidor.ActividadNoExisteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.salidas(arg0);
@@ -284,13 +290,13 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.inscribir(arg0, arg1, arg2, arg3, arg4);
   }
   
-  public java.lang.Object[] listarActividadesAgregadas() throws java.rmi.RemoteException{
+  public servidor.DataColeccionObject listarActividadesAgregadas() throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.listarActividadesAgregadas();
   }
   
-  public java.lang.Object[] listarPaquetes() throws java.rmi.RemoteException{
+  public servidor.DataColeccionObject listarPaquetes() throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.listarPaquetes();
@@ -332,13 +338,13 @@ public class PublicadorIControladorProxy implements servidor.PublicadorIControla
     publicadorIControlador.confirmarAltaProveedor(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
   }
   
-  public java.lang.Object[] actividadesPorDepartamentoNoEnPaquete(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException{
+  public servidor.DataColeccionObject actividadesPorDepartamentoNoEnPaquete(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.actividadesPorDepartamentoNoEnPaquete(arg0, arg1);
   }
   
-  public java.lang.Object[] listarPaquetesNoComprados() throws java.rmi.RemoteException{
+  public servidor.DataColeccionObject listarPaquetesNoComprados() throws java.rmi.RemoteException{
     if (publicadorIControlador == null)
       _initPublicadorIControladorProxy();
     return publicadorIControlador.listarPaquetesNoComprados();

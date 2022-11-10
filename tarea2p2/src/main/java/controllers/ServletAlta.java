@@ -37,6 +37,7 @@ import org.w3c.dom.NodeList;
 
 import servidor.ActividadRepetidaException;
 import servidor.DataActividad;
+import servidor.DataColeccionObject;
 import servidor.DataDepartamento;
 import servidor.DataProveedor;
 import servidor.DataTurista;
@@ -180,11 +181,9 @@ public class ServletAlta extends HttpServlet {
                             //byte[] imgBytesAct = null;
                             try {
                                 //File nuevaImgAct = new File(req.getSession().getServletContext().getRealPath("/") + proveedorAct + filePartAct.getSubmittedFileName());
-                               
                                 Calendar date1C = Calendar.getInstance();
                                 date1C.setTime(date1);
-                                port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct),
-                                        Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, categoriasAct.toArray(new String[0]), linkVideo, hayVideo, imgBytesAct);
+                                port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, new DataColeccionObject(categoriasAct.toArray(), null), linkVideo, hayVideo, imgBytesAct);
                                 resp.sendRedirect("/tarea2p2/home");
             
                             } catch (NumberFormatException e2) {
@@ -204,15 +203,10 @@ public class ServletAlta extends HttpServlet {
                         // No se subió imagen
                         else {
                             try {
-                                ServletContext servletContextDef = req.getServletContext();
-                                BufferedImage imgDef = ImageIO.read(servletContextDef.getResourceAsStream("/WEB-INF/data/default_imagen.jpg"));
-                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                                ImageIO.write(imgDef, "jpg", baos);
-                                byte[] imgDefBytes = baos.toByteArray();
                                 Calendar date1C = Calendar.getInstance();
                                 date1C.setTime(date1);
-                                port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, 
-                                        categoriasAct.toArray(new String[0]), linkVideo, hayVideo, imgDefBytes);
+                                port.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, 
+                                        new DataColeccionObject(categoriasAct.toArray(), null), linkVideo, hayVideo);
                                 resp.sendRedirect("/tarea2p2/home");
             
                             } catch (NumberFormatException e2) {

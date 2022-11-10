@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -141,6 +142,13 @@ public class PublicadorIControlador {
     }
     
 	
+    
+    @WebMethod 
+    public void prueba(DataColeccionObject dco) {
+    	System.out.println(dco.getArray().length);
+    }
+    
+    
 	//Controlador Alta
 	
     
@@ -172,14 +180,16 @@ public class PublicadorIControlador {
     @WebMethod
     public  void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, DataColeccionObject cat, String link, boolean hayLink) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException{
     	Set<String> categorias = new HashSet<String>();
-    	Collections.addAll(categorias,((String[]) cat.getArray()));
-    	conAlta.registrarActividad(dep, nom, desc, dur, costo, ciudad, fecha, proveedor, categorias, link, hayLink);
+    	String[] cats = Arrays.copyOf(cat.getArray(), cat.getArray().length, String[].class);
+    	Collections.addAll(categorias,cats);
+    	conAlta.registrarActividad(dep, nom, desc, dur, costo, ciudad, fecha, proveedor, categorias, link, hayLink, null);
     }
 
     @WebMethod
     public  void registrarActividadImagen(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, DataColeccionObject cat,  String link, boolean hayLink, byte[] imagen) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException{
     	Set<String> categorias = new HashSet<String>();
-    	Collections.addAll(categorias,((String[]) cat.getArray()));
+    	String[] cats = Arrays.copyOf(cat.getArray(), cat.getArray().length, String[].class);
+    	Collections.addAll(categorias,cats);
     	conAlta.registrarActividad(dep, nom, desc, dur, costo, ciudad, fecha, proveedor, categorias, link, hayLink, imagen);
     }
     

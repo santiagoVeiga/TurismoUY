@@ -156,7 +156,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     		        DataDepartamento[] aux = null;
         			try {
         			    //String[] stringArray = Arrays.copyOf(objectArray, objectArray.length, String[].class);
-        				aux = Arrays.copyOf(port.obtenerDataDepartamentos(), port.obtenerDataDepartamentos().length, DataDepartamento[].class);//(DataDepartamento[]) ;
+        				aux = Arrays.copyOf(port.obtenerDataDepartamentos().getArray(), port.obtenerDataDepartamentos().getArray().length, DataDepartamento[].class);//(DataDepartamento[]) ;
         			} catch (DepartamentoNoExisteException e) {
         				System.out.println("no hay deptos");
         			}
@@ -164,7 +164,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
         			Set<String> cats = null;
         			try {
         			    cats = new HashSet<String>();
-        			    Object[] auxi = port.obtenerNombreCategorias();
+        			    Object[] auxi = port.obtenerNombreCategorias().getArray();
                         Collections.addAll(cats, Arrays.copyOf(auxi, auxi.length, String[].class));
         			} catch (NoExisteCategoriaException eee) {
         			    eee.printStackTrace();
@@ -183,7 +183,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     			req.getRequestDispatcher("/WEB-INF/home/cerrarSesion.jsp").forward(req, resp);
     			break;
     		case "/sesionIniciada":
-    			DataUsuario[] ususSistema = Arrays.copyOf(port.getUsuariosComp(), port.getUsuariosComp().length, DataUsuario[].class); //conAlta.getUsuariosComp();
+    			DataUsuario[] ususSistema = Arrays.copyOf(port.getUsuariosComp().getArray(), port.getUsuariosComp().getArray().length, DataUsuario[].class); //conAlta.getUsuariosComp();
     			boolean esMovil = (boolean) ses.getAttribute("esMovil");
     			if(!esMovil) {
     			    String nickOrEmail = (String) req.getParameter("emailnick_inicioSesion");
