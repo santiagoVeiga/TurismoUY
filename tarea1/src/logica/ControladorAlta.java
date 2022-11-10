@@ -513,16 +513,16 @@ public class ControladorAlta implements IControladorAlta {
 		conIns.cargarActsPaqs();
 		cargarCompPaq();
 		conIns.cargarInsc();
-//		Date actDate = new Date(200,0,0);
-//		Set<String> categorias = new HashSet<String>();
-//		categorias.add("Gastronomia");
-//		registrarActividad("Rocha", "Act", "ActDesc", 5, 5, "ActCiudad", actDate, "eldiez", categorias, null, false);
-//		try {
-//			conIns.finalizarActividad("Act", "eldiez");
-//		} catch (ActividadNoExisteException | SalidasVigentesException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		Date actDate = new Date(200,0,0);
+		Set<String> categorias = new HashSet<String>();
+		categorias.add("Gastronomia");
+		registrarActividad("Rocha", "Act", "ActDesc", 5, 5, "ActCiudad", actDate, "eldiez", categorias, null, false);
+		try {
+			conIns.finalizarActividad("Act", "eldiez");
+		} catch (ActividadNoExisteException | SalidasVigentesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
