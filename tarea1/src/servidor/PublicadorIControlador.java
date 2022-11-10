@@ -138,7 +138,7 @@ public class PublicadorIControlador {
 	// EXCEPTIONS
 	
     @WebMethod
-    public void excepciones() throws ActividadNoExisteException, ActividadRepetidaException, CategoriaYaExiste, DepartamentoNoExisteException, DepartamentoYaExisteExeption, estadoActividadIncorrecto,ExcedeTuristas,FechaAltaSalidaAnteriorActividad,FechaAltaSalidaInvalida,InscFechaDespSalida,InscFechaInconsistente,NoExisteCategoriaException,NoHayCuposException, PaqueteNoExisteException, PaqueteRepetidoException, ProveedorNoNacidoException, SalidasNoExisteException, SalidasVigentesException, TuristaConSalida, TuristaNoHaNacido, UsuarioNoExisteException, UsuarioRepetidoException{
+    public void excepciones() throws Exception, ActividadNoExisteException, ActividadRepetidaException, CategoriaYaExiste, DepartamentoNoExisteException, DepartamentoYaExisteExeption, estadoActividadIncorrecto,ExcedeTuristas,FechaAltaSalidaAnteriorActividad,FechaAltaSalidaInvalida,InscFechaDespSalida,InscFechaInconsistente,NoExisteCategoriaException,NoHayCuposException, PaqueteNoExisteException, PaqueteRepetidoException, ProveedorNoNacidoException, SalidasNoExisteException, SalidasVigentesException, TuristaConSalida, TuristaNoHaNacido, UsuarioNoExisteException, UsuarioRepetidoException{
     }
     
 	

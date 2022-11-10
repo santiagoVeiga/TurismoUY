@@ -1,5 +1,5 @@
 /**
- * ActividadNoExisteException.java
+ * Exception.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
@@ -7,20 +7,20 @@
 
 package servidor;
 
-public class ActividadNoExisteException  extends servidor.Exception  implements java.io.Serializable {
+public class Exception  extends org.apache.axis.AxisFault  implements java.io.Serializable {
     private java.lang.String message1;
 
-    public ActividadNoExisteException() {
+    public Exception() {
     }
 
-    public ActividadNoExisteException(
+    public Exception(
            java.lang.String message1) {
         this.message1 = message1;
     }
 
 
     /**
-     * Gets the message1 value for this ActividadNoExisteException.
+     * Gets the message1 value for this Exception.
      * 
      * @return message1
      */
@@ -30,7 +30,7 @@ public class ActividadNoExisteException  extends servidor.Exception  implements 
 
 
     /**
-     * Sets the message1 value for this ActividadNoExisteException.
+     * Sets the message1 value for this Exception.
      * 
      * @param message1
      */
@@ -40,8 +40,8 @@ public class ActividadNoExisteException  extends servidor.Exception  implements 
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof ActividadNoExisteException)) return false;
-        ActividadNoExisteException other = (ActividadNoExisteException) obj;
+        if (!(obj instanceof Exception)) return false;
+        Exception other = (Exception) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -73,10 +73,10 @@ public class ActividadNoExisteException  extends servidor.Exception  implements 
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(ActividadNoExisteException.class, true);
+        new org.apache.axis.description.TypeDesc(Exception.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://servidor/", "ActividadNoExisteException"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://servidor/", "Exception"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("message1");
         elemField.setXmlName(new javax.xml.namespace.QName("", "message"));

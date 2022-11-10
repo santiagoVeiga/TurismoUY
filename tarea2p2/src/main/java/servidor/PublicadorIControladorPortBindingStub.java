@@ -1044,6 +1044,12 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
                       true
                      ));
         oper.addFault(new org.apache.axis.description.FaultDesc(
+                      new javax.xml.namespace.QName("http://servidor/", "Exception"),
+                      "servidor.Exception",
+                      new javax.xml.namespace.QName("http://servidor/", "Exception"), 
+                      true
+                     ));
+        oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("http://servidor/", "FechaAltaSalidaAnteriorActividad"),
                       "servidor.FechaAltaSalidaAnteriorActividad",
                       new javax.xml.namespace.QName("http://servidor/", "FechaAltaSalidaAnteriorActividad"), 
@@ -1390,6 +1396,13 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
             qName = new javax.xml.namespace.QName("http://servidor/", "ExcedeTuristas");
             cachedSerQNames.add(qName);
             cls = servidor.ExcedeTuristas.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://servidor/", "Exception");
+            cachedSerQNames.add(qName);
+            cls = servidor.Exception.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -3296,7 +3309,7 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
 }
     }
 
-    public void excepciones() throws java.rmi.RemoteException, servidor.DepartamentoYaExisteExeption, servidor.UsuarioNoExisteException, servidor.InscFechaDespSalida, servidor.SalidasVigentesException, servidor.PaqueteNoExisteException, servidor.FechaAltaSalidaInvalida, servidor.ActividadNoExisteException, servidor.UsuarioRepetidoException, servidor.FechaAltaSalidaAnteriorActividad, servidor.TuristaConSalida, servidor.ActividadRepetidaException, servidor.ExcedeTuristas, servidor.ProveedorNoNacidoException, servidor.SalidasNoExisteException, servidor.DepartamentoNoExisteException, servidor.TuristaNoHaNacido, servidor.CategoriaYaExiste, servidor.PaqueteRepetidoException, servidor.NoHayCuposException, servidor.NoExisteCategoriaException, servidor.EstadoActividadIncorrecto, servidor.InscFechaInconsistente {
+    public void excepciones() throws java.rmi.RemoteException, servidor.DepartamentoYaExisteExeption, servidor.UsuarioNoExisteException, servidor.InscFechaDespSalida, servidor.SalidasVigentesException, servidor.PaqueteNoExisteException, servidor.FechaAltaSalidaInvalida, servidor.ActividadNoExisteException, servidor.UsuarioRepetidoException, servidor.Exception, servidor.FechaAltaSalidaAnteriorActividad, servidor.TuristaConSalida, servidor.ActividadRepetidaException, servidor.ExcedeTuristas, servidor.ProveedorNoNacidoException, servidor.SalidasNoExisteException, servidor.DepartamentoNoExisteException, servidor.TuristaNoHaNacido, servidor.CategoriaYaExiste, servidor.PaqueteRepetidoException, servidor.NoHayCuposException, servidor.NoExisteCategoriaException, servidor.EstadoActividadIncorrecto, servidor.InscFechaInconsistente {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -3346,6 +3359,9 @@ public class PublicadorIControladorPortBindingStub extends org.apache.axis.clien
          }
         if (axisFaultException.detail instanceof servidor.UsuarioRepetidoException) {
               throw (servidor.UsuarioRepetidoException) axisFaultException.detail;
+         }
+        if (axisFaultException.detail instanceof servidor.Exception) {
+              throw (servidor.Exception) axisFaultException.detail;
          }
         if (axisFaultException.detail instanceof servidor.FechaAltaSalidaAnteriorActividad) {
               throw (servidor.FechaAltaSalidaAnteriorActividad) axisFaultException.detail;

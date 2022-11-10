@@ -269,7 +269,7 @@ public class ServletAlta extends HttpServlet {
     						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
     						resp.sendRedirect("/tarea2p2/home");
     					} catch (UsuarioRepetidoException e) {
-    						req.setAttribute("Exception", e.getMessage());
+    						req.setAttribute("Exception", e.getMessage1());
     						req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req, resp);
     					}catch (ParseException e1) {
     		                e1.printStackTrace();
@@ -300,7 +300,7 @@ public class ServletAlta extends HttpServlet {
     						session.setAttribute("estado_sesion", EstadoSesion.LOGIN_CORRECTO);
     						resp.sendRedirect("/tarea2p2/home");
     					} catch (UsuarioRepetidoException e) {
-    						req.setAttribute("Exception", e.getMessage());
+    						req.setAttribute("Exception", e.getMessage1());
     						req.getRequestDispatcher("/WEB-INF/altaUsuario/alta_usuario.jsp").forward(req, resp);
     					}catch (ParseException e1) {
     		                e1.printStackTrace();
@@ -542,7 +542,7 @@ public class ServletAlta extends HttpServlet {
                             // TODO Auto-generated catch block
                         }
                         req.getRequestDispatcher("/ConsultaUsuario?nick="+usuario.getNick()).forward(req, resp);
-                    }catch (ParseException e){
+                    }catch (ParseException | servidor.IOException e){
                         // TODO Auto-generated catch block
                     }
     				break;

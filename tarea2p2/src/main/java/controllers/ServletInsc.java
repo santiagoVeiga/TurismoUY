@@ -154,7 +154,7 @@ public class ServletInsc extends HttpServlet {
     				} catch (TuristaConSalida | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException
     						| InscFechaDespSalida | TuristaNoHaNacido | PaqueteRepetidoException
     						| NoHayCuposException e) {
-    					req.setAttribute("Exception", e.getMessage());
+    					req.setAttribute("Exception", e.getMessage1());
     					req.getRequestDispatcher("/home").forward(req, resp);
     				}
     				break;
@@ -172,7 +172,7 @@ public class ServletInsc extends HttpServlet {
     					req.setAttribute("CompraPaq", "La compra fue realizada con exito!");
     					req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp); //lo cambie
     				} catch (PaqueteNoExisteException | PaqueteRepetidoException e) {
-    					req.setAttribute("Exception", e.getMessage());
+    					req.setAttribute("Exception", e.getMessage1());
                         DataPaquete dataPaq = port.obtenerDataPaquete(nomPaquete);
                         req.setAttribute("PaqueteElegido", dataPaq);
     					req.getRequestDispatcher("/WEB-INF/ConsultaPaquete/DetallePaquete.jsp").forward(req, resp);
@@ -190,7 +190,7 @@ public class ServletInsc extends HttpServlet {
                         session2.setAttribute("usuario", port.obtenerDataUsuarioNick(du2.getNick()));
                         req.getRequestDispatcher("/ConsultaUsuario?nick=" + nickUsu).forward(req, resp); //lo cambie
                     } catch (UsuarioNoExisteException | UsuarioRepetidoException e) {
-                        req.setAttribute("Exception", e.getMessage());
+                        req.setAttribute("Exception", e.getMessage1());
                         req.getRequestDispatcher("/home").forward(req, resp);
                     }
                     break;
@@ -205,7 +205,7 @@ public class ServletInsc extends HttpServlet {
                         session3.setAttribute("usuario", port.obtenerDataUsuarioNick(dTur.getNick()));
                         req.getRequestDispatcher("/ConsultaActividad?actividad=" + nomAct).forward(req, resp); //lo cambie
                     } catch (UsuarioNoExisteException | ActividadNoExisteException | ActividadRepetidaException e) {
-                        req.setAttribute("Exception", e.getMessage());
+                        req.setAttribute("Exception", e.getMessage1());
                         req.getRequestDispatcher("/home").forward(req, resp);
                     }
                     break;
@@ -213,13 +213,8 @@ public class ServletInsc extends HttpServlet {
     			    String actividadSeleccionada = req.getParameter("actividad");
                     HttpSession session4 = req.getSession();
                     DataProveedor dataProveedor = (DataProveedor) session4.getAttribute("usuario");
-                    try {
-                        port.finalizarActividad(actividadSeleccionada, dataProveedor.getNick());
-                        session4.setAttribute("usuario", port.obtenerDataUsuarioNick(dataProveedor.getNick()));
-                    } catch (Exception e) {
-                            System.out.printf("esepsssion \n" + e.getMessage());
-                            req.setAttribute("Exception", e.getMessage());
-                    }
+                    port.finalizarActividad(actividadSeleccionada, dataProveedor.getNick());
+                    session4.setAttribute("usuario", port.obtenerDataUsuarioNick(dataProveedor.getNick()));
                     req.getRequestDispatcher("/home").forward(req, resp);
                     break;
     		}

@@ -7,7 +7,7 @@
 
 package servidor;
 
-public class IOException  extends org.apache.axis.AxisFault  implements java.io.Serializable {
+public class IOException  extends servidor.Exception  implements java.io.Serializable {
     private java.lang.String message1;
 
     public IOException() {
