@@ -122,7 +122,15 @@
 	                                <img src="/tarea2p2/Imagenes?id=<%= actividadSeleccionada.getImagen() %>" style="height: 100px; border-radius: 5px; " alt="<%= actividadSeleccionada.getImagen() %>">
 	                                
 	                            </div>
-	                            <%}%>
+	                            <%}
+	                            if (actividadSeleccionada.isHayLink()){ %>
+	                                <br>
+	                                <div style="display:flex; justify-content:center; width:100%;">
+		                                <iframe width="100%" height="300" src="<%= actividadSeleccionada.getLink() %>" title="<%= actividadSeleccionada.getNombre() %>" allowfullscreen>
+										</iframe>
+	                                </div>
+	                                <br>
+	                                <% } %>
 	                            <table class="table">
 								  <thead>
 								  </thead>
@@ -366,7 +374,7 @@
 	                                        <span class="sr-only">Next</span>
 	                                    </a>
 	                                </div>
-	                                <%}%>
+	                                <%} %>
 	                            </div>
 	                            <%}else{ %>
 	                           	<div style="text-align:center">
