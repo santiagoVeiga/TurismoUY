@@ -9,7 +9,7 @@ public class CompVisitas implements Comparator<DataVisitas> {
 
 	@Override
 	public int compare(DataVisitas o1, DataVisitas o2) {
-		return o1.getCantVis() - o2.getCantVis();
+		return o2.getCantVis() - o1.getCantVis();
 	}
 
 }
