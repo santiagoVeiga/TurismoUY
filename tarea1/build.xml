@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="tarea1">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="/home/vagrant/eclipse/"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="11"/>
+    <property name="source" value="11"/>
+    <path id="JUnit 5.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.jupiter.api_5.8.1.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.jupiter.engine_5.8.1.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.jupiter.migrationsupport_5.8.1.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.jupiter.params_5.8.1.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.platform.commons_1.8.1.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.platform.engine_1.8.1.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.platform.launcher_1.8.1.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.platform.runner_1.8.1.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.platform.suite.api_1.8.1.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.platform.suite.engine_1.8.1.v20211028-1957.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.platform.suite.commons_1.8.1.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit.vintage.engine_5.8.1.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.opentest4j_1.2.0.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.apiguardian_1.1.2.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.junit_4.13.2.v20211018-1956.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
+    </path>
+    <path id="EAR Libraries.libraryclasspath"/>
+    <path id="tarea1.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/jgoodies-common-1.8.0.jar"/>
+        <pathelement location="lib/jgoodies-forms-1.8.0.jar"/>
+        <pathelement location="src/data/opencsv-3.8.jar"/>
+        <pathelement location="lib/jcalendar-1.4.jar"/>
+        <path refid="JUnit 5.libraryclasspath"/>
+        <pathelement location="lib/jaxws-ri/lib/angus-activation.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/angus-mail.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/FastInfoset.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/gmbal-api-only.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/ha-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.activation-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.annotation-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.mail-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.xml.bind-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.xml.soap-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.xml.ws-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-core.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-impl.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-jxc.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-xjc.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxws-rt.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxws-tools.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/management-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/mimepull.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/saaj-impl.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/stax2-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/stax-ex.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/streambuffer.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/woodstox-core.jar"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+        <pathelement location="lib/JPA/eclipselink.jar"/>
+        <pathelement location="lib/JPA/eclipselink-sources.jar"/>
+        <pathelement location="lib/JPA/hsqldb.jar"/>
+        <pathelement location="lib/JPA/jakarta.annotation-api.jar"/>
+        <pathelement location="lib/JPA/jakarta.persistence-api.jar"/>
+        <pathelement location="lib/JPA/org.eclipse.persistence.jpa.modelgen.processor.jar"/>
+        <pathelement location="lib/JPA/org.eclipse.persistence.jpars.jar"/>
+        <pathelement location="lib/JPA/org.eclipse.persistence.jpars-javadoc.jar"/>
+    </path>
+    <path id="run.Principal.classpath">
+        <path refid="tarea1.classpath"/>
+        <pathelement location="lib/jgoodies-common-1.8.0.jar"/>
+        <pathelement location="lib/jgoodies-forms-1.8.0.jar"/>
+        <pathelement location="src/data/opencsv-3.8.jar"/>
+        <pathelement location="lib/jcalendar-1.4.jar"/>
+        <path refid="JUnit 5.libraryclasspath"/>
+        <pathelement location="lib/jaxws-ri/lib/angus-activation.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/angus-mail.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/FastInfoset.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/gmbal-api-only.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/ha-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.activation-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.annotation-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.mail-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.xml.bind-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.xml.soap-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.xml.ws-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-core.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-impl.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-xjc.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-jxc.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/management-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/mimepull.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/saaj-impl.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/stax-ex.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/stax2-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/streambuffer.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/woodstox-core.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxws-rt.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxws-tools.jar"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+        <pathelement location="lib/JPA/eclipselink.jar"/>
+        <pathelement location="lib/JPA/eclipselink-sources.jar"/>
+        <pathelement location="lib/JPA/hsqldb.jar"/>
+        <pathelement location="lib/JPA/jakarta.annotation-api.jar"/>
+        <pathelement location="lib/JPA/jakarta.persistence-api.jar"/>
+        <pathelement location="lib/JPA/org.eclipse.persistence.jpa.modelgen.processor.jar"/>
+        <pathelement location="lib/JPA/org.eclipse.persistence.jpars.jar"/>
+        <pathelement location="lib/JPA/org.eclipse.persistence.jpars-javadoc.jar"/>
+    </path>
+    <path id="run.ControladorAltaTest.classpath">
+        <path refid="tarea1.classpath"/>
+        <pathelement location="lib/jgoodies-common-1.8.0.jar"/>
+        <pathelement location="lib/jgoodies-forms-1.8.0.jar"/>
+        <pathelement location="src/data/opencsv-3.8.jar"/>
+        <pathelement location="lib/jcalendar-1.4.jar"/>
+        <path refid="JUnit 5.libraryclasspath"/>
+        <pathelement location="lib/jaxws-ri/lib/angus-activation.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/angus-mail.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/FastInfoset.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/gmbal-api-only.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/ha-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.activation-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.annotation-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.mail-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.xml.bind-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.xml.soap-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.xml.ws-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-core.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-impl.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-xjc.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-jxc.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/management-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/mimepull.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/saaj-impl.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/stax-ex.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/stax2-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/streambuffer.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/woodstox-core.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxws-rt.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxws-tools.jar"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+        <pathelement location="lib/JPA/eclipselink.jar"/>
+        <pathelement location="lib/JPA/eclipselink-sources.jar"/>
+        <pathelement location="lib/JPA/hsqldb.jar"/>
+        <pathelement location="lib/JPA/jakarta.annotation-api.jar"/>
+        <pathelement location="lib/JPA/jakarta.persistence-api.jar"/>
+        <pathelement location="lib/JPA/org.eclipse.persistence.jpa.modelgen.processor.jar"/>
+        <pathelement location="lib/JPA/org.eclipse.persistence.jpars.jar"/>
+        <pathelement location="lib/JPA/org.eclipse.persistence.jpars-javadoc.jar"/>
+    </path>
+    <path id="run.test.classpath">
+        <path refid="tarea1.classpath"/>
+        <pathelement location="lib/jgoodies-common-1.8.0.jar"/>
+        <pathelement location="lib/jgoodies-forms-1.8.0.jar"/>
+        <pathelement location="src/data/opencsv-3.8.jar"/>
+        <pathelement location="lib/jcalendar-1.4.jar"/>
+        <path refid="JUnit 5.libraryclasspath"/>
+        <pathelement location="lib/jaxws-ri/lib/angus-activation.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/angus-mail.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/FastInfoset.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/gmbal-api-only.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/ha-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.activation-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.annotation-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.mail-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.xml.bind-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.xml.soap-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jakarta.xml.ws-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-core.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-impl.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-xjc.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxb-jxc.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/management-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/mimepull.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/saaj-impl.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/stax-ex.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/stax2-api.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/streambuffer.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/woodstox-core.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxws-rt.jar"/>
+        <pathelement location="lib/jaxws-ri/lib/jaxws-tools.jar"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+        <pathelement location="lib/JPA/eclipselink.jar"/>
+        <pathelement location="lib/JPA/eclipselink-sources.jar"/>
+        <pathelement location="lib/JPA/hsqldb.jar"/>
+        <pathelement location="lib/JPA/jakarta.annotation-api.jar"/>
+        <pathelement location="lib/JPA/jakarta.persistence-api.jar"/>
+        <pathelement location="lib/JPA/org.eclipse.persistence.jpa.modelgen.processor.jar"/>
+        <pathelement location="lib/JPA/org.eclipse.persistence.jpars.jar"/>
+        <pathelement location="lib/JPA/org.eclipse.persistence.jpars-javadoc.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="tarea1.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target name="Principal">
+        <java classname="presentacion.Principal" failonerror="true" fork="yes">
+            <classpath refid="run.Principal.classpath"/>
+        </java>
+    </target>
+    <target name="ControladorAltaTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.ControladorAltaTest" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="run.ControladorAltaTest.classpath"/>
+        </junit>
+    </target>
+    <target name="test">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="run.test.classpath"/>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+</project>
