@@ -286,13 +286,15 @@
 				    	    }
 				    	    }
 						salidas = ((DataTurista) DU).getInscripcionesSal();
-				        DataSalida[] arrDS = new DataSalida[salidas.length];
-				        DataCompraGeneral[] arrDCG = new DataCompraGeneral[salidas.length]; 
-				        for (int i = 0; i < salidas.length; i++) {
-				        	arrDS[i] = ((DataCompraGeneral) salidas[i]).getSalida();
-				        	arrDCG[i] = (DataCompraGeneral) salidas[i];
-				        }
-				        if (salidas.length != 0){
+				        
+				        if (salidas != null){
+				        	
+				        	DataSalida[] arrDS = new DataSalida[salidas.length];
+					        DataCompraGeneral[] arrDCG = new DataCompraGeneral[salidas.length]; 
+					        for (int i = 0; i < salidas.length; i++) {
+					        	arrDS[i] = ((DataCompraGeneral) salidas[i]).getSalida();
+					        	arrDCG[i] = (DataCompraGeneral) salidas[i];
+					        }	
 				        //String imagen1 = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						%>
 					    <div id="tab3" class="tab">
