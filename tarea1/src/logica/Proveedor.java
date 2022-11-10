@@ -17,6 +17,7 @@ import jakarta.persistence.MapKey;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -104,8 +105,12 @@ public class Proveedor extends Usuario {
     	}
     	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
     	EntityManager em = emf.createEntityManager();
-    	List<Actividad> listaCG = em.createQuery("SELECT a FROM Actividad a join Proveedor p WHERE p.nickname = '" + this.getNickname() + "'").getResultList();
-    	for (Actividad acts : listaCG) {
+    	Query query = em.createQuery("SELECT a FROM Actividad a JOIN a.proveedor p WHERE p.nickname = :nick");
+    	query.setParameter("nick", this.getNickname());
+    	List<Actividad> listaActs = query.getResultList();
+    	em.close();
+    	emf.close();
+    	for (Actividad acts : listaActs) {
     		dAct.add(acts.getDataAT());
     	}
     	DataProveedor dProv = new DataProveedor(getNickname(), getNombre(), getApellido(), getMail(), getNacimiento(), descripcion, link, dAct, getPassword(), this.getSeguidores().keySet(), this.getSeguidos().keySet());

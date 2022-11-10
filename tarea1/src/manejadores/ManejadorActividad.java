@@ -31,8 +31,6 @@ public class ManejadorActividad {
 
 	private Map<String, Actividad> colAct;
 	private Set<String> actsFinalizadas;
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-	private EntityManager em = emf.createEntityManager();
 	
 	// Constructor
     
@@ -73,12 +71,16 @@ public class ManejadorActividad {
     	if (this.colAct.containsKey(nom)) {
     		resultado = this.colAct.get(nom);
     	} else if (this.actsFinalizadas.contains(nom)) {
+    		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+    		EntityManager em = emf.createEntityManager();
     		Query query = em.createQuery("SELECT a FROM Actividad a WHERE a.nombre = '" + nom + "'");
     		try {
     			resultado = (Actividad) query.getSingleResult();
     		} catch (NoResultException e) {
     			throw new ActividadNoExisteException("No existe una actividad finalizada con el nombre: " + nom);
     		}
+    		em.close();
+    		emf.close();
     	}
     	return resultado;
     }
@@ -91,6 +93,8 @@ public class ManejadorActividad {
     			throw new SalidaYaExisteExeption("Ya existe una salida registrada con el nombre: " + nombreSalida);
     		}
     	}
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+		EntityManager em = emf.createEntityManager();
 		Query query = em.createQuery("SELECT s FROM Salida s WHERE s.nombre = '" + nombreSalida + "'");
 		try {
 			query.getSingleResult();
@@ -98,6 +102,8 @@ public class ManejadorActividad {
 		} catch (NoResultException e) {
 			;
 		}
+		em.close();
+		emf.close();
 	}
 	
 	public String obtenerNomActvidiadDeSalida(String salida) throws SalidasNoExisteException {
@@ -108,12 +114,16 @@ public class ManejadorActividad {
 			}
 		}
 		if (res == null) {
+    		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+    		EntityManager em = emf.createEntityManager();
 			Query query = em.createQuery("SELECT a.nombre FROM Actividad a, Salida s WHERE s.nombre = '" + salida + "' and a.id = s.id_actividad");
 			try {
 				res = (String) query.getSingleResult();
 			} catch (NoResultException e) {
 				throw new SalidasNoExisteException("No existe una salida con nombre" + salida);
 			}
+    		em.close();
+    		emf.close();
 		}
 		return res;
 	}
@@ -128,6 +138,8 @@ public class ManejadorActividad {
 		prov.finalizarAct(nomAct);
 		Set<Turista> turistas = act.finalizarAct();
 		// comienza la persistencia en la base
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+		EntityManager em = emf.createEntityManager();
 		Query queryProv = em.createQuery("SELECT p FROM Proveedor p WHERE p.nickname = '" + prov.getNickname() + "'");
 		boolean perProv = false;
 		try {
@@ -154,6 +166,8 @@ public class ManejadorActividad {
 		}
 		em.persist(act);
 		tx.commit();
+		em.close();
+		emf.close();
 		actsFinalizadas.add(nomAct);
 	}
 	

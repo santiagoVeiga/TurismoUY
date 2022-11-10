@@ -2,6 +2,7 @@ package logica;
 
 import java.sql.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import excepciones.ActividadNoExisteException;
@@ -24,6 +25,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorUsuario;
 
@@ -34,6 +36,16 @@ public class Prueba {
 		EntityManager em = emf.createEntityManager();
 		em.close();
 		emf.close();
+		
+//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+//    	EntityManager em = emf.createEntityManager();
+//    	Query query = em.createQuery("SELECT a FROM Actividad a JOIN a.proveedor p WHERE p.nickname = :nick");
+//    	query.setParameter("nick", "eldiez");
+//    	List<Actividad> listaCG = query.getResultList();
+//    	System.out.println(listaCG.size());
+//		em.close();
+//		emf.close();
+//		
 //		Fabrica fab = Fabrica.getInstance();
 //		IControladorAlta iConAlta = fab.getIControladorAlta();
 //		IControladorInsc iConInsc = fab.getIControladorInsc();
