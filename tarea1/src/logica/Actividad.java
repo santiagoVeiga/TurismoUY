@@ -33,7 +33,7 @@ public class Actividad {
 	private Departamento departamento;
 	@ManyToOne
 	@JoinColumn(name="id_proveedor", nullable = false)
-	private Proveedor provedoor;
+	private Proveedor proveedor;
 	private String nombreDepartamento;
     @JoinColumn(name="id_actividad", nullable = false)
     @OneToMany(cascade = CascadeType.PERSIST)
@@ -152,11 +152,11 @@ public class Actividad {
 	}
 
 	public Proveedor getProveedor() {
-		return provedoor;
+		return proveedor;
 	}
 
 	public void setProveedor(Proveedor prov) {
-		this.provedoor = prov;
+		this.proveedor = prov;
 	}
 
 	public void setId(int id) {
