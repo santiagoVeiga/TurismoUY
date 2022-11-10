@@ -103,15 +103,17 @@ public class Proveedor extends Usuario {
     		Actividad act = entry.getValue();
     		dAct.add(act.getDataAT());
     	}
-    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-    	EntityManager em = emf.createEntityManager();
-    	Query query = em.createQuery("SELECT a FROM Actividad a JOIN a.proveedor p WHERE p.nickname = :nick");
-    	query.setParameter("nick", this.getNickname());
-    	List<Actividad> listaActs = query.getResultList();
-    	em.close();
-    	emf.close();
-    	for (Actividad acts : listaActs) {
-    		dAct.add(acts.getDataAT());
+    	if (this.actividadesPersistir.size() != 0) {
+        	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+        	EntityManager em = emf.createEntityManager();
+        	Query query = em.createQuery("SELECT a FROM Actividad a JOIN a.proveedor p WHERE p.nickname = :nick");
+        	query.setParameter("nick", this.getNickname());
+        	List<Actividad> listaActs = query.getResultList();
+        	em.close();
+        	emf.close();
+        	for (Actividad acts : listaActs) {
+        		dAct.add(acts.getDataAT());
+        	}
     	}
     	DataProveedor dProv = new DataProveedor(getNickname(), getNombre(), getApellido(), getMail(), getNacimiento(), descripcion, link, dAct, getPassword(), this.getSeguidores().keySet(), this.getSeguidos().keySet());
     	return dProv;
