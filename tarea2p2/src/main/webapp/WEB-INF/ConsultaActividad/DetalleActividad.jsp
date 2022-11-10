@@ -36,16 +36,11 @@
 	   }
 	     %>
    	
-   	<%boolean esMovil = (boolean) session.getAttribute("esMovil"); 
    	
-   	if (!esMovil){%>
-	    <!-- Page Preloder -->
 	    <div id="preloder">
 	        <div class="loader"></div>
 	    </div>
-	 
-	    <!-- Header -->
-	    <jsp:include page="/WEB-INF/template/header.jsp"/>
+	 	 <jsp:include page="/WEB-INF/template/header.jsp"/>
 	    
 	    <!-- Hero Section Begin -->
 	    <section class="hero">
@@ -53,7 +48,9 @@
 	            <div class="row">
 	                <div class="col-lg-3">
 	                    <div class="row">
-	                    	
+	 <%boolean esMovil = (boolean) session.getAttribute("esMovil"); 
+   	
+   	if (!esMovil){%>                   	
 	<div class="hero__perfil">
 	<% if (usr == null) {%>
 		<ul>
@@ -95,10 +92,10 @@
 	<%} %>
 	                        <jsp:include page="/WEB-INF/template/dptosCats.jsp"/>
 	                        
-	             <%    if(!esMovil){   %>   
+	             <%if(!esMovil){%>   
 	                    </div>
 	                </div>
-	                <%} %>
+	                <%}%>
 	                
 	                
 	                <!-- Actividades -->
@@ -110,15 +107,24 @@
 	                    		%>
 	                        <div class="card-header"><p><%=actividadSeleccionada.getNombre()%></p></div>
 	                        <div class="card-body text-dark">
+	                            
+	                            <%if(!esMovil){ %>
 	                            <div style="display: flex; justify-content: space-around; padding-bottom: 20px;">
 	                                <p style="color: black; "><%=actividadSeleccionada.getDescripcion()%></p>
 	                                
 	                                <img src="/tarea2p2/Imagenes?id=<%= actividadSeleccionada.getImagen() %>" style="height: 100px; border-radius: 5px; " alt="<%= actividadSeleccionada.getImagen() %>">
 	                                
 	                            </div>
+	                            <%}else{ %>
+	                            <div style=" justify-content: space-around; padding-bottom: 20px;">
+	                                <p style="color: black; "><%=actividadSeleccionada.getDescripcion()%></p>
+	                                
+	                                <img src="/tarea2p2/Imagenes?id=<%= actividadSeleccionada.getImagen() %>" style="height: 100px; border-radius: 5px; " alt="<%= actividadSeleccionada.getImagen() %>">
+	                                
+	                            </div>
+	                            <%}%>
 	                            <table class="table">
 								  <thead>
-							
 								  </thead>
 								  <tbody>
 								    <tr>
@@ -170,12 +176,12 @@
 	                            <%}%>
 								  </tbody>
 								</table>
-	                            <%
-				                    if (usr != null && usr instanceof DataTurista && actividadSeleccionada.getEstado()!=EstadoAct.finalizada){
+	                            <%	DataTurista tur = (DataTurista) usr;
+				                    if (usr != null && usr instanceof DataTurista && tur.getActFavoritas()!=null && actividadSeleccionada.getEstado()!=EstadoAct.finalizada){
 				                    	%>
 				                    <form action="AgregarFavs" method="POST">
 				                    	<%
-				                    	DataTurista tur = (DataTurista) usr;
+				                    	
 				                    	String[] favoritas = tur.getActFavoritas();
 				                    	String auxFavs = null;
 				                    	boolean flag = false ; 
@@ -199,21 +205,16 @@
 	                            <% DataSalida[] arrSalidas = actividadSeleccionada.getSalidas(); %>
 	                            <% String[] paquetes = actividadSeleccionada.getPaquetes(); %> <!-- se usa para algo? -->
 	                            
+	                            
+	                            
+	                            <%if(!esMovil){ %>
 	                            <div style="display: flex; justify-content:center; align-items: center;">
 	                                <a style="margin-right:22%; margin-top: 15px; ">Salidas</a>
 	                       			<a style="margin-left:25%; margin-top: 15px; ">Paquetes</a>
 	                            </div>
 	                            <div
 	                                style="padding-top:20px ; margin-right: 50px; margin-left: 50px; display: flex; justify-content: space-between;">
-	                                
-	                                
 	                                <% if (actividadSeleccionada.getSalidas().length > 0){%>
-	                                 
-	                                <!--< DataSalida[] arrSalidas = Salidas.toArray(new DataSalida[Salidas.size()]);%> -->
-	                                
-	                               
-	                                
-	                                
 	                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
 	                                    style="margin-right: 70px;">
 	                                    <div class="carousel-inner">
@@ -228,10 +229,7 @@
 	                                                </div>
 	                                            </a>     
 	                                        </div>
-	                                        
-	                                        
 	                                       <% for(int i=1; i<arrSalidas.length; i++) { %>
-	                                       
 	                                        <div class="carousel-item">
 	                                            <a href="/tarea2p2/ConsultaSalida?salida=<%=arrSalidas[i].getNombre()%>">  
 	                                                <div class="card" style="width: 18rem;">
@@ -244,7 +242,6 @@
 	                                        </div>
 	                                    	<%}%>
 	                                       </div>
-	                                    
 	                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
 	                                        data-slide="prev">
 	                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -256,10 +253,7 @@
 	                                        <span class="sr-only">Next</span>
 	                                    </a>
 	                                </div>
-	                                    
 	                                    <%}else {%>
-	                                  
-	                                
 	                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
 	                                    style="margin-left: 70px;">
 	                                    <div class="carousel-inner">
@@ -287,19 +281,9 @@
 	                                        <span class="sr-only">Next</span>
 	                                    </a>
 	                                </div>
-	                                
 	                                <%}%>
-	                                    
-	                                 
-	                                
-	                                
 	                                <% if (actividadSeleccionada.getPaquetes().length>0){ %>
-	                                
-	                                
-	                                
 	                                <% DataPaquete[] arrayPaquetes = (DataPaquete[]) request.getAttribute("ArrayPaquetes"); %>
-	                                
-	                                
 	                                <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
 	                                    style="margin-left: 70px;">
 	                                    <div class="carousel-inner">
@@ -322,7 +306,6 @@
 	                                                </div>
 	                                            </a>
 	                                        </div>
-	                                        
 	                                        <% for(int i=1; i<arrayPaquetes.length; i++) { %>
 		                                        <div class="carousel-item">
 		                                            <a href="/tarea2p2/ConsultaPaquete?paquete=<%=arrayPaquetes[i].getNombre()%>">  
@@ -341,9 +324,6 @@
 		                                            </a>
 		                                        </div>
 	                                        <%}%>
-	                                        
-	                                        
-	                                        
 	                                    </div>
 	                                    <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
 	                                        data-slide="prev">
@@ -357,16 +337,10 @@
 	                                    </a>
 	                                </div>
 	                                <%}else{ %>
-	                                
-	                                
-	                                
-	                                
 	                                <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
 	                                    style="margin-left: 70px;">
 	                                    <div class="carousel-inner">
-	                                        
 	                                        <div class="carousel-item active">
-	                                         
 	                                                <div class="card" style="width: 18rem;">
 	                                                    <img class="card-img-top"
 	                                                        src="https://www.esteba.com/214374-large_default/melamina-mdf-perfectsense-blanco-alpino-laca.jpg"
@@ -379,9 +353,7 @@
 	                                                   <%}%>
 	                                                    </div>
 	                                                </div>
-	                                           
 	                                        </div>
-	                                       
 	                                    </div>
 	                                    <a class="carousel-control-prev" href="#carouselExampleControls2" role="button"
 	                                        data-slide="prev">
@@ -394,10 +366,43 @@
 	                                        <span class="sr-only">Next</span>
 	                                    </a>
 	                                </div>
-	                                
-	                                <%} %>
-	                                
+	                                <%}%>
 	                            </div>
+	                            <%}else{ %>
+	                           	<div style="text-align:center">
+	                           	
+	                           	<ul>
+        						<li>SALIDAS</li>
+        							<%if(arrSalidas.length>0){
+        							for(int i=0; i<arrSalidas.length ; i++){ %>
+	        						<li><a href="/tarea2p2/ConsultaSalida?salida=<%=arrSalidas[i].getNombre()%>"><%=arrSalidas[i].getNombre()%></a></li>
+							        <%}}else{%>
+							        <li>no hay salidas</li>
+							        <%}%>
+    							</ul>
+    							
+    							<ul>
+    							
+        						<li>PAQUETES</li>
+        							<%if(paquetes.length>0){
+        							for(int i=0; i<paquetes.length ; i++){ %>
+	        						<li><a href="/tarea2p2/ConsultaPaquete?paquete=<%=paquetes[i]%>"> <%=paquetes[i]%></a></li>
+							        <%}}else{%>
+							        <li>no hay paquetes</li>
+							        <%}%>
+    							</ul>
+	                           	
+	                           	
+	                           	
+	                           	
+	                           	
+	                           	
+	                           	
+	                       
+	                           	</div>
+	                            <%}%>
+	                            
+	                           
 	                        </div>
 	                    </div>
 	                </div>
