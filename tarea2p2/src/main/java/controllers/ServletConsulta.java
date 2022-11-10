@@ -27,6 +27,7 @@ import servidor.SalidasNoExisteException;
 import servidor.UsuarioNoExisteException;
 import logica.CompAnioDataBuscar;
 import logica.CompNomDataBuscar;
+import logica.DataCompraGeneral;
 import servidor.DataActividad;
 import servidor.DataBuscar;
 import servidor.DataDepartamento;
@@ -39,7 +40,7 @@ import servidor.EstadoAct;
 /**
  * Servlet implementation class Home
  */
-@WebServlet (urlPatterns={"/ConsultaUsuario", "/ConsultaActividad", "/ConsultaSalida", "/ConsultaPaquete", "/perteneceNick", "/perteneceEmail", "/perteneceAct", "/perteneceSal", "/buscar"})
+@WebServlet (urlPatterns={"/ConsultaUsuario","/DescargarPDF",  "/ConsultaActividad", "/ConsultaSalida", "/ConsultaPaquete", "/perteneceNick", "/perteneceEmail", "/perteneceAct", "/perteneceSal", "/buscar"})
 
 public class ServletConsulta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -248,6 +249,64 @@ public class ServletConsulta extends HttpServlet {
                     }
                     resp.getWriter().write(text1);
                     break;
+    		    /*case "/DescargarPDF":
+                    
+                    DataUsuario dataU;
+                    DataSalida dataS;
+                    DataActividad dataA;
+                    DataCompraGeneral dataCG = null;
+                    
+                    String usuario2 = (String) req.getParameter("Usuario");
+                    String salida2 = (String) req.getParameter("Salida");
+                    String actividad2 = port.obtenerNomActPorSalida(salida2);
+                    
+                    
+                    dataU = port.obtenerDataUsuarioNick(usuario2);
+                    dataA = port.obtenerDataActividad(actividad2);
+                    dataS = port.obtenerDataSalida(salida2);
+                    
+                    DataCompraGeneral[] arrDataCG = ((DataTurista) dataU).getInscripcionesSal();
+                    
+                    for (int i = 0; i < arrDataCG.length; i++) {
+                        if(arrDataCG[i].getSalida().equals(dataS)) {
+                            dataCG = arrDataCG[i];
+                            break;
+                        }
+                    }
+                    
+                    com.itextpdf.text.Document documento;
+                    FileOutputStream archivo;
+                    com.itextpdf.text.Paragraph titulo;
+                    
+                    documento = new com.itextpdf.text.Document();
+                    
+                    titulo = new com.itextpdf.text.Paragraph("Iscripcion a " + salida2);
+                    
+                    try {
+                        archivo = new FileOutputStream("IscripcionSalida");
+                        com.itextpdf.text.pdf.PdfWriter.getInstance(documento, archivo);
+                        documento.open();
+                        titulo.setAlignment(1);
+                        documento.add(titulo);
+                        documento.add(new com.itextpdf.text.Paragraph("El " + usuario2 + " se inscribio a la salida " + salida2 + " el dia " + dataCG.getFecha().get(Calendar.DATE)   + " del mes " + (dataCG.getFecha().get(Calendar.MONTH)+1)   +" del anio " + dataCG.getFecha().get(Calendar.YEAR)   ));
+                        documento.add(new com.itextpdf.text.Paragraph(salida2 + " Corresponde a la Actividad " + actividad2));
+                        documento.add(new com.itextpdf.text.Paragraph(salida2 + " tiene " + dataCG.getCantidad() + " personas inscriptos"));
+                        documento.close();
+                        
+                        
+                    } catch(FileNotFoundException e) {
+                        System.out.println(e.getMessage());
+                    } catch(com.itextpdf.text.DocumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    
+                    
+                    
+                    //req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/Salir.pdf").forward(req, resp);
+                    
+                    
+                    break;
+*/
     			case "/ConsultaUsuario":
     				String usuario = (String) req.getParameter("nick");
     				if (usuario == null) {
