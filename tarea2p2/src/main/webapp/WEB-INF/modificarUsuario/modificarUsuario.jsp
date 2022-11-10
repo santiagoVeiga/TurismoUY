@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataSalida,java.util.Set,logica.DataPaquete,logica.DataActividad,controllers.EstadoSesion" %>
+<%@page import="java.util.Base64,servidor.DataUsuario,servidor.DataTurista,servidor.DataProveedor,servidor.DataSalida,java.util.Set,servidor.DataPaquete,servidor.DataActividad,controllers.EstadoSesion" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -62,7 +62,7 @@
                         </div>
                       </div>
                       <div class="row">
-                      <%String imagen = Base64.getEncoder().encodeToString(usuario.getImagen());
+                      <%
                       	String tipoUsuario;
                       	if(usuario instanceof DataProveedor){
                             	tipoUsuario = "Proveedor";
@@ -71,7 +71,7 @@
                         }%>
                       	<div class="blog__details__author">
                           <div class="blog__details__author__pic">
-                              <img src="data:image/jpg;base64,<%= imagen %>" alt="">                                   
+                          	<img src="/tarea2p2/Imagenes?id=<%= usuario.getImagen() %>" alt="<%= usuario.getImagen() %>"> 
                           	</div>
                           	<div class="blog__details__author__text">
                               	<h6><%=usuario.getNick()%></h6>
