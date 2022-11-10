@@ -121,8 +121,8 @@ public class ControladorConsulta implements IControladorConsulta {
 	public List<DataVisitas> diezMasVisitadas() {
 		List<DataVisitas> aux = new ArrayList<DataVisitas>();
 		ManejadorActividad mAct = ManejadorActividad.getInstance();
+		DataUsuario[] auxi = listarUsuarios();
 		for (DataActividad iter : mAct.getDAct()) {
-			DataUsuario[] auxi = listarUsuarios();
 			int cont = 0;
 			boolean bandera = false;
 			while (cont<auxi.length && !bandera) {
