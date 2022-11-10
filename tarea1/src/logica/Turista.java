@@ -126,16 +126,18 @@ public class Turista extends Usuario{
     		dComGen.add(compraGen.getDataCompraGeneral());
     		dSal.add(compraGen.getSalida().getDataST());
     	}
-    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-    	EntityManager em = emf.createEntityManager();
-    	Query query = em.createQuery("SELECT cg FROM CompraGeneral cg JOIN cg.turista t WHERE t.nickname = :nick");
-    	query.setParameter("nick", this.getNickname());
-    	List<CompraGeneral> listaCG = query.getResultList();
-    	em.close();
-    	emf.close();
-    	for (CompraGeneral compG : listaCG) {
-    		dComGen.add(compG.getDataCompraGeneral());
-    		dSal.add(compG.getSalida().getDataST());
+    	if (this.salidasCGFinalizadas.size() != 0) {
+        	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+        	EntityManager em = emf.createEntityManager();
+        	Query query = em.createQuery("SELECT cg FROM CompraGeneral cg JOIN cg.turista t WHERE t.nickname = :nick");
+        	query.setParameter("nick", this.getNickname());
+        	List<CompraGeneral> listaCG = query.getResultList();
+        	em.close();
+        	emf.close();
+        	for (CompraGeneral compG : listaCG) {
+        		dComGen.add(compG.getDataCompraGeneral());
+        		dSal.add(compG.getSalida().getDataST());
+        	}
     	}
     	for (CompraPaquete compPaq: comprasP.values())
     		dComPaq.add(compPaq.getDataCompraPaquete());
