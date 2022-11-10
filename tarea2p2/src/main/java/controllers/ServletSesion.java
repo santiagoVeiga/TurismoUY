@@ -133,6 +133,20 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     } else {
     	switch (solicitud) {
     		case "/home":
+    		   // HttpSession session = req.getSession();
+    		   // boolean esMovil = (boolean) session.getAttribute("esMovil");
+    		    //if(session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO && esMovil){
+    	    
+    		     //.sendRedirect("/WEB-INF/home/iniciarMovil.jsp");
+    	    
+    	
+    	    
+    	    
+    	    
+    	    
+    	    
+    	
+    	//}else{
     		    String act = (String) req.getParameter("actividad");
     		    if (act != null) {
     		        ses.setAttribute("actividad_inicio", act);
@@ -263,6 +277,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     		case "/sesionCerrada":
     			break;
     	}
+    	//}
     }
 }
 
