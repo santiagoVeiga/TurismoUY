@@ -542,7 +542,7 @@ public class ServletAlta extends HttpServlet {
                             // TODO Auto-generated catch block
                         }
                         req.getRequestDispatcher("/ConsultaUsuario?nick="+usuario.getNick()).forward(req, resp);
-                    }catch (ParseException e){
+                    }catch (ParseException | servidor.IOException e){
                         // TODO Auto-generated catch block
                     }
     				break;

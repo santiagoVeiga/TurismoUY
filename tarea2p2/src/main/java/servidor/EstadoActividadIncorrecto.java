@@ -7,7 +7,7 @@
 
 package servidor;
 
-public class EstadoActividadIncorrecto  extends org.apache.axis.AxisFault  implements java.io.Serializable {
+public class EstadoActividadIncorrecto  extends servidor.Exception  implements java.io.Serializable {
     private java.lang.String message1;
 
     public EstadoActividadIncorrecto() {

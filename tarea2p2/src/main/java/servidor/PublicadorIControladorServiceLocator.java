@@ -14,6 +14,7 @@ public class PublicadorIControladorServiceLocator extends org.apache.axis.client
     }
 
 
+
     public PublicadorIControladorServiceLocator(org.apache.axis.EngineConfiguration config) {
         super(config);
     }
