@@ -513,6 +513,48 @@ public class ControladorAlta implements IControladorAlta {
             }
             imagenes.put(Integer.toString(i), imgBytes);
         }
+        for (int i=11; i<=14; i++ ) {
+        	if (i!=12) {
+	            BufferedImage img = ImageIO.read(new File("./src/data/Salidas/s"+String.valueOf(i)+".jpg"));
+	            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	            ImageIO.write(img, "jpg", baos);
+	            byte[] imgBytes = baos.toByteArray();
+	            if (imgBytes.length == 0) {
+	                img = null;
+	                baos = new ByteArrayOutputStream();
+	                img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
+	                ImageIO.write(img, "jpg", baos);
+	                imgBytes = baos.toByteArray();
+	            }
+	            imagenes.put(Integer.toString(i), imgBytes);
+        	}
+        }
+        for (int i=16; i<=17; i++ ) {
+            BufferedImage img = ImageIO.read(new File("./src/data/Salidas/s"+String.valueOf(i)+".jpg"));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(img, "jpg", baos);
+            byte[] imgBytes = baos.toByteArray();
+            if (imgBytes.length == 0) {
+                img = null;
+                baos = new ByteArrayOutputStream();
+                img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
+                ImageIO.write(img, "jpg", baos);
+                imgBytes = baos.toByteArray();
+            }
+            imagenes.put(Integer.toString(i), imgBytes);
+        }
+        BufferedImage img = ImageIO.read(new File("./src/data/Salidas/s19.jpg"));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(img, "jpg", baos);
+        byte[] imgBytes = baos.toByteArray();
+        if (imgBytes.length == 0) {
+            img = null;
+            baos = new ByteArrayOutputStream();
+            img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
+            ImageIO.write(img, "jpg", baos);
+            imgBytes = baos.toByteArray();
+        }
+        imagenes.put(Integer.toString(19), imgBytes);
 		cargarSalidas(reader, imagenes);
 		Fabrica fabr = Fabrica.getInstance();
 		IControladorInsc conIns = fabr.getIControladorInsc();
