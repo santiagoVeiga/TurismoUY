@@ -1,9 +1,11 @@
 package manejadores;
 
 import java.sql.Date;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -37,6 +39,11 @@ public class ManejadorActividad {
 	private ManejadorActividad() {
     	colAct = new HashMap<String, Actividad>();
     	actsFinalizadas = new HashSet<String>();
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createQuery("SELECT a.nombre FROM Actividad a");
+		List<String> nomActsFin = query.getResultList();
+		Collections.addAll(actsFinalizadas, nomActsFin.toArray(new String[0]));
     }
 
     public static ManejadorActividad getInstance() {
@@ -73,7 +80,8 @@ public class ManejadorActividad {
     	} else if (this.actsFinalizadas.contains(nom)) {
     		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
     		EntityManager em = emf.createEntityManager();
-    		Query query = em.createQuery("SELECT a FROM Actividad a WHERE a.nombre = '" + nom + "'");
+    		Query query = em.createQuery("SELECT a FROM Actividad a WHERE a.nombre = :nom");
+    		query.setParameter("nom", nom);
     		try {
     			resultado = (Actividad) query.getSingleResult();
     		} catch (NoResultException e) {
@@ -95,7 +103,8 @@ public class ManejadorActividad {
     	}
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
 		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("SELECT s FROM Salida s WHERE s.nombre = '" + nombreSalida + "'");
+		Query query = em.createQuery("SELECT s FROM Salida s WHERE s.nombre = :nom");
+		query.setParameter("nom", nombreSalida);
 		try {
 			query.getSingleResult();
 			throw new SalidaYaExisteExeption("Ya existe una salida registrada con el nombre: " + nombreSalida);
@@ -116,7 +125,8 @@ public class ManejadorActividad {
 		if (res == null) {
     		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
     		EntityManager em = emf.createEntityManager();
-			Query query = em.createQuery("SELECT a.nombre FROM Actividad a, Salida s WHERE s.nombre = '" + salida + "' and a.id = s.id_actividad");
+			Query query = em.createQuery("SELECT a.nombre FROM Actividad a join a.salidasPersistir WHERE s.nombre = :nom");
+			query.setParameter("nom", salida);
 			try {
 				res = (String) query.getSingleResult();
 			} catch (NoResultException e) {
@@ -140,7 +150,8 @@ public class ManejadorActividad {
 		// comienza la persistencia en la base
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
 		EntityManager em = emf.createEntityManager();
-		Query queryProv = em.createQuery("SELECT p FROM Proveedor p WHERE p.nickname = '" + prov.getNickname() + "'");
+		Query queryProv = em.createQuery("SELECT p FROM Proveedor p WHERE p.nickname = :provNom");
+		queryProv.setParameter("provNom", prov.getNickname());
 		boolean perProv = false;
 		try {
 			queryProv.getSingleResult();
@@ -149,12 +160,13 @@ public class ManejadorActividad {
 		}
 		Query queryTur = null;
 		for (Turista iter : turistas) {
-			queryTur = em.createQuery("SELECT t FROM Turista t WHERE t.nickname = '" + iter.getNickname() + "'");
+			queryTur = em.createQuery("SELECT t FROM Turista t WHERE t.nickname = :turNom");
+			queryProv.setParameter("turNom", iter.getNickname());
 			try {
 				queryTur.getSingleResult();
 				turistas.remove(iter);
 			} catch (NoResultException e) {
-				
+				;
 			}
 		}
 		EntityTransaction tx = em.getTransaction();
