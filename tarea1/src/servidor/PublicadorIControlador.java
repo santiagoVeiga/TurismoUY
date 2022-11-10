@@ -154,7 +154,7 @@ public class PublicadorIControlador {
     
     @WebMethod
     public void confirmarAltaTurista(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String pass) throws UsuarioRepetidoException{
-    	conAlta.confirmarAltaTurista(nick, nom, apellido, mail, nacimiento, nacionalidad, pass);
+    	conAlta.confirmarAltaTurista(nick, nom, apellido, mail, nacimiento, nacionalidad, pass, null);
     }
     
     @WebMethod
@@ -164,7 +164,7 @@ public class PublicadorIControlador {
     
     @WebMethod
     public  void confirmarAltaProveedor(String nick, String nom , String apellido, String mail , Date nacimiento , String nacionalidad, String link, boolean hayLink, String pass) throws UsuarioRepetidoException{
-    	conAlta.confirmarAltaProveedor(nick, nom, apellido, mail, nacimiento, nacionalidad, link, hayLink, pass);
+    	conAlta.confirmarAltaProveedor(nick, nom, apellido, mail, nacimiento, nacionalidad, link, hayLink, pass, null);
     }
 
     @WebMethod
