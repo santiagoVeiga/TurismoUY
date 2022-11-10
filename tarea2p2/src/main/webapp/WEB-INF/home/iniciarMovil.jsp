@@ -36,7 +36,7 @@
     }
       %>
     <!-- Hero Section Begin -->
-    <section class="hero">
+    <section class="hero" > 
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
@@ -46,8 +46,8 @@
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <div class="row">
-                    	<span> <%= "Bienvenid@ " + usr.getNombre() %> </span>             
+                    <div class="row" >
+                    	<span style="text-align:center;"> <%= "Bienvenid@ " + usr.getNombre() %> </span>             
                     </div>
                 </div>
             </div>

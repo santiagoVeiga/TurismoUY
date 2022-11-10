@@ -92,9 +92,9 @@
         </div>
     </header>
     <!-- Header Section End -->
-    <%} else { %>
+    <%} else { %><!-- --------------------------------------- -->
         <!-- Header Section Begin -->
-    <header class="header">
+    <header class="header" >
         <div class="container">
             <div class="row">
                 <div class="col-lg-1">
@@ -103,22 +103,20 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
-                	<div class="row float-right">
-                        <div class="header__top__right__Usu" style="cursor: pointer;">
-                            <span><img src="/tarea2p2/Imagenes?id=<%= usr.getImagen() %>" alt="<%= usr.getImagen() %>"> &nbsp; <%= usr.getNombre() %> <%= usr.getApellido() %></span>
+                	
+                        <div class="header__top__right__Usu" style="cursor: pointer;display: flex;flex-direction: row-reverse;">
+                        	<a href="/tarea2p2/cerrarSesion" style="background-color: grey ; border-radius:10px;text-align:center; ">Cerrar Sesion</a>
+                            <span><img src="/tarea2p2/Imagenes?id=<%= usr.getImagen() %>" style="border-radius: 5px;" alt="<%= usr.getImagen() %>"> &nbsp; <%= usr.getNombre() %> <%= usr.getApellido() %></span>
                         </div>
-                    </div>
-                    <div class="row float-right">
-                    	<div class="header__top__right__csesion ">
-                           	<a href="/tarea2p2/cerrarSesion"> Cerrar Sesion</a>
-                        </div>
-                    </div>
+                   
+
                 </div>
             </div>
             <div class="humberger__open">
                 <i class="fa fa-bars"></i>
             </div>
         </div>
+        <div style="border-top: 1px solid black;height: 2px;max-width: 900px;padding: 0;margin: 20px auto 0 auto;"></div>
     </header>
     <!-- Header Section End -->
     <% }%>
