@@ -26,6 +26,7 @@ import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.DataSalida;
 import logica.IControladorConsulta;
+import logica.estadoAct;
 
 /**
  * JInternalFrame que permite consultar la información de un usuario del sistema.
@@ -441,7 +442,7 @@ public void cargarSalidas(){
 public void cargarPaquetes() {
 	DefaultComboBoxModel<String> model;
 	try {
-		if (actElegida.getPaquetes().size() == 0) {
+		if (actElegida.getEstado() == estadoAct.finalizada || actElegida.getPaquetes().size() == 0) {
 			throw new PaqueteNoExisteException("No hay paquetes asociadas a dicha Actividad");
 		}
 		nombresPaq = actElegida.getPaquetes().toArray(new String[0]);
@@ -456,7 +457,12 @@ public void cargarPaquetes() {
 
 public void cargarCategorias() {
 	DefaultComboBoxModel<String> model;
-	nombresCat = actElegida.getCategorias().toArray(new String[0]);
+	if (actElegida.getEstado() != estadoAct.finalizada)
+		nombresCat = actElegida.getCategorias().toArray(new String[0]);
+	else {
+		nombresCat = new String[1];
+		nombresCat[0] = "No hay categorias debido a que es una actividad finalizada";
+	}
 	categoriasL.setVisible(true);
 	jcbCategorias.setVisible(true);
 	model = new DefaultComboBoxModel<String>(nombresCat);

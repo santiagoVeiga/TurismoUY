@@ -58,13 +58,6 @@ public class Prueba {
 //			Date inscDate = new Date(3,0,0);
 //			iConInsc.inscribir("TurNick", "SalNombre", 1, inscDate, "ActNombre");
 //			iConInsc.finalizarActividad("ActNombre", "ProvNick");
-//			iConInsc.finalizarActividad("ActNombre2", "ProvNick");
-//			iConInsc.finalizarActividad("ActNombre3", "ProvNick");
-//			try {
-//				iConAlta.confirmarAltaSalida("ActNombre2", "SalNombre2", salDate2, salDateH, "SalLugar", 5, salDate);
-//			} catch (SalidaYaExisteExeption e1) {
-//				System.out.println(e1.getMessage());
-//			}
 //		} catch (DepartamentoYaExisteExeption | UsuarioRepetidoException | CategoriaYaExiste | ActividadRepetidaException | UsuarioNoExisteException | ProveedorNoNacidoException | SalidaYaExisteExeption | FechaAltaSalidaInvalida | FechaAltaSalidaAnteriorActividad | TuristaConSalida | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException | InscFechaDespSalida | TuristaNoHaNacido | SalidasVigentesException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();

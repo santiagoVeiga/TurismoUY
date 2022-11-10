@@ -321,7 +321,27 @@
 					                                        <p class="card-text">Fecha:<%=arrDCG[0].getFecha().get(Calendar.DATE) + "/" + (arrDCG[0].getFecha().get(Calendar.MONTH)+1)+ "/" + (arrDCG[0].getFecha().get(Calendar.YEAR)) %></p>
 					                                        <p class="card-text">Cantidad:<%= arrDCG[0].getCantidad() %></p>
 					                                        <p class="card-text">Es de un paquete:<%if(arrDCG[0].isPorPaquete()){%>Si<%}else{%>No<%}%></p> 
-					                                    	<%} %>
+					                                    	<br>
+							                                          
+					                                    	<%}/*
+					                              				    Document doc = new Document();
+					                                                  //String Destino = "Salida.pdf";
+					                                                  
+					                                                  try {
+					                                                      PdfWriter.getInstance(doc, new FileOutputStream("Salida.pdf"));
+					                                                      doc.open();
+					                                                      Phrase p = new Phrase("asdasd");
+					                                                      doc.add(p);
+					                                                      doc.close();
+					                                                  } catch (DocumentException e) {
+					                                                      // TODO Auto-generated catch block
+					                                                      e.printStackTrace();
+					                                                  }
+					                                                      
+					                              				    
+					                              				}
+					                                    	*/
+					                                    	%>
 					                                    </div>
 					                                  </div>
 					                                </div>
@@ -342,12 +362,15 @@
 							                                        <p class="card-text">Costo: <%= arrDCG[i].getCosto() %></p>
 							                                        <p class="card-text">Fecha:<%=arrDCG[i].getFecha().get(Calendar.DATE) + "/" + (arrDCG[i].getFecha().get(Calendar.MONTH)+1)+ "/" + (arrDCG[i].getFecha().get(Calendar.YEAR)) %></p>
 							                                        <p class="card-text">Cantidad:<%= arrDCG[i].getCantidad() %></p>
-							                                        <p class="card-text">Es de un paquete:<%if(arrDCG[i].isPorPaquete()){%>Si<%}else{%>No<%}%></p>                                    
+							                                        <p class="card-text">Es de un paquete:<%if(arrDCG[i].isPorPaquete()){%>Si<%}else{%>No<%}%></p>        
+							                                        <br>
+							                                                                    
 							                                      <%} 
 					                                        %>
 					                                       		 </div>
 							                                    </div>
 							                                 </div>
+							                                 
 							                            
 							                              <%} %>  
 					                              <%
@@ -365,9 +388,10 @@
 							                      %>  					                            
 					                            </div>
 	                                        </div>
-	                                    
-	                                    	
-					                          </div>
+	                                        <br>
+	                                        <button type="button" class="btn btn-light"><a href="/tarea2p2/ConsultaUsuario?nick=@@@PDF@@@" %>Descargar PDF</a></button>
+		                                      
+		                                      </div>
 	                                    
 	                                    </div>
 					      </div>
@@ -455,7 +479,7 @@
 	                                    
 	                                    </div>
 	                                    <br>
-	                                    <button type="button" class="btn btn-light"><a>Descargar PDF</a></button>
+	                                    
 					      </div>
 					    </div> 
                       <%}}
@@ -494,18 +518,19 @@
 					                                      
 					                                      <!-- Finalizar Tarea -->
 					                                       
-					                                      <%if(arrDS[0].getEstado() == EstadoAct.confirmada){%>
+					                                      <%if(arrDS[0].getEstado().equals(EstadoAct.confirmada)){%>
 					                                      	<button type="button" class="btn btn-light"><a href="/tarea2p2/FinalizarActividad=<%=arrDS[0].getNombre()%>">Finalizar Actividad</a></button>
-					                                      <%} %>
+					                                      <%} //asd%>
 					                                      
 					                                      <p align="center" class="card-text">Salidas Asociadas:</p>                              
 				                                    	  
-				                                    	  <%for(int x = 0; x < arrDSA.length; x++) {%>
+				                                    	  <% if(arrDSA!=null){
+				                                    	  for(int x = 0; x < arrDSA.length; x++) {%>
 				                                    	  <a href="/tarea2p2/ConsultaSalida?salida=<%= arrDSA[x].getNombre() %>"> 
 							                                    	   <p align="center" class="card-text" ><%= arrDSA[x].getNombre() %></p>
 							                                    	  </a>
 							                                    	  
-				                                    	  <%} %>
+				                                    	  <%} }//asdasd%>
 				                                    	  
 					                                    </div>
 					                                  </div>
@@ -530,15 +555,17 @@
 							                                        
 							                                        <!-- Finalizar Tarea -->
 							                                        
-							                                        <%if(arrDS[i].getEstado() == EstadoAct.confirmada){%>
+							                                        <%if(arrDS[i].getEstado().equals(EstadoAct.confirmada)){%>
 					                                      				<button type="button" class="btn btn-light"><a href="/tarea2p2/FinalizarActividad?actividad=<%= arrDS[i].getNombre() %>">Finalizar Actividad</a></button>
 					                                      			<%} %>
 							                                        <p align="center" class="card-text">Salidas Asociadas:</p>                                    
-							                                    	<%for(int x = 0; x < arrDSA.length; x++) {%>
+							                                    	<%
+							                                    	if(arrDSA!=null){
+							                                    	for(int x = 0; x < arrDSA.length; x++) {%>
 							                                    	<a href="/tarea2p2/ConsultaSalida?salida=<%= arrDSA[x].getNombre() %>"> 
 							                                    	   <p align="center" class="card-text" ><%= arrDSA[x].getNombre() %></p>
 							                                    	  </a>
-							                                    	  <%} %>
+							                                    	  <%} }%>
 							                                    </div>
 							                                    </div>
 							                                 </div>
@@ -559,7 +586,6 @@
 	                                    
 	                                    </div>
 	                                    <br>
-	                                    <button type="button" class="btn btn-light"><a>Descargar PDF</a></button>
 					      </div>
 					    </div>   
 						      
