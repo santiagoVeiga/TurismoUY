@@ -80,8 +80,8 @@
 			</div>
 		</div>
 		<ul>
-	           <li><a href="/tarea2p2/AltaActividad"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Actividad Turística</a></li>
-	           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Salida Turística</a></li>
+	           <li><a href="/tarea2p2/AltaActividad"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Actividad Turstica</a></li>
+	           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Salida Turstica</a></li>
 	           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
 	          <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
 	          <li><a href="/tarea2p2/ConsultaUsuario"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
@@ -201,7 +201,7 @@
 				                    	if (flag){
 				                    		auxFavs = "Sacar de Favoritas";
 				                    	} else {
-				                    		auxFavs = "Añadir a Favoritas";
+				                    		auxFavs = "Aadir a Favoritas";
 				                    	}
 				                    	%>
 		                   				<input type="hidden" id="nomAct" name="nomAct" value="<%=actividadSeleccionada.getNombre()%>">
@@ -222,7 +222,7 @@
 	                            </div>
 	                            <div
 	                                style="padding-top:20px ; margin-right: 50px; margin-left: 50px; display: flex; justify-content: space-between;">
-	                                <% if (actividadSeleccionada.getSalidas().length > 0){%>
+	                                <% if (actividadSeleccionada.getSalidas()!=null){%>
 	                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
 	                                    style="margin-right: 70px;">
 	                                    <div class="carousel-inner">
@@ -290,7 +290,7 @@
 	                                    </a>
 	                                </div>
 	                                <%}%>
-	                                <% if (actividadSeleccionada.getPaquetes().length>0){ %>
+	                                <% if (actividadSeleccionada.getPaquetes()!=null){ %>
 	                                <% DataPaquete[] arrayPaquetes = (DataPaquete[]) request.getAttribute("ArrayPaquetes"); %>
 	                                <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
 	                                    style="margin-left: 70px;">
