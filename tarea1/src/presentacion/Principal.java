@@ -126,7 +126,7 @@ public class Principal {
     	        //****** SALIDA *********/----------------------------------------------------
     	        creSalInternalFrame = new AltaSalida(conAlta);
     	        creSalInternalFrame.setBounds(146, 0, 456, 423);
-    	        insInternalFrame.getContentPane().add(creSalInternalFrame);
+    	        frmGestionDeUsuarios.getContentPane().add(creSalInternalFrame);
     	        
     	        internalFrame = new masVisit(conCons);
     	        internalFrame.setBounds(68, 0, 694, 408);

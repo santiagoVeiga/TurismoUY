@@ -207,7 +207,7 @@ public class ConsultarActividad extends JInternalFrame {
             	cargarActividades();
             }
         });
-        btnBuscar.setBounds(12, 433, 89, 23);
+        btnBuscar.setBounds(15, 433, 89, 23);
         getContentPane().add(btnBuscar);
         btnBuscar.setVisible(false);
         
