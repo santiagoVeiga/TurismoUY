@@ -428,39 +428,9 @@ public class ServletAlta extends HttpServlet {
 
                     //Si se subió imagen
                     if (fileNueva.getSize() > 0) {
-                        inputNueva = fileNueva.getInputStream();
-                        FileOutputStream outputNueva = null;
-                        try {
-                            File nuevaImgUsr = new File(req.getSession().getServletContext().getRealPath("/") + usuario.getNick() + fileNueva.getSubmittedFileName());
-                            if (nuevaImgUsr.createNewFile())
-                              System.out.println("El fichero se ha creado correctamente");
-                            else
-                              System.out.println("No ha podido ser creado el fichero");
-                            outputNueva = new FileOutputStream(nuevaImgUsr);
-                            int leidoNueva = 0;
-                            leidoNueva = inputNueva.read();
-                            while (leidoNueva != -1) {
-                                outputNueva.write(leidoNueva);
-                                leidoNueva = inputNueva.read();
-                            }
-                            imgBytesNueva = Files.readAllBytes(Paths.get(nuevaImgUsr.getAbsolutePath()));
-                          } catch (IOException ioeAct) {
-                            ioeAct.printStackTrace();
-                          } finally {
-                            try {
-                                outputNueva.flush();
-                                outputNueva.close();
-                                inputNueva.close();
-                            } catch (IOException ex) {
-                                ex.printStackTrace();
-                            }
-                        }
-                        InputStream inSt = new ByteArrayInputStream(imgBytesNueva);
-                        BufferedImage buffIm = ImageIO.read(inSt);
-                        ByteArrayOutputStream outputA = new ByteArrayOutputStream();
-                        ImageIO.write(buffIm, "jpg", outputA);
-                        String imageAsBase64 = Base64.getEncoder().encodeToString(outputA.toByteArray());
-                        session.setAttribute("imagenUsuario", imageAsBase64);
+                        inputStream = fileNueva.getInputStream();
+                        imgBytesNueva = new byte[inputStream.available()];
+                        inputStream.read(imgBytesNueva);
                     }
                     try {
                         
@@ -535,11 +505,10 @@ public class ServletAlta extends HttpServlet {
                             }
                         }
                         req.setAttribute("DataUsuario", usuario);
-                        try {
-                            session.setAttribute("usuario", port.obtenerDataUsuarioNick(usuario.getNick()));
-                        } catch (UsuarioNoExisteException e) {
-                            // TODO Auto-generated catch block
-                        }
+                        DataUsuario dataUsu = port.obtenerDataUsuarioNick(usuario.getNick());
+                        session.setAttribute("usuario", dataUsu);
+                        session.setAttribute("imagenUsuario", null); // revisar esto
+                        
                         req.getRequestDispatcher("/ConsultaUsuario?nick="+usuario.getNick()).forward(req, resp);
                     }catch (ParseException | servidor.IOException e){
                         // TODO Auto-generated catch block
