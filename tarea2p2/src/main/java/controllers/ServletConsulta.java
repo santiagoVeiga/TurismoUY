@@ -135,14 +135,14 @@ public class ServletConsulta extends HttpServlet {
         } else {
     		switch (req.getServletPath()){
     		    case "/buscar":
-    		        String input = req.getParameter("abuscar");
+    		        String input = req.getParameter("abuscar"); 
     		        if (input == null) {
     		            input = (String) session.getAttribute("abuscar");
     		        }
     		        else {
     		            session.setAttribute("abuscar", input);
     		        }
-    		        String[] nPaqs = Arrays.copyOf(port.listarPaquetes(), port.listarPaquetes().length, String[].class);
+    		        String[] nPaqs = Arrays.copyOf(port.listarPaquetes().getArray(), port.listarPaquetes().getArray().length, String[].class);
     		        List<DataBuscar> res = new ArrayList<DataBuscar>();
     		        for (String iter : nPaqs) {
     		            DataPaquete aux = port.obtenerDataPaquete(iter);
@@ -151,7 +151,7 @@ public class ServletConsulta extends HttpServlet {
     		            }
     		        }
     		        try {
-                        DataDepartamento[] deps = Arrays.copyOf(port.obtenerDataDepartamentos(), port.obtenerDataDepartamentos().length, DataDepartamento[].class);
+                        DataDepartamento[] deps = Arrays.copyOf(port.obtenerDataDepartamentos().getArray(), port.obtenerDataDepartamentos().getArray().length, DataDepartamento[].class);
                         for (DataDepartamento iterD : deps) {
                             for (DataActividad iterA : iterD.getColAct()) {
                                 if ((iterA.getNombre().contains(input) || iterA.getDescripcion().contains(input)) && iterA.getEstado() == EstadoAct.confirmada) {
@@ -368,7 +368,7 @@ public class ServletConsulta extends HttpServlet {
     				String usuario = (String) req.getParameter("nick");
     				System.out.println(usuario);
     				if (usuario == null) {
-    					DataUsuario[] usuarios = Arrays.copyOf(port.listarUsuarios(), port.listarUsuarios().length, DataUsuario[].class);
+    					DataUsuario[] usuarios = Arrays.copyOf(port.listarUsuarios().getArray(), port.listarUsuarios().getArray().length, DataUsuario[].class);
     					req.setAttribute("ArregloUsuarios", usuarios);
     					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ListaUsuario.jsp").forward(req, resp);
     				}else 
@@ -421,7 +421,7 @@ public class ServletConsulta extends HttpServlet {
                         } else {
                             String categoria = (String) session.getAttribute("CatConsultaActividad");
                             if (categoria != null) {
-                                actividades = Arrays.copyOf(port.obtenerActividadCategoria(categoria), port.obtenerActividadCategoria(categoria).length, DataActividad[].class);
+                                actividades = Arrays.copyOf(port.obtenerActividadCategoria(categoria).getArray(), port.obtenerActividadCategoria(categoria).getArray().length, DataActividad[].class);
                                 session.setAttribute("CatConsultaActividad", null);
                             }
                         }
@@ -470,7 +470,7 @@ public class ServletConsulta extends HttpServlet {
     			case "/ConsultaPaquete":
     				String paquete = (String) req.getParameter("paquete");
     				if (paquete == null) {
-    					String[] nombresPaq = Arrays.copyOf(port.listarPaquetes(), port.listarPaquetes().length, String[].class);
+    					String[] nombresPaq = Arrays.copyOf(port.listarPaquetes().getArray(), port.listarPaquetes().getArray().length, String[].class);
     					DataPaquete[] dps = new DataPaquete[nombresPaq.length];
     					for (int i=0; i<nombresPaq.length; i++) {
     						dps[i] = port.obtenerDataPaquete(nombresPaq[i]);
