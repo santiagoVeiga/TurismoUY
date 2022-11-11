@@ -205,8 +205,8 @@ public class ServletAlta extends HttpServlet {
                             try {
                                 Calendar date1C = Calendar.getInstance();
                                 date1C.setTime(date1);
-                                port.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, 
-                                        new DataColeccionObject(categoriasAct.toArray(), null), linkVideo, hayVideo);
+                                port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, 
+                                        new DataColeccionObject(categoriasAct.toArray(), null), linkVideo, hayVideo,null);
                                 resp.sendRedirect("/tarea2p2/home");
             
                             } catch (NumberFormatException e2) {
@@ -338,7 +338,6 @@ public class ServletAlta extends HttpServlet {
                     Calendar horaSalidaC = Calendar.getInstance();
                     horaSalidaC.setTime(horaSalida);
                     
-                    // No se esta contrrolando las salidas duplicada
     				//Chequeo imagen cargada
                     InputStream inputStreamSal = null;
                     Part filePartSal = req.getPart("salidaFotos");
