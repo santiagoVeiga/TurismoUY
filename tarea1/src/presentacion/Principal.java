@@ -126,7 +126,7 @@ public class Principal {
     	        //****** SALIDA *********/----------------------------------------------------
     	        creSalInternalFrame = new AltaSalida(conAlta);
     	        creSalInternalFrame.setBounds(146, 0, 456, 423);
-    	        insInternalFrame.getContentPane().add(creSalInternalFrame);
+    	        frmGestionDeUsuarios.getContentPane().add(creSalInternalFrame);
     	        
     	        internalFrame = new masVisit(conCons);
     	        internalFrame.setBounds(68, 0, 694, 408);
@@ -164,7 +164,7 @@ public class Principal {
     	modUsrInternalFrame.setBounds(0, 241, 499, 389);
     	frmGestionDeUsuarios.getContentPane().add(modUsrInternalFrame);
     	        conActInternalFrame = new ConsultarActividad(conCons);
-    	        conActInternalFrame.setBounds(149, 120, 618, 464);
+    	        conActInternalFrame.setBounds(10, 10, 618, 544);
     	        
     	        conActInternalFrame.setVisible(false);
     	        conActInternalFrame.setSalida(consultaSalidaInternalFrame);

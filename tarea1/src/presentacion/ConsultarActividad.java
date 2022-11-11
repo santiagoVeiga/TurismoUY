@@ -87,7 +87,7 @@ public class ConsultarActividad extends JInternalFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
         setTitle("Consultar una Actividad");
-        setBounds(30, 30, 618, 567);
+        setBounds(10, 10, 775, 1297);
 
         // En este caso usaremos el Absolute Layout y deberemos indicar
         // la posición absoluta de todos los componentes
@@ -104,12 +104,12 @@ public class ConsultarActividad extends JInternalFrame {
         
         jcbDepartamentos = new JComboBox<String>();
         jcbDepartamentos.setBounds(253, 16, 320, 24);
-        getContentPane().add(jcbDepartamentos);
         jcbDepartamentos.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent eve) {
         		btnBuscar.setVisible(true);
         	}
         });
+        getContentPane().add(jcbDepartamentos);
         jcbDepartamentos.setVisible(false);
         
         
@@ -207,7 +207,7 @@ public class ConsultarActividad extends JInternalFrame {
             	cargarActividades();
             }
         });
-        btnBuscar.setBounds(12, 433, 89, 23);
+        btnBuscar.setBounds(15, 433, 89, 23);
         getContentPane().add(btnBuscar);
         btnBuscar.setVisible(false);
         
