@@ -378,7 +378,7 @@ public void chequeoAlta() {
 	Date fechaAlta = fechaAltaDatePickerCAMPO.getDate();
 	if (checkFormulario()) {
 		try {
-			controlAlta.confirmarAltaSalida(NombreActividad, NombreSalida, Fecha, Hora, Lugar, Integer.parseInt(maxCantTuristas), fechaAlta);
+			controlAlta.confirmarAltaSalida(NombreActividad, NombreSalida, Fecha, Hora, Lugar, Integer.parseInt(maxCantTuristas), fechaAlta, null);
 			JOptionPane.showMessageDialog(this, "Alta exitosa", "Salida", JOptionPane.INFORMATION_MESSAGE);
 		} catch (SalidaYaExisteExeption e1) {
 			// TODO Auto-generated catch block

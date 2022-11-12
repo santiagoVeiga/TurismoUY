@@ -324,7 +324,7 @@
 					                                        <p class="card-text">Cantidad:<%= arrDCG[0].getCantidad() %></p>
 					                                        <p class="card-text">Es de un paquete:<%if(arrDCG[0].isPorPaquete()){%>Si<%}else{%>No<%}%></p> 
 					                                    	<br>
-							                                          
+							                                          <button type="button" class="btn btn-light"><a href="/tarea2p2/DescargarPDF?Usuario=<%= usr.getNombre() %>&Salida=<%= arrDS[0].getNombre()%>" %>Descargar PDF</a></button>
 					                                    	<%}/*
 					                              				    Document doc = new Document();
 					                                                  //String Destino = "Salida.pdf";
@@ -366,7 +366,8 @@
 							                                        <p class="card-text">Cantidad:<%= arrDCG[i].getCantidad() %></p>
 							                                        <p class="card-text">Es de un paquete:<%if(arrDCG[i].isPorPaquete()){%>Si<%}else{%>No<%}%></p>        
 							                                        <br>
-							                                                                    
+							                                             <button type="button" class="btn btn-light"><a href="/tarea2p2/DescargarPDF?Usuario=<%= usr.getNombre() %>&Salida=<%= arrDS[i].getNombre()%>" %>Descargar PDF</a></button>
+		                                                             
 							                                      <%} 
 					                                        %>
 					                                       		 </div>
@@ -391,8 +392,7 @@
 					                            </div>
 	                                        </div>
 	                                        <br>
-	                                        <button type="button" class="btn btn-light"><a href="/tarea2p2/ConsultaUsuario?nick=@@@PDF@@@" %>Descargar PDF</a></button>
-		                                      
+	                                        
 		                                      </div>
 	                                    
 	                                    </div>
