@@ -186,28 +186,32 @@
 								</table>
 	                            <%	
 				                    if (usr != null && usr instanceof DataTurista && ((DataTurista)usr).getActFavoritas()!=null && actividadSeleccionada.getEstado()!=EstadoAct.finalizada){
+				                    	DataTurista tur = (DataTurista) usr;
+										String[] favoritas = tur.getActFavoritas();
+				                    	if(favoritas != null){
 				                    	%>
 				                    <form action="AgregarFavs" method="POST">
 				                    	<%
-				                    	DataTurista tur = (DataTurista) usr;
-				                    	String[] favoritas = tur.getActFavoritas();
 				                    	String auxFavs = null;
 				                    	boolean flag = false ; 
-				                    	for (int x=0;x<favoritas.length;x++){//checkeo si la actividad esta en las favoritas del turista 
-				                    		if (favoritas[x] == actividadSeleccionada.getNombre()){
+				                    	int y = 0 ; 
+				                    	for (int x=0;x<favoritas.length;x++){//checkeo si la actividad esta en las favoritas del turist 
+				                    		String act = actividadSeleccionada.getNombre();
+				                    		if (favoritas[x].equals(act)){
 				                    			flag = true ; 
+				                    			y = x ; 
 				                    		}
 				                    	}
 				                    	if (flag){
 				                    		auxFavs = "Sacar de Favoritas";
 				                    	} else {
-				                    		auxFavs = "Aadir a Favoritas";
+				                    		auxFavs = "Anadir a Favoritas";
 				                    	}
 				                    	%>
 		                   				<input type="hidden" id="nomAct" name="nomAct" value="<%=actividadSeleccionada.getNombre()%>">
 									    <input type="submit" value="<%= auxFavs %>" onclick="submit()">
 				                    </form>
-				                   <% }
+				                   <% }}
 				                    	%>
 	                            
 	                            <% DataSalida[] arrSalidas = actividadSeleccionada.getSalidas(); %>

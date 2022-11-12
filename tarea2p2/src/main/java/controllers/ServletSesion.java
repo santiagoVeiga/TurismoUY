@@ -131,22 +131,16 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     } else if (nomCat != null) {
         selecCat(req, resp, nomCat);
     } else {
+        HttpSession session = req.getSession();
+        boolean esMovil = (boolean) session.getAttribute("esMovil");
+       
     	switch (solicitud) {
     		case "/home":
-    		   // HttpSession session = req.getSession();
-    		   // boolean esMovil = (boolean) session.getAttribute("esMovil");
-    		    //if(session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO && esMovil){
-    	    
-    		     //.sendRedirect("/WEB-INF/home/iniciarMovil.jsp");
-    	    
-    	
-    	    
-    	    
-    	    
-    	    
-    	    
-    	
-    	//}else{
+    		   
+    		   
+    		    if(session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO && esMovil){
+    		        req.getRequestDispatcher("/WEB-INF/home/iniciarMovil.jsp").forward(req, resp);
+    		    }else{
     		    String act = (String) req.getParameter("actividad");
     		    if (act != null) {
     		        ses.setAttribute("actividad_inicio", act);
@@ -172,6 +166,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
         			ses.setAttribute("categorias", cats);
         			req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
     		    }
+    	}
     			break;
     		case "/iniciarSesion":
     			req.getRequestDispatcher("/WEB-INF/home/iniciarSesion.jsp").forward(req, resp);
@@ -184,7 +179,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     			break;
     		case "/sesionIniciada":
     			DataUsuario[] ususSistema = Arrays.copyOf(port.getUsuariosComp().getArray(), port.getUsuariosComp().getArray().length, DataUsuario[].class); //conAlta.getUsuariosComp();
-    			boolean esMovil = (boolean) ses.getAttribute("esMovil");
+    			//boolean esMovil = (boolean) ses.getAttribute("esMovil");
     			if(!esMovil) {
     			    String nickOrEmail = (String) req.getParameter("emailnick_inicioSesion");
                     for (DataUsuario it : ususSistema) {
