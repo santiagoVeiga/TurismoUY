@@ -356,7 +356,7 @@ public class ControladorInsc implements IControladorInsc {
 					salidasTerminadas = false;
 				}
 			}
-			boolean tienePaquetes = (act.getPaquetes() != null);
+			boolean tienePaquetes = (act.getPaquetes() != null && act.getPaquetes().size() > 0);
 			if (salidasTerminadas && !tienePaquetes) {
 				ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
 				manAct.finalizarAct(nombreActividad, (Proveedor) manUsu.obtenerUsuarioNick(nickProv));

@@ -1,14 +1,22 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,15 +29,28 @@ import javax.xml.rpc.ServiceException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+//import org.apache.pdfbox.pdmodel.font.PDTypelFont;
+
+
+//import com.itextpdf.*;
+//import com.itextpdf.text.Document;
+//import com.itextpdf.text.DocumentException;
+//import com.itextpdf.text.*;
+//import com.itextpdf.text.pdf.PdfWriter;
+
 import servidor.ActividadNoExisteException;
 import servidor.DepartamentoNoExisteException;
 import servidor.SalidasNoExisteException;
 import servidor.UsuarioNoExisteException;
 import logica.CompAnioDataBuscar;
 import logica.CompNomDataBuscar;
-import logica.DataCompraGeneral;
 import servidor.DataActividad;
 import servidor.DataBuscar;
+import servidor.DataCompraGeneral;
 import servidor.DataDepartamento;
 import servidor.DataPaquete;
 import servidor.DataSalida;
@@ -40,7 +61,7 @@ import servidor.EstadoAct;
 /**
  * Servlet implementation class Home
  */
-@WebServlet (urlPatterns={"/ConsultaUsuario","/DescargarPDF",  "/ConsultaActividad", "/ConsultaSalida", "/ConsultaPaquete", "/perteneceNick", "/perteneceEmail", "/perteneceAct", "/perteneceSal", "/buscar"})
+@WebServlet (urlPatterns={"/ConsultaUsuario", "/ConsultaActividad","/DescargarPDF", "/ConsultaSalida", "/ConsultaPaquete", "/perteneceNick", "/perteneceEmail", "/perteneceAct", "/perteneceSal", "/buscar"})
 
 public class ServletConsulta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -114,7 +135,7 @@ public class ServletConsulta extends HttpServlet {
         } else {
     		switch (req.getServletPath()){
     		    case "/buscar":
-    		        String input = req.getParameter("abuscar");
+    		        String input = req.getParameter("abuscar"); 
     		        if (input == null) {
     		            input = (String) session.getAttribute("abuscar");
     		        }
@@ -249,71 +270,110 @@ public class ServletConsulta extends HttpServlet {
                     }
                     resp.getWriter().write(text1);
                     break;
-    		    /*case "/DescargarPDF":
-                    
-                    DataUsuario dataU;
-                    DataSalida dataS;
-                    DataActividad dataA;
-                    DataCompraGeneral dataCG = null;
-                    
-                    String usuario2 = (String) req.getParameter("Usuario");
-                    String salida2 = (String) req.getParameter("Salida");
-                    String actividad2 = port.obtenerNomActPorSalida(salida2);
-                    
-                    
-                    dataU = port.obtenerDataUsuarioNick(usuario2);
-                    dataA = port.obtenerDataActividad(actividad2);
-                    dataS = port.obtenerDataSalida(salida2);
-                    
-                    DataCompraGeneral[] arrDataCG = ((DataTurista) dataU).getInscripcionesSal();
-                    
-                    for (int i = 0; i < arrDataCG.length; i++) {
+    		    case "/DescargarPDF":
+    		        DataUsuario dataU;
+    		        DataSalida dataS;
+    		        DataActividad dataA;
+    		        DataCompraGeneral dataCG = null;
+    		        
+    		        String usuario2 = (String) req.getParameter("Usuario");
+    		        String salida2 = (String) req.getParameter("Salida");
+    		        String actividad2 = port.obtenerNomActPorSalida(salida2);
+    		        
+    		        
+    		        dataU = port.obtenerDataUsuarioNick(usuario2);
+    		        dataA = port.obtenerDataActividad(actividad2);
+    		        dataS = port.obtenerDataSalida(salida2);
+    		        
+    		        DataCompraGeneral[] arrDataCG = ((DataTurista) dataU).getInscripcionesSal();
+    		        
+    		        for (int i = 0; i < arrDataCG.length; i++) {
                         if(arrDataCG[i].getSalida().equals(dataS)) {
                             dataCG = arrDataCG[i];
                             break;
                         }
                     }
-                    
-                    com.itextpdf.text.Document documento;
-                    FileOutputStream archivo;
-                    com.itextpdf.text.Paragraph titulo;
-                    
-                    documento = new com.itextpdf.text.Document();
-                    
-                    titulo = new com.itextpdf.text.Paragraph("Iscripcion a " + salida2);
-                    
-                    try {
-                        archivo = new FileOutputStream("IscripcionSalida");
-                        com.itextpdf.text.pdf.PdfWriter.getInstance(documento, archivo);
-                        documento.open();
-                        titulo.setAlignment(1);
-                        documento.add(titulo);
-                        documento.add(new com.itextpdf.text.Paragraph("El " + usuario2 + " se inscribio a la salida " + salida2 + " el dia " + dataCG.getFecha().get(Calendar.DATE)   + " del mes " + (dataCG.getFecha().get(Calendar.MONTH)+1)   +" del anio " + dataCG.getFecha().get(Calendar.YEAR)   ));
-                        documento.add(new com.itextpdf.text.Paragraph(salida2 + " Corresponde a la Actividad " + actividad2));
-                        documento.add(new com.itextpdf.text.Paragraph(salida2 + " tiene " + dataCG.getCantidad() + " personas inscriptos"));
-                        documento.close();
-                        
-                        
-                    } catch(FileNotFoundException e) {
-                        System.out.println(e.getMessage());
-                    } catch(com.itextpdf.text.DocumentException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    
-                    
-                    
-                    //req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/Salir.pdf").forward(req, resp);
-                    
+    		        
+    		        String text11 ="El " + usuario2 + " se inscribio a la salida " + salida2 + " el dia " + dataCG.getFecha().get(Calendar.DATE)   + " del mes " + (dataCG.getFecha().get(Calendar.MONTH)+1)   +" del anio " + dataCG.getFecha().get(Calendar.YEAR)   ;
+	                String text22 =salida2 + " Corresponde a la Actividad " + actividad2;
+	                String text32=salida2 + " tiene " + dataCG.getCantidad() + " personas inscriptos";
+    		        
+    		        try {
+    		            PDDocument documento = new PDDocument();
+    		            PDPage pagina = new PDPage(PDRectangle.A6);
+    		            documento.addPage(pagina);
+    		            PDPageContentStream contenido = new PDPageContentStream(documento,pagina); 
+    		            
+    		            contenido.beginText();
+    		            contenido.newLineAtOffset(20, pagina.getMediaBox().getHeight()-52);
+    		            
+    		            contenido.showText(text11);
+    		            contenido.showText(text22);
+    		            contenido.showText(text32);
+    		            
+    		            contenido.close();
+    		            
+    		            documento.save("/home/eeeeeeeeeeeeee/git/123/tarea2p2/src/main/webapp/WEB-INFSalida.pdf");
+    		            
+    		        }catch(Exception x) {
+    		            System.out.println("error");
+    		        }
+    		        
+    		        /*
+    		        com.itextpdf.text.Document documento;
+    		        FileOutputStream archivo;
+    		        com.itextpdf.text.Paragraph titulo;
+    		        
+    		        documento = new com.itextpdf.text.Document();
+    		        
+    		        titulo = new com.itextpdf.text.Paragraph("Iscripcion a " + salida2);
+    		        
+    		        try {
+    		            archivo = new FileOutputStream("IscripcionSalida");
+    		            com.itextpdf.text.pdf.PdfWriter.getInstance(documento, archivo);
+    		            documento.open();
+    		            titulo.setAlignment(1);
+    		            documento.add(titulo);
+    		            documento.add(new com.itextpdf.text.Paragraph("El " + usuario2 + " se inscribio a la salida " + salida2 + " el dia " + dataCG.getFecha().get(Calendar.DATE)   + " del mes " + (dataCG.getFecha().get(Calendar.MONTH)+1)   +" del anio " + dataCG.getFecha().get(Calendar.YEAR)   ));
+    		            documento.add(new com.itextpdf.text.Paragraph(salida2 + " Corresponde a la Actividad " + actividad2));
+    		            documento.add(new com.itextpdf.text.Paragraph(salida2 + " tiene " + dataCG.getCantidad() + " personas inscriptos"));
+    		            documento.close();
+    		            
+    		            
+    		        } catch(FileNotFoundException e) {
+    		            System.out.println(e.getMessage());
+    		        } catch(com.itextpdf.text.DocumentException e) {
+    		            System.out.println(e.getMessage());
+    		        }
+                    */
+    		        
+    		        resp.setContentType("application/pdf");
+    		        resp.setHeader("Content-disposition", "attachment; filename=sample.txt");
+    		        int ARBITARY_SIZE = 1048;
+    		        try(InputStream in = req.getServletContext().getResourceAsStream("/WEB-INF/Salida.pdf");
+    		          OutputStream out = resp.getOutputStream()) {
+
+    		            byte[] buffer = new byte[ARBITARY_SIZE];
+    		        
+    		            int numBytesRead;
+    		            while ((numBytesRead = in.read(buffer)) > 0) {
+    		                out.write(buffer, 0, numBytesRead);
+    		            }
+    		        }
+    		    
+
                     
                     break;
-*/
-    			case "/ConsultaUsuario":
+    		    case "/ConsultaUsuario":
     				String usuario = (String) req.getParameter("nick");
+    				System.out.println(usuario);
     				if (usuario == null) {
     					DataUsuario[] usuarios = Arrays.copyOf(port.listarUsuarios().getArray(), port.listarUsuarios().getArray().length, DataUsuario[].class);
     					req.setAttribute("ArregloUsuarios", usuarios);
     					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ListaUsuario.jsp").forward(req, resp);
-    				} else {
+    				}else 
+    				    
+    				{
     					DataUsuario dataUsu;
                         try {
                             dataUsu = port.obtenerDataUsuarioNick(usuario);
@@ -403,7 +463,7 @@ public class ServletConsulta extends HttpServlet {
                         req.setAttribute("SalidaElegida", dataSal);
                         req.getRequestDispatcher("/WEB-INF/ConsultaSalida/ConsultaSalida.jsp").forward(req, resp); //Ver si entregar el set de salidas o no, por ahora se devuelve el DataSalida que viene desde la lista.
                     } catch (SalidasNoExisteException e) {
-                        req.setAttribute("Exception", e.getMessage1());
+                        req.setAttribute("Exception", e.getMessage());
                         req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
                     }
     				break;
