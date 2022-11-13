@@ -398,11 +398,11 @@ public class CrearUsuario extends JInternalFrame {
             try {
             	if (rdbtnTurista.isSelected()) {
             		String nacionalidadU = this.textFieldNacionalidad.getText();
-            		controlAlta.confirmarAltaTurista(nickU, nombreU, apellidoU, mailU, nacimientoU, nacionalidadU, textField.getText());
+            		controlAlta.confirmarAltaTurista(nickU, nombreU, apellidoU, mailU, nacimientoU, nacionalidadU, textField.getText(),null);
             	} else {
             		String descripcionU = this.textFieldDescripcion.getText();
             		String linkU = this.textFieldLink.getText();
-            		controlAlta.confirmarAltaProveedor(nickU, nombreU, apellidoU, mailU, nacimientoU, descripcionU, linkU, linkU.isEmpty(), textField.getText());
+            		controlAlta.confirmarAltaProveedor(nickU, nombreU, apellidoU, mailU, nacimientoU, descripcionU, linkU, linkU.isEmpty(), textField.getText(),null);
             	}
                 // Muestro éxito de la operación
                 JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",

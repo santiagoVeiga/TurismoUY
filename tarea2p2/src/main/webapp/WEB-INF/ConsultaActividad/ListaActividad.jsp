@@ -99,6 +99,7 @@
                                 	<% 
                                 	DataActividad[] acts = null;
                                 	acts = (DataActividad[]) request.getAttribute("ArregloActividades");
+                                	if(acts != null){
                                 	for (int i = 0; i < acts.length; i++){
                                 		if (acts[i].getEstado() == EstadoAct.confirmada){
                                 	%>
@@ -119,6 +120,7 @@
                                         </div>
                                     </div>
                                 	<% }
+                                	}
                                 	}%>
                                 </div>
                             </div>
