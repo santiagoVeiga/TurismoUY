@@ -138,6 +138,10 @@ public class ServletAlta extends HttpServlet {
                     req.getRequestDispatcher("/WEB-INF/altaSalida/alta_salida.jsp").forward(req, resp);
                     break;
     			case "/ModificarUsuario":
+    			    HttpSession sessionMod = req.getSession();
+    			    String nickMod = (String) req.getParameter("dataUsuario");
+    			    DataUsuario usuarioMod = port.obtenerDataUsuarioNick(nickMod);
+    			    sessionMod.setAttribute("usuario", usuarioMod);
                     req.getRequestDispatcher("/WEB-INF/modificarUsuario/modificarUsuario.jsp").forward(req, resp);
                     break;
                 case "/ActividadCreada":
@@ -504,7 +508,6 @@ public class ServletAlta extends HttpServlet {
                                 }
                             }
                         }
-                        req.setAttribute("DataUsuario", usuario);
                         DataUsuario dataUsu = port.obtenerDataUsuarioNick(usuario.getNick());
                         session.setAttribute("usuario", dataUsu);
                         session.setAttribute("imagenUsuario", null); // revisar esto
