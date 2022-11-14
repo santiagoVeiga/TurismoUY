@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="controllers.EstadoSesion, servidor.EstadoAct,java.util.Base64,servidor.DataUsuario, servidor.DataProveedor, servidor.DataTurista,servidor.DataActividad,servidor.DataSalida,java.util.Set,servidor.DataDepartamento" %>
+<%@page import="controllers.EstadoSesion, servidor.EstadoAct,java.util.Base64,servidor.DataUsuario, servidor.DataProveedor, servidor.DataTurista,servidor.DataActividad,servidor.DataSalida, java.util.Set, java.util.HashSet, java.util.Collections, servidor.DataDepartamento" %>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -99,27 +99,56 @@
                                 	<% 
                                 	DataActividad[] acts = null;
                                 	acts = (DataActividad[]) request.getAttribute("ArregloActividades");
+                                	Set<String> favs = new HashSet<String>();
+                                	if (usr != null && usr instanceof DataTurista && ((DataTurista) usr).getActFavoritas() != null){
+                                    	DataTurista tur = (DataTurista) usr;
+                                    	Collections.addAll(favs, tur.getActFavoritas());
+                                	}
                                 	if(acts != null){
                                 	for (int i = 0; i < acts.length; i++){
                                 		if (acts[i].getEstado() == EstadoAct.confirmada){
                                 	%>
                                 		<!-- <a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>" class="latest-product__item">  -->
-                                	<div class="latest-product__item">
-
-                                		<a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>">
-	                                		<div class="latest-product__item__pic">
-	                                        	<img src="/tarea2p2/Imagenes?id=<%= acts[i].getImagen() %>" alt="<%= acts[i].getImagen() %>">
-	                                   		</div>
-                                   		</a>
-                                        <div class="latest-product__item__text">
-                                            <h5> <%= acts[i].getNombre() %> </h5>
-                                            <h6> <%= acts[i].getDescripcion() %> </h6>
-                                            <a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>">
-                                            	<span class="blog__btn" >LEER MÁS </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                	<% }
+                                	<div class="row">
+                                	<div class="col-lg-9">
+	                                	<div class="latest-product__item">
+	
+	                                		<a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>">
+		                                		<div class="latest-product__item__pic">
+		                                        	<img src="/tarea2p2/Imagenes?id=<%= acts[i].getImagen() %>" alt="<%= acts[i].getImagen() %>">
+		                                   		</div>
+	                                   		</a>
+	                                        <div class="latest-product__item__text">
+	                                            <h5> <%= acts[i].getNombre() %> </h5>
+	                                            <h6> <%= acts[i].getDescripcion() %> </h6>
+	                                            <a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>">
+	                                            	<span class="blog__btn" >LEER MÁS </span>
+	                                            </a>
+	                                        </div>
+	                                    </div>
+	                                 </div>
+	                                 <%
+									 if (favs.size() != 0){ %>
+		                                 <div class="col-lg-3">
+		                                 <h5>Cantidad de Favs</h5>
+		                                 <h6> <%= acts[i].getCantFavs() %> </h6>
+		                                 <form action="AgregarFavs" method="POST">
+				                    	<%
+				                    	String auxFavs = null;
+				                    	if (favs.contains(acts[i].getNombre())){
+				                    		auxFavs = "Sacar de Favoritas";
+				                    	} else {
+				                    		auxFavs = "Anadir a Favoritas";
+				                    	}
+				                    	%>
+		                   				<input type="hidden" id="nomAct" name="nomAct" value="<%=acts[i].getNombre()%>">
+									    <input type="submit" value="<%= auxFavs %>" onclick="submit()">
+				                    	</form>
+		                                </div>
+		                             </div>
+                                	<% 
+									 }
+									 }
                                 	}
                                 	}%>
                                 </div>

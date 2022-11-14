@@ -298,7 +298,6 @@ public class ServletConsulta extends HttpServlet {
 	                String text22 =salida2 + " Corresponde a la Actividad " + actividad2;
 	                String text32=salida2 + " tiene " + dataCG.getCantidad() + " personas inscriptos";
     		        
-    		        try {
     		            PDDocument documento = new PDDocument();
     		            PDPage pagina = new PDPage(PDRectangle.A6);
     		            documento.addPage(pagina);
@@ -315,9 +314,6 @@ public class ServletConsulta extends HttpServlet {
     		            
     		            documento.save("/home/eeeeeeeeeeeeee/git/123/tarea2p2/src/main/webapp/WEB-INFSalida.pdf");
     		            
-    		        }catch(Exception x) {
-    		            System.out.println("error");
-    		        }
     		        
     		        /*
     		        com.itextpdf.text.Document documento;
@@ -366,7 +362,6 @@ public class ServletConsulta extends HttpServlet {
                     break;
     		    case "/ConsultaUsuario":
     				String usuario = (String) req.getParameter("nick");
-    				System.out.println(usuario);
     				if (usuario == null) {
     					DataUsuario[] usuarios = Arrays.copyOf(port.listarUsuarios().getArray(), port.listarUsuarios().getArray().length, DataUsuario[].class);
     					req.setAttribute("ArregloUsuarios", usuarios);
