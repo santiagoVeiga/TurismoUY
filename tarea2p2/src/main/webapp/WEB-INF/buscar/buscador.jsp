@@ -112,7 +112,7 @@
 	                                	%>
 	                                	<div class="latest-product__item" data-nombre="<%=paq.getNombre() %>" data-anio="<%= paq.getFechaAlta().get(Calendar.YEAR) %>">
 	                                        <div class="latest-product__item__pic">
-	                                            <img src="/tarea2p2/Imagenes?id=<%= paq.getNombre() %>" alt="">
+	                                            <img src="/tarea2p2/Imagenes?id=<%= paq.getImagen() %>" alt="">
 	                                        </div>
 	                                        <div class="latest-product__item__text">
 	                                            <h5> <%= paq.getNombre() %> </h5>
@@ -129,7 +129,7 @@
 	                                	%>
 	                                		<div class="latest-product__item" data-nombre="<%=act.getNombre() %>" data-anio="<%= act.getFechaAlta().get(Calendar.YEAR) %>">
 		                                        <div class="latest-product__item__pic">
-		                                            <img src="/tarea2p2/Imagenes?id=<%= act.getNombre() %>" alt="">
+		                                            <img src="/tarea2p2/Imagenes?id=<%= act.getImagen() %>" alt="">
 		                                        </div>
 		                                        <div class="latest-product__item__text">
 		                                            <h5> <%= act.getNombre() %> </h5>

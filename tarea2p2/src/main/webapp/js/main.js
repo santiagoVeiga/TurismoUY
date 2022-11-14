@@ -9,18 +9,7 @@
 
 'use strict';
 
-$(document).ready(function(){
-    
 
-     $('.hero__categories__all').on('click', function(){
-         $('.hero__categories ul').slideToggle();
-     });
-
-     
-     $('.hero__deps__all').on('click', function(){
-         $('.hero__deps ul').slideToggle();
-     });
-     });
 (function ($) {
 
     /*------------------

@@ -458,13 +458,14 @@ public class CrearActividad extends JInternalFrame {
 	    	this.setVisible(false);
     	}
     }
-    
+    //s
     private void limpiarFormulario() {
         nombreTextField.setText("");
         descripcionTextField.setText("");
         costoTextField.setText("");
         duracionTextField.setText("");
         ciudadTextField.setText("");
+        linkTextField.setText("");
         departamentoComboBox.setSelectedItem(null);
         categoriasComboBox.removeAllItems();
         modelo.removeAllElements();
