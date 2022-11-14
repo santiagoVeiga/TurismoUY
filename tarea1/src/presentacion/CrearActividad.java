@@ -465,6 +465,7 @@ public class CrearActividad extends JInternalFrame {
         costoTextField.setText("");
         duracionTextField.setText("");
         ciudadTextField.setText("");
+        linkTextField.setText("");
         departamentoComboBox.setSelectedItem(null);
         categoriasComboBox.removeAllItems();
         modelo.removeAllElements();
