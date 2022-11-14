@@ -33,7 +33,23 @@ public class Proveedor extends Usuario {
     private boolean hayLink;
     @Transient
     private Set<String> actividadesPersistir;
-    @Transient
+    public Set<String> getActividadesPersistir() {
+		return actividadesPersistir;
+	}
+
+	public Map<String, Actividad> getActividades() {
+		return actividades;
+	}
+
+	public void setActividadesPersistir(Set<String> actividadesPersistir) {
+		this.actividadesPersistir = actividadesPersistir;
+	}
+
+	public void setActividades(Map<String, Actividad> actividades) {
+		this.actividades = actividades;
+	}
+
+	@Transient
     private Map<String, Actividad> actividades;
     
     public Proveedor() {

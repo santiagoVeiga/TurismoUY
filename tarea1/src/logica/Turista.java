@@ -44,7 +44,23 @@ public class Turista extends Usuario{
 		
 	}
 	
-    public Turista(String nick, String nom, String apellido, String mail, Date fechaN, String nac, String pass) {
+    public Set<CompraGeneral> getComprasG() {
+		return comprasG;
+	}
+
+	public Set<String> getSalidasCGFinalizadas() {
+		return salidasCGFinalizadas;
+	}
+
+	public void setComprasG(Set<CompraGeneral> comprasG) {
+		this.comprasG = comprasG;
+	}
+
+	public void setSalidasCGFinalizadas(Set<String> salidasCGFinalizadas) {
+		this.salidasCGFinalizadas = salidasCGFinalizadas;
+	}
+
+	public Turista(String nick, String nom, String apellido, String mail, Date fechaN, String nac, String pass) {
         super(nick, nom, apellido, mail, fechaN, pass);
     	this.nacionalidad = nac;
     	this.comprasG = new HashSet<CompraGeneral>();

@@ -225,7 +225,7 @@ public class ServletInsc extends HttpServlet {
                         req.getRequestDispatcher("/home").forward(req, resp);
                     }catch (SalidasVigentesException | ActividadNoExisteException e){
                         req.setAttribute("Exception", e.getMessage1());
-                        req.getRequestDispatcher("/home").forward(req, resp);
+                        req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
                     }
                     break;
     		}

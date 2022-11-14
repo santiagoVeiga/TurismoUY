@@ -13,9 +13,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -45,6 +48,10 @@ import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import excepciones.estadoActividadIncorrecto;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import manejadores.ManejadorActividad;
 import manejadores.ManejadorCategoria;
 import manejadores.ManejadorDepartamentos;
@@ -381,7 +388,33 @@ public class ControladorAlta implements IControladorAlta {
         usu = mUsu.obtenerUsuarioMail(mail);
         if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-        usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad, pass);
+        try {
+			usu = mUsu.obtenerUsuarioFinalizadoNick(nick);
+			usu.setNombre(nom);
+			usu.setApellido(apellido);
+			usu.setNacimiento(nacimiento);
+			Turista tur = (Turista) usu;
+			usu.setPassword(pass);
+	        usu.setSeguidores(new HashMap<String, Usuario>());
+	        usu.setSeguidos(new HashMap<String, Usuario>());
+	    	tur.setComprasG(new HashSet<CompraGeneral>());
+	    	tur.setComprasP(new HashMap<String, CompraPaquete>());
+	    	tur.setFavoritas(new HashMap<String, Actividad>());
+	    	Set<String> salidasCGFinalizadas = new HashSet<String>();
+        	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+        	EntityManager em = emf.createEntityManager();
+        	Query query = em.createQuery("SELECT cg.salida.nombre FROM CompraGeneral cg JOIN cg.turista t WHERE t.nickname = :nick");
+        	query.setParameter("nick", usu.getNickname());
+        	List<String> listaCG = query.getResultList();
+        	em.close();
+        	emf.close();
+        	for (String iter: listaCG) {
+        		salidasCGFinalizadas.add(iter);
+        	}
+        	tur.setSalidasCGFinalizadas(salidasCGFinalizadas);;
+		} catch (UsuarioNoExisteException e) {
+			usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad, pass);
+		}
         mUsu.addUsuario(usu);
 		
 	}
@@ -397,42 +430,68 @@ public class ControladorAlta implements IControladorAlta {
         usu = mUsu.obtenerUsuarioMail(mail);
         if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-	    if (imagen == null) {
-	  	  try {
-	  	      BufferedImage img;
-	    	  img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
-    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    	      ImageIO.write(img, "jpg", baos);
-    	      imagen = baos.toByteArray();
-  		  } catch (IOException e) {
-  			  e.printStackTrace();
-  		  }
-	    }
-            FileOutputStream output = null;
-            InputStream inputStream = null;
-	       try {
-	    	File nuevaImg = new File("./src/data/Users/" + nick + ".jpg");
-	    	nuevaImg.createNewFile();
-            output = new FileOutputStream(nuevaImg);
-            inputStream = new ByteArrayInputStream(imagen); 
-            int leido = 0;
-            leido = inputStream.read();
-            while (leido != -1) {
-                output.write(leido);
-                leido = inputStream.read();
-            }
-          } catch (IOException ioe) {
-            ioe.printStackTrace();
-          } finally {
-            try {
-                output.flush();
-                output.close();
-                inputStream.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-        usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad, pass);
+        try {
+			usu = mUsu.obtenerUsuarioFinalizadoNick(nick);
+			usu.setNombre(nom);
+			usu.setApellido(apellido);
+			usu.setNacimiento(nacimiento);
+			Turista tur = (Turista) usu;
+			usu.setPassword(pass);
+	        usu.setSeguidores(new HashMap<String, Usuario>());
+	        usu.setSeguidos(new HashMap<String, Usuario>());
+	    	tur.setComprasG(new HashSet<CompraGeneral>());
+	    	tur.setComprasP(new HashMap<String, CompraPaquete>());
+	    	tur.setFavoritas(new HashMap<String, Actividad>());
+	    	Set<String> salidasCGFinalizadas = new HashSet<String>();
+        	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+        	EntityManager em = emf.createEntityManager();
+        	Query query = em.createQuery("SELECT cg.salida.nombre FROM CompraGeneral cg JOIN cg.turista t WHERE t.nickname = :nick");
+        	query.setParameter("nick", usu.getNickname());
+        	List<String> listaCG = query.getResultList();
+        	em.close();
+        	emf.close();
+        	for (String iter: listaCG) {
+        		salidasCGFinalizadas.add(iter);
+        	}
+        	tur.setSalidasCGFinalizadas(salidasCGFinalizadas);;
+		} catch (UsuarioNoExisteException e) {
+		    if (imagen == null) {
+		  	  try {
+		  	      BufferedImage img;
+		    	  img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
+	    	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    	      ImageIO.write(img, "jpg", baos);
+	    	      imagen = baos.toByteArray();
+	  		  } catch (IOException e1) {
+	  			  e1.printStackTrace();
+	  		  }
+		    }
+	            FileOutputStream output = null;
+	            InputStream inputStream = null;
+		       try {
+		    	File nuevaImg = new File("./src/data/Users/" + nick + ".jpg");
+		    	nuevaImg.createNewFile();
+	            output = new FileOutputStream(nuevaImg);
+	            inputStream = new ByteArrayInputStream(imagen); 
+	            int leido = 0;
+	            leido = inputStream.read();
+	            while (leido != -1) {
+	                output.write(leido);
+	                leido = inputStream.read();
+	            }
+	          } catch (IOException ioe) {
+	            ioe.printStackTrace();
+	          } finally {
+	            try {
+	                output.flush();
+	                output.close();
+	                inputStream.close();
+	            } catch (IOException ex) {
+	                ex.printStackTrace();
+	            }
+	        }
+	        usu = new Turista(nick, nom, apellido, mail, nacimiento, nacionalidad, pass);
+		}
         mUsu.addUsuario(usu);
 	}
 
@@ -447,7 +506,35 @@ public class ControladorAlta implements IControladorAlta {
         usu = mUsu.obtenerUsuarioMail(mail);
         if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink, pass);
+        try {
+			usu = mUsu.obtenerUsuarioFinalizadoNick(nick);
+			usu.setNombre(nom);
+			usu.setApellido(apellido);
+			usu.setNacimiento(nacimiento);
+			Proveedor prov = (Proveedor) usu;
+			prov.setDescripcion(descripcion);
+			prov.setLink(link);
+			prov.setHayLink(hayLink);
+			prov.setPassword(pass);
+	        usu.setSeguidores(new HashMap<String, Usuario>());
+	        usu.setSeguidos(new HashMap<String, Usuario>());
+	    	Map<String, Actividad> actividades = new HashMap<String, Actividad>();
+	    	Set<String> actividadesPersistir = new HashSet<String>();
+        	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+        	EntityManager em = emf.createEntityManager();
+        	Query query = em.createQuery("SELECT a.nombre FROM Actividad a JOIN a.proveedor p WHERE p.nickname = :nick");
+        	query.setParameter("nick", usu.getNickname());
+        	List<String> listaActs = query.getResultList();
+        	em.close();
+        	emf.close();
+        	for (String iter: listaActs) {
+        		actividadesPersistir.add(iter);
+        	}
+        	prov.setActividades(actividades);
+        	prov.setActividadesPersistir(actividadesPersistir);
+		} catch (UsuarioNoExisteException e) {
+	        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink, pass);
+		}
         mUsu.addUsuario(usu);
 	}
 
@@ -463,42 +550,70 @@ public class ControladorAlta implements IControladorAlta {
         usu = mUsu.obtenerUsuarioMail(mail);
         if (usu != null)
             throw new UsuarioRepetidoException("Ya existe un usuario registrado con el mail:" + mail);
-        if (imagen == null) {
-  	  	  try {
-  	  	      BufferedImage img;
-  	    	  img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
-      	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      	      ImageIO.write(img, "jpg", baos);
-      	      imagen = baos.toByteArray();
-    		  } catch (IOException e) {
-    			  e.printStackTrace();
-    		  }
-  	    }
-        FileOutputStream output = null;
-        InputStream inputStream = null;
-       try {
-    	File nuevaImg = new File("./src/data/Users/" + nick + ".jpg");
-    	nuevaImg.createNewFile();
-        output = new FileOutputStream(nuevaImg);
-        inputStream = new ByteArrayInputStream(imagen); 
-        int leido = 0;
-        leido = inputStream.read();
-        while (leido != -1) {
-            output.write(leido);
-            leido = inputStream.read();
-        }
-      } catch (IOException ioe) {
-        ioe.printStackTrace();
-      } finally {
         try {
-            output.flush();
-            output.close();
-            inputStream.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink, pass);
+			usu = mUsu.obtenerUsuarioFinalizadoNick(nick);
+			usu.setNombre(nom);
+			usu.setApellido(apellido);
+			usu.setNacimiento(nacimiento);
+			Proveedor prov = (Proveedor) usu;
+			prov.setDescripcion(descripcion);
+			prov.setLink(link);
+			prov.setHayLink(hayLink);
+			prov.setPassword(pass);
+	        usu.setSeguidores(new HashMap<String, Usuario>());
+	        usu.setSeguidos(new HashMap<String, Usuario>());
+	    	Map<String, Actividad> actividades = new HashMap<String, Actividad>();
+	    	Set<String> actividadesPersistir = new HashSet<String>();
+        	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+        	EntityManager em = emf.createEntityManager();
+        	Query query = em.createQuery("SELECT a.nombre FROM Actividad a JOIN a.proveedor p WHERE p.nickname = :nick");
+        	query.setParameter("nick", usu.getNickname());
+        	List<String> listaActs = query.getResultList();
+        	em.close();
+        	emf.close();
+        	for (String iter: listaActs) {
+        		actividadesPersistir.add(iter);
+        	}
+        	prov.setActividades(actividades);
+        	prov.setActividadesPersistir(actividadesPersistir);
+		} catch (UsuarioNoExisteException e) {
+			if (imagen == null) {
+	  	  	  try {
+	  	  	      BufferedImage img;
+	  	    	  img = ImageIO.read(new File("./src/data/default_imagen.jpg"));
+	      	      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	      	      ImageIO.write(img, "jpg", baos);
+	      	      imagen = baos.toByteArray();
+	    		  } catch (IOException e1) {
+	    			  e1.printStackTrace();
+	    		  }
+	  	    }
+	        FileOutputStream output = null;
+	        InputStream inputStream = null;
+	       try {
+	    	File nuevaImg = new File("./src/data/Users/" + nick + ".jpg");
+	    	nuevaImg.createNewFile();
+	        output = new FileOutputStream(nuevaImg);
+	        inputStream = new ByteArrayInputStream(imagen); 
+	        int leido = 0;
+	        leido = inputStream.read();
+	        while (leido != -1) {
+	            output.write(leido);
+	            leido = inputStream.read();
+	        }
+	      } catch (IOException ioe) {
+	        ioe.printStackTrace();
+	      } finally {
+	        try {
+	            output.flush();
+	            output.close();
+	            inputStream.close();
+	        } catch (IOException ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+	        usu = new Proveedor(nick, nom, apellido, mail, nacimiento, descripcion, link, hayLink, pass);
+		}
         mUsu.addUsuario(usu);
 	}
 
@@ -530,7 +645,11 @@ public class ControladorAlta implements IControladorAlta {
             byte[] imgBytes = baos.toByteArray();
             imagenes.put(Integer.toString(i), imgBytes);
         }
-		cargarActs(reader, imagenes);
+        try {
+        	cargarActs(reader, imagenes);
+        } catch (ActividadRepetidaException e) {
+        	;
+        }
 		reader = new CSVReader(new FileReader("./src/data/Paquetes.csv"));
 	    imagenes.clear();
         for (int i=1; i<=3; i++ ) {
@@ -544,7 +663,11 @@ public class ControladorAlta implements IControladorAlta {
 		cargarPaquetes(reader, imagenes);
 		reader = new CSVReader(new FileReader("./src/data/Favoritas.csv"));
 	    imagenes.clear();
-	    cargarFavoritas(reader);
+	    try {
+	    	cargarFavoritas(reader);
+	    } catch (ActividadNoExisteException e) {
+	    	;
+	    }
 		reader = new CSVReader(new FileReader("./src/data/Salidas.csv"));
 	    imagenes.clear();
         for (int i=1; i<=6; i++ ) {
@@ -603,13 +726,20 @@ public class ControladorAlta implements IControladorAlta {
             imgBytes = baos.toByteArray();
         }
         imagenes.put(Integer.toString(19), imgBytes);
-		cargarSalidas(reader, imagenes);
+        try {
+    		cargarSalidas(reader, imagenes);
+        } catch (SalidaYaExisteExeption e) {
+        	;
+        }
 		Fabrica fabr = Fabrica.getInstance();
 		IControladorInsc conIns = fabr.getIControladorInsc();
 		conIns.cargarActsPaqs();
 		cargarCompPaq();
-		conIns.cargarInsc();
-		
+		try {
+			conIns.cargarInsc();
+		} catch (ActividadNoExisteException e) {
+			;
+		}
 	}
 
 

@@ -161,7 +161,7 @@ public class ManejadorActividad {
 		Query queryTur = null;
 		for (Turista iter : turistas) {
 			queryTur = em.createQuery("SELECT t FROM Turista t WHERE t.nickname = :turNom");
-			queryProv.setParameter("turNom", iter.getNickname());
+			queryTur.setParameter("turNom", iter.getNickname());
 			try {
 				queryTur.getSingleResult();
 				turistas.remove(iter);

@@ -4,6 +4,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import excepciones.SalidaYaExisteExeption;
+import excepciones.UsuarioNoExisteException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import logica.DataUsuario;
 import logica.Usuario;
 
@@ -45,6 +52,24 @@ public class ManejadorUsuario {
         return (Usuario) usuariosMail.get(mail);
     }
 
+    public Usuario obtenerUsuarioFinalizadoNick(String nick) throws UsuarioNoExisteException {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.nickname = :nick");
+		query.setParameter("nick", nick);
+		Usuario res = null;
+		try {
+			res = (Usuario) query.getSingleResult();
+		} catch (NoResultException e) {
+			em.close();
+			emf.close();
+			throw new UsuarioNoExisteException("No existe en la base de datos el usuario con nick: " + nick);
+		}
+		em.close();
+		emf.close();
+		return res;
+    }
+    
     public DataUsuario[] getUsuarios() {
         if (usuariosNick.isEmpty())
             return null;

@@ -104,6 +104,9 @@ public class ControladorInsc implements IControladorInsc {
 	public void inscribir(String nick, String nomSalida, int cantTuristas, Date fecha, String nombreAct) throws TuristaConSalida, ExcedeTuristas, InscFechaInconsistente, ActividadNoExisteException, InscFechaDespSalida, TuristaNoHaNacido {
 		ManejadorActividad mAct = ManejadorActividad.getInstance();
 		Actividad act = mAct.getActividad(nombreAct);
+		if (act.getEstado() == estadoAct.finalizada) {
+			throw new ActividadNoExisteException("La actividad elegida esta finalizada");
+		}
 		ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
 		Turista tur = (Turista) mUsu.obtenerUsuarioNick(nick);
 		int costo = act.getCosto();
@@ -323,6 +326,9 @@ public class ControladorInsc implements IControladorInsc {
 		Turista tur = (Turista) usuAux;
 		ManejadorActividad manAct = ManejadorActividad.getInstance();
 		Actividad act = manAct.getActividad(nombreAct);
+		if (act.getEstado() == estadoAct.finalizada) {
+			throw new ActividadNoExisteException("La actividad esta finalizada");
+		}
 		tur.agregarQuitarActividadFavorita(act, agregar);
 	}
 	
@@ -362,7 +368,7 @@ public class ControladorInsc implements IControladorInsc {
 				manAct.finalizarAct(nombreActividad, (Proveedor) manUsu.obtenerUsuarioNick(nickProv));
 				
 			} else {
-				throw new SalidasVigentesException("La actividad cuenta con salidas Vigentes");
+				throw new SalidasVigentesException("La actividad cuenta con salidas Vigentes o pertenece a un paquete");
 			}
 		
 		
