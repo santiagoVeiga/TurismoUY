@@ -324,7 +324,7 @@
 					                                        <p class="card-text">Cantidad:<%= arrDCG[0].getCantidad() %></p>
 					                                        <p class="card-text">Es de un paquete:<%if(arrDCG[0].isPorPaquete()){%>Si<%}else{%>No<%}%></p> 
 					                                    	<br>
-							                                          
+							                                          <button type="button" class="btn btn-light"><a href="/tarea2p2/DescargarPDF?Usuario=<%= usr.getNombre() %>&Salida=<%= arrDS[0].getNombre()%>" %>Descargar PDF</a></button>
 					                                    	<%}/*
 					                              				    Document doc = new Document();
 					                                                  //String Destino = "Salida.pdf";
@@ -366,7 +366,8 @@
 							                                        <p class="card-text">Cantidad:<%= arrDCG[i].getCantidad() %></p>
 							                                        <p class="card-text">Es de un paquete:<%if(arrDCG[i].isPorPaquete()){%>Si<%}else{%>No<%}%></p>        
 							                                        <br>
-							                                                                    
+							                                             <button type="button" class="btn btn-light"><a href="/tarea2p2/DescargarPDF?Usuario=<%= usr.getNombre() %>&Salida=<%= arrDS[i].getNombre()%>" %>Descargar PDF</a></button>
+		                                                             
 							                                      <%} 
 					                                        %>
 					                                       		 </div>
@@ -391,8 +392,7 @@
 					                            </div>
 	                                        </div>
 	                                        <br>
-	                                        <button type="button" class="btn btn-light"><a href="/tarea2p2/ConsultaUsuario?nick=@@@PDF@@@" %>Descargar PDF</a></button>
-		                                      
+	                                        
 		                                      </div>
 	                                    
 	                                    </div>
@@ -403,7 +403,8 @@
 				    	  
 				    	  if (!(usr != null && DU.getNick().equals(usr.getNick()))){
 					        DataActividad[] arrDS1 = ((DataProveedor) DU).getActividades();
-					        DataActividad[] arrDS = new DataActividad[arrDS1.length];
+					        if (arrDS1 != null) {
+					        	DataActividad[] arrDS = new DataActividad[arrDS1.length];
 					       	
 					        	int cont = 1;
 					        	while(arrDS1[0].getEstado() != EstadoAct.confirmada && (cont<arrDS1.length))
@@ -418,7 +419,7 @@
 			        			}
 					        	
 					        	arrDS = arrDS1;
-					        	if (arrDS.length != 0) {
+					        	if (arrDS != null) {
 						        	//String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						        
                       	%>
@@ -485,6 +486,7 @@
 					      </div>
 					    </div> 
                       <%}}
+				      }
 				    	  
 				    	  
 				    	  else{

@@ -80,8 +80,8 @@
 			</div>
 		</div>
 		<ul>
-	           <li><a href="/tarea2p2/AltaActividad"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Actividad Turística</a></li>
-	           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Salida Turística</a></li>
+	           <li><a href="/tarea2p2/AltaActividad"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Actividad Turstica</a></li>
+	           <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Alta de Salida Turstica</a></li>
 	           <li><a href="/tarea2p2/ConsultaPaquete"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Paquete</a></li>
 	          <li><a href="#" onclick="return consSalidaIndexV();"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Actividad</a></li>
 	          <li><a href="/tarea2p2/ConsultaUsuario"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>&nbsp; Consultar Usuario</a></li>
@@ -186,28 +186,32 @@
 								</table>
 	                            <%	
 				                    if (usr != null && usr instanceof DataTurista && ((DataTurista)usr).getActFavoritas()!=null && actividadSeleccionada.getEstado()!=EstadoAct.finalizada){
+				                    	DataTurista tur = (DataTurista) usr;
+										String[] favoritas = tur.getActFavoritas();
+				                    	if(favoritas != null){
 				                    	%>
 				                    <form action="AgregarFavs" method="POST">
 				                    	<%
-				                    	DataTurista tur = (DataTurista) usr;
-				                    	String[] favoritas = tur.getActFavoritas();
 				                    	String auxFavs = null;
 				                    	boolean flag = false ; 
-				                    	for (int x=0;x<favoritas.length;x++){//checkeo si la actividad esta en las favoritas del turista 
-				                    		if (favoritas[x] == actividadSeleccionada.getNombre()){
+				                    	int y = 0 ; 
+				                    	for (int x=0;x<favoritas.length;x++){//checkeo si la actividad esta en las favoritas del turist 
+				                    		String act = actividadSeleccionada.getNombre();
+				                    		if (favoritas[x].equals(act)){
 				                    			flag = true ; 
+				                    			y = x ; 
 				                    		}
 				                    	}
 				                    	if (flag){
 				                    		auxFavs = "Sacar de Favoritas";
 				                    	} else {
-				                    		auxFavs = "Añadir a Favoritas";
+				                    		auxFavs = "Anadir a Favoritas";
 				                    	}
 				                    	%>
 		                   				<input type="hidden" id="nomAct" name="nomAct" value="<%=actividadSeleccionada.getNombre()%>">
 									    <input type="submit" value="<%= auxFavs %>" onclick="submit()">
 				                    </form>
-				                   <% }
+				                   <% }}
 				                    	%>
 	                            
 	                            <% DataSalida[] arrSalidas = actividadSeleccionada.getSalidas(); %>
@@ -222,7 +226,7 @@
 	                            </div>
 	                            <div
 	                                style="padding-top:20px ; margin-right: 50px; margin-left: 50px; display: flex; justify-content: space-between;">
-	                                <% if (actividadSeleccionada.getSalidas().length > 0){%>
+	                                <% if (actividadSeleccionada.getSalidas()!=null){%>
 	                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
 	                                    style="margin-right: 70px;">
 	                                    <div class="carousel-inner">
@@ -290,7 +294,7 @@
 	                                    </a>
 	                                </div>
 	                                <%}%>
-	                                <% if (actividadSeleccionada.getPaquetes().length>0){ %>
+	                                <% if (actividadSeleccionada.getPaquetes()!=null){ %>
 	                                <% DataPaquete[] arrayPaquetes = (DataPaquete[]) request.getAttribute("ArrayPaquetes"); %>
 	                                <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel"
 	                                    style="margin-left: 70px;">

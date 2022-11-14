@@ -25,6 +25,7 @@ import org.w3c.dom.NodeList;
 
 import servidor.ActividadNoExisteException;
 import servidor.ActividadRepetidaException;
+import servidor.DataColeccionObject;
 import servidor.ExcedeTuristas;
 import servidor.InscFechaDespSalida;
 import servidor.InscFechaInconsistente;
@@ -121,8 +122,11 @@ public class ServletInsc extends HttpServlet {
     			case "/Inscripcion":
     			    String sal = req.getParameter("salida");
     			    DataUsuario usu = (DataUsuario) session.getAttribute("usuario");
-    			    
-    			    String[] paquetes = Arrays.copyOf(port.obtenerPaquetesComprados(usu.getNick()).getArray(), port.obtenerPaquetesComprados(usu.getNick()).getArray().length, String[].class);;
+    			    Object[] paqs = port.obtenerPaquetesComprados(usu.getNick()).getArray();
+    			    String[] paquetes = new String[0];
+    			    if (paqs != null) {
+    			        paquetes = Arrays.copyOf(paqs,paqs.length, String[].class);
+    			    }
                     req.setAttribute("SalidaElegida", sal);
     			    req.setAttribute("PaquetesComprados", paquetes);
     				req.getRequestDispatcher("/WEB-INF/ConsultaSalida/InscripcionSalida.jsp").forward(req, resp);

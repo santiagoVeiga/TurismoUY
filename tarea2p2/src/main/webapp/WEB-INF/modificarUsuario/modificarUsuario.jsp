@@ -39,6 +39,7 @@
     <%DataUsuario usuario = null;
     if (session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO) {
     	usuario = (DataUsuario) session.getAttribute("usuario");
+    	System.out.println("Apellido"+ usuario.getApellido());
     }
       %>
     <!-- Hero Section Begin -->
