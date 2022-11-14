@@ -133,7 +133,7 @@
 														            <div>
 														            	<label class="form-label" for="nuevaFotoPerfil">Foto De Perfil</label>
 														            	<br>
-														            	<input accept="image/*" type="file" id="nuevaFotoPerfil" name="nuevaFotoPerfil">
+														            	<input type="file" accept="image/jpg, image/jpeg" class="form-control-file" id="nuevaFotoPerfil" name="nuevaFotoPerfil">
 														            </div>
 														            
 														            <br>

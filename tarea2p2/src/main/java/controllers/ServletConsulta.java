@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,13 +29,13 @@ import javax.xml.rpc.ServiceException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 //import org.apache.pdfbox.pdmodel.font.PDTypelFont;
-
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 //import com.itextpdf.*;
 //import com.itextpdf.text.Document;
@@ -294,28 +295,60 @@ public class ServletConsulta extends HttpServlet {
                         }
                     }
     		        
-    		        String text11 ="El " + usuario2 + " se inscribio a la salida " + salida2 + " el dia " + dataCG.getFecha().get(Calendar.DATE)   + " del mes " + (dataCG.getFecha().get(Calendar.MONTH)+1)   +" del anio " + dataCG.getFecha().get(Calendar.YEAR)   ;
-	                String text22 =salida2 + " Corresponde a la Actividad " + actividad2;
-	                String text32=salida2 + " tiene " + dataCG.getCantidad() + " personas inscriptos";
     		        
     		        try {
     		            PDDocument documento = new PDDocument();
-    		            PDPage pagina = new PDPage(PDRectangle.A6);
+    		            PDPage pagina = new PDPage(PDRectangle.A4);
     		            documento.addPage(pagina);
-    		            PDPageContentStream contenido = new PDPageContentStream(documento,pagina); 
-    		            
+    		            PDPageContentStream contenido = new PDPageContentStream(documento,pagina);
+    		            InputStream inp = getServletContext().getResourceAsStream("/img/logo.png");
+    		            byte[] img = new byte[inp.available()];
+    		            int read;
+    		            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+    		            while ((read = inp.read(img, 0, img.length)) != -1) {
+    		                buffer.write(img, 0, read);
+    		            }
+    		            PDImageXObject image = PDImageXObject.createFromByteArray(documento,img, "Logo");
+    		            contenido.drawImage(image, 120, pagina.getMediaBox().getHeight()-82, image.getWidth() / 15, image.getHeight() / 15);
     		            contenido.beginText();
-    		            contenido.newLineAtOffset(20, pagina.getMediaBox().getHeight()-52);
+    		            contenido.setFont(PDType1Font.HELVETICA, 10);
+    		            contenido.newLineAtOffset(20, pagina.getMediaBox().getHeight()-92);
+    		            contenido.showText("Nickname de usuario: "+ usuario2);
+    		            contenido.endText();
+    		            contenido.beginText();
+                        contenido.setFont(PDType1Font.HELVETICA, 10);
+                        contenido.newLineAtOffset(20, pagina.getMediaBox().getHeight()-102);
+                        contenido.showText("Actividad: "+actividad2);
+                        contenido.endText();
+                        contenido.beginText();
+                        contenido.setFont(PDType1Font.HELVETICA, 10);
+                        contenido.newLineAtOffset(20, pagina.getMediaBox().getHeight()-112);
+                        contenido.showText("Salida: " + salida2);
+                        contenido.endText();
+                        contenido.beginText();
+                        contenido.setFont(PDType1Font.HELVETICA, 10);
+                        contenido.newLineAtOffset(20, pagina.getMediaBox().getHeight()-122);
+                        contenido.showText("Fecha de salida: " + dataCG.getFecha().get(Calendar.DATE)   + "/" + (dataCG.getFecha().get(Calendar.MONTH)+1)   +"/" + dataCG.getFecha().get(Calendar.YEAR));
+                        contenido.endText();
+                        contenido.beginText();
+                        contenido.setFont(PDType1Font.HELVETICA, 10);
+                        contenido.newLineAtOffset(20, pagina.getMediaBox().getHeight()-132);
+                        contenido.showText("Hora de salida: " + Integer.toString(dataS.getHora().get(Calendar.HOUR_OF_DAY)) +":"+Integer.toString(dataS.getHora().get(Calendar.MINUTE)));
+                        contenido.endText();
+                        contenido.beginText();
+                        contenido.setFont(PDType1Font.HELVETICA, 10);
+                        contenido.newLineAtOffset(20, pagina.getMediaBox().getHeight()-142);
+                        contenido.showText("Cantidad de personas: " + Integer.toString(dataCG.getCantidad()));
+                        contenido.endText();
+                        contenido.beginText();
+                        contenido.setFont(PDType1Font.HELVETICA, 10);
+                        contenido.newLineAtOffset(20, pagina.getMediaBox().getHeight()-152);
+                        contenido.showText("Lugar: " + dataS.getLugar());
+                        contenido.endText();
+                        contenido.close();
+    		            documento.save(getServletContext().getRealPath("/WEB-INF")+"/" + usuario2.replaceAll(" ", "")+salida2.replaceAll(" ", "") +".pdf");
     		            
-    		            contenido.showText(text11);
-    		            contenido.showText(text22);
-    		            contenido.showText(text32);
-    		            
-    		            contenido.close();
-    		            
-    		            documento.save("/home/eeeeeeeeeeeeee/git/123/tarea2p2/src/main/webapp/WEB-INFSalida.pdf");
-    		            
-    		        }catch(Exception x) {
+    		        }catch(IOException x) {
     		            System.out.println("error");
     		        }
     		        
@@ -348,9 +381,9 @@ public class ServletConsulta extends HttpServlet {
                     */
     		        
     		        resp.setContentType("application/pdf");
-    		        resp.setHeader("Content-disposition", "attachment; filename=sample.txt");
+    		        resp.setHeader("Content-disposition", "attachment; filename="+salida2+".txt");
     		        int ARBITARY_SIZE = 1048;
-    		        try(InputStream in = req.getServletContext().getResourceAsStream("/WEB-INF/Salida.pdf");
+    		        try(InputStream in = req.getServletContext().getResourceAsStream("/WEB-INF/"+ usuario2.replaceAll(" ", "")+salida2.replaceAll(" ", "") +".pdf");
     		          OutputStream out = resp.getOutputStream()) {
 
     		            byte[] buffer = new byte[ARBITARY_SIZE];
@@ -366,7 +399,6 @@ public class ServletConsulta extends HttpServlet {
                     break;
     		    case "/ConsultaUsuario":
     				String usuario = (String) req.getParameter("nick");
-    				System.out.println(usuario);
     				if (usuario == null) {
     					DataUsuario[] usuarios = Arrays.copyOf(port.listarUsuarios().getArray(), port.listarUsuarios().getArray().length, DataUsuario[].class);
     					req.setAttribute("ArregloUsuarios", usuarios);

@@ -101,36 +101,34 @@
 	                                        <div class="row">
 	                                            <div class="col-lg-4">
 								                   	<div class="hero__deps">
-												   		<div class="hero__deps__all">
-												             <i class="fa fa-bars"  ></i>
-												             <span>Seguidores</span>
+												   		<div style="display: flex; justify-content:center;">
+												             <h3>Seguidores</h3>
 												         </div>
 												         <ul>
 												         <%
 												         if(Segui!=null){
 												         for (String it : Segui){
 												         %>
-												             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
+												             <li><a href="/tarea2p2/ConsultaUsuario?nick=<%= it%>"><%= it%></a></li>
 												         <%}} %>
 												         </ul>
 												     </div>
 								                   </div>
-								                   <div  class="col-lg-4">
-								                   	<div class="hero__deps">
-												   		<div class="hero__deps__all">
-												             <i class="fa fa-bars"  ></i>
-												             <span>Seguidos</span>
+								                 <div class="col-lg-4">
+								                   <div  class="hero__deps">
+												   		<div style="display: flex; justify-content:center;">
+												             <h3>Seguidos</h3>
 												         </div>
 												         <ul>
 												         <%
 												         if(Seguidos!=null){
 												         for (String it : Seguidos){
 												         %>
-												             <li><a href="/tarea2p2/ConsultaUsuario?dataUsuario=<%= it%>"><%= it%></a></li>
+												             <li><a href="/tarea2p2/ConsultaUsuario?nick=<%= it%>"><%= it%></a></li>
 												         <%} }%>
 												         </ul>
-												     </div>
 								                   </div>
+								                 </div>
 	                                    </div>
 					      </div>
 					    </div>
@@ -324,7 +322,7 @@
 					                                        <p class="card-text">Cantidad:<%= arrDCG[0].getCantidad() %></p>
 					                                        <p class="card-text">Es de un paquete:<%if(arrDCG[0].isPorPaquete()){%>Si<%}else{%>No<%}%></p> 
 					                                    	<br>
-							                                          <button type="button" class="btn btn-light"><a href="/tarea2p2/DescargarPDF?Usuario=<%= usr.getNombre() %>&Salida=<%= arrDS[0].getNombre()%>" %>Descargar PDF</a></button>
+							                                          <button type="button" class="btn btn-light"><a href="/tarea2p2/DescargarPDF?Usuario=<%= usr.getNick() %>&Salida=<%= arrDS[0].getNombre()%>" %>Descargar PDF</a></button>
 					                                    	<%}/*
 					                              				    Document doc = new Document();
 					                                                  //String Destino = "Salida.pdf";
@@ -366,7 +364,7 @@
 							                                        <p class="card-text">Cantidad:<%= arrDCG[i].getCantidad() %></p>
 							                                        <p class="card-text">Es de un paquete:<%if(arrDCG[i].isPorPaquete()){%>Si<%}else{%>No<%}%></p>        
 							                                        <br>
-							                                             <button type="button" class="btn btn-light"><a href="/tarea2p2/DescargarPDF?Usuario=<%= usr.getNombre() %>&Salida=<%= arrDS[i].getNombre()%>" %>Descargar PDF</a></button>
+							                                             <button type="button" class="btn btn-light"><a href="/tarea2p2/DescargarPDF?Usuario=<%= usr.getNick() %>&Salida=<%= arrDS[i].getNombre()%>" >Descargar PDF</a></button>
 		                                                             
 							                                      <%} 
 					                                        %>

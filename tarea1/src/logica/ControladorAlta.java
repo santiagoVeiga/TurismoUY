@@ -245,6 +245,30 @@ public class ControladorAlta implements IControladorAlta {
 
     public void actualizarDatosTurista(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad, String password,byte[] imagen) {
     	ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
+    	FileOutputStream output = null;
+        InputStream inputStream = null;
+	       try {
+	    	File nuevaImg = new File("./src/data/Users/" + nick + ".jpg");
+	    	nuevaImg.createNewFile();
+	        output = new FileOutputStream(nuevaImg);
+	        inputStream = new ByteArrayInputStream(imagen); 
+	        int leido = 0;
+	        leido = inputStream.read();
+	        while (leido != -1) {
+	            output.write(leido);
+	            leido = inputStream.read();
+	        }
+	      } catch (IOException ioe) {
+	        ioe.printStackTrace();
+	      } finally {
+	        try {
+	            output.flush();
+	            output.close();
+	            inputStream.close();
+	        } catch (IOException ex) {
+	            ex.printStackTrace();
+	        }
+	    }
     	Usuario usu = mUsu.obtenerUsuarioNick(nick);
     	if (usu!=null) {
     		if (usu instanceof Turista) {
@@ -261,6 +285,30 @@ public class ControladorAlta implements IControladorAlta {
     public void actualizarDatosProveedor(String nick, String mail, String nombre, String apellido, Date fechaN, String descripcion, String link, boolean hayLink, String password, byte[] imagen) {
     	ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
     	Usuario usu = mUsu.obtenerUsuarioNick(nick);
+    	FileOutputStream output = null;
+        InputStream inputStream = null;
+	       try {
+	    	File nuevaImg = new File("./src/data/Users/" + nick + ".jpg");
+	    	nuevaImg.createNewFile();
+	        output = new FileOutputStream(nuevaImg);
+	        inputStream = new ByteArrayInputStream(imagen); 
+	        int leido = 0;
+	        leido = inputStream.read();
+	        while (leido != -1) {
+	            output.write(leido);
+	            leido = inputStream.read();
+	        }
+	      } catch (IOException ioe) {
+	        ioe.printStackTrace();
+	      } finally {
+	        try {
+	            output.flush();
+	            output.close();
+	            inputStream.close();
+	        } catch (IOException ex) {
+	            ex.printStackTrace();
+	        }
+	    }
     	if (usu!=null) {
     		if (usu instanceof Proveedor) {
         		usu.setNombre(nombre);
