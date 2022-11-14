@@ -151,11 +151,13 @@ public class Turista extends Usuario{
 				throw new ActividadRepetidaException("El turista " + this.getNickname() + " ya tiene como favorita a la actividad " + act.getNombre());
 			}
 			this.favoritas.put(act.getNombre(), act);
+			act.setCantFavs(act.getCantFavs() + 1);
 		} else {
 			if (this.getFavoritas().get(act.getNombre()) == null) {
 				throw new ActividadNoExisteException("El turista " + this.getNickname() + " no tiene como favorita a la actividad " + act.getNombre());
 			}
 			this.favoritas.remove(act.getNombre());
+			act.setCantFavs(act.getCantFavs() - 1);
 		}
 	}
 	

@@ -7,7 +7,7 @@
 
 package servidor;
 
-public class FechaAltaSalidaInvalida  extends org.apache.axis.AxisFault  implements java.io.Serializable {
+public class FechaAltaSalidaInvalida  extends servidor.Exception  implements java.io.Serializable {
     private java.lang.String message1;
 
     public FechaAltaSalidaInvalida() {

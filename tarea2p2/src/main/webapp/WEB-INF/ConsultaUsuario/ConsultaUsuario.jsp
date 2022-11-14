@@ -403,7 +403,8 @@
 				    	  
 				    	  if (!(usr != null && DU.getNick().equals(usr.getNick()))){
 					        DataActividad[] arrDS1 = ((DataProveedor) DU).getActividades();
-					        DataActividad[] arrDS = new DataActividad[arrDS1.length];
+					        if (arrDS1 != null) {
+					        	DataActividad[] arrDS = new DataActividad[arrDS1.length];
 					       	
 					        	int cont = 1;
 					        	while(arrDS1[0].getEstado() != EstadoAct.confirmada && (cont<arrDS1.length))
@@ -418,7 +419,7 @@
 			        			}
 					        	
 					        	arrDS = arrDS1;
-					        	if (arrDS.length != 0) {
+					        	if (arrDS != null) {
 						        	//String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						        
                       	%>
@@ -485,6 +486,7 @@
 					      </div>
 					    </div> 
                       <%}}
+				      }
 				    	  
 				    	  
 				    	  else{

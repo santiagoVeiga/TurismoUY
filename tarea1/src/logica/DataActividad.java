@@ -28,24 +28,12 @@ public class DataActividad extends DataBuscar {
 	private String imagen;
 	private String link;
 	boolean hayLink;
+	private int cantFavs;
+	private Date fechaBaja;
 	
-	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2, String link, boolean hayLink, int cantV) {
-		this.nombre = nom;
-		this.descripcion = des;
-		this.fechaAlta = fecha;
-		this.ciudad = ciudad;
-		this.costo = cos;
-		this.duracion = dur;
-		this.salidas = dataSalidas;
-		this.paquetes = paquetes;
-		this.estado = estado2;
-		this.link = link;
-		this.hayLink = hayLink;
-		this.setImagen("./src/data/Actvs/" + this.getNombre() + ".jpg");
-		setCantVis(cantV);
-	}
 	
-	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2, String link, boolean hayLink, Set<String> categorias, String dep, int cantV) { //, byte[] imagen) {
+	
+	public DataActividad(String nom, String des, Date fecha, String ciudad, int cos, int dur, Set<DataSalida> dataSalidas, Set<String> paquetes, estadoAct estado2, String link, boolean hayLink, Set<String> categorias, String dep, int cantV, int cantF, Date fBaja) { //, byte[] imagen) {
 		this.nombre = nom;
 		this.descripcion = des;
 		this.fechaAlta = fecha;
@@ -61,6 +49,8 @@ public class DataActividad extends DataBuscar {
 		this.hayLink = hayLink;
 		this.setImagen("./src/data/Actvs/" + this.getNombre() + ".jpg");
 		setCantVis(cantV);
+		setCantFavs(cantF);
+		setFechaBaja(fBaja);
 	}
 	
 //Getters y Setters
@@ -195,6 +185,22 @@ public class DataActividad extends DataBuscar {
 
 	public void setCantVis(int cantVis) {
 		this.cantVis = cantVis;
+	}
+
+	public int getCantFavs() {
+		return cantFavs;
+	}
+
+	public void setCantFavs(int cantFavs) {
+		this.cantFavs = cantFavs;
+	}
+
+	public Date getFechaBaja() {
+		return fechaBaja;
+	}
+
+	public void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
 	}
 	
 }

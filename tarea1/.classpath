@@ -8,6 +8,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
 		<attributes>
+			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
@@ -42,7 +43,6 @@
 	<classpathentry kind="lib" path="lib/jaxws-ri/lib/woodstox-core.jar"/>
 	<classpathentry kind="lib" path="lib/JPA/eclipselink.jar"/>
 	<classpathentry kind="lib" path="lib/JPA/eclipselink-sources.jar"/>
-	<classpathentry kind="lib" path="lib/JPA/hsqldb.jar"/>
 	<classpathentry kind="lib" path="lib/JPA/jakarta.annotation-api.jar"/>
 	<classpathentry kind="lib" path="lib/JPA/jakarta.persistence-api.jar"/>
 	<classpathentry kind="lib" path="lib/JPA/org.eclipse.persistence.jpa.modelgen.processor.jar"/>
@@ -54,5 +54,6 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/JPA/hsqldb.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
