@@ -341,9 +341,9 @@ public class ServletConsulta extends HttpServlet {
     		            
     		            
     		        } catch(FileNotFoundException e) {
-    		            System.out.println(e.getMessage());
+    		            System.out.println(e.getMessage1());
     		        } catch(com.itextpdf.text.DocumentException e) {
-    		            System.out.println(e.getMessage());
+    		            System.out.println(e.getMessage1());
     		        }
                     */
     		        
@@ -463,7 +463,7 @@ public class ServletConsulta extends HttpServlet {
                         req.setAttribute("SalidaElegida", dataSal);
                         req.getRequestDispatcher("/WEB-INF/ConsultaSalida/ConsultaSalida.jsp").forward(req, resp); //Ver si entregar el set de salidas o no, por ahora se devuelve el DataSalida que viene desde la lista.
                     } catch (SalidasNoExisteException e) {
-                        req.setAttribute("Exception", e.getMessage());
+                        req.setAttribute("Exception", e.getMessage1());
                         req.getRequestDispatcher("/WEB-INF/home/iniciar.jsp").forward(req, resp);
                     }
     				break;

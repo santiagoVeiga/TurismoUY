@@ -51,6 +51,8 @@ public class Actividad {
 	@Transient
 	private int visitas;
 	@Transient
+	private int cantFavs = 0;
+	@Transient
 	private String link;
 	@Transient
 	private boolean hayLink;
@@ -155,6 +157,14 @@ public class Actividad {
 		return proveedor;
 	}
 
+	public int getCantFavs() {
+		return cantFavs;
+	}
+
+	public void setCantFavs(int cantFavs) {
+		this.cantFavs = cantFavs;
+	}
+
 	public void setProveedor(Proveedor prov) {
 		this.proveedor = prov;
 	}
@@ -217,9 +227,9 @@ public class Actividad {
 	
 	public DataActividad getDataAT() {
 		if (this.getEstado() != estadoAct.finalizada) {
-			return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getDepartamento().getNombre(),getVisitas() ); // , this.getImagen());
+			return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getDepartamento().getNombre(), getVisitas(), getCantFavs(), getFechaBaja()); // , this.getImagen());
 		} else {
-			return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getNombreDepartamento(), 0); // , this.getImagen());
+			return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getNombreDepartamento(), 0, 0, getFechaBaja()); // , this.getImagen());
 		}
 	}
 	

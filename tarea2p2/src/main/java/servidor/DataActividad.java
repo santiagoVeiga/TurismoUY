@@ -8,6 +8,8 @@
 package servidor;
 
 public class DataActividad  extends servidor.DataBuscar  implements java.io.Serializable {
+    private int cantFavs;
+
     private int cantVis;
 
     private java.lang.String[] categorias;
@@ -26,6 +28,8 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
 
     private java.util.Calendar fechaAlta;
 
+    private java.util.Calendar fechaBaja;
+
     private boolean hayLink;
 
     private java.lang.String imagen;
@@ -42,6 +46,7 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
     }
 
     public DataActividad(
+           int cantFavs,
            int cantVis,
            java.lang.String[] categorias,
            java.lang.String ciudad,
@@ -51,12 +56,14 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
            int duracion,
            servidor.EstadoAct estado,
            java.util.Calendar fechaAlta,
+           java.util.Calendar fechaBaja,
            boolean hayLink,
            java.lang.String imagen,
            java.lang.String link,
            java.lang.String nombre,
            java.lang.String[] paquetes,
            servidor.DataSalida[] salidas) {
+        this.cantFavs = cantFavs;
         this.cantVis = cantVis;
         this.categorias = categorias;
         this.ciudad = ciudad;
@@ -66,12 +73,33 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         this.duracion = duracion;
         this.estado = estado;
         this.fechaAlta = fechaAlta;
+        this.fechaBaja = fechaBaja;
         this.hayLink = hayLink;
         this.imagen = imagen;
         this.link = link;
         this.nombre = nombre;
         this.paquetes = paquetes;
         this.salidas = salidas;
+    }
+
+
+    /**
+     * Gets the cantFavs value for this DataActividad.
+     * 
+     * @return cantFavs
+     */
+    public int getCantFavs() {
+        return cantFavs;
+    }
+
+
+    /**
+     * Sets the cantFavs value for this DataActividad.
+     * 
+     * @param cantFavs
+     */
+    public void setCantFavs(int cantFavs) {
+        this.cantFavs = cantFavs;
     }
 
 
@@ -264,6 +292,26 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
 
 
     /**
+     * Gets the fechaBaja value for this DataActividad.
+     * 
+     * @return fechaBaja
+     */
+    public java.util.Calendar getFechaBaja() {
+        return fechaBaja;
+    }
+
+
+    /**
+     * Sets the fechaBaja value for this DataActividad.
+     * 
+     * @param fechaBaja
+     */
+    public void setFechaBaja(java.util.Calendar fechaBaja) {
+        this.fechaBaja = fechaBaja;
+    }
+
+
+    /**
      * Gets the hayLink value for this DataActividad.
      * 
      * @return hayLink
@@ -410,6 +458,7 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         __equalsCalc = obj;
         boolean _equals;
         _equals = super.equals(obj) && 
+            this.cantFavs == other.getCantFavs() &&
             this.cantVis == other.getCantVis() &&
             ((this.categorias==null && other.getCategorias()==null) || 
              (this.categorias!=null &&
@@ -431,6 +480,9 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
             ((this.fechaAlta==null && other.getFechaAlta()==null) || 
              (this.fechaAlta!=null &&
               this.fechaAlta.equals(other.getFechaAlta()))) &&
+            ((this.fechaBaja==null && other.getFechaBaja()==null) || 
+             (this.fechaBaja!=null &&
+              this.fechaBaja.equals(other.getFechaBaja()))) &&
             this.hayLink == other.isHayLink() &&
             ((this.imagen==null && other.getImagen()==null) || 
              (this.imagen!=null &&
@@ -458,6 +510,7 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         }
         __hashCodeCalc = true;
         int _hashCode = super.hashCode();
+        _hashCode += getCantFavs();
         _hashCode += getCantVis();
         if (getCategorias() != null) {
             for (int i=0;
@@ -486,6 +539,9 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         }
         if (getFechaAlta() != null) {
             _hashCode += getFechaAlta().hashCode();
+        }
+        if (getFechaBaja() != null) {
+            _hashCode += getFechaBaja().hashCode();
         }
         _hashCode += (isHayLink() ? Boolean.TRUE : Boolean.FALSE).hashCode();
         if (getImagen() != null) {
@@ -530,6 +586,12 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
     static {
         typeDesc.setXmlType(new javax.xml.namespace.QName("http://servidor/", "dataActividad"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("cantFavs");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "cantFavs"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("cantVis");
         elemField.setXmlName(new javax.xml.namespace.QName("", "cantVis"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
@@ -586,6 +648,13 @@ public class DataActividad  extends servidor.DataBuscar  implements java.io.Seri
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("fechaAlta");
         elemField.setXmlName(new javax.xml.namespace.QName("", "fechaAlta"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("fechaBaja");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "fechaBaja"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "dateTime"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);

@@ -194,13 +194,13 @@ public class ServletAlta extends HttpServlet {
                                 req.setAttribute("Exception", "Formato numerico no aceptado");
                                 req.getRequestDispatcher("/AltaActividad").forward(req, resp);
                             } catch (ActividadRepetidaException e2) {
-                                req.setAttribute("Exception", e2.getMessage());
+                                req.setAttribute("Exception", e2.getMessage1());
                                 req.getRequestDispatcher("/AltaActividad").forward(req, resp);
                             } catch (UsuarioNoExisteException e2) {
-                                req.setAttribute("Exception", e2.getMessage());
+                                req.setAttribute("Exception", e2.getMessage1());
                                 req.getRequestDispatcher("/AltaActividad").forward(req, resp);
                             } catch (ProveedorNoNacidoException e2) {
-                                req.setAttribute("Exception", e2.getMessage());
+                                req.setAttribute("Exception", e2.getMessage1());
                                 req.getRequestDispatcher("/AltaActividad").forward(req, resp);
                             }
                         }
@@ -216,13 +216,13 @@ public class ServletAlta extends HttpServlet {
                             } catch (NumberFormatException e2) {
                                 e2.printStackTrace();
                             } catch (ActividadRepetidaException e2) {
-                                req.setAttribute("Exception", e2.getMessage());
+                                req.setAttribute("Exception", e2.getMessage1());
                                 req.getRequestDispatcher("/home").forward(req, resp);
                             } catch (UsuarioNoExisteException e2) {
-                                req.setAttribute("Exception", e2.getMessage());
+                                req.setAttribute("Exception", e2.getMessage1());
                                 req.getRequestDispatcher("/home").forward(req, resp);
                             } catch (ProveedorNoNacidoException e2) {
-                                req.setAttribute("Exception", e2.getMessage());
+                                req.setAttribute("Exception", e2.getMessage1());
                                 req.getRequestDispatcher("/home").forward(req, resp);
                             }
                         }
@@ -381,13 +381,13 @@ public class ServletAlta extends HttpServlet {
                             port.confirmarAltaSalidaImagen(actividad, salidaNombre, fechaSalidaC, horaSalidaC, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualSC, imgBytesSal);
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
-                            req.setAttribute("Exception", e3.getMessage());
+                            req.setAttribute("Exception", e3.getMessage1());
                             req.getRequestDispatcher("/home").forward(req, resp);
                         }catch( FechaAltaSalidaAnteriorActividad e3) {
-                            req.setAttribute("Exception", e3.getMessage());
+                            req.setAttribute("Exception", e3.getMessage1());
                             req.getRequestDispatcher("/home").forward(req, resp);
                         }catch( FechaAltaSalidaInvalida  e3) {
-                            req.setAttribute("Exception", e3.getMessage());
+                            req.setAttribute("Exception", e3.getMessage1());
                             req.getRequestDispatcher("/home").forward(req, resp);
                         }
                     }
@@ -402,13 +402,13 @@ public class ServletAlta extends HttpServlet {
                             port.confirmarAltaSalidaImagen(actividad, salidaNombre, fechaSalidaC, horaSalidaC, salidaLugar, Integer.parseInt(salidaCantMax), fechaActualSC, imgDefBytes);
                             resp.sendRedirect("/tarea2p2/home");
                         } catch (SalidaYaExisteExeption e3) {
-                            req.setAttribute("Exception", e3.getMessage());
+                            req.setAttribute("Exception", e3.getMessage1());
                             req.getRequestDispatcher("/home").forward(req, resp);
                         }catch( FechaAltaSalidaAnteriorActividad e3) {
-                            req.setAttribute("Exception", e3.getMessage());
+                            req.setAttribute("Exception", e3.getMessage1());
                             req.getRequestDispatcher("/home").forward(req, resp);
                         }catch( FechaAltaSalidaInvalida  e3) {
-                            req.setAttribute("Exception", e3.getMessage());
+                            req.setAttribute("Exception", e3.getMessage1());
                             req.getRequestDispatcher("/home").forward(req, resp);
                         }   
                     }
