@@ -43,6 +43,7 @@ import servidor.DataPaquete;
 import servidor.DataProveedor;
 import servidor.DataTurista;
 import servidor.DataUsuario;
+import servidor.DepartamentoNoExisteException;
 
 /**
  * Servlet implementation class Home
@@ -207,8 +208,9 @@ public class ServletInsc extends HttpServlet {
                         Collections.addAll(setFavs, dTur.getActFavoritas());
                         port.agregarQuitarActividadFavorita(dTur.getNick(), nomAct, !setFavs.contains(nomAct));
                         session3.setAttribute("usuario", port.obtenerDataUsuarioNick(dTur.getNick()));
+                        session3.setAttribute("dptos", Arrays.copyOf(port.obtenerDataDepartamentos().getArray(), port.obtenerDataDepartamentos().getArray().length, DataDepartamento[].class));
                         req.getRequestDispatcher("/ConsultaActividad?actividad=" + nomAct).forward(req, resp); //lo cambie
-                    } catch (UsuarioNoExisteException | ActividadNoExisteException | ActividadRepetidaException e) {
+                    } catch (DepartamentoNoExisteException | UsuarioNoExisteException | ActividadNoExisteException | ActividadRepetidaException e) {
                         req.setAttribute("Exception", e.getMessage1());
                         req.getRequestDispatcher("/home").forward(req, resp);
                     }

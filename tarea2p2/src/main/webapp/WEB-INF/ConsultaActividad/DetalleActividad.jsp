@@ -151,7 +151,8 @@
 								    <%if (actividadSeleccionada.getEstado()==EstadoAct.finalizada){ %>
 								    <tr>
 								      <th scope="row">Fecha de Baja</th>
-								      <td>hardcodeds</td>
+								      <% Date fechaActividadB = actividadSeleccionada.getFechaBaja().getTime(); %>
+								      <td><%= fechaActividadB.getDate() + "/" + (fechaActividadB.getMonth()+1) + "/" + (fechaActividadB.getYear()+1900) %></td>
 								    </tr>
 								    <%}%>
 								    <tr>
@@ -176,12 +177,16 @@
 								      <th scope="row">Estado</th>
 								      <td><%= actividadSeleccionada.getEstado()%></td>
 								    </tr>
+								    <tr> 
+								      <th scope="row">Cantidad de Favs</th>
+								      <td><%= actividadSeleccionada.getCantFavs()%></td>
+								    </tr>
 								    <%if(usr instanceof DataProveedor && actividadSeleccionada.getEstado() == EstadoAct.confirmada){%>
 	                            	<tr>
 								      <th scope="row">Alta Salida</th>
 								      <td><a href="/tarea2p2/AltaSalida?actividadSal=<%=actividadSeleccionada.getNombre()%>&actDepto=<%=actividadSeleccionada.getDepartamento()%>&actCiudad=<%=actividadSeleccionada.getCiudad()%>">Agregar una Salida</a></td>
 								    </tr>
-	                            <%}%>
+	                            	<%}%>
 								  </tbody>
 								</table>
 	                            <%	
@@ -190,13 +195,13 @@
 										String[] favoritas = tur.getActFavoritas();
 				                    	if(favoritas != null){
 				                    	%>
-				                    <form action="AgregarFavs" method="POST">
+				                    		<form action="AgregarFavs" method="POST">
 				                    	<%
 				                    	String auxFavs = null;
 				                    	boolean flag = false ; 
 				                    	int y = 0 ; 
+			                    		String act = actividadSeleccionada.getNombre();
 				                    	for (int x=0;x<favoritas.length;x++){//checkeo si la actividad esta en las favoritas del turist 
-				                    		String act = actividadSeleccionada.getNombre();
 				                    		if (favoritas[x].equals(act)){
 				                    			flag = true ; 
 				                    			y = x ; 

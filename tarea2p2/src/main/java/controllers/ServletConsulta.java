@@ -296,7 +296,6 @@ public class ServletConsulta extends HttpServlet {
                     }
     		        
     		        
-    		        try {
     		            PDDocument documento = new PDDocument();
     		            PDPage pagina = new PDPage(PDRectangle.A4);
     		            documento.addPage(pagina);
@@ -348,9 +347,20 @@ public class ServletConsulta extends HttpServlet {
                         contenido.close();
     		            documento.save(getServletContext().getRealPath("/WEB-INF")+"/" + usuario2.replaceAll(" ", "")+salida2.replaceAll(" ", "") +".pdf");
     		            
+<<<<<<< HEAD
     		        }catch(IOException x) {
     		            System.out.println("error");
     		        }
+=======
+    		            contenido.showText(text11);
+    		            contenido.showText(text22);
+    		            contenido.showText(text32);
+    		            
+    		            contenido.close();
+    		            
+    		            documento.save("/home/eeeeeeeeeeeeee/git/123/tarea2p2/src/main/webapp/WEB-INFSalida.pdf");
+    		            
+>>>>>>> branch 'main' of https://gitlab.fing.edu.uy/tprog/tpgr29.git
     		        
     		        /*
     		        com.itextpdf.text.Document documento;

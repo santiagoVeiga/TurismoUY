@@ -78,13 +78,11 @@ public class contadorActSal extends HttpFilter implements Filter {
         }
         if (actividad != null) {
             port.sumarVistaAAct(actividad);
-            System.out.println("Se sumo a act");
         }
         else {
             String salida = request.getParameter("salida");
             if (salida != null) {
               port.sumarVistaASal(salida);
-              System.out.println("Se sumo a sal");
             }
         }
 		// pass the request along the filter chain
