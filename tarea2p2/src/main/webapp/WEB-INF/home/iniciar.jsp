@@ -136,6 +136,7 @@
 	        <div class="d-flex align-items-center">
 				
 	          <form id="iniSesM" style="width: 23rem;" action = "sesionIniciada" method="post">
+	          <br>
 				<a href="/tarea2p2/home"><img alt="" src="img/logo.png"></a>
 				<br>
 	            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inicio de Sesion</h3>

@@ -403,15 +403,20 @@
 					        DataActividad[] arrDS1 = ((DataProveedor) DU).getActividades();
 					        if (arrDS1 != null) {
 					        	int cont = 0;
-					        	while((cont<arrDS1.length) && arrDS1[cont].getEstado() != EstadoAct.confirmada)
+					        	
+					        	int contN = 0;
+					        	while((cont<arrDS1.length))
 					        	{
+					        		if (arrDS1[cont].getEstado() == EstadoAct.confirmada){
+					        			contN++;
+					        		}
 					        		cont++;
 					        	}
-					        	DataActividad[] arrDS = new DataActividad[cont];
+					        	DataActividad[] arrDS = new DataActividad[contN];
 					        	cont = 0;
-					        	int contN = 0;
+					        	contN = 0;
 					        	while (cont < arrDS1.length){
-					        		if (arrDS1[cont].getEstado() != EstadoAct.confirmada){
+					        		if (arrDS1[cont].getEstado() == EstadoAct.confirmada){
 					        			arrDS[contN] = arrDS1[cont];
 					        			contN++;
 					        		}

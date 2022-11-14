@@ -154,7 +154,9 @@ public class ServletConsulta extends HttpServlet {
     		        try {
                         DataDepartamento[] deps = Arrays.copyOf(port.obtenerDataDepartamentos().getArray(), port.obtenerDataDepartamentos().getArray().length, DataDepartamento[].class);
                         for (DataDepartamento iterD : deps) {
-                            for (DataActividad iterA : iterD.getColAct()) {
+                            DataActividad[] aux = iterD.getColAct();
+                            if (aux != null)
+                            for (DataActividad iterA : aux) {
                                 if ((iterA.getNombre().contains(input) || iterA.getDescripcion().contains(input)) && iterA.getEstado() == EstadoAct.confirmada) {
                                     res.add(iterA);
                                 }
@@ -294,7 +296,7 @@ public class ServletConsulta extends HttpServlet {
                             break;
                         }
                     }
-    		        
+    		            try {
     		        
     		            PDDocument documento = new PDDocument();
     		            PDPage pagina = new PDPage(PDRectangle.A4);
@@ -347,20 +349,9 @@ public class ServletConsulta extends HttpServlet {
                         contenido.close();
     		            documento.save(getServletContext().getRealPath("/WEB-INF")+"/" + usuario2.replaceAll(" ", "")+salida2.replaceAll(" ", "") +".pdf");
     		            
-<<<<<<< HEAD
     		        }catch(IOException x) {
     		            System.out.println("error");
     		        }
-=======
-    		            contenido.showText(text11);
-    		            contenido.showText(text22);
-    		            contenido.showText(text32);
-    		            
-    		            contenido.close();
-    		            
-    		            documento.save("/home/eeeeeeeeeeeeee/git/123/tarea2p2/src/main/webapp/WEB-INFSalida.pdf");
-    		            
->>>>>>> branch 'main' of https://gitlab.fing.edu.uy/tprog/tpgr29.git
     		        
     		        /*
     		        com.itextpdf.text.Document documento;

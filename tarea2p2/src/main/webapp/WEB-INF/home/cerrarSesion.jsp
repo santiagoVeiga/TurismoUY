@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 <body>
+<%boolean esMovil = (boolean) session.getAttribute("esMovil"); 
+   if (!esMovil){%>
 <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -63,7 +65,30 @@
     </div>
   </div>
 </section>
+<%} else{ %>
+  <div class="cont-csesion align-items-center justify-content-center">
+    <div class="row align-items-center justify-content-center" >
+      <div class="col-lg-12 text-black align-items-center ">
 
+        <div class="d-flex align-items-center ">
+			
+          <form style="width: 35rem; ">
+			<a href="/tarea2p2/home"><img alt="" src="img/logo.png"></a>
+			
+            <p>Se ha cerrado la sesion</p>
+            <br>
+			<div class="pt-1 mb-4" >
+              <a href="/tarea2p2/home"> <button class="btn btn-info btn-lg btn-block" style="background : #4bb1ff;" type="button">Volver al Inicio</button> </a>
+            </div>            
+
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+<%} %>
 <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

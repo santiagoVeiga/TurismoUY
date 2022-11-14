@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page errorPage="/WEB-INF/errorPages/500.jsp" %>
-<%@page import="java.util.List,logica.DataBuscar,logica.DataPaquete,logica.estadoAct,java.util.Base64,logica.DataUsuario,logica.DataTurista,logica.DataProveedor,logica.DataActividad,java.util.Set,logica.DataDepartamento,controllers.EstadoSesion,java.text.SimpleDateFormat" %>
+<%@page import="java.util.Calendar,java.util.List,servidor.DataBuscar,servidor.DataPaquete,servidor.EstadoAct,java.util.Base64,servidor.DataUsuario,servidor.DataTurista,servidor.DataProveedor,servidor.DataActividad,java.util.Set,servidor.DataDepartamento,controllers.EstadoSesion,java.text.SimpleDateFormat" %>
 
 <!DOCTYPE html>
 <html>
@@ -109,11 +109,10 @@
                                 	for(DataBuscar iter : res){
                                 		if (iter instanceof DataPaquete){
                                 			DataPaquete paq = (DataPaquete) iter;
-                                			String imagen = Base64.getEncoder().encodeToString(paq.getImagen());
 	                                	%>
-	                                	<div class="latest-product__item" data-nombre="<%=paq.getNombre() %>" data-anio="<%= paq.getFechaAlta().getYear() %>">
+	                                	<div class="latest-product__item" data-nombre="<%=paq.getNombre() %>" data-anio="<%= paq.getFechaAlta().get(Calendar.YEAR) %>">
 	                                        <div class="latest-product__item__pic">
-	                                            <img src="data:image/jpg;base64,<%= imagen %>" alt="">
+	                                            <img src="/tarea2p2/Imagenes?id=<%= paq.getNombre() %>" alt="">
 	                                        </div>
 	                                        <div class="latest-product__item__text">
 	                                            <h5> <%= paq.getNombre() %> </h5>
@@ -126,11 +125,11 @@
 	                                    </div>
 	                                	<% } else{
 	                                		DataActividad act = (DataActividad) iter;
-                                			String imagen = Base64.getEncoder().encodeToString(act.getImagen());
+                                			
 	                                	%>
-	                                		<div class="latest-product__item" data-nombre="<%=act.getNombre() %>" data-anio="<%= act.getFechaAlta().getYear() %>">
+	                                		<div class="latest-product__item" data-nombre="<%=act.getNombre() %>" data-anio="<%= act.getFechaAlta().get(Calendar.YEAR) %>">
 		                                        <div class="latest-product__item__pic">
-		                                            <img src="data:image/jpg;base64,<%= imagen %>" alt="">
+		                                            <img src="/tarea2p2/Imagenes?id=<%= act.getNombre() %>" alt="">
 		                                        </div>
 		                                        <div class="latest-product__item__text">
 		                                            <h5> <%= act.getNombre() %> </h5>

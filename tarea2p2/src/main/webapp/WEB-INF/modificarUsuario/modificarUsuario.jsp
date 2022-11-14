@@ -161,7 +161,7 @@
 														            
 														            
 														            <!-- Botones -->
-									                                <button type="submit" class="btn btn-info btn-lg btn-block">Confirmar</button>
+									                                <button type="submit" style="background : #4bb1ff;" class="btn btn-info btn-lg btn-block">Confirmar</button>
 														      </div> 
 												  </div>
 											</div>
