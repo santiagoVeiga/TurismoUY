@@ -402,21 +402,21 @@
 				    	  if (!(usr != null && DU.getNick().equals(usr.getNick()))){
 					        DataActividad[] arrDS1 = ((DataProveedor) DU).getActividades();
 					        if (arrDS1 != null) {
-					        	DataActividad[] arrDS = new DataActividad[arrDS1.length];
-					       	
-					        	int cont = 1;
-					        	while(arrDS1[0].getEstado() != EstadoAct.confirmada && (cont<arrDS1.length))
-			        			{
-			        				if(arrDS1[cont].getEstado() == EstadoAct.confirmada)
-			        				{
-			        					DataActividad aux = arrDS1[cont];
-				        				arrDS1[cont] = arrDS1[0];
-				        				arrDS1[0] = aux;				        					
-			        				}else
-			        					cont++;
-			        			}
-					        	
-					        	arrDS = arrDS1;
+					        	int cont = 0;
+					        	while((cont<arrDS1.length) && arrDS1[cont].getEstado() != EstadoAct.confirmada)
+					        	{
+					        		cont++;
+					        	}
+					        	DataActividad[] arrDS = new DataActividad[cont];
+					        	cont = 0;
+					        	int contN = 0;
+					        	while (cont < arrDS1.length){
+					        		if (arrDS1[cont].getEstado() != EstadoAct.confirmada){
+					        			arrDS[contN] = arrDS1[cont];
+					        			contN++;
+					        		}
+					        		cont++;
+					        	}
 					        	if (arrDS != null) {
 						        	//String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						        
