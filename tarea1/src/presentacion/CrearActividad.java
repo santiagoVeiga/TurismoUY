@@ -458,7 +458,7 @@ public class CrearActividad extends JInternalFrame {
 	    	this.setVisible(false);
     	}
     }
-    
+    //s
     private void limpiarFormulario() {
         nombreTextField.setText("");
         descripcionTextField.setText("");
