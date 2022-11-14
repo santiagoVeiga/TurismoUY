@@ -501,5 +501,7 @@ public class CrearUsuario extends JInternalFrame {
         textFieldNacionalidad.setText("");
         textFieldDescripcion.setText("");
     	textFieldLink.setText("");
+    	textField.setText("");
+    	textField1.setText("");
     }
 }
