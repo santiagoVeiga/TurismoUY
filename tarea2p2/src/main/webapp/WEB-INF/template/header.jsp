@@ -51,6 +51,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
+                    <br>
                         <a href="/tarea2p2/home"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
@@ -120,7 +121,7 @@
     </header>
     <!-- Header Section End -->
     <% }%>
-    <!-- Js Plugins -->
+    <!-- Js Plugins 
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
@@ -128,6 +129,7 @@
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js"></script>-->
+    
 </body>
 </html>
