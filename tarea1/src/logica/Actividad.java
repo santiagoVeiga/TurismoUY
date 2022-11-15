@@ -273,7 +273,15 @@ public class Actividad {
 	}
 
 	public Salida getSalida(String salida) {
-		return colSal.get(salida);
+		if (colSal.containsKey(salida))
+			return colSal.get(salida);
+		else {
+			for (Salida sal : salidasPersistir) {
+				if (sal.getNombre().equals(salida))
+					return sal;
+			}
+			return null;
+		}
 	}
 
 	public void altaSalida(String nombreSalida, Date fecha, Date hora, String lugar, int maxCantTuristas,

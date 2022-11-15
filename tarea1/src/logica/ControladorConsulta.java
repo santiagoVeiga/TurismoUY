@@ -95,7 +95,11 @@ public class ControladorConsulta implements IControladorConsulta {
 		String nomAct = mAct.obtenerNomActvidiadDeSalida(nomSal);
 		try {
 			Actividad act = mAct.getActividad(nomAct);
-			return act.getSalida(nomSal).getDataST();
+			if (act.getEstado() != estadoAct.finalizada) {
+				return act.getSalida(nomSal).getDataST();
+			} else {
+				return act.getSalida(nomSal).getDataSalidaF();
+			}
 		} catch (ActividadNoExisteException e) {
 			throw new SalidasNoExisteException("No existe una actividad asociada a la salida con nombre" + nomSal);
 		}
