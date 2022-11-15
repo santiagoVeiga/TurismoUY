@@ -301,7 +301,7 @@ public class Actividad {
 			Date fechaAlta2){
 		// TODO Auto-generated method stub
 		Salida aux; 
-		aux = new Salida(nombreSalida, lugar, hora, fecha, fechaAlta, maxCantTuristas);
+		aux = new Salida(nombreSalida, lugar, hora, fecha, fechaAlta2, maxCantTuristas);
 		colSal.put(nombreSalida, aux);
 	}
 	
