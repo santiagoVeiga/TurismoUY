@@ -127,11 +127,10 @@
 	                                        </div>
 	                                    </div>
 	                                 </div>
-	                                 <%
-									 if (favs.size() != 0){ %>
 		                                 <div class="col-lg-3">
 		                                 <h5>Cantidad de Favs</h5>
 		                                 <h6> <%= acts[i].getCantFavs() %> </h6>
+		                             <% if (!movil && usr != null && usr instanceof DataTurista){ %>
 		                                 <form action="AgregarFavs" method="POST">
 				                    	<%
 				                    	String auxFavs = null;

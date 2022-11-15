@@ -190,7 +190,7 @@
 								  </tbody>
 								</table>
 	                            <%	
-				                    if (usr != null && usr instanceof DataTurista && ((DataTurista)usr).getActFavoritas()!=null && actividadSeleccionada.getEstado()!=EstadoAct.finalizada && !esMovil){
+				                    if (usr != null && usr instanceof DataTurista && actividadSeleccionada.getEstado()!=EstadoAct.finalizada && !esMovil){
 				                    	DataTurista tur = (DataTurista) usr;
 										String[] favoritas = tur.getActFavoritas();
 				                    	%>

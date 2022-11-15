@@ -205,8 +205,12 @@ public class ServletInsc extends HttpServlet {
                     String nomAct = req.getParameter("nomAct");
                     try {
                         Set<String> setFavs = new HashSet<String>();
-                        Collections.addAll(setFavs, dTur.getActFavoritas());
-                        port.agregarQuitarActividadFavorita(dTur.getNick(), nomAct, !setFavs.contains(nomAct));
+                        if (dTur.getActFavoritas() != null) {
+                            Collections.addAll(setFavs, dTur.getActFavoritas());
+                            port.agregarQuitarActividadFavorita(dTur.getNick(), nomAct, !setFavs.contains(nomAct));
+                        } else {
+                            port.agregarQuitarActividadFavorita(dTur.getNick(), nomAct, true);
+                        }
                         session3.setAttribute("usuario", port.obtenerDataUsuarioNick(dTur.getNick()));
                         session3.setAttribute("dptos", Arrays.copyOf(port.obtenerDataDepartamentos().getArray(), port.obtenerDataDepartamentos().getArray().length, DataDepartamento[].class));
                         req.getRequestDispatcher("/ConsultaActividad?actividad=" + nomAct).forward(req, resp); //lo cambie
