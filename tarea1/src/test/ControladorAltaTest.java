@@ -974,7 +974,7 @@ class ControladorAltaTest {
 			dataAct = IctrCons.obtenerDataActividad("Degusta");
 			assertEquals("Rocha", dataAct.getCiudad());
 		} catch (ActividadNoExisteException e) {
-			fail();
+			fail(e.getMessage());
 		}
 	}
 	
@@ -985,7 +985,7 @@ class ControladorAltaTest {
 			assertEquals("Sociedad Agropecuaria de Rocha", dataSal.getLugar());
 			assertEquals("Degusta", IctrInsc.obtenerNomActPorSalida("Degusta Agosto"));
 		} catch (SalidasNoExisteException e) {
-			fail();
+			fail(e.getMessage());
 		}
 	}
 	
@@ -1061,8 +1061,23 @@ class ControladorAltaTest {
 			tur2.eliminarSeguidor(tur1);
 			tur1.dejarDeSeguirUsuario(tur2);
 		} catch (UsuarioRepetidoException | UsuarioNoExisteException e) {
-			fail();
+			fail(e.getMessage());
 		}
+	}
+	
+	@Test void modificar() {
+		Date provDate = new Date(0,0,0);
+		try {
+			IctrAlta.confirmarAltaProveedor("ProvNickModificar", "ProvNom", "ProvApellido", "ProvMailModificar", provDate, "ProvDesc", "ProvLink", true, "ProvContra", null);
+			Date turDate = new Date(0,0,0);
+			IctrAlta.confirmarAltaTurista("TurNickModificar", "TurNom", "TurApellido", "TurMailModificar", turDate, "TurNacion", "TurContra", null);
+			IctrAlta.actualizarDatosProveedor("ProvNickModificar", "ProvNom", "ProvApellido", "ProvMailModificar", provDate, "ProvDesc", "ProvLink", true, "ProvContra", new byte[0]);
+			IctrAlta.actualizarDatosTurista("TurNickModificar", "TurNom", "TurApellido", "TurMailModificar", turDate, "TurNacion", "TurContra", new byte[0]);
+		} catch (UsuarioRepetidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 	
 	@Test void visitas() {
@@ -1128,6 +1143,13 @@ class ControladorAltaTest {
 		}
 	}
 	
+	@Test
+	void testTur() {
+		Turista tur = new Turista();
+		tur.setNickname("");
+		tur.setNombre("");
+		tur.setMail("");
+	}
 	
 	@Test
 	void testBase() {
