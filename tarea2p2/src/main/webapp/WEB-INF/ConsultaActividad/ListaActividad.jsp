@@ -94,7 +94,6 @@
                     <div class="sidebar__item">
                         <div class="latest-product__text">
                             <h4>Lista De Actividades</h4>
-                            <div class="latest-product__slider owl-carousel">
                                 <div class="latest-prdouct__slider__item">
                                 	<% 
                                 	DataActividad[] acts = null;
@@ -110,47 +109,47 @@
                                 	%>
                                 		<!-- <a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>" class="latest-product__item">  -->
                                 	<div class="row">
-                                	<div class="col-lg-9">
-	                                	<div class="latest-product__item">
-	
-	                                		<a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>">
-		                                		<div class="latest-product__item__pic">
-		                                        	<img src="/tarea2p2/Imagenes?id=<%= acts[i].getImagen() %>" alt="<%= acts[i].getImagen() %>">
-		                                   		</div>
-	                                   		</a>
-	                                        <div class="latest-product__item__text">
-	                                            <h5> <%= acts[i].getNombre() %> </h5>
-	                                            <h6> <%= acts[i].getDescripcion() %> </h6>
-	                                            <a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>">
-	                                            	<span class="blog__btn" >LEER MÁS </span>
-	                                            </a>
-	                                        </div>
-	                                    </div>
-	                                 </div>
-		                                 <div class="col-lg-3">
-		                                 <h5>Cantidad de Favs</h5>
-		                                 <h6> <%= acts[i].getCantFavs() %> </h6>
-		                             <% if (!movil && usr != null && usr instanceof DataTurista){ %>
-		                                 <form action="AgregarFavs" method="POST">
-				                    	<%
-				                    	String auxFavs = null;
-				                    	if (favs.contains(acts[i].getNombre())){
-				                    		auxFavs = "Sacar de Favoritas";
-				                    	} else {
-				                    		auxFavs = "Anadir a Favoritas";
-				                    	}
-				                    	%>
-		                   				<input type="hidden" id="nomAct" name="nomAct" value="<%=acts[i].getNombre()%>">
-									    <input type="submit" value="<%= auxFavs %>" onclick="submit()">
-				                    	</form>
-		                                </div>
-		                             </div>
-                                	<% 
-									 }
-									 }
+											<div class="col-lg-9">
+												<div class="latest-product__item">
+			
+													<a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>">
+														<div class="latest-product__item__pic">
+															<img src="/tarea2p2/Imagenes?id=<%= acts[i].getImagen() %>" alt="<%= acts[i].getImagen() %>">
+														</div>
+													</a>
+													<div class="latest-product__item__text">
+														<h5> <%= acts[i].getNombre() %> </h5>
+														<h6> <%= acts[i].getDescripcion() %> </h6>
+														<a href="/tarea2p2/ConsultaActividad?actividad=<%= acts[i].getNombre() %>">
+															<span class="blog__btn" >LEER MÁS </span>
+														</a>
+													</div>
+												</div>
+											</div>
+											 <div class="col-lg-3">
+												<h5>Cantidad de Favs</h5>
+												<h6> <%= acts[i].getCantFavs() %> </h6>
+												<% if (!movil && usr != null && usr instanceof DataTurista){ %>
+												 <form action="AgregarFavs" method="POST">
+													<%
+													String auxFavs = null;
+													if (favs.contains(acts[i].getNombre())){
+														auxFavs = "Sacar de Favoritas";
+													} else {
+														auxFavs = "Anadir a Favoritas";
+													}
+													%>
+													<input type="hidden" id="nomAct" name="nomAct" value="<%=acts[i].getNombre()%>">
+													<input type="submit" value="<%= auxFavs %>" onclick="submit()">
+												</form>
+											</div>
+		                             
+												<%}%>
+									 </div>
+									 </div>
+									 <%}
                                 	}
                                 	}%>
-                                </div>
                             </div>
                         </div>
                     </div>
