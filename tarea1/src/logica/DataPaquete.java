@@ -92,8 +92,10 @@ public class DataPaquete extends DataBuscar {
 
 	public Set<String> obtenerCategorias(){
 		Set<String> resultado = new HashSet<String>();
-		for (DataActividad itAct: dtAct) {
-			resultado.addAll(itAct.getCategorias());
+		if (dtAct != null) {
+			for (DataActividad itAct: dtAct) {
+				resultado.addAll(itAct.getCategorias());
+			}
 		}
 		return resultado;
 	}
