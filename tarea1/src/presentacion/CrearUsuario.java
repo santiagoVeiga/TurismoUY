@@ -398,11 +398,11 @@ public class CrearUsuario extends JInternalFrame {
             try {
             	if (rdbtnTurista.isSelected()) {
             		String nacionalidadU = this.textFieldNacionalidad.getText();
-            		controlAlta.confirmarAltaTurista(nickU, nombreU, apellidoU, mailU, nacimientoU, nacionalidadU, textField.getText(),null);
+            		controlAlta.confirmarAltaTurista(nickU, nombreU, apellidoU, mailU, nacimientoU, nacionalidadU, textField.getText(), null);
             	} else {
             		String descripcionU = this.textFieldDescripcion.getText();
             		String linkU = this.textFieldLink.getText();
-            		controlAlta.confirmarAltaProveedor(nickU, nombreU, apellidoU, mailU, nacimientoU, descripcionU, linkU, linkU.isEmpty(), textField.getText(),null);
+            		controlAlta.confirmarAltaProveedor(nickU, nombreU, apellidoU, mailU, nacimientoU, descripcionU, linkU, linkU.isEmpty(), textField.getText(), null);
             	}
                 // Muestro éxito de la operación
                 JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
@@ -436,13 +436,13 @@ public class CrearUsuario extends JInternalFrame {
 
         String[] principio = mailU.split("@");
         
-        if(principio.length<=1){
+        if (principio.length<=1){
             JOptionPane.showMessageDialog(this, "Mail invalido, porfavor ingresar mail correcto", "Registrar Usuario",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }else {
         	String[] principio2 = principio[1].split("\\.");
-        	if(principio2.length<=1){
+        	if (principio2.length<=1){
                 JOptionPane.showMessageDialog(this, "Mail invalido, porfavor ingresar mail correcto", "Registrar Usuario",
                         JOptionPane.ERROR_MESSAGE);
                 return false;

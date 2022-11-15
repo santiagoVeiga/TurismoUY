@@ -141,9 +141,9 @@ public class ControladorConsulta implements IControladorConsulta {
 					cont++;
 				}
 			}
-			aux.add(new DataVisitas(true,iter.getCantVis(),iter.getNombre(),auxi[cont].getNombre()));
+			aux.add(new DataVisitas(true, iter.getCantVis(), iter.getNombre(), auxi[cont].getNombre()));
 			for (DataSalida itSal : iter.getSalidas()) {
-				aux.add(new DataVisitas(false,itSal.getCantVis(),itSal.getNombre(),auxi[cont].getNombre()));
+				aux.add(new DataVisitas(false, itSal.getCantVis(), itSal.getNombre(), auxi[cont].getNombre()));
 			}
 		}
 		Collections.sort(aux, new CompVisitas());

@@ -1,23 +1,22 @@
 package servidor;
 
-import jakarta.xml.ws.*;
-import jakarta.jws.soap.SOAPBinding.Style;
-import jakarta.jws.soap.SOAPBinding.ParameterStyle;
-
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
-import com.opencsv.CSVReader;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
@@ -46,6 +45,9 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
+import jakarta.jws.soap.SOAPBinding.ParameterStyle;
+import jakarta.jws.soap.SOAPBinding.Style;
+import jakarta.xml.ws.Endpoint;
 import logica.DataActividad;
 import logica.DataCompraGeneral;
 import logica.DataCompraPaquete;
@@ -61,19 +63,12 @@ import logica.IControladorConsulta;
 import logica.IControladorInsc;
 import logica.estadoAct;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 /**
  * @author TProg2017
  *
  */
 @WebService
-@SOAPBinding(style=Style.RPC,parameterStyle=ParameterStyle.WRAPPED)
+@SOAPBinding(style=Style.RPC, parameterStyle=ParameterStyle.WRAPPED)
 public class PublicadorIControlador {
 	public PublicadorIControlador() {
 	}
@@ -83,20 +78,21 @@ public class PublicadorIControlador {
 	private Endpoint endpoint = null;
 	@WebMethod(exclude=true)
 	public void publicar() {
-		try {
-			File archivo = new File("./src/data/configIPPort.xml");
-	        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
-	        Document document = documentBuilder.parse(archivo);
-	        document.getDocumentElement().normalize();
-	        NodeList datos = document.getElementsByTagName("datos");
-	        Node ipport = datos.item(0);
-			System.out.println("Publicador iniciado en: " + ipport.getTextContent());
-			endpoint = Endpoint.publish("http://" + ipport.getTextContent() + "/publicador", this);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+			try {
+				File archivo = new File("./src/data/configIPPort.xml");
+		        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		        DocumentBuilder documentBuilder;
+				documentBuilder = dbf.newDocumentBuilder();
+		        Document document = documentBuilder.parse(archivo);
+		        document.getDocumentElement().normalize();
+		        NodeList datos = document.getElementsByTagName("datos");
+		        Node ipport = datos.item(0);
+				System.out.println("Publicador iniciado en: " + ipport.getTextContent());
+				endpoint = Endpoint.publish("http://" + ipport.getTextContent() + "/publicador", this);
+			} catch (ParserConfigurationException | SAXException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	// DATAS
@@ -138,7 +134,7 @@ public class PublicadorIControlador {
 	// EXCEPTIONS
 	
     @WebMethod
-    public void excepciones() throws Exception, ActividadNoExisteException, ActividadRepetidaException, CategoriaYaExiste, DepartamentoNoExisteException, DepartamentoYaExisteExeption, estadoActividadIncorrecto,ExcedeTuristas,FechaAltaSalidaAnteriorActividad,FechaAltaSalidaInvalida,InscFechaDespSalida,InscFechaInconsistente,NoExisteCategoriaException,NoHayCuposException, PaqueteNoExisteException, PaqueteRepetidoException, ProveedorNoNacidoException, SalidasNoExisteException, SalidasVigentesException, TuristaConSalida, TuristaNoHaNacido, UsuarioNoExisteException, UsuarioRepetidoException{
+    public void excepciones() throws Exception, ActividadNoExisteException, ActividadRepetidaException, CategoriaYaExiste, DepartamentoNoExisteException, DepartamentoYaExisteExeption, estadoActividadIncorrecto, ExcedeTuristas, FechaAltaSalidaAnteriorActividad, FechaAltaSalidaInvalida, InscFechaDespSalida, InscFechaInconsistente, NoExisteCategoriaException, NoHayCuposException, PaqueteNoExisteException, PaqueteRepetidoException, ProveedorNoNacidoException, SalidasNoExisteException, SalidasVigentesException, TuristaConSalida, TuristaNoHaNacido, UsuarioNoExisteException, UsuarioRepetidoException{
     }
     
 	
@@ -181,7 +177,7 @@ public class PublicadorIControlador {
     public  void registrarActividad(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, DataColeccionObject cat, String link, boolean hayLink) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException{
     	Set<String> categorias = new HashSet<String>();
     	String[] cats = Arrays.copyOf(cat.getArray(), cat.getArray().length, String[].class);
-    	Collections.addAll(categorias,cats);
+    	Collections.addAll(categorias, cats);
     	conAlta.registrarActividad(dep, nom, desc, dur, costo, ciudad, fecha, proveedor, categorias, link, hayLink, null);
     }
 
@@ -189,7 +185,7 @@ public class PublicadorIControlador {
     public  void registrarActividadImagen(String dep, String nom , String desc, int dur, int costo, String ciudad , Date fecha, String proveedor, DataColeccionObject cat,  String link, boolean hayLink, byte[] imagen) throws ActividadRepetidaException, UsuarioNoExisteException, ProveedorNoNacidoException{
     	Set<String> categorias = new HashSet<String>();
     	String[] cats = Arrays.copyOf(cat.getArray(), cat.getArray().length, String[].class);
-    	Collections.addAll(categorias,cats);
+    	Collections.addAll(categorias, cats);
     	conAlta.registrarActividad(dep, nom, desc, dur, costo, ciudad, fecha, proveedor, categorias, link, hayLink, imagen);
     }
     
@@ -234,7 +230,7 @@ public class PublicadorIControlador {
     }
 
     @WebMethod
-	public  void actualizarDatosTuristaCompleto(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad, String password,byte[] imagen){
+	public  void actualizarDatosTuristaCompleto(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad, String password, byte[] imagen){
     	conAlta.actualizarDatosTurista(nick, mail, nombre, apellido, fechaN, nacionalidad, password, imagen);
     }
     
@@ -368,8 +364,8 @@ public class PublicadorIControlador {
                     throws  IOException {
         byte[] byteArray = null;
         try {
-                File f = new File(name);
-                FileInputStream streamer = new FileInputStream(f);
+                File file = new File(name);
+                FileInputStream streamer = new FileInputStream(file);
                 byteArray = new byte[streamer.available()];
                 streamer.read(byteArray);
                 streamer.close();

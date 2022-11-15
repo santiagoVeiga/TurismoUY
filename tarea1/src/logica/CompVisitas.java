@@ -8,8 +8,8 @@ public class CompVisitas implements Comparator<DataVisitas> {
 	}
 
 	@Override
-	public int compare(DataVisitas o1, DataVisitas o2) {
-		return o2.getCantVis() - o1.getCantVis();
+	public int compare(DataVisitas ob1, DataVisitas ob2) {
+		return ob2.getCantVis() - ob1.getCantVis();
 	}
 
 }

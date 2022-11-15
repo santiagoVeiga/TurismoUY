@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -15,15 +16,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.rpc.ServiceException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * Servlet Filter implementation class contadorActSal
  */
-@WebFilter(urlPatterns={"/ConsultaActividad","/ConsultaSalida"})
+@WebFilter(urlPatterns={"/ConsultaActividad", "/ConsultaSalida"})
 public class contadorActSal extends HttpFilter implements Filter {
        
     private ServletContext context;
@@ -52,7 +55,7 @@ public class contadorActSal extends HttpFilter implements Filter {
             document.getDocumentElement().normalize();
             NodeList datos = document.getElementsByTagName("datos");
             ipport = datos.item(0).getTextContent();
-        }catch (Exception e) {
+        }catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
         return ipport;

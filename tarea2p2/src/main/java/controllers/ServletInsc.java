@@ -18,14 +18,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.rpc.ServiceException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import servidor.ActividadNoExisteException;
 import servidor.ActividadRepetidaException;
-import servidor.DataColeccionObject;
+import servidor.DataDepartamento;
+import servidor.DataPaquete;
+import servidor.DataProveedor;
+import servidor.DataTurista;
+import servidor.DataUsuario;
+import servidor.DepartamentoNoExisteException;
 import servidor.ExcedeTuristas;
 import servidor.InscFechaDespSalida;
 import servidor.InscFechaInconsistente;
@@ -38,12 +45,6 @@ import servidor.TuristaConSalida;
 import servidor.TuristaNoHaNacido;
 import servidor.UsuarioNoExisteException;
 import servidor.UsuarioRepetidoException;
-import servidor.DataDepartamento;
-import servidor.DataPaquete;
-import servidor.DataProveedor;
-import servidor.DataTurista;
-import servidor.DataUsuario;
-import servidor.DepartamentoNoExisteException;
 
 /**
  * Servlet implementation class Home
@@ -96,7 +97,7 @@ public class ServletInsc extends HttpServlet {
             document.getDocumentElement().normalize();
             NodeList datos = document.getElementsByTagName("datos");
             ipport = datos.item(0).getTextContent();
-        }catch (Exception e) {
+        }catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
         return ipport;
@@ -126,7 +127,7 @@ public class ServletInsc extends HttpServlet {
     			    Object[] paqs = port.obtenerPaquetesComprados(usu.getNick()).getArray();
     			    String[] paquetes = new String[0];
     			    if (paqs != null) {
-    			        paquetes = Arrays.copyOf(paqs,paqs.length, String[].class);
+    			        paquetes = Arrays.copyOf(paqs, paqs.length, String[].class);
     			    }
                     req.setAttribute("SalidaElegida", sal);
     			    req.setAttribute("PaquetesComprados", paquetes);
@@ -189,7 +190,7 @@ public class ServletInsc extends HttpServlet {
                     String nickUsu = req.getParameter("nickUsuASeguir");
                     try {
                         Set<String> setSeguir = new HashSet<String>();
-                        if(du2.getSeguidos()!=null)
+                        if (du2.getSeguidos()!=null)
                             Collections.addAll(setSeguir, du2.getSeguidos());
                         port.seguirDejarDeSeguirUsuario(du2.getNick(), nickUsu, !setSeguir.contains(nickUsu));
                         session2.setAttribute("usuario", port.obtenerDataUsuarioNick(du2.getNick()));

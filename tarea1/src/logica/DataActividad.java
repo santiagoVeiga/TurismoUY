@@ -27,7 +27,7 @@ public class DataActividad extends DataBuscar {
 	private estadoAct estado;
 	private String imagen;
 	private String link;
-	boolean hayLink;
+	private boolean hayLink;
 	private int cantFavs;
 	private Date fechaBaja;
 	

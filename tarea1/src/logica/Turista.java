@@ -7,18 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 import excepciones.ActividadNoExisteException;
 import excepciones.ActividadRepetidaException;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import jakarta.persistence.Table;
@@ -144,11 +139,11 @@ public class Turista extends Usuario{
     	}
     	if (this.salidasCGFinalizadas.size() != 0) {
         	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-        	EntityManager em = emf.createEntityManager();
-        	Query query = em.createQuery("SELECT cg FROM CompraGeneral cg JOIN cg.turista t WHERE t.nickname = :nick");
+        	EntityManager entM = emf.createEntityManager();
+        	Query query = entM.createQuery("SELECT cg FROM CompraGeneral cg JOIN cg.turista t WHERE t.nickname = :nick");
         	query.setParameter("nick", this.getNickname());
         	List<CompraGeneral> listaCG = query.getResultList();
-        	em.close();
+        	entM.close();
         	emf.close();
         	for (CompraGeneral compG : listaCG) {
         		dComGen.add(compG.getDataCompraGeneral());

@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import excepciones.SalidaYaExisteExeption;
 import excepciones.UsuarioNoExisteException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -54,18 +53,18 @@ public class ManejadorUsuario {
 
     public Usuario obtenerUsuarioFinalizadoNick(String nick) throws UsuarioNoExisteException {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.nickname = :nick");
+		EntityManager entM = emf.createEntityManager();
+		Query query = entM.createQuery("SELECT u FROM Usuario u WHERE u.nickname = :nick");
 		query.setParameter("nick", nick);
 		Usuario res = null;
 		try {
 			res = (Usuario) query.getSingleResult();
 		} catch (NoResultException e) {
-			em.close();
+			entM.close();
 			emf.close();
 			throw new UsuarioNoExisteException("No existe en la base de datos el usuario con nick: " + nick);
 		}
-		em.close();
+		entM.close();
 		emf.close();
 		return res;
     }

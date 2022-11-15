@@ -1,7 +1,6 @@
 package controllers;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,7 +11,6 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -30,13 +28,14 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.rpc.ServiceException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import servidor.ActividadRepetidaException;
-import servidor.DataActividad;
 import servidor.DataColeccionObject;
 import servidor.DataDepartamento;
 import servidor.DataProveedor;
@@ -103,7 +102,7 @@ public class ServletAlta extends HttpServlet {
             document.getDocumentElement().normalize();
             NodeList datos = document.getElementsByTagName("datos");
             ipport = datos.item(0).getTextContent();
-        }catch (Exception e) {
+        }catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
         return ipport;
@@ -153,7 +152,7 @@ public class ServletAlta extends HttpServlet {
                     String ciudadAct = (String) req.getParameter("actividadCiudad");
                     String linkVideo = (String) req.getParameter("linkVideo");
                     boolean hayVideo = false;
-                    if(!linkVideo.equals("")) { //!linkVideo.equals(null) && 
+                    if (!linkVideo.equals("")) { //!linkVideo.equals(null) && 
                         hayVideo = true;
                     }
                     //obtengo categorias 
@@ -210,7 +209,7 @@ public class ServletAlta extends HttpServlet {
                                 Calendar date1C = Calendar.getInstance();
                                 date1C.setTime(date1);
                                 port.registrarActividadImagen(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, date1C, proveedorAct, 
-                                        new DataColeccionObject(categoriasAct.toArray(), null), linkVideo, hayVideo,null);
+                                        new DataColeccionObject(categoriasAct.toArray(), null), linkVideo, hayVideo, null);
                                 resp.sendRedirect("/tarea2p2/home");
             
                             } catch (NumberFormatException e2) {
@@ -440,22 +439,22 @@ public class ServletAlta extends HttpServlet {
                         
                         if (usuario instanceof DataTurista) {
                             String nacionalidadNueva = (String) req.getParameter("nacionalidadNueva");
-                            if(!contrasenaActualIngresada.equals(null) || !contrasenaActualIngresada.equals("")) {
-                                if(contrasenaActualIngresada.equals(contrasenaActual)) {
-                                    if(contrasenaNuevaIng.equals(contrasenaNuevaConf) &&  (!contrasenaNuevaIng.equals(null)) && (!contrasenaNuevaIng.equals(""))) {
+                            if (!contrasenaActualIngresada.equals(null) || !contrasenaActualIngresada.equals("")) {
+                                if (contrasenaActualIngresada.equals(contrasenaActual)) {
+                                    if (contrasenaNuevaIng.equals(contrasenaNuevaConf) &&  !contrasenaNuevaIng.equals(null) && !contrasenaNuevaIng.equals("")) {
                                         contrasenaActual = contrasenaNuevaIng;
                                         req.setAttribute("Exception", "Datos y contrasena editados con exito");
                                     }else {
                                         req.setAttribute("Exception", "Datos editados con exito. Nueva contrasena incorrecta");
                                     }
-                                }else{
+                                } else {
                                     req.setAttribute("Exception", "Datos editados con exito. Contrasena incambiada");
                                 }
                             }else {
                                 req.setAttribute("Exception", "Datos editados con exito. Contrasena incambiada");
                             }
                             if (fechaNueva.equals(null) || fechaNueva.equals("")) {
-                                if(fileNueva.getSize() > 0) {
+                                if (fileNueva.getSize() > 0) {
                                     port.actualizarDatosTuristaCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva, contrasenaActual, imgBytesNueva);
                                 }else {
                                     port.actualizarDatosTuristaCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), nacionalidadNueva, contrasenaActual, port.getFile(usuario.getImagen()));
@@ -464,9 +463,9 @@ public class ServletAlta extends HttpServlet {
                                 Date fechaNuevaNac = formatFecha.parse(fechaNueva);
                                 Calendar fechaNuevaNacC = Calendar.getInstance();
                                 fechaNuevaNacC.setTime(fechaNuevaNac);
-                                if(fileNueva.getSize() > 0) {
+                                if (fileNueva.getSize() > 0) {
                                     port.actualizarDatosTuristaCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNacC, nacionalidadNueva, contrasenaActual, imgBytesNueva);
-                                }else {
+                                } else {
                                     port.actualizarDatosTuristaCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNacC, nacionalidadNueva, contrasenaActual, port.getFile(usuario.getImagen()));
                                 }
                             }
@@ -474,15 +473,15 @@ public class ServletAlta extends HttpServlet {
                             String descripcionNueva = (String) req.getParameter("descripcionNueva");
                             String linkNuevo = (String) req.getParameter("linkNuevo");
                             boolean hayLink = false;
-                            if(!contrasenaActualIngresada.equals(null) || !contrasenaActualIngresada.equals("")) {
-                                if(contrasenaActualIngresada.equals(contrasenaActual)) {
-                                    if(contrasenaNuevaIng.equals(contrasenaNuevaConf) &&  (!contrasenaNuevaIng.equals(null)) && (!contrasenaNuevaIng.equals(""))) {
+                            if (!contrasenaActualIngresada.equals(null) || !contrasenaActualIngresada.equals("")) {
+                                if (contrasenaActualIngresada.equals(contrasenaActual)) {
+                                    if (contrasenaNuevaIng.equals(contrasenaNuevaConf) &&  !contrasenaNuevaIng.equals(null) && !contrasenaNuevaIng.equals("")) {
                                         contrasenaActual = contrasenaNuevaIng;
                                         req.setAttribute("Exception", "Datos y contrasena editados con exito");
                                     }else {
                                         req.setAttribute("Exception", "Datos editados con exito. Nueva contrasena incorrecta");
                                     }
-                                }else{
+                                } else {
                                     req.setAttribute("Exception", "Datos editados con exito. Contrasena incambiada");
                                 }
                             }else {
@@ -492,7 +491,7 @@ public class ServletAlta extends HttpServlet {
                                 hayLink = true;
                             }
                             if (fechaNueva.equals(null) || fechaNueva.equals("")) {
-                                if(fileNueva.getSize() > 0) {
+                                if (fileNueva.getSize() > 0) {
                                     port.actualizarDatosProveedorCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink, contrasenaActual, imgBytesNueva);
                                 }else {
                                     port.actualizarDatosProveedorCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, usuario.getNacimiento(), descripcionNueva, linkNuevo, hayLink, contrasenaActual, port.getFile(usuario.getImagen()));
@@ -501,7 +500,7 @@ public class ServletAlta extends HttpServlet {
                                 Date fechaNuevaNac = formatFecha.parse(fechaNueva);
                                 Calendar fechaNuevaNacC = Calendar.getInstance();
                                 fechaNuevaNacC.setTime(fechaNuevaNac);
-                                if(fileNueva.getSize() > 0) {
+                                if (fileNueva.getSize() > 0) {
                                     port.actualizarDatosProveedorCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNacC, descripcionNueva, linkNuevo, hayLink, contrasenaActual, imgBytesNueva);
                                 }else {
                                     port.actualizarDatosProveedorCompleto(usuario.getNick(), usuario.getMail(), nuevoNombre, apellidoNuevo, fechaNuevaNacC, descripcionNueva, linkNuevo, hayLink, contrasenaActual, port.getFile(usuario.getImagen()));

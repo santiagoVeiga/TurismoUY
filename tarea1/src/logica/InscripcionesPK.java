@@ -31,7 +31,7 @@ public class InscripcionesPK {
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (!(obj instanceof InscripcionesPK)) return false;
-        InscripcionesPK pk = (InscripcionesPK) obj;
-        return pk.turista == this.getTurista() && pk.salida == this.getSalida();
+        InscripcionesPK insPk = (InscripcionesPK) obj;
+        return insPk.turista == this.getTurista() && insPk.salida == this.getSalida();
     }
 }

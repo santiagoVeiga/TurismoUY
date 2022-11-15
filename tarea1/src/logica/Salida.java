@@ -20,7 +20,8 @@ import jakarta.persistence.Transient;
 public class Salida {
 	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	@Column(name = "id")
+	private int ident;
 	@Column(unique = true, nullable = false)
 	private String nombre;
 	@Column(nullable = false)

@@ -327,12 +327,12 @@ public class CrearActividad extends JInternalFrame {
         for (int i = 0 ; i < elementos.length; i++) { 
         	setCat.add((String) elementos[i]);
         }
-        if(linkVideo != "") {
+        if (linkVideo != "") {
         	hayVideo = true;
         }
         if (checkFormulario()) {
             try {
-                controlAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, fechaAct, proveedorAct, setCat, linkVideo, hayVideo,null);
+                controlAlta.registrarActividad(departamentoAct, nombreAct, descripcionAct, Integer.parseInt(duracionAct), Integer.parseInt(costoAct), ciudadAct, fechaAct, proveedorAct, setCat, linkVideo, hayVideo, null);
                 JOptionPane.showMessageDialog(this, "La actividad ha sido registrada exitosamente.", "Registrar Actividad",
                         JOptionPane.INFORMATION_MESSAGE);
 

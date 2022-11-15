@@ -358,11 +358,11 @@ public class ControladorInsc implements IControladorInsc {
             String str2 = formatter2.format(fechaActualS);
 			for (Map.Entry<String, Salida> entry : salidasAct.entrySet()) {
 				Salida salida = entry.getValue();
-				if(salida.getFecha().after(fechaActualS)) {
+				if (salida.getFecha().after(fechaActualS)) {
 					salidasTerminadas = false;
 				}
 			}
-			boolean tienePaquetes = (act.getPaquetes() != null && act.getPaquetes().size() > 0);
+			boolean tienePaquetes = act.getPaquetes() != null && act.getPaquetes().size() > 0;
 			if (salidasTerminadas && !tienePaquetes) {
 				ManejadorUsuario manUsu = ManejadorUsuario.getinstance();
 				manAct.finalizarAct(nombreActividad, (Proveedor) manUsu.obtenerUsuarioNick(nickProv));

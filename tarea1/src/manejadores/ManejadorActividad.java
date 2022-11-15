@@ -1,6 +1,5 @@
 package manejadores;
 
-import java.sql.Date;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,8 +39,8 @@ public class ManejadorActividad {
     	colAct = new HashMap<String, Actividad>();
     	actsFinalizadas = new HashSet<String>();
     	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("SELECT a.nombre FROM Actividad a");
+		EntityManager entM = emf.createEntityManager();
+		Query query = entM.createQuery("SELECT a.nombre FROM Actividad a");
 		List<String> nomActsFin = query.getResultList();
 		Collections.addAll(actsFinalizadas, nomActsFin.toArray(new String[0]));
     }
@@ -79,15 +78,15 @@ public class ManejadorActividad {
     		resultado = this.colAct.get(nom);
     	} else if (this.actsFinalizadas.contains(nom)) {
     		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-    		EntityManager em = emf.createEntityManager();
-    		Query query = em.createQuery("SELECT a FROM Actividad a WHERE a.nombre = :nom");
+    		EntityManager entM = emf.createEntityManager();
+    		Query query = entM.createQuery("SELECT a FROM Actividad a WHERE a.nombre = :nom");
     		query.setParameter("nom", nom);
     		try {
     			resultado = (Actividad) query.getSingleResult();
     		} catch (NoResultException e) {
     			throw new ActividadNoExisteException("No existe una actividad finalizada con el nombre: " + nom);
     		}
-    		em.close();
+    		entM.close();
     		emf.close();
     	}
     	return resultado;
@@ -102,8 +101,8 @@ public class ManejadorActividad {
     		}
     	}
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("SELECT s FROM Salida s WHERE s.nombre = :nom");
+		EntityManager entM = emf.createEntityManager();
+		Query query = entM.createQuery("SELECT s FROM Salida s WHERE s.nombre = :nom");
 		query.setParameter("nom", nombreSalida);
 		try {
 			query.getSingleResult();
@@ -111,7 +110,7 @@ public class ManejadorActividad {
 		} catch (NoResultException e) {
 			;
 		}
-		em.close();
+		entM.close();
 		emf.close();
 	}
 	
@@ -124,15 +123,15 @@ public class ManejadorActividad {
 		}
 		if (res == null) {
     		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-    		EntityManager em = emf.createEntityManager();
-			Query query = em.createQuery("SELECT a.nombre FROM Actividad a join a.salidasPersistir s WHERE s.nombre = :nom");
+    		EntityManager entM = emf.createEntityManager();
+			Query query = entM.createQuery("SELECT a.nombre FROM Actividad a join a.salidasPersistir s WHERE s.nombre = :nom");
 			query.setParameter("nom", salida);
 			try {
 				res = (String) query.getSingleResult();
 			} catch (NoResultException e) {
 				throw new SalidasNoExisteException("No existe una salida con nombre" + salida);
 			}
-    		em.close();
+    		entM.close();
     		emf.close();
 		}
 		return res;
@@ -149,8 +148,8 @@ public class ManejadorActividad {
 		Set<Turista> turistas = act.finalizarAct();
 		// comienza la persistencia en la base
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-		EntityManager em = emf.createEntityManager();
-		Query queryProv = em.createQuery("SELECT p FROM Proveedor p WHERE p.nickname = :provNom");
+		EntityManager entM = emf.createEntityManager();
+		Query queryProv = entM.createQuery("SELECT p FROM Proveedor p WHERE p.nickname = :provNom");
 		queryProv.setParameter("provNom", prov.getNickname());
 		boolean perProv = false;
 		try {
@@ -160,7 +159,7 @@ public class ManejadorActividad {
 		}
 		Query queryTur = null;
 		for (Turista iter : turistas) {
-			queryTur = em.createQuery("SELECT t FROM Turista t WHERE t.nickname = :turNom");
+			queryTur = entM.createQuery("SELECT t FROM Turista t WHERE t.nickname = :turNom");
 			queryTur.setParameter("turNom", iter.getNickname());
 			try {
 				queryTur.getSingleResult();
@@ -169,16 +168,16 @@ public class ManejadorActividad {
 				;
 			}
 		}
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
+		EntityTransaction txn = entM.getTransaction();
+		txn.begin();
 		if (perProv)
-			em.persist(prov);
+			entM.persist(prov);
 		for (Turista iter : turistas) {
-			em.persist(iter);
+			entM.persist(iter);
 		}
-		em.persist(act);
-		tx.commit();
-		em.close();
+		entM.persist(act);
+		txn.commit();
+		entM.close();
 		emf.close();
 		actsFinalizadas.add(nomAct);
 	}

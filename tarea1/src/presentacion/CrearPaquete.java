@@ -27,13 +27,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.toedter.calendar.JCalendar;
 
 import excepciones.NumeroNegativoException;
 import excepciones.PaqueteRepetidoException;
 import logica.IControladorAlta;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.JTextArea;
 
 
 @SuppressWarnings("serial")
@@ -159,13 +158,13 @@ public class CrearPaquete extends JInternalFrame {
 		
 		btnAadir = new JButton("Añadir");
 		btnAadir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent eve) {
 				JFileChooser chooser = new JFileChooser();
 			    FileNameExtensionFilter filter = new FileNameExtensionFilter(
 			        "JPG Images", "jpg");
 			    chooser.setFileFilter(filter);
 			    int returnVal = chooser.showOpenDialog(getParent());
-			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+			    if (returnVal == JFileChooser.APPROVE_OPTION) {
 			       btnAadir.setText("Añadida");
 			       fileImgPaq = chooser.getSelectedFile();
 			    }

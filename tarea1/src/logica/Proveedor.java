@@ -12,10 +12,6 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapKey;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import jakarta.persistence.Table;
@@ -121,11 +117,11 @@ public class Proveedor extends Usuario {
     	}
     	if (this.actividadesPersistir.size() != 0) {
         	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-        	EntityManager em = emf.createEntityManager();
-        	Query query = em.createQuery("SELECT a FROM Actividad a JOIN a.proveedor p WHERE p.nickname = :nick");
+        	EntityManager entM = emf.createEntityManager();
+        	Query query = entM.createQuery("SELECT a FROM Actividad a JOIN a.proveedor p WHERE p.nickname = :nick");
         	query.setParameter("nick", this.getNickname());
         	List<Actividad> listaActs = query.getResultList();
-        	em.close();
+        	entM.close();
         	emf.close();
         	for (Actividad acts : listaActs) {
         		dAct.add(acts.getDataAT());

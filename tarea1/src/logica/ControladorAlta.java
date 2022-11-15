@@ -9,12 +9,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,7 +38,6 @@ import excepciones.PaqueteNoExisteException;
 import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
-import excepciones.SalidasVigentesException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
@@ -112,7 +107,7 @@ public class ControladorAlta implements IControladorAlta {
             }
         }
         
-        act = new Actividad(nom, desc, fecha, ciudad, costo, dur, insDep, categorias,link,hayLink);
+        act = new Actividad(nom, desc, fecha, ciudad, costo, dur, insDep, categorias, link, hayLink);
         if (usu instanceof Proveedor) {
         	((Proveedor) usu).agregarActividad(act);
         }
@@ -250,7 +245,7 @@ public class ControladorAlta implements IControladorAlta {
     	}
     }
 
-    public void actualizarDatosTurista(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad, String password,byte[] imagen) {
+    public void actualizarDatosTurista(String nick, String mail, String nombre, String apellido, Date fechaN, String nacionalidad, String password, byte[] imagen) {
     	ManejadorUsuario mUsu = ManejadorUsuario.getinstance();
     	FileOutputStream output = null;
         InputStream inputStream = null;
@@ -402,11 +397,11 @@ public class ControladorAlta implements IControladorAlta {
 	    	tur.setFavoritas(new HashMap<String, Actividad>());
 	    	Set<String> salidasCGFinalizadas = new HashSet<String>();
         	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-        	EntityManager em = emf.createEntityManager();
-        	Query query = em.createQuery("SELECT cg.salida.nombre FROM CompraGeneral cg JOIN cg.turista t WHERE t.nickname = :nick");
+        	EntityManager entM = emf.createEntityManager();
+        	Query query = entM.createQuery("SELECT cg.salida.nombre FROM CompraGeneral cg JOIN cg.turista t WHERE t.nickname = :nick");
         	query.setParameter("nick", usu.getNickname());
         	List<String> listaCG = query.getResultList();
-        	em.close();
+        	entM.close();
         	emf.close();
         	for (String iter: listaCG) {
         		salidasCGFinalizadas.add(iter);
@@ -444,11 +439,11 @@ public class ControladorAlta implements IControladorAlta {
 	    	tur.setFavoritas(new HashMap<String, Actividad>());
 	    	Set<String> salidasCGFinalizadas = new HashSet<String>();
         	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-        	EntityManager em = emf.createEntityManager();
-        	Query query = em.createQuery("SELECT cg.salida.nombre FROM CompraGeneral cg JOIN cg.turista t WHERE t.nickname = :nick");
+        	EntityManager entM = emf.createEntityManager();
+        	Query query = entM.createQuery("SELECT cg.salida.nombre FROM CompraGeneral cg JOIN cg.turista t WHERE t.nickname = :nick");
         	query.setParameter("nick", usu.getNickname());
         	List<String> listaCG = query.getResultList();
-        	em.close();
+        	entM.close();
         	emf.close();
         	for (String iter: listaCG) {
         		salidasCGFinalizadas.add(iter);
@@ -521,11 +516,11 @@ public class ControladorAlta implements IControladorAlta {
 	    	Map<String, Actividad> actividades = new HashMap<String, Actividad>();
 	    	Set<String> actividadesPersistir = new HashSet<String>();
         	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-        	EntityManager em = emf.createEntityManager();
-        	Query query = em.createQuery("SELECT a.nombre FROM Actividad a JOIN a.proveedor p WHERE p.nickname = :nick");
+        	EntityManager entM = emf.createEntityManager();
+        	Query query = entM.createQuery("SELECT a.nombre FROM Actividad a JOIN a.proveedor p WHERE p.nickname = :nick");
         	query.setParameter("nick", usu.getNickname());
         	List<String> listaActs = query.getResultList();
-        	em.close();
+        	entM.close();
         	emf.close();
         	for (String iter: listaActs) {
         		actividadesPersistir.add(iter);
@@ -565,11 +560,11 @@ public class ControladorAlta implements IControladorAlta {
 	    	Map<String, Actividad> actividades = new HashMap<String, Actividad>();
 	    	Set<String> actividadesPersistir = new HashSet<String>();
         	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
-        	EntityManager em = emf.createEntityManager();
-        	Query query = em.createQuery("SELECT a.nombre FROM Actividad a JOIN a.proveedor p WHERE p.nickname = :nick");
+        	EntityManager entM = emf.createEntityManager();
+        	Query query = entM.createQuery("SELECT a.nombre FROM Actividad a JOIN a.proveedor p WHERE p.nickname = :nick");
         	query.setParameter("nick", usu.getNickname());
         	List<String> listaActs = query.getResultList();
-        	em.close();
+        	entM.close();
         	emf.close();
         	for (String iter: listaActs) {
         		actividadesPersistir.add(iter);

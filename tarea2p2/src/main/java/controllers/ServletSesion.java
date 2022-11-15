@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.rpc.ServiceException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import servidor.DataDepartamento;
 import servidor.DataTurista;
@@ -105,7 +107,7 @@ private String dirIPPort() {
         document.getDocumentElement().normalize();
         NodeList datos = document.getElementsByTagName("datos");
         ipport = datos.item(0).getTextContent();
-    }catch (Exception e) {
+    }catch (ParserConfigurationException | SAXException | IOException e) {
         e.printStackTrace();
     }
     return ipport;
@@ -138,9 +140,9 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     		case "/home":
     		   
     		   
-    		    if(session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO && esMovil){
+    		    if (session.getAttribute("estado_sesion") == EstadoSesion.LOGIN_CORRECTO && esMovil){
     		        req.getRequestDispatcher("/WEB-INF/home/iniciarMovil.jsp").forward(req, resp);
-    		    }else{
+    		    } else {
     		    String act = (String) req.getParameter("actividad");
     		    if (act != null) {
     		        ses.setAttribute("actividad_inicio", act);
@@ -150,7 +152,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     		        DataDepartamento[] aux = null;
         			try {
         			    //String[] stringArray = Arrays.copyOf(objectArray, objectArray.length, String[].class);
-        				aux = Arrays.copyOf(port.obtenerDataDepartamentos().getArray(), port.obtenerDataDepartamentos().getArray().length, DataDepartamento[].class);//(DataDepartamento[]) ;
+        				aux = Arrays.copyOf(port.obtenerDataDepartamentos().getArray(), port.obtenerDataDepartamentos().getArray().length, DataDepartamento[].class); //(DataDepartamento[]) ;
         			} catch (DepartamentoNoExisteException e) {
         				System.out.println("no hay deptos");
         			}
@@ -180,7 +182,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     		case "/sesionIniciada":
     			DataUsuario[] ususSistema = Arrays.copyOf(port.getUsuariosComp().getArray(), port.getUsuariosComp().getArray().length, DataUsuario[].class); //conAlta.getUsuariosComp();
     			//boolean esMovil = (boolean) ses.getAttribute("esMovil");
-    			if(!esMovil) {
+    			if (!esMovil) {
     			    String nickOrEmail = (String) req.getParameter("emailnick_inicioSesion");
                     for (DataUsuario it : ususSistema) {
                         if (it.getMail().equals(nickOrEmail)) {
@@ -226,7 +228,7 @@ private void processRequest(HttpServletRequest req, HttpServletResponse resp)
     			else {
     			    String nickOrEmail = (String) req.getParameter("emailnick_inicioSesionM");
                     for (DataUsuario it : ususSistema) {
-                        if(it instanceof DataTurista) {
+                        if (it instanceof DataTurista) {
                             if (it.getMail().equals(nickOrEmail)) {
                                 String password = (String) req.getParameter("pass_iniSesionM");
                                 if (it.getPassword().equals(password)) { 

@@ -1,10 +1,6 @@
 package controllers;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -17,7 +13,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.rpc.ServiceException;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -36,6 +30,9 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 //import org.apache.pdfbox.pdmodel.font.PDTypelFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 //import com.itextpdf.*;
 //import com.itextpdf.text.Document;
@@ -44,11 +41,6 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 //import com.itextpdf.text.pdf.PdfWriter;
 
 import servidor.ActividadNoExisteException;
-import servidor.DepartamentoNoExisteException;
-import servidor.SalidasNoExisteException;
-import servidor.UsuarioNoExisteException;
-import logica.CompAnioDataBuscar;
-import logica.CompNomDataBuscar;
 import servidor.DataActividad;
 import servidor.DataBuscar;
 import servidor.DataCompraGeneral;
@@ -57,12 +49,15 @@ import servidor.DataPaquete;
 import servidor.DataSalida;
 import servidor.DataTurista;
 import servidor.DataUsuario;
+import servidor.DepartamentoNoExisteException;
 import servidor.EstadoAct;
+import servidor.SalidasNoExisteException;
+import servidor.UsuarioNoExisteException;
 
 /**
  * Servlet implementation class Home
  */
-@WebServlet (urlPatterns={"/ConsultaUsuario", "/ConsultaActividad","/DescargarPDF", "/ConsultaSalida", "/ConsultaPaquete", "/perteneceNick", "/perteneceEmail", "/perteneceAct", "/perteneceSal", "/buscar"})
+@WebServlet (urlPatterns={"/ConsultaUsuario", "/ConsultaActividad", "/DescargarPDF", "/ConsultaSalida", "/ConsultaPaquete", "/perteneceNick", "/perteneceEmail", "/perteneceAct", "/perteneceSal", "/buscar"})
 
 public class ServletConsulta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -110,7 +105,7 @@ public class ServletConsulta extends HttpServlet {
             document.getDocumentElement().normalize();
             NodeList datos = document.getElementsByTagName("datos");
             ipport = datos.item(0).getTextContent();
-        }catch (Exception e) {
+        }catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
         return ipport;
@@ -291,7 +286,7 @@ public class ServletConsulta extends HttpServlet {
     		        DataCompraGeneral[] arrDataCG = ((DataTurista) dataU).getInscripcionesSal();
     		        
     		        for (int i = 0; i < arrDataCG.length; i++) {
-                        if(arrDataCG[i].getSalida().equals(dataS)) {
+                        if (arrDataCG[i].getSalida().equals(dataS)) {
                             dataCG = arrDataCG[i];
                             break;
                         }
@@ -301,7 +296,7 @@ public class ServletConsulta extends HttpServlet {
     		            PDDocument documento = new PDDocument();
     		            PDPage pagina = new PDPage(PDRectangle.A4);
     		            documento.addPage(pagina);
-    		            PDPageContentStream contenido = new PDPageContentStream(documento,pagina);
+    		            PDPageContentStream contenido = new PDPageContentStream(documento, pagina);
     		            InputStream inp = getServletContext().getResourceAsStream("/img/logo.png");
     		            byte[] img = new byte[inp.available()];
     		            int read;
@@ -309,7 +304,7 @@ public class ServletConsulta extends HttpServlet {
     		            while ((read = inp.read(img, 0, img.length)) != -1) {
     		                buffer.write(img, 0, read);
     		            }
-    		            PDImageXObject image = PDImageXObject.createFromByteArray(documento,img, "Logo");
+    		            PDImageXObject image = PDImageXObject.createFromByteArray(documento, img, "Logo");
     		            contenido.drawImage(image, 120, pagina.getMediaBox().getHeight()-82, image.getWidth() / 15, image.getHeight() / 15);
     		            contenido.beginText();
     		            contenido.setFont(PDType1Font.HELVETICA, 10);
@@ -389,13 +384,14 @@ public class ServletConsulta extends HttpServlet {
     		        resp.setContentType("application/pdf");
     		        resp.setHeader("Content-disposition", "attachment; filename="+salida2+".txt");
     		        int ARBITARY_SIZE = 1048;
-    		        try(InputStream in = req.getServletContext().getResourceAsStream("/WEB-INF/"+ usuario2.replaceAll(" ", "")+salida2.replaceAll(" ", "") +".pdf");
+    		        try(
+    		          InputStream inp = req.getServletContext().getResourceAsStream("/WEB-INF/"+ usuario2.replaceAll(" ", "")+salida2.replaceAll(" ", "") +".pdf");
     		          OutputStream out = resp.getOutputStream()) {
 
     		            byte[] buffer = new byte[ARBITARY_SIZE];
     		        
     		            int numBytesRead;
-    		            while ((numBytesRead = in.read(buffer)) > 0) {
+    		            while ((numBytesRead = inp.read(buffer)) > 0) {
     		                out.write(buffer, 0, numBytesRead);
     		            }
     		        }
@@ -409,9 +405,7 @@ public class ServletConsulta extends HttpServlet {
     					DataUsuario[] usuarios = Arrays.copyOf(port.listarUsuarios().getArray(), port.listarUsuarios().getArray().length, DataUsuario[].class);
     					req.setAttribute("ArregloUsuarios", usuarios);
     					req.getRequestDispatcher("/WEB-INF/ConsultaUsuario/ListaUsuario.jsp").forward(req, resp);
-    				}else 
-    				    
-    				{
+    				} else  {
     					DataUsuario dataUsu;
                         try {
                             dataUsu = port.obtenerDataUsuarioNick(usuario);
@@ -420,8 +414,8 @@ public class ServletConsulta extends HttpServlet {
                                 DataPaquete[] arrDataPaquetes = null;
                                 DataPaquete DataPaqueteAux ; 
                                 int aux;
-                                String[] aux2 = ((DataTurista)dataUsu).getPaquetes(); 
-                                if(!(aux2 == null)) {
+                                String[] aux2 = ((DataTurista) dataUsu).getPaquetes(); 
+                                if (!(aux2 == null)) {
                                     aux =((DataTurista) dataUsu).getPaquetes().length;
                                 }
                                 else { 
@@ -429,7 +423,7 @@ public class ServletConsulta extends HttpServlet {
                                 }
                                 arrDataPaquetes = new DataPaquete[aux];
                                 String[] arrPaquetes = ((DataTurista) dataUsu).getPaquetes();
-                               if(!(arrPaquetes==null)) {
+                               if (!(arrPaquetes==null)) {
                                 for (int i =0 ; i<arrPaquetes.length; i++) {
                                    DataPaqueteAux = port.obtenerDataPaquete(arrPaquetes[i]);
                                    arrDataPaquetes[i] = DataPaqueteAux ; 
@@ -474,10 +468,10 @@ public class ServletConsulta extends HttpServlet {
                            act = port.obtenerDataActividad(actividad);
                          
                            //genero un array de dataPaquetes para cada actividad que quiero consultar
-                           if(!(act.getPaquetes()==null))
+                           if (!(act.getPaquetes()==null))
                                arrDataPaquetes = new DataPaquete[act.getPaquetes().length];
                            String[] arrPaquetes = act.getPaquetes();
-                           if(!(arrPaquetes==null)) {
+                           if (!(arrPaquetes==null)) {
                                for (int i=0 ; i<arrPaquetes.length; i++) {
                                    arrDataPaquetes[i] = port.obtenerDataPaquete(arrPaquetes[i]);
                                }}

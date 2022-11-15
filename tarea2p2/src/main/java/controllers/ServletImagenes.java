@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.io.OutputStream;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.rpc.ServiceException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * Servlet implementation class Imagenes
@@ -53,7 +56,7 @@ public class ServletImagenes extends HttpServlet {
             document.getDocumentElement().normalize();
             NodeList datos = document.getElementsByTagName("datos");
             ipport = datos.item(0).getTextContent();
-        }catch (Exception e) {
+        }catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
         return ipport;
@@ -66,7 +69,7 @@ public class ServletImagenes extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        String id = (String) request.getParameter("id");
+        String idIm = (String) request.getParameter("id");
         
         byte[] img = null;
         
@@ -79,20 +82,13 @@ public class ServletImagenes extends HttpServlet {
                 e1.printStackTrace();
             }
           
-          try {
-          
-          img = port.getFile(id);
+          img = port.getFile(idIm);
           response.setContentType("image/jpg");
           response.setContentLength((int) img.length);
           OutputStream out = response.getOutputStream();
           //ImageIO.write(img, "png", out);
           out.write(img);
-          out.close();
-          
-          } catch (Exception ex) {
-          
-          }
-         
+          out.close();    
     }
 
 	/**

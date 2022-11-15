@@ -34,11 +34,6 @@ import logica.IControladorAlta;
 import logica.IControladorConsulta;
 import logica.IControladorInsc;
 import servidor.PublicadorIControlador;
-import javax.swing.JInternalFrame;
-import javax.swing.JTable;
-import java.awt.BorderLayout;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.border.BevelBorder;
 
 
 public class Principal {
@@ -437,7 +432,7 @@ public class Principal {
         
         JMenuItem mntmLista = new JMenuItem("Lista");
         mntmLista.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent eve) {
         		internalFrame.actualizarTabla();
         		internalFrame.setVisible(true);
         	}

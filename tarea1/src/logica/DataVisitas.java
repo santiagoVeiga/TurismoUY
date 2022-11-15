@@ -7,11 +7,11 @@ public class DataVisitas {
 	private String prov;
 	
 
-	public DataVisitas(boolean esA, int cVis, String nom, String pr) {
+	public DataVisitas(boolean esA, int cVis, String nom, String pro) {
 		setEsAct(esA);
 		setCantVis(cVis);
 		setNombre(nom);
-		setProv(pr);
+		setProv(pro);
 	}
 
 
