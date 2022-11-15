@@ -190,10 +190,9 @@
 								  </tbody>
 								</table>
 	                            <%	
-				                    if (usr != null && usr instanceof DataTurista && ((DataTurista)usr).getActFavoritas()!=null && actividadSeleccionada.getEstado()!=EstadoAct.finalizada){
+				                    if (usr != null && usr instanceof DataTurista && ((DataTurista)usr).getActFavoritas()!=null && actividadSeleccionada.getEstado()!=EstadoAct.finalizada && !esMovil){
 				                    	DataTurista tur = (DataTurista) usr;
 										String[] favoritas = tur.getActFavoritas();
-				                    	if(favoritas != null){
 				                    	%>
 				                    		<form action="AgregarFavs" method="POST">
 				                    	<%
@@ -201,12 +200,14 @@
 				                    	boolean flag = false ; 
 				                    	int y = 0 ; 
 			                    		String act = actividadSeleccionada.getNombre();
-				                    	for (int x=0;x<favoritas.length;x++){//checkeo si la actividad esta en las favoritas del turist 
-				                    		if (favoritas[x].equals(act)){
-				                    			flag = true ; 
-				                    			y = x ; 
-				                    		}
-				                    	}
+			                    		if(favoritas!=null){
+					                    	for (int x=0;x<favoritas.length;x++){//checkeo si la actividad esta en las favoritas del turist 
+					                    		if (favoritas[x].equals(act)){
+					                    			flag = true ; 
+					                    			y = x ; 
+					                    		}
+					                    	}
+			                    		}
 				                    	if (flag){
 				                    		auxFavs = "Sacar de Favoritas";
 				                    	} else {
@@ -216,7 +217,7 @@
 		                   				<input type="hidden" id="nomAct" name="nomAct" value="<%=actividadSeleccionada.getNombre()%>">
 									    <input type="submit" value="<%= auxFavs %>" onclick="submit()">
 				                    </form>
-				                   <% }}
+				                   <% }
 				                    	%>
 	                            
 	                            <% DataSalida[] arrSalidas = actividadSeleccionada.getSalidas(); %>
@@ -390,7 +391,7 @@
 	                           	
 	                           	<ul>
         						<li>SALIDAS</li>
-        							<%if(arrSalidas.length>0){
+        							<%if(arrSalidas!=null){
         							for(int i=0; i<arrSalidas.length ; i++){ %>
 	        						<li><a href="/tarea2p2/ConsultaSalida?salida=<%=arrSalidas[i].getNombre()%>"><%=arrSalidas[i].getNombre()%></a></li>
 							        <%}}else{%>
@@ -401,9 +402,9 @@
     							<ul>
     							
         						<li>PAQUETES</li>
-        							<%if(paquetes.length>0){
+        							<%if(paquetes!=null){
         							for(int i=0; i<paquetes.length ; i++){ %>
-	        						<li><a href="/tarea2p2/ConsultaPaquete?paquete=<%=paquetes[i]%>"> <%=paquetes[i]%></a></li>
+	        						<li><a> <%=paquetes[i]%></a></li>
 							        <%}}else{%>
 							        <li>no hay paquetes</li>
 							        <%}%>

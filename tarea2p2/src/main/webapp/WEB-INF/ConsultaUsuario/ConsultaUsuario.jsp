@@ -494,7 +494,7 @@
 				    	  
 				    	  else{
 				    		  DataActividad[] arrDS = ((DataProveedor) DU).getActividades();
-				    		  if (arrDS.length != 0) {
+				    		  if (arrDS!=null & arrDS.length!=0) { 
 						        	//String imagenProv = Base64.getEncoder().encodeToString(arrDS[0].getImagen());
 						        	DataSalida[] arrDSA = arrDS[0].getSalidas();
 	                    	  %>
