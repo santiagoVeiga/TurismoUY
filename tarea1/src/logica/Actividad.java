@@ -290,7 +290,6 @@ public class Actividad {
 		else {
 			for (Salida sal : salidasPersistir) {
 				if (sal.getNombre().equals(salida))
-					System.out.println("Linea 281 Actividad");
 					return sal;
 			}
 			return null;

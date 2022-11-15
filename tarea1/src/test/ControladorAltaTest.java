@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -31,14 +32,22 @@ import excepciones.PaqueteRepetidoException;
 import excepciones.ProveedorNoNacidoException;
 import excepciones.SalidaYaExisteExeption;
 import excepciones.SalidasNoExisteException;
+import excepciones.SalidasVigentesException;
 import excepciones.TuristaConSalida;
 import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import logica.Actividad;
 import logica.CompAnioDataBuscar;
 import logica.CompNomDataBuscar;
 import logica.CompVisitas;
+import logica.CompraGeneral;
 import logica.DataActividad;
 import logica.DataCompraGeneral;
 import logica.DataCompraPaquete;
@@ -54,6 +63,11 @@ import logica.IControladorAlta;
 import logica.IControladorConsulta;
 import logica.IControladorInsc;
 import logica.InscripcionesPK;
+import logica.Paquete;
+import logica.Proveedor;
+import logica.Salida;
+import logica.Turista;
+import logica.Usuario;
 import logica.estadoAct;
 import manejadores.ManejadorActividad;
 
@@ -66,6 +80,75 @@ class ControladorAltaTest {
 	
 	@BeforeAll
 	public static void iniciar() throws DepartamentoYaExisteExeption {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Prueba");
+		EntityManager entM = emf.createEntityManager();
+		EntityTransaction txn = entM.getTransaction();
+		txn.begin();
+    	Query query = entM.createQuery("SELECT cg FROM CompraGeneral cg JOIN cg.turista t WHERE t.nickname = :nick");
+    	query.setParameter("nick", "TurNickBase");
+    	List<CompraGeneral> listaCG = query.getResultList();
+    	for (CompraGeneral iter : listaCG) {
+			entM.remove(iter);
+    	}
+		query = entM.createQuery("SELECT t FROM Turista t WHERE t.nickname = :turNick");
+		query.setParameter("turNick", "TurNickBase");
+		try {
+			Turista tur = (Turista) query.getSingleResult();
+			entM.remove(tur);
+		} catch (NoResultException e) {
+			;
+		}
+		query = entM.createQuery("SELECT s FROM Salida s WHERE s.nombre = :salNom");
+		query.setParameter("salNom", "SalNombreBase");
+		try {
+			Salida sal = (Salida) query.getSingleResult();
+			entM.remove(sal);
+		} catch (NoResultException e) {
+			;
+		}
+		query = entM.createQuery("SELECT s FROM Salida s WHERE s.nombre = :salNom");
+		query.setParameter("salNom", "SalNombreBase2");
+		try {
+			Salida sal2 = (Salida) query.getSingleResult();
+			entM.remove(sal2);
+		} catch (NoResultException e) {
+			;
+		}
+		query = entM.createQuery("SELECT a FROM Actividad a WHERE a.nombre = :actNom");
+		query.setParameter("actNom", "ActNombreBase");
+		try {
+			Actividad act = (Actividad) query.getSingleResult();
+			entM.remove(act);
+		} catch (NoResultException e) {
+			;
+		}
+		query = entM.createQuery("SELECT a FROM Actividad a WHERE a.nombre = :actNom");
+		query.setParameter("actNom", "ActNombreBase2");
+		try {
+			Actividad act2 = (Actividad) query.getSingleResult();
+			entM.remove(act2);
+		} catch (NoResultException e) {
+			;
+		}
+		query = entM.createQuery("SELECT a FROM Actividad a WHERE a.nombre = :actNom");
+		query.setParameter("actNom", "ActNombreBase3");
+		try {
+			Actividad act3 = (Actividad) query.getSingleResult();
+			entM.remove(act3);
+		} catch (NoResultException e) {
+			;
+		}
+		query = entM.createQuery("SELECT p FROM Proveedor p WHERE p.nickname = :provNick");
+		query.setParameter("provNick", "ProvNickBase");
+		try {
+			Proveedor prov = (Proveedor) query.getSingleResult();
+			entM.remove(prov);
+		} catch (NoResultException e) {
+			;
+		}
+		txn.commit();
+		entM.close();
+		emf.close();
 		Fabrica fabrica = Fabrica.getInstance();
 		IctrAlta = fabrica.getIControladorAlta();
 		IctrCons = fabrica.getIControladorConsulta();
@@ -884,5 +967,205 @@ class ControladorAltaTest {
 		CompVisitas aux4 = new CompVisitas();
 		assertEquals(aux4.compare(aux2, aux2),0);
 	}
-
+	
+	@Test void testObtenerDataActividad() {
+		DataActividad dataAct;
+		try {
+			dataAct = IctrCons.obtenerDataActividad("Degusta");
+			assertEquals("Rocha", dataAct.getCiudad());
+		} catch (ActividadNoExisteException e) {
+			fail();
+		}
+	}
+	
+	@Test void testObtenerDataSalida() {
+		DataSalida dataSal;
+		try {
+			dataSal = IctrCons.obtenerDataSalida("Degusta Agosto");
+			assertEquals("Sociedad Agropecuaria de Rocha", dataSal.getLugar());
+			assertEquals("Degusta", IctrInsc.obtenerNomActPorSalida("Degusta Agosto"));
+		} catch (SalidasNoExisteException e) {
+			fail();
+		}
+	}
+	
+	@Test void dataTurista() {
+		DataTurista dtur = new DataTurista(null, null, null, null, null, null, null, null, null, null, null);
+		dtur.getActFavoritas();
+		dtur.getSeguidores();
+		dtur.getInscripcionesSal();
+		dtur.getDataSalidas();
+		dtur.getComprasPaq();
+	}
+	
+	@Test void dataProveedor() {
+		DataProveedor dprov = new DataProveedor(null, null, null, null, null, null, null, null, null, null, null);
+	}
+	
+	@Test void dataPaquete() {
+		Paquete paq = new Paquete("nombrePaq", null, 0, null, 0, null);
+		DataPaquete dataPaq = paq.getDataP();
+	}
+	
+	@Test void comparadorNombres() {
+		DataActividad dataAct1 = new DataActividad("nom1", null, null, null, 0, 0, null, null, null, null, false, null, null, 0, 0, null);
+		DataActividad dataAct2 = new DataActividad("nom2", null, null, null, 0, 0, null, null, null, null, false, null, null, 0, 0, null);
+		DataPaquete dataPaq1 = new DataPaquete("nombrePa1", null, 0, null, 0, null);
+		DataPaquete dataPaq2 = new DataPaquete("nombrePa1", null, 0, null, 0, null);
+		DataActividad dataAct3 = new DataActividad();
+		dataAct3.setCantFavs(0);
+		CompNomDataBuscar cndb = new CompNomDataBuscar();
+		cndb.compare(dataAct1, dataAct2);
+		cndb.compare(dataAct2, dataAct1);
+		cndb.compare(dataAct1, dataPaq2);
+		cndb.compare(dataPaq1, dataAct2);
+		cndb.compare(dataPaq2, dataPaq1);
+		cndb.compare(dataPaq1, dataPaq2);
+	}
+	
+	@Test void comparadorAnios() {
+		Date fecha1 = new Date(1,1,1);
+		Date fecha2 = new Date(2,2,2);
+		Date fecha3 = new Date(3,3,3);
+		Date fecha4 = new Date(4,4,4);
+		DataActividad dataAct1 = new DataActividad("nom1", null, fecha1, null, 0, 0, null, null, null, null, false, null, null, 0, 0, null);
+		DataActividad dataAct2 = new DataActividad("nom2", null, fecha2, null, 0, 0, null, null, null, null, false, null, null, 0, 0, null);
+		DataPaquete dataPaq1 = new DataPaquete("nombrePa1", null, 0, fecha3, 0, null);
+		DataPaquete dataPaq2 = new DataPaquete("nombrePa1", null, 0, fecha4, 0, null);
+		DataActividad dataAct3 = new DataActividad();
+		dataAct3.setCantFavs(0);
+		CompAnioDataBuscar cadb = new CompAnioDataBuscar();
+		cadb.compare(dataAct1, dataAct2);
+		cadb.compare(dataAct2, dataAct1);
+		cadb.compare(dataAct1, dataPaq2);
+		cadb.compare(dataPaq1, dataAct2);
+		cadb.compare(dataPaq2, dataPaq1);
+		cadb.compare(dataPaq1, dataPaq2);
+	}
+	
+	@Test void salidas() {
+		Salida sal = new Salida(null, null, null, null, null, 0, null);
+		sal.setVisitas(0);
+		sal.incrementarVisitas();
+	}
+	
+	@Test void seguirUsu() {
+		Turista tur1 = new Turista("tur1", null, null, "tur1", null, null, null);
+		Turista tur2 = new Turista("tur2", null, null, "tur2", null, null, null);
+		Turista tur3 = new Turista("tur3", null, null, "tur3", null, null, null);
+		try {
+			tur1.seguirUsuario(tur2);
+			tur2.agregarSeguidor(tur1);
+			tur1.seguirUsuario(tur3);
+			tur3.agregarSeguidor(tur1);
+			tur2.eliminarSeguidor(tur1);
+			tur1.dejarDeSeguirUsuario(tur2);
+		} catch (UsuarioRepetidoException | UsuarioNoExisteException e) {
+			fail();
+		}
+	}
+	
+	@Test void visitas() {
+		try {
+			IctrAlta.confirmarAltaDepartamento("DepNombreVisitas", "DepDesc", "DepUrl");
+			IctrAlta.registrarCategoria("CatNombreVisitas");
+			Date provDate = new Date(0,0,0);
+			IctrAlta.confirmarAltaProveedor("ProvNickVisitas", "ProvNom", "ProvApellido", "ProvMailVisitas", provDate, "ProvDesc", "ProvLink", true, "ProvContra", null);
+			Set<String> categorias = new HashSet<String>();
+			categorias.add("CatNombreVisitas");
+			Date actDate = new Date(1,0,0);
+			IctrAlta.registrarActividad("DepNombreVisitas", "ActNombreVisitas", "ActDesc", 5, 5, "ActCiudad", actDate, "ProvNickVisitas", categorias, null, false);
+			IctrAlta.registrarActividad("DepNombreVisitas", "ActNombreVisitas2", "ActDesc", 5, 5, "ActCiudad", actDate, "ProvNickVisitas", categorias, null, false);
+			IctrAlta.registrarActividad("DepNombreVisitas", "ActNombreVisitas3", "ActDesc", 5, 5, "ActCiudad", actDate, "ProvNickVisitas", categorias, null, false);
+			IctrAlta.registrarActividad("DepNombreVisitas", "ActNombreVisitas4", "ActDesc", 5, 5, "ActCiudad", actDate, "ProvNickVisitas", categorias, null, false);
+			IctrAlta.registrarActividad("DepNombreVisitas", "ActNombreVisitas5", "ActDesc", 5, 5, "ActCiudad", actDate, "ProvNickVisitas", categorias, null, false);
+			IctrAlta.registrarActividad("DepNombreVisitas", "ActNombreVisitas6", "ActDesc", 5, 5, "ActCiudad", actDate, "ProvNickVisitas", categorias, null, false);
+			Date salDate = new Date(2,0,0);
+			Date salDateH = new Date(0,0,0);
+			Date salDate2 = new Date(4,0,0);			
+			IctrAlta.confirmarAltaSalida("ActNombreVisitas", "SalNombreVisitas", salDate2, salDateH, "SalLugar", 5, salDate);
+			IctrAlta.confirmarAltaSalida("ActNombreVisitas2", "SalNombreVisitas2", salDate2, salDateH, "SalLugar", 5, salDate);
+			IctrAlta.confirmarAltaSalida("ActNombreVisitas", "SalNombreVisitas3", salDate2, salDateH, "SalLugar", 5, salDate);
+			IctrAlta.confirmarAltaSalida("ActNombreVisitas2", "SalNombreVisitas4", salDate2, salDateH, "SalLugar", 5, salDate);
+			IctrAlta.confirmarAltaSalida("ActNombreVisitas", "SalNombreVisitas5", salDate2, salDateH, "SalLugar", 5, salDate);
+			IctrAlta.confirmarAltaSalida("ActNombreVisitas2", "SalNombreVisitas6", salDate2, salDateH, "SalLugar", 5, salDate);
+			IctrCons.sumarVistaAAct("ActNombreVisitas");
+			IctrCons.sumarVistaAAct("ActNombreVisitas");
+			IctrCons.sumarVistaAAct("ActNombreVisitas");
+			IctrCons.sumarVistaAAct("ActNombreVisitas");
+			IctrCons.sumarVistaAAct("ActNombreVisitas2");
+			IctrCons.sumarVistaAAct("ActNombreVisitas2");
+			IctrCons.sumarVistaAAct("ActNombreVisitas3");
+			IctrCons.sumarVistaAAct("ActNombreVisitas3");
+			IctrCons.sumarVistaAAct("ActNombreVisitas3");
+			IctrCons.sumarVistaAAct("ActNombreVisitas3");
+			IctrCons.sumarVistaAAct("ActNombreVisitas4");
+			IctrCons.sumarVistaAAct("ActNombreVisitas");
+			IctrCons.sumarVistaAAct("ActNombreVisitas");
+			IctrCons.sumarVistaAAct("ActNombreVisitas");
+			IctrCons.sumarVistaAAct("ActNombreVisitas");
+			IctrCons.sumarVistaAAct("ActNombreVisitas");
+			IctrCons.sumarVistaASal("SalNombreVisitas");
+			IctrCons.sumarVistaASal("SalNombreVisitas");
+			IctrCons.sumarVistaASal("SalNombreVisitas");
+			IctrCons.sumarVistaASal("SalNombreVisitas");
+			IctrCons.sumarVistaASal("SalNombreVisitas2");
+			IctrCons.sumarVistaASal("SalNombreVisitas2");
+			IctrCons.sumarVistaASal("SalNombreVisitas2");
+			IctrCons.sumarVistaASal("SalNombreVisitas");
+			IctrCons.sumarVistaASal("SalNombreVisitas2");
+			IctrCons.sumarVistaASal("SalNombreVisitas3");
+			IctrCons.sumarVistaASal("SalNombreVisitas3");
+			IctrCons.sumarVistaASal("SalNombreVisitas3");
+			IctrCons.sumarVistaASal("SalNombreVisitas");
+			IctrCons.sumarVistaASal("SalNombreVisitas4");
+			IctrCons.sumarVistaASal("SalNombreVisitas4");
+			IctrCons.sumarVistaASal("SalNombreVisitas");
+			IctrCons.diezMasVisitadas();
+		} catch (DepartamentoYaExisteExeption | UsuarioRepetidoException | CategoriaYaExiste | ActividadRepetidaException | UsuarioNoExisteException | ProveedorNoNacidoException | SalidaYaExisteExeption | FechaAltaSalidaInvalida | FechaAltaSalidaAnteriorActividad | ActividadNoExisteException | SalidasNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
+	void testBase() {
+		Fabrica fab = Fabrica.getInstance();
+		IControladorAlta iConAlta = fab.getIControladorAlta();
+		IControladorInsc iConInsc = fab.getIControladorInsc();
+		try {
+			iConAlta.confirmarAltaDepartamento("DepNombreBase", "DepDesc", "DepUrl");
+			iConAlta.registrarCategoria("CatNombreBase");
+			Date provDate = new Date(0,0,0);
+			iConAlta.confirmarAltaProveedor("ProvNickBase", "ProvNom", "ProvApellido", "ProvMailBase", provDate, "ProvDesc", "ProvLink", true, "ProvContra", null);
+			Date turDate = new Date(0,0,0);
+			iConAlta.confirmarAltaTurista("TurNickBase", "TurNom", "TurApellido", "TurMailBase", turDate, "TurNacion", "TurContra", null);
+			Set<String> categorias = new HashSet<String>();
+			categorias.add("CatNombreBase");
+			Date actDate = new Date(1,0,0);
+			iConAlta.registrarActividad("DepNombreBase", "ActNombreBase", "ActDesc", 5, 5, "ActCiudad", actDate, "ProvNickBase", categorias, null, false);
+			iConAlta.registrarActividad("DepNombreBase", "ActNombreBase2", "ActDesc", 5, 5, "ActCiudad", actDate, "ProvNickBase", categorias, null, false);
+			iConAlta.registrarActividad("DepNombreBase", "ActNombreBase3", "ActDesc", 5, 5, "ActCiudad", actDate, "ProvNickBase", categorias, null, false);
+			Date salDate = new Date(2,0,0);
+			Date salDateH = new Date(0,0,0);
+			Date salDate2 = new Date(4,0,0);			
+			iConAlta.confirmarAltaSalida("ActNombreBase", "SalNombreBase", salDate2, salDateH, "SalLugar", 5, salDate);
+			iConAlta.confirmarAltaSalida("ActNombreBase2", "SalNombreBase2", salDate2, salDateH, "SalLugar", 5, salDate);
+			Date inscDate = new Date(3,0,0);
+			iConInsc.inscribir("TurNickBase", "SalNombreBase", 1, inscDate, "ActNombreBase");
+			iConInsc.finalizarActividad("ActNombreBase", "ProvNickBase");
+			iConInsc.finalizarActividad("ActNombreBase2", "ProvNickBase");
+			iConInsc.finalizarActividad("ActNombreBase3", "ProvNickBase");
+			DataProveedor dataProvBase = (DataProveedor) IctrCons.obtenerDataUsuarioNick("ProvNickBase");
+			DataTurista dataTurBase = (DataTurista) IctrCons.obtenerDataUsuarioNick("TurNickBase");
+			assertEquals("ProvNom", dataProvBase.getNombre());
+			assertEquals("TurNom", dataTurBase.getNombre());
+			assertEquals(3, dataProvBase.getActividades().size());
+			assertEquals(1, dataTurBase.getInscripcionesSal().size());
+		} catch (DepartamentoYaExisteExeption | UsuarioRepetidoException | CategoriaYaExiste | ActividadRepetidaException | UsuarioNoExisteException | ProveedorNoNacidoException | SalidaYaExisteExeption | FechaAltaSalidaInvalida | FechaAltaSalidaAnteriorActividad | TuristaConSalida | ExcedeTuristas | InscFechaInconsistente | ActividadNoExisteException | InscFechaDespSalida | TuristaNoHaNacido | SalidasVigentesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

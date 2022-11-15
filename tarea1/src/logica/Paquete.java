@@ -31,14 +31,14 @@ public class Paquete {
 	public Paquete(String nombre2, String descripcion2, int descuento2, Date fechaAlta2, int validez2,
 			byte[] imgBytes) {
 		// TODO Auto-generated constructor stub
-		this.nombre = nombre2;
-		this.descuento = descuento2;
-		this.descripcion = descripcion2;
-		this.fechaAlta = fechaAlta2;
-		this.validez = validez2;
-		this.colAct = new HashMap<String, Actividad>();
-		comprado = false;
-		imagen = imgBytes;
+		this.setNombre(nombre2);;
+		this.setDescuento(descuento2);
+		this.setDescripcion(descripcion2);
+		this.setFechaAlta(fechaAlta2);
+		this.setValidez(validez2);
+		this.colAct = (new HashMap<String, Actividad>());
+		this.setComprado(false);
+		this.setImagen(imgBytes);
 	}
 
 	public DataPaquete getDataP(){

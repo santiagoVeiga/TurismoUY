@@ -51,29 +51,7 @@ public abstract class Usuario {
 		
 	}
 	
-    public Usuario(String nickname, String nombre, String apellido, String mail, Date nacimiento) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.nickname = nickname;
-        this.mail = mail;
-        this.nacimiento = nacimiento;
-        password = "1234";
-        imagen = null;
-        this.setSeguidores(new HashMap<String, Usuario>());
-        this.setSeguidos(new HashMap<String, Usuario>());
-    }
-   
-    public Usuario(String nickname, String nombre, String apellido, String mail, Date nacimiento, String pass, byte[] imagen) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.nickname = nickname;
-        this.mail = mail;
-        this.nacimiento = nacimiento;
-        this.password = pass;
-        this.imagen = imagen;
-        this.setSeguidores(new HashMap<String, Usuario>());
-        this.setSeguidos(new HashMap<String, Usuario>());
-    }
+
     public Usuario(String nickname, String nombre, String apellido, String mail, Date nacimiento, String pass) {
         this.nombre = nombre;
         this.apellido = apellido;
