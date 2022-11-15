@@ -68,6 +68,7 @@
 					      <a href="#tab2">Actividades</a>
 					      <div class="tab-content">
 					      	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+					      		<% if(acts != null){%>
 	                            <div class="carousel-inner">
 	                            	<%
 	                            	for(int i=0; i < acts.length; i++){
@@ -101,6 +102,7 @@
 	                            
 	                          </div>
 	                        </div>
+					      <% }%>
 					      </div>
 					    </div> 
 					    <div id="tab1" class="tab">
@@ -138,12 +140,15 @@
 												      <td><%= dataPaquete.getDescripcion() %></td>
 												    </tr>
 												    <tr>
+												    
 												      <th scope="row">Categorias:</th>
+												      <% if(acts != null){%>
 												      <% 
 												      Set<String> categorias = new HashSet<String>();
 												      Collections.addAll(categorias,dataPaquete.getCategorias());
 												      %>
 												      <td><%=  categorias %></td>
+												      <% }%>
 												    </tr>
 												</tbody>
 											</table>
