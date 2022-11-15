@@ -20,6 +20,7 @@ import excepciones.PaqueteNoExisteException;
 import logica.DataActividad;
 import logica.DataDepartamento;
 import logica.IControladorInsc;
+import logica.estadoAct;
 
 /**
  * JInternalFrame que permite consultar la información de un usuario del sistema.
@@ -193,10 +194,24 @@ public void cargarActividades(){
 		}
 		Iterator<DataActividad> iter = auxi.iterator();
 		int cont = 0;
-		String[] ActividadesNombres = new String[auxi.size()];
 		while (iter.hasNext()) {
-			ActividadesNombres[cont] = iter.next().getNombre();
-			cont++;
+			DataActividad aux = iter.next();
+			if (aux.getEstado() == estadoAct.confirmada) {
+				cont++;
+			}
+		}
+		iter = auxi.iterator();
+		String[] ActividadesNombres = new String[cont];
+		cont = 0;
+		while (iter.hasNext()) {
+			DataActividad aux = iter.next();
+			if (aux.getEstado() == estadoAct.confirmada) {
+				ActividadesNombres[cont] = aux.getNombre();
+				cont++;
+			}
+		}
+		if (cont == 0) {
+			throw new ActividadNoExisteException("No hay actividades disponibles para agregar");
 		}
     	model = new DefaultComboBoxModel<String>(ActividadesNombres);
         jcbActividades.setModel(model);
@@ -210,7 +225,7 @@ public void cargarActividades(){
 }
 
 public void cargarPaquetes(){
-	DefaultComboBoxModel<String> model;
+	DefaultComboBoxModel<String> model; 
 	try {
 		paquetes = controlInsc.listarPaquetesNoComprados();
 		if (paquetes.length ==0) {

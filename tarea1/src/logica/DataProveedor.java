@@ -29,9 +29,9 @@ public class DataProveedor extends DataUsuario {
     
     public DataProveedor(String nick, String nombre, String apellido, String mail, Date nacimiento, String descripcion, String link, Set<DataActividad> Actividades, String pass, Set<String> seguidores, Set<String> seguidos) {
         super(nick, nombre, apellido, mail, nacimiento, pass, seguidores, seguidos);
-    	this.descripcion = descripcion;
-    	this.link = link;
-    	this.actividades = Actividades;
+    	setDescripcion(descripcion);
+    	setLink(link);
+    	setActividades(Actividades);
     }
     
     public String getDescripcion() {
