@@ -81,6 +81,10 @@ public class Salida {
 	public DataSalida getDataST(){
 		return new DataSalida(nombre, lugar, hora, fecha, fechaAlta, cant, getVisitas()); //, imagen);
 	}
+	
+	public DataSalida getDataSalidaF() {
+		return new DataSalida(nombre, lugar, hora, fecha, fechaAlta, cant, 0);
+	}
 
 	public String getNombre() {
 		return nombre;
