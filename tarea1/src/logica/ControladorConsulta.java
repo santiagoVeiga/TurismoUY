@@ -98,6 +98,7 @@ public class ControladorConsulta implements IControladorConsulta {
 			if (act.getEstado() != estadoAct.finalizada) {
 				return act.getSalida(nomSal).getDataST();
 			} else {
+				System.out.println("Linea 101 ConCons");
 				return act.getSalida(nomSal).getDataSalidaF();
 			}
 		} catch (ActividadNoExisteException e) {

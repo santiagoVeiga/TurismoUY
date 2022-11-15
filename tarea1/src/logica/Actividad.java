@@ -229,7 +229,7 @@ public class Actividad {
 		if (this.getEstado() != estadoAct.finalizada) {
 			return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getDepartamento().getNombre(), getVisitas(), getCantFavs(), getFechaBaja()); // , this.getImagen());
 		} else {
-			return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, this.link, this.hayLink, this.getNombreCategorias(), this.getNombreDepartamento(), 0, 0, getFechaBaja()); // , this.getImagen());
+			return new DataActividad(this.nombre, this.descripcion, this.fechaAlta, this.ciudad, this.costo, this.duracion, this.getSalidas(), this.getPaquetes(), this.estado, "", false, this.getNombreCategorias(), this.getNombreDepartamento(), 0, 0, getFechaBaja()); // , this.getImagen());
 		}
 	}
 	
@@ -237,7 +237,7 @@ public class Actividad {
 		if (this.getEstado() != estadoAct.finalizada) {
 			return colpaq.keySet();
 		} else {
-			return null;
+			return new HashSet<String>();
 		}
 	}
 	
@@ -245,7 +245,7 @@ public class Actividad {
 		if (this.getEstado() != estadoAct.finalizada) {
 			return categorias.keySet();
 		} else {
-			return null;
+			return new HashSet<String>();
 		}
 	}
 
@@ -273,11 +273,12 @@ public class Actividad {
 	}
 
 	public Salida getSalida(String salida) {
-		if (colSal.containsKey(salida))
+		if (this.estado != estadoAct.finalizada && colSal.containsKey(salida))
 			return colSal.get(salida);
 		else {
 			for (Salida sal : salidasPersistir) {
 				if (sal.getNombre().equals(salida))
+					System.out.println("Linea 281 Actividad");
 					return sal;
 			}
 			return null;
