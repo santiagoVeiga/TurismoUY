@@ -2,9 +2,33 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>tarea2p2</groupId>
   <artifactId>tarea2p2</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1</version>
   <packaging>war</packaging>
+  <dependencies>
+  <dependency>
+   <groupId>javax.servlet</groupId>
+   <artifactId>javax.servlet-api</artifactId>
+   <version>4.0.1</version>
+</dependency>
+<dependency>
+   <groupId>org.apache.axis</groupId>
+   <artifactId>axis</artifactId>
+   <version>1.4</version>
+</dependency>
+<dependency>
+   <groupId>javax.xml.rpc</groupId>
+   <artifactId>javax.xml.rpc-api</artifactId>
+   <version>1.1.2</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+<dependency>
+    <groupId>org.apache.pdfbox</groupId>
+    <artifactId>pdfbox</artifactId>
+    <version>2.0.27</version>
+</dependency>
+</dependencies>
   <build>
+    <finalName>tarea2p2</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -16,7 +40,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>2.6</version>
+        <version>3.3.1</version>
         <configuration>
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
@@ -24,3 +48,6 @@
     </plugins>
   </build>
 </project>
+
+
+
