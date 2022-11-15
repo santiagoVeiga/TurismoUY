@@ -36,6 +36,9 @@ import excepciones.TuristaNoHaNacido;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import logica.Actividad;
+import logica.CompAnioDataBuscar;
+import logica.CompNomDataBuscar;
+import logica.CompVisitas;
 import logica.DataActividad;
 import logica.DataCompraGeneral;
 import logica.DataCompraPaquete;
@@ -45,10 +48,12 @@ import logica.DataProveedor;
 import logica.DataSalida;
 import logica.DataTurista;
 import logica.DataUsuario;
+import logica.DataVisitas;
 import logica.Fabrica;
 import logica.IControladorAlta;
 import logica.IControladorConsulta;
 import logica.IControladorInsc;
+import logica.InscripcionesPK;
 import logica.estadoAct;
 import manejadores.ManejadorActividad;
 
@@ -852,6 +857,32 @@ class ControladorAltaTest {
 		}
 		assertEquals(res, true);
 		
+	}
+	
+	@Test
+	void testExtras() {
+		CompAnioDataBuscar aux = new CompAnioDataBuscar();
+		try {
+			assertEquals(aux.compare(IctrCons.obtenerDataActividad("Degusta"), IctrCons.obtenerDataActividad("Degusta")),0);
+		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		CompNomDataBuscar aux1 = new CompNomDataBuscar();
+		try {
+			assertEquals(aux.compare(IctrCons.obtenerDataActividad("Degusta"), IctrCons.obtenerDataActividad("Degusta")),0);
+		} catch (ActividadNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DataVisitas aux2 = new DataVisitas(false, 0, null, null);
+		assertEquals(aux2.getCantVis(),0);
+		assertEquals(aux2.getNombre(),null);
+		assertEquals(aux2.getProv(),null);
+		assertEquals(aux2.isEsAct(),false);
+		InscripcionesPK aux3 = new InscripcionesPK();
+		CompVisitas aux4 = new CompVisitas();
+		assertEquals(aux4.compare(aux2, aux2),0);
 	}
 
 }
